@@ -1,5 +1,4 @@
-import React from 'react'
-import type { ReactNode } from 'react'
+import React, { type ReactNode, type CSSProperties } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 
 // Helper function to get theme for regular worksheets based on docId
@@ -119,6 +118,50 @@ export function ParentTeacherTips({ tips }: { tips: string[] }) {
             </ul>
         </div>
     )
+}
+
+interface PremiumBannerProps {
+    title: string;
+    subtitle?: string;
+    icons: {
+        bg1: string;
+        bg2: string;
+        float1: string;
+        float2: string;
+    };
+    colors: {
+        bg: string;
+        border: string;
+        pillBg: string;
+        pillBorder: string;
+        pillText: string;
+        accent: string;
+    };
+}
+
+export function PremiumWorksheetBanner({ title, subtitle, icons, colors }: PremiumBannerProps) {
+    return (
+        <div className={`w-full h-24 mb-6 relative overflow-hidden ${colors.bg} rounded-xl border-2 ${colors.border}`}>
+            {/* Background elements */}
+            <div className={`absolute -bottom-4 left-0 text-6xl ${colors.accent} opacity-40 select-none`}>{icons.bg1}</div>
+            <div className={`absolute -bottom-4 right-0 text-6xl ${colors.accent} opacity-40 select-none`}>{icons.bg2}</div>
+
+            {/* Floating elements */}
+            <div className="absolute top-2 left-10 text-2xl animate-bounce-slow select-none">{icons.float1}</div>
+            <div className="absolute top-8 right-20 text-xl animate-bounce-medium select-none">{icons.float2}</div>
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <div className={`${colors.pillBg} px-8 py-2 rounded-full border ${colors.pillBorder} shadow-sm`}>
+                    <span className={`text-2xl font-bold ${colors.pillText} tracking-wider uppercase`}>{title}</span>
+                </div>
+                {subtitle && (
+                    <div className={`mt-2 text-xs font-semibold ${colors.pillText} opacity-80 uppercase tracking-widest`}>
+                        {subtitle}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 }
 
 // Worked Example Component for addition-subtraction-0-10

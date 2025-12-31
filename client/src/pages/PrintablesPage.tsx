@@ -25,7 +25,11 @@ import {
   MultiplicationTimed,
   MultiplicationWordProblems,
   MultiplicationFactFamilies,
-  MultiplicationVertical
+  MultiplicationVertical,
+  MultiplicationAreaModel,
+  MultiplicationFactFluency,
+  MultiplicationMixedReview,
+  MultiplicationStrategies
 } from './printables/MultiplicationWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
@@ -11389,156 +11393,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('mult-area-model') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems: Array<[number, number]> = Array.from({ length: 4 }).map(() => {
-              const a = nextInt(12, 35); const b = nextInt(12, 35); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-area-model"
-                title="Area Model Multiplication"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Use the area model to solve each multiplication problem. Break numbers into tens and ones, then write the final answer in the blank."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Use the area model to visualize multiplication',
-                  'Break numbers into tens and ones',
-                  'Multiply each part and add to find the total'
-                ]}
-                parentTeacherTips={[
-                  'The area model helps students understand place value in multiplication',
-                  'Encourage students to draw the area model if it helps',
-                  'Make sure students add all four partial products correctly',
-                  'Extension: Try with 3-digit numbers'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Break 24 into 20 and 4</div>
-                      <div><strong>Step 2:</strong> Break 13 into 10 and 3</div>
-                      <div><strong>Step 3:</strong> Multiply each part:</div>
-                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
-                      <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 4:</strong> Add: 200 + 60 + 40 + 12 = 312</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 312</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>{String.fromCodePoint(0x1F4A1)}</strong> Break each number into tens and ones. Multiply each part, then add all four products together to get the total.
-                </div>
-                <div className="space-y-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map(([a, b], i) => {
-                    const aTens = Math.floor(a / 10); const aOnes = a % 10;
-                    const bTens = Math.floor(b / 10); const bOnes = b % 10;
-                    return (
-                      <div key={i} className="border-2 border-slate-300 rounded-lg p-5 bg-white break-inside-avoid">
-                        <div className="text-lg font-semibold mb-4 text-slate-800 text-center">
-                          {a}  {b} = <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
-                        </div>
-                        <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto mb-4">
-                          <div className="border-4 border-slate-500 rounded-lg p-3 text-center bg-slate-50">
-                            <div className="text-sm text-slate-700 font-semibold mb-2">{String.fromCodePoint(0x270F)}</div>
-                            <div className="text-base font-mono text-slate-800">
-                              = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
-                            </div>
-                          </div>
-                          <div className="border-4 border-slate-500 rounded-lg p-3 text-center bg-slate-50">
-                            <div className="text-sm text-slate-700 font-semibold mb-2">{String.fromCodePoint(0x270F)}</div>
-                            <div className="text-base font-mono text-slate-800">
-                              = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
-                            </div>
-                          </div>
-                          <div className="border-4 border-slate-500 rounded-lg p-3 text-center bg-slate-50">
-                            <div className="text-sm text-slate-700 font-semibold mb-2">{String.fromCodePoint(0x270F)}</div>
-                            <div className="text-base font-mono text-slate-800">
-                              = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
-                            </div>
-                          </div>
-                          <div className="border-4 border-slate-500 rounded-lg p-3 text-center bg-slate-50">
-                            <div className="text-sm text-slate-700 font-semibold mb-2">{String.fromCodePoint(0x270F)}</div>
-                            <div className="text-base font-mono text-slate-800">
-                              = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-center mt-4">
-                          <div className="text-base font-semibold text-slate-800 mb-2">Add all four products:</div>
-                          <div className="text-lg font-mono text-slate-800">
-                            Total: <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw the area model for one problem on graph paper</div>
-                    <div>2. Create your own area model problem</div>
-                    <div>3. Try using the area model with 3-digit numbers</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can use the area model to multiply</div>
-                    <div>{String.fromCharCode(0x2610)} I can break numbers into tens and ones</div>
-                    <div>{String.fromCharCode(0x2610)} I can add all four partial products correctly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mult-area-model', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      {problems.map(([a, b], i) => {
-                        const aTens = Math.floor(a / 10); const aOnes = a % 10;
-                        const bTens = Math.floor(b / 10); const bOnes = b % 10;
-                        const part1 = aTens * 10 * bTens * 10;
-                        const part2 = aTens * 10 * bOnes;
-                        const part3 = aOnes * bTens * 10;
-                        const part4 = aOnes * bOnes;
-                        const total = a * b;
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>Step 1: Break {a} into {aTens * 10} and {aOnes}</div>
-                              <div>Step 2: Break {b} into {bTens * 10} and {bOnes}</div>
-                              <div>Step 3: Multiply each part:</div>
-                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
-                              <div className="pl-4">{String.fromCodePoint(0x279C)}</div>
-                              <div className="font-semibold mt-1">Total: {part1} + {part2} + {part3} + {part4} = {total}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('mult-area-model') && (
+            <MultiplicationAreaModel
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+            />
+          )
         }
 
         {
@@ -11646,369 +11507,32 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('mult-fact-fluency') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const facts: Array<[number, number]> = Array.from({ length: 20 }).map(() => {
-              const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-fact-fluency"
-                title="Multiplication Fact Fluency"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Solve as many facts as you can quickly. Practice all facts 1-12."
-                problemCount={facts.length}
-                learningObjectives={[
-                  'Build speed and accuracy with multiplication facts 1-12',
-                  'Practice quick recall of multiplication facts',
-                  'Achieve automaticity (knowing facts instantly)'
-                ]}
-                parentTeacherTips={[
-                  'Fluency means speed AND accuracy - encourage both',
-                  'Time students to track improvement',
-                  'Use strategies: patterns, known facts, breaking down',
-                  'Extension: Try to beat your time on the next attempt!'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Quick recall:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>If you need to think:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 42</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
-                  <strong>{String.fromCodePoint(0x1F4A1)}</strong> Start the timer and see how fast you can complete all {facts.length} problems!
-                </div>
-                <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {facts.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
-                      <div className="font-mono text-lg">{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Time yourself: Can you complete all {facts.length} problems in under 2 minutes?</div>
-                    <div>2. Try again tomorrow and see if you're faster</div>
-                    <div>3. Create your own fluency practice sheet</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can answer most facts quickly (fluency)</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can say the answers instantly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>Time taken:</strong> _____ minutes _____ seconds
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>Facts I want to practice more:</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mult-fact-fluency', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="grid grid-cols-4 gap-2 text-sm">
-                      {facts.map(([a, b], i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                          {i + 1}. {a}  {b} = {a * b}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>{String.fromCodePoint(0x2705)}</strong> Great job building fluency! Keep practicing daily to achieve automaticity (knowing facts instantly)!
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('mult-fact-fluency') && (
+            <MultiplicationFactFluency
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+            />
+          )
         }
 
         {
-          activeDocs.includes('mult-mixed-review') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const facts: Array<[number, number]> = Array.from({ length: 16 }).map(() => {
-              const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-mixed-review"
-                title="Mixed Multiplication Review"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Mixed practice with all multiplication facts. Review everything you've learned."
-                problemCount={facts.length}
-                learningObjectives={[
-                  'Review all multiplication facts 1-12 in mixed order',
-                  'Test mastery across all times tables',
-                  'Build confidence with comprehensive practice'
-                ]}
-                parentTeacherTips={[
-                  'Mixed review tests true mastery - students can\'t rely on patterns',
-                  'Encourage students to use all strategies they know',
-                  'This is great for assessment - see which facts need more practice',
-                  'Extension: Time yourself and track improvement'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Method 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {facts.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
-                      <div className="font-mono text-lg">{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Time yourself: Can you complete all {facts.length} problems in under 2 minutes?</div>
-                    <div>2. Circle the problems you found hardest</div>
-                    <div>3. Practice those facts more and try again</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can solve all facts in mixed order</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can answer quickly even when mixed up</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>Time taken:</strong> _____ minutes _____ seconds
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>Facts I want to practice more:</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mult-mixed-review', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="grid grid-cols-4 gap-2 text-sm">
-                      {facts.map(([a, b], i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                          {i + 1}. {a}  {b} = {a * b}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>{String.fromCodePoint(0x2705)}</strong> Excellent work on mixed review! This tests true mastery. Keep practicing the facts you found hardest!
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('mult-mixed-review') && (
+            <MultiplicationMixedReview
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+            />
+          )
         }
 
         {
           activeDocs.includes('mult-strategies') && (
-            <WorksheetSectionWrapper
-              docId="mult-strategies"
-              title="Multiplication Strategies"
-              emoji={String.fromCodePoint(0x2716)}
-              description="Use different strategies to solve each problem. Try skip counting, arrays, or repeated addition. Write your answer in the blank space provided."
-              problemCount={5}
-              learningObjectives={[
-                'Use multiple strategies to solve multiplication problems',
-                'Understand skip counting, arrays, repeated addition, doubles, and break-apart',
-                'Choose the best strategy for each problem'
-              ]}
-              parentTeacherTips={[
-                'Different strategies work for different problems',
-                'Skip counting: Count by the number (e.g., 5, 10, 15, 20)',
-                'Arrays: Draw rows and columns to visualize',
-                'Repeated addition: Add the number multiple times',
-                'Doubles: Use known facts (e.g., 5  4 = 20, so 5  8 = 40)',
-                'Break-apart: Use easier facts (e.g., 6  10 = 60, so 6  9 = 54)',
-                'Extension: Try creating your own problems with different strategies'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Strategy:</strong> Draw an array</div>
-                    <div><strong>Step 1:</strong> Draw 3 rows with 4 items in each row</div>
-                    <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>{String.fromCodePoint(0x1F4A1)}</strong> Use the strategy shown to solve each problem. Fill in all the blanks and write your final answer.
-              </div>
-              <div className="space-y-5 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {(() => {
-                  const problems = [
-                    { problem: '4  5', strategy: 'skip-count', strategyText: 'Skip count by 5s:', blanks: [1], answer: 20, answerDetail: '5, 10, 15, 20' },
-                    { problem: '3  6', strategy: 'array', strategyText: 'Draw an array:', blanks: [2], answer: 18, answerDetail: '3 rows  6 columns' },
-                    { problem: '7  2', strategy: 'repeated', strategyText: 'Repeated addition:', blanks: [7], answer: 14, answerDetail: '2 + 2 + 2 + 2 + 2 + 2 + 2' },
-                    { problem: '5  8', strategy: 'doubles', strategyText: 'Use doubles:', blanks: [2], answer: 40, answerDetail: '5  4 = 20, so 5  8 = 40' },
-                    { problem: '6  9', strategy: 'break-apart', strategyText: 'Break apart:', blanks: [2], answer: 54, answerDetail: '6  10 = 60, so 6  9 = 54' },
-                  ];
-                  return problems.map((item, idx) => (
-                    <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white">
-                      <div className="text-lg font-semibold text-slate-800 mb-3">
-                        {item.problem} = <span className="inline-block w-24 h-12 print:w-28 print:h-14 border-b-[3px] border-slate-600 mx-2 align-middle" />
-                      </div>
-                      <div className="mb-3">
-                        <div className="text-sm font-semibold text-slate-700 mb-2">{item.strategyText}</div>
-                        {item.strategy === 'skip-count' && (
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-sm text-slate-600">Count:</span>
-                            {Array.from({ length: 4 }).map((_, i) => (
-                              <React.Fragment key={i}>
-                                <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                                {i < 3 && <span className="text-sm text-slate-400">,</span>}
-                              </React.Fragment>
-                            ))}
-                          </div>
-                        )}
-                        {item.strategy === 'array' && (
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm text-slate-600">Array:</span>
-                            <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                            <span className="text-sm">{String.fromCodePoint(0x270F)}</span>
-                            <span className="inline-block w-12 h-10 print:w-16 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                            <span className="text-sm">columns</span>
-                          </div>
-                        )}
-                        {item.strategy === 'repeated' && (
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className="text-sm text-slate-600">Add:</span>
-                              {Array.from({ length: item.blanks[0] }).map((_, i) => (
-                                <React.Fragment key={i}>
-                                  <span className="inline-block w-10 h-8 print:w-12 print:h-10 border-b-[2px] border-slate-600 align-middle" />
-                                  {i < item.blanks[0] - 1 && <span className="text-sm font-semibold">+</span>}
-                                </React.Fragment>
-                              ))}
-                              <span className="text-sm font-semibold">=</span>
-                              <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                            </div>
-                          </div>
-                        )}
-                        {item.strategy === 'doubles' && (
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm text-slate-600">{String.fromCodePoint(0x270F)}</span>
-                              <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm text-slate-600">{String.fromCodePoint(0x270F)}</span>
-                              <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                            </div>
-                          </div>
-                        )}
-                        {item.strategy === 'break-apart' && (
-                          <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm text-slate-600">{String.fromCodePoint(0x270F)}</span>
-                              <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm text-slate-600">{String.fromCodePoint(0x270F)}</span>
-                              <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ));
-                })()}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>{String.fromCodePoint(0x1F680)}</div>
-                  <div>2. Create your own multiplication problem and solve it using an array</div>
-                  <div>3. Which strategy do you like best? Why?</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can use skip counting</div>
-                  <div>{String.fromCharCode(0x2610)} I can use arrays</div>
-                  <div>{String.fromCharCode(0x2610)} I can use repeated addition</div>
-                  <div>{String.fromCharCode(0x2610)} I can use doubles and break-apart</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 5
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('mult-strategies', () => {
-                const problems = [
-                  { problem: '4  5', answer: 20, answerDetail: '5, 10, 15, 20', strategy: 'Skip count by 5s' },
-                  { problem: '3  6', answer: 18, answerDetail: '3 rows  6 columns', strategy: 'Draw an array' },
-                  { problem: '7  2', answer: 14, answerDetail: '2 + 2 + 2 + 2 + 2 + 2 + 2', strategy: 'Repeated addition' },
-                  { problem: '5  8', answer: 40, answerDetail: '5  4 = 20, so 5  8 = 40', strategy: 'Use doubles' },
-                  { problem: '6  9', answer: 54, answerDetail: '6  10 = 60, so 6  9 = 54', strategy: 'Break apart' },
-                ];
-                return (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with strategies)</div>
-                    <div className="space-y-3">
-                      {problems.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. {p.problem}</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div><strong>Strategy:</strong> {p.strategy}</div>
-                            <div><strong>Solution:</strong> {p.answerDetail}</div>
-                            <div className="font-semibold">Answer: {p.answer}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </WorksheetSectionWrapper>
+            <MultiplicationStrategies
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+            />
           )
         }
 

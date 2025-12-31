@@ -1,7 +1,7 @@
-import React, { type ReactNode } from 'react';
+import React from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
-import { WorksheetSectionWrapper } from './PrintableShared';
+import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared';
 
 // Helper for translations with fallback
 function useWorksheetTranslation(docId: string) {
@@ -20,7 +20,7 @@ function useWorksheetTranslation(docId: string) {
 interface SpecificWorksheetProps {
     seed: string
     variant: number
-    showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode
+    showAnswersForDoc: (docId: string, render: () => React.ReactNode) => React.ReactNode
 }
 
 export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
@@ -1058,16 +1058,10 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
 
     // Generate 4 distinct pattern problems
     const patterns = Array.from({ length: 4 }).map((_, i) => {
-        // Base number (e.g. 2 in "2 x 1", "2 x 2")
         const base = nextInt(2, 9);
-
-        // Step for the multiplier (e.g. 1 for 1,2,3,4,5. 2 for 2,4,6,8,10)
-        const step = nextInt(1, 3);
-
-        // Start multiplier
+        const step = nextInt(1, 4); // Slightly more variety
         const start = nextInt(1, 4);
 
-        // Generate 5 items in the sequence
         const items = Array.from({ length: 5 }).map((_, j) => {
             const mult = start + (j * step);
             return {
@@ -1077,7 +1071,6 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
             };
         });
 
-        // Pattern description for the answer key
         const increment = base * step;
         const description = `Add ${increment} each time`;
 
@@ -1088,109 +1081,105 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
         <WorksheetSectionWrapper
             docId={docId}
             title={t(`worksheets.${docId}.title`, 'Multiplication Patterns')}
-            emoji={String.fromCodePoint(0x2716)}
-            description={t(`worksheets.${docId}.description`, 'Identify and extend the multiplication patterns. What do you notice?')}
+            emoji={String.fromCodePoint(0x1F50D)}
+            description={t(`worksheets.${docId}.description`, 'Observe how the numbers change. Can you find the hidden rule?')}
             problemCount={patterns.length}
             learningObjectives={[
                 'Identify patterns in multiplication tables',
-                'Extend multiplication patterns',
-                'Recognize how numbers change in patterns'
+                'Extend numerical sequences',
+                'Recognize algebraic relationships'
             ]}
             parentTeacherTips={[
-                'Look for what stays the same and what changes',
-                'Patterns help students memorize multiplication facts',
-                'Encourage students to describe patterns in their own words',
-                'Extension: Create your own multiplication patterns'
+                'Ask: "What is the rule between each number?"',
+                'Encourage students to count the jump between answers',
+                'Connect addition to multiplication jumps'
             ]}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>{t('common.pattern', 'Pattern:')}</strong> {String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>Step 1:</strong> Look at what changes: the second number goes 1, 2, 3, 4, 5</div>
-                        <div><strong>Step 2:</strong> Look at the answers: 4, 8, 12... they increase by 4 each time!</div>
-                        <div><strong>Step 3:</strong> {String.fromCodePoint(0x279C)} Fill in the blanks</div>
-                        <div className="font-semibold text-blue-900"><strong>Pattern:</strong> Add 4 each time</div>
-                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
+            <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-indigo-400 to-cyan-500 animate-gradient-x mb-4" />
+
+            {/* Premium Header Banner */}
+            <PremiumWorksheetBanner
+                title="Pattern Detective"
+                subtitle="Mission: Find the Hidden Rule"
+                icons={{
+                    bg1: "🔍",
+                    bg2: "🧩",
+                    float1: "🔎",
+                    float2: "💡"
+                }}
+                colors={{
+                    bg: "bg-indigo-50",
+                    border: "border-indigo-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-900",
+                    accent: "text-indigo-200"
+                }}
+            />
+
+            {/* Premium Instruction Card */}
+            <div className="mb-6 p-4 bg-blue-50/50 border-2 border-blue-200 rounded-xl print:border print:bg-white relative overflow-hidden">
+                <div className="absolute -right-4 -bottom-4 text-6xl text-blue-100/50 select-none">❔</div>
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm">Task</div>
+                    <div className="font-bold text-blue-900 text-base">Look for the Rule</div>
+                </div>
+                <div className="pl-11 space-y-1 text-sm text-blue-800">
+                    <div>Find what stays the same and what changes.</div>
+                    <div>Describe how the answers "jump" from one to the next.</div>
                 </div>
             </div>
 
-            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                <strong>{String.fromCodePoint(0x1F4A1)}</strong> Look at each pattern. Fill in the missing numbers and describe what pattern you notice.
-            </div>
-
-            <div className="space-y-5 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="space-y-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {patterns.map((item, idx) => (
-                    <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white break-inside-avoid">
-                        <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <div key={idx} className="border-2 border-slate-200 rounded-2xl p-6 bg-white shadow-sm hover:border-indigo-300 transition-colors break-inside-avoid relative overflow-hidden">
+                        <div className="absolute -right-2 -top-2 w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center text-slate-200 font-bold text-xl">
+                            {idx + 1}
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-4 mb-4">
                             {item.items.map((part, i) => (
-                                <div key={i} className="flex items-center gap-1">
-                                    <span className="text-base font-mono text-slate-800 whitespace-nowrap">{part.eq} =</span>
-                                    {!part.hidden ? (
-                                        <span className="text-base font-mono font-semibold text-slate-900">{part.val}</span>
-                                    ) : (
-                                        <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
-                                    )}
-                                    {i < item.items.length - 1 && <span className="text-slate-400 mx-1">,</span>}
+                                <div key={i} className="flex items-center gap-2">
+                                    <div className="bg-slate-50 px-3 py-2 rounded-lg border border-slate-100">
+                                        <span className="text-lg font-mono text-slate-800 whitespace-nowrap">{part.eq} =</span>
+                                        {!part.hidden ? (
+                                            <span className="text-lg font-mono font-bold text-indigo-700 ml-2">{part.val}</span>
+                                        ) : (
+                                            <span className="inline-block w-16 h-8 border-b-2 border-slate-400 bg-slate-100/50 ml-2 rounded-t" />
+                                        )}
+                                    </div>
+                                    {i < item.items.length - 1 && <span className="text-slate-300 font-bold ml-1">→</span>}
                                 </div>
                             ))}
                         </div>
-                        <div className="mt-3">
-                            <div className="text-sm font-semibold text-slate-600 mb-1">What pattern do you notice?</div>
-                            <div className="min-h-12 print:min-h-16 border-2 border-dashed border-slate-400 rounded p-2 bg-slate-50 print:bg-white" />
+
+                        <div className="mt-4 pt-4 border-t border-dashed border-slate-200 flex flex-col md:flex-row md:items-center gap-3">
+                            <div className="text-sm font-bold text-slate-500 uppercase tracking-wider">The Rule is:</div>
+                            <div className="flex-1 min-h-12 border-2 border-dashed border-indigo-200 rounded-xl p-2 bg-indigo-50/30 font-medium text-indigo-900 flex items-center px-4">
+                                <span className="text-slate-400 italic text-sm">Describe the pattern here...</span>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own pattern where you multiply by 5</div>
-                    <div>2. Can you find a pattern where numbers double each time?</div>
-                    <div>3. Can you find a pattern where the answers decrease? (Hint: think about division)</div>
-                </div>
-            </div>
-
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can identify patterns in multiplication</div>
-                    <div>{String.fromCharCode(0x2610)} I can extend patterns to find missing numbers</div>
-                    <div>{String.fromCharCode(0x2610)} I can describe patterns in my own words</div>
-                </div>
-                <div className="mt-3 text-xs">
-                    <strong>{t('common.myScore', 'My score:')}</strong> ___ / {patterns.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{t('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-            </div>
-
+            {/* Answer Key */}
             {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)} Answer Key</div>
-                    <div className="space-y-4">
+                <div className="mt-10 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-2xl print:border print:bg-white print:page-break-before-always relative overflow-hidden">
+                    <div className="absolute -right-8 -top-8 text-8xl text-emerald-100 rotate-12 select-none">✓</div>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white">✓</div>
+                        <h3 className="text-xl font-bold text-emerald-900">Detective Solution Key</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {patterns.map((item, idx) => (
-                            <div key={idx} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                                <div className="font-semibold text-sm mb-1 text-emerald-900">Pattern {idx + 1}:</div>
-                                <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                                    <div className="flex flex-wrap gap-2">
-                                        {item.items.map((part, i) => (
-                                            <span key={i} className={part.hidden ? "font-bold bg-emerald-100 px-1 rounded" : ""}>
-                                                {part.eq} = {part.val}{i < item.items.length - 1 ? "," : ""}
-                                            </span>
-                                        ))}
-                                    </div>
-                                    <div className="mt-1 font-semibold text-emerald-700">
-                                        Rule: {item.description}
-                                    </div>
+                            <div key={idx} className="bg-white p-4 rounded-xl border border-emerald-200">
+                                <div className="font-bold text-emerald-800 mb-2">Pattern {idx + 1}:</div>
+                                <div className="font-mono text-emerald-700 text-sm">
+                                    {item.items.map(p => p.val).join(', ')}
+                                </div>
+                                <div className="mt-2 text-sm font-semibold text-emerald-600">
+                                    Rule: {item.description}
                                 </div>
                             </div>
                         ))}
@@ -1198,7 +1187,7 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
                 </div>
             ))}
         </WorksheetSectionWrapper>
-    )
+    );
 }
 
 export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId, range, count, timeLimit }: SpecificWorksheetProps & { docId: string, range: [number, number], count: number, timeLimit: string }) {
@@ -1854,6 +1843,652 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
                             <div key={i} className="text-emerald-900 border-b border-emerald-200 pb-1">
                                 <span className="font-bold mr-1">{i + 1}.</span>
                                 {p.a} x {p.b} = <strong>{p.product}</strong>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationAreaModel({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'mult-area-model'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    const problems = Array.from({ length: 4 }).map(() => {
+        const a = nextInt(12, 35);
+        const b = nextInt(12, 35);
+        return { a, b };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Area Model Multiplication')}
+            emoji={String.fromCodePoint(0x1F4CF)}
+            description={t(`worksheets.${docId}.description`, 'Break numbers into tens and ones. Map out the area to find the total.')}
+            problemCount={problems.length}
+            learningObjectives={[
+                'Apply area models to multi-digit multiplication',
+                'Decompose numbers by place value',
+                'Synthesize partial products for a final result'
+            ]}
+            parentTeacherTips={[
+                'Visualize the area as a rectangle divided into four plots',
+                'The large plot is Tens x Tens (e.g., 20 x 10)',
+                'Adding the four "plots" gives the total territory'
+            ]}
+        >
+            <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 animate-gradient-x mb-4" />
+
+            <PremiumWorksheetBanner
+                title="Plot Architect"
+                subtitle="Project: Building Multiplication Areas"
+                icons={{
+                    bg1: "📐",
+                    bg2: "🏗️",
+                    float1: "📏",
+                    float2: "🖋️"
+                }}
+                colors={{
+                    bg: "bg-blue-900",
+                    border: "border-blue-700",
+                    pillBg: "bg-white/10 backdrop-blur-sm",
+                    pillBorder: "border-blue-400",
+                    pillText: "text-white",
+                    accent: "text-blue-400"
+                }}
+            />
+
+            {/* Premium Instruction Card */}
+            <div className="mb-6 p-4 bg-slate-50 border-2 border-blue-200 rounded-xl print:border print:bg-white relative overflow-hidden">
+                <div className="absolute -right-4 -bottom-4 text-6xl text-blue-100/50 select-none">🏗️</div>
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-blue-800 flex items-center justify-center text-white font-bold text-sm">Task</div>
+                    <div className="font-bold text-slate-900 text-base">Decompose & Construct</div>
+                </div>
+                <div className="pl-11 space-y-1 text-sm text-slate-700">
+                    <div>1. Split each number into <strong>Tens</strong> and <strong>Ones</strong>.</div>
+                    <div>2. Fill in the four area "plots" by multiplying.</div>
+                    <div>3. Add all four products to reach the final total.</div>
+                </div>
+            </div>
+
+            <div className="space-y-10 break-inside-avoid">
+                {problems.map(({ a, b }, i) => {
+                    const aTens = Math.floor(a / 10) * 10;
+                    const aOnes = a % 10;
+                    const bTens = Math.floor(b / 10) * 10;
+                    const bOnes = b % 10;
+
+                    return (
+                        <div key={i} className="relative border-2 border-blue-100 rounded-3xl p-8 bg-white shadow-sm break-inside-avoid overflow-hidden">
+                            {/* Blueprint Grid Background Effect */}
+                            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+
+                            <div className="flex justify-between items-start mb-8">
+                                <div className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-widest shadow-sm">
+                                    Site {i + 1}
+                                </div>
+                                <div className="text-2xl font-mono font-bold text-blue-900">
+                                    {a} × {b} = ?
+                                </div>
+                            </div>
+
+                            <div className="relative max-w-md mx-auto aspect-square mb-6">
+                                {/* Labels */}
+                                <div className="absolute -top-6 left-[25%] right-0 flex justify-around text-blue-800 font-bold font-mono">
+                                    <span>{aTens}</span>
+                                    <span>{aOnes}</span>
+                                </div>
+                                <div className="absolute top-0 -left-8 bottom-0 flex flex-col justify-around text-blue-800 font-bold font-mono py-[10%]">
+                                    <span>{bTens}</span>
+                                    <span>{bOnes}</span>
+                                </div>
+
+                                {/* Area Grid */}
+                                <div className="w-full h-full border-4 border-blue-800 grid grid-cols-[2fr_1fr] grid-rows-[2fr_1fr] rounded-lg overflow-hidden shadow-lg">
+                                    <div className="border-b-2 border-r-2 border-blue-800 flex items-center justify-center bg-blue-50/30">
+                                        <div className="text-center group">
+                                            <div className="text-xs text-blue-400 font-mono mb-1">{aTens} × {bTens}</div>
+                                            <div className="w-20 h-10 border-b-2 border-blue-300 mx-auto" />
+                                        </div>
+                                    </div>
+                                    <div className="border-b-2 border-blue-800 flex items-center justify-center bg-blue-50/50">
+                                        <div className="text-center">
+                                            <div className="text-xs text-blue-400 font-mono mb-1">{aOnes} × {bTens}</div>
+                                            <div className="w-16 h-8 border-b-2 border-blue-300 mx-auto" />
+                                        </div>
+                                    </div>
+                                    <div className="border-r-2 border-blue-800 flex items-center justify-center bg-blue-50/50">
+                                        <div className="text-center">
+                                            <div className="text-xs text-blue-400 font-mono mb-1">{aTens} × {bOnes}</div>
+                                            <div className="w-16 h-8 border-b-2 border-blue-300 mx-auto" />
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center justify-center bg-blue-100/30">
+                                        <div className="text-center">
+                                            <div className="text-xs text-blue-400 font-mono mb-1">{aOnes} × {bOnes}</div>
+                                            <div className="w-12 h-6 border-b-2 border-blue-300 mx-auto" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-slate-50 rounded-2xl p-4 border border-blue-100 flex flex-col items-center gap-3">
+                                <div className="text-sm font-bold text-blue-900/60 uppercase tracking-wider">Final Calculation</div>
+                                <div className="flex flex-wrap items-center justify-center gap-2 font-mono text-lg">
+                                    <span className="w-16 h-8 border-b-2 border-blue-400 bg-white rounded-t" />
+                                    <span>+</span>
+                                    <span className="w-16 h-8 border-b-2 border-blue-400 bg-white rounded-t" />
+                                    <span>+</span>
+                                    <span className="w-16 h-8 border-b-2 border-blue-400 bg-white rounded-t" />
+                                    <span>+</span>
+                                    <span className="w-16 h-8 border-b-2 border-blue-400 bg-white rounded-t" />
+                                    <span className="font-bold">=</span>
+                                    <span className="w-24 h-10 border-b-4 border-blue-600 bg-blue-50 text-blue-900 rounded-t flex items-center justify-center font-bold" />
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-10 p-8 border-2 border-cyan-300 bg-cyan-50 rounded-3xl print:border print:bg-white print:page-break-before-always relative overflow-hidden">
+                    <div className="absolute -right-8 -top-8 text-8xl text-cyan-100 rotate-12 select-none">🏗️</div>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-full bg-cyan-600 flex items-center justify-center text-white italic font-serif">A</div>
+                        <h3 className="text-xl font-bold text-cyan-900 uppercase tracking-widest">Architect Solution Key</h3>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {problems.map(({ a, b }, i) => {
+                            const aTens = Math.floor(a / 10) * 10;
+                            const aOnes = a % 10;
+                            const bTens = Math.floor(b / 10) * 10;
+                            const bOnes = b % 10;
+                            const p1 = aTens * bTens;
+                            const p2 = aOnes * bTens;
+                            const p3 = aTens * bOnes;
+                            const p4 = aOnes * bOnes;
+                            return (
+                                <div key={i} className="bg-white p-5 rounded-2xl border border-cyan-200 shadow-sm">
+                                    <div className="font-bold text-cyan-800 mb-3 border-b border-cyan-50 pb-2">Site {i + 1}: {a} × {b}</div>
+                                    <div className="grid grid-cols-2 gap-2 text-sm font-mono text-cyan-700">
+                                        <div>{aTens}×{bTens} = {p1}</div>
+                                        <div>{aOnes}×{bTens} = {p2}</div>
+                                        <div>{aTens}×{bOnes} = {p3}</div>
+                                        <div>{aOnes}×{bOnes} = {p4}</div>
+                                    </div>
+                                    <div className="mt-3 pt-2 border-t border-dashed border-cyan-100 text-base font-bold text-blue-900">
+                                        Total: {a * b}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationFactFluency({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'mult-fact-fluency'
+    const doc = docId
+    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
+
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    const facts: Array<[number, number]> = Array.from({ length: 20 }).map(() => {
+        const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Multiplication Fact Fluency')}
+            emoji={String.fromCodePoint(0x26A1)}
+            description={t(`worksheets.${docId}.description`, 'Solve as many facts as you can quickly. Practice all facts 1-12.')}
+            problemCount={facts.length}
+            learningObjectives={[
+                'Build speed and accuracy with multiplication facts 1-12',
+                'Practice quick recall of multiplication facts',
+                'Achieve automaticity (knowing facts instantly)'
+            ]}
+            parentTeacherTips={[
+                'Fluency means speed AND accuracy - encourage both',
+                'Time students to track improvement',
+                'Use strategies: patterns, known facts, breaking down',
+                'Extension: Try to beat your time on the next attempt!'
+            ]}
+        >
+            <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 animate-gradient-x mb-4" />
+
+            {/* Premium Header Banner */}
+            <PremiumWorksheetBanner
+                title="Speed Racer"
+                subtitle="Mission: Lightning Fast Recall"
+                icons={{
+                    bg1: "🏎️",
+                    bg2: "🏁",
+                    float1: "⚡",
+                    float2: "⏱️"
+                }}
+                colors={{
+                    bg: "bg-emerald-50",
+                    border: "border-emerald-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-emerald-300",
+                    pillText: "text-emerald-900",
+                    accent: "text-emerald-200"
+                }}
+            />
+
+            {/* Premium Instruction Card */}
+            <div className="mb-6 p-4 bg-emerald-50/50 border-2 border-emerald-200 rounded-xl print:border print:bg-white relative overflow-hidden">
+                <div className="absolute -right-4 -bottom-4 text-6xl text-emerald-100/50 select-none">⚡</div>
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">Task</div>
+                    <div className="font-bold text-emerald-900 text-base">Quick Recall</div>
+                </div>
+                <div className="pl-11 space-y-1 text-sm text-emerald-800">
+                    <div>Solve each problem as quickly as you can.</div>
+                    <div>Try to write the answer without counting on your fingers!</div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-4 gap-4 break-inside-avoid">
+                {facts.map(([a, b], i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-4 bg-white shadow-sm hover:border-emerald-300 transition-colors text-center break-inside-avoid relative overflow-hidden group">
+                        <div className="absolute -left-1 -top-1 w-6 h-6 bg-slate-50 group-hover:bg-emerald-50 rounded-br-lg flex items-center justify-center text-[10px] text-slate-300 group-hover:text-emerald-300 font-bold transition-colors">
+                            {i + 1}
+                        </div>
+                        <div className="font-mono text-xl text-slate-800 py-2">
+                            {a} × {b} =
+                            <span className="inline-block w-16 h-8 border-b-2 border-slate-400 bg-slate-100/50 ml-2 rounded-t align-middle" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Self-Assessment & Timer section */}
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 border-2 border-slate-200 rounded-xl bg-slate-50 print:bg-white">
+                    <div className="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                        <span>⏱️</span> Timer Stats
+                    </div>
+                    <div className="space-y-2 text-sm">
+                        <div className="flex justify-between border-b border-slate-200 pb-1">
+                            <span>Time Taken:</span>
+                            <span className="font-mono">____ min ____ sec</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span>Target:</span>
+                            <span className="text-emerald-600 font-bold underline decoration-emerald-200">2:00 Minutes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="p-4 border-2 border-slate-200 rounded-xl bg-slate-50 print:bg-white">
+                    <div className="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                        <span>✅</span> Best Efforts
+                    </div>
+                    <div className="space-y-1 text-xs">
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border border-slate-400 rounded" />
+                            <span>I correctly solved ____ / {facts.length}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border border-slate-400 rounded" />
+                            <span>I stayed focused the whole time!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-10 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-2xl print:bg-white print:border print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-4 text-lg flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center">✓</div>
+                        Speed Racer Answer Key
+                    </div>
+                    <div className="grid grid-cols-4 gap-3 text-sm">
+                        {facts.map(([a, b], i) => (
+                            <div key={i} className="flex gap-2 items-center border-b border-emerald-200/50 pb-1">
+                                <span className="text-emerald-600 font-bold w-6">{i + 1}.</span>
+                                <span className="text-emerald-900">{a} × {b} = <span className="font-bold">{a * b}</span></span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationMixedReview({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'mult-mixed-review'
+    const doc = docId
+    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
+
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    const facts: Array<[number, number]> = Array.from({ length: 16 }).map(() => {
+        const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Mixed Multiplication Review')}
+            emoji={String.fromCodePoint(0x1F31F)}
+            description={t(`worksheets.${docId}.description`, 'Mixed practice with all multiplication facts. Review everything you\'ve learned.')}
+            problemCount={facts.length}
+            learningObjectives={[
+                'Review all multiplication facts 1-12 in mixed order',
+                'Test mastery across all times tables',
+                'Build confidence with comprehensive practice'
+            ]}
+            parentTeacherTips={[
+                'Mixed review tests true mastery - students can\'t rely on patterns',
+                'Encourage students to use all strategies they know',
+                'This is great for assessment - see which facts need more practice',
+                'Extension: Time yourself and track improvement'
+            ]}
+        >
+            <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-purple-400 to-pink-500 animate-gradient-x mb-4" />
+
+            {/* Premium Header Banner */}
+            <PremiumWorksheetBanner
+                title="Knowledge Quest"
+                subtitle="Mission: Master All Dimensions"
+                icons={{
+                    bg1: "🗺️",
+                    bg2: "💎",
+                    float1: "📜",
+                    float2: "🛡️"
+                }}
+                colors={{
+                    bg: "bg-purple-50",
+                    border: "border-purple-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-purple-300",
+                    pillText: "text-purple-900",
+                    accent: "text-purple-200"
+                }}
+            />
+
+            {/* Premium Instruction Card */}
+            <div className="mb-6 p-4 bg-purple-50/50 border-2 border-purple-200 rounded-xl print:border print:bg-white relative overflow-hidden">
+                <div className="absolute -right-4 -bottom-4 text-6xl text-purple-100/50 select-none">🔍</div>
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center text-white font-bold text-sm">Task</div>
+                    <div className="font-bold text-purple-900 text-base">The Ultimate Test</div>
+                </div>
+                <div className="pl-11 space-y-1 text-sm text-purple-800">
+                    <div>You've traveled through the tables. Now show what you know!</div>
+                    <div>Solve these mixed problems to complete your quest.</div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6 break-inside-avoid">
+                {facts.map(([a, b], i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-2xl p-6 bg-white shadow-sm hover:border-purple-300 transition-colors flex items-center justify-between break-inside-avoid relative overflow-hidden">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-400 opacity-50" />
+                        <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 font-bold border border-slate-100 italic">
+                                {i + 1}
+                            </div>
+                            <div className="font-mono text-2xl text-slate-800 tracking-wider">
+                                {a} × {b} =
+                            </div>
+                        </div>
+                        <div className="w-32 h-14 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50/30" />
+                    </div>
+                ))}
+            </div>
+
+            {/* Achievement Section */}
+            <div className="mt-10 p-6 border-2 border-purple-200 bg-purple-50/30 rounded-2xl print:bg-white relative overflow-hidden">
+                <div className="absolute top-4 right-4 text-4xl opacity-20">🏆</div>
+                <div className="font-bold text-purple-900 mb-4">Quest Summary</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div className="text-sm font-semibold text-purple-800 mb-2 uppercase tracking-wider">Mastery Check</div>
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-3 text-sm">
+                                <div className="w-5 h-5 border-2 border-purple-300 rounded" />
+                                <span>I completed the entire quest!</span>
+                            </div>
+                            <div className="flex items-center gap-3 text-sm">
+                                <div className="w-5 h-5 border-2 border-purple-300 rounded" />
+                                <span>Total Crystals (Score): ____ / {facts.length}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="text-sm font-semibold text-purple-800 mb-2 uppercase tracking-wider">Target Skills</div>
+                        <div className="p-3 bg-white rounded-lg border border-purple-100 text-xs text-slate-700 italic">
+                            Identifying "Sticky Facts" — circle the problems that took more time. These are your next target for practice!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-10 p-6 border-2 border-purple-300 bg-purple-50 rounded-2xl print:bg-white print:border print:page-break-before-always">
+                    <div className="font-bold text-purple-900 mb-4 text-lg flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center">✨</div>
+                        Quest Answer Key
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        {facts.map(([a, b], i) => (
+                            <div key={i} className="flex gap-2 items-center bg-white/50 p-2 rounded-lg border border-purple-100">
+                                <span className="text-purple-600 font-bold">{i + 1}.</span>
+                                <span className="text-purple-900">{a} × {b} = <span className="font-bold font-mono">{a * b}</span></span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationStrategies({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'mult-strategies'
+    const doc = docId
+    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
+
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    // Fixed set of strategy problems for consistency and pedagogical value
+    const problems = [
+        { problem: '4 × 5', strategy: 'skip-count', strategyText: 'Skip count by 5s:', blanks: 4, answer: 20, hint: '5, 10, 15, ...' },
+        { problem: '3 × 6', strategy: 'array', strategyText: 'Visualize an Array:', blanks: 2, answer: 18, hint: 'Rows × Columns' },
+        { problem: '7 × 2', strategy: 'repeated', strategyText: 'Repeated Addition:', blanks: 7, answer: 14, hint: '2 + 2 + ...' },
+        { problem: '5 × 8', strategy: 'doubles', strategyText: 'Use Known Facts (Doubles):', blanks: 2, answer: 40, hint: '5 × 4 = 20, so...' },
+        { problem: '6 × 9', strategy: 'break-apart', strategyText: 'Break-Apart Strategy:', blanks: 2, answer: 54, hint: '6 × 10 = 60, then...' },
+    ];
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Multiplication Strategies')}
+            emoji={String.fromCodePoint(0x1F9E0)}
+            description={t(`worksheets.${docId}.description`, 'Use different tools to solve problems. Choose the best strategy for each!')}
+            problemCount={problems.length}
+            learningObjectives={[
+                'Use multiple strategies to solve multiplication problems',
+                'Understand skip counting, arrays, repeated addition, and doubles',
+                'Choose the best tool for each problem'
+            ]}
+            parentTeacherTips={[
+                'Different strategies work for different learners',
+                'Skip counting: Great for 2s, 5s, and 10s',
+                'Arrays: Excellent for visual learners',
+                'Break-apart: Preparatory for distributive property',
+                'Extension: Design your own strategy for 7 × 8!'
+            ]}
+        >
+            <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-teal-400 to-cyan-500 animate-gradient-x mb-4" />
+
+            {/* Premium Header Banner */}
+            <PremiumWorksheetBanner
+                title="Strategy Master"
+                subtitle="Mission: Use Your Toolkit"
+                icons={{
+                    bg1: "🛠️",
+                    bg2: "🧠",
+                    float1: "📐",
+                    float2: "🔭"
+                }}
+                colors={{
+                    bg: "bg-teal-50",
+                    border: "border-teal-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-teal-300",
+                    pillText: "text-teal-900",
+                    accent: "text-teal-200"
+                }}
+            />
+
+            {/* Premium Instruction Card */}
+            <div className="mb-6 p-4 bg-teal-50/50 border-2 border-teal-200 rounded-xl print:border print:bg-white relative overflow-hidden">
+                <div className="absolute -right-4 -bottom-4 text-6xl text-teal-100/50 select-none">💡</div>
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white font-bold text-sm">Task</div>
+                    <div className="font-bold text-teal-900 text-base">Select Your Tool</div>
+                </div>
+                <div className="pl-11 space-y-1 text-sm text-teal-800">
+                    <div>Solve each problem using the specific strategy shown.</div>
+                    <div>Show your work in the space provided.</div>
+                </div>
+            </div>
+
+            <div className="space-y-6 break-inside-avoid">
+                {problems.map((item, idx) => (
+                    <div key={idx} className="border-2 border-slate-200 rounded-2xl p-6 bg-white shadow-sm hover:border-teal-300 transition-colors break-inside-avoid">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <div className="flex-1">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="bg-teal-600 text-white px-3 py-1 rounded-lg font-bold text-sm">
+                                        Problem {idx + 1}
+                                    </div>
+                                    <div className="font-mono text-2xl font-bold text-slate-800">
+                                        {item.problem} = ?
+                                    </div>
+                                </div>
+
+                                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                                    <div className="text-sm font-bold text-teal-800 mb-3 flex items-center gap-2">
+                                        <span className="text-xl">⚙️</span> {item.strategyText}
+                                    </div>
+
+                                    {item.strategy === 'skip-count' && (
+                                        <div className="flex items-center gap-3 flex-wrap">
+                                            {Array.from({ length: 4 }).map((_, i) => (
+                                                <div key={i} className="flex items-center gap-2">
+                                                    <div className="w-14 h-10 border-b-2 border-teal-300 flex items-end justify-center pb-1 text-teal-900 font-mono">
+                                                        {i === 0 ? "5" : ""}
+                                                    </div>
+                                                    {i < 3 && <span className="text-slate-300">,</span>}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {item.strategy === 'array' && (
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-32 h-20 border-2 border-dashed border-teal-200 rounded-lg flex items-center justify-center text-xs text-teal-400 p-2 text-center italic">
+                                                Draw {item.hint} here...
+                                            </div>
+                                            <div className="text-xl text-teal-300">➜</div>
+                                            <div className="font-mono text-slate-700">
+                                                ___ rows × ___ cols
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {item.strategy === 'repeated' && (
+                                        <div className="flex items-center gap-2 flex-wrap font-mono">
+                                            {Array.from({ length: 7 }).map((_, i) => (
+                                                <React.Fragment key={i}>
+                                                    <span className="w-8 h-8 border-b-2 border-teal-200 flex items-end justify-center pb-1">2</span>
+                                                    {i < 6 && <span className="text-teal-400 font-bold">+</span>}
+                                                </React.Fragment>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {(item.strategy === 'doubles' || item.strategy === 'break-apart') && (
+                                        <div className="space-y-3">
+                                            <div className="text-xs text-teal-600 italic mb-2">Hint: {item.hint}</div>
+                                            <div className="flex items-center gap-4">
+                                                <div className="flex-1 h-10 border-b-2 border-teal-100 italic text-slate-400 text-sm flex items-end ml-4 pb-1">
+                                                    Write your steps here...
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col items-center justify-center bg-teal-50/50 border-2 border-teal-100 rounded-2xl p-6 min-w-[180px]">
+                                <div className="text-xs font-bold text-teal-600 uppercase tracking-widest mb-2 text-center">Final Result</div>
+                                <div className="w-24 h-16 border-4 border-teal-300 rounded-2xl bg-white flex items-center justify-center text-3xl font-mono text-teal-900 shadow-inner">
+                                    ?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Strategy Bonus */}
+            <div className="mt-8 p-6 border-2 border-dashed border-slate-300 rounded-2xl print:bg-white text-center">
+                <div className="text-4xl mb-2">⭐</div>
+                <div className="font-bold text-slate-800">Strategy Challenge</div>
+                <div className="text-sm text-slate-600 mt-1 max-w-md mx-auto">
+                    Choose your favorite strategy and use it to solve <strong>12 × 5</strong>.
+                    Can you explain your thinking to a partner?
+                </div>
+                <div className="mt-4 h-12 w-48 border-b-2 border-slate-400 mx-auto" />
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-10 p-6 border-2 border-teal-300 bg-teal-50 rounded-2xl print:bg-white print:border print:page-break-before-always">
+                    <div className="font-bold text-teal-900 mb-4 text-lg flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center">⚙️</div>
+                        Strategy Master Answer Key
+                    </div>
+                    <div className="space-y-4">
+                        {problems.map((p, i) => (
+                            <div key={i} className="flex flex-col md:flex-row md:items-center justify-between border-b border-teal-200/50 pb-2 last:border-b-0">
+                                <div className="flex gap-4 items-center">
+                                    <span className="text-teal-600 font-bold w-6">{i + 1}.</span>
+                                    <span className="text-teal-900 font-medium">Problem: {p.problem}</span>
+                                    <span className="text-teal-500 text-sm italic">({p.strategy})</span>
+                                </div>
+                                <div className="font-bold text-teal-900 bg-white px-3 py-1 rounded-lg border border-teal-100">
+                                    Answer: {p.answer}
+                                </div>
                             </div>
                         ))}
                     </div>
