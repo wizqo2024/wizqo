@@ -17381,91 +17381,86 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {/* 3rd Grade Worksheets */}
         {
+          activeDocs.includes('mult-arrays') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
+            const problems = Array.from({ length: 4 }, () => {
+              const rows = Math.floor(rng() * 4) + 2 // 2-5 rows
+              const cols = Math.floor(rng() * 5) + 2 // 2-6 cols
+              return { rows, cols, product: rows * cols }
+            })
 
+            return (
+              <WorksheetSectionWrapper
+                docId="mult-arrays"
+                title="City Builder: Window Arrays"
+                emoji={String.fromCodePoint(0x2716)}
+                description="Count the rows and columns of windows to find the total product."
+                problemCount={4}
+                learningObjectives={[
+                  'Understand multiplication as repeated addition',
+                  'Visualize arrays (rows x columns)',
+                  'Write multiplication sentences'
+                ]}
+                parentTeacherTips={[
+                  'Rows go side to side (like a row in a movie theater).',
+                  'Columns go up and down (like a building column).',
+                  'Count by skip counting the rows!'
+                ]}
+              >
+                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 animate-gradient-x mb-4" />
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {problems.map((p, i) => (
+                    <div key={i} className="bg-slate-100 border-b-8 border-slate-300 rounded-t-xl p-6 flex flex-col items-center relative">
+                      <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">BLDG-{i + 100}</div>
 
-          {
-            activeDocs.includes('mult-arrays') && (() => {
-              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-              const problems = Array.from({ length: 4 }, () => {
-                const rows = Math.floor(rng() * 4) + 2 // 2-5 rows
-                const cols = Math.floor(rng() * 5) + 2 // 2-6 cols
-                return { rows, cols, product: rows * cols }
-              })
-
-              return (
-                <WorksheetSectionWrapper
-                  docId="mult-arrays"
-                  title="City Builder: Window Arrays"
-                  emoji={String.fromCodePoint(0x2716)}
-                  description="Count the rows and columns of windows to find the total product."
-                  problemCount={4}
-                  learningObjectives={[
-                    'Understand multiplication as repeated addition',
-                    'Visualize arrays (rows x columns)',
-                    'Write multiplication sentences'
-                  ]}
-                  parentTeacherTips={[
-                    'Rows go side to side (like a row in a movie theater).',
-                    'Columns go up and down (like a building column).',
-                    'Count by skip counting the rows!'
-                  ]}
-                >
-                  <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 animate-gradient-x mb-4" />
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {problems.map((p, i) => (
-                      <div key={i} className="bg-slate-100 border-b-8 border-slate-300 rounded-t-xl p-6 flex flex-col items-center relative">
-                        <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">BLDG-{i + 100}</div>
-
-                        {/* The Building */}
-                        <div className="bg-blue-900 p-3 rounded-lg shadow-lg mb-4 border-2 border-blue-800" style={{
-                          display: 'grid',
-                          gridTemplateColumns: `repeat(${p.cols}, 1fr)`,
-                          gap: '8px'
-                        }}>
-                          {Array.from({ length: p.rows * p.cols }).map((_, j) => (
-                            <div key={j} className="w-8 h-10 bg-yellow-200 border border-yellow-500 shadow-inner rounded-sm relative overflow-hidden">
-                              <div className="absolute top-1/2 w-full h-px bg-yellow-500"></div>
-                              <div className="absolute left-1/2 h-full w-px bg-yellow-500"></div>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Input Area */}
-                        <div className="w-full bg-white p-3 rounded-lg border-2 border-slate-200 flex items-center justify-center gap-2 font-bold text-lg text-slate-700">
-                          <div className="flex flex-col items-center">
-                            <span className="text-xs text-slate-400 uppercase">Rows</span>
-                            <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.rows}</div>
+                      {/* The Building */}
+                      <div className="bg-blue-900 p-3 rounded-lg shadow-lg mb-4 border-2 border-blue-800" style={{
+                        display: 'grid',
+                        gridTemplateColumns: `repeat(${p.cols}, 1fr)`,
+                        gap: '8px'
+                      }}>
+                        {Array.from({ length: p.rows * p.cols }).map((_, j) => (
+                          <div key={j} className="w-8 h-10 bg-yellow-200 border border-yellow-500 shadow-inner rounded-sm relative overflow-hidden">
+                            <div className="absolute top-1/2 w-full h-px bg-yellow-500"></div>
+                            <div className="absolute left-1/2 h-full w-px bg-yellow-500"></div>
                           </div>
-                          <span>x</span>
-                          <div className="flex flex-col items-center">
-                            <span className="text-xs text-slate-400 uppercase">Cols</span>
-                            <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.cols}</div>
-                          </div>
-                          <span>=</span>
-                          <div className="w-14 h-10 border-2 border-dashed border-cyan-500 rounded flex items-center justify-center bg-cyan-50 text-cyan-800">?</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {showAnswersForDoc('mult-arrays', () => (
-                    <div className="mt-4 p-4 border bg-cyan-50 rounded text-cyan-900 text-sm">
-                      <strong>Key:</strong>
-                      <div className="flex flex-wrap gap-4 mt-2">
-                        {problems.map((p, i) => (
-                          <span key={i}>Bldg {i + 100}: {p.rows} x {p.cols} = <strong>{p.product}</strong></span>
                         ))}
+                      </div>
+
+                      {/* Input Area */}
+                      <div className="w-full bg-white p-3 rounded-lg border-2 border-slate-200 flex items-center justify-center gap-2 font-bold text-lg text-slate-700">
+                        <div className="flex flex-col items-center">
+                          <span className="text-xs text-slate-400 uppercase">Rows</span>
+                          <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.rows}</div>
+                        </div>
+                        <span>x</span>
+                        <div className="flex flex-col items-center">
+                          <span className="text-xs text-slate-400 uppercase">Cols</span>
+                          <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.cols}</div>
+                        </div>
+                        <span>=</span>
+                        <div className="w-14 h-10 border-2 border-dashed border-cyan-500 rounded flex items-center justify-center bg-cyan-50 text-cyan-800">?</div>
                       </div>
                     </div>
                   ))}
-                </WorksheetSectionWrapper>
-              )
-            })()
-          }
+                </div>
+
+                {showAnswersForDoc('mult-arrays', () => (
+                  <div className="mt-4 p-4 border bg-cyan-50 rounded text-cyan-900 text-sm">
+                    <strong>Key:</strong>
+                    <div className="flex flex-wrap gap-4 mt-2">
+                      {problems.map((p, i) => (
+                        <span key={i}>Bldg {i + 100}: {p.rows} x {p.cols} = <strong>{p.product}</strong></span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
 
 
 
