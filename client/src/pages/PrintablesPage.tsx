@@ -10841,6 +10841,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           activeDocs.includes('mult-arrays-2-5') && (
             <MultiplicationArrays2To5 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
           )
+        }
 
         {
           activeDocs.includes('skip-count-mult') && (
@@ -12582,6 +12583,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             <TimesTableMissing seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="times-table-missing-mixed" range={[1, 12]} />
           )
 
+        }
 
         {
           activeDocs.includes('times-table-timed-1-5') && (() => {
