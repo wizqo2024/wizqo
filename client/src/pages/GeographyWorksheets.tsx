@@ -70,44 +70,44 @@ export const GeographyWorksheets: React.FC<GeographyWorksheetsProps> = ({ docId,
                         <g fill="white" stroke="#111827" strokeWidth="2" className="continent-shapes">
                             {/* North America */}
                             <g>
-                                <path d="M110,60 C80,60 40,100 60,150 C70,180 120,220 160,200 C180,190 220,100 240,60 C200,40 150,50 110,60 Z" />
-                                <circle cx="150" cy="120" r="14" fill="white" />
-                                <text x="150" y="125" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">1</text>
+                                <path d="M70,60 L180,40 L260,30 L300,50 L250,90 L200,100 L170,180 L160,240 L140,230 L100,150 L50,110 Z" />
+                                <circle cx="160" cy="120" r="14" fill="white" />
+                                <text x="160" y="125" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">1</text>
                             </g>
                             {/* South America */}
                             <g>
-                                <path d="M200,220 C240,220 280,240 290,280 C300,340 260,400 240,420 C220,400 190,340 180,280 C180,250 190,220 200,220 Z" />
-                                <circle cx="230" cy="300" r="14" fill="white" />
-                                <text x="230" y="305" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">2</text>
+                                <path d="M210,250 L270,250 L310,280 L290,380 L270,440 L240,400 L210,300 Z" />
+                                <circle cx="260" cy="330" r="14" fill="white" />
+                                <text x="260" y="335" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">2</text>
                             </g>
                             {/* Europe */}
                             <g>
-                                <path d="M360,80 C340,90 320,130 340,150 C360,160 380,130 400,120 C420,110 400,80 360,80 Z" />
-                                <circle cx="360" cy="110" r="12" fill="white" />
-                                <text x="360" y="115" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">3</text>
+                                <path d="M330,70 L400,60 L440,70 L430,120 L400,130 L360,130 L340,110 L320,90 Z" />
+                                <circle cx="380" cy="100" r="12" fill="white" />
+                                <text x="380" y="105" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">3</text>
                             </g>
                             {/* Africa */}
                             <g>
-                                <path d="M350,170 C330,220 340,300 380,360 C420,380 480,320 480,260 C480,200 450,160 350,170 Z" />
-                                <circle cx="410" cy="250" r="14" fill="white" />
-                                <text x="410" y="255" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">4</text>
+                                <path d="M340,140 L420,140 L460,180 L470,260 L420,350 L380,330 L340,250 L330,190 Z" />
+                                <circle cx="400" cy="240" r="14" fill="white" />
+                                <text x="400" y="245" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">4</text>
                             </g>
                             {/* Asia */}
                             <g>
-                                <path d="M420,70 C460,50 600,60 680,100 C700,150 660,240 580,260 C520,240 480,200 440,150 C430,120 420,70 420,70 Z" />
-                                <circle cx="550" cy="150" r="14" fill="white" />
-                                <text x="550" y="155" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">5</text>
+                                <path d="M440,70 L550,40 L650,50 L700,90 L680,160 L620,200 L560,220 L500,200 L470,140 L440,130 Z" />
+                                <circle cx="560" cy="130" r="14" fill="white" />
+                                <text x="560" y="135" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">5</text>
                             </g>
                             {/* Australia */}
                             <g>
-                                <path d="M600,300 C580,320 580,360 620,380 C660,370 680,340 660,310 C640,290 620,290 600,300 Z" />
-                                <circle cx="630" cy="340" r="12" fill="white" />
-                                <text x="630" y="345" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">6</text>
+                                <path d="M600,280 L680,270 L710,310 L680,370 L630,360 L600,320 Z" />
+                                <circle cx="650" cy="320" r="12" fill="white" />
+                                <text x="650" y="325" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">6</text>
                             </g>
                             {/* Antarctica */}
                             <g>
-                                <path d="M150,450 C250,440 550,440 650,450 C660,470 640,490 150,490 C140,470 140,460 150,450 Z" />
-                                <circle cx="400" cy="465" r="14" fill="white" />
+                                <path d="M150,460 Q400,430 650,460 L680,490 L120,490 Z" />
+                                <circle cx="400" cy="475" r="14" fill="white" />
                                 <text x="400" y="470" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">7</text>
                             </g>
                         </g>
