@@ -1045,3 +1045,158 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
         </WorksheetSectionWrapper>
     )
 }
+
+export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'mult-patterns'
+    const doc = docId
+    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
+
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    // Generate 4 distinct pattern problems
+    const patterns = Array.from({ length: 4 }).map((_, i) => {
+        // Base number (e.g. 2 in "2 x 1", "2 x 2")
+        const base = nextInt(2, 9);
+
+        // Step for the multiplier (e.g. 1 for 1,2,3,4,5. 2 for 2,4,6,8,10)
+        const step = nextInt(1, 3);
+
+        // Start multiplier
+        const start = nextInt(1, 4);
+
+        // Generate 5 items in the sequence
+        const items = Array.from({ length: 5 }).map((_, j) => {
+            const mult = start + (j * step);
+            return {
+                eq: `${base} × ${mult}`,
+                val: base * mult,
+                hidden: j >= 3 // Hide answers for the last 2
+            };
+        });
+
+        // Pattern description for the answer key
+        const increment = base * step;
+        const description = `Add ${increment} each time`;
+
+        return { items, description, base, step };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Multiplication Patterns')}
+            emoji={String.fromCodePoint(0x2716)}
+            description={t(`worksheets.${docId}.description`, 'Identify and extend the multiplication patterns. What do you notice?')}
+            problemCount={patterns.length}
+            learningObjectives={[
+                'Identify patterns in multiplication tables',
+                'Extend multiplication patterns',
+                'Recognize how numbers change in patterns'
+            ]}
+            parentTeacherTips={[
+                'Look for what stays the same and what changes',
+                'Patterns help students memorize multiplication facts',
+                'Encourage students to describe patterns in their own words',
+                'Extension: Create your own multiplication patterns'
+            ]}
+        >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>{t('common.pattern', 'Pattern:')}</strong> {String.fromCodePoint(0x1F4A1)}</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>Step 1:</strong> Look at what changes: the second number goes 1, 2, 3, 4, 5</div>
+                        <div><strong>Step 2:</strong> Look at the answers: 4, 8, 12... they increase by 4 each time!</div>
+                        <div><strong>Step 3:</strong> {String.fromCodePoint(0x279C)} Fill in the blanks</div>
+                        <div className="font-semibold text-blue-900"><strong>Pattern:</strong> Add 4 each time</div>
+                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
+                <strong>{String.fromCodePoint(0x1F4A1)}</strong> Look at each pattern. Fill in the missing numbers and describe what pattern you notice.
+            </div>
+
+            <div className="space-y-5 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {patterns.map((item, idx) => (
+                    <div key={idx} className="border-2 border-slate-300 rounded-lg p-5 bg-white break-inside-avoid">
+                        <div className="flex flex-wrap items-center gap-3 mb-3">
+                            {item.items.map((part, i) => (
+                                <div key={i} className="flex items-center gap-1">
+                                    <span className="text-base font-mono text-slate-800 whitespace-nowrap">{part.eq} =</span>
+                                    {!part.hidden ? (
+                                        <span className="text-base font-mono font-semibold text-slate-900">{part.val}</span>
+                                    ) : (
+                                        <span className="inline-block w-16 h-10 print:w-20 print:h-12 border-b-[3px] border-slate-600 align-middle" />
+                                    )}
+                                    {i < item.items.length - 1 && <span className="text-slate-400 mx-1">,</span>}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-3">
+                            <div className="text-sm font-semibold text-slate-600 mb-1">What pattern do you notice?</div>
+                            <div className="min-h-12 print:min-h-16 border-2 border-dashed border-slate-400 rounded p-2 bg-slate-50 print:bg-white" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                    <div>1. Create your own pattern where you multiply by 5</div>
+                    <div>2. Can you find a pattern where numbers double each time?</div>
+                    <div>3. Can you find a pattern where the answers decrease? (Hint: think about division)</div>
+                </div>
+            </div>
+
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                <div className="space-y-2 text-xs">
+                    <div>{String.fromCharCode(0x2610)} I can identify patterns in multiplication</div>
+                    <div>{String.fromCharCode(0x2610)} I can extend patterns to find missing numbers</div>
+                    <div>{String.fromCharCode(0x2610)} I can describe patterns in my own words</div>
+                </div>
+                <div className="mt-3 text-xs">
+                    <strong>{t('common.myScore', 'My score:')}</strong> ___ / {patterns.length}
+                </div>
+                <div className="mt-2 text-xs">
+                    <strong>{t('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)} Answer Key</div>
+                    <div className="space-y-4">
+                        {patterns.map((item, idx) => (
+                            <div key={idx} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                                <div className="font-semibold text-sm mb-1 text-emerald-900">Pattern {idx + 1}:</div>
+                                <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                                    <div className="flex flex-wrap gap-2">
+                                        {item.items.map((part, i) => (
+                                            <span key={i} className={part.hidden ? "font-bold bg-emerald-100 px-1 rounded" : ""}>
+                                                {part.eq} = {part.val}{i < item.items.length - 1 ? "," : ""}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="mt-1 font-semibold text-emerald-700">
+                                        Rule: {item.description}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
