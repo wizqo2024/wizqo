@@ -811,6 +811,10 @@ export const en = {
       title: 'Complex Word Problems',
       description: 'Advanced multiplication word problems with larger numbers and multi-step thinking.',
     },
+    'mult-fact-families': {
+      title: 'Fact Families (Multiplication & Division)',
+      description: 'Understand the relationship between multiplication and division. Complete the number bond triangles and write the four related equations.',
+    },
     'math-maze': {
       title: 'Math Maze Adventure',
       description: 'Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!',

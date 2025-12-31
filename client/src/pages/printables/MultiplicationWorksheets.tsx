@@ -1,5 +1,4 @@
-import React from 'react';
-import type { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper } from './PrintableShared';
@@ -1507,6 +1506,354 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
                                         Answer: {prob.answer} {prob.answerUnit}
                                     </div>
                                 </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationFactFamilies({ seed, variant, showAnswersForDoc, docId, limit = 12, count = 10 }: SpecificWorksheetProps & { docId: string, limit?: number, count?: number }) {
+    const { getTrans } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: count }, () => {
+        const a = nextInt(2, limit);
+        const b = nextInt(2, limit);
+        return { a, b, p: a * b };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Fact Families (Multiplication & Division)')}
+            emoji={String.fromCodePoint(0x1F3E0)} // House/Structure
+            description={getTrans('description', 'Fill in the fact family triangles and write four related equations for each set of numbers.')}
+            problemCount={problems.length}
+            learningObjectives={[
+                'Understand the relationship between multiplication and division',
+                'Recognize inverse operations',
+                'Build fact fluency using number families',
+                'Write complete fact family equations'
+            ]}
+            parentTeacherTips={[
+                'A fact family uses the same 3 numbers for all equations',
+                'The largest number (product) is always at the top of the triangle',
+                'Multiplication: bottom numbers multiply to make the top number',
+                'Division: top number divided by a bottom number equals the other bottom number',
+                'Example: 3, 4, 12 → 3×4=12, 4×3=12, 12÷3=4, 12÷4=3'
+            ]}
+        >
+            <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white break-inside-avoid">
+                <div className="font-semibold text-purple-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-2xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>Example: Fact Family for 3, 4, 12</span>
+                </div>
+                <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+                    {/* Visual Triangle */}
+                    <div className="relative w-32 h-28 flex-shrink-0">
+                        {/* Triangle SVG */}
+                        <svg viewBox="0 0 100 80" className="w-full h-full drop-shadow-sm">
+                            <polygon points="50,5 10,75 90,75" fill="white" stroke="#a78bfa" strokeWidth="3" strokeLinejoin="round" />
+                            {/* Product (Top) */}
+                            <circle cx="50" cy="20" r="12" fill="#8b5cf6" />
+                            <text x="50" y="24" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">12</text>
+                            {/* Factors (Bottom) */}
+                            <circle cx="20" cy="70" r="10" fill="#c4b5fd" />
+                            <text x="20" y="74" textAnchor="middle" fill="#4c1d95" fontSize="10" fontWeight="bold">3</text>
+                            <circle cx="80" cy="70" r="10" fill="#c4b5fd" />
+                            <text x="80" y="74" textAnchor="middle" fill="#4c1d95" fontSize="10" fontWeight="bold">4</text>
+                        </svg>
+                    </div>
+
+                    {/* Equations */}
+                    <div className="flex-grow grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+                        <div className="flex items-center gap-2">
+                            <span className="font-mono font-bold text-purple-700">3 × 4 = 12</span>
+                            <span className="text-xs text-purple-500">(Factor × Factor = Product)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="font-mono font-bold text-purple-700">12 ÷ 3 = 4</span>
+                            <span className="text-xs text-purple-500">(Product ÷ Factor = Factor)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="font-mono font-bold text-purple-700">4 × 3 = 12</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="font-mono font-bold text-purple-700">12 ÷ 4 = 3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 break-inside-avoid">
+                {problems.map((p, i) => (
+                    <div key={i} className="break-inside-avoid p-4 border border-slate-300 rounded-lg bg-white shadow-sm print:shadow-none flex flex-col items-center">
+                        {/* Problem Triangle */}
+                        <div className="relative w-24 h-20 mb-4">
+                            <svg viewBox="0 0 100 80" className="w-full h-full">
+                                <polygon points="50,5 10,75 90,75" fill="none" stroke="#cbd5e1" strokeWidth="2" strokeLinejoin="round" strokeDasharray="4 4" />
+                                {/* Top Circle */}
+                                <circle cx="50" cy="20" r="10" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="1" />
+                                <text x="50" y="24" textAnchor="middle" fill="#334155" fontSize="10" fontWeight="bold">{p.p}</text>
+                                {/* Bottom Circles */}
+                                <circle cx="20" cy="70" r="9" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="1" />
+                                <text x="20" y="74" textAnchor="middle" fill="#334155" fontSize="9" fontWeight="bold">{p.a}</text>
+                                <circle cx="80" cy="70" r="9" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="1" />
+                                <text x="80" y="74" textAnchor="middle" fill="#334155" fontSize="9" fontWeight="bold">{p.b}</text>
+                            </svg>
+                        </div>
+
+                        {/* Answer Lines */}
+                        <div className="w-full grid grid-cols-2 gap-x-4 gap-y-3">
+                            {/* Multiplication Lines */}
+                            <div className="flex items-center gap-1">
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className="text-slate-400">×</span>
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className="text-slate-400">=</span>
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className="text-slate-400">÷</span>
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className="text-slate-400">=</span>
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className="text-slate-400">×</span>
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className="text-slate-400">=</span>
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className="text-slate-400">÷</span>
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className="text-slate-400">=</span>
+                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-xl print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-4 text-xl flex items-center gap-2">
+                        {String.fromCodePoint(0x2705)} Answer Key
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
+                        {problems.map((p, i) => (
+                            <div key={i} className="p-2 border border-emerald-200 rounded bg-white">
+                                <div className="font-bold text-emerald-800 mb-1 border-b border-emerald-100">Ex #{i + 1} ({p.a},{p.b},{p.p})</div>
+                                <div className="text-emerald-700">{p.a}×{p.b}={p.p}</div>
+                                <div className="text-emerald-700">{p.b}×{p.a}={p.p}</div>
+                                <div className="text-emerald-700">{p.p}÷{p.a}={p.b}</div>
+                                <div className="text-emerald-700">{p.p}÷{p.b}={p.a}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId, digitsTop, digitsBottom, problemCount = 12 }: SpecificWorksheetProps & { docId: string, digitsTop: number, digitsBottom: number, problemCount?: number }) {
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    // Generate ranges based on digits
+    const minTop = Math.pow(10, digitsTop - 1);
+    const maxTop = Math.pow(10, digitsTop) - 1;
+    const minBottom = Math.pow(10, digitsBottom - 1);
+    const maxBottom = Math.pow(10, digitsBottom) - 1;
+
+    const problems = Array.from({ length: problemCount }).map(() => {
+        let a = nextInt(minTop, maxTop);
+        let b = nextInt(minBottom, maxBottom);
+
+        // Ensure standard algorithm is usually required (avoid trivial 10s or 1s if possible for higher grades)
+        if (digitsBottom === 1 && b < 2) b = nextInt(2, 9);
+
+        return { a, b, product: a * b };
+    });
+
+    const is2x2 = digitsTop === 2 && digitsBottom === 2;
+
+    const learningObjectives = (() => {
+        const obj = t(`worksheets.${docId}.learningObjectives`)
+        if (Array.isArray(obj) && obj.length > 0) return obj;
+
+        if (is2x2) {
+            return [
+                'Multiply 2-digit numbers by 2-digit numbers',
+                'Use standard algorithm with regrouping',
+                'Align partial products correctly'
+            ];
+        }
+        return [
+            `Multiply ${digitsTop}-digit numbers by ${digitsBottom}-digit numbers`,
+            'Use regrouping (carrying) when needed',
+            'Align numbers by place value'
+        ];
+    })();
+
+    const tips = (() => {
+        const tipList = t(`worksheets.${docId}.parentTeacherTips`)
+        if (Array.isArray(tipList) && tipList.length > 0) return tipList;
+
+        if (is2x2) {
+            return [
+                'Remind students to put a zero placeholder (turtle egg) on the second line',
+                'Keep columns straight - graph paper helps!',
+                'Don\'t forget to add the partial products at the end'
+            ];
+        }
+        return [
+            'Start multiplying from the ones place (right side)',
+            'Carry any tens to the next column',
+            'Encourage neat handwriting to keep columns aligned'
+        ];
+    })();
+
+    // Helper to render a vertical problem
+    const renderVerticalProblem = (a: number, b: number, showSolution = false) => {
+        const aStr = a.toString();
+        const bStr = b.toString();
+        const product = a * b;
+
+        // Calculations for solution display
+        const ones = a % 10;
+        const tens = Math.floor(a / 10);
+
+        // For 2x1
+        const bOnes = b % 10;
+        const line1 = a * bOnes;
+
+        // For 2x2
+        const bTens = Math.floor(b / 10);
+        const line2 = a * bTens; // Actual value (e.g. 240) but we might display 24 with offset
+
+        return (
+            <div className="inline-block font-mono text-xl leading-none text-right mx-auto">
+                <div className="tracking-widest">{a}</div>
+                <div className="tracking-widest border-b-2 border-slate-800 mb-1 pb-1 relative">
+                    <span className="absolute left-[-1ch] bottom-1">x</span>
+                    {b}
+                </div>
+                {showSolution && (
+                    <div className="leading-snug text-emerald-700 font-bold">
+                        {digitsBottom === 2 ? (
+                            <>
+                                <div>{line1}</div>
+                                <div>{line2}0</div>
+                                <div className="border-t border-slate-400 pt-1">{product}</div>
+                            </>
+                        ) : (
+                            <div>{product}</div>
+                        )}
+                    </div>
+                )}
+                {!showSolution && (
+                    <div className="h-16 w-full"></div>
+                )}
+            </div>
+        );
+    };
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', `Multiplication (${digitsTop}-digit x ${digitsBottom}-digit)`)}
+            emoji={String.fromCodePoint(0x2716)}
+            description={getTrans('description', `Practice vertical multiplication standard algorithm.`)}
+            problemCount={problems.length}
+            learningObjectives={learningObjectives}
+            parentTeacherTips={tips}
+        >
+            <div className={`print:hidden h-1 w-16 rounded-full bg-gradient-to-r ${is2x2 ? 'from-orange-400 to-red-400' : 'from-purple-400 to-indigo-400'} animate-gradient-x mb-2`} />
+
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="space-y-2 text-sm flex-1">
+                        <div className="font-semibold text-base mb-2"><strong>{getTrans('example.title', 'How to solve:')}</strong></div>
+                        {is2x2 ? (
+                            <div className="space-y-1 text-slate-700">
+                                <div>1. Multiply top number by the <strong>ones</strong> digit of bottom number.</div>
+                                <div>2. Put a <strong>zero</strong> placeholder on the second line.</div>
+                                <div>3. Multiply top number by the <strong>tens</strong> digit of bottom number.</div>
+                                <div>4. <strong>Add</strong> the two products together.</div>
+                            </div>
+                        ) : (
+                            <div className="space-y-1 text-slate-700">
+                                <div>1. Multiply the bottom number by the <strong>ones</strong> place of the top number.</div>
+                                <div>2. Write the ones digit of the answer. Carry the tens digit if needed.</div>
+                                <div>3. Multiply the bottom number by the <strong>tens</strong> place. Add any carried number.</div>
+                            </div>
+                        )}
+                    </div>
+                    {/* Visual Example */}
+                    <div className="bg-white p-4 border border-slate-200 rounded shadow-sm text-center min-w-[120px]">
+                        {is2x2 ? renderVerticalProblem(24, 12, true) : renderVerticalProblem(24, 3, true)}
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                    <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid flex flex-col items-center justify-center min-h-[160px]">
+                        <div className="w-full text-left text-xs text-slate-400 mb-2">{i + 1}.</div>
+                        {renderVerticalProblem(p.a, p.b, false)}
+                    </div>
+                ))}
+            </div>
+
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                    <div>1. Create your own problem and solve it.</div>
+                    <div>2. Explain how you solve it to a friend.</div>
+                    <div>3. Check your answers with addition.</div>
+                </div>
+            </div>
+
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                <div className="space-y-2 text-xs">
+                    <div>{String.fromCharCode(0x2610)} I lined up my numbers correctly</div>
+                    <div>{String.fromCharCode(0x2610)} I regrouped (carried) correctly</div>
+                    <div>{String.fromCharCode(0x2610)} I checked my addition</div>
+                </div>
+                <div className="mt-3 text-xs">
+                    <strong>{getTrans('myScore', 'My score:')}</strong> ___ / {problems.length}
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
+                    <div className="grid grid-cols-4 gap-4 text-xs">
+                        {problems.map((p, i) => (
+                            <div key={i} className="text-emerald-900 border-b border-emerald-200 pb-1">
+                                <span className="font-bold mr-1">{i + 1}.</span>
+                                {p.a} x {p.b} = <strong>{p.product}</strong>
                             </div>
                         ))}
                     </div>

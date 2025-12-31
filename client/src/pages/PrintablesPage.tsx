@@ -23,7 +23,9 @@ import {
   TimesTableMissing,
   MultiplicationPatterns,
   MultiplicationTimed,
-  MultiplicationWordProblems
+  MultiplicationWordProblems,
+  MultiplicationFactFamilies,
+  MultiplicationVertical
 } from './printables/MultiplicationWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
@@ -11125,455 +11127,55 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('mult-fact-families') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const families: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
-              const a = nextInt(2, 6); const b = nextInt(2, 6); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-fact-families"
-                title="Fact Families (Multiplication & Division)"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Complete each fact family. Write all four related facts (two multiplication and two division) in the blanks provided."
-                problemCount={families.length}
-                learningObjectives={[
-                  'Understand the relationship between multiplication and division',
-                  'Identify all four facts in a fact family',
-                  'Use fact families to solve related problems'
-                ]}
-                parentTeacherTips={[
-                  'Fact families show how multiplication and division are related',
-                  'If you know 3  4 = 12, you also know 4  3 = 12, 12  3 = 4, and 12  4 = 3',
-                  'Practice with smaller numbers first, then move to larger ones',
-                  'Extension: Create your own fact families'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Fact Family for 12:</strong></div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div>{String.fromCodePoint(0x279C)}</div>
-                      <div>{String.fromCodePoint(0x279C)}</div>
-                      <div>{String.fromCodePoint(0x279C)}</div>
-                      <div>{String.fromCodePoint(0x279C)}</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {families.map(([a, b], i) => {
-                    const product = a * b;
-                    return (
-                      <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                        <div className="font-semibold mb-2 text-slate-800">Fact Family for {product}:</div>
-                        <div className="grid grid-cols-2 gap-2 text-lg font-mono">
-                          <div>{String.fromCodePoint(0x270F)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                          <div>{String.fromCodePoint(0x270F)}<span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
-                          <div>{String.fromCodePoint(0x270F)}<span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
-                          <div>{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-3 border-slate-600 mx-1 align-middle" /></div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own fact family using numbers 5, 7, and 35</div>
-                    <div>2. Write all four facts for the fact family: 6, 8, and 48</div>
-                    <div>3. Can you find a fact family where all three numbers are the same?</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I understand how multiplication and division are related</div>
-                    <div>{String.fromCharCode(0x2610)} I can write all four facts in a fact family</div>
-                    <div>{String.fromCharCode(0x2610)} I can use fact families to solve problems</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {families.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mult-fact-families', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with explanations)</div>
-                    <div className="space-y-3">
-                      {families.map(([a, b], i) => {
-                        const product = a * b;
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">Fact Family {i + 1} for {product}:</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div className="text-xs text-emerald-700 mt-1">{String.fromCodePoint(0x279C)}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('mult-fact-families') && (
+            <MultiplicationFactFamilies
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="mult-fact-families"
+              limit={12}
+            />
+          )
         }
 
         {
-          activeDocs.includes('mult-2x1') && (() => {
-            const docId = 'mult-2x1'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems: Array<[number, number]> = Array.from({ length: 8 }).map(() => {
-              const a = nextInt(10, 99); const b = nextInt(2, 9); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title={getTrans(`worksheets.${docId}.title`, 'Multi-Digit Multiplication (21)')}
-                emoji={String.fromCodePoint(0x2716)}
-                description={getTrans(`worksheets.${docId}.description`, 'Multiply 2-digit numbers by 1-digit numbers. Show regrouping if needed.')}
-                problemCount={problems.length}
-                learningObjectives={(() => {
-                  const objectives = t(`worksheets.${docId}.learningObjectives`)
-                  return Array.isArray(objectives) && objectives.length > 0 ? objectives : [
-                    'Multiply 2-digit numbers by 1-digit numbers',
-                    'Use regrouping when needed',
-                    'Solve multiplication problems accurately'
-                  ]
-                })()}
-                parentTeacherTips={(() => {
-                  const tips = t(`worksheets.${docId}.parentTeacherTips`)
-                  return Array.isArray(tips) && tips.length > 0 ? tips : [
-                    'Encourage students to show their work step-by-step',
-                    'Watch for common mistakes: forgetting to carry, misaligning numbers',
-                    'If stuck, review the example together',
-                    'Extension: Create your own problems using numbers 10-99'
-                  ]
-                })()}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>{getTrans(`worksheets.${docId}.example.problem`, 'Problem:')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>{getTrans(`worksheets.${docId}.example.step1`, 'Step 1:')}</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>{getTrans(`worksheets.${docId}.example.step2`, 'Step 2:')}</strong> {getTrans(`worksheets.${docId}.example.step2Text`, 'Write 2 in ones place, carry 1 to tens')}</div>
-                      <div><strong>{getTrans(`worksheets.${docId}.example.step3`, 'Step 3:')}</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>{getTrans(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> {getTrans(`worksheets.${docId}.example.answerText`, '72')}</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                      <div className="font-mono text-2xl leading-7 text-right">
-                        <div>{a}</div>
-                        <div>{String.fromCodePoint(0x279C)}</div>
-                        <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                      </div>
-                      <div className="mt-2 text-xs text-slate-600">{getTrans(`worksheets.${docId}.showWork`, 'Show your work:')}</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    {(() => {
-                      const challengeItems = t(`worksheets.${docId}.challenge.items`)
-                      const items = Array.isArray(challengeItems) && challengeItems.length > 0 ? challengeItems : [
-                        'Create your own 21 multiplication problem: ___  ___ = ?',
-                        'Solve: 99  9 = ? (the biggest 21 problem!)',
-                        'Write a word problem using 21 multiplication'
-                      ]
-                      return items.map((item, idx) => (
-                        <div key={idx}>{idx + 1}. {item}</div>
-                      ))
-                    })()}
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    {(() => {
-                      const assessmentItems = t(`worksheets.${docId}.selfAssessment.items`)
-                      const items = Array.isArray(assessmentItems) && assessmentItems.length > 0 ? assessmentItems : [
-                        'I can multiply 2-digit by 1-digit numbers',
-                        'I can regroup correctly',
-                        'I understand the process'
-                      ]
-                      return items.map((item, idx) => (
-                        <div key={idx}>{String.fromCodePoint(0x279C)}</div>
-                      ))
-                    })()}
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mult-2x1', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="space-y-3">
-                      {problems.map(([a, b], i) => {
-                        const ones = a % 10;
-                        const tens = Math.floor(a / 10);
-                        const onesProduct = ones * b;
-                        const tensProduct = tens * b;
-                        const carry = Math.floor(onesProduct / 10);
-                        const finalTens = tensProduct + carry;
-                        const finalOnes = onesProduct % 10;
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div className="font-semibold">{getTrans(`worksheets.${docId}.answerKey.answer`, 'Answer:')} {a * b}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('mult-2x1') && (
+            <MultiplicationVertical
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="mult-2x1"
+              digitsTop={2}
+              digitsBottom={1}
+            />
+          )
         }
 
         {
-          activeDocs.includes('mult-2x1-digit') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems: Array<[number, number]> = Array.from({ length: 8 }).map(() => {
-              const a = nextInt(10, 99); const b = nextInt(2, 9); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-2x1-digit"
-                title="Multi-Digit Multiplication (21)"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Multiply 2-digit numbers by 1-digit numbers. Show regrouping if needed."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Multiply 2-digit numbers by 1-digit numbers',
-                  'Use regrouping when needed',
-                  'Solve multiplication problems accurately'
-                ]}
-                parentTeacherTips={[
-                  'Encourage students to show their work step-by-step',
-                  'Watch for common mistakes: forgetting to carry, misaligning numbers',
-                  'If stuck, review the example together',
-                  'Extension: Create your own problems using numbers 10-99'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 2:</strong> Write 2 in ones place, carry 1 to tens</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 72</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                      <div className="font-mono text-2xl leading-7 text-right">
-                        <div>{a}</div>
-                        <div>{String.fromCodePoint(0x279C)}</div>
-                        <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                      </div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can multiply 2-digit by 1-digit numbers</div>
-                    <div>{String.fromCharCode(0x2610)} I can regroup correctly</div>
-                    <div>{String.fromCharCode(0x2610)} I understand the process</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mult-2x1-digit', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      {problems.map(([a, b], i) => {
-                        const ones = a % 10;
-                        const tens = Math.floor(a / 10);
-                        const onesProduct = ones * b;
-                        const tensProduct = tens * b;
-                        const carry = Math.floor(onesProduct / 10);
-                        const finalTens = tensProduct + carry;
-                        const finalOnes = onesProduct % 10;
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div className="font-semibold">Answer: {a * b}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('mult-2x1-digit') && (
+            <MultiplicationVertical
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="mult-2x1-digit"
+              digitsTop={2}
+              digitsBottom={1}
+            />
+          )
         }
 
         {
-          activeDocs.includes('mult-2x2') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
-              const a = nextInt(10, 99); const b = nextInt(10, 99); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-2x2"
-                title="Multi-Digit Multiplication (22)"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Multiply 2-digit numbers by 2-digit numbers using the standard algorithm."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Multiply 2-digit numbers by 2-digit numbers',
-                  'Use the standard algorithm with regrouping',
-                  'Show all steps of multiplication'
-                ]}
-                parentTeacherTips={[
-                  'Encourage students to show all partial products',
-                  'Watch for common mistakes: forgetting to add carried numbers, misaligning',
-                  'Use graph paper to help with alignment',
-                  'Extension: Try 3-digit by 2-digit multiplication'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 3:</strong> Add partial products: 72 + 240 = 312</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 312</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                      <div className="font-mono text-xl leading-7 text-right">
-                        <div>{a}</div>
-                        <div>{String.fromCodePoint(0x279C)}</div>
-                        <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
-                      </div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can show all my work clearly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mult-2x2', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      {problems.map(([a, b], i) => {
-                        const onesB = b % 10;
-                        const tensB = Math.floor(b / 10);
-                        const partial1 = a * onesB;
-                        const partial2 = a * tensB;
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{String.fromCodePoint(0x279C)}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div className="font-semibold">Answer: {a * b}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('mult-2x2') && (
+            <MultiplicationVertical
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="mult-2x2"
+              digitsTop={2}
+              digitsBottom={2}
+              problemCount={8}
+            />
+          )
         }
 
         {
