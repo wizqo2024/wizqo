@@ -36189,9 +36189,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     ))}
                   </div>
                 ))}
-                ```
-              </div>
-            ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
       </WorksheetSectionWrapper>
       )
           })()
