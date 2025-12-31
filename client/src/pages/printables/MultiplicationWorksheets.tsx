@@ -1200,3 +1200,157 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
         </WorksheetSectionWrapper>
     )
 }
+
+export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId, range, count, timeLimit }: SpecificWorksheetProps & { docId: string, range: [number, number], count: number, timeLimit: string }) {
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
+        const a = nextInt(range[0], range[1]);
+        const b = nextInt(range[0], range[1]);
+        return [a, b];
+    });
+
+    const is1To12 = docId.includes('1-12');
+    const is6To12 = docId.includes('6-12');
+
+    // Default configuration (1-5)
+    let title = getTrans('title', 'Timed Times Table Test (1-5)');
+    let description = getTrans('description', "Practice times tables 1-5 with this timed test. Build speed and accuracy with basic multiplication facts.");
+    let objectives = [
+        'Memorize multiplication facts for numbers 1-5',
+        'Practice timed multiplication problems',
+        'Build speed and fluency'
+    ];
+    let tips = [
+        'Start with a goal of 5 minutes, then try to beat your time',
+        'If you get stuck, skip it and come back',
+        'Extension: Graph your time each day to see improvement'
+    ];
+    let gradient = "from-green-400 to-emerald-400";
+
+    if (is1To12) {
+        title = getTrans('title', 'Complete Timed Test (1-12)');
+        description = getTrans('description', "Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency and memorizing times tables.");
+        objectives = [
+            'Build speed and accuracy with all multiplication facts 1-12',
+            'Practice comprehensive timed multiplication to build fluency',
+            'Track progress and improve time across all facts'
+        ];
+        tips = [
+            'This is comprehensive practice - allow 5 minutes initially',
+            'Use all strategies: doubles, patterns, breaking down, known facts',
+            'Focus on accuracy first, then work on speed',
+            'Extension: Try to complete in under 4 minutes!'
+        ];
+        gradient = "from-indigo-400 to-purple-400";
+    } else if (is6To12) {
+        title = getTrans('title', 'Timed Times Table Test (6-12)');
+        description = getTrans('description', "Master speed with timed multiplication tests for facts 6-12. Fun multiplication worksheets that build confidence and math fact practice.");
+        objectives = [
+            'Build speed and accuracy with advanced multiplication facts 6-12',
+            'Practice timed multiplication to build fluency',
+            'Track progress and improve time with challenging facts'
+        ];
+        tips = [
+            'These facts are more challenging - allow 3 minutes initially',
+            'Use strategies: breaking down (8x7 = 8x5 + 8x2), known facts',
+            'Focus on accuracy first, then work on speed',
+            'Extension: Try to complete in under 2.5 minutes!'
+        ];
+        gradient = "from-purple-400 to-pink-400";
+    }
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={title}
+            emoji={String.fromCodePoint(0x23F1)} // Stopwatch
+            description={description}
+            problemCount={facts.length}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string' ? obj : objectives
+            })()}
+            parentTeacherTips={(() => {
+                const obj = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string' ? obj : tips
+            })()}
+        >
+            <div className={`print:hidden h-1 w-16 rounded-full bg-gradient-to-r ${gradient} animate-gradient-x mb-2`} />
+
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>Quick method:</strong>{String.fromCodePoint(0x279C)}</div>
+                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> {is1To12 ? 72 : (is6To12 ? 56 : 12)}</div>
+                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
+                <strong>{String.fromCodePoint(0x23F1)}</strong> Try to complete all problems in {timeLimit}. Write your start time: ______
+            </div>
+
+            <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {facts.map(([a, b], i) => (
+                    <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid shadow-sm print:shadow-none">
+                        <div className="font-mono text-lg leading-6">
+                            {a} x {b} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-1" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                    <div>1. Try to beat your time by 30 seconds next time!</div>
+                    <div>2. Circle the problems that were hardest and practice them</div>
+                    <div>3. Create your own timed test with 5 problems</div>
+                </div>
+            </div>
+
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                <div className="space-y-2 text-xs">
+                    <div>{String.fromCharCode(0x2610)} I finished before the time limit</div>
+                    <div>{String.fromCharCode(0x2610)} I double-checked my answers</div>
+                    <div>{String.fromCharCode(0x2610)} I can say the answers quickly (fluency)</div>
+                </div>
+                <div className="mt-3 text-xs">
+                    <strong>{getTrans('myScore', 'My score:')}</strong> ___ / {facts.length}
+                </div>
+                <div className="mt-2 text-xs">
+                    <strong>Time taken:</strong> _____ minutes _____ seconds
+                </div>
+                <div className="mt-2 text-xs">
+                    <strong>Facts I want to practice more:</strong> _________________________
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="grid grid-cols-4 gap-2 text-sm">
+                        {facts.map(([a, b], i) => (
+                            <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
+                                {i + 1}. {a} x {b} = {a * b}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
+                        <strong>{String.fromCodePoint(0x2705)}</strong> Great job practicing timed tests! Keep practicing daily to build speed and automaticity!
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}

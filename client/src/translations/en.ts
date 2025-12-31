@@ -783,6 +783,18 @@ export const en = {
       title: 'Multiplication Patterns',
       description: 'Identify and extend the multiplication patterns. What do you notice?',
     },
+    'times-table-timed-1-5': {
+      title: 'Timed Times Table Test (1-5)',
+      description: 'Build speed and accuracy with timed multiplication tests for facts 1-5. Printable timed multiplication test sheets for confident practice.',
+    },
+    'times-table-timed-6-12': {
+      title: 'Timed Times Table Test (6-12)',
+      description: 'Master speed with timed multiplication tests for facts 6-12. Fun multiplication worksheets that build confidence and math fact practice.',
+    },
+    'times-table-timed-1-12': {
+      title: 'Complete Timed Test (1-12)',
+      description: 'Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency and memorizing times tables.',
+    },
     'math-maze': {
       title: 'Math Maze Adventure',
       description: 'Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!',
