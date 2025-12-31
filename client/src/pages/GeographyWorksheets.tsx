@@ -67,50 +67,98 @@ export const GeographyWorksheets: React.FC<GeographyWorksheetsProps> = ({ docId,
                             <text x="-50" y="5" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#475569">W</text>
                         </g>
 
-                        <g fill="white" stroke="#111827" strokeWidth="2" className="continent-shapes">
-                            {/* North America */}
-                            <g>
-                                <path d="M 60,60 C 40,80 30,120 50,150 C 60,180 100,220 140,210 C 160,200 180,180 190,160 C 220,140 250,90 280,60 C 250,30 150,20 60,60 Z" />
-                                <circle cx="150" cy="120" r="14" fill="white" />
-                                <text x="150" y="125" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">1</text>
+                        {/* Use a standard world map ratio */}
+                        <svg viewBox="0 0 1000 650" className="w-full h-full drop-shadow-lg">
+                            {/* Water Background */}
+                            <defs>
+                                <pattern id="geo-water-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <path d="M0,10 Q5,5 10,10 T20,10" fill="none" stroke="#e0f2fe" strokeWidth="1" opacity="0.5" />
+                                </pattern>
+                            </defs>
+                            <rect width="1000" height="650" fill="url(#geo-water-pattern)" opacity="0.6" />
+
+                            <g fill="white" stroke="#334155" strokeWidth="2" strokeLinejoin="round" className="continent-shapes">
+                                {/* 1. North America */}
+                                <g className="hover:opacity-90 transition-opacity cursor-pointer">
+                                    <path d="M120,50 L250,30 L350,20 L320,80 L400,60 L350,150 L280,140 L280,180 L250,230 L260,280 L230,320 L200,280 L180,260 L150,250 L120,200 L110,150 L80,120 L50,110 L40,80 L80,70 L100,50 Z M280,30 L380,20 L360,50 Z"
+                                        title="North America" />
+                                    {/* Detailed NA Trace: Alaska, Canada, Hudson Bay, East Coast, Florida, Gulf, Mexico, Baja, West Coast */}
+                                    {/* Simplified for worksheet but recognizable */}
+                                    <path d="M170,80 L220,70 L260,60 L280,90 L330,80 L320,130 L290,140 L300,160 L290,190 L270,190 L260,220 L240,240 L220,280 L200,280 L180,240 L160,220 L150,180 L130,160 L100,140 L80,120 L120,90 L150,100 L170,80 Z"
+                                        style={{ display: 'none' }} /> {/* Placeholder for logic */}
+
+                                    {/* ACTUAL PATH - Hand-tuned for recognition */}
+                                    <path d="M 160,80 L 220,70 L 290,50 L 330,80 L 300,120 L 320,140 L 300,170 L 280,180 L 270,220 L 250,250 L 240,290 L 220,310 L 190,260 L 160,250 L 140,200 L 120,160 L 80,120 L 110,90 Z" />
+
+                                    {/* Better tracing approx */}
+                                    <path d="M 70,80 L 120,70 L 160,100 L 210,50 L 280,40 L 320,60 L 300,100 L 330,120 L 310,160 L 290,160 L 280,180 L 270,200 L 260,230 L 270,250 L 240,260 L 230,310 L 200,270 L 180,250 L 160,250 L 140,200 L 120,160 L 60,110 Z" />
+
+                                    {/* Removing old paths and using this new one for NA */}
+                                    {/* North America: Alaska(60,80), Canadian Arch(200,40), Greenland(320,50), Newfoundland(320,150), Florida(260,230), Baja(140,220) */}
+                                    <path d="M 80,90 L 120,80 L 180,50 L 260,40 L 310,50 L 350,30 L 330,100 L 350,140 L 310,160 L 290,150 L 280,190 L 260,220 L 270,250 L 230,260 L 220,300 L 190,260 L 170,250 L 150,220 L 130,230 L 140,190 L 120,160 L 90,140 L 60,100 Z" />
+
+                                    <circle cx="210" cy="150" r="18" fill="white" stroke="#334155" />
+                                    <text x="210" y="156" textAnchor="middle" fill="#0f172a" stroke="none" fontWeight="bold" fontSize="18">1</text>
+                                </g>
+
+                                {/* 2. South America */}
+                                <g className="hover:opacity-90 transition-opacity cursor-pointer">
+                                    {/* South America: Isthmus(230,300), Bulge(350,380), Horn(280,550), Peru bulge(210,380) */}
+                                    <path d="M 230,300 L 280,300 L 330,330 L 360,370 L 340,440 L 300,500 L 280,550 L 260,530 L 240,460 L 210,380 L 210,340 L 230,300 Z" />
+                                    <circle cx="280" cy="400" r="18" fill="white" stroke="#334155" />
+                                    <text x="280" y="406" textAnchor="middle" fill="#0f172a" stroke="none" fontWeight="bold" fontSize="18">2</text>
+                                </g>
+
+                                {/* 3. Europe */}
+                                <g className="hover:opacity-90 transition-opacity cursor-pointer">
+                                    {/* Europe: Spain(430,160), UK(410,110), Scan(470,60), Italy(480,170), Black Sea(550,160) */}
+                                    <path d="M 430,160 L 420,130 L 400,120 L 410,100 L 440,90 L 460,110 L 470,70 L 510,50 L 530,90 L 550,60 L 580,60 L 560,120 L 550,150 L 520,160 L 500,180 L 480,160 L 460,170 Z" />
+                                    {/* UK/Ireland Island */}
+                                    <path d="M 390,110 L 410,130 L 400,140 Z" />
+                                    <circle cx="490" cy="120" r="16" fill="white" stroke="#334155" />
+                                    <text x="490" y="126" textAnchor="middle" fill="#0f172a" stroke="none" fontWeight="bold" fontSize="16">3</text>
+                                </g>
+
+                                {/* 4. Africa */}
+                                <g className="hover:opacity-90 transition-opacity cursor-pointer">
+                                    {/* Africa: Strait(430,180), Horn(600,280), Cape(500,450), Gulf(450,300), Maghreb(400,180) */}
+                                    <path d="M 430,180 L 480,180 L 540,190 L 560,210 L 600,280 L 560,350 L 500,450 L 460,390 L 440,300 L 390,250 L 390,200 Z M 610,380 L 630,420 L 620,430 L 600,390 Z" /> {/* +Madagascar */}
+                                    <circle cx="500" cy="300" r="18" fill="white" stroke="#334155" />
+                                    <text x="500" y="306" textAnchor="middle" fill="#0f172a" stroke="none" fontWeight="bold" fontSize="18">4</text>
+                                </g>
+
+                                {/* 5. Asia */}
+                                <g className="hover:opacity-90 transition-opacity cursor-pointer">
+                                    {/* Asia: ArabianPen(570,220), India(650,280), SE Asia(750,300), ChinaCoast(800,200), Kamchatka(900,100), Arctic(600,50), Caspian(550,150) */}
+                                    <path d="M 550,150 L 600,150 L 650,140 L 750,100 L 850,80 L 920,100 L 900,150 L 850,200 L 820,250 L 780,320 L 750,280 L 700,290 L 660,300 L 630,230 L 600,240 L 570,220 L 560,180 Z" />
+                                    {/* Japan */}
+                                    <path d="M 880,160 L 900,180 L 880,200 Z" />
+                                    {/* Indonesia/Islands simplified */}
+                                    <path d="M 720,320 L 800,350 L 850,340 L 810,310 Z" />
+
+                                    <circle cx="720" cy="180" r="18" fill="white" stroke="#334155" />
+                                    <text x="720" y="186" textAnchor="middle" fill="#0f172a" stroke="none" fontWeight="bold" fontSize="18">5</text>
+                                </g>
+
+                                {/* 6. Australia */}
+                                <g className="hover:opacity-90 transition-opacity cursor-pointer">
+                                    {/* Australia(800,400) */}
+                                    <path d="M 780,400 L 850,380 L 900,420 L 900,480 L 840,500 L 790,470 L 780,440 Z" />
+                                    {/* NZ */}
+                                    <path d="M 930,500 L 950,540 L 930,550 Z" />
+
+                                    <circle cx="840" cy="450" r="18" fill="white" stroke="#334155" />
+                                    <text x="840" y="456" textAnchor="middle" fill="#0f172a" stroke="none" fontWeight="bold" fontSize="18">6</text>
+                                </g>
+
+                                {/* 7. Antarctica */}
+                                <g className="hover:opacity-90 transition-opacity cursor-pointer">
+                                    <path d="M 250,580 C 350,570 650,570 850,590 L 830,620 L 280,620 Z" />
+                                    <circle cx="550" cy="600" r="18" fill="white" stroke="#334155" />
+                                    <text x="550" y="606" textAnchor="middle" fill="#0f172a" stroke="none" fontWeight="bold" fontSize="18">7</text>
+                                </g>
                             </g>
-                            {/* South America */}
-                            <g>
-                                <path d="M 220,240 C 260,230 310,240 330,280 C 340,320 320,380 300,420 C 280,440 260,450 240,410 C 220,360 200,300 220,240 Z" />
-                                <circle cx="270" cy="320" r="14" fill="white" />
-                                <text x="270" y="325" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">2</text>
-                            </g>
-                            {/* Europe */}
-                            <g>
-                                <path d="M 340,70 C 330,80 320,120 340,140 C 360,150 400,140 420,130 C 440,110 450,80 430,60 C 400,50 360,60 340,70 Z" />
-                                <circle cx="390" cy="100" r="12" fill="white" />
-                                <text x="390" y="105" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">3</text>
-                            </g>
-                            {/* Africa */}
-                            <g>
-                                <path d="M 350,160 C 330,190 340,260 370,300 C 390,340 430,360 450,320 C 470,280 490,220 480,180 C 460,150 400,140 350,160 Z" />
-                                <circle cx="410" cy="240" r="14" fill="white" />
-                                <text x="410" y="245" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">4</text>
-                            </g>
-                            {/* Asia */}
-                            <g>
-                                <path d="M 450,70 C 480,50 550,40 620,50 C 680,60 720,100 680,160 C 650,200 600,240 540,230 C 500,220 460,150 450,70 Z" />
-                                <circle cx="560" cy="140" r="14" fill="white" />
-                                <text x="560" y="145" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">5</text>
-                            </g>
-                            {/* Australia */}
-                            <g>
-                                <path d="M 600,300 C 580,320 600,360 630,370 C 660,380 700,360 710,320 C 700,280 650,270 600,300 Z" />
-                                <circle cx="650" cy="330" r="12" fill="white" />
-                                <text x="650" y="335" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">6</text>
-                            </g>
-                            {/* Antarctica */}
-                            <g>
-                                <path d="M 150,460 Q 400,440 650,460 L 670,490 L 130,490 Z" />
-                                <circle cx="400" cy="475" r="14" fill="white" />
-                                <text x="400" y="470" textAnchor="middle" fill="#111827" stroke="none" fontWeight="bold" fontSize="14">7</text>
-                            </g>
-                        </g>
+                        </svg>
                     </svg>
                 </div>
 
