@@ -566,6 +566,155 @@ export function PlaceValueHTO({ showAnswersForDoc, seed, variant }: SpecificWork
     )
 }
 
+export function Sub2Digit100({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'sub-2digit-100'
+    const doc = docId
+    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+    function genPairs(count: number) {
+        const out: Array<[number, number]> = [];
+        let guard = 0;
+        while (out.length < count && guard < 10000) {
+            const a = nextInt(20, 99); // Min 20 to allow reasonable subtraction
+            const b = nextInt(10, a);  // Ensure result is positive
+            // No regrouping condition for subtraction: (a%10) >= (b%10)
+            if ((a % 10) >= (b % 10)) out.push([a, b]);
+            guard++;
+        }
+        return out;
+    }
+    const pairs = genPairs(10);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, '2-Digit Subtraction (No Regrouping)')}
+            emoji={String.fromCodePoint(0x2796)}
+            description={t(`worksheets.${docId}.description`, 'Subtract the two numbers. No regrouping (borrowing) needed.')}
+            problemCount={pairs.length}
+            learningObjectives={[
+                'Subtract 2-digit numbers without regrouping',
+                'Align numbers correctly by place value',
+                'Subtract ones first, then tens'
+            ]}
+            parentTeacherTips={[
+                'No regrouping means the top one is bigger than the bottom one',
+                'Subtract the ones column first, then the tens column',
+                'Make sure numbers are aligned correctly',
+                'Extension: Check your answer by adding (part + part = whole)'
+            ]}
+        >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-red-400 to-orange-400 animate-gradient-x mb-2" />
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-red-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
+                    <span>{t('common.example', "Example - Let's solve this together:")}</span>
+                </div>
+                <div className="space-y-3 text-sm">
+                    <div className="font-mono text-lg text-red-900"><strong>{t('common.problem', 'Problem:')}</strong> <span className="text-2xl">48 - 15 = ?</span></div>
+                    {/* Visual representation */}
+                    <div className="bg-white p-4 rounded-lg border-2 border-red-300 overflow-hidden">
+                        <svg viewBox="0 0 600 180" className="w-full h-auto max-h-48" preserveAspectRatio="xMidYMid meet">
+                            {/* 48 - 4 tens and 8 ones */}
+                            <text x="10" y="25" fontSize="14" fill="#c026d3" fontWeight="bold">Start with 48:</text>
+                            {/* 4 tens blocks */}
+                            {Array.from({ length: 4 }).map((_, j) => (
+                                <rect key={j} x={50 + j * 55} y="45" width="45" height="65" rx="4" fill="#e879f9" stroke="#c026d3" strokeWidth="2" />
+                            ))}
+                            {/* 8 ones */}
+                            {Array.from({ length: 8 }).map((_, j) => (
+                                <rect key={j} x={280 + j * 35} y="85" width="25" height="25" rx="2" fill="#f0abfc" stroke="#c026d3" strokeWidth="1.5" />
+                            ))}
+
+                            {/* Minus sign and what to take away */}
+                            <text x="300" y="150" fontSize="14" fill="#dc2626" fontWeight="bold">Subtract 15 (1 ten, 5 ones)</text>
+
+                            {/* Cross out animation effect static */}
+                            <line x1="215" y1="45" x2="260" y2="110" stroke="#dc2626" strokeWidth="4" opacity="0.7" />
+                            <line x1="260" y1="45" x2="215" y2="110" stroke="#dc2626" strokeWidth="4" opacity="0.7" />
+
+                            {Array.from({ length: 5 }).map((_, j) => (
+                                <g key={j}>
+                                    <line x1={280 + (7 - j) * 35} y1="85" x2={305 + (7 - j) * 35} y2="110" stroke="#dc2626" strokeWidth="3" opacity="0.7" />
+                                    <line x1={305 + (7 - j) * 35} y1="85" x2={280 + (7 - j) * 35} y2="110" stroke="#dc2626" strokeWidth="3" opacity="0.7" />
+                                </g>
+                            ))}
+
+                            {/* Equals and answer */}
+                            <text x="500" y="70" fontSize="28" fill="#c026d3" fontWeight="bold">=</text>
+                            <text x="540" y="70" fontSize="28" fill="#c026d3" fontWeight="bold">33</text>
+                        </svg>
+                    </div>
+                    <div className="pl-4 border-l-2 border-red-300 space-y-1">
+                        <div><strong>{t('common.step1', 'Step 1:')}</strong> Subtract ones: <span className="text-red-700 font-bold">8 - 5 = 3</span></div>
+                        <div><strong>{t('common.step2', 'Step 2:')}</strong> Subtract tens: <span className="text-red-700 font-bold">40 - 10 = 30</span></div>
+                        <div><strong>{t('common.step3', 'Step 3:')}</strong> Combine: <span className="text-red-700 font-bold">30 + 3 = 33</span></div>
+                        <div className="font-semibold text-red-900 mt-2"><strong>{t('common.answer', 'Answer:')}</strong> <span className="text-2xl text-red-700">33</span></div>
+                        <div className="text-xs text-red-700 mt-2 flex items-center gap-1">
+                            <span>{String.fromCodePoint(0x279C)}</span>
+                            <span>{t('common.tip', 'Tip:')} Always subtract ones first!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {pairs.map(([a, b], i) => (
+                    <div key={i} className="border-2 border-red-200 rounded-lg p-4 bg-gradient-to-br from-red-50 to-orange-50 w-full break-inside-avoid print:p-3">
+                        <div className="font-mono text-2xl leading-7 text-right mb-2">
+                            <div className="text-red-700">{a}</div>
+                            <div className="text-orange-700">- {b}</div>
+                            <div className="border-t-[3px] border-red-600 mt-2 pt-2 h-12 flex items-center justify-end">
+                                <span className="inline-block w-20 h-10 border-b-[3px] border-red-600" />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                <div className="space-y-2 text-sm text-purple-800">
+                    <div>1. Create your own 2-digit subtraction problem: ___ - ___ = ?</div>
+                    <div>2. Solve: 88 - 44 = ?</div>
+                    <div>3. Check your answer with addition!</div>
+                </div>
+            </div>
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                <div className="space-y-2 text-xs">
+                    <div>{String.fromCharCode(0x2610)} I can subtract 2-digit numbers without regrouping</div>
+                    <div>{String.fromCharCode(0x2610)} I can line up numbers correctly</div>
+                    <div>{String.fromCodePoint(0x270F)}</div>
+                </div>
+                <div className="mt-3 text-xs">
+                    <strong>{t('common.myScore', 'My score:')}</strong> ___ / {pairs.length}
+                </div>
+                <div className="mt-2 text-xs">
+                    <strong>{t('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                </div>
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                        {pairs.map(([a, b], i) => (
+                            <div key={i} className="text-emerald-800 border-b border-emerald-200 pb-1">
+                                {i + 1}. {a} - {b} = <strong>{a - b}</strong>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
 export function SkipCount510120({ showAnswersForDoc }: SpecificWorksheetProps) {
     const { t } = useTranslation()
     const docId = 'skip-count-5-10-120'
@@ -824,154 +973,7 @@ export function Add2Digit100({ seed, variant, showAnswersForDoc }: SpecificWorks
     )
 }
 
-export function Sub2Digit100({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
-    const { t } = useTranslation()
-    const docId = 'sub-2digit-100'
-    const doc = docId
-    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) {
-        return Math.floor(rng() * (max - min + 1)) + min;
-    }
-    function genPairs(count: number) {
-        const out: Array<[number, number]> = [];
-        let guard = 0;
-        while (out.length < count && guard < 10000) {
-            const a = nextInt(10, 99);
-            const b = nextInt(10, 99);
-            // No regrouping needed: (a%10) >= (b%10) and a >= b
-            if ((a % 10) >= (b % 10) && a >= b) out.push([a, b]);
-            guard++;
-        }
-        return out;
-    }
-    const pairs = genPairs(10);
-    return (
-        <WorksheetSectionWrapper
-            docId={docId}
-            title={t(`worksheets.${docId}.title`, '2-Digit Subtraction (No Regrouping)')}
-            emoji={String.fromCodePoint(0x2796)}
-            description={t(`worksheets.${docId}.description`, 'Subtract the two numbers. No regrouping needed.')}
-            problemCount={pairs.length}
-            learningObjectives={[
-                'Subtract 2-digit numbers without regrouping',
-                'Align numbers correctly by place value',
-                'Subtract ones first, then tens'
-            ]}
-            parentTeacherTips={[
-                'No regrouping means the top number in ones is larger than the bottom',
-                'Subtract the ones column first, then the tens column',
-                'Make sure numbers are aligned correctly',
-                'Extension: Try problems that require regrouping'
-            ]}
-        >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-rose-400 to-fuchsia-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 border-2 border-rose-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-rose-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                    <span>{t('common.example', "Example - Let's solve this together:")}</span>
-                </div>
-                <div className="space-y-3 text-sm">
-                    <div className="font-mono text-lg text-rose-900"><strong>{t('common.problem', 'Problem:')}</strong> <span className="text-2xl">58 - 23 = ?</span></div>
-                    {/* Visual representation */}
-                    <div className="bg-white p-4 rounded-lg border-2 border-rose-300 overflow-hidden">
-                        <svg viewBox="0 0 600 200" className="w-full h-auto max-h-48" preserveAspectRatio="xMidYMid meet">
-                            {/* 58 - 5 tens and 8 ones */}
-                            <text x="10" y="25" fontSize="14" fill="#e11d48" fontWeight="bold">58 =</text>
-                            {/* 5 tens blocks */}
-                            {Array.from({ length: 5 }).map((_, j) => (
-                                <rect key={j} x={50 + j * 55} y="5" width="45" height="65" rx="4" fill="#fb7185" stroke="#e11d48" strokeWidth="2" />
-                            ))}
-                            {/* 8 ones */}
-                            {Array.from({ length: 8 }).map((_, j) => (
-                                <rect key={j} x={335 + j * 35} y="45" width="25" height="25" rx="2" fill="#fda4af" stroke="#e11d48" strokeWidth="1.5" />
-                            ))}
-                            {/* Minus sign and subtract 23 */}
-                            <text x="10" y="105" fontSize="14" fill="#a21caf" fontWeight="bold">- 23</text>
-                            {/* Cross out 2 tens and 3 ones */}
-                            {Array.from({ length: 2 }).map((_, j) => (
-                                <g key={j}>
-                                    <rect x={50 + j * 55} y="85" width="45" height="65" rx="4" fill="#fda4af" stroke="#a21caf" strokeWidth="2" opacity="0.5" />
-                                    <line x1={50 + j * 55} y1="85" x2={95 + j * 55} y2="150" stroke="#dc2626" strokeWidth="3" />
-                                </g>
-                            ))}
-                            {Array.from({ length: 3 }).map((_, j) => (
-                                <g key={j}>
-                                    <rect x={165 + j * 35} y="125" width="25" height="25" rx="2" fill="#fda4af" stroke="#a21caf" strokeWidth="1.5" opacity="0.5" />
-                                    <line x1={165 + j * 35} y1="125" x2={190 + j * 35} y2="150" stroke="#dc2626" strokeWidth="2" />
-                                </g>
-                            ))}
-                            {/* Equals and answer */}
-                            <text x="280" y="105" fontSize="28" fill="#e11d48" fontWeight="bold">=</text>
-                            <text x="320" y="105" fontSize="28" fill="#e11d48" fontWeight="bold">35</text>
-                            {/* Remaining: 3 tens and 5 ones */}
-                            <text x="10" y="185" fontSize="12" fill="#e11d48" fontWeight="bold">Remaining: 3 tens + 5 ones = 35</text>
-                        </svg>
-                    </div>
-                    <div className="pl-4 border-l-2 border-rose-300 space-y-1">
-                        <div><strong>{t('common.step1', 'Step 1:')}</strong> Subtract ones: <span className="text-rose-700 font-bold">8 - 3 = 5</span></div>
-                        <div><strong>{t('common.step2', 'Step 2:')}</strong> Subtract tens: <span className="text-rose-700 font-bold">50 - 20 = 30</span></div>
-                        <div><strong>{t('common.step3', 'Step 3:')}</strong> Combine: <span className="text-rose-700 font-bold">30 + 5 = 35</span></div>
-                        <div className="font-semibold text-rose-900 mt-2"><strong>{t('common.answer', 'Answer:')}</strong> <span className="text-2xl text-rose-700">35</span></div>
-                        <div className="text-xs text-rose-700 mt-2 flex items-center gap-1">
-                            <span>{String.fromCodePoint(0x279C)}</span>
-                            <span>{t('common.tip', 'Tip:')} Subtract ones first, then tens! No regrouping needed here.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {pairs.map(([a, b], i) => (
-                    <div key={i} className="border-2 border-rose-200 rounded-lg p-4 bg-gradient-to-br from-rose-50 to-fuchsia-50 w-full break-inside-avoid print:p-3">
-                        <div className="font-mono text-2xl leading-7 text-right mb-2">
-                            <div className="text-rose-700">{a}</div>
-                            <div className="text-fuchsia-700">- {b}</div>
-                            <div className="border-t-[3px] border-rose-600 mt-2 pt-2 h-12 flex items-center justify-end">
-                                <span className="inline-block w-20 h-10 border-b-[3px] border-rose-600" />
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. {t('common.challenge', 'Challenge')}: 88 - 44 = ?</div>
-                    <div>2. {t('common.challenge', 'Challenge')}: 99 - 11 = ?</div>
-                    <div>3. Write a word problem using 2-digit subtraction</div>
-                </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can subtract 2-digit numbers without regrouping</div>
-                    <div>{String.fromCharCode(0x2610)} I can align numbers correctly</div>
-                    <div>{String.fromCharCode(0x2610)} I understand place value when subtracting</div>
-                </div>
-                <div className="mt-3 text-xs">
-                    <strong>{t('common.myScore', 'My score:')}</strong> ___ / {pairs.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{t('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-            </div>
-            {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="space-y-2">
-                        {pairs.map(([a, b], i) => (
-                            <div key={i} className="text-sm text-emerald-800">
-                                {i + 1}. {a} - {b} = <strong>{a - b}</strong>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            ))}
-        </WorksheetSectionWrapper>
-    )
-}
+
 
 export function WordProblems100({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
     const { t } = useTranslation()
@@ -1156,7 +1158,7 @@ export function Compare2Digit({ seed, variant, showAnswersForDoc }: SpecificWork
     const doc = docId
 
     // RNG and generation logic
-    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
+    const rng = makeRng(`${seed}| v${variant}| doc=${doc} `);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
     const pairs: Array<[number, number]> = Array.from({ length: 10 }).map(() => {
         const a = nextInt(10, 99); const b = nextInt(10, 99); return [a, b];
@@ -1239,7 +1241,7 @@ export function Compare2Digit({ seed, variant, showAnswersForDoc }: SpecificWork
                             const bTens = Math.floor(b / 10);
                             const explanation = aTens !== bTens
                                 ? `${aTens} tens ${symbol === '>' ? '>' : '<'} ${bTens} tens`
-                                : `${a} and ${b} have the same tens, so compare ones: ${a % 10} ${symbol} ${b % 10}`;
+                                : `${a} and ${b} have the same tens, so compare ones: ${a % 10} ${symbol} ${b % 10} `;
                             return (
                                 <div key={i} className="text-sm text-emerald-800">
                                     {i + 1}. {a} <strong>{symbol}</strong> {b} ({explanation})
@@ -1258,7 +1260,7 @@ export function EvenOdd100({ seed, variant, showAnswersForDoc }: SpecificWorkshe
     const doc = 'even-odd-100'
     const docId = doc
 
-    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
+    const rng = makeRng(`${seed}| v${variant}| doc=${doc} `);
     const nums = Array.from({ length: 20 }).map(() => Math.floor(rng() * 100));
 
     return (
@@ -1552,8 +1554,8 @@ export function TenFrames1To20({ showAnswersForDoc }: SpecificWorksheetProps) {
                             return (
                                 <div key={i}>
                                     {i + 1}. <strong>{n}:</strong> {n <= 10
-                                        ? `${filled} filled, ${empty} empty (in one ten frame)`
-                                        : `First ten frame: 10 filled. Second ten frame: ${secondFilled} filled, ${secondEmpty} empty`}
+                                        ? `${filled} filled, ${empty} empty(in one ten frame)`
+                                        : `First ten frame: 10 filled.Second ten frame: ${secondFilled} filled, ${secondEmpty} empty`}
                                 </div>
                             );
                         })}
@@ -1571,7 +1573,7 @@ export function MoreLessEqual10({ showAnswersForDoc }: SpecificWorksheetProps) {
     const { t } = useTranslation()
     const docId = 'more-less-equal-10'
     const doc = docId
-    const rng = makeRng(`${doc}`);
+    const rng = makeRng(`${doc} `);
     const pairs: Array<{ left: number, right: number, emoji: string }> = [
         { left: 3, right: 5, emoji: '🍎' },
         { left: 7, right: 4, emoji: '🍌' },
@@ -1680,16 +1682,16 @@ export function NumberTracing1To10({ showAnswersForDoc }: SpecificWorksheetProps
                                 {(() => {
                                     const getPath = (digit: string, xOffset: number) => {
                                         switch (digit) {
-                                            case '0': return { d: `M${100 + xOffset},50 Q${135 + xOffset},50 ${135 + xOffset},100 Q${135 + xOffset},150 ${100 + xOffset},150 Q${65 + xOffset},150 ${65 + xOffset},100 Q${65 + xOffset},50 ${100 + xOffset},50`, start: [100 + xOffset, 50] };
-                                            case '1': return { d: `M${85 + xOffset},65 L${100 + xOffset},50 L${100 + xOffset},150`, start: [85 + xOffset, 65] };
-                                            case '2': return { d: `M${75 + xOffset},75 Q${75 + xOffset},50 ${100 + xOffset},50 Q${125 + xOffset},50 ${125 + xOffset},75 Q${125 + xOffset},100 ${75 + xOffset},150 L${130 + xOffset},150`, start: [75 + xOffset, 75] };
-                                            case '3': return { d: `M${75 + xOffset},60 Q${125 + xOffset},50 ${125 + xOffset},95 Q${125 + xOffset},100 ${100 + xOffset},100 Q${125 + xOffset},100 ${125 + xOffset},140 Q${125 + xOffset},150 ${75 + xOffset},150`, start: [75 + xOffset, 60] };
-                                            case '4': return { d: `M${110 + xOffset},150 L${110 + xOffset},50 L${70 + xOffset},115 L${130 + xOffset},115`, start: [110 + xOffset, 50] };
-                                            case '5': return { d: `M${125 + xOffset},50 L${80 + xOffset},50 L${80 + xOffset},90 Q${80 + xOffset},80 ${100 + xOffset},80 Q${130 + xOffset},80 ${130 + xOffset},120 Q${130 + xOffset},150 ${80 + xOffset},150`, start: [125 + xOffset, 50] };
-                                            case '6': return { d: `M${120 + xOffset},50 Q${70 + xOffset},60 ${70 + xOffset},120 Q${70 + xOffset},150 ${100 + xOffset},150 Q${130 + xOffset},150 ${130 + xOffset},120 Q${130 + xOffset},100 ${100 + xOffset},100 Q${70 + xOffset},100 ${70 + xOffset},120`, start: [120 + xOffset, 50] };
-                                            case '7': return { d: `M${70 + xOffset},50 L${130 + xOffset},50 L${90 + xOffset},150`, start: [70 + xOffset, 50] };
-                                            case '8': return { d: `M${100 + xOffset},100 Q${130 + xOffset},100 ${130 + xOffset},75 Q${130 + xOffset},50 ${100 + xOffset},50 Q${70 + xOffset},50 ${70 + xOffset},75 Q${70 + xOffset},100 ${100 + xOffset},100 Q${70 + xOffset},100 ${70 + xOffset},125 Q${70 + xOffset},150 ${100 + xOffset},150 Q${130 + xOffset},150 ${130 + xOffset},125 Q${130 + xOffset},100 ${100 + xOffset},100`, start: [100 + xOffset, 50] };
-                                            case '9': return { d: `M${130 + xOffset},80 Q${130 + xOffset},50 ${100 + xOffset},50 Q${70 + xOffset},50 ${70 + xOffset},80 Q${70 + xOffset},110 ${100 + xOffset},110 Q${130 + xOffset},110 ${130 + xOffset},80 L${130 + xOffset},150`, start: [130 + xOffset, 80] };
+                                            case '0': return { d: `M${100 + xOffset}, 50 Q${135 + xOffset}, 50 ${135 + xOffset}, 100 Q${135 + xOffset}, 150 ${100 + xOffset}, 150 Q${65 + xOffset}, 150 ${65 + xOffset}, 100 Q${65 + xOffset}, 50 ${100 + xOffset}, 50`, start: [100 + xOffset, 50] };
+                                            case '1': return { d: `M${85 + xOffset}, 65 L${100 + xOffset}, 50 L${100 + xOffset}, 150`, start: [85 + xOffset, 65] };
+                                            case '2': return { d: `M${75 + xOffset}, 75 Q${75 + xOffset}, 50 ${100 + xOffset}, 50 Q${125 + xOffset}, 50 ${125 + xOffset}, 75 Q${125 + xOffset}, 100 ${75 + xOffset}, 150 L${130 + xOffset}, 150`, start: [75 + xOffset, 75] };
+                                            case '3': return { d: `M${75 + xOffset}, 60 Q${125 + xOffset}, 50 ${125 + xOffset}, 95 Q${125 + xOffset}, 100 ${100 + xOffset}, 100 Q${125 + xOffset}, 100 ${125 + xOffset}, 140 Q${125 + xOffset}, 150 ${75 + xOffset}, 150`, start: [75 + xOffset, 60] };
+                                            case '4': return { d: `M${110 + xOffset}, 150 L${110 + xOffset}, 50 L${70 + xOffset}, 115 L${130 + xOffset}, 115`, start: [110 + xOffset, 50] };
+                                            case '5': return { d: `M${125 + xOffset}, 50 L${80 + xOffset}, 50 L${80 + xOffset}, 90 Q${80 + xOffset}, 80 ${100 + xOffset}, 80 Q${130 + xOffset}, 80 ${130 + xOffset}, 120 Q${130 + xOffset}, 150 ${80 + xOffset}, 150`, start: [125 + xOffset, 50] };
+                                            case '6': return { d: `M${120 + xOffset}, 50 Q${70 + xOffset}, 60 ${70 + xOffset}, 120 Q${70 + xOffset}, 150 ${100 + xOffset}, 150 Q${130 + xOffset}, 150 ${130 + xOffset}, 120 Q${130 + xOffset}, 100 ${100 + xOffset}, 100 Q${70 + xOffset}, 100 ${70 + xOffset}, 120`, start: [120 + xOffset, 50] };
+                                            case '7': return { d: `M${70 + xOffset}, 50 L${130 + xOffset}, 50 L${90 + xOffset}, 150`, start: [70 + xOffset, 50] };
+                                            case '8': return { d: `M${100 + xOffset}, 100 Q${130 + xOffset}, 100 ${130 + xOffset}, 75 Q${130 + xOffset}, 50 ${100 + xOffset}, 50 Q${70 + xOffset}, 50 ${70 + xOffset}, 75 Q${70 + xOffset}, 100 ${100 + xOffset}, 100 Q${70 + xOffset}, 100 ${70 + xOffset}, 125 Q${70 + xOffset}, 150 ${100 + xOffset}, 150 Q${130 + xOffset}, 150 ${130 + xOffset}, 125 Q${130 + xOffset}, 100 ${100 + xOffset}, 100`, start: [100 + xOffset, 50] };
+                                            case '9': return { d: `M${130 + xOffset}, 80 Q${130 + xOffset}, 50 ${100 + xOffset}, 50 Q${70 + xOffset}, 50 ${70 + xOffset}, 80 Q${70 + xOffset}, 110 ${100 + xOffset}, 110 Q${130 + xOffset}, 110 ${130 + xOffset}, 80 L${130 + xOffset}, 150`, start: [130 + xOffset, 80] };
                                             default: return { d: '', start: [0, 0] };
                                         }
                                     };
@@ -1804,16 +1806,16 @@ export function NumberTracing1To20({ showAnswersForDoc }: SpecificWorksheetProps
                                     const getPath = (digit: string, xOffset: number) => {
                                         // Coordinates optimized for 200x200 box, digit approx 100px tall
                                         switch (digit) {
-                                            case '0': return { d: `M${100 + xOffset},50 Q${135 + xOffset},50 ${135 + xOffset},100 Q${135 + xOffset},150 ${100 + xOffset},150 Q${65 + xOffset},150 ${65 + xOffset},100 Q${65 + xOffset},50 ${100 + xOffset},50`, start: [100 + xOffset, 50] };
-                                            case '1': return { d: `M${85 + xOffset},65 L${100 + xOffset},50 L${100 + xOffset},150`, start: [85 + xOffset, 65] };
-                                            case '2': return { d: `M${75 + xOffset},75 Q${75 + xOffset},50 ${100 + xOffset},50 Q${125 + xOffset},50 ${125 + xOffset},75 Q${125 + xOffset},100 ${75 + xOffset},150 L${130 + xOffset},150`, start: [75 + xOffset, 75] };
-                                            case '3': return { d: `M${75 + xOffset},60 Q${125 + xOffset},50 ${125 + xOffset},95 Q${125 + xOffset},100 ${100 + xOffset},100 Q${125 + xOffset},100 ${125 + xOffset},140 Q${125 + xOffset},150 ${75 + xOffset},150`, start: [75 + xOffset, 60] };
-                                            case '4': return { d: `M${110 + xOffset},150 L${110 + xOffset},50 L${70 + xOffset},115 L${130 + xOffset},115`, start: [110 + xOffset, 50] }; // Start top
-                                            case '5': return { d: `M${125 + xOffset},50 L${80 + xOffset},50 L${80 + xOffset},90 Q${80 + xOffset},80 ${100 + xOffset},80 Q${130 + xOffset},80 ${130 + xOffset},120 Q${130 + xOffset},150 ${80 + xOffset},150`, start: [125 + xOffset, 50] };
-                                            case '6': return { d: `M${120 + xOffset},50 Q${70 + xOffset},60 ${70 + xOffset},120 Q${70 + xOffset},150 ${100 + xOffset},150 Q${130 + xOffset},150 ${130 + xOffset},120 Q${130 + xOffset},100 ${100 + xOffset},100 Q${70 + xOffset},100 ${70 + xOffset},120`, start: [120 + xOffset, 50] };
-                                            case '7': return { d: `M${70 + xOffset},50 L${130 + xOffset},50 L${90 + xOffset},150`, start: [70 + xOffset, 50] };
-                                            case '8': return { d: `M${100 + xOffset},100 Q${130 + xOffset},100 ${130 + xOffset},75 Q${130 + xOffset},50 ${100 + xOffset},50 Q${70 + xOffset},50 ${70 + xOffset},75 Q${70 + xOffset},100 ${100 + xOffset},100 Q${70 + xOffset},100 ${70 + xOffset},125 Q${70 + xOffset},150 ${100 + xOffset},150 Q${130 + xOffset},150 ${130 + xOffset},125 Q${130 + xOffset},100 ${100 + xOffset},100`, start: [100 + xOffset, 50] }; // Start Center/Top? usually S
-                                            case '9': return { d: `M${130 + xOffset},80 Q${130 + xOffset},50 ${100 + xOffset},50 Q${70 + xOffset},50 ${70 + xOffset},80 Q${70 + xOffset},110 ${100 + xOffset},110 Q${130 + xOffset},110 ${130 + xOffset},80 L${130 + xOffset},150`, start: [130 + xOffset, 80] }; // Start Right side?
+                                            case '0': return { d: `M${100 + xOffset}, 50 Q${135 + xOffset}, 50 ${135 + xOffset}, 100 Q${135 + xOffset}, 150 ${100 + xOffset}, 150 Q${65 + xOffset}, 150 ${65 + xOffset}, 100 Q${65 + xOffset}, 50 ${100 + xOffset}, 50`, start: [100 + xOffset, 50] };
+                                            case '1': return { d: `M${85 + xOffset}, 65 L${100 + xOffset}, 50 L${100 + xOffset}, 150`, start: [85 + xOffset, 65] };
+                                            case '2': return { d: `M${75 + xOffset}, 75 Q${75 + xOffset}, 50 ${100 + xOffset}, 50 Q${125 + xOffset}, 50 ${125 + xOffset}, 75 Q${125 + xOffset}, 100 ${75 + xOffset}, 150 L${130 + xOffset}, 150`, start: [75 + xOffset, 75] };
+                                            case '3': return { d: `M${75 + xOffset}, 60 Q${125 + xOffset}, 50 ${125 + xOffset}, 95 Q${125 + xOffset}, 100 ${100 + xOffset}, 100 Q${125 + xOffset}, 100 ${125 + xOffset}, 140 Q${125 + xOffset}, 150 ${75 + xOffset}, 150`, start: [75 + xOffset, 60] };
+                                            case '4': return { d: `M${110 + xOffset}, 150 L${110 + xOffset}, 50 L${70 + xOffset}, 115 L${130 + xOffset}, 115`, start: [110 + xOffset, 50] }; // Start top
+                                            case '5': return { d: `M${125 + xOffset}, 50 L${80 + xOffset}, 50 L${80 + xOffset}, 90 Q${80 + xOffset}, 80 ${100 + xOffset}, 80 Q${130 + xOffset}, 80 ${130 + xOffset}, 120 Q${130 + xOffset}, 150 ${80 + xOffset}, 150`, start: [125 + xOffset, 50] };
+                                            case '6': return { d: `M${120 + xOffset}, 50 Q${70 + xOffset}, 60 ${70 + xOffset}, 120 Q${70 + xOffset}, 150 ${100 + xOffset}, 150 Q${130 + xOffset}, 150 ${130 + xOffset}, 120 Q${130 + xOffset}, 100 ${100 + xOffset}, 100 Q${70 + xOffset}, 100 ${70 + xOffset}, 120`, start: [120 + xOffset, 50] };
+                                            case '7': return { d: `M${70 + xOffset}, 50 L${130 + xOffset}, 50 L${90 + xOffset}, 150`, start: [70 + xOffset, 50] };
+                                            case '8': return { d: `M${100 + xOffset}, 100 Q${130 + xOffset}, 100 ${130 + xOffset}, 75 Q${130 + xOffset}, 50 ${100 + xOffset}, 50 Q${70 + xOffset}, 50 ${70 + xOffset}, 75 Q${70 + xOffset}, 100 ${100 + xOffset}, 100 Q${70 + xOffset}, 100 ${70 + xOffset}, 125 Q${70 + xOffset}, 150 ${100 + xOffset}, 150 Q${130 + xOffset}, 150 ${130 + xOffset}, 125 Q${130 + xOffset}, 100 ${100 + xOffset}, 100`, start: [100 + xOffset, 50] }; // Start Center/Top? usually S
+                                            case '9': return { d: `M${130 + xOffset}, 80 Q${130 + xOffset}, 50 ${100 + xOffset}, 50 Q${70 + xOffset}, 50 ${70 + xOffset}, 80 Q${70 + xOffset}, 110 ${100 + xOffset}, 110 Q${130 + xOffset}, 110 ${130 + xOffset}, 80 L${130 + xOffset}, 150`, start: [130 + xOffset, 80] }; // Start Right side?
                                             default: return { d: '', start: [0, 0] };
                                         }
                                     };
