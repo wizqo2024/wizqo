@@ -35577,57 +35577,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             )
           })()
         }
-        {
-          activeDocs.includes('expanded-form-200') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 10 }, () => {
-              const n = Math.floor(rng() * 190) + 11 // 11-200
-              const h = Math.floor(n / 100) * 100
-              const t = Math.floor((n % 100) / 10) * 10
-              const o = n % 10
 
-              // Randomly hide one part? Or standard expanded form?
-              // Let's do standard: 145 = ___ + ___ + ___
-              // Or partial: 145 = 100 + ___ + 5
-
-              const type = rng() > 0.5 ? 'STANDARD' : 'PARTIAL'
-              let missingIdx = -1
-              if (type === 'PARTIAL') missingIdx = Math.floor(rng() * 3) // 0:H, 1:T, 2:O
-
-              return { n, h, t, o, type, missingIdx }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="expanded-form-200"
-                title="Expanded Form (up to 200)"
-                emoji="🔢"
-                description="Write the numbers in expanded form."
-                problemCount={problems.length}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between text-xl font-bold">
-                      <div className="text-2xl mr-4 text-blue-600">{p.n}</div>
-                      <div>=</div>
-                      <div className="flex items-center gap-2">
-                        {p.h > 0 && (
-                          <>
-                            {p.type === 'PARTIAL' && p.missingIdx === 0 ? <span className="w-12 border-b-2 border-slate-400"></span> : <span>{p.h}</span>}
-                            <span>+</span>
-                          </>
-                        )}
-                        {p.type === 'PARTIAL' && p.missingIdx === 1 ? <span className="w-12 border-b-2 border-slate-400"></span> : <span>{p.t}</span>}
-                        <span>+</span>
-                        {p.type === 'PARTIAL' && p.missingIdx === 2 ? <span className="w-12 border-b-2 border-slate-400"></span> : <span>{p.o}</span>}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
 
         {
           activeDocs.includes('number-patterns-200') && (() => {
