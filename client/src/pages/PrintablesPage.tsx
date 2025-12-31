@@ -22,7 +22,8 @@ import {
   TimesTableVertical,
   TimesTableMissing,
   MultiplicationPatterns,
-  MultiplicationTimed
+  MultiplicationTimed,
+  MultiplicationWordProblems
 } from './printables/MultiplicationWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
@@ -12486,6 +12487,30 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('times-table-timed-1-12') && (
             <MultiplicationTimed seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="times-table-timed-1-12" range={[1, 12]} count={30} timeLimit="5 minutes" />
+          )
+        }
+
+        {
+          activeDocs.includes('mult-word-problems') && (
+            <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-word-problems" difficulty="basic" problemCount={6} />
+          )
+        }
+
+        {
+          activeDocs.includes('mult-word-problems-2-3') && (
+            <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-word-problems-2-3" difficulty="basic" problemCount={6} />
+          )
+        }
+
+        {
+          activeDocs.includes('mult-multi-step-word') && (
+            <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-multi-step-word" difficulty="multi-step" problemCount={4} />
+          )
+        }
+
+        {
+          activeDocs.includes('mult-complex-word') && (
+            <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-complex-word" difficulty="complex" problemCount={4} />
           )
         }
 

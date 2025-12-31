@@ -1,4 +1,5 @@
 import React from 'react';
+import type { ReactNode } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper } from './PrintableShared';
@@ -20,7 +21,7 @@ function useWorksheetTranslation(docId: string) {
 interface SpecificWorksheetProps {
     seed: string
     variant: number
-    showAnswersForDoc: (docId: string, render: () => React.ReactNode) => React.ReactNode
+    showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode
 }
 
 export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
@@ -1348,6 +1349,166 @@ export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId, r
                     </div>
                     <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
                         <strong>{String.fromCodePoint(0x2705)}</strong> Great job practicing timed tests! Keep practicing daily to build speed and automaticity!
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, docId, difficulty = 'basic', problemCount = 6 }: SpecificWorksheetProps & { docId: string, difficulty?: 'basic' | 'multi-step' | 'complex', problemCount?: number }) {
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+    function pick<T>(arr: T[]): T { return arr[nextInt(0, arr.length - 1)]; }
+
+    const names = ['Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Ethan', 'Sophia', 'Mason', 'Isabella', 'Logan'];
+    const items = [
+        { name: 'apples', container: 'bags', containerPlural: 'bags' },
+        { name: 'cookies', container: 'jars', containerPlural: 'jars' },
+        { name: 'books', container: 'shelves', containerPlural: 'shelves' },
+        { name: 'pencils', container: 'boxes', containerPlural: 'boxes' },
+        { name: 'toys', container: 'baskets', containerPlural: 'baskets' },
+        { name: 'stickers', container: 'sheets', containerPlural: 'sheets' }
+    ];
+
+    interface WordProblem {
+        text: string;
+        step1?: string;
+        step2?: string;
+        answer: number;
+        answerUnit: string;
+        equation: string;
+    }
+
+    const problems: WordProblem[] = Array.from({ length: problemCount }).map(() => {
+        const name = pick(names);
+        const item = pick(items);
+
+        if (difficulty === 'multi-step') {
+            // Multi-step: Multiply then Add/Subtract
+            // e.g., "Emma has 3 bags. Each bag has 5 apples. She gets 2 more apples. How many total?"
+            const groups = nextInt(3, 9);
+            const inEach = nextInt(3, 9);
+            const extra = nextInt(2, 10);
+            const isAdd = nextInt(0, 1) === 1; // 50/50 chance of add or subtract problem
+
+            // Ensure subtraction is valid (product > extra)
+            const operation = isAdd ? 'add' : (groups * inEach > extra ? 'sub' : 'add');
+
+            const total = operation === 'add'
+                ? (groups * inEach) + extra
+                : (groups * inEach) - extra;
+
+            let text = '';
+            if (operation === 'add') {
+                text = `${name} has ${groups} ${item.containerPlural}. Each ${item.container.replace(/s$/, '')} has ${inEach} ${item.name}. Then ${name} finds ${extra} more ${item.name}. How many ${item.name} does ${name} have in total?`;
+            } else {
+                text = `${name} has ${groups} ${item.containerPlural}. Each ${item.container.replace(/s$/, '')} has ${inEach} ${item.name}. Then ${name} gives away ${extra} ${item.name}. How many ${item.name} does ${name} have left?`;
+            }
+
+            return {
+                text,
+                step1: `${groups} × ${inEach} = ${groups * inEach}`,
+                step2: operation === 'add'
+                    ? `${groups * inEach} + ${extra} = ${total}`
+                    : `${groups * inEach} - ${extra} = ${total}`,
+                answer: total,
+                answerUnit: item.name,
+                equation: `(${groups} × ${inEach}) ${operation === 'add' ? '+' : '-'} ${extra} = ${total}`
+            };
+
+        } else if (difficulty === 'complex') {
+            // Complex: Larger numbers (2-digit x 1-digit)
+            const groups = nextInt(12, 19);
+            const inEach = nextInt(3, 9);
+            return {
+                text: `There are ${groups} ${item.containerPlural}. Each ${item.container.replace(/s$/, '')} holding ${inEach} ${item.name}. How many ${item.name} are there altogether?`,
+                step1: `Multiply ${groups} by ${inEach}`,
+                answer: groups * inEach,
+                answerUnit: item.name,
+                equation: `${groups} × ${inEach} = ${groups * inEach}`
+            };
+        } else {
+            // Basic: 1-step (1-digit x 1-digit)
+            const groups = nextInt(2, 9);
+            const inEach = nextInt(2, 9);
+            return {
+                text: `${name} has ${groups} ${item.containerPlural}. Each ${item.container.replace(/s$/, '')} has ${inEach} ${item.name}. How many ${item.name} does ${name} have in total?`,
+                step1: `${groups} groups of ${inEach}`,
+                answer: groups * inEach,
+                answerUnit: item.name,
+                equation: `${groups} × ${inEach} = ${groups * inEach}`
+            };
+        }
+    });
+
+    let defaultTitle = 'Multiplication Word Problems';
+    let defaultDesc = 'Solve the multiplication word problems. Show your work.';
+    let emoji = String.fromCodePoint(0x1F4DD); // Memo
+
+    if (difficulty === 'multi-step') {
+        defaultTitle = 'Multi-Step Word Problems';
+        defaultDesc = 'Two-step problems involving multiplication and addition/subtraction.';
+        emoji = String.fromCodePoint(0x1F9E9); // Puzzle
+    } else if (difficulty === 'complex') {
+        defaultTitle = 'Complex Multiplication Problems';
+        defaultDesc = 'Challenging word problems with larger numbers.';
+        emoji = String.fromCodePoint(0x1F4AA); // Flexed bicep
+    }
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', defaultTitle)}
+            emoji={emoji}
+            description={getTrans('description', defaultDesc)}
+            problemCount={problems.length}
+        >
+            <div className="grid grid-cols-1 gap-6 break-inside-avoid">
+                {problems.map((prob, i) => (
+                    <div key={i} className="break-inside-avoid p-4 border border-slate-300 rounded-lg bg-white shadow-sm print:shadow-none" style={{ pageBreakInside: 'avoid' }}>
+                        <div className="flex gap-4">
+                            <div className="bg-slate-100 text-slate-600 font-bold w-8 h-8 flex items-center justify-center rounded-full flex-shrink-0 text-sm">
+                                {i + 1}
+                            </div>
+                            <div className="flex-grow">
+                                <div className="text-lg mb-4 text-slate-800 leading-normal">{prob.text}</div>
+
+                                <div className="mt-4 p-4 border-2 border-dashed border-slate-200 rounded-lg h-32 bg-slate-50 relative">
+                                    <div className="absolute top-2 left-2 text-xs text-slate-400 uppercase tracking-widest font-semibold pointer-events-none">Show your work</div>
+                                </div>
+
+                                <div className="mt-4 flex items-center justify-end gap-2">
+                                    <span className="font-semibold text-slate-700">Answer:</span>
+                                    <div className="w-32 border-b-2 border-slate-400"></div>
+                                    <span className="text-slate-500 text-sm">{prob.answerUnit}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-xl print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-4 text-xl flex items-center gap-2">
+                        {String.fromCodePoint(0x2705)} Answer Key
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {problems.map((prob, i) => (
+                            <div key={i} className="p-3 border border-emerald-200 rounded bg-white">
+                                <div className="font-bold text-emerald-800 mb-1">Problem {i + 1}</div>
+                                <div className="text-sm text-slate-600 mb-2">{prob.text}</div>
+                                <div className="space-y-1 text-sm bg-emerald-50 p-2 rounded">
+                                    {prob.step1 && <div className="text-emerald-700 font-mono">Step 1: {prob.step1}</div>}
+                                    {prob.step2 && <div className="text-emerald-700 font-mono">Step 2: {prob.step2}</div>}
+                                    <div className="font-bold text-emerald-900 mt-1 border-t border-emerald-200 pt-1">
+                                        Answer: {prob.answer} {prob.answerUnit}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             ))}

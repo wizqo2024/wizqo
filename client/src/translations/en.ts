@@ -795,6 +795,22 @@ export const en = {
       title: 'Complete Timed Test (1-12)',
       description: 'Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency and memorizing times tables.',
     },
+    'mult-word-problems': {
+      title: 'Multiplication Word Problems',
+      description: 'Solve real-world multiplication problems. Practice reading comprehension and math skills together.',
+    },
+    'mult-word-problems-2-3': {
+      title: 'Basic Word Problems (Grades 2-3)',
+      description: 'Simple multiplication word problems for beginners. Visualize groups and solve using basic facts.',
+    },
+    'mult-multi-step-word': {
+      title: 'Multi-Step Word Problems',
+      description: 'Challenging two-step word problems involving multiplication and addition/subtraction.',
+    },
+    'mult-complex-word': {
+      title: 'Complex Word Problems',
+      description: 'Advanced multiplication word problems with larger numbers and multi-step thinking.',
+    },
     'math-maze': {
       title: 'Math Maze Adventure',
       description: 'Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!',
