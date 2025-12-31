@@ -69,7 +69,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 
       if (hasLocaleInPath) {
         const urlLocale = pathSegments[0] as Language
-        setLanguageState((currentLang) => {
+        setLanguageState((currentLang: Language) => {
           if (currentLang !== urlLocale) {
             localStorage.setItem('wizqo-language', urlLocale)
             document.documentElement.dir = isRTL(urlLocale) ? 'rtl' : 'ltr'
@@ -86,7 +86,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       const params = new URLSearchParams(window.location.search)
       const langParam = params.get('lang')
       if (langParam && ['en', 'es', 'ar'].includes(langParam)) {
-        setLanguageState((currentLang) => {
+        setLanguageState((currentLang: Language) => {
           if (currentLang !== langParam) {
             console.log('[TranslationContext] syncLanguageFromURL: Setting language from query param:', langParam, 'current:', currentLang)
             localStorage.setItem('wizqo-language', langParam)
@@ -103,7 +103,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       // This ensures URL parameters always take priority
       const saved = localStorage.getItem('wizqo-language') as Language
       if (saved && ['en', 'es', 'ar'].includes(saved)) {
-        setLanguageState((currentLang) => {
+        setLanguageState((currentLang: Language) => {
           if (currentLang !== saved) {
             document.documentElement.dir = isRTL(saved) ? 'rtl' : 'ltr'
             document.documentElement.lang = saved
@@ -164,7 +164,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   // Save language preference
   const setLanguage = React.useCallback((lang: Language) => {
     console.log('setLanguage called with:', lang)
-    setLanguageState((prevLang) => {
+    setLanguageState((prevLang: Language) => {
       console.log('Previous language:', prevLang, 'New language:', lang)
       if (prevLang !== lang) {
         if (typeof window !== 'undefined') {
@@ -199,7 +199,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
   }, [language])
 
-  const t = React.useCallback((key: string, fallback?: string): string | any => {
+  const t = React.useCallback((key: string, fallback?: string): string => {
     const result = getTranslation(language, key)
 
     // If translation missing (returns key) and fallback provided, use fallback

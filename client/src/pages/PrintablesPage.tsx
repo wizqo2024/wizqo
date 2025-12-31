@@ -11183,7 +11183,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('mult-2x2-digit') && (() => {
+          activeDocs.includes('mult-2x2-digit') && (() => { // test match
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
             const problems: Array<[number, number]> = Array.from({ length: 6 }).map(() => {
@@ -17383,305 +17383,100 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
 
 
-          activeDocs.includes('mult-facts-0-12') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 20 }, () => {
-              const a = Math.floor(rng() * 13)
-              const b = Math.floor(rng() * 13)
-              return { a, b, answer: a * b }
-            })
 
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-facts-0-12"
-                title="Super Hero City: Power Facts"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Charge up the hero shields! Solve the multiplication problems to save the city."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Master multiplication facts from 0 0 to 12 12',
-                  'Build speed and accuracy',
-                  'Develop fact fluency'
-                ]}
-                parentTeacherTips={[
-                  'Practice a few "families" at a time (e.g., all x2, then all x5).',
-                  'Use flashcards for facts that result in "shield failures" (incorrect answers).',
-                  'Challenge: Can you beat your time?'
-                ]}
-              >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-red-500 animate-gradient-x mb-4" />
 
-                {/* Decorative Header */}
-                <div className="w-full h-24 mb-6 relative overflow-hidden bg-blue-900 rounded-xl border-4 border-yellow-400 shadow-xl">
-                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2.5px)', backgroundSize: '20px 20px' }}></div>
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl animate-bounce-slow">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <h2 className="text-3xl font-black text-yellow-400 tracking-widest uppercase italic transform -skew-x-12" style={{ textShadow: '3px 3px 0px #ef4444' }}>HERO TRAINING</h2>
-                  </div>
-                </div>
+          {
+            activeDocs.includes('mult-arrays') && (() => {
+              const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {problems.map((p, i) => (
-                    <div key={i} className="relative bg-white border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center shadow-sm overflow-hidden">
-                      <div className="absolute -right-4 -top-4 w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold text-xs pt-2 pr-2">#{i + 1}</div>
+              const problems = Array.from({ length: 4 }, () => {
+                const rows = Math.floor(rng() * 4) + 2 // 2-5 rows
+                const cols = Math.floor(rng() * 5) + 2 // 2-6 cols
+                return { rows, cols, product: rows * cols }
+              })
 
-                      <div className="z-10 flex flex-col items-end">
-                        <div className="text-2xl font-black text-slate-700">{p.a}</div>
-                        <div className="flex items-center gap-1 text-2xl font-black text-slate-700">
-                          <span className="text-base text-slate-400">x</span> {p.b}
+              return (
+                <WorksheetSectionWrapper
+                  docId="mult-arrays"
+                  title="City Builder: Window Arrays"
+                  emoji={String.fromCodePoint(0x2716)}
+                  description="Count the rows and columns of windows to find the total product."
+                  problemCount={4}
+                  learningObjectives={[
+                    'Understand multiplication as repeated addition',
+                    'Visualize arrays (rows x columns)',
+                    'Write multiplication sentences'
+                  ]}
+                  parentTeacherTips={[
+                    'Rows go side to side (like a row in a movie theater).',
+                    'Columns go up and down (like a building column).',
+                    'Count by skip counting the rows!'
+                  ]}
+                >
+                  <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 animate-gradient-x mb-4" />
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {problems.map((p, i) => (
+                      <div key={i} className="bg-slate-100 border-b-8 border-slate-300 rounded-t-xl p-6 flex flex-col items-center relative">
+                        <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">BLDG-{i + 100}</div>
+
+                        {/* The Building */}
+                        <div className="bg-blue-900 p-3 rounded-lg shadow-lg mb-4 border-2 border-blue-800" style={{
+                          display: 'grid',
+                          gridTemplateColumns: `repeat(${p.cols}, 1fr)`,
+                          gap: '8px'
+                        }}>
+                          {Array.from({ length: p.rows * p.cols }).map((_, j) => (
+                            <div key={j} className="w-8 h-10 bg-yellow-200 border border-yellow-500 shadow-inner rounded-sm relative overflow-hidden">
+                              <div className="absolute top-1/2 w-full h-px bg-yellow-500"></div>
+                              <div className="absolute left-1/2 h-full w-px bg-yellow-500"></div>
+                            </div>
+                          ))}
                         </div>
-                        <div className="w-full h-1 bg-slate-800 my-1"></div>
-                        <div className="w-16 h-10 border-2 border-dashed border-blue-300 bg-blue-50 rounded flex items-center justify-center text-xl font-bold text-blue-800"></div>
-                      </div>
 
-                      {/* Background Shield Opacity */}
-                      <div className="absolute bottom-1 left-1 text-4xl opacity-10">{String.fromCodePoint(0x1F4A1)}</div>
-                    </div>
-                  ))}
-                </div>
-
-                {showAnswersForDoc('mult-facts-0-12', () => (
-                  <div className="mt-6 p-4 border-2 border-blue-300 bg-blue-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-blue-900 mb-2">{String.fromCharCode(0x2705)} Answer Key</div>
-                    <div className="grid grid-cols-4 gap-2 text-xs text-blue-800">
-                      {problems.map((p, i) => (
-                        <div key={i}>{p.a} x {p.b} = <strong>{p.answer}</strong></div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('mult-arrays') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const problems = Array.from({ length: 4 }, () => {
-              const rows = Math.floor(rng() * 4) + 2 // 2-5 rows
-              const cols = Math.floor(rng() * 5) + 2 // 2-6 cols
-              return { rows, cols, product: rows * cols }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-arrays"
-                title="City Builder: Window Arrays"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Count the rows and columns of windows to find the total product."
-                problemCount={4}
-                learningObjectives={[
-                  'Understand multiplication as repeated addition',
-                  'Visualize arrays (rows x columns)',
-                  'Write multiplication sentences'
-                ]}
-                parentTeacherTips={[
-                  'Rows go side to side (like a row in a movie theater).',
-                  'Columns go up and down (like a building column).',
-                  'Count by skip counting the rows!'
-                ]}
-              >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 animate-gradient-x mb-4" />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {problems.map((p, i) => (
-                    <div key={i} className="bg-slate-100 border-b-8 border-slate-300 rounded-t-xl p-6 flex flex-col items-center relative">
-                      <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">BLDG-{i + 100}</div>
-
-                      {/* The Building */}
-                      <div className="bg-blue-900 p-3 rounded-lg shadow-lg mb-4 border-2 border-blue-800" style={{
-                        display: 'grid',
-                        gridTemplateColumns: `repeat(${p.cols}, 1fr)`,
-                        gap: '8px'
-                      }}>
-                        {Array.from({ length: p.rows * p.cols }).map((_, j) => (
-                          <div key={j} className="w-8 h-10 bg-yellow-200 border border-yellow-500 shadow-inner rounded-sm relative overflow-hidden">
-                            <div className="absolute top-1/2 w-full h-px bg-yellow-500"></div>
-                            <div className="absolute left-1/2 h-full w-px bg-yellow-500"></div>
+                        {/* Input Area */}
+                        <div className="w-full bg-white p-3 rounded-lg border-2 border-slate-200 flex items-center justify-center gap-2 font-bold text-lg text-slate-700">
+                          <div className="flex flex-col items-center">
+                            <span className="text-xs text-slate-400 uppercase">Rows</span>
+                            <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.rows}</div>
                           </div>
+                          <span>x</span>
+                          <div className="flex flex-col items-center">
+                            <span className="text-xs text-slate-400 uppercase">Cols</span>
+                            <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.cols}</div>
+                          </div>
+                          <span>=</span>
+                          <div className="w-14 h-10 border-2 border-dashed border-cyan-500 rounded flex items-center justify-center bg-cyan-50 text-cyan-800">?</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {showAnswersForDoc('mult-arrays', () => (
+                    <div className="mt-4 p-4 border bg-cyan-50 rounded text-cyan-900 text-sm">
+                      <strong>Key:</strong>
+                      <div className="flex flex-wrap gap-4 mt-2">
+                        {problems.map((p, i) => (
+                          <span key={i}>Bldg {i + 100}: {p.rows} x {p.cols} = <strong>{p.product}</strong></span>
                         ))}
                       </div>
-
-                      {/* Input Area */}
-                      <div className="w-full bg-white p-3 rounded-lg border-2 border-slate-200 flex items-center justify-center gap-2 font-bold text-lg text-slate-700">
-                        <div className="flex flex-col items-center">
-                          <span className="text-xs text-slate-400 uppercase">Rows</span>
-                          <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.rows}</div>
-                        </div>
-                        <span>x</span>
-                        <div className="flex flex-col items-center">
-                          <span className="text-xs text-slate-400 uppercase">Cols</span>
-                          <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.cols}</div>
-                        </div>
-                        <span>=</span>
-                        <div className="w-14 h-10 border-2 border-dashed border-cyan-500 rounded flex items-center justify-center bg-cyan-50 text-cyan-800">?</div>
-                      </div>
                     </div>
                   ))}
-                </div>
+                </WorksheetSectionWrapper>
+              )
+            })()
+          }
 
-                {showAnswersForDoc('mult-arrays', () => (
-                  <div className="mt-4 p-4 border bg-cyan-50 rounded text-cyan-900 text-sm">
-                    <strong>Key:</strong>
-                    <div className="flex flex-wrap gap-4 mt-2">
-                      {problems.map((p, i) => (
-                        <span key={i}>Bldg {i + 100}: {p.rows} x {p.cols} = <strong>{p.product}</strong></span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
+
 
         {
-          activeDocs.includes('mult-word-problems') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const scenarios = [
-              { item: 'gems', friend: 'dragons', icon: '', friendIcon: '' },
-              { item: 'coins', friend: 'pirates', icon: '', friendIcon: '' },
-              { item: 'bananas', friend: 'monkeys', icon: '', friendIcon: '' },
-              { item: 'acorns', friend: 'squirrels', icon: '', friendIcon: '' }
-            ]
-
-            const problems = Array.from({ length: 4 }, () => {
-              const scenario = scenarios[Math.floor(rng() * scenarios.length)]
-              const groups = Math.floor(rng() * 5) + 2
-              const perGroup = Math.floor(rng() * 6) + 3
-              return { ...scenario, groups, perGroup, product: groups * perGroup }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-word-problems"
-                title="Space Commander: Logistics"
-                emoji={String.fromCodePoint(0x2716)}
-                description="The mission needs supplies! Read the mission logs and solve for the total."
-                problemCount={4}
-                learningObjectives={[
-                  'Apply multiplication to real-world scenarios',
-                  'Interpret word problems',
-                  'Distinguish between groups and items per group'
-                ]}
-                parentTeacherTips={[
-                  'Draw a picture! Draw 3 rockets with 5 aliens in each.',
-                  'Circle the numbers in the story.',
-                  'Ask "How many piles? How many in each pile?"'
-                ]}
-              >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 animate-gradient-x mb-4" />
-
-                <div className="space-y-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="flex flex-col md:flex-row gap-4 bg-white border-2 border-indigo-100 rounded-xl p-4 shadow-sm relative overflow-hidden">
-                      <div className="absolute top-0 right-0 bg-indigo-100 text-indigo-800 px-3 py-1 rounded-bl-lg font-bold text-xs">LOG #{9000 + i}</div>
-
-                      <div className="md:w-16 flex-shrink-0 flex items-start justify-center text-4xl pt-2">
-                        {p.containerIcon}
-                      </div>
-
-                      <div className="flex-grow">
-                        <div className="text-lg font-medium text-slate-800 mb-3">
-                          <span className="font-bold text-indigo-600">Commander!</span> We have <span className="font-bold bg-yellow-100 px-1 rounded">{p.groups} {p.container}</span>.
-                          Each one holds <span className="font-bold bg-yellow-100 px-1 rounded">{p.perGroup} {p.item}</span>.
-                          <br />
-                          <span className="text-base italic text-slate-500">How many {p.item} do we have in total?</span>
-                        </div>
-
-                        <div className="flex items-center gap-2 mt-2">
-                          <div className="w-12 h-10 border-b-2 border-indigo-200 bg-indigo-50 flex items-center justify-center font-bold">{p.groups}</div>
-                          <span className="text-slate-400">x</span>
-                          <div className="w-12 h-10 border-b-2 border-indigo-200 bg-indigo-50 flex items-center justify-center font-bold">{p.perGroup}</div>
-                          <span className="text-slate-400">=</span>
-                          <div className="w-20 h-12 border-2 border-dashed border-indigo-400 rounded flex items-center justify-center bg-white text-xl font-bold text-indigo-900">?</div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {showAnswersForDoc('mult-word-problems', () => (
-                  <div className="mt-4 p-4 border bg-indigo-50 rounded text-indigo-900 text-sm">
-                    <strong>Data Log:</strong>
-                    <ul className="list-disc list-inside mt-2">
-                      {problems.map((p, i) => (
-                        <li key={i}>{p.groups} {p.container} x {p.perGroup} {p.item} = <strong>{p.product} total</strong></li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
-
-        {
-          activeDocs.includes('mult-by-10-100') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const problems = Array.from({ length: 8 }, () => {
-              const isHundred = rng() > 0.5
-              const base = Math.floor(rng() * 9) + 1 // 1-9
-              const multiplier = isHundred ? 100 : 10
-              return { base, multiplier, product: base * multiplier }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId="mult-by-10-100"
-                title="Zero Hero: Power Up!"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Use the Zero Orbs to power up your numbers! Multiplying by 10 or 100 is easier than it looks."
-                problemCount={8}
-                learningObjectives={[
-                  'Multiply one-digit numbers by multiples of 10',
-                  'Understand place value shift',
-                  'Recognize the pattern of adding zeros'
-                ]}
-                parentTeacherTips={[
-                  'When multiplying by 10, just attach one zero!',
-                  'When multiplying by 100, attach two zeros!',
-                  '5 groups of 10 is 5 tens (50).'
-                ]}
-              >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-emerald-400 to-lime-400 animate-gradient-x mb-4" />
-
-                <div className="w-full h-24 mb-6 bg-slate-900 rounded-xl flex items-center justify-center relative overflow-hidden border-2 border-emerald-400">
-                  <div className="text-emerald-400 font-mono text-lg animate-pulse">0010101001000010101</div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-slate-900"></div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {problems.map((p, i) => (
-                    <div key={i} className="flex items-center justify-between bg-white border-2 border-slate-200 rounded-xl p-4">
-                      <div className="flex items-center gap-3 text-2xl font-black text-slate-700">
-                        <div>{p.base}</div>
-                        <div className="text-slate-400 text-lg">x</div>
-                        <div className="bg-emerald-100 text-emerald-700 px-2 rounded-lg">{p.multiplier}</div>
-                      </div>
-
-                      <div className="text-slate-300 text-2xl">=</div>
-
-                      <div className="w-24 h-12 border-2 border-emerald-300 rounded-lg flex items-center justify-center bg-emerald-50 text-2xl font-black text-emerald-800">
-                        {/* Answer Box */}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {showAnswersForDoc('mult-by-10-100', () => (
-                  <div className="mt-4 text-center p-4 bg-emerald-50 rounded text-emerald-800 font-bold border border-emerald-200">
-                    Just add the Zeros! {problems.map(p => p.product).join(', ')}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
+          activeDocs.includes('mult-by-10-100') && (
+            <MultiplicationBy10And100
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+            />
+          )
         }
 
 
@@ -18077,70 +17872,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('mult-properties') && (() => {
-            const docId = 'mult-properties'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-
-            const problems = Array.from({ length: 4 }, () => {
-              const a = Math.floor(rng() * 8) + 2
-              const b = Math.floor(rng() * 8) + 2 // Ensures different numbers usually
-              return { a, b, answer: a * b }
-            })
-
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title="Robot Logic: Properties"
-                emoji={String.fromCodePoint(0x1F9E0)}
-                description="Robots know that order doesn't matter! Show the Commutative Property."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Understand the Commutative Property of Multiplication (a x b = b x a)',
-                  'Verify that changing order does not change the product',
-                  'Write equivalent equations'
-                ]}
-                parentTeacherTips={[
-                  'Turn the array sideways - it has the same number of items!',
-                  '3 groups of 5 is the same total as 5 groups of 3.',
-                  'Commutative comes from "commute" meaning to move around.'
-                ]}
-              >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-gray-400 to-slate-600 animate-gradient-x mb-4" />
-
-                <div className="space-y-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="bg-slate-50 border-2 border-slate-200 rounded-xl p-4 flex flex-col md:flex-row items-center gap-6">
-                      {/* Left Robot Equation */}
-                      <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 bg-slate-200 rounded-lg flex items-center justify-center font-bold text-slate-700 border border-slate-300 shadow-sm">{p.a}</div>
-                        <span>x</span>
-                        <div className="w-10 h-10 bg-slate-200 rounded-lg flex items-center justify-center font-bold text-slate-700 border border-slate-300 shadow-sm">{p.b}</div>
-                      </div>
-
-                      <div className="text-2xl font-black text-slate-400">=</div>
-
-                      {/* Right Robot Logic - Swapped */}
-                      <div className="flex items-center gap-2 p-3 bg-white border-2 border-dashed border-slate-300 rounded-xl">
-                        <div className="w-10 h-10 bg-white border-2 border-slate-300 rounded-lg flex items-center justify-center text-slate-400 font-bold">?</div>
-                        <span>x</span>
-                        <div className="w-10 h-10 bg-white border-2 border-slate-300 rounded-lg flex items-center justify-center text-slate-400 font-bold">?</div>
-                      </div>
-
-                      <div className="ml-auto text-sm text-slate-500 font-mono">
-                        Logic {i + 1}: {p.a}x{p.b} == {p.b}x{p.a}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {showAnswersForDoc(docId, () => (
-                  <div className="mt-4 p-2 bg-slate-200 rounded text-slate-800 text-xs text-center">
-                    Rule: Swap the numbers! e.g., {problems[0].a} x {problems[0].b} = {problems[0].b} x {problems[0].a}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
+          activeDocs.includes('mult-properties') && (
+            <MultiplicationProperties
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+            />
+          )
         }
 
 
@@ -19685,36 +19423,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
         {
-          activeDocs.includes('mult-decimals') && (() => {
-            const docId = 'mult-decimals'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 12 }, () => {
-              const n1 = (Math.floor(rng() * 100) / 10).toFixed(1) // 1 decimal place
-              const n2 = (Math.floor(rng() * 100) / 10).toFixed(1)
-              return { n1, n2 }
-            })
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title="Multiplying Decimals"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Multiply decimals to hundredths."
-                problemCount={problems.length}
-                learningObjectives={['Add, subtract, multiply, and divide decimals to hundredths']}
-                parentTeacherTips={['Multiply as if they were whole numbers.', 'Count total decimal places in the factors.', 'Place the decimal point in the product so it has the same number of decimal places.']}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                  {problems.map((p, i) => (
-                    <div key={i} className="font-mono text-xl flex flex-col items-end">
-                      <div>{p.n1}</div>
-                      <div className="border-b-2 border-slate-800 w-full text-right pr-1">{String.fromCodePoint(0x279C)}</div>
-                      <div className="h-16 w-full"></div>
-                    </div>
-                  ))}
-                </div>
-              </WorksheetSectionWrapper>
-            )
-          })()
+          activeDocs.includes('mult-decimals') && (
+            <MultiplicationDecimals
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+            />
+          )
         }
 
         {

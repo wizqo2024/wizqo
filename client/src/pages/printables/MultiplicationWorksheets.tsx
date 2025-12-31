@@ -1440,15 +1440,18 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
     let defaultTitle = 'Multiplication Word Problems';
     let defaultDesc = 'Solve the multiplication word problems. Show your work.';
     let emoji = String.fromCodePoint(0x1F4DD); // Memo
+    let themeColor = "indigo";
 
     if (difficulty === 'multi-step') {
         defaultTitle = 'Multi-Step Word Problems';
         defaultDesc = 'Two-step problems involving multiplication and addition/subtraction.';
         emoji = String.fromCodePoint(0x1F9E9); // Puzzle
+        themeColor = "purple";
     } else if (difficulty === 'complex') {
         defaultTitle = 'Complex Multiplication Problems';
         defaultDesc = 'Challenging word problems with larger numbers.';
         emoji = String.fromCodePoint(0x1F4AA); // Flexed bicep
+        themeColor = "blue";
     }
 
     return (
@@ -1458,25 +1461,69 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
             emoji={emoji}
             description={getTrans('description', defaultDesc)}
             problemCount={problems.length}
+            learningObjectives={[
+                getTrans('learningObjectives.0', 'Apply multiplication to real-world scenarios'),
+                getTrans('learningObjectives.1', 'Interpret and solve word problems'),
+                getTrans('learningObjectives.2', difficulty === 'multi-step' ? 'Solve multi-step mathematical problems' : 'Identify groups and items per group')
+            ]}
+            parentTeacherTips={[
+                getTrans('parentTeacherTips.0', 'Encourage drawing a picture or model to visualize the problem'),
+                getTrans('parentTeacherTips.1', 'Circle the numbers and underline the question'),
+                getTrans('parentTeacherTips.2', 'Ask: "What do we know? What are we trying to find?"')
+            ]}
         >
-            <div className="grid grid-cols-1 gap-6 break-inside-avoid">
-                {problems.map((prob, i) => (
-                    <div key={i} className="break-inside-avoid p-4 border border-slate-300 rounded-lg bg-white shadow-sm print:shadow-none" style={{ pageBreakInside: 'avoid' }}>
-                        <div className="flex gap-4">
-                            <div className="bg-slate-100 text-slate-600 font-bold w-8 h-8 flex items-center justify-center rounded-full flex-shrink-0 text-sm">
-                                {i + 1}
-                            </div>
-                            <div className="flex-grow">
-                                <div className="text-lg mb-4 text-slate-800 leading-normal">{prob.text}</div>
+            <PremiumWorksheetBanner
+                title={difficulty === 'multi-step' ? "Master Mission" : (difficulty === 'complex' ? "Expert Challenge" : "Case File")}
+                subtitle="Solving for Success"
+                icons={{
+                    bg1: emoji,
+                    bg2: "🕵️",
+                    float1: "📋",
+                    float2: "💡"
+                }}
+                colors={{
+                    bg: `bg-${themeColor}-50`,
+                    border: `border-${themeColor}-200`,
+                    pillBg: "bg-white/90",
+                    pillBorder: `border-${themeColor}-300`,
+                    pillText: `text-${themeColor}-900`,
+                    accent: `text-${themeColor}-200`
+                }}
+            />
 
-                                <div className="mt-4 p-4 border-2 border-dashed border-slate-200 rounded-lg h-32 bg-slate-50 relative">
-                                    <div className="absolute top-2 left-2 text-xs text-slate-400 uppercase tracking-widest font-semibold pointer-events-none">Show your work</div>
+            <div className="space-y-8">
+                {problems.map((prob, i) => (
+                    <div key={i} className={`relative overflow-hidden bg-white border-2 border-slate-100 rounded-2xl p-6 shadow-sm hover:border-${themeColor}-200 transition-colors break-inside-avoid`}>
+                        <div className={`absolute top-0 right-0 bg-${themeColor}-100 text-${themeColor}-800 px-4 py-1 rounded-bl-xl font-bold text-xs uppercase tracking-widest`}>Task #{i + 1}</div>
+
+                        <div className="flex gap-4 items-start">
+                            <div className="flex-grow">
+                                <div className="text-lg font-medium text-slate-800 mb-6 leading-relaxed pt-2">
+                                    {prob.text}
                                 </div>
 
-                                <div className="mt-4 flex items-center justify-end gap-2">
-                                    <span className="font-semibold text-slate-700">Answer:</span>
-                                    <div className="w-32 border-b-2 border-slate-400"></div>
-                                    <span className="text-slate-500 text-sm">{prob.answerUnit}</span>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                    <div className="space-y-2">
+                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Strategic Workspace</span>
+                                        <div className="h-40 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 flex items-center justify-center">
+                                            <span className="text-slate-300 text-sm italic">Draw your model here...</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col justify-end">
+                                        <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 space-y-4">
+                                            <div className="space-y-1">
+                                                <span className="text-[10px] font-bold text-slate-400 uppercase">Equation</span>
+                                                <div className="h-10 border-b-2 border-slate-200" />
+                                            </div>
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex-grow space-y-1">
+                                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Final Answer</span>
+                                                    <div className="h-12 bg-white border-2 border-slate-200 rounded-lg" />
+                                                </div>
+                                                <div className="pt-5 text-slate-400 font-medium italic text-sm">{prob.answerUnit}</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1485,21 +1532,22 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
             </div>
 
             {showAnswersForDoc(docId, () => (
-                <div className="mt-8 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-xl print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-4 text-xl flex items-center gap-2">
-                        {String.fromCodePoint(0x2705)} Answer Key
+                <div className={`mt-10 p-6 bg-${themeColor}-900 rounded-2xl border-2 border-${themeColor}-400/30 text-white`}>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className={`w-10 h-10 rounded-full bg-${themeColor}-500 flex items-center justify-center text-white text-xl animate-pulse`}>✓</div>
+                        <div>
+                            <h3 className="text-xl font-bold">Mission Debrief: Solutions</h3>
+                            <p className={`text-${themeColor}-300 text-sm`}>Verified results for Task Set {effectiveSeed}</p>
+                        </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {problems.map((prob, i) => (
-                            <div key={i} className="p-3 border border-emerald-200 rounded bg-white">
-                                <div className="font-bold text-emerald-800 mb-1">Problem {i + 1}</div>
-                                <div className="text-sm text-slate-600 mb-2">{prob.text}</div>
-                                <div className="space-y-1 text-sm bg-emerald-50 p-2 rounded">
-                                    {prob.step1 && <div className="text-emerald-700 font-mono">Step 1: {prob.step1}</div>}
-                                    {prob.step2 && <div className="text-emerald-700 font-mono">Step 2: {prob.step2}</div>}
-                                    <div className="font-bold text-emerald-900 mt-1 border-t border-emerald-200 pt-1">
-                                        Answer: {prob.answer} {prob.answerUnit}
-                                    </div>
+                            <div key={i} className={`bg-white/5 border border-white/10 rounded-xl p-4 space-y-2`}>
+                                <div className={`text-${themeColor}-400 font-bold text-xs uppercase`}>Task {i + 1}</div>
+                                <div className="text-sm opacity-90 font-mono">
+                                    {prob.step1 && <div className="text-white/70">Step 1: {prob.step1}</div>}
+                                    {prob.step2 && <div className="text-white/70">Step 2: {prob.step2}</div>}
+                                    <div className="mt-2 text-white font-bold text-base">Answer: {prob.answer} {prob.answerUnit}</div>
                                 </div>
                             </div>
                         ))}
@@ -2519,6 +2567,270 @@ export function MultiplicationStrategies({ seed, variant, showAnswersForDoc }: S
                                 <div className="font-bold text-teal-900 bg-white px-3 py-1 rounded-lg border border-teal-100">
                                     Answer: {p.answer}
                                 </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationBy10And100({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'mult-by-10-100'
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 12 }, () => {
+        const isHundred = rng() > 0.5;
+        const base = nextInt(1, 12);
+        const multiplier = isHundred ? 100 : 10;
+        return { base, multiplier, product: base * multiplier };
+    });
+
+    const learnObjs = t(`worksheets.${docId}.learningObjectives`) as unknown as string[];
+    const tips = t(`worksheets.${docId}.parentTeacherTips`) as unknown as string[];
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Zero Hero: Power Up!')}
+            emoji={String.fromCodePoint(0x2716)}
+            description={getTrans('description', 'Use the Zero Orbs to power up your numbers! Multiplying by 10 or 100 is easier than it looks.')}
+            problemCount={problems.length}
+            learningObjectives={Array.isArray(learnObjs) ? learnObjs : [
+                'Multiply one-digit and two-digit numbers by multiples of 10',
+                'Understand place value shift',
+                'Recognize the pattern of adding zeros'
+            ]}
+            parentTeacherTips={Array.isArray(tips) ? tips : [
+                'When multiplying by 10, just attach one zero!',
+                'When multiplying by 100, attach two zeros!',
+                '5 groups of 10 is 5 tens (50).',
+                'Extension: Try multiplying by 1000!'
+            ]}
+        >
+            <PremiumWorksheetBanner
+                title="Zero Hero"
+                subtitle="Power Up the Grid!"
+                icons={{
+                    bg1: "⚡",
+                    bg2: "🌀",
+                    float1: "🔋",
+                    float2: "🔋"
+                }}
+                colors={{
+                    bg: "bg-emerald-50",
+                    border: "border-emerald-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-emerald-300",
+                    pillText: "text-emerald-900",
+                    accent: "text-emerald-200"
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="flex items-center justify-between bg-white border-2 border-slate-100 rounded-2xl p-5 shadow-sm hover:border-emerald-200 transition-colors">
+                        <div className="flex items-center gap-4 text-3xl font-black text-slate-700">
+                            <span className="w-8 text-slate-300 font-normal text-sm">{i + 1}.</span>
+                            <div className="w-12 text-center">{p.base}</div>
+                            <div className="text-slate-300 text-xl font-normal">×</div>
+                            <div className="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-xl text-2xl">{p.multiplier}</div>
+                            <div className="text-slate-200 text-2xl font-normal">=</div>
+                        </div>
+
+                        <div className="w-28 h-12 border-2 border-emerald-100 bg-slate-50/50 rounded-xl flex items-center justify-center">
+                            {/* Empty for solving */}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 bg-slate-900 rounded-2xl border-2 border-emerald-500/30">
+                    <div className="text-emerald-400 font-mono text-xs mb-4 uppercase tracking-widest opacity-50">Answer Key // System Over-ride</div>
+                    <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
+                        {problems.map((p, i) => (
+                            <div key={i} className="text-emerald-300 font-mono">
+                                <span className="text-emerald-800 mr-2">{i + 1}.</span>
+                                {p.product}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationProperties({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'mult-properties'
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 6 }, () => {
+        const a = nextInt(2, 9);
+        const b = nextInt(2, 9);
+        return { a, b, answer: a * b };
+    });
+
+    const learnObjs = t(`worksheets.${docId}.learningObjectives`) as unknown as string[];
+    const tips = t(`worksheets.${docId}.parentTeacherTips`) as unknown as string[];
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Robot Logic: Properties')}
+            emoji={String.fromCodePoint(0x1F9E0)}
+            description={getTrans('description', 'Robots know that order doesn\'t matter! Show the Commutative Property.')}
+            problemCount={problems.length}
+            learningObjectives={Array.isArray(learnObjs) ? learnObjs : [
+                'Understand the Commutative Property of Multiplication (a x b = b x a)',
+                'Verify that changing order does not change the product',
+                'Write equivalent equations'
+            ]}
+            parentTeacherTips={Array.isArray(tips) ? tips : [
+                'Turn the array sideways - it has the same number of items!',
+                '3 groups of 5 is the same total as 5 groups of 3.',
+                'Commutative comes from "commute" meaning to move around.'
+            ]}
+        >
+            <PremiumWorksheetBanner
+                title="Robot Logic"
+                subtitle="Property Protocols"
+                icons={{
+                    bg1: "🤖",
+                    bg2: "⚙️",
+                    float1: "🔧",
+                    float2: "🔋"
+                }}
+                colors={{
+                    bg: "bg-slate-50",
+                    border: "border-slate-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-slate-300",
+                    pillText: "text-slate-900",
+                    accent: "text-slate-200"
+                }}
+            />
+
+            <div className="space-y-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="bg-white border-2 border-slate-100 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-center gap-8 shadow-sm">
+                        <div className="flex items-center gap-4 text-2xl font-black text-slate-700">
+                            <span className="w-8 text-slate-300 font-normal text-sm">{i + 1}.</span>
+                            <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center border-2 border-slate-200">{p.a}</div>
+                            <span className="text-slate-300">×</span>
+                            <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center border-2 border-slate-200">{p.b}</div>
+                        </div>
+
+                        <div className="text-3xl font-black text-slate-200">=</div>
+
+                        <div className="flex items-center gap-4 text-2xl font-black text-slate-700">
+                            <div className="w-12 h-12 border-2 border-dashed border-slate-300 rounded-xl flex items-center justify-center text-slate-300 font-bold">?</div>
+                            <span className="text-slate-300">×</span>
+                            <div className="w-12 h-12 border-2 border-dashed border-slate-300 rounded-xl flex items-center justify-center text-slate-300 font-bold">?</div>
+                        </div>
+
+                        <div className="md:ml-auto flex items-center gap-2">
+                            <span className="text-xs font-bold text-slate-400 uppercase">Product:</span>
+                            <div className="w-16 h-10 border-b-2 border-slate-300" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-4 bg-slate-100 rounded-xl text-slate-600 text-sm text-center font-mono">
+                    Protocol: [a × b = b × a] // Swapped values: {problems.map(p => `${p.b}×${p.a}`).join(', ')}
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationDecimals({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'mult-decimals'
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 12 }, () => {
+        const n1 = (nextInt(10, 99) / 10).toFixed(1);
+        const n2 = (nextInt(10, 99) / 10).toFixed(1);
+        return { n1, n2 };
+    });
+
+    const learnObjs = t(`worksheets.${docId}.learningObjectives`) as unknown as string[];
+    const tips = t(`worksheets.${docId}.parentTeacherTips`) as unknown as string[];
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Multiplying Decimals')}
+            emoji={String.fromCodePoint(0x2716)}
+            description={getTrans('description', 'Multiply decimals to hundredths. Remember to count the places!')}
+            problemCount={problems.length}
+            learningObjectives={Array.isArray(learnObjs) ? learnObjs : [
+                'Multiply decimals to hundredths',
+                'Use standard algorithm for decimal multiplication',
+                'Understand decimal point placement'
+            ]}
+            parentTeacherTips={Array.isArray(tips) ? tips : [
+                'Multiply as if they were whole numbers.',
+                'Count total decimal places in the factors.',
+                'Place the decimal point in the product so it has the same number of decimal places.'
+            ]}
+        >
+            <PremiumWorksheetBanner
+                title="Decimal Dash"
+                subtitle="The Point of Precision"
+                icons={{
+                    bg1: "📍",
+                    bg2: "🎯",
+                    float1: "✨",
+                    float2: "💎"
+                }}
+                colors={{
+                    bg: "bg-blue-50",
+                    border: "border-blue-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-blue-300",
+                    pillText: "text-blue-900",
+                    accent: "text-blue-200"
+                }}
+            />
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                {problems.map((p, i) => (
+                    <div key={i} className="bg-white border-2 border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col items-center">
+                        <div className="w-full text-right font-mono text-2xl pr-4">
+                            <div className="mb-1">{p.n1}</div>
+                            <div className="flex items-center justify-between border-b-2 border-slate-800 pb-1">
+                                <span className="text-slate-400 text-sm">×</span>
+                                <span>{p.n2}</span>
+                            </div>
+                            <div className="h-16 w-full bg-slate-50/50 mt-2 rounded-lg" />
+                        </div>
+                        <div className="mt-4 text-[10px] text-slate-300 font-bold uppercase tracking-tighter self-start">Problem {i + 1}</div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 bg-blue-900 rounded-2xl border-2 border-blue-400/30">
+                    <div className="text-blue-300 font-mono text-xs mb-4 uppercase tracking-widest opacity-70 italic">Verified Results // Precise Calculations</div>
+                    <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
+                        {problems.map((p, i) => (
+                            <div key={i} className="text-blue-100 font-mono text-sm">
+                                <span className="text-blue-400/50 mr-2">{i + 1}.</span>
+                                {(parseFloat(p.n1) * parseFloat(p.n2)).toFixed(2)}
                             </div>
                         ))}
                     </div>
