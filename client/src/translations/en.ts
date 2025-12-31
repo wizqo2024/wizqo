@@ -60,6 +60,7 @@ export const en = {
       black: 'black',
       white: 'white',
     },
+    pattern: 'Pattern:',
     shapes: {
       circle: 'circle',
       square: 'square',
@@ -777,6 +778,10 @@ export const en = {
         title: '✅ Answer Key',
         remember: '💡 Remember: Practice makes perfect! Keep practicing your multiplication facts daily to build speed and accuracy!',
       },
+    },
+    'mult-patterns': {
+      title: 'Multiplication Patterns',
+      description: 'Identify and extend the multiplication patterns. What do you notice?',
     },
     'math-maze': {
       title: 'Math Maze Adventure',
