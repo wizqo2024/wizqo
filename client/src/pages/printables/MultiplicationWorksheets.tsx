@@ -1084,16 +1084,22 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
             emoji={String.fromCodePoint(0x1F50D)}
             description={t(`worksheets.${docId}.description`, 'Observe how the numbers change. Can you find the hidden rule?')}
             problemCount={patterns.length}
-            learningObjectives={[
-                'Identify patterns in multiplication tables',
-                'Extend numerical sequences',
-                'Recognize algebraic relationships'
-            ]}
-            parentTeacherTips={[
-                'Ask: "What is the rule between each number?"',
-                'Encourage students to count the jump between answers',
-                'Connect addition to multiplication jumps'
-            ]}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(obj) && obj.length > 0 ? obj : [
+                    'Identify patterns in multiplication tables',
+                    'Extend numerical sequences',
+                    'Recognize algebraic relationships'
+                ]
+            })()}
+            parentTeacherTips={(() => {
+                const tipList = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(tipList) && tipList.length > 0 ? tipList : [
+                    'Ask: "What is the rule between each number?"',
+                    'Encourage students to count the jump between answers',
+                    'Connect addition to multiplication jumps'
+                ]
+            })()}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-indigo-400 to-cyan-500 animate-gradient-x mb-4" />
 
@@ -1874,16 +1880,22 @@ export function MultiplicationAreaModel({ seed, variant, showAnswersForDoc }: Sp
             emoji={String.fromCodePoint(0x1F4CF)}
             description={t(`worksheets.${docId}.description`, 'Break numbers into tens and ones. Map out the area to find the total.')}
             problemCount={problems.length}
-            learningObjectives={[
-                'Apply area models to multi-digit multiplication',
-                'Decompose numbers by place value',
-                'Synthesize partial products for a final result'
-            ]}
-            parentTeacherTips={[
-                'Visualize the area as a rectangle divided into four plots',
-                'The large plot is Tens x Tens (e.g., 20 x 10)',
-                'Adding the four "plots" gives the total territory'
-            ]}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(obj) && obj.length > 0 ? obj : [
+                    'Apply area models to multi-digit multiplication',
+                    'Decompose numbers by place value',
+                    'Synthesize partial products for a final result'
+                ]
+            })()}
+            parentTeacherTips={(() => {
+                const tipList = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(tipList) && tipList.length > 0 ? tipList : [
+                    'Visualize the area as a rectangle divided into four plots',
+                    'The large plot is Tens x Tens (e.g., 20 x 10)',
+                    'Adding the four "plots" gives the total territory'
+                ]
+            })()}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 animate-gradient-x mb-4" />
 
@@ -2060,17 +2072,23 @@ export function MultiplicationFactFluency({ seed, variant, showAnswersForDoc }: 
             emoji={String.fromCodePoint(0x26A1)}
             description={t(`worksheets.${docId}.description`, 'Solve as many facts as you can quickly. Practice all facts 1-12.')}
             problemCount={facts.length}
-            learningObjectives={[
-                'Build speed and accuracy with multiplication facts 1-12',
-                'Practice quick recall of multiplication facts',
-                'Achieve automaticity (knowing facts instantly)'
-            ]}
-            parentTeacherTips={[
-                'Fluency means speed AND accuracy - encourage both',
-                'Time students to track improvement',
-                'Use strategies: patterns, known facts, breaking down',
-                'Extension: Try to beat your time on the next attempt!'
-            ]}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(obj) && obj.length > 0 ? obj : [
+                    'Build speed and accuracy with multiplication facts 1-12',
+                    'Practice quick recall of multiplication facts',
+                    'Achieve automaticity (knowing facts instantly)'
+                ]
+            })()}
+            parentTeacherTips={(() => {
+                const tipList = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(tipList) && tipList.length > 0 ? tipList : [
+                    'Fluency means speed AND accuracy - encourage both',
+                    'Time students to track improvement',
+                    'Use strategies: patterns, known facts, breaking down',
+                    'Extension: Try to beat your time on the next attempt!'
+                ]
+            })()}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 animate-gradient-x mb-4" />
 
@@ -2197,17 +2215,23 @@ export function MultiplicationMixedReview({ seed, variant, showAnswersForDoc }: 
             emoji={String.fromCodePoint(0x1F31F)}
             description={t(`worksheets.${docId}.description`, 'Mixed practice with all multiplication facts. Review everything you\'ve learned.')}
             problemCount={facts.length}
-            learningObjectives={[
-                'Review all multiplication facts 1-12 in mixed order',
-                'Test mastery across all times tables',
-                'Build confidence with comprehensive practice'
-            ]}
-            parentTeacherTips={[
-                'Mixed review tests true mastery - students can\'t rely on patterns',
-                'Encourage students to use all strategies they know',
-                'This is great for assessment - see which facts need more practice',
-                'Extension: Time yourself and track improvement'
-            ]}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(obj) && obj.length > 0 ? obj : [
+                    'Review all multiplication facts 1-12 in mixed order',
+                    'Test mastery across all times tables',
+                    'Build confidence with comprehensive practice'
+                ]
+            })()}
+            parentTeacherTips={(() => {
+                const tipList = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(tipList) && tipList.length > 0 ? tipList : [
+                    'Mixed review tests true mastery - students can\'t rely on patterns',
+                    'Encourage students to use all strategies they know',
+                    'This is great for assessment - see which facts need more practice',
+                    'Extension: Time yourself and track improvement'
+                ]
+            })()}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-purple-400 to-pink-500 animate-gradient-x mb-4" />
 
@@ -2334,18 +2358,24 @@ export function MultiplicationStrategies({ seed, variant, showAnswersForDoc }: S
             emoji={String.fromCodePoint(0x1F9E0)}
             description={t(`worksheets.${docId}.description`, 'Use different tools to solve problems. Choose the best strategy for each!')}
             problemCount={problems.length}
-            learningObjectives={[
-                'Use multiple strategies to solve multiplication problems',
-                'Understand skip counting, arrays, repeated addition, and doubles',
-                'Choose the best tool for each problem'
-            ]}
-            parentTeacherTips={[
-                'Different strategies work for different learners',
-                'Skip counting: Great for 2s, 5s, and 10s',
-                'Arrays: Excellent for visual learners',
-                'Break-apart: Preparatory for distributive property',
-                'Extension: Design your own strategy for 7 × 8!'
-            ]}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                return Array.isArray(obj) && obj.length > 0 ? obj : [
+                    'Use multiple strategies to solve multiplication problems',
+                    'Understand skip counting, arrays, repeated addition, and doubles',
+                    'Choose the best tool for each problem'
+                ]
+            })()}
+            parentTeacherTips={(() => {
+                const tipList = t(`worksheets.${docId}.parentTeacherTips`)
+                return Array.isArray(tipList) && tipList.length > 0 ? tipList : [
+                    'Different strategies work for different learners',
+                    'Skip counting: Great for 2s, 5s, and 10s',
+                    'Arrays: Excellent for visual learners',
+                    'Break-apart: Preparatory for distributive property',
+                    'Extension: Design your own strategy for 7 × 8!'
+                ]
+            })()}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-teal-400 to-cyan-500 animate-gradient-x mb-4" />
 

@@ -815,6 +815,70 @@ export const en = {
       title: 'Fact Families (Multiplication & Division)',
       description: 'Understand the relationship between multiplication and division. Complete the number bond triangles and write the four related equations.',
     },
+    'mult-area-model': {
+      title: 'Area Model Multiplication',
+      description: 'Break numbers into tens and ones. Map out the area to find the total.',
+      learningObjectives: [
+        'Apply area models to multi-digit multiplication',
+        'Decompose numbers by place value',
+        'Synthesize partial products for a final result',
+      ],
+      parentTeacherTips: [
+        'Visualize the area as a rectangle divided into four plots',
+        'The large plot is Tens x Tens (e.g., 20 x 10)',
+        'Adding the four "plots" gives the total territory',
+      ],
+    },
+    'mult-fact-fluency': {
+      title: 'Multiplication Fact Fluency',
+      description: 'Solve as many facts as you can quickly. Practice all facts 1-12.',
+      learningObjectives: [
+        'Build speed and accuracy with multiplication facts 1-12',
+        'Practice quick recall of multiplication facts',
+        'Achieve automaticity (knowing facts instantly)',
+      ],
+      parentTeacherTips: [
+        'Fluency means speed AND accuracy - encourage both',
+        'Time students to track improvement',
+        'Use strategies: patterns, known facts, breaking down',
+        'Extension: Try to beat your time on the next attempt!',
+      ],
+    },
+    'mult-mixed-review': {
+      title: 'Mixed Multiplication Review',
+      description: 'Mixed practice with all multiplication facts. Review everything you\'ve learned.',
+      learningObjectives: [
+        'Review all multiplication facts 1-12 in mixed order',
+        'Test mastery across all times tables',
+        'Build confidence with comprehensive practice',
+      ],
+      parentTeacherTips: [
+        'Mixed review tests true mastery - students can\'t rely on patterns',
+        'Encourage students to use all strategies they know',
+        'This is great for assessment - see which facts need more practice',
+        'Extension: Time yourself and track improvement',
+      ],
+    },
+    'mult-strategies': {
+      title: 'Multiplication Strategies',
+      description: 'Use different tools to solve problems. Choose the best strategy for each!',
+      learningObjectives: [
+        'Use multiple strategies to solve multiplication problems',
+        'Understand skip counting, arrays, repeated addition, and doubles',
+        'Choose the best tool for each problem',
+      ],
+      parentTeacherTips: [
+        'Different strategies work for different learners',
+        'Skip counting: Great for 2s, 5s, and 10s',
+        'Arrays: Excellent for visual learners',
+        'Break-apart: Preparatory for distributive property',
+        'Extension: Design your own strategy for 7 × 8!',
+      ],
+    },
+    'mult-2x2': {
+      title: 'Multiplication (2-digit x 2-digit)',
+      description: 'Practice vertical multiplication with 2-digit by 2-digit numbers.',
+    },
     'math-maze': {
       title: 'Math Maze Adventure',
       description: 'Start at S and reach F. Move up/down/left/right only onto tiles whose equation equals the target shown in that row. Circle your path!',
