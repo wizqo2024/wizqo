@@ -1,6 +1,7 @@
 import React from 'react';
 import { WorksheetSectionWrapper, getWorksheetTheme } from './PrintablesPage';
 import { makeRng, shuffleArray } from '@/utils/printableUtils';
+import { ExpandedForm200, NumberPatterns200, RoundingNearest10, AddThreeNumbers, MissingAddends, FactFamilies20, MentalMath20, MoneyCoinsBills, MeasurementLength, BarGraphsData } from './printables/SecondGradeMath';
 
 function generateColorByNumber(seed: string) {
     const rng = makeRng(seed)
@@ -809,6 +810,46 @@ export const MathWorksheets: React.FC<MathWorksheetsProps> = ({ docId, commonPro
                 </div>
             </WorksheetSectionWrapper>
         )
+    }
+
+    if (docId === 'expanded-form-200') {
+        return <ExpandedForm200 {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'number-patterns-200') {
+        return <NumberPatterns200 {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'rounding-nearest-10') {
+        return <RoundingNearest10 {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'add-three-numbers') {
+        return <AddThreeNumbers {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'missing-addends') {
+        return <MissingAddends {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'fact-families-20') {
+        return <FactFamilies20 {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'mental-math-20') {
+        return <MentalMath20 {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'money-coins-bills') {
+        return <MoneyCoinsBills {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'measurement-length') {
+        return <MeasurementLength {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'bar-graphs-data') {
+        return <BarGraphsData {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
     }
 
     return null;
