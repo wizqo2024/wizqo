@@ -3616,9 +3616,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           );
         })()}
 
-        {activeDocs.includes('add-2digit-100') && (
-          <Add2Digit100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
-        )}
+
 
         {activeDocs.includes('sub-2digit-100') && (
           <Sub2Digit100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
