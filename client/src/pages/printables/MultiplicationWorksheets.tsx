@@ -708,7 +708,7 @@ export function MultiplicationArraysModels({ seed, variant, showAnswersForDoc }:
     );
 }
 
-export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, range = [1, 12] }: SpecificWorksheetProps & { docId: string, range?: [number, number] }) {
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
@@ -938,7 +938,7 @@ interface TimesTableProps extends SpecificWorksheetProps {
     range: [number, number]
 }
 
-export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, range }: TimesTableProps) {
+export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, range = [1, 12] }: TimesTableProps) {
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
@@ -1064,7 +1064,7 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
 }
 
 
-export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, range = [1, 12] }: SpecificWorksheetProps & { docId: string, range?: [number, number] }) {
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min }
@@ -3364,7 +3364,7 @@ export function MultiplicationBlankTable({ seed, variant, showAnswersForDoc, doc
     );
 }
 
-export function MultiplicationConfidence({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+export function MultiplicationConfidence({ seed, variant, showAnswersForDoc, docId, range = [1, 12] }: SpecificWorksheetProps & { docId: string, range?: [number, number] }) {
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
@@ -3554,7 +3554,7 @@ export function MultiplicationConfidence({ seed, variant, showAnswersForDoc, doc
     );
 }
 
-export function MultiplicationFluency({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+export function MultiplicationFluency({ seed, variant, showAnswersForDoc, docId, range = [1, 12] }: SpecificWorksheetProps & { docId: string, range?: [number, number] }) {
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
