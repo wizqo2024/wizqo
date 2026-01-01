@@ -3191,7 +3191,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           }}
         />
 
-        {['addition-subtraction-0-10', 'number-tracing-1-10', 'number-tracing-1-20', 'place-value-hto', 'color-by-number'].map((docId) => (
+        {['addition-subtraction-0-10', 'number-tracing-1-10', 'number-tracing-1-20', 'place-value-hto', 'color-by-number', 'expanded-form-200', 'number-patterns-200', 'rounding-nearest-10', 'add-three-numbers', 'missing-addends', 'fact-families-20', 'mental-math-20', 'money-coins-bills', 'measurement-length', 'bar-graphs-data', 'add-2digit-100'].map((docId) => (
           <MathWorksheets
             key={docId}
             docId={docId}
