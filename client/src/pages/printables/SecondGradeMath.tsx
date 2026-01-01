@@ -915,7 +915,128 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
                             >
                                 <span className="hidden print:block text-xs font-bold text-center -mt-4">{d.value}</span>
                             </div>
-                            <span className="mt-2 text-xs font-bold text-slate-600 uppercase tracking-wider">{d.name}</span>
+                            <span className="mt-2 text-xs font-bold text-slate-600 uppercase tracking-wider">{d.name}
+
+// ==========================================
+// 2-Digit Addition (No Regrouping)
+// ==========================================
+export function Add2Digit100({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'add-2digit-100'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const nextInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    function genPairs(count: number) {
+        const out: Array<[number, number]> = [];
+        let guard = 0;
+        while (out.length < count && guard < 10000) {
+            const a = nextInt(10, 99);
+            const b = nextInt(10, 99);
+            // No regrouping condition: (a%10) + (b%10) < 10
+            if ((a % 10) + (b % 10) < 10 && a + b <= 100) out.push([a, b]);
+            guard++;
+        }
+        return out;
+    }
+    const pairs = genPairs(12); // Increased to 12 to match grid
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, '2-Digit Addition (No Regrouping)')}
+            emoji="➕"
+            description={t(`worksheets.${docId}.description`, 'Add the two numbers. No regrouping needed.')}
+            problemCount={pairs.length}
+        >
+            <PremiumWorksheetBanner
+                title="Double Digit Power"
+                subtitle="Adding Without Regrouping"
+                icon="🏗️"
+                color="cyan"
+                range="Sums to 100"
+            />
+
+            <StrategySpotlight
+                title="Building Numbers"
+                tips={[
+                    "Line up the numbers: Ones under Ones, Tens under Tens.",
+                    "Add the Ones column first.",
+                    "Then add the Tens column.",
+                    "No Regrouping needed! (The ones add up to less than 10)"
+                ]}
+                color="cyan"
+            />
+
+            {/* Worked Example with Visuals */}
+            <div className="mb-8 p-6 bg-cyan-50/50 rounded-xl border border-cyan-100 break-inside-avoid print:bg-white print:border-slate-300">
+                <div className="flex items-center gap-2 mb-4 font-bold text-cyan-900">
+                    <span className="text-xl">👁️</span>
+                    <span>Visual Example: 23 + 45 = ?</span>
+                </div>
+                <div className="bg-white p-4 rounded-xl border-2 border-cyan-200 overflow-hidden shadow-sm print:shadow-none">
+                     <svg viewBox="0 0 600 200" className="w-full h-auto max-h-48" preserveAspectRatio="xMidYMid meet">
+                        {/* 23 - 2 tens and 3 ones */}
+                        <text x="10" y="25" fontSize="14" fill="#0891b2" fontWeight="bold">23 =</text>
+                        {Array.from({ length: 2 }).map((_, j) => (
+                            <rect key={`t1-${j}`} x={50 + j * 55} y="5" width="45" height="65" rx="4" fill="#22d3ee" stroke="#0891b2" strokeWidth="2" />
+                        ))}
+                        {Array.from({ length: 3 }).map((_, j) => (
+                            <rect key={`o1-${j}`} x={165 + j * 35} y="45" width="25" height="25" rx="2" fill="#67e8f9" stroke="#0891b2" strokeWidth="1.5" />
+                        ))}
+                        
+                        {/* Plus sign */}
+                        <text x="280" y="45" fontSize="28" fill="#0891b2" fontWeight="bold">+</text>
+
+                        {/* 45 - 4 tens and 5 ones */}
+                        <text x="10" y="105" fontSize="14" fill="#0369a1" fontWeight="bold">45 =</text>
+                        {Array.from({ length: 4 }).map((_, j) => (
+                            <rect key={`t2-${j}`} x={50 + j * 55} y="85" width="45" height="65" rx="4" fill="#38bdf8" stroke="#0369a1" strokeWidth="2" />
+                        ))}
+                        {Array.from({ length: 5 }).map((_, j) => (
+                            <rect key={`o2-${j}`} x={280 + j * 35} y="125" width="25" height="25" rx="2" fill="#7dd3fc" stroke="#0369a1" strokeWidth="1.5" />
+                        ))}
+
+                        {/* Equals and answer */}
+                        <text x="470" y="45" fontSize="28" fill="#0891b2" fontWeight="bold">=</text>
+                        <text x="470" y="105" fontSize="32" fill="#0e7490" fontWeight="bold">68</text>
+                        <text x="10" y="185" fontSize="12" fill="#0e7490" fontWeight="bold">Total: 6 tens (20+40) + 8 ones (3+5) = 68</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-6">
+                {pairs.map(([a, b], i) => (
+                    <div key={i} className="flex flex-col items-center p-4 bg-cyan-50/30 rounded-xl border border-cyan-100 break-inside-avoid print:bg-white print:border-slate-300">
+                        <div className="flex flex-col items-end text-3xl font-mono font-bold text-slate-700 leading-tight w-24">
+                            <div>{a}</div>
+                            <div className="border-b-4 border-slate-700 w-full flex justify-between">
+                                <span className="text-cyan-500 mr-2">+</span>
+                                <span>{b}</span>
+                            </div>
+                        </div>
+                        <div className="w-24 h-16 border-2 border-slate-200 rounded-lg bg-white mt-2 shadow-inner"></div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">✅</span>
+                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-4 gap-4 text-sm font-mono">
+                         {pairs.map(([a, b], i) => (
+                             <div key={i} className="flex items-center justify-center bg-white border border-emerald-100 rounded p-1 text-emerald-800">
+                                 {a} + {b} = <strong>{a+b}</strong>
+                             </div>
+                         ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}</span>
                         </div>
                     ))}
                 </div>

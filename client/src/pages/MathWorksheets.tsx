@@ -1,7 +1,7 @@
 import React from 'react';
 import { WorksheetSectionWrapper, getWorksheetTheme } from './PrintablesPage';
 import { makeRng, shuffleArray } from '@/utils/printableUtils';
-import { ExpandedForm200, NumberPatterns200, RoundingNearest10, AddThreeNumbers, MissingAddends, FactFamilies20, MentalMath20, MoneyCoinsBills, MeasurementLength, BarGraphsData } from './printables/SecondGradeMath';
+import { ExpandedForm200, NumberPatterns200, RoundingNearest10, AddThreeNumbers, MissingAddends, FactFamilies20, MentalMath20, MoneyCoinsBills, MeasurementLength, BarGraphsData, Add2Digit100 } from './printables/SecondGradeMath';
 
 function generateColorByNumber(seed: string) {
     const rng = makeRng(seed)
@@ -850,6 +850,10 @@ export const MathWorksheets: React.FC<MathWorksheetsProps> = ({ docId, commonPro
 
     if (docId === 'bar-graphs-data') {
         return <BarGraphsData {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
+    }
+
+    if (docId === 'add-2digit-100') {
+        return <Add2Digit100 {...{ showAnswersForDoc, seed: effectiveSeed, variant }} />
     }
 
     return null;
