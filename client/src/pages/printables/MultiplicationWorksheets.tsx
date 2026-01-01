@@ -59,17 +59,24 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
                     getTrans('parentTeacherTips.2', 'Challenge: Can you beat your time?')
                 ]}
             >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-red-500 animate-gradient-x mb-4" />
-
-                {/* Decorative Header */}
-                <div className="w-full h-24 mb-6 relative overflow-hidden bg-blue-900 rounded-xl border-4 border-yellow-400 shadow-xl">
-                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2.5px)', backgroundSize: '20px 20px' }}></div>
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-5xl animate-pulse">{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl animate-bounce-slow">{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <h2 className="text-3xl font-black text-yellow-400 tracking-widest uppercase italic transform -skew-x-12" style={{ textShadow: '3px 3px 0px #ef4444' }}>HERO TRAINING</h2>
-                    </div>
-                </div>
+                <PremiumWorksheetBanner
+                    title={getTrans('banner.title', "Super Hero City")}
+                    subtitle={getTrans('banner.subtitle', "Power Fact Shield Training")}
+                    icons={{
+                        bg1: "🛡️",
+                        bg2: "🏙️",
+                        float1: "🦸",
+                        float2: "⚡"
+                    }}
+                    colors={{
+                        bg: "bg-gradient-to-br from-blue-900 to-indigo-900 border-4",
+                        border: "border-yellow-400",
+                        pillBg: "bg-yellow-400",
+                        pillBorder: "border-yellow-500",
+                        pillText: "text-blue-900",
+                        accent: "text-blue-400/30"
+                    }}
+                />
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {problems.map((p, i) => (
@@ -159,42 +166,83 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
                 return Array.isArray(tipList) && tipList.length > 0 ? tipList : tips
             })()}
         >
-            <div className={`print:hidden h-1 w-16 rounded-full bg-gradient-to-r ${isAdvanced ? 'from-purple-400 to-pink-400' : 'from-purple-400 to-pink-400'} animate-gradient-x mb-2`} />
+            <PremiumWorksheetBanner
+                title={isAdvanced ? "Advanced Skills" : "Foundation Training"}
+                subtitle={isAdvanced ? "6-12 Multiplication" : "1-5 Multiplication"}
+                icons={{
+                    bg1: isAdvanced ? "🚀" : "🎯",
+                    bg2: "✖️",
+                    float1: isAdvanced ? "🌟" : "💡",
+                    float2: "⚡"
+                }}
+                colors={{
+                    bg: isAdvanced ? "bg-purple-50" : "bg-blue-50",
+                    border: isAdvanced ? "border-purple-200" : "border-blue-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: isAdvanced ? "border-purple-300" : "border-blue-300",
+                    pillText: isAdvanced ? "text-purple-900" : "text-blue-900",
+                    accent: isAdvanced ? "text-purple-200" : "text-blue-200"
+                }}
+            />
 
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
-                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
+            <div className={`mb-8 p-6 bg-${isAdvanced ? 'purple' : 'blue'}-50/50 border-2 border-${isAdvanced ? 'purple' : 'blue'}-100 rounded-2xl relative overflow-hidden group`}>
+                <div className={`absolute -right-4 -bottom-4 text-8xl opacity-5 text-${isAdvanced ? 'purple' : 'blue'}-500 group-hover:scale-110 transition-transform`}>{isAdvanced ? '🚀' : '💡'}</div>
+                <div className={`font-black text-${isAdvanced ? 'purple' : 'blue'}-900 mb-4 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
+                    <span className={`w-8 h-8 rounded-lg bg-${isAdvanced ? 'purple' : 'blue'}-500 text-white flex items-center justify-center text-sm`}>{isAdvanced ? '🚀' : '💡'}</span>
+                    {getTrans('example.title', "Technique Guide")}
                 </div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> {getTrans('example.problemText', isAdvanced ? '8 × 7 = ?' : '3 × 4 = ?')}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                <div className="space-y-4 text-sm">
+                    <div className="flex items-baseline gap-3">
+                        <span className="text-slate-400 font-mono text-xs uppercase tracking-tighter font-bold">Goal:</span>
+                        <div className="text-lg font-medium text-slate-700 italic">
+                            {getTrans('example.problem', 'Solve:')} {getTrans('example.problemText', isAdvanced ? '8 × 7 = ?' : '3 × 4 = ?')}
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-2">
                         {isAdvanced ? (
                             <>
-                                <div><strong>{getTrans('example.strategy1', 'Strategy 1:')}</strong> {getTrans('example.strategy1Text', 'Break it down: (5 × 7) + (3 × 7) = 35 + 21 = 56')}</div>
-                                <div><strong>{getTrans('example.strategy2', 'Strategy 2:')}</strong> {getTrans('example.strategy2Text', 'If you know 7 × 7 = 49, then 8 × 7 = 49 + 7 = 56')}</div>
-                                <div><strong>{getTrans('example.strategy3', 'Strategy 3:')}</strong> {getTrans('example.strategy3Text', 'Skip count: 8, 16, 24, 32, 40, 48, 56 (count by 8s seven times)')}</div>
-                                <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '56')}</div>
+                                <div className={`pl-4 border-l-4 border-purple-200 py-1 space-y-1`}>
+                                    <div className="text-sm font-bold text-slate-800">{getTrans('example.strategy1', 'Strategy 1: Break it down')}</div>
+                                    <p className="text-xs text-slate-500 italic">{getTrans('example.strategy1Text', '(5 × 7) + (3 × 7) = 35 + 21 = 56')}</p>
+                                </div>
+                                <div className={`pl-4 border-l-4 border-purple-200 py-1 space-y-1`}>
+                                    <div className="text-sm font-bold text-slate-800">{getTrans('example.strategy2', 'Strategy 2: Use known facts')}</div>
+                                    <p className="text-xs text-slate-500 italic">{getTrans('example.strategy2Text', 'If 7 × 7 = 49, then 49 + 7 = 56')}</p>
+                                </div>
                             </>
                         ) : (
                             <>
-                                <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Think: 3 groups of 4')}</div>
-                                <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Count: 4, 8, 12 (skip count by 4s three times)')}</div>
-                                <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'Or add: 4 + 4 + 4 = 12')}</div>
-                                <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '12')}</div>
+                                <div className={`pl-4 border-l-4 border-blue-200 py-1 space-y-1`}>
+                                    <div className="text-sm font-bold text-slate-800">{getTrans('example.step1', 'Step 1: Visualize')}</div>
+                                    <p className="text-xs text-slate-500 italic">{getTrans('example.step1Text', 'Think: 3 groups of 4')}</p>
+                                </div>
+                                <div className={`pl-4 border-l-4 border-blue-200 py-1 space-y-1`}>
+                                    <div className="text-sm font-bold text-slate-800">{getTrans('example.step2', 'Step 2: Add up')}</div>
+                                    <p className="text-xs text-slate-500 italic">{getTrans('example.step2Text', '4 + 4 + 4 = 12')}</p>
+                                </div>
                             </>
                         )}
-                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!') || 'Tip: Double check your steps!'}</div>
+                    </div>
+                    <div className={`mt-2 p-3 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center justify-between`}>
+                        <div className="text-emerald-800 font-black text-[10px] uppercase tracking-widest">{getTrans('example.answer', 'Final Answer')}</div>
+                        <div className="text-xl font-black text-emerald-600">{getTrans('example.answerText', isAdvanced ? '56' : '12')}</div>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
-                        <div className="font-mono text-2xl leading-7 text-center">
-                            <div>{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                    <div key={i} className={`relative border-2 border-${isAdvanced ? 'purple' : 'blue'}-100 rounded-2xl p-6 bg-white hover:border-${isAdvanced ? 'purple' : 'blue'}-300 transition-all group break-inside-avoid shadow-sm`}>
+                        <div className="flex flex-col items-center gap-2">
+                            <div className="flex items-center gap-3 text-2xl font-black text-slate-700">
+                                <span className="w-6 text-[10px] font-black text-slate-300 mr-2">{i + 1}</span>
+                                <span>{a}</span>
+                                <span className={`text-${isAdvanced ? 'purple' : 'blue'}-400 scale-75`}>×</span>
+                                <span>{b}</span>
+                                <span className="text-slate-300">=</span>
+                                <div className={`w-16 h-10 border-b-4 border-dashed border-${isAdvanced ? 'purple' : 'blue'}-300 bg-${isAdvanced ? 'purple' : 'blue'}-50/30 rounded-lg`} />
+                            </div>
                         </div>
                     </div>
                 ))}
@@ -717,48 +765,104 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
                 return Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string' ? obj : tips
             })()}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+            <PremiumWorksheetBanner
+                title={is1To12 ? "Complete Tables" : (is6To12 ? "Advanced Facts" : "Core Basics")}
+                subtitle={getTrans('banner.subtitle', "Multiplication Flow Training")}
+                icons={{
+                    bg1: "🔢",
+                    bg2: "⚡",
+                    float1: is1To12 ? "🚀" : (is6To12 ? "🌟" : "💡"),
+                    float2: "📈"
+                }}
+                colors={{
+                    bg: is1To12 ? "bg-gradient-to-br from-indigo-900 to-purple-900 border-4" : (is6To12 ? "bg-gradient-to-br from-purple-600 to-pink-600 border-4" : "bg-gradient-to-br from-blue-600 to-indigo-600 border-4"),
+                    border: is1To12 ? "border-yellow-400" : (is6To12 ? "border-purple-300" : "border-blue-300"),
+                    pillBg: is1To12 ? "bg-yellow-400" : "bg-white/20 backdrop-blur-sm",
+                    pillBorder: is1To12 ? "border-yellow-500" : "border-white/30",
+                    pillText: is1To12 ? "text-indigo-900" : "text-white",
+                    accent: "text-white/40"
+                }}
+            />
+
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
-                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
+            <div className={`my-8 p-6 bg-${is6To12 || is1To12 ? 'purple' : 'blue'}-50/50 border-2 border-${is6To12 || is1To12 ? 'purple' : 'blue'}-100 rounded-2xl relative overflow-hidden group shadow-sm`}>
+                <div className={`absolute -right-4 -bottom-4 text-8xl opacity-5 text-${is6To12 || is1To12 ? 'purple' : 'blue'}-500 group-hover:scale-110 transition-transform`}>{is1To12 ? '🚀' : (is6To12 ? '🌟' : '💡')}</div>
+                <div className={`font-black text-${is6To12 || is1To12 ? 'purple' : 'blue'}-900 mb-4 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
+                    <span className={`w-8 h-8 rounded-lg bg-${is6To12 || is1To12 ? 'purple' : 'blue'}-500 text-white flex items-center justify-center text-sm`}>{is1To12 ? '🚀' : (is6To12 ? '🌟' : '💡')}</span>
+                    {getTrans('example.title', "Strategy Guide")}
                 </div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> {getTrans('example.problemText', is1To12 ? '9 × 7 = ?' : (is6To12 ? '7 × 8 = ?' : '3 × 4 = ?'))}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                <div className="space-y-4 text-sm relative z-10">
+                    <div className="flex items-baseline gap-3">
+                        <span className="text-slate-400 font-mono text-xs uppercase tracking-tighter font-bold">{getTrans('example.goal', 'Goal:')}</span>
+                        <div className="text-lg font-medium text-slate-700 italic">
+                            {getTrans('example.problem', 'Solve:')} {getTrans('example.problemText', is1To12 ? '9 × 7 = ?' : (is6To12 ? '7 × 8 = ?' : '3 × 4 = ?'))}
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ml-2">
                         {is1To12 ? (
                             <>
-                                <div><strong>{getTrans('example.method1', 'Method 1 (9s trick):')}</strong> {getTrans('example.method1Text', '9 × 7 is one group less than 10 × 7: 70 - 7 = 63')}</div>
-                                <div><strong>{getTrans('example.method2', 'Method 2 (Use known facts):')}</strong> {getTrans('example.method2Text', 'If 9 × 6 = 54, then 9 × 7 = 54 + 9 = 63')}</div>
-                                <div><strong>{getTrans('example.method3', 'Method 3 (Skip counting):')}</strong> {getTrans('example.method3Text', 'Count by 9s seven times: 9, 18, 27, 36, 45, 54, 63')}</div>
-                                <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> 63</div>
+                                <div className="pl-4 border-l-4 border-indigo-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method1', 'Method 1 (9s trick)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method1Text', '9 × 7 is one group less than 10 × 7: 70 - 7 = 63')}</p>
+                                </div>
+                                <div className="pl-4 border-l-4 border-indigo-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method2', 'Method 2 (Known facts)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method2Text', 'If 9 × 6 = 54, then 54 + 9 = 63')}</p>
+                                </div>
+                                <div className="pl-4 border-l-4 border-indigo-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method3', 'Method 3 (Skip counting)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method3Text', '9, 18, 27, 36, 45, 54, 63')}</p>
+                                </div>
                             </>
                         ) : is6To12 ? (
                             <>
-                                <div><strong>{getTrans('example.method1', 'Method 1 (Break it down):')}</strong> {getTrans('example.method1Text', '7 × 8 = (5 × 8) + (2 × 8) = 40 + 16 = 56')}</div>
-                                <div><strong>{getTrans('example.method2', 'Method 2 (Use known facts):')}</strong> {getTrans('example.method2Text', 'If 7 × 7 = 49, then 7 × 8 = 49 + 7 = 56')}</div>
-                                <div><strong>{getTrans('example.method3', 'Method 3 (Skip counting):')}</strong> {getTrans('example.method3Text', 'Count by 7s eight times: 7, 14, 21, 28, 35, 42, 49, 56')}</div>
-                                <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> 56</div>
+                                <div className="pl-4 border-l-4 border-purple-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method1', 'Method 1 (Break it down)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method1Text', '7 × 8 = (5 × 8) + (2 × 8) = 40 + 16 = 56')}</p>
+                                </div>
+                                <div className="pl-4 border-l-4 border-purple-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method2', 'Method 2 (Known facts)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method2Text', 'If 7 × 7 = 49, then 49 + 7 = 56')}</p>
+                                </div>
+                                <div className="pl-4 border-l-4 border-purple-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method3', 'Method 3 (Skip counting)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method3Text', '7, 14, 21, 28, 35, 42, 49, 56')}</p>
+                                </div>
                             </>
                         ) : (
                             <>
-                                <div><strong>{getTrans('example.method1', 'Method 1 (Skip Counting):')}</strong> {getTrans('example.method1Text', 'Count by 3s four times: 3, 6, 9, 12')}</div>
-                                <div><strong>{getTrans('example.method2', 'Method 2 (Repeated Addition):')}</strong> {getTrans('example.method2Text', '3 + 3 + 3 + 3 = 12')}</div>
-                                <div><strong>{getTrans('example.method3', 'Method 3 (Visual):')}</strong> {getTrans('example.method3Text', '3 groups of 4 objects = 12 objects')}</div>
-                                <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '12')}</div>
+                                <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method1', 'Method 1 (Skip Counting)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method1Text', 'Count by 3s four times: 3, 6, 9, 12')}</p>
+                                </div>
+                                <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method2', 'Method 2 (Repeated Addition)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method2Text', '3 + 3 + 3 + 3 = 12')}</p>
+                                </div>
+                                <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
+                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method3', 'Method 3 (Visual)')}</div>
+                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method3Text', '3 groups of 4 objects = 12')}</p>
+                                </div>
                             </>
                         )}
-                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
+                    </div>
+                    <div className="mt-2 p-3 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center justify-between">
+                        <div className="text-emerald-800 font-black text-[10px] uppercase tracking-widest">{getTrans('example.answer', 'Final Answer')}</div>
+                        <div className="text-xl font-black text-emerald-600">{getTrans('example.answerText', is1To12 ? '63' : (is6To12 ? '56' : '12'))}</div>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 break-inside-avoid mb-8" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
-                        <div className="font-mono text-xl leading-7">
-                            {a} x {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
+                    <div key={i} className={`relative border-2 border-${is6To12 || is1To12 ? 'purple' : 'blue'}-100 rounded-2xl p-6 bg-white hover:border-${is6To12 || is1To12 ? 'purple' : 'blue'}-300 transition-all group break-inside-avoid shadow-sm flex items-center justify-center`}>
+                        <div className="flex items-center gap-3 text-2xl font-black text-slate-700">
+                            <span className="absolute top-2 left-3 text-[10px] font-black text-slate-300">{i + 1}</span>
+                            <span>{a}</span>
+                            <span className={`text-${is6To12 || is1To12 ? 'purple' : 'blue'}-400 scale-75`}>×</span>
+                            <span>{b}</span>
+                            <span className="text-slate-300">=</span>
+                            <div className={`w-14 h-10 border-b-4 border-dashed border-${is6To12 || is1To12 ? 'purple' : 'blue'}-300 bg-${is6To12 || is1To12 ? 'purple' : 'blue'}-50/30 rounded-lg`} />
                         </div>
                     </div>
                 ))}
@@ -1153,33 +1257,49 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
             />
 
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
-                    <span className="uppercase tracking-wider">{getTrans('example.title', "Strategy Spotlight")}</span>
+            <div className={`my-8 p-6 bg-blue-50/50 border-2 border-blue-100 rounded-2xl relative overflow-hidden group shadow-sm`}>
+                <div className={`absolute -right-4 -bottom-4 text-8xl opacity-5 text-blue-500 group-hover:scale-110 transition-transform`}>🧩</div>
+                <div className={`font-black text-blue-900 mb-4 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
+                    <span className={`w-8 h-8 rounded-lg bg-blue-500 text-white flex items-center justify-center text-sm`}>🧩</span>
+                    {getTrans('example.title', "Problem Logic")}
                 </div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base border-l-4 border-blue-200 pl-4 bg-white/50 p-3 rounded">
-                        <strong>{getTrans('example.problem', 'Problem:')}</strong> ? {String.fromCharCode(0x00D7)} 3 = 12
+                <div className="space-y-4 text-sm relative z-10">
+                    <div className="flex items-baseline gap-3">
+                        <span className="text-slate-400 font-mono text-xs uppercase tracking-tighter font-bold">{getTrans('example.goal', 'Goal:')}</span>
+                        <div className="text-lg font-medium text-slate-700 italic">
+                            {getTrans('example.problem', 'Solve:')} ? {String.fromCharCode(0x00D7)} 3 = 12
+                        </div>
                     </div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Ask: "What times 3 equals 12?"')}</div>
-                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Use multiplication facts or division.')}</div>
-                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> 4</div>
-                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: Dividing the product by the known factor gives you the missing number!')}</div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-2">
+                        <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
+                            <div className="text-xs font-bold text-slate-800">{getTrans('example.step1', 'Step 1: Ask')}</div>
+                            <p className="text-[11px] text-slate-500 italic">{getTrans('example.step1Text', 'Ask: "What times 3 equals 12?"')}</p>
+                        </div>
+                        <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
+                            <div className="text-xs font-bold text-slate-800">{getTrans('example.step2', 'Step 2: Connect')}</div>
+                            <p className="text-[11px] text-slate-500 italic">{getTrans('example.step2Text', 'Use multiplication facts or division (12 ÷ 3).')}</p>
+                        </div>
+                    </div>
+                    <div className="mt-2 p-3 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center justify-between">
+                        <div className="text-emerald-800 font-black text-[10px] uppercase tracking-widest">{getTrans('example.answer', 'Final Answer')}</div>
+                        <div className="text-xl font-black text-emerald-600">4</div>
+                    </div>
+                    <div className="text-xs text-blue-700 mt-2 italic font-medium bg-blue-100/50 p-2 rounded border border-blue-200">
+                        {String.fromCodePoint(0x1F4A1)} {getTrans('example.tip', 'Tip: Dividing the product by the known factor gives you the missing number!')}
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-xl p-6 bg-white text-center break-inside-avoid shadow-sm hover:border-amber-300 transition-colors">
-                        <div className="font-mono text-2xl leading-7 text-slate-800">
-                            {p.missingType === 'a' ? <span className="inline-block w-12 h-10 border-b-[3px] border-slate-600 mx-1 bg-slate-50 rounded" /> : p.a}
-                            <span className="mx-2">{String.fromCharCode(0x00D7)}</span>
-                            {p.missingType === 'b' ? <span className="inline-block w-12 h-10 border-b-[3px] border-slate-600 mx-1 bg-slate-50 rounded" /> : p.b}
-                            <span className="mx-2">=</span>
-                            {p.missingType === 'answer' ? <span className="inline-block w-14 h-10 border-b-[3px] border-slate-600 mx-1 bg-slate-50 rounded" /> : p.answer}
+                    <div key={i} className={`relative border-2 border-slate-100 rounded-2xl p-8 bg-white hover:border-${range[0] === 1 ? 'amber' : 'purple'}-200 transition-all group break-inside-avoid shadow-sm flex flex-col items-center justify-center min-h-[140px]`}>
+                        <div className="absolute top-2 left-3 text-[10px] font-black text-slate-300">{i + 1}</div>
+                        <div className="font-mono text-2xl font-black text-slate-700 flex items-center justify-center gap-2">
+                            {p.missingType === 'a' ? <div className={`w-14 h-11 border-b-4 border-dashed border-${range[0] === 1 ? 'amber' : 'purple'}-300 bg-${range[0] === 1 ? 'amber' : 'purple'}-50/30 rounded-lg`} /> : <span>{p.a}</span>}
+                            <span className={`text-${range[0] === 1 ? 'amber' : 'purple'}-400 scale-75`}>×</span>
+                            {p.missingType === 'b' ? <div className={`w-14 h-11 border-b-4 border-dashed border-${range[0] === 1 ? 'amber' : 'purple'}-300 bg-${range[0] === 1 ? 'amber' : 'purple'}-50/30 rounded-lg`} /> : <span>{p.b}</span>}
+                            <span className="text-slate-300">=</span>
+                            {p.missingType === 'answer' ? <div className={`w-16 h-11 border-b-4 border-dashed border-${range[0] === 1 ? 'amber' : 'purple'}-300 bg-${range[0] === 1 ? 'amber' : 'purple'}-50/30 rounded-lg`} /> : <span>{p.answer}</span>}
                         </div>
                     </div>
                 ))}
@@ -2187,62 +2307,66 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
             />
 
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm shadow-sm">
-                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
-                    <span className="uppercase tracking-wider">{getTrans('example.title', "Strategy Spotlight")}</span>
+            <div className={`my-8 p-6 bg-${is2x2 ? 'orange' : 'blue'}-50/50 border-2 border-${is2x2 ? 'orange' : 'blue'}-100 rounded-2xl relative overflow-hidden group shadow-sm`}>
+                <div className={`absolute -right-4 -bottom-4 text-8xl opacity-5 text-${is2x2 ? 'orange' : 'blue'}-500 group-hover:scale-110 transition-transform`}>{is2x2 ? '🌟' : '💡'}</div>
+                <div className={`font-black text-${is2x2 ? 'orange' : 'blue'}-900 mb-4 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
+                    <span className={`w-8 h-8 rounded-lg bg-${is2x2 ? 'orange' : 'blue'}-500 text-white flex items-center justify-center text-sm`}>{is2x2 ? '🌟' : '💡'}</span>
+                    {getTrans('example.title', "Strategy Spotlight")}
                 </div>
-                <div className="flex flex-col md:flex-row gap-6 items-center">
-                    <div className="space-y-3 text-sm flex-1">
-                        <div className="font-bold text-slate-800 text-lg mb-1">{getTrans('example.header', 'How to Solve Step-by-Step:')}</div>
+                <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
+                    <div className="space-y-4 text-sm flex-1">
+                        <div className="font-bold text-slate-800 text-lg mb-2">{getTrans('example.header', 'Standard Algorithm Mastery:')}</div>
                         {is2x2 ? (
-                            <div className="space-y-2 text-slate-700">
-                                <div className="flex gap-2">
-                                    <span className="font-bold text-blue-500">1.</span>
+                            <div className="space-y-3 text-slate-700">
+                                <div className="flex gap-3 items-start">
+                                    <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
                                     <p>Multiply the top number by the <strong>ones</strong> digit of the bottom number.</p>
                                 </div>
-                                <div className="flex gap-2">
-                                    <span className="font-bold text-blue-500">2.</span>
-                                    <p>Crucial Step: Put a <strong>zero (0)</strong> placeholder on the second line.</p>
+                                <div className="flex gap-3 items-start">
+                                    <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+                                    <p><strong>Crucial Step:</strong> Put a <span className="text-orange-600 font-bold underline">zero (0)</span> placeholder (turtle egg) on the second line.</p>
                                 </div>
-                                <div className="flex gap-2">
-                                    <span className="font-bold text-blue-500">3.</span>
+                                <div className="flex gap-3 items-start">
+                                    <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
                                     <p>Multiply the top number by the <strong>tens</strong> digit of the bottom number.</p>
                                 </div>
-                                <div className="flex gap-2">
-                                    <span className="font-bold text-blue-500">4.</span>
-                                    <p>Finally, <strong>add</strong> both partial products to find the final answer.</p>
+                                <div className="flex gap-3 items-start">
+                                    <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">4</span>
+                                    <p>Finally, <strong>add</strong> both partial products to find the final result.</p>
                                 </div>
                             </div>
                         ) : (
-                            <div className="space-y-2 text-slate-700">
-                                <div className="flex gap-2">
-                                    <span className="font-bold text-blue-500">1.</span>
+                            <div className="space-y-3 text-slate-700">
+                                <div className="flex gap-3 items-start">
+                                    <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
                                     <p>Multiply the bottom number by the <strong>ones</strong> digit of the top number.</p>
                                 </div>
-                                <div className="flex gap-2">
-                                    <span className="font-bold text-blue-500">2.</span>
+                                <div className="flex gap-3 items-start">
+                                    <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
                                     <p>Write the ones digit; carry over any tens digit to the next column.</p>
                                 </div>
-                                <div className="flex gap-2">
-                                    <span className="font-bold text-blue-500">3.</span>
+                                <div className="flex gap-3 items-start">
+                                    <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
                                     <p>Multiply by the <strong>tens</strong> place and add your carried number.</p>
                                 </div>
                             </div>
                         )}
-                        <div className="text-xs text-blue-600 mt-2 italic font-medium bg-blue-100/50 p-2 rounded border border-blue-200">{getTrans('example.tip', '💡 Pro Tip: Keeping your columns perfectly aligned is the secret to accuracy!')}</div>
+                        <div className={`mt-4 p-3 bg-${is2x2 ? 'orange' : 'blue'}-100/50 rounded-xl border border-${is2x2 ? 'orange' : 'blue'}-200 text-xs italic text-${is2x2 ? 'orange' : 'blue'}-700 font-medium`}>
+                            {String.fromCodePoint(0x1F4A1)} {getTrans('example.tip', 'Pro Tip: Keeping your columns perfectly aligned is the secret to accuracy!')}
+                        </div>
                     </div>
                     {/* Visual Example */}
-                    <div className="bg-white p-5 border-2 border-slate-200 rounded-xl shadow-md text-center min-w-[140px]">
+                    <div className="bg-white p-6 border-2 border-slate-200 rounded-2xl shadow-xl text-center min-w-[160px] transform hover:scale-105 transition-transform">
+                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Live Demo</div>
                         {is2x2 ? renderVerticalProblem(24, 12, true) : renderVerticalProblem(24, 3, true)}
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid flex flex-col items-center justify-center min-h-[160px]">
-                        <div className="w-full text-left text-xs text-slate-400 mb-2">{i + 1}.</div>
+                    <div key={i} className={`relative border-2 border-slate-100 rounded-2xl p-6 bg-white hover:border-${is2x2 ? 'orange' : 'blue'}-200 transition-all group break-inside-avoid shadow-sm flex flex-col items-center justify-center min-h-[180px]`}>
+                        <div className="absolute top-2 left-3 text-[10px] font-black text-slate-300">{i + 1}</div>
                         {renderVerticalProblem(p.a, p.b, false)}
                     </div>
                 ))}
