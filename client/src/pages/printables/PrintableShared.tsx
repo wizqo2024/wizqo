@@ -1153,6 +1153,11 @@ export function StrategySpotlight({ title, icon, steps, color, className = "" }:
         indigo: { border: 'border-indigo-200', bg: 'bg-indigo-50', text: 'text-indigo-900', iconBg: 'bg-indigo-100' },
         pink: { border: 'border-pink-200', bg: 'bg-pink-50', text: 'text-pink-900', iconBg: 'bg-pink-100' },
         emerald: { border: 'border-emerald-200', bg: 'bg-emerald-50', text: 'text-emerald-900', iconBg: 'bg-emerald-100' },
+        orange: { border: 'border-orange-200', bg: 'bg-orange-50', text: 'text-orange-900', iconBg: 'bg-orange-100' },
+        red: { border: 'border-red-200', bg: 'bg-red-50', text: 'text-red-900', iconBg: 'bg-red-100' },
+        yellow: { border: 'border-yellow-200', bg: 'bg-yellow-50', text: 'text-yellow-900', iconBg: 'bg-yellow-100' },
+        cyan: { border: 'border-cyan-200', bg: 'bg-cyan-50', text: 'text-cyan-900', iconBg: 'bg-cyan-100' },
+        teal: { border: 'border-teal-200', bg: 'bg-teal-50', text: 'text-teal-900', iconBg: 'bg-teal-100' },
     };
 
     const theme = colorMap[color] || colorMap.blue;

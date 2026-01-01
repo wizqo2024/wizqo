@@ -64,17 +64,28 @@ export function ExpandedForm200({ showAnswersForDoc, seed, variant }: SpecificWo
             <PremiumWorksheetBanner
                 title="Number Expander"
                 subtitle="Stretching Numbers Apart"
-                icon="📏"
-                color="blue"
-                range="50-200"
+                icons={{
+                    bg1: "📏",
+                    bg2: "🔢",
+                    float1: "1️⃣",
+                    float2: "0️⃣"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-blue-50 to-cyan-50",
+                    border: "border-blue-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-blue-300",
+                    pillText: "text-blue-800",
+                    accent: "text-blue-300"
+                }}
             />
 
             <StrategySpotlight
                 title="Stretch it Out!"
-                tips={[
-                    "Say the number out loud slowly.",
-                    "134 sounds like 'One hundred... thirty... four'.",
-                    "Write exactly what you hear: 100 + 30 + 4"
+                steps={[
+                    { label: "Step 1", text: "Say the number out loud slowly." },
+                    { label: "Step 2", text: "134 sounds like 'One hundred... thirty... four'." },
+                    { label: "Step 3", text: "Write exactly what you hear: 100 + 30 + 4" }
                 ]}
                 color="blue"
             />
@@ -179,17 +190,28 @@ export function NumberPatterns200({ showAnswersForDoc, seed, variant }: Specific
             <PremiumWorksheetBanner
                 title="Pattern Detective"
                 subtitle="Cracking the Number Code"
-                icon="🕵️"
-                color="purple"
-                range="1-200"
+                icons={{
+                    bg1: "🕵️",
+                    bg2: "🔎",
+                    float1: "❓",
+                    float2: "❗"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-purple-50 to-indigo-50",
+                    border: "border-purple-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-purple-300",
+                    pillText: "text-purple-800",
+                    accent: "text-purple-300"
+                }}
             />
 
             <StrategySpotlight
                 title="Find the Rule"
-                tips={[
-                    "Look at two numbers side-by-side.",
-                    "Are they getting bigger (+) or smaller (-)?",
-                    "How much did they change? Is it the same next time?"
+                steps={[
+                    { label: "Look", text: "Look at two numbers side-by-side." },
+                    { label: "Check", text: "Are they getting bigger (+) or smaller (-)?" },
+                    { label: "Solve", text: "How much did they change? Is it the same next time?" }
                 ]}
                 color="purple"
             />
@@ -271,17 +293,28 @@ export function RoundingNearest10({ showAnswersForDoc, seed, variant }: Specific
             <PremiumWorksheetBanner
                 title="Rounding Rocket"
                 subtitle="To the Nearest 10"
-                icon="🚀"
-                color="orange"
-                range="10-99"
+                icons={{
+                    bg1: "🚀",
+                    bg2: "🌌",
+                    float1: "🔟",
+                    float2: "🌠"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-orange-50 to-amber-50",
+                    border: "border-orange-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-orange-300",
+                    pillText: "text-orange-800",
+                    accent: "text-orange-300"
+                }}
             />
 
             <StrategySpotlight
                 title="Rocket Rules for Rounding"
-                tips={[
-                    "Look at the digit in the ones place (the neighbor).",
-                    "5 or more? Round UP to the next 10. (🚀 Blast off!)",
-                    "4 or less? Round DOWN (stay at the same 10). (Land safely)"
+                steps={[
+                    { label: "Step 1", text: "Look at the digit in the ones place (the neighbor)." },
+                    { label: "Step 2", text: "5 or more? Round UP to the next 10. (🚀 Blast off!)" },
+                    { label: "Step 3", text: "4 or less? Round DOWN (stay at the same 10). (Land safely)" }
                 ]}
                 color="orange"
             />
@@ -340,17 +373,28 @@ export function AddThreeNumbers({ showAnswersForDoc, seed, variant }: SpecificWo
             <PremiumWorksheetBanner
                 title="Triple Addition"
                 subtitle="Adding 3 Numbers"
-                icon="3️⃣"
-                color="green"
-                range="1-9"
+                icons={{
+                    bg1: "3️⃣",
+                    bg2: "➕",
+                    float1: "🎯",
+                    float2: "✅"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-green-50 to-emerald-50",
+                    border: "border-green-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-green-300",
+                    pillText: "text-green-800",
+                    accent: "text-green-300"
+                }}
             />
 
             <StrategySpotlight
                 title="Strategy: Make it Easier!"
-                tips={[
-                    "Look for pairs that make 10 (like 6 + 4).",
-                    "Look for doubles (like 3 + 3).",
-                    "Add those two first, then add the third number!"
+                steps={[
+                    { label: "Step 1", text: "Look for pairs that make 10 (like 6 + 4)." },
+                    { label: "Step 2", text: "Look for doubles (like 3 + 3)." },
+                    { label: "Step 3", text: "Add those two first, then add the third number!" }
                 ]}
                 color="green"
             />
@@ -421,18 +465,28 @@ export function MissingAddends({ showAnswersForDoc, seed, variant }: SpecificWor
             <PremiumWorksheetBanner
                 title="Mystery Numbers"
                 subtitle="Finding Missing Parts"
-                icon="🕵️‍♀️"
-                color="indigo"
-                range="Sums to 20"
+                icons={{
+                    bg1: "🕵️‍♀️",
+                    bg2: "❓",
+                    float1: "🔍",
+                    float2: "🧮"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-indigo-50 to-violet-50",
+                    border: "border-indigo-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-800",
+                    accent: "text-indigo-300"
+                }}
             />
 
             <StrategySpotlight
                 title="Part + Part = Whole"
-                tips={[
-                    "If a PART is missing, SUBTRACT the other part from the Whole.",
-                    "Example: 5 + ? = 12",
-                    "12 is the Whole. 5 is a Part.",
-                    "12 - 5 = 7. The missing part is 7!"
+                steps={[
+                    { label: "Idea", text: "If a PART is missing, SUBTRACT the other part from the Whole." },
+                    { label: "Example", text: "5 + ? = 12 (12 is Whole, 5 is Part)." },
+                    { label: "Solve", text: "12 - 5 = 7. The missing part is 7!" }
                 ]}
                 color="indigo"
             />
@@ -508,19 +562,29 @@ export function FactFamilies20({ showAnswersForDoc, seed, variant }: SpecificWor
             <PremiumWorksheetBanner
                 title="Fact Families"
                 subtitle="One Family, Four Facts"
-                icon="👨‍👩‍👧"
-                color="pink"
-                range="Sums to 20"
+                icons={{
+                    bg1: "👨‍👩‍👧",
+                    bg2: "🏠",
+                    float1: "↔️",
+                    float2: "❤️"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-pink-50 to-rose-50",
+                    border: "border-pink-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-pink-300",
+                    pillText: "text-pink-800",
+                    accent: "text-pink-300"
+                }}
             />
 
             <StrategySpotlight
                 title="3 Numbers = 4 Facts"
-                tips={[
-                    "Big number is always the Sum (Addition) or the Whole (Subtraction).",
-                    "Add the small parts: 3 + 4 = 7",
-                    "Switch them: 4 + 3 = 7",
-                    "Subtract from the whole: 7 - 3 = 4",
-                    "Subtract the other part: 7 - 4 = 3"
+                steps={[
+                    { label: "Tip 1", text: "Big number is always the Sum (Addition) or the Whole (Subtraction)." },
+                    { label: "Tip 2", text: "Add the small parts: 3 + 4 = 7" },
+                    { label: "Tip 3", text: "Switch them: 4 + 3 = 7" },
+                    { label: "Tip 4", text: "Subtract from the whole: 7 - 3 = 4 and 7 - 4 = 3" }
                 ]}
                 color="pink"
             />
@@ -615,17 +679,28 @@ export function MentalMath20({ showAnswersForDoc, seed, variant }: SpecificWorks
             <PremiumWorksheetBanner
                 title="Mental Math Sprint"
                 subtitle="Fast & Fluent"
-                icon="⚡"
-                color="red"
-                range="0-20"
+                icons={{
+                    bg1: "⚡",
+                    bg2: "🧠",
+                    float1: "⏱️",
+                    float2: "💭"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-red-50 to-orange-50",
+                    border: "border-red-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-red-300",
+                    pillText: "text-red-800",
+                    accent: "text-red-300"
+                }}
             />
 
             <StrategySpotlight
                 title="Mental Math Tricks"
-                tips={[
-                    "Doubles Rule: 6 + 7 is just 6 + 6 + 1 (13).",
-                    "Make 10: 8 + 5 -> 8 + 2 is 10, plus 3 more is 13.",
-                    "Counting Back: 15 - 2 -> 14, 13."
+                steps={[
+                    { label: "Doubles", text: "6 + 7 is just 6 + 6 + 1 (13)." },
+                    { label: "Make 10", text: "8 + 5 -> 8 + 2 is 10, plus 3 more is 13." },
+                    { label: "Count Back", text: "15 - 2 -> 14, 13." }
                 ]}
                 color="red"
             />
@@ -712,17 +787,28 @@ export function MoneyCoinsBills({ showAnswersForDoc, seed, variant }: SpecificWo
             <PremiumWorksheetBanner
                 title="Coin Counter"
                 subtitle="Counting Money"
-                icon="🪙"
-                color="yellow"
-                range="0-99¢"
+                icons={{
+                    bg1: "🪙",
+                    bg2: "💰",
+                    float1: "💵",
+                    float2: "💲"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-yellow-50 to-amber-50",
+                    border: "border-yellow-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-yellow-300",
+                    pillText: "text-yellow-800",
+                    accent: "text-yellow-300"
+                }}
             />
 
             <StrategySpotlight
                 title="Counting Coins Strategy"
-                tips={[
-                    "Start with the biggest value coins (Quarters 25¢).",
-                    "Add the Dimes (10¢), then Nickels (5¢).",
-                    "Count the Pennies (1¢) last!"
+                steps={[
+                    { label: "Step 1", text: "Start with the biggest value coins (Quarters 25¢)." },
+                    { label: "Step 2", text: "Add the Dimes (10¢), then Nickels (5¢)." },
+                    { label: "Step 3", text: "Count the Pennies (1¢) last!" }
                 ]}
                 color="yellow"
             />
@@ -800,9 +886,20 @@ export function MeasurementLength({ showAnswersForDoc, seed, variant }: Specific
             <PremiumWorksheetBanner
                 title="Measurement Master"
                 subtitle="How Long is It?"
-                icon="📏"
-                color="cyan"
-                range="Inches"
+                icons={{
+                    bg1: "📏",
+                    bg2: "📐",
+                    float1: "✏️",
+                    float2: "🖍️"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-cyan-50 to-sky-50",
+                    border: "border-cyan-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-cyan-300",
+                    pillText: "text-cyan-800",
+                    accent: "text-cyan-300"
+                }}
             />
 
             <div className="space-y-8 mt-8">
@@ -885,9 +982,20 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
             <PremiumWorksheetBanner
                 title="Data Detective"
                 subtitle="Reading Bar Graphs"
-                icon="📊"
-                color="fuchsia"
-                range="Data Analysis"
+                icons={{
+                    bg1: "📊",
+                    bg2: "📉",
+                    float1: "📋",
+                    float2: "✏️"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-pink-50 to-purple-50",
+                    border: "border-pink-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-pink-300",
+                    pillText: "text-pink-800",
+                    accent: "text-pink-300"
+                }}
             />
 
             <div className="my-8 bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm print:shadow-none break-inside-avoid">
@@ -1017,18 +1125,29 @@ export function Add2Digit100({ showAnswersForDoc, seed, variant }: SpecificWorks
             <PremiumWorksheetBanner
                 title="Double Digit Power"
                 subtitle="Adding Without Regrouping"
-                icon="🏗️"
-                color="cyan"
-                range="Sums to 100"
+                icons={{
+                    bg1: "🏗️",
+                    bg2: "🧱",
+                    float1: "➕",
+                    float2: "💪"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-cyan-50 to-blue-50",
+                    border: "border-cyan-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-cyan-300",
+                    pillText: "text-cyan-800",
+                    accent: "text-cyan-300"
+                }}
             />
 
             <StrategySpotlight
                 title="Building Numbers"
-                tips={[
-                    "Line up the numbers: Ones under Ones, Tens under Tens.",
-                    "Add the Ones column first.",
-                    "Then add the Tens column.",
-                    "No Regrouping needed! (The ones add up to less than 10)"
+                steps={[
+                    { label: "Line Up", text: "Line up the numbers: Ones under Ones, Tens under Tens." },
+                    { label: "Step 1", text: "Add the Ones column first." },
+                    { label: "Step 2", text: "Then add the Tens column." },
+                    { label: "Note", text: "No Regrouping needed! (The ones add up to less than 10)" }
                 ]}
                 color="cyan"
             />
