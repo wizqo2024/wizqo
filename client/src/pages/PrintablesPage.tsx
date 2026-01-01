@@ -11,7 +11,8 @@ import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/pr
 import { Sudoku } from '@/pages/worksheets/Sudoku'
 import { WordSearch } from '@/pages/worksheets/WordSearch'
 import { CVCWords, SightWordsPrePrimer, LetterTracingAZ } from './printables/LanguageWorksheets'
-import { MoreLessEqual10, TenFrames1To10, Add2Digit100, Sub2Digit100 } from './printables/MathWorksheets'
+import { MoreLessEqual10, TenFrames1To10, Sub2Digit100 } from './printables/MathWorksheets'
+import { Add2Digit100 } from './printables/SecondGradeMath'
 import {
   MultiplicationFacts,
   MultiplicationArrays2To5,
