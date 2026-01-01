@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared';
@@ -20,7 +21,7 @@ function useWorksheetTranslation(docId: string) {
 interface SpecificWorksheetProps {
     seed: string
     variant: number
-    showAnswersForDoc: (docId: string, render: () => React.ReactNode) => React.ReactNode
+    showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode
 }
 
 export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
@@ -3224,6 +3225,774 @@ export function MultiplicationDecimals({ seed, variant, showAnswersForDoc }: Spe
                             <div key={i} className="text-blue-100 font-mono text-sm">
                                 <span className="text-blue-400/50 mr-2">{i + 1}.</span>
                                 {(parseFloat(p.n1) * parseFloat(p.n2)).toFixed(2)}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationBlankTable({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+    const { getTrans, t } = useWorksheetTranslation(docId);
+
+    // Determine the numbers to show in headers/rows
+    const numbers = Array.from({ length: range[1] - range[0] + 1 }, (_, i) => range[0] + i);
+    const isAdvanced = range[0] >= 6;
+    const isFull = range[0] === 1 && range[1] === 12;
+
+    const themeColor = isFull ? 'indigo' : (isAdvanced ? 'purple' : 'blue');
+    const accentSymbol = isFull ? "🚀" : (isAdvanced ? "🌟" : "💡");
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', isFull ? 'Complete Blank Times Table (1-12)' : (isAdvanced ? 'Blank Times Table (6-12) - Fill In' : 'Blank Times Table (1-5) - Fill In'))}
+            emoji={String.fromCodePoint(0x2716)}
+            description={getTrans('description', isFull ? 'Complete blank times table grid for all facts 1-12.' : (isAdvanced ? 'Blank times table worksheets to fill in for facts 6-12.' : 'Blank times table worksheets to fill in for facts 1-5.'))}
+            problemCount={numbers.length * numbers.length}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                const defaults = isFull
+                    ? ['Fill in complete 12x12 times table grid', 'Practice all multiplication combinations 1-12', 'Build comprehensive memorization through repetition']
+                    : (isAdvanced
+                        ? ['Fill in complete times table grid for facts 6-12', 'Practice all advanced multiplication combinations', 'Build memorization through repetition with larger numbers']
+                        : ['Fill in complete times table grid for facts 1-5', 'Practice all multiplication combinations', 'Build memorization through repetition']);
+                return Array.isArray(obj) && obj.length > 0 ? obj : defaults;
+            })()}
+            parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                const defaults = isFull
+                    ? ['This is comprehensive practice - encourage systematic filling (row by row or column by column)', 'Use skip counting strategies for each row', 'Notice patterns: diagonal shows perfect squares, rows count by that number', 'Extension: Time yourself filling in the complete table']
+                    : ['This helps students see patterns in multiplication', 'Encourage students to fill in rows or columns systematically', 'Use skip counting to help: for row 3, count by 3s', 'Extension: Time yourself filling in the table'];
+                return Array.isArray(tips) && tips.length > 0 ? tips : defaults;
+            })()}
+        >
+            <PremiumWorksheetBanner
+                title={isFull ? "Comprehensive Grid" : (isAdvanced ? "Advanced Skills" : "Foundation Training")}
+                subtitle="Complete the Matrix"
+                icons={{
+                    bg1: "📊",
+                    bg2: "🔢",
+                    float1: accentSymbol,
+                    float2: "📋"
+                }}
+                colors={{
+                    bg: `bg-${themeColor}-50`,
+                    border: `border-${themeColor}-200`,
+                    pillBg: "bg-white/90",
+                    pillBorder: `border-${themeColor}-300`,
+                    pillText: `text-${themeColor}-900`,
+                    accent: `text-${themeColor}-200`
+                }}
+            />
+
+            {/* Worked Example */}
+            <div className={`mb-8 p-6 bg-${themeColor}-50/50 border-2 border-${themeColor}-100 rounded-2xl relative overflow-hidden group`}>
+                <div className={`absolute -right-4 -bottom-4 text-8xl opacity-5 text-${themeColor}-500 group-hover:scale-110 transition-transform`}>{accentSymbol}</div>
+                <div className={`font-black text-${themeColor}-900 mb-4 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
+                    <span className={`w-8 h-8 rounded-lg bg-${themeColor}-500 text-white flex items-center justify-center text-sm`}>{accentSymbol}</span>
+                    {getTrans('example.title', "Strategy Guide")}
+                </div>
+                <div className="space-y-4">
+                    <div className="flex items-baseline gap-3">
+                        <span className="text-slate-400 font-mono text-xs">GUIDE:</span>
+                        <div className="text-lg font-medium text-slate-700 italic">
+                            {getTrans('example.instruction', isFull ? 'For each square, multiply the top number by the side number.' : `For row ${numbers[1] - 1}:`)}
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-2">
+                        <div className={`pl-4 border-l-4 border-${themeColor}-200 py-1 space-y-2`}>
+                            <div className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <span className={`w-2 h-2 rounded-full bg-${themeColor}-400 animate-pulse`}></span>
+                                {getTrans('example.step1', 'Step 1: Check the Headers')}
+                            </div>
+                            <p className="text-xs text-slate-500 leading-relaxed italic">{getTrans('example.step1Text', 'Look at the row number on the left and the column number at the top.')}</p>
+                        </div>
+                        <div className={`pl-4 border-l-4 border-${themeColor}-200 py-1 space-y-2`}>
+                            <div className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <span className={`w-2 h-2 rounded-full bg-${themeColor}-400`}></span>
+                                {getTrans('example.step2', 'Step 2: Mental Math')}
+                            </div>
+                            <p className="text-xs text-slate-500 leading-relaxed italic">{getTrans('example.step2Text', 'Multiply them and write the product in the crossing box.')}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="space-y-4 break-inside-avoid">
+                <div className={`relative overflow-hidden bg-white border-2 border-${themeColor}-100 rounded-3xl p-6 shadow-xl`}>
+                    <div className="flex justify-between items-center mb-6">
+                        <div className={`text-lg font-black text-${themeColor}-900 uppercase tracking-widest bg-${themeColor}-50 px-4 py-1 rounded-full`}>
+                            Multiplication Matrix
+                        </div>
+                        <div className="text-[10px] text-slate-400 font-bold uppercase">Facts {range[0]} - {range[1]}</div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-separate border-spacing-1">
+                            <thead>
+                                <tr>
+                                    <th className={`w-12 h-12 bg-${themeColor}-600 text-white rounded-xl shadow-lg flex items-center justify-center font-black text-xl border-2 border-white/20 transform rotate-3`}>
+                                        {String.fromCodePoint(0x270F)}
+                                    </th>
+                                    {numbers.map(n => (
+                                        <th key={n} className={`w-12 h-12 bg-slate-800 text-white rounded-xl shadow-md border-b-4 border-slate-900 font-black text-lg`}>
+                                            {n}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {numbers.map(row => (
+                                    <tr key={row}>
+                                        <td className={`w-12 h-12 bg-slate-100 text-slate-800 rounded-xl shadow-sm border border-slate-200 font-black text-lg text-center`}>
+                                            {row}
+                                        </td>
+                                        {numbers.map(col => (
+                                            <td key={col} className="w-12 h-12 relative group">
+                                                <div className="absolute inset-0 bg-slate-50 border-2 border-slate-200 rounded-xl group-hover:border-blue-400 transition-colors shadow-inner" />
+                                                <div className="absolute inset-0 flex items-end justify-center pb-2">
+                                                    <div className="w-8 h-1 bg-slate-300 rounded-full" />
+                                                </div>
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {/* Extension/Challenge Problems */}
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 break-inside-avoid">
+                <div className={`p-6 bg-purple-50/50 border-2 border-purple-100 rounded-2xl relative overflow-hidden group`}>
+                    <div className="absolute -right-2 -top-2 text-6xl opacity-5 Rotate-12 group-hover:scale-110 transition-transform">🚀</div>
+                    <div className="font-black text-purple-900 mb-4 text-[10px] uppercase tracking-widest flex items-center gap-2">
+                        <span className="w-6 h-6 rounded bg-purple-500 text-white flex items-center justify-center text-xs">🚀</span>
+                        Elite Challenges
+                    </div>
+                    <div className="space-y-3 text-xs text-purple-800 font-medium">
+                        <div className="flex gap-2">
+                            <span className="text-purple-300">01.</span>
+                            <span>{getTrans('challenge.1', 'Fill in the table from memory without looking at any notes.')}</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <span className="text-purple-300">02.</span>
+                            <span>{getTrans('challenge.2', `Time yourself: Can you fill it in under ${isFull ? '10' : '5'} minutes?`)}</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <span className="text-purple-300">03.</span>
+                            <span>{getTrans('challenge.3', 'Find all the perfect squares (numbers on the diagonal). Color them in!')}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={`p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl`}>
+                    <div className="font-black text-slate-800 mb-4 text-[10px] uppercase tracking-widest flex items-center gap-2">
+                        <span className="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs">📊</span>
+                        Self-Assessment
+                    </div>
+                    <div className="space-y-3">
+                        {[
+                            isFull ? 'I mastered the complete 12x12 grid' : `I filled in all ${numbers.length * numbers.length} facts correctly`,
+                            'I identified patterns in rows and columns',
+                            'I feel confident with these facts'
+                        ].map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs text-slate-600 font-medium">
+                                <div className="w-4 h-4 rounded border-2 border-slate-300 bg-white" />
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-slate-200 grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <span className="text-[10px] font-black text-slate-400 uppercase">My Score:</span>
+                            <div className="h-6 border-b-2 border-slate-200" />
+                        </div>
+                        <div className="space-y-1">
+                            <span className="text-[10px] font-black text-slate-400 uppercase">Total Time:</span>
+                            <div className="h-6 border-b-2 border-slate-200" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className={`mt-10 p-8 bg-emerald-900 rounded-3xl border-2 border-emerald-400/30 text-white relative overflow-hidden`}>
+                    <div className="absolute top-0 right-0 p-4 text-emerald-500/10 text-900 px-4 py-1 rounded-bl-xl font-bold text-sm tracking-widest rotate-12">{String.fromCodePoint(0x2705)}</div>
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-500 flex items-center justify-center text-white text-2xl shadow-xl shadow-emerald-500/20">
+                            {String.fromCodePoint(0x2705)}
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-black uppercase tracking-tighter">Solution Matrix</h3>
+                            <p className="text-emerald-300 text-xs italic">Verified Results for Range {range[0]}-{range[1]}</p>
+                        </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-separate border-spacing-1">
+                            <thead>
+                                <tr>
+                                    <th className="w-10 h-10 bg-emerald-700 rounded-lg text-xs font-black">X</th>
+                                    {numbers.map(n => (
+                                        <th key={n} className="w-10 h-10 bg-white/5 rounded-lg text-xs font-black">{n}</th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {numbers.map(row => (
+                                    <tr key={row}>
+                                        <td className="w-10 h-10 bg-white/5 rounded-lg text-xs font-black text-center">{row}</td>
+                                        {numbers.map(col => (
+                                            <td key={col} className="w-10 h-10 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-center text-xs font-mono font-bold text-emerald-200">
+                                                {row * col}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationConfidence({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const isAdvanced = range[0] >= 6;
+    const themeColor = isAdvanced ? 'purple' : 'green';
+    const accentSymbol = isAdvanced ? "💪" : "🌱";
+
+    const facts: Array<[number, number]> = Array.from({ length: 12 }).map(() => {
+        const a = nextInt(range[0], range[1]);
+        const b = nextInt(range[0], range[1]);
+        return [a, b];
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', isAdvanced ? 'Confidence-Building Times Table (6-12)' : 'Confidence-Building Times Table (1-5)')}
+            emoji={String.fromCodePoint(0x2716)}
+            description={getTrans('description', isAdvanced ? 'Gentle step-by-step multiplication worksheets for facts 6-12.' : 'Stress-free times table worksheets designed to build confidence.')}
+            problemCount={facts.length}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                const defaults = isAdvanced
+                    ? ['Build confidence with advanced multiplication facts 6-12', 'Practice at a comfortable pace without time pressure', 'Develop positive attitude toward challenging multiplication']
+                    : ['Build confidence with multiplication facts 1-5', 'Practice at a comfortable pace without time pressure', 'Develop positive attitude toward multiplication'];
+                return Array.isArray(obj) && obj.length > 0 ? obj : defaults;
+            })()}
+            parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                const defaults = isAdvanced
+                    ? ['This worksheet is designed to be stress-free - no time limits', 'Encourage students to use visual aids or manipulatives if needed', 'Celebrate every correct answer to build confidence', 'Extension: Once confident, try timed practice']
+                    : ['This worksheet is designed to be stress-free - no time limits', 'Encourage students to use visual aids or manipulatives if needed', 'Celebrate every correct answer to build confidence', 'Extension: Once confident, try timed practice'];
+                return Array.isArray(tips) && tips.length > 0 ? tips : defaults;
+            })()}
+        >
+            <PremiumWorksheetBanner
+                title={getTrans('banner.title', isAdvanced ? "Advanced Growth" : "Confidence First")}
+                subtitle={getTrans('banner.subtitle', "Mastery at your own pace")}
+                icons={{
+                    bg1: accentSymbol,
+                    bg2: "✨",
+                    float1: "⭐",
+                    float2: "🌈"
+                }}
+                colors={{
+                    bg: `bg-gradient-to-br from-${themeColor}-50 to-white`,
+                    border: `border-${themeColor}-200`,
+                    pillBg: "bg-white/80",
+                    pillBorder: `border-${themeColor}-300`,
+                    pillText: `text-${themeColor}-800`,
+                    accent: `text-${themeColor}-300`
+                }}
+            />
+
+            {/* Stress-Free Tip */}
+            <div className={`mb-6 p-4 bg-${themeColor}-50 border border-${themeColor}-200 rounded-2xl flex items-center gap-4 animate-fade-in`}>
+                <div className={`w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl shadow-sm`}>{accentSymbol}</div>
+                <div>
+                    <div className={`font-bold text-${themeColor}-900`}>{getTrans('tip.title', "You've got this!")}</div>
+                    <div className={`text-sm text-${themeColor}-700`}>{getTrans('tip.text', "Take your time. There's no rush. Each problem helps you get stronger!")}</div>
+                </div>
+            </div>
+
+            {/* Worked Example */}
+            <div className={`mb-8 p-6 bg-blue-50/50 border-2 border-blue-100 rounded-3xl relative overflow-hidden group`}>
+                <div className="absolute -right-4 -bottom-4 text-8xl opacity-10 text-blue-500 group-hover:scale-110 transition-transform">💡</div>
+                <div className="font-black text-blue-900 mb-4 text-[10px] uppercase tracking-widest flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-blue-500 text-white flex items-center justify-center text-xs">💡</span>
+                    {getTrans('example.title', "Thinking Pattern")}
+                </div>
+                <div className="space-y-4 ml-2">
+                    <div className="flex flex-col gap-1">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{getTrans('example.problemLabel', 'Problem')}</span>
+                        <div className="text-2xl font-black text-slate-800">{isAdvanced ? '7 × 8 = ?' : '3 × 4 = ?'}</div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{getTrans('example.step1Label', 'Think')}</span>
+                            <p className="text-sm text-slate-600 font-medium italic">{isAdvanced ? 'It is like 7 groups of 8' : 'It is like 3 groups of 4'}</p>
+                        </div>
+                        <div className="space-y-1 text-blue-700">
+                            <span className="text-[10px] font-bold text-blue-300 uppercase tracking-tighter">{getTrans('example.step2Label', 'Result')}</span>
+                            <p className="text-sm font-black">{isAdvanced ? '7 × 8 = 56' : '3 × 4 = 12'}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                {facts.map(([a, b], i) => (
+                    <div key={i} className={`relative border-2 border-${themeColor}-100 rounded-2xl p-6 bg-white hover:border-${themeColor}-300 transition-all group break-inside-avoid`}>
+                        <div className={`absolute top-0 right-0 p-3 text-[10px] font-black text-${themeColor}-300 group-hover:text-${themeColor}-500 transition-colors uppercase tracking-widest`}>Task {i + 1}</div>
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="flex items-center gap-4 text-3xl font-black text-slate-700">
+                                <span>{a}</span>
+                                <span className={`text-${themeColor}-400 transform scale-75`}>×</span>
+                                <span>{b}</span>
+                                <span className="text-slate-300">=</span>
+                                <div className={`w-24 h-12 border-b-4 border-dashed border-${themeColor}-300 bg-${themeColor}-50/30 rounded-lg flex items-center justify-center`} />
+                            </div>
+                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter italic">
+                                {getTrans('hintText', 'Hint: Think {a} groups of {b}').replace('{a}', String(a)).replace('{b}', String(b))}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Extension/Challenge Problems */}
+            <div className="mt-10 p-6 bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-100 rounded-3xl print:bg-white print:border break-inside-avoid">
+                <div className="flex items-center gap-3 mb-4">
+                    <span className="text-3xl animate-bounce-slow">🚀</span>
+                    <h3 className="font-bold text-lg text-indigo-900">{getTrans('challenge.title', 'Confidence Quest')}</h3>
+                </div>
+                <div className="space-y-3 text-sm text-indigo-800 ml-2">
+                    {[
+                        getTrans('challenge.item1', 'Draw a picture to show one of the problems above.'),
+                        getTrans('challenge.item2', 'Create your own multiplication problem and solve it!'),
+                        getTrans('challenge.item3', 'Explain to someone how you solved your favorite problem.')
+                    ].map((item, idx) => (
+                        <div key={idx} className="flex gap-3">
+                            <span className="font-bold text-indigo-300">{(idx + 1).toString().padStart(2, '0')}</span>
+                            <p className="font-medium text-slate-700">{item}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-8 p-6 border-2 border-slate-200 rounded-3xl bg-slate-50 relative" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                <div className="absolute -top-3 left-6 px-4 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest">Growth Check</div>
+                <div className="space-y-4 pt-2">
+                    {[
+                        getTrans('assessment.item1', 'I feel more confident with these facts'),
+                        getTrans('assessment.item2', 'I can explain my steps to solve a problem'),
+                        getTrans('assessment.item3', 'I took my time and checked my work')
+                    ].map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-3 text-xs text-slate-600 font-bold">
+                            <div className="w-5 h-5 rounded-lg border-2 border-slate-300 bg-white" />
+                            {item}
+                        </div>
+                    ))}
+                    <div className="mt-6 flex justify-between items-end border-t border-slate-200 pt-4">
+                        <div className="flex flex-col gap-1">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{getTrans('assessment.scoreLabel', 'Mastery Level')}</span>
+                            <div className="text-sm font-black text-slate-800 italic">______ / {facts.length}</div>
+                        </div>
+                        <div className="flex flex-col gap-1 text-right">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{getTrans('assessment.feelingLabel', 'Current Feeling')}</span>
+                            <div className="text-xs text-slate-400 italic">Circle one: 😊 😐 🚀</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className={`mt-10 p-8 bg-emerald-900 rounded-3xl border-2 border-emerald-400/30 text-white relative overflow-hidden`}>
+                    <div className="absolute top-0 right-0 p-4 text-emerald-500/10 text-6xl tracking-widest rotate-12">{String.fromCodePoint(0x2705)}</div>
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-500 flex items-center justify-center text-white text-2xl shadow-xl shadow-emerald-500/20">
+                            {String.fromCodePoint(0x2705)}
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-black uppercase tracking-tighter">Confidence Key</h3>
+                            <p className="text-emerald-300 text-xs italic">You're doing amazing! Check your results below.</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-8">
+                        {facts.map(([a, b], i) => (
+                            <div key={i} className="flex items-center gap-3 border-b border-emerald-700/50 pb-2">
+                                <span className="text-[10px] font-black text-emerald-500">{i + 1}</span>
+                                <div className="text-sm font-mono flex gap-2">
+                                    <span>{a} × {b}</span>
+                                    <span className="text-emerald-400">=</span>
+                                    <span className="font-black text-white">{a * b}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mt-8 p-4 bg-white/5 rounded-2xl border border-white/10 text-xs text-emerald-200 leading-relaxed font-medium">
+                        {getTrans('answerKey.feedback', "Mastering these facts is the first step toward becoming a math wizard! Keep practicing every day.")}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationFluency({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const isMixed = docId === 'times-table-mixed-review';
+    const problemCount = isMixed ? 30 : 25;
+    const gridCols = isMixed ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3';
+
+    const facts: Array<[number, number]> = Array.from({ length: problemCount }).map(() => {
+        const a = nextInt(range[0], range[1]);
+        const b = nextInt(range[0], range[1]);
+        return [a, b];
+    });
+
+    const themeColor = isMixed ? 'indigo' : 'orange';
+    const accentSymbol = isMixed ? "🧬" : "⚡";
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', isMixed ? 'Mixed Times Table Review' : 'Times Table Fluency Practice (1-12)')}
+            emoji={String.fromCodePoint(0x2716)}
+            description={getTrans('description', isMixed ? 'Comprensive review of all times tables covering facts 1-12 in mixed order.' : 'Build multiplication fluency with comprehensive practice covering all times tables 1-12.')}
+            problemCount={facts.length}
+            learningObjectives={(() => {
+                const obj = t(`worksheets.${docId}.learningObjectives`)
+                const defaults = isMixed
+                    ? ['Review all multiplication facts 1-12 in mixed order', 'Build speed and accuracy with comprehensive practice', 'Test mastery across all times tables']
+                    : ['Build fluency (speed and accuracy) with all multiplication facts 1-12', 'Practice comprehensive multiplication to achieve automaticity', 'Develop quick recall of multiplication facts'];
+                return Array.isArray(obj) && obj.length > 0 ? obj : defaults;
+            })()}
+            parentTeacherTips={(() => {
+                const tips = t(`worksheets.${docId}.parentTeacherTips`)
+                const defaults = isMixed
+                    ? ['Mixed review tests true mastery - students cannot rely on patterns', 'Encourage students to use all strategies they know', 'This is great for assessment - see which facts need more practice', 'Extension: Time yourself and track improvement']
+                    : ['Fluency means knowing facts quickly and accurately', 'Encourage students to answer as fast as they can while staying accurate', 'Use strategies: patterns, known facts, breaking down', 'Extension: Time yourself and try to beat your record!'];
+                return Array.isArray(tips) && tips.length > 0 ? tips : defaults;
+            })()}
+        >
+            <PremiumWorksheetBanner
+                title={getTrans('banner.title', isMixed ? "Mastery Matrix" : "Speed & Accuracy")}
+                subtitle={getTrans('banner.subtitle', "Achieve lightning-fast recall")}
+                icons={{
+                    bg1: accentSymbol,
+                    bg2: "🔥",
+                    float1: "⏱️",
+                    float2: "🎯"
+                }}
+                colors={{
+                    bg: `bg-gradient-to-br from-${themeColor}-50 to-white`,
+                    border: `border-${themeColor}-200`,
+                    pillBg: "bg-white/80",
+                    pillBorder: `border-${themeColor}-300`,
+                    pillText: `text-${themeColor}-800`,
+                    accent: `text-${themeColor}-300`
+                }}
+            />
+
+            {/* Fluency Meter */}
+            <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className={`p-4 bg-${themeColor}-50/50 border border-${themeColor}-100 rounded-2xl`}>
+                    <div className="text-[10px] font-black text-slate-400 uppercase mb-1">Target Speed</div>
+                    <div className="text-lg font-black text-slate-800">3 Seconds <span className="text-xs font-normal text-slate-500">per fact</span></div>
+                </div>
+                <div className="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl">
+                    <div className="text-[10px] font-black text-slate-400 uppercase mb-1">Goal</div>
+                    <div className="text-lg font-black text-emerald-800">100% Accuracy</div>
+                </div>
+                <div className="p-4 bg-purple-50 border border-purple-100 rounded-2xl">
+                    <div className="text-[10px] font-black text-slate-400 uppercase mb-1">Focus</div>
+                    <div className="text-lg font-black text-purple-800">Automaticity</div>
+                </div>
+            </div>
+
+            {/* Worked Example */}
+            <div className={`mb-8 p-6 bg-slate-50 border-2 border-slate-200 rounded-3xl relative overflow-hidden group`}>
+                <div className="absolute -right-4 -bottom-4 text-8xl opacity-10 text-slate-500 group-hover:scale-110 transition-transform">💡</div>
+                <div className="font-black text-slate-800 mb-4 text-[10px] uppercase tracking-widest flex items-center gap-2">
+                    <span className="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs">💡</span>
+                    {getTrans('example.title', "Technique Corner")}
+                </div>
+                <div className="space-y-4 ml-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Fast Recall</span>
+                            <p className="text-sm text-slate-600 font-medium">For facts you know, write them instantly! Don't overthink them.</p>
+                        </div>
+                        <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Strategy Backup</span>
+                            <p className="text-sm text-slate-600 font-medium italic">Stuck on 9 × 7? Think: (10 × 7) - 7 = 63. Then memorize it!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className={`grid ${gridCols} gap-3 break-inside-avoid`} style={{ pageBreakAfter: 'auto' }}>
+                {facts.map(([a, b], i) => (
+                    <div key={i} className={`border border-slate-200 rounded-xl p-3 bg-white hover:border-${themeColor}-300 transition-colors break-inside-avoid shadow-sm flex items-center justify-center`}>
+                        <div className="font-mono text-xl leading-7 text-slate-700 flex items-center gap-2">
+                            <span className="w-5 text-[10px] font-black text-slate-300 mr-1">{i + 1}</span>
+                            <span>{a}</span>
+                            <span className="text-slate-300">×</span>
+                            <span>{b}</span>
+                            <span className="text-slate-400">=</span>
+                            <span className={`inline-block w-12 h-8 border-b-2 border-${themeColor}-200`} />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Self-Assessment & Time Tracking */}
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 break-inside-avoid">
+                <div className="p-6 bg-slate-50 border-2 border-slate-200 rounded-3xl relative">
+                    <div className="absolute -top-3 left-6 px-4 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest">Efficiency Tracker</div>
+                    <div className="space-y-4 pt-2">
+                        <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">Start Time</span>
+                            <div className="w-32 h-6 border-b-2 border-slate-300" />
+                        </div>
+                        <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">End Time</span>
+                            <div className="w-32 h-6 border-b-2 border-slate-300" />
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">Total Duration</span>
+                            <div className="w-32 h-6 border-b-2 border-slate-300" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className={`p-6 bg-${themeColor}-50/50 border-2 border-${themeColor}-100 rounded-3xl relative`}>
+                    <div className="absolute -top-3 left-6 px-4 py-1 bg-white border border-slate-200 rounded-full text-[10px] font-black text-slate-400 uppercase tracking-widest">Mastery Level</div>
+                    <div className="space-y-3 pt-2">
+                        {[
+                            'I answered most facts instantly',
+                            'I used strategies for hard facts',
+                            'I checked my work for errors'
+                        ].map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-3 text-xs text-slate-600 font-bold">
+                                <div className="w-5 h-5 rounded-lg border-2 border-slate-300 bg-white" />
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className={`mt-10 p-8 bg-emerald-900 rounded-3xl border-2 border-emerald-400/30 text-white relative overflow-hidden`}>
+                    <div className="absolute top-0 right-0 p-4 text-emerald-500/10 text-6xl tracking-widest rotate-12">{String.fromCodePoint(0x2705)}</div>
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-500 flex items-center justify-center text-white text-2xl shadow-xl shadow-emerald-500/20">
+                            {String.fromCodePoint(0x2705)}
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-black uppercase tracking-tighter">Fast Answers</h3>
+                            <p className="text-emerald-300 text-xs italic">Accuracy is the foundation of speed.</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-4">
+                        {facts.map(([a, b], i) => (
+                            <div key={i} className="flex items-center gap-2 border-b border-emerald-700/50 pb-1">
+                                <span className="text-[10px] font-black text-emerald-500">{i + 1}</span>
+                                <div className="text-xs font-mono">
+                                    {a} × {b} = <span className="font-black text-white">{a * b}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const isAdvanced = range[0] >= 6;
+    const isFull = range[0] === 1 && range[1] === 12;
+
+    const colorMap: Record<number, { name: string, color: string }> = isFull ? {
+        1: { name: 'Red', color: 'bg-red-500' },
+        4: { name: 'Blue', color: 'bg-blue-500' },
+        9: { name: 'Green', color: 'bg-green-500' },
+        16: { name: 'Yellow', color: 'bg-yellow-400' },
+        25: { name: 'Orange', color: 'bg-orange-500' },
+        36: { name: 'Purple', color: 'bg-purple-500' },
+        49: { name: 'Pink', color: 'bg-pink-400' },
+        64: { name: 'Brown', color: 'bg-amber-800' },
+        81: { name: 'Gray', color: 'bg-slate-400' },
+        100: { name: 'Cyan', color: 'bg-cyan-400' },
+        121: { name: 'Magenta', color: 'bg-magenta-500' },
+        144: { name: 'Teal', color: 'bg-teal-500' }
+    } : isAdvanced ? {
+        36: { name: 'Red', color: 'bg-red-500' },
+        42: { name: 'Blue', color: 'bg-blue-500' },
+        48: { name: 'Green', color: 'bg-green-500' },
+        54: { name: 'Yellow', color: 'bg-yellow-400' },
+        60: { name: 'Orange', color: 'bg-orange-500' },
+        66: { name: 'Purple', color: 'bg-purple-500' },
+        72: { name: 'Pink', color: 'bg-pink-400' },
+        81: { name: 'Brown', color: 'bg-amber-800' },
+        90: { name: 'Gray', color: 'bg-slate-400' },
+        100: { name: 'Cyan', color: 'bg-cyan-400' },
+        108: { name: 'Magenta', color: 'bg-magenta-500' },
+        121: { name: 'Teal', color: 'bg-teal-500' }
+    } : {
+        1: { name: 'Red', color: 'bg-red-500' },
+        2: { name: 'Blue', color: 'bg-blue-500' },
+        3: { name: 'Green', color: 'bg-green-500' },
+        4: { name: 'Yellow', color: 'bg-yellow-400' },
+        5: { name: 'Orange', color: 'bg-orange-500' },
+        6: { name: 'Purple', color: 'bg-purple-500' },
+        8: { name: 'Pink', color: 'bg-pink-400' },
+        9: { name: 'Brown', color: 'bg-amber-800' },
+        10: { name: 'Gray', color: 'bg-slate-400' },
+        12: { name: 'Cyan', color: 'bg-cyan-400' },
+        15: { name: 'Magenta', color: 'bg-magenta-500' },
+        20: { name: 'Teal', color: 'bg-teal-500' }
+    };
+
+    const validProducts = Object.keys(colorMap).map(Number);
+    const facts: Array<[number, number, number]> = [];
+
+    // Generate valid facts
+    for (let attempts = 0; attempts < 100 && facts.length < 12; attempts++) {
+        const a = nextInt(range[0], range[1]);
+        const b = nextInt(range[0], range[1]);
+        const p = a * b;
+        if (validProducts.includes(p)) {
+            facts.push([a, b, p]);
+        }
+    }
+
+    // Fallback if not enough facts
+    while (facts.length < 12) {
+        const p = validProducts[nextInt(0, validProducts.length - 1)];
+        // Find factors
+        for (let a = range[0]; a <= range[1]; a++) {
+            if (p % a === 0) {
+                const b = p / a;
+                if (b >= range[0] && b <= range[1]) {
+                    facts.push([a, b, p]);
+                    break;
+                }
+            }
+        }
+        if (facts.length < 12 && facts.length > 0) facts.push(facts[0]); // Duplicate as last resort
+        else if (facts.length === 0) break;
+    }
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', isAdvanced ? 'Color-by-Number Times Table (6-12)' : 'Color-by-Number Times Table (1-5)')}
+            emoji={String.fromCodePoint(0x1F58D)}
+            description={getTrans('description', 'Solve multiplication problems and color based on the results! A creative way to master your times tables.')}
+            problemCount={facts.length}
+        >
+            <PremiumWorksheetBanner
+                title={getTrans('banner.title', "Math Art Discovery")}
+                subtitle={getTrans('banner.subtitle', "Color your way to mastery")}
+                icons={{
+                    bg1: "🎨",
+                    bg2: "🖍️",
+                    float1: "✨",
+                    float2: "🌈"
+                }}
+                colors={{
+                    bg: `bg-gradient-to-br from-pink-50 to-white`,
+                    border: `border-pink-200`,
+                    pillBg: "bg-white/80",
+                    pillBorder: `border-pink-300`,
+                    pillText: `text-pink-800`,
+                    accent: `text-pink-300`
+                }}
+            />
+
+            {/* Color Legend */}
+            <div className="mb-8 p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-sm">
+                <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 text-center">Color Legend</div>
+                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {Object.entries(colorMap).map(([num, info]) => (
+                        <div key={num} className="flex flex-col items-center gap-2">
+                            <div className={`w-10 h-10 rounded-xl ${info.color} shadow-lg border-2 border-white`} />
+                            <div className="text-center">
+                                <div className="text-xs font-black text-slate-800">{num}</div>
+                                <div className="text-[10px] text-slate-500 font-bold">{info.name}</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                {facts.map(([a, b, p], i) => (
+                    <div key={i} className="relative group break-inside-avoid">
+                        <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
+                        <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
+                            <div className="text-xl font-black text-slate-700">
+                                {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
+                            </div>
+
+                            {/* Shape to color */}
+                            <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
+                                <div className="absolute inset-0 bg-slate-50 opacity-20" />
+                                <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">Color Me</span>
+                            </div>
+
+                            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
+                                Shape #{i + 1}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className={`mt-10 p-8 bg-slate-900 rounded-3xl border-2 border-slate-700 text-white relative overflow-hidden`}>
+                    <div className="absolute top-0 right-0 p-4 text-white/5 text-8xl tracking-widest rotate-12">🎨</div>
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="w-12 h-12 rounded-2xl bg-pink-500 flex items-center justify-center text-white text-2xl shadow-xl shadow-pink-500/20">
+                            🎨
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-black uppercase tracking-tighter">Artist's Key</h3>
+                            <p className="text-slate-400 text-xs italic">Verify your colors before you finish!</p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-4">
+                        {facts.map(([a, b, p], i) => (
+                            <div key={i} className="flex items-center gap-2 border-b border-slate-800 pb-1">
+                                <span className="text-[10px] font-black text-slate-500">{i + 1}</span>
+                                <div className="text-xs font-mono">
+                                    {a} × {b} = <span className={`font-black ${colorMap[p]?.color.replace('bg-', 'text-')}`}>{p}</span>
+                                </div>
                             </div>
                         ))}
                     </div>

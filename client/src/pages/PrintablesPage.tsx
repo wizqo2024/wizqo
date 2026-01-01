@@ -29,7 +29,8 @@ import {
   MultiplicationAreaModel,
   MultiplicationFactFluency,
   MultiplicationMixedReview,
-  MultiplicationStrategies
+  MultiplicationStrategies,
+  MultiplicationBlankTable
 } from './printables/MultiplicationWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
@@ -11109,913 +11110,122 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {
           activeDocs.includes('times-table-blank-1-5') && (
-            <WorksheetSectionWrapper
+            <MultiplicationBlankTable
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
               docId="times-table-blank-1-5"
-              title="Blank Times Table (1-5) - Fill In"
-              emoji={String.fromCodePoint(0x2716)}
-              description="Blank times table worksheets to fill in for facts 1-5. Perfect for memorization practice and building multiplication confidence."
-              problemCount={25}
-              learningObjectives={[
-                'Fill in complete times table grid for facts 1-5',
-                'Practice all multiplication combinations',
-                'Build memorization through repetition'
-              ]}
-              parentTeacherTips={[
-                'This helps students see patterns in multiplication',
-                'Encourage students to fill in rows or columns systematically',
-                'Use skip counting to help: for row 3, count by 3s',
-                'Extension: Time yourself filling in the table'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>For row 2:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                <div className="border border-slate-300 rounded p-4 bg-white">
-                  <div className="text-center font-semibold mb-3 text-slate-800">Fill in the Times Table (1-5)</div>
-                  <table className="w-full border-collapse">
-                    <thead>
-                      <tr>
-                        <th className="border border-slate-400 p-2 bg-slate-100">{String.fromCodePoint(0x270F)}</th>
-                        {[1, 2, 3, 4, 5].map(n => (
-                          <th key={n} className="border border-slate-400 p-2 bg-slate-100">{n}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[1, 2, 3, 4, 5].map(row => (
-                        <tr key={row}>
-                          <td className="border border-slate-400 p-2 bg-slate-100 font-semibold">{row}</td>
-                          {[1, 2, 3, 4, 5].map(col => (
-                            <td key={col} className="border border-slate-400 p-2 text-center">
-                              <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600" />
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Fill in the table from memory without looking at any notes</div>
-                  <div>2. Time yourself: Can you fill it in under 3 minutes?</div>
-                  <div>{String.fromCodePoint(0x279C)}</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I filled in all 25 facts correctly</div>
-                  <div>{String.fromCodePoint(0x270F)}</div>
-                  <div>{String.fromCharCode(0x2610)} I can see patterns in the table</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 25
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>Time taken:</strong> _____ minutes
-                </div>
-              </div>
-              {showAnswersForDoc('times-table-blank-1-5', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <div className="text-xs space-y-1">
-                    <div><strong>Row 1:</strong> 1, 2, 3, 4, 5</div>
-                    <div><strong>Row 2:</strong> 2, 4, 6, 8, 10</div>
-                    <div><strong>Row 3:</strong> 3, 6, 9, 12, 15</div>
-                    <div><strong>Row 4:</strong> 4, 8, 12, 16, 20</div>
-                    <div><strong>Row 5:</strong> 5, 10, 15, 20, 25</div>
-                  </div>
-                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                    <strong>{String.fromCodePoint(0x2705)}</strong> Notice the patterns! Each row counts by that number. The diagonal (11, 22, etc.) shows perfect squares!
-                  </div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
+              range={[1, 5]}
+            />
           )
         }
 
         {
           activeDocs.includes('times-table-blank-6-12') && (
-            <WorksheetSectionWrapper
+            <MultiplicationBlankTable
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
               docId="times-table-blank-6-12"
-              title="Blank Times Table (6-12) - Fill In"
-              emoji={String.fromCodePoint(0x2716)}
-              description="Blank times table worksheets to fill in for facts 6-12. Worksheets for kids who struggle with multiplication - build confidence step by step."
-              problemCount={49}
-              learningObjectives={[
-                'Fill in complete times table grid for facts 6-12',
-                'Practice all advanced multiplication combinations',
-                'Build memorization through repetition with larger numbers'
-              ]}
-              parentTeacherTips={[
-                'This helps students see patterns in advanced multiplication',
-                'Encourage students to use strategies: 9n trick, breaking down (87)',
-                'Use skip counting to help: for row 8, count by 8s',
-                'Extension: Time yourself filling in the table'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>For row 8:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                <div className="border border-slate-300 rounded p-4 bg-white">
-                  <div className="text-center font-semibold mb-3 text-slate-800">Fill in the Times Table (6-12)</div>
-                  <table className="w-full border-collapse text-sm">
-                    <thead>
-                      <tr>
-                        <th className="border border-slate-400 p-2 bg-slate-100">{String.fromCodePoint(0x270F)}</th>
-                        {[6, 7, 8, 9, 10, 11, 12].map(n => (
-                          <th key={n} className="border border-slate-400 p-2 bg-slate-100">{n}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[6, 7, 8, 9, 10, 11, 12].map(row => (
-                        <tr key={row}>
-                          <td className="border border-slate-400 p-2 bg-slate-100 font-semibold">{row}</td>
-                          {[6, 7, 8, 9, 10, 11, 12].map(col => (
-                            <td key={col} className="border border-slate-400 p-2 text-center">
-                              <span className="inline-block w-10 h-5 border-b-[2px] border-slate-600" />
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Fill in the table from memory without looking at any notes</div>
-                  <div>2. Time yourself: Can you fill it in under 5 minutes?</div>
-                  <div>{String.fromCodePoint(0x279C)}</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I filled in all 49 facts correctly</div>
-                  <div>{String.fromCodePoint(0x270F)}</div>
-                  <div>{String.fromCharCode(0x2610)} I can see patterns in the table</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 49
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>Time taken:</strong> _____ minutes
-                </div>
-              </div>
-              {showAnswersForDoc('times-table-blank-6-12', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <div className="text-xs space-y-1">
-                    <div><strong>Row 6:</strong> 36, 42, 48, 54, 60, 66, 72</div>
-                    <div><strong>Row 7:</strong> 42, 49, 56, 63, 70, 77, 84</div>
-                    <div><strong>Row 8:</strong> 48, 56, 64, 72, 80, 88, 96</div>
-                    <div><strong>Row 9:</strong> 54, 63, 72, 81, 90, 99, 108</div>
-                    <div><strong>Row 10:</strong> 60, 70, 80, 90, 100, 110, 120</div>
-                    <div><strong>Row 11:</strong> 66, 77, 88, 99, 110, 121, 132</div>
-                    <div><strong>Row 12:</strong> 72, 84, 96, 108, 120, 132, 144</div>
-                  </div>
-                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                    <strong>{String.fromCodePoint(0x2705)}</strong> Notice the patterns! Each row counts by that number. The diagonal shows perfect squares!
-                  </div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
+              range={[6, 12]}
+            />
           )
         }
 
         {
           activeDocs.includes('times-table-blank-1-12') && (
-            <WorksheetSectionWrapper
+            <MultiplicationBlankTable
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
               docId="times-table-blank-1-12"
-              title="Complete Blank Times Table (1-12)"
-              emoji={String.fromCodePoint(0x2716)}
-              description="Complete blank times table grid for all facts 1-12. Printable worksheets to help kids overcome math fear and build multiplication fluency."
-              problemCount={144}
-              learningObjectives={[
-                'Fill in complete 1212 times table grid',
-                'Practice all multiplication combinations 1-12',
-                'Build comprehensive memorization through repetition'
-              ]}
-              parentTeacherTips={[
-                'This is comprehensive practice - encourage systematic filling (row by row or column by column)',
-                'Use skip counting strategies for each row',
-                'Notice patterns: diagonal shows perfect squares, rows count by that number',
-                'Extension: Time yourself filling in the complete table'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>For row 9:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                <div className="border border-slate-300 rounded p-4 bg-white">
-                  <div className="text-center font-semibold mb-3 text-slate-800">Fill in the Complete Times Table (1-12)</div>
-                  <table className="w-full border-collapse text-xs">
-                    <thead>
-                      <tr>
-                        <th className="border border-slate-400 p-1 bg-slate-100">{String.fromCodePoint(0x270F)}</th>
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(n => (
-                          <th key={n} className="border border-slate-400 p-1 bg-slate-100">{n}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(row => (
-                        <tr key={row}>
-                          <td className="border border-slate-400 p-1 bg-slate-100 font-semibold">{row}</td>
-                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(col => (
-                            <td key={col} className="border border-slate-400 p-1 text-center">
-                              <span className="inline-block w-8 h-4 border-b-[1px] border-slate-600" />
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Fill in the table from memory without looking at any notes</div>
-                  <div>2. Time yourself: Can you fill it in under 10 minutes?</div>
-                  <div>{String.fromCodePoint(0x279C)}</div>
-                  <div>4. Find patterns: What do you notice about the diagonal?</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I filled in all 144 facts correctly</div>
-                  <div>{String.fromCodePoint(0x270F)}</div>
-                  <div>{String.fromCharCode(0x2610)} I can see patterns in the table</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 144
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>Time taken:</strong> _____ minutes
-                </div>
-              </div>
-              {showAnswersForDoc('times-table-blank-1-12', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <div className="text-xs space-y-1">
-                    <div><strong>{String.fromCodePoint(0x2705)}</strong>{String.fromCodePoint(0x2705)}</div>
-                    <div><strong>Examples:</strong> Row 1: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12</div>
-                    <div>Row 2: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24</div>
-                    <div>Row 12: 12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 132, 144</div>
-                    <div className="mt-2"><strong>Perfect squares (diagonal):</strong> 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144</div>
-                  </div>
-                  <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                    <strong>{String.fromCodePoint(0x2705)}</strong> Amazing work! You're mastering all times tables! Notice the patterns - each row counts by that number, and the diagonal shows perfect squares!
-                  </div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
+              range={[1, 12]}
+            />
           )
         }
 
         {
-          activeDocs.includes('times-table-confidence-1-5') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const facts: Array<[number, number]> = Array.from({ length: 10 }).map(() => {
-              const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="times-table-confidence-1-5"
-                title="Confidence-Building Times Table (1-5)"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Stress-free times table worksheets designed to build confidence. Fun and simple worksheets to make multiplication easier for struggling learners."
-                problemCount={facts.length}
-                learningObjectives={[
-                  'Build confidence with multiplication facts 1-5',
-                  'Practice at a comfortable pace without time pressure',
-                  'Develop positive attitude toward multiplication'
-                ]}
-                parentTeacherTips={[
-                  'This worksheet is designed to be stress-free - no time limits',
-                  'Encourage students to use visual aids or manipulatives if needed',
-                  'Celebrate every correct answer to build confidence',
-                  'Extension: Once confident, try timed practice'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Think:</strong> 3 groups of 4</div>
-                      <div><strong>Count:</strong> 4 + 4 + 4 = 12</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>{String.fromCodePoint(0x1F4A1)}</strong> Take your time. There's no rush. Each problem helps you get stronger!
-                </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                  {facts.map(([a, b], i) => (
-                    <div key={i} className="border-2 border-blue-200 rounded-lg p-4 bg-blue-50 break-inside-avoid">
-                      <div className="text-center mb-2 text-slate-700 text-sm">Problem {i + 1}</div>
-                      <div className="font-mono text-3xl leading-8 text-center text-blue-700">
-                        {a}  {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-blue-600 mx-1 align-middle" />
-                      </div>
-                      <div className="mt-2 text-xs text-slate-600 text-center">Hint: Think {a} groups of {b}</div>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw a picture to show one of the problems</div>
-                    <div>2. Create your own multiplication problem</div>
-                    <div>3. Explain to someone how you solved a problem</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can explain how I solved the problems</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>How do you feel about multiplication now?</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('times-table-confidence-1-5', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      {facts.map(([a, b], i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                          {i + 1}. {a}  {b} = {a * b}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>{String.fromCodePoint(0x2705)}</strong> Great job! You're building confidence with multiplication. Keep practicing and you'll get even better!
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('times-table-confidence-1-5') && (
+            <MultiplicationConfidence
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="times-table-confidence-1-5"
+              range={[1, 5]}
+            />
+          )
         }
 
         {
-          activeDocs.includes('times-table-confidence-6-12') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const facts: Array<[number, number]> = Array.from({ length: 10 }).map(() => {
-              const a = nextInt(6, 12); const b = nextInt(6, 12); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="times-table-confidence-6-12"
-                title="Confidence-Building Times Table (6-12)"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Gentle step-by-step multiplication worksheets for facts 6-12. No-tears times table practice sheets that build understanding and confidence."
-                problemCount={facts.length}
-                learningObjectives={[
-                  'Build confidence with advanced multiplication facts 6-12',
-                  'Practice at a comfortable pace without time pressure',
-                  'Develop positive attitude toward challenging multiplication'
-                ]}
-                parentTeacherTips={[
-                  'This worksheet is designed to be stress-free - no time limits',
-                  'Encourage students to break down problems: 87 = 85 + 82',
-                  'Use strategies: 9n trick, known facts, skip counting',
-                  'Extension: Once confident, try timed practice'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1 (Break it down):</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Method 2 (Use known fact):</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-900">
-                  <strong>{String.fromCodePoint(0x1F4A1)}</strong> These problems might look big, but you can solve them step by step!
-                </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                  {facts.map(([a, b], i) => (
-                    <div key={i} className="border-2 border-purple-200 rounded-lg p-4 bg-purple-50 break-inside-avoid">
-                      <div className="text-center mb-2 text-slate-700 text-sm">Problem {i + 1}</div>
-                      <div className="font-mono text-3xl leading-8 text-center text-purple-700">
-                        {a}  {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-purple-600 mx-1 align-middle" />
-                      </div>
-                      <div className="mt-2 text-xs text-slate-600 text-center">Hint: Break it into smaller parts if needed</div>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Explain your strategy for solving one problem</div>
-                    <div>2. Create your own multiplication problem with numbers 6-12</div>
-                    <div>{String.fromCodePoint(0x279C)}</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can explain my strategies</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>How do you feel about advanced multiplication now?</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('times-table-confidence-6-12', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      {facts.map(([a, b], i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                          {i + 1}. {a}  {b} = {a * b}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>{String.fromCodePoint(0x2705)}</strong> Excellent work! You're building confidence with advanced multiplication. Keep practicing and you'll master all facts!
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('times-table-confidence-6-12') && (
+            <MultiplicationConfidence
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="times-table-confidence-6-12"
+              range={[6, 12]}
+            />
+          )
         }
 
         {
-          activeDocs.includes('times-table-fluency-1-12') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const facts: Array<[number, number]> = Array.from({ length: 25 }).map(() => {
-              const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="times-table-fluency-1-12"
-                title="Times Table Fluency Practice (1-12)"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Build multiplication fluency with comprehensive practice covering all times tables 1-12. Repeated addition worksheets that make learning fun."
-                problemCount={facts.length}
-                learningObjectives={[
-                  'Build fluency (speed and accuracy) with all multiplication facts 1-12',
-                  'Practice comprehensive multiplication to achieve automaticity',
-                  'Develop quick recall of multiplication facts'
-                ]}
-                parentTeacherTips={[
-                  'Fluency means knowing facts quickly and accurately',
-                  'Encourage students to answer as fast as they can while staying accurate',
-                  'Use strategies: patterns, known facts, breaking down',
-                  'Extension: Time yourself and try to beat your record!'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Quick recall:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>If you need to think:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {facts.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
-                      <div className="font-mono text-xl leading-7">
-                        {a}  {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Time yourself: Can you complete all 25 problems in under 2 minutes?</div>
-                    <div>2. Try again tomorrow and see if you're faster</div>
-                    <div>3. Create your own fluency practice sheet</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can answer most facts quickly (fluency)</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can say the answers instantly</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>Time taken:</strong> _____ minutes _____ seconds
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>Facts I want to practice more:</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('times-table-fluency-1-12', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="grid grid-cols-3 gap-2 text-sm">
-                      {facts.map(([a, b], i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                          {i + 1}. {a}  {b} = {a * b}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>{String.fromCodePoint(0x2705)}</strong> Great job building fluency! Keep practicing daily to achieve automaticity (knowing facts instantly)!
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('times-table-fluency-1-12') && (
+            <MultiplicationFluency
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="times-table-fluency-1-12"
+              range={[1, 12]}
+            />
+          )
         }
 
         {
-          activeDocs.includes('times-table-mixed-review') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const facts: Array<[number, number]> = Array.from({ length: 30 }).map(() => {
-              const a = nextInt(1, 12); const b = nextInt(1, 12); return [a, b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="times-table-mixed-review"
-                title="Mixed Times Table Review"
-                emoji={String.fromCodePoint(0x2716)}
-                description="Mixed review of all times tables 1-12 for comprehensive practice. Math fact practice worksheets that build speed, accuracy, and confidence."
-                problemCount={facts.length}
-                learningObjectives={[
-                  'Review all multiplication facts 1-12 in mixed order',
-                  'Build speed and accuracy with comprehensive practice',
-                  'Test mastery across all times tables'
-                ]}
-                parentTeacherTips={[
-                  'Mixed review tests true mastery - students can\'t rely on patterns',
-                  'Encourage students to use all strategies they know',
-                  'This is great for assessment - see which facts need more practice',
-                  'Extension: Time yourself and track improvement'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Method 1:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Method 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 99</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-4 gap-2 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {facts.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-2 bg-white text-center break-inside-avoid">
-                      <div className="font-mono text-lg leading-6">
-                        {a}  {b} = <span className="inline-block w-12 h-6 border-b-[2px] border-slate-600 mx-1" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Time yourself: Can you complete all 30 problems in under 3 minutes?</div>
-                    <div>2. Circle the problems you found hardest</div>
-                    <div>3. Practice those facts more and try again</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can solve all facts in mixed order</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can answer quickly even when mixed up</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {facts.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>Time taken:</strong> _____ minutes _____ seconds
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>Facts I want to practice more:</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('times-table-mixed-review', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="grid grid-cols-4 gap-2 text-sm">
-                      {facts.map(([a, b], i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                          {i + 1}. {a}  {b} = {a * b}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                      <strong>{String.fromCodePoint(0x2705)}</strong> Excellent work on mixed review! This tests true mastery. Keep practicing the facts you found hardest!
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('times-table-mixed-review') && (
+            <MultiplicationFluency
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="times-table-mixed-review"
+              range={[1, 12]}
+            />
+          )
         }
 
         {
-          activeDocs.includes('times-table-color-1-5') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const colorMap: Record<number, string> = {
-              1: 'Red', 2: 'Blue', 3: 'Green', 4: 'Yellow', 5: 'Orange',
-              6: 'Purple', 8: 'Pink', 9: 'Brown', 10: 'Gray', 12: 'Cyan',
-              15: 'Magenta', 16: 'Lime', 20: 'Teal', 25: 'Coral'
-            };
-            const facts: Array<[number, number, number]> = Array.from({ length: 12 }).map(() => {
-              const a = nextInt(1, 5); const b = nextInt(1, 5); return [a, b, a * b];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="times-table-color-1-5"
-                title="Color-by-Number Times Table (1-5)"
-                emoji={String.fromCodePoint(0x1F58D)}
-                description="Solve multiplication problems and color the picture! Fun color-by-number worksheets that make times table practice engaging and visual."
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-                <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded text-sm text-purple-900">
-                  <strong>{String.fromCodePoint(0x1F680)}</strong> Solve each problem, then color the shape with the matching answer color!
-                </div>
-                <div className="grid grid-cols-4 gap-3 mb-4 text-xs">
-                  {Object.entries(colorMap).map(([num, color]) => (
-                    <div key={num} className="flex items-center gap-2">
-                      <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded bg-white flex-shrink-0" style={{ backgroundColor: color.toLowerCase() }} />
-                      <div>
-                        <div className="font-semibold text-slate-800">{num}</div>
-                        <div className="text-xs text-slate-600">{color}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-3 gap-3">
-                  {facts.map(([a, b, answer], i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-lg p-3 bg-white text-center">
-                      <div className="font-mono text-xl leading-7 mb-2">
-                        {a}  {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
-                      </div>
-                      <div className="w-20 h-20 print:w-24 print:h-24 mx-auto border-4 border-slate-400 rounded bg-white">
-                        <span className="text-xs text-slate-500"></span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('times-table-color-1-5', () => (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                    <div className="font-semibold mb-1">Answer key</div>
-                    <ul className="list-disc list-inside space-y-0.5">
-                      {facts.map(([a, b, answer], i) => (<li key={i}>{String.fromCodePoint(0x2705)}</li>))}
-                    </ul>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('times-table-color-1-5') && (
+            <MultiplicationColorByNumber
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="times-table-color-1-5"
+              range={[1, 5]}
+            />
+          )
         }
 
         {
-          activeDocs.includes('times-table-color-6-12') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const colorMap: Record<number, string> = {
-              36: 'Red', 42: 'Blue', 48: 'Green', 54: 'Yellow', 60: 'Orange',
-              66: 'Purple', 72: 'Pink', 81: 'Brown', 90: 'Gray', 100: 'Cyan',
-              108: 'Magenta', 120: 'Lime', 121: 'Teal', 144: 'Coral'
-            };
-            // Generate all valid factor pairs (a, b) where 6  a,b  12 and ab is in colorMap
-            const validPairs: Array<[number, number, number]> = [];
-            for (let a = 6; a <= 12; a++) {
-              for (let b = 6; b <= 12; b++) {
-                const product = a * b;
-                if (colorMap[product]) {
-                  validPairs.push([a, b, product]);
-                }
-              }
-            }
-            // Select 12 random problems from valid pairs
-            const facts: Array<[number, number, number]> = Array.from({ length: 12 }).map(() => {
-              const idx = nextInt(0, validPairs.length - 1);
-              return validPairs[idx];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="times-table-color-6-12"
-                title="Color-by-Number Times Table (6-12)"
-                emoji={String.fromCodePoint(0x1F58D)}
-                description="Master times tables 6-12 with fun color-by-number activities. Engaging multiplication worksheets that combine math practice with creativity."
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded text-sm text-purple-900">
-                  <strong>{String.fromCodePoint(0x1F680)}</strong> Solve each problem, then color the shape with the matching answer color!
-                </div>
-                <div className="grid grid-cols-4 gap-2 mb-4 text-xs">
-                  {Object.entries(colorMap).map(([num, color]) => (
-                    <div key={num} className="flex items-center gap-1">
-                      <div className="w-6 h-6 print:w-8 print:h-8 border-4 border-slate-400 rounded bg-white" style={{ backgroundColor: color.toLowerCase() }} />
-                      <div>
-                        <div className="font-semibold">{num}</div>
-                        <div className="text-xs text-slate-600">{color}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-3 gap-3">
-                  {facts.map(([a, b, answer], i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-lg p-3 bg-white text-center">
-                      <div className="font-mono text-xl leading-7 mb-2">
-                        {a}  {b} = <span className="inline-block w-16 h-8 border-b-[3px] border-slate-600 mx-1 align-middle" />
-                      </div>
-                      <div className="w-20 h-20 print:w-24 print:h-24 mx-auto border-4 border-slate-400 rounded bg-white">
-                        <span className="text-xs text-slate-500"></span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('times-table-color-6-12', () => (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                    <div className="font-semibold mb-1">Answer key</div>
-                    <ul className="list-disc list-inside space-y-0.5">
-                      {facts.map(([a, b, answer], i) => (<li key={i}>{String.fromCodePoint(0x2705)}</li>))}
-                    </ul>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('times-table-color-6-12') && (
+            <MultiplicationColorByNumber
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="times-table-color-6-12"
+              range={[6, 12]}
+            />
+          )
         }
 
         {
-          activeDocs.includes('times-table-color-1-12') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const colorMap: Record<number, string> = {
-              1: 'Red', 4: 'Blue', 9: 'Green', 16: 'Yellow', 25: 'Orange',
-              36: 'Purple', 49: 'Pink', 64: 'Brown', 81: 'Gray', 100: 'Cyan',
-              121: 'Magenta', 144: 'Lime'
-            };
-            // Generate all valid factor pairs (a, b) where 1  a,b  12 and ab is in colorMap
-            const validPairs: Array<[number, number, number]> = [];
-            for (let a = 1; a <= 12; a++) {
-              for (let b = 1; b <= 12; b++) {
-                const product = a * b;
-                if (colorMap[product]) {
-                  validPairs.push([a, b, product]);
-                }
-              }
-            }
-            // Select 15 random problems from valid pairs
-            const facts: Array<[number, number, number]> = Array.from({ length: 15 }).map(() => {
-              const idx = nextInt(0, validPairs.length - 1);
-              return validPairs[idx];
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="times-table-color-1-12"
-                title="Color-by-Number Times Table (1-12)"
-                emoji={String.fromCodePoint(0x1F58D)}
-                description="Complete color-by-number picture using all times tables 1-12. Multiplication color-by-number worksheets that make learning fun and rewarding."
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 animate-gradient-x mb-2" />
-                <div className="mb-4 p-3 bg-purple-50 border border-purple-200 rounded">
-                  <div className="text-sm font-semibold text-purple-900 mb-3">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="grid grid-cols-4 gap-3 text-xs">
-                    {Object.entries(colorMap).map(([num, color]) => (
-                      <div key={num} className="flex items-center gap-2">
-                        <div className="w-8 h-8 print:w-10 print:h-10 border-4 border-slate-400 rounded flex-shrink-0" style={{ backgroundColor: color.toLowerCase() }} />
-                        <div>
-                          <div className="font-semibold text-slate-800">{num}</div>
-                          <div className="text-xs text-slate-600">{color}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {facts.map(([a, b, answer], i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white text-center">
-                      <div className="font-mono text-xl leading-7 mb-3">
-                        {a}  {b} = <span className="inline-block w-20 h-10 print:w-24 print:h-12 border-b-[3px] border-slate-600 mx-1 align-middle" />
-                      </div>
-                      <div className="w-28 h-28 print:w-32 print:h-32 mx-auto border-4 border-slate-400 rounded-lg bg-white flex items-center justify-center">
-
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc('times-table-color-1-12', () => (
-                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
-                    <div className="font-semibold mb-1">Answer key</div>
-                    <ul className="list-disc list-inside space-y-0.5">
-                      {facts.map(([a, b, answer], i) => (<li key={i}>{a} {String.fromCharCode(0x00D7)} {b} = {answer}</li>))}
-                    </ul>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('times-table-color-1-12') && (
+            <MultiplicationColorByNumber
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId="times-table-color-1-12"
+              range={[1, 12]}
+            />
+          )
         }
 
         {
