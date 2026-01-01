@@ -1133,7 +1133,7 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                         <div className={`p-6 rounded-lg border ${range[0] === 1 ? 'border-amber-200 bg-amber-50' : 'border-indigo-200 bg-indigo-50'} flex flex-col items-center justify-center`}>
                             <div className="font-mono text-3xl font-bold text-slate-800 flex items-center gap-3">
-                                <span>?</span>
+                                <span></span>
                                 <span>×</span>
                                 <span>3</span>
                                 <span>=</span>
@@ -1165,19 +1165,19 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
                         <div className="absolute top-2 left-3 text-[10px] font-black text-slate-300">#{i + 1}</div>
                         <div className="font-mono text-2xl font-bold text-slate-700 flex items-center justify-center gap-2">
                             {p.missingType === 'a' ? (
-                                <div className={`w-14 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}>?</div>
+                                <div className={`w-14 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}></div>
                             ) : <span>{p.a}</span>}
 
                             <span className="text-slate-400 text-xl">×</span>
 
                             {p.missingType === 'b' ? (
-                                <div className={`w-14 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}>?</div>
+                                <div className={`w-14 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}></div>
                             ) : <span>{p.b}</span>}
 
                             <span className="text-slate-400 text-xl">=</span>
 
                             {p.missingType === 'answer' ? (
-                                <div className={`w-16 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}>?</div>
+                                <div className={`w-16 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}></div>
                             ) : <span>{p.answer}</span>}
                         </div>
                     </div>
