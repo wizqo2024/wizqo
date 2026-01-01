@@ -1,4 +1,5 @@
 import React from 'react';
+import type { ReactNode } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared';
@@ -20,7 +21,7 @@ function useWorksheetTranslation(docId: string) {
 interface SpecificWorksheetProps {
     seed: string
     variant: number
-    showAnswersForDoc: (docId: string, render: () => React.ReactNode) => React.ReactNode
+    showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode
 }
 
 export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
@@ -162,16 +163,19 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
 
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
+                </div>
                 <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
+                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> {getTrans('example.problemText', isAdvanced ? '8 × 7 = ?' : '3 × 4 = ?')}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                         {isAdvanced ? (
                             <>
-                                <div><strong>Strategy 1:</strong>{String.fromCodePoint(0x279C)}</div>
-                                <div><strong>Strategy 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                                <div><strong>Strategy 3:</strong> Skip count: 8, 16, 24, 32, 40, 48, 56 (count by 8s seven times)</div>
-                                <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
+                                <div><strong>{getTrans('example.strategy1', 'Strategy 1:')}</strong> {getTrans('example.strategy1Text', 'Break it down: (5 × 7) + (3 × 7) = 35 + 21 = 56')}</div>
+                                <div><strong>{getTrans('example.strategy2', 'Strategy 2:')}</strong> {getTrans('example.strategy2Text', 'If you know 7 × 7 = 49, then 8 × 7 = 49 + 7 = 56')}</div>
+                                <div><strong>{getTrans('example.strategy3', 'Strategy 3:')}</strong> {getTrans('example.strategy3Text', 'Skip count: 8, 16, 24, 32, 40, 48, 56 (count by 8s seven times)')}</div>
+                                <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '56')}</div>
                             </>
                         ) : (
                             <>
@@ -181,7 +185,7 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
                                 <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '12')}</div>
                             </>
                         )}
-                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!') || 'Tip: Double check your steps!'}</div>
                     </div>
                 </div>
             </div>
@@ -190,7 +194,7 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
                 {facts.map(([a, b], i) => (
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full break-inside-avoid">
                         <div className="font-mono text-2xl leading-7 text-center">
-                            <div>{String.fromCodePoint(0x279C)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
+                            <div>{a} × {b} = <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
                         </div>
                     </div>
                 ))}
@@ -301,15 +305,18 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
+                </div>
                 <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
+                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong></div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>Step 1:</strong> Draw an array with 3 rows and 4 columns</div>
-                        <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                        <div><strong>Step 3:</strong> Or count: 4, 8, 12 (count by 4s three times)</div>
-                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> 12</div>
-                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Draw an array with 3 rows and 4 columns')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Count the objects in each row: 4 + 4 + 4')}</div>
+                        <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'Or skip count: 4, 8, 12 (count by 4s three times)')}</div>
+                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '12')}</div>
+                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
                     </div>
                 </div>
             </div>
@@ -385,8 +392,36 @@ export function SkipCountingMultiplication({ seed, variant, showAnswersForDoc }:
             title={getTrans('title', 'Skip Counting for Multiplication')}
             emoji={String.fromCodePoint(0x1F430)}
             description={getTrans('description', "Skip count to find the missing numbers in each pattern. Then write the complete multiplication fact in the blank.")}
+            learningObjectives={t('learningObjectives', [
+                'Understand multiplication as repeated addition',
+                'Master skip counting patterns',
+                'Connect counting sequences to multiplication facts'
+            ])}
+            parentTeacherTips={t('parentTeacherTips', [
+                'Skip counting is the foundation of multiplication fluency.',
+                'If a child gets stuck, have them use their fingers to keep track of each jump.',
+                'Encourage them to say the numbers out loud as they write.'
+            ])}
         >
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
+
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-green-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', 'Leap Frog Example:')}</span>
+                </div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> {getTrans('example.patternText', '2, 4, __, 8, __, 12')}</div>
+                    <div className="pl-4 border-l-2 border-green-300 space-y-1">
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Find the jump: 2 to 4 is +2. Skip count by 2s!')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Fill in: 2, 4, 6, 8, 10, 12')}</div>
+                        <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'This is 2 × 6 (six jumps of 2)')}</div>
+                        <div className="font-semibold text-green-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '2 × 6 = 12')}</div>
+                        <div className="text-xs text-green-700 mt-1">{getTrans('example.tip', 'Tip: Each number in the skip count is a "multiple" of the starting number!')}</div>
+                    </div>
+                </div>
+            </div>
             <div className="space-y-4">
                 {patterns.map((item, idx) => (
                     <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
@@ -458,15 +493,18 @@ export function MultiplicationArraysModels({ seed, variant, showAnswersForDoc }:
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
 
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
+                </div>
                 <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
+                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong></div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>Step 1:</strong> Look at the array: 4 rows and 5 columns</div>
-                        <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                        <div><strong>Step 3:</strong> Or count all boxes: 1, 2, 3... 20 boxes total</div>
-                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> 20</div>
-                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Look at the array: 4 rows and 5 columns')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Count by rows: 5, 10, 15, 20')}</div>
+                        <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'Or count all boxes: 1, 2, 3... 20 boxes total')}</div>
+                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '20')}</div>
+                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
                     </div>
                 </div>
             </div>
@@ -581,8 +619,8 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
             'Build speed and accuracy with advanced facts'
         ];
         tips = [
-            'These facts are trickier - use strategies like doubling (6x7 = 2x3x7)',
-            'Break down larger facts: 8x9 = 8x10 - 8 = 80 - 8 = 72',
+            'These facts are trickier - use strategies like doubling (6×7 = 2×3×7)',
+            'Break down larger facts: 8×9 = 8×10 - 8 = 80 - 8 = 72',
             'Practice daily for 10-15 minutes for best results',
             'Extension: Time yourself and try to beat your record!'
         ];
@@ -607,23 +645,26 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
             <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
+                </div>
                 <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
+                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> {getTrans('example.problemText', is1To12 ? '9 × 7 = ?' : (is6To12 ? '7 × 8 = ?' : '3 × 4 = ?'))}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                         {is1To12 ? (
                             <>
-                                <div><strong>Method 1 (9s trick):</strong>{String.fromCodePoint(0x279C)}</div>
-                                <div><strong>Method 2 (Use known facts):</strong>{String.fromCodePoint(0x279C)}</div>
-                                <div><strong>Method 3 (Skip counting):</strong> Count by 9s seven times: 9, 18, 27, 36, 45, 54, 63</div>
-                                <div className="font-semibold text-blue-900"><strong>Answer:</strong> 63</div>
+                                <div><strong>{getTrans('example.method1', 'Method 1 (9s trick):')}</strong> {getTrans('example.method1Text', '9 × 7 is one group less than 10 × 7: 70 - 7 = 63')}</div>
+                                <div><strong>{getTrans('example.method2', 'Method 2 (Use known facts):')}</strong> {getTrans('example.method2Text', 'If 9 × 6 = 54, then 9 × 7 = 54 + 9 = 63')}</div>
+                                <div><strong>{getTrans('example.method3', 'Method 3 (Skip counting):')}</strong> {getTrans('example.method3Text', 'Count by 9s seven times: 9, 18, 27, 36, 45, 54, 63')}</div>
+                                <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> 63</div>
                             </>
                         ) : is6To12 ? (
                             <>
-                                <div><strong>Method 1 (Break it down):</strong>{String.fromCodePoint(0x279C)}</div>
-                                <div><strong>Method 2 (Use known facts):</strong>{String.fromCodePoint(0x279C)}</div>
-                                <div><strong>Method 3 (Skip counting):</strong> Count by 7s eight times: 7, 14, 21, 28, 35, 42, 49, 56</div>
-                                <div className="font-semibold text-blue-900"><strong>Answer:</strong> 56</div>
+                                <div><strong>{getTrans('example.method1', 'Method 1 (Break it down):')}</strong> {getTrans('example.method1Text', '7 × 8 = (5 × 8) + (2 × 8) = 40 + 16 = 56')}</div>
+                                <div><strong>{getTrans('example.method2', 'Method 2 (Use known facts):')}</strong> {getTrans('example.method2Text', 'If 7 × 7 = 49, then 7 × 8 = 49 + 7 = 56')}</div>
+                                <div><strong>{getTrans('example.method3', 'Method 3 (Skip counting):')}</strong> {getTrans('example.method3Text', 'Count by 7s eight times: 7, 14, 21, 28, 35, 42, 49, 56')}</div>
+                                <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> 56</div>
                             </>
                         ) : (
                             <>
@@ -633,7 +674,7 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
                                 <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '12')}</div>
                             </>
                         )}
-                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
                     </div>
                 </div>
             </div>
@@ -716,6 +757,7 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
 
 export function MultiplicationWindowArrays({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = 'mult-arrays'
+    const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
 
     const problems = Array.from({ length: 4 }, () => {
@@ -727,22 +769,39 @@ export function MultiplicationWindowArrays({ seed, variant, showAnswersForDoc }:
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="City Builder: Window Arrays"
+            title={getTrans('title', 'City Builder: Window Arrays')}
             emoji={String.fromCodePoint(0x2716)}
-            description="Count the rows and columns of windows to find the total product."
+            description={getTrans('description', 'Count the rows and columns of windows to find the total product.')}
             problemCount={4}
-            learningObjectives={[
+            learningObjectives={t('learningObjectives', [
                 'Understand multiplication as repeated addition',
                 'Visualize arrays (rows x columns)',
                 'Write multiplication sentences'
-            ]}
-            parentTeacherTips={[
-                'Rows go side to side (like a row in a movie theater).',
-                'Columns go up and down (like a building column).',
+            ])}
+            parentTeacherTips={t('parentTeacherTips', [
+                'Rows go side to side (like a building floor).',
+                'Columns go up and down.',
                 'Count by skip counting the rows!'
-            ]}
+            ])}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 animate-gradient-x mb-4" />
+
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', 'Project: Building Windows')}</span>
+                </div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong></div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'There are 3 rows and 4 columns')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Multiplication fact: 3 × 4')}</div>
+                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '12 windows')}</div>
+                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Think of it as 4 + 4 + 4 = 12')}</div>
+                    </div>
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {problems.map((p, i) => (
@@ -827,21 +886,25 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
             <div className={`print:hidden h-1 w-16 rounded-full bg-gradient-to-r ${range[0] === 1 ? 'from-green-400 to-emerald-400' : range[0] === 6 ? 'from-purple-400 to-pink-400' : 'from-indigo-400 to-purple-400'} animate-gradient-x mb-2`} />
 
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)} {t('example.header', 'Example')}</div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base mb-2">
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm">
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
+                </div>
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="font-mono text-base mb-2 min-w-[100px] border-l-4 border-blue-200 pl-4 bg-white/50 p-3 rounded">
                         <div className="text-right">{range[0] === 1 ? 4 : range[0] === 6 ? 8 : 9}</div>
                         <div className="flex items-center">
-                            <span className="mr-2">{String.fromCodePoint(0x279C)}</span>
+                            <span className="mr-2">{String.fromCharCode(0x00D7)}</span>
                             <span className="flex-1 text-right">{range[0] === 1 ? 3 : range[0] === 6 ? 7 : 8}</span>
                         </div>
                         <div className="border-t-2 border-slate-600 mt-1 pt-1">{range[0] === 1 ? 12 : range[0] === 6 ? 56 : 72}</div>
                     </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>{t('example.step1', 'Step 1:')}</strong> {t('example.step1Text', 'Multiply the numbers')}</div>
-                        <div><strong>{t('example.step2', 'Step 2:')}</strong> {t('example.step2Text', 'Write the answer below the line')}</div>
-                        <div className="font-semibold text-blue-900"><strong>{t('example.answer', 'Answer:')}</strong> {range[0] === 1 ? 12 : range[0] === 6 ? 56 : 72}</div>
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Multiply the numbers')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Write the answer below the line')}</div>
+                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {range[0] === 1 ? 12 : range[0] === 6 ? 56 : 72}</div>
+                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: Line up the ones and tens!')}</div>
                     </div>
                 </div>
             </div>
@@ -852,7 +915,7 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
                         <div className="font-mono text-2xl leading-7">
                             <div className="text-right mb-1">{a}</div>
                             <div className="flex items-center mb-1">
-                                <span className="mr-2">{String.fromCodePoint(0x279C)}</span>
+                                <span className="mr-2">{String.fromCharCode(0x00D7)}</span>
                                 <span className="flex-1 text-right">{b}</span>
                             </div>
                             <div className="border-t-[3px] border-slate-600 mt-2 pt-3 h-14 print:h-16 flex items-center justify-end">
@@ -947,7 +1010,7 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
                 <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)} {t('example.header', 'Example')}</div>
                 <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>{t('example.problem', 'Problem:')}</strong> ? x 3 = 12</div>
+                    <div className="font-mono text-base"><strong>{t('example.problem', 'Problem:')}</strong> ? × 3 = 12</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                         <div><strong>{t('example.step1', 'Step 1:')}</strong> {t('example.step1Text', 'Ask: "What times 3 equals 12?"')}</div>
                         <div><strong>{t('example.step2', 'Step 2:')}</strong> {t('example.step2Text', 'Use multiplication facts or division')}</div>
@@ -1047,10 +1110,9 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
 }
 
 export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
-    const { t } = useTranslation()
     const docId = 'mult-patterns'
-    const doc = docId
-    const rng = makeRng(`${seed}|v${variant}|doc=${doc}`);
+    const { getTrans, t: worksheetT } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
 
     function nextInt(min: number, max: number) {
         return Math.floor(rng() * (max - min + 1)) + min;
@@ -1080,27 +1142,39 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title={t(`worksheets.${docId}.title`, 'Multiplication Patterns')}
+            title={getTrans('title', 'Multiplication Patterns')}
             emoji={String.fromCodePoint(0x1F50D)}
-            description={t(`worksheets.${docId}.description`, 'Observe how the numbers change. Can you find the hidden rule?')}
+            description={getTrans('description', 'Observe how the numbers change. Can you find the hidden rule?')}
             problemCount={patterns.length}
-            learningObjectives={(() => {
-                const obj = t(`worksheets.${docId}.learningObjectives`)
-                return Array.isArray(obj) && obj.length > 0 ? obj : [
-                    'Identify patterns in multiplication tables',
-                    'Extend numerical sequences',
-                    'Recognize algebraic relationships'
-                ]
-            })()}
-            parentTeacherTips={(() => {
-                const tipList = t(`worksheets.${docId}.parentTeacherTips`)
-                return Array.isArray(tipList) && tipList.length > 0 ? tipList : [
-                    'Ask: "What is the rule between each number?"',
-                    'Encourage students to count the jump between answers',
-                    'Connect addition to multiplication jumps'
-                ]
-            })()}
+            learningObjectives={worksheetT('learningObjectives', [
+                'Identify patterns in multiplication tables',
+                'Extend numerical sequences',
+                'Recognize algebraic relationships'
+            ])}
+            parentTeacherTips={worksheetT('parentTeacherTips', [
+                'Ask: "What is the rule between each number?"',
+                'Encourage students to count the jump between answers',
+                'Connect addition to multiplication jumps'
+            ])}
         >
+            <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-indigo-400 to-cyan-500 animate-gradient-x mb-4" />
+
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', 'Example - Pattern Detective:')}</span>
+                </div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> {getTrans('example.problemText', 'Find the rule for: 2, 4, 6, 8, ...')}</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Look at the "jump" between numbers: 2 to 4 is +2, 4 to 6 is +2')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'The rule is: Add 2 each time (Multiples of 2)')}</div>
+                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', 'The next number is 10!')}</div>
+                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Multiplication is just adding the same number over and over!')}</div>
+                    </div>
+                </div>
+            </div>
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-indigo-400 to-cyan-500 animate-gradient-x mb-4" />
 
             {/* Premium Header Banner */}
@@ -1277,13 +1351,16 @@ export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId, r
 
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', "Timed Challenge Tip:")}</span>
+                </div>
                 <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong>{String.fromCodePoint(0x1F4A1)}</div>
+                    <div className="font-mono text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> {getTrans('example.problemText', is1To12 ? '9 × 8 = ?' : (is6To12 ? '8 × 7 = ?' : '3 × 4 = ?'))}</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>Quick method:</strong>{String.fromCodePoint(0x279C)}</div>
-                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> {is1To12 ? 72 : (is6To12 ? 56 : 12)}</div>
-                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                        <div><strong>{getTrans('example.strategy', 'Quick method:')}</strong> {getTrans('example.strategyText', is1To12 ? 'Think: 9 × 8 = 9 × 4 × 2 = 36 × 2 = 72' : (is6To12 ? 'Break it down: (5 × 7) + (3 × 7) = 35 + 21 = 56' : 'Count: 4, 8, 12 (skip count by 4s three times)'))}</div>
+                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', is1To12 ? '72' : (is6To12 ? '56' : '12'))}</div>
+                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
                     </div>
                 </div>
             </div>
@@ -1537,7 +1614,7 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
                         <div className={`w-10 h-10 rounded-full bg-${themeColor}-500 flex items-center justify-center text-white text-xl animate-pulse`}>✓</div>
                         <div>
                             <h3 className="text-xl font-bold">Mission Debrief: Solutions</h3>
-                            <p className={`text-${themeColor}-300 text-sm`}>Verified results for Task Set {effectiveSeed}</p>
+                            <p className={`text-${themeColor}-300 text-sm`}>Verified results for Task Set {seed}</p>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1597,7 +1674,7 @@ export function MultiplicationFactFamilies({ seed, variant, showAnswersForDoc, d
             <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white break-inside-avoid">
                 <div className="font-semibold text-purple-900 mb-3 text-sm flex items-center gap-2">
                     <span className="text-2xl">{String.fromCodePoint(0x1F4A1)}</span>
-                    <span>Example: Fact Family for 3, 4, 12</span>
+                    <span>{getTrans('example.title', 'Example - Fact Family for 3, 4, 12')}</span>
                 </div>
                 <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
                     {/* Visual Triangle */}
@@ -1633,6 +1710,9 @@ export function MultiplicationFactFamilies({ seed, variant, showAnswersForDoc, d
                             <span className="font-mono font-bold text-purple-700">12 ÷ 4 = 3</span>
                         </div>
                     </div>
+                </div>
+                <div className="mt-4 text-xs text-purple-700 pl-2 border-l-2 border-purple-300">
+                    {getTrans('example.tip', 'Tip: The biggest number is always the product!')}
                 </div>
             </div>
 
@@ -1794,7 +1874,7 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
             <div className="inline-block font-mono text-xl leading-none text-right mx-auto">
                 <div className="tracking-widest">{a}</div>
                 <div className="tracking-widest border-b-2 border-slate-800 mb-1 pb-1 relative">
-                    <span className="absolute left-[-1ch] bottom-1">x</span>
+                    <span className="absolute left-[-1ch] bottom-1">{String.fromCharCode(0x00D7)}</span>
                     {b}
                 </div>
                 {showSolution && (
@@ -1907,8 +1987,8 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
 }
 
 export function MultiplicationAreaModel({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
-    const { t } = useTranslation()
     const docId = 'mult-area-model'
+    const { getTrans, t: worksheetT } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
 
     function nextInt(min: number, max: number) {
@@ -1924,26 +2004,20 @@ export function MultiplicationAreaModel({ seed, variant, showAnswersForDoc }: Sp
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title={t(`worksheets.${docId}.title`, 'Area Model Multiplication')}
+            title={getTrans('title', 'Area Model Multiplication')}
             emoji={String.fromCodePoint(0x1F4CF)}
-            description={t(`worksheets.${docId}.description`, 'Break numbers into tens and ones. Map out the area to find the total.')}
+            description={getTrans('description', 'Break numbers into tens and ones. Map out the area to find the total.')}
             problemCount={problems.length}
-            learningObjectives={(() => {
-                const obj = t(`worksheets.${docId}.learningObjectives`)
-                return Array.isArray(obj) && obj.length > 0 ? obj : [
-                    'Apply area models to multi-digit multiplication',
-                    'Decompose numbers by place value',
-                    'Synthesize partial products for a final result'
-                ]
-            })()}
-            parentTeacherTips={(() => {
-                const tipList = t(`worksheets.${docId}.parentTeacherTips`)
-                return Array.isArray(tipList) && tipList.length > 0 ? tipList : [
-                    'Visualize the area as a rectangle divided into four plots',
-                    'The large plot is Tens x Tens (e.g., 20 x 10)',
-                    'Adding the four "plots" gives the total territory'
-                ]
-            })()}
+            learningObjectives={worksheetT('learningObjectives', [
+                'Apply area models to multi-digit multiplication',
+                'Decompose numbers by place value',
+                'Synthesize partial products for a final result'
+            ])}
+            parentTeacherTips={worksheetT('parentTeacherTips', [
+                'Visualize the area as a rectangle divided into four plots',
+                'The large plot is Tens x Tens (e.g., 20 x 10)',
+                'Adding the four "plots" gives the total territory'
+            ])}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 animate-gradient-x mb-4" />
 
@@ -1965,6 +2039,24 @@ export function MultiplicationAreaModel({ seed, variant, showAnswersForDoc }: Sp
                     accent: "text-blue-400"
                 }}
             />
+
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>{getTrans('example.title', 'Example - Plot Architect:')}</span>
+                </div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong></div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Split numbers: 24 × 12 → (20+4) × (10+2)')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Multiply parts: 20×10=200, 20×2=40, 4×10=40, 4×2=8')}</div>
+                        <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'Add them up: 200 + 40 + 40 + 8 = 288')}</div>
+                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '288')}</div>
+                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Each box in the grid represents part of the total area!')}</div>
+                    </div>
+                </div>
+            </div>
 
             {/* Premium Instruction Card */}
             <div className="mb-6 p-4 bg-slate-50 border-2 border-blue-200 rounded-xl print:border print:bg-white relative overflow-hidden">
