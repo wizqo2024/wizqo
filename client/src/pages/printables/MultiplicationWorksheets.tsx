@@ -1,5 +1,4 @@
-import React from 'react';
-import type { ReactNode } from 'react';
+import * as React from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared';
@@ -21,7 +20,7 @@ function useWorksheetTranslation(docId: string) {
 interface SpecificWorksheetProps {
     seed: string
     variant: number
-    showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode
+    showAnswersForDoc: (docId: string, render: () => React.ReactNode) => React.ReactNode
 }
 
 export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
@@ -275,7 +274,7 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
 
 export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = 'mult-arrays-2-5'
-    const { getTrans } = useWorksheetTranslation(docId);
+    const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
 
@@ -290,33 +289,51 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
             emoji={String.fromCharCode(0x2716, 0xFE0F)}
             description={getTrans('description', "Draw an array for each multiplication problem. Count the total number of objects and write the answer in the blank.")}
             problemCount={arrays.length}
-            learningObjectives={[
+            learningObjectives={t('learningObjectives', [
                 'Use arrays to visualize multiplication',
                 'Count rows and columns to find the product',
                 'Understand multiplication as equal groups'
-            ]}
-            parentTeacherTips={[
+            ])}
+            parentTeacherTips={t('parentTeacherTips', [
                 'Arrays help students see multiplication visually',
                 'Count rows first, then columns, or count all objects',
                 'Encourage students to count the total number of boxes',
                 'Extension: Draw your own arrays for different problems'
-            ]}
+            ])}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            <PremiumWorksheetBanner
+                title={getTrans('title', 'Array Builder')}
+                subtitle={getTrans('subtitle', 'Draw and solve with equal groups')}
+                icons={{
+                    bg1: String.fromCharCode(0x2716, 0xFE0F),
+                    bg2: String.fromCodePoint(0x1F4CF),
+                    float1: String.fromCodePoint(0x1F3A8),
+                    float2: String.fromCodePoint(0x1F4D0)
+                }}
+                colors={{
+                    bg: 'bg-gradient-to-br from-blue-50 to-indigo-50',
+                    border: 'border-blue-200',
+                    pillBg: 'bg-white/80',
+                    pillBorder: 'border-blue-300',
+                    pillText: 'text-blue-800',
+                    accent: 'text-blue-300'
+                }}
+            />
+
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm">
                 <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
                     <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
                     <span>{getTrans('example.title', "Let's solve this together:")}</span>
                 </div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong></div>
+                <div className="space-y-2">
+                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> 3 {String.fromCharCode(0x00D7)} 4 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                         <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Draw an array with 3 rows and 4 columns')}</div>
                         <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Count the objects in each row: 4 + 4 + 4')}</div>
                         <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'Or skip count: 4, 8, 12 (count by 4s three times)')}</div>
                         <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '12')}</div>
-                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
+                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
                     </div>
                 </div>
             </div>
@@ -376,7 +393,7 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
 
 export function SkipCountingMultiplication({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = "skip-count-mult"
-    const { getTrans } = useWorksheetTranslation(docId);
+    const { getTrans, t } = useWorksheetTranslation(docId);
 
     // Static pattern for now as per inline implementation
     const patterns = [
@@ -403,22 +420,39 @@ export function SkipCountingMultiplication({ seed, variant, showAnswersForDoc }:
                 'Encourage them to say the numbers out loud as they write.'
             ])}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-green-400 to-teal-400 animate-gradient-x mb-2" />
+            <PremiumWorksheetBanner
+                title={getTrans('title', 'Leap Frog Patterns')}
+                subtitle={getTrans('subtitle', 'Skip count to jump towards the answer')}
+                icons={{
+                    bg1: String.fromCodePoint(0x1F430),
+                    bg2: String.fromCodePoint(0x1F33F),
+                    float1: String.fromCodePoint(0x1F4A7),
+                    float2: String.fromCodePoint(0x1F344)
+                }}
+                colors={{
+                    bg: 'bg-gradient-to-br from-green-50 to-emerald-50',
+                    border: 'border-green-200',
+                    pillBg: 'bg-white/80',
+                    pillBorder: 'border-green-300',
+                    pillText: 'text-green-800',
+                    accent: 'text-green-300'
+                }}
+            />
 
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg print:border print:bg-white">
+            <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg print:border print:bg-white text-sm">
                 <div className="font-semibold text-green-900 mb-3 text-sm flex items-center gap-2">
                     <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
                     <span>{getTrans('example.title', 'Leap Frog Example:')}</span>
                 </div>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2">
                     <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> {getTrans('example.patternText', '2, 4, __, 8, __, 12')}</div>
                     <div className="pl-4 border-l-2 border-green-300 space-y-1">
                         <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Find the jump: 2 to 4 is +2. Skip count by 2s!')}</div>
                         <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Fill in: 2, 4, 6, 8, 10, 12')}</div>
                         <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'This is 2 × 6 (six jumps of 2)')}</div>
                         <div className="font-semibold text-green-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '2 × 6 = 12')}</div>
-                        <div className="text-xs text-green-700 mt-1">{getTrans('example.tip', 'Tip: Each number in the skip count is a "multiple" of the starting number!')}</div>
+                        <div className="text-xs text-green-700 mt-1 italic">{getTrans('example.tip', 'Tip: Each number in the skip count is a "multiple" of the starting number!')}</div>
                     </div>
                 </div>
             </div>
@@ -463,7 +497,7 @@ export function SkipCountingMultiplication({ seed, variant, showAnswersForDoc }:
 
 export function MultiplicationArraysModels({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = 'mult-arrays-models'
-    const { getTrans } = useWorksheetTranslation(docId);
+    const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
 
@@ -475,60 +509,100 @@ export function MultiplicationArraysModels({ seed, variant, showAnswersForDoc }:
         <WorksheetSectionWrapper
             docId={docId}
             title={getTrans('title', 'Multiplication Arrays & Models')}
-            emoji={String.fromCodePoint(0x2716)}
-            description={getTrans('description', "Draw an array for each problem. Use the array to solve.")}
+            emoji={String.fromCodePoint(0x1F3D7)}
+            description={getTrans('description', "Draw an array for each problem. Use your favorite color to shade the boxes!")}
             problemCount={arrays.length}
-            learningObjectives={[
+            learningObjectives={t('learningObjectives', [
                 'Use arrays to visualize and solve multiplication',
                 'Count rows and columns to find products',
                 'Understand multiplication as equal groups arranged in arrays'
-            ]}
-            parentTeacherTips={[
+            ])}
+            parentTeacherTips={t('parentTeacherTips', [
                 'Arrays help students see the structure of multiplication',
                 'Encourage students to count rows x columns',
                 'Students can also count all boxes to verify their answer',
                 'Extension: Draw arrays for larger numbers'
-            ]}
+            ])}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 animate-gradient-x mb-2" />
+            <PremiumWorksheetBanner
+                title={getTrans('title', 'Array Architect')}
+                subtitle={getTrans('subtitle', 'Build and Solve with Rows & Columns')}
+                icons={{
+                    bg1: String.fromCodePoint(0x1F3D7),
+                    bg2: String.fromCodePoint(0x1F4CF),
+                    float1: String.fromCodePoint(0x1F6A7),
+                    float2: String.fromCodePoint(0x1F4D0)
+                }}
+                colors={{
+                    bg: 'bg-gradient-to-br from-blue-50 to-indigo-50',
+                    border: 'border-blue-200',
+                    pillBg: 'bg-white/80',
+                    pillBorder: 'border-blue-300',
+                    pillText: 'text-blue-800',
+                    accent: 'text-blue-300'
+                }}
+            />
 
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+            {/* Worked Example */}
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm">
                 <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
                     <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
                     <span>{getTrans('example.title', "Let's solve this together:")}</span>
                 </div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong></div>
+                <div className="space-y-2">
+                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> 4 {String.fromCharCode(0x00D7)} 5 = ?</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
                         <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Look at the array: 4 rows and 5 columns')}</div>
                         <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Count by rows: 5, 10, 15, 20')}</div>
                         <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'Or count all boxes: 1, 2, 3... 20 boxes total')}</div>
                         <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '20')}</div>
-                        <div className="text-xs text-blue-700 mt-1">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
+                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                        <div className="text-center mb-2 font-semibold text-slate-800">{String.fromCodePoint(0x270F)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                        <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto' }}>
-                            {Array.from({ length: rows * cols }).map((_, idx) => (
-                                <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100 print:bg-white" />
-                            ))}
+                    <div key={i} className="relative bg-white border-2 border-slate-200 rounded-xl p-5 break-inside-avoid hover:border-blue-300 transition-colors">
+                        <div className="absolute -top-3 -left-3 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-md print:border">
+                            {i + 1}
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <div className="mb-4 text-center font-bold text-xl text-slate-800 flex items-center gap-2">
+                                <span>{rows} × {cols} = </span>
+                                <span className="inline-block w-16 h-8 border-b-2 border-slate-400" />
+                            </div>
+                            <div className="p-2 bg-slate-50 rounded-lg border border-slate-200">
+                                <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, minWidth: '120px' }}>
+                                    {Array.from({ length: rows * cols }).map((_, idx) => (
+                                        <div key={idx} className="w-6 h-6 border border-slate-400 rounded-sm bg-white" />
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Extension/Challenge */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>3. Create a word problem that matches one of the arrays above</div>
+            {/* Extension / Rocket Challenge */}
+            <div className="mt-8 p-5 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-xl print:bg-white print:border break-inside-avoid">
+                <div className="flex items-center gap-3 mb-4">
+                    <span className="text-3xl animate-bounce-slow">{String.fromCodePoint(0x1F680)}</span>
+                    <h3 className="font-bold text-lg text-indigo-900">{getTrans('extension.title', 'Rocket Challenge!')}.</h3>
+                </div>
+                <div className="space-y-3 text-sm text-indigo-800 ml-2">
+                    <div className="flex gap-3">
+                        <span className="font-bold text-indigo-400">01</span>
+                        <p>{getTrans('extension.step1', '1. Draw a massive 10x10 array on your own paper.')}</p>
+                    </div>
+                    <div className="flex gap-3">
+                        <span className="font-bold text-indigo-400">02</span>
+                        <p>{getTrans('extension.step2', '2. Count how many boxes are in half of it (5x10).')}</p>
+                    </div>
+                    <div className="flex gap-3">
+                        <span className="font-bold text-indigo-400">03</span>
+                        <p>{getTrans('extension.step3', '3. Create a word problem that matches one of the arrays above.')}</p>
+                    </div>
                 </div>
             </div>
 
@@ -862,28 +936,53 @@ interface TimesTableProps extends SpecificWorksheetProps {
 }
 
 export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, range }: TimesTableProps) {
-    const { t } = useWorksheetTranslation(docId)
-    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min }
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
 
-    const problemCount = range[1] > 9 ? 16 : 12
+    const problemCount = range[1] > 9 ? 16 : 12;
     const facts: Array<[number, number]> = Array.from({ length: problemCount }).map(() => {
-        const a = nextInt(range[0], range[1])
-        const b = nextInt(range[0], range[1])
-        return [a, b]
-    })
+        const a = nextInt(range[0], range[1]);
+        const b = nextInt(range[0], range[1]);
+        return [a, b];
+    });
 
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title={t('title')}
+            title={getTrans('title', 'Times Table (Vertical)')}
             emoji={String.fromCodePoint(0x2716)}
-            description={t('description')}
+            description={getTrans('description', "Solve each multiplication facts vertically.")}
             problemCount={facts.length}
-            learningObjectives={t('learningObjectives', [])}
-            parentTeacherTips={t('parentTeacherTips', [])}
+            learningObjectives={t('learningObjectives', [
+                'Master basic multiplication facts',
+                'Practice vertical multiplication format',
+                'Improve calculation speed and accuracy'
+            ])}
+            parentTeacherTips={t('parentTeacherTips', [
+                'Vertical format helps prepare students for multi-digit multiplication',
+                'Encourage students to say the facts out loud',
+                'Use a timer for a fun challenge!'
+            ])}
         >
-            <div className={`print:hidden h-1 w-16 rounded-full bg-gradient-to-r ${range[0] === 1 ? 'from-green-400 to-emerald-400' : range[0] === 6 ? 'from-purple-400 to-pink-400' : 'from-indigo-400 to-purple-400'} animate-gradient-x mb-2`} />
+            <PremiumWorksheetBanner
+                title={getTrans('title', 'Vertical Velocity')}
+                subtitle={getTrans('subtitle', `Mastering Facts ${range[0]} through ${range[1]}`)}
+                icons={{
+                    bg1: String.fromCodePoint(0x2716),
+                    bg2: String.fromCodePoint(0x1F680),
+                    float1: String.fromCodePoint(0x26A1),
+                    float2: String.fromCodePoint(0x1F3AF)
+                }}
+                colors={{
+                    bg: range[0] === 1 ? 'bg-gradient-to-br from-green-50 to-emerald-50' : 'bg-gradient-to-br from-purple-50 to-pink-50',
+                    border: range[0] === 1 ? 'border-green-200' : 'border-purple-200',
+                    pillBg: 'bg-white/80',
+                    pillBorder: range[0] === 1 ? 'border-green-300' : 'border-purple-300',
+                    pillText: range[0] === 1 ? 'text-green-800' : 'text-purple-800',
+                    accent: range[0] === 1 ? 'text-green-300' : 'text-purple-300'
+                }}
+            />
 
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm">
@@ -901,20 +1000,20 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
                         <div className="border-t-2 border-slate-600 mt-1 pt-1">{range[0] === 1 ? 12 : range[0] === 6 ? 56 : 72}</div>
                     </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Multiply the numbers')}</div>
-                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Write the answer below the line')}</div>
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Multiply the ones place.')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Write the answer below the line.')}</div>
                         <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {range[0] === 1 ? 12 : range[0] === 6 ? 56 : 72}</div>
-                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: Line up the ones and tens!')}</div>
+                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: You can use repeated addition if you get stuck!')}</div>
                     </div>
                 </div>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
+                    <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors">
                         <div className="font-mono text-2xl leading-7">
-                            <div className="text-right mb-1">{a}</div>
-                            <div className="flex items-center mb-1">
+                            <div className="text-right mb-1 text-slate-800">{a}</div>
+                            <div className="flex items-center mb-1 text-slate-800">
                                 <span className="mr-2">{String.fromCharCode(0x00D7)}</span>
                                 <span className="flex-1 text-right">{b}</span>
                             </div>
@@ -927,60 +1026,81 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
             </div>
 
             {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)} {t('challenge.header', 'Challenge')}</div>
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border break-inside-avoid" style={{ pageBreakBefore: 'always' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F680)}</span>
+                    <span>{getTrans('challenge.title', 'Challenge Quest')}</span>
+                </div>
                 <div className="space-y-2 text-sm text-purple-800">
-                    {t('challenge.items', [
-                        'Create your own vertical multiplication problem',
-                        'Write all the facts that equal 12 in vertical format',
-                        `Time yourself: Can you complete all ${facts.length} problems in under 2 minutes?`
-                    ]).map((item: string, i: number) => (
-                        <div key={i}>{i + 1}. {item}</div>
-                    ))}
+                    <div className="flex gap-2">
+                        <span className="font-bold cursor-default">01.</span>
+                        <p>{getTrans('challenge.item1', 'Create your own vertical multiplication problem and solve it.')}</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <span className="font-bold cursor-default">02.</span>
+                        <p>{getTrans('challenge.item2', 'Write all the facts that equal 12 in vertical format.')}</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <span className="font-bold cursor-default">03.</span>
+                        <p>{getTrans('challenge.item3', `Time yourself: Can you complete all ${facts.length} problems in under 2 minutes?`)}</p>
+                    </div>
                 </div>
             </div>
 
             {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)} {t('selfAssessment.header', 'Self Assessment')}</div>
-                <div className="space-y-2 text-xs">
-                    {t('selfAssessment.items', [
-                        `I can multiply numbers ${range[0]}-${range[1]} in vertical format`,
-                        'I can align numbers correctly',
-                        'I can say the answers quickly (fluency)'
-                    ]).map((item: string, i: number) => (
-                        <div key={i}>{String.fromCharCode(0x2610)} {item}</div>
-                    ))}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded-xl bg-slate-50/30" style={{ pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x270F)}</span>
+                    <span>{getTrans('selfAssessment.title', 'Progress Tracking')}</span>
                 </div>
-                <div className="mt-3 text-xs">
-                    <strong>{t('selfAssessment.score', 'My score:')}</strong> ___ / {facts.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{t('selfAssessment.factsToPractice', 'Facts I want to practice more:')}</strong> _________________________
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2 text-xs">
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
+                            <span>{getTrans('selfAssessment.item1', `I can multiply numbers correctly in vertical format`)}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
+                            <span>{getTrans('selfAssessment.item2', 'I can align numbers correctly by their place value')}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
+                            <span>{getTrans('selfAssessment.item3', 'I can solve these facts quickly and accurately')}</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-between border-l border-slate-200 pl-4">
+                        <div className="text-xs">
+                            <strong>{getTrans('myScore', 'My score:')}</strong> ___ / {facts.length}
+                        </div>
+                        <div className="text-xs mt-2">
+                            <strong>{getTrans('whatWasHardest', 'What was hardest?')}</strong> ____________________
+                        </div>
+                    </div>
                 </div>
             </div>
 
             {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)} {t('answerKey.header', 'Answer Key')}</div>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="mt-8 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-xl print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-4 text-xl flex items-center gap-2">
+                        {String.fromCodePoint(0x2705)} {getTrans('answerKey', 'Answer Key')}
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm font-mono">
                         {facts.map(([a, b], i) => (
-                            <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                                {i + 1}. {a} x {b} = {a * b}
+                            <div key={i} className="p-2 border border-emerald-200 rounded bg-white">
+                                <div className="text-emerald-700 font-bold">#{i + 1}</div>
+                                <div className="text-emerald-800">{a} {String.fromCharCode(0x00D7)} {b} = {a * b}</div>
                             </div>
                         ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                        <strong>{String.fromCodePoint(0x2705)}</strong> {t('answerKey.studyTipText', 'Great job practicing vertical format! Keep practicing to build speed and accuracy!')}
                     </div>
                 </div>
             ))}
         </WorksheetSectionWrapper>
-    )
+    );
 }
 
-export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, range }: TimesTableProps) {
-    const { t } = useWorksheetTranslation(docId)
+
+export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+    const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min }
 
@@ -997,24 +1117,114 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title={t('title')}
-            emoji={String.fromCodePoint(0x2716)}
-            description={t('description')}
+            title={getTrans('title', 'Times Table (Missing Numbers)')}
+            emoji={String.fromCodePoint(0x1F50D)}
+            description={getTrans('description', "Find the missing factor or product to complete each multiplication equation.")}
             problemCount={problems.length}
-            learningObjectives={t('learningObjectives', [])}
-            parentTeacherTips={t('parentTeacherTips', [])}
+            learningObjectives={t('learningObjectives', [
+                'Master basic multiplication facts',
+                'Understand the relationship between factors and products',
+                'Apply inverse operations (division) to find missing numbers'
+            ])}
+            parentTeacherTips={t('parentTeacherTips', [
+                'Missing number problems build algebraic thinking',
+                'If your child is stuck, ask: "What times this number equals the product?"',
+                'Encourage students to check their work by multiplying the factors'
+            ])}
         >
-            <div className={`print:hidden h-1 w-16 rounded-full bg-gradient-to-r ${range[0] === 1 ? 'from-amber-400 to-orange-400' : 'from-purple-400 to-pink-400'} animate-gradient-x mb-2`} />
+            <PremiumWorksheetBanner
+                title={getTrans('title', 'Fact Finder Challenge')}
+                subtitle={getTrans('subtitle', 'Search for the Missing Numbers')}
+                icons={{
+                    bg1: String.fromCodePoint(0x1F50D),
+                    bg2: String.fromCodePoint(0x2753),
+                    float1: String.fromCodePoint(0x1F9E9),
+                    float2: String.fromCodePoint(0x1F4D6)
+                }}
+                colors={{
+                    bg: range[0] === 1 ? 'bg-gradient-to-br from-amber-50 to-orange-50' : 'bg-gradient-to-br from-purple-50 to-pink-50',
+                    border: range[0] === 1 ? 'border-amber-200' : 'border-purple-200',
+                    pillBg: 'bg-white/80',
+                    pillBorder: range[0] === 1 ? 'border-amber-300' : 'border-purple-300',
+                    pillText: range[0] === 1 ? 'text-amber-800' : 'text-purple-800',
+                    accent: range[0] === 1 ? 'text-amber-300' : 'text-purple-300'
+                }}
+            />
 
             {/* Worked Example */}
             <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)} {t('example.header', 'Example')}</div>
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span className="uppercase tracking-wider">{getTrans('example.title', "Strategy Spotlight")}</span>
+                </div>
                 <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>{t('example.problem', 'Problem:')}</strong> ? × 3 = 12</div>
+                    <div className="font-mono text-base border-l-4 border-blue-200 pl-4 bg-white/50 p-3 rounded">
+                        <strong>{getTrans('example.problem', 'Problem:')}</strong> ? {String.fromCharCode(0x00D7)} 3 = 12
+                    </div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>{t('example.step1', 'Step 1:')}</strong> {t('example.step1Text', 'Ask: "What times 3 equals 12?"')}</div>
-                        <div><strong>{t('example.step2', 'Step 2:')}</strong> {t('example.step2Text', 'Use multiplication facts or division')}</div>
-                        <div className="font-semibold text-blue-900"><strong>{t('example.answer', 'Answer:')}</strong> 4</div>
+                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Ask: "What times 3 equals 12?"')}</div>
+                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Use multiplication facts or division.')}</div>
+                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> 4</div>
+                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: Dividing the product by the known factor gives you the missing number!')}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-6 bg-white text-center break-inside-avoid shadow-sm hover:border-amber-300 transition-colors">
+                        <div className="font-mono text-2xl leading-7 text-slate-800">
+                            {p.missingType === 'a' ? <span className="inline-block w-12 h-10 border-b-[3px] border-slate-600 mx-1 bg-slate-50 rounded" /> : p.a}
+                            <span className="mx-2">{String.fromCharCode(0x00D7)}</span>
+                            {p.missingType === 'b' ? <span className="inline-block w-12 h-10 border-b-[3px] border-slate-600 mx-1 bg-slate-50 rounded" /> : p.b}
+                            <span className="mx-2">=</span>
+                            {p.missingType === 'answer' ? <span className="inline-block w-14 h-10 border-b-[3px] border-slate-600 mx-1 bg-slate-50 rounded" /> : p.answer}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Extension/Challenge Problems */}
+            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border break-inside-avoid" style={{ pageBreakBefore: 'always' }}>
+                <div className="font-semibold text-purple-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F680)}</span>
+                    <span>{getTrans('challenge.title', 'Puzzle Master Challenge')}</span>
+                </div>
+                <div className="space-y-2 text-sm text-purple-800">
+                    <div className="flex gap-2">
+                        <span className="font-bold">01.</span>
+                        <p>{getTrans('challenge.item1', 'Create your own missing number problem and challenge a friend.')}</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <span className="font-bold">02.</span>
+                        <p>{getTrans('challenge.item2', `Write all the facts that equal ${range[0] === 1 ? 12 : 56} in vertical format.`)}</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <span className="font-bold">03.</span>
+                        <p>{getTrans('challenge.item3', 'Find 3 different ways to fill the blanks: __ × __ = 24')}</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Self-Assessment */}
+            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded-xl bg-slate-50/30" style={{ pageBreakInside: 'avoid' }}>
+                <div className="font-semibold text-slate-800 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x270F)}</span>
+                    <span>{getTrans('selfAssessment.title', 'Knowledge Check')}</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2 text-xs text-slate-700">
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
+                            <span>{getTrans('selfAssessment.item1', 'I can find missing numbers in multiplication equations')}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
+                            <span>{getTrans('selfAssessment.item2', 'I understand how multiplication and division are related')}</span>
+                        </div>
+                    </div>
+                    <div className="border-l border-slate-200 pl-4 text-xs">
+                        <strong>{getTrans('myScore', 'My score:')}</strong> ___ / {problems.length}
                     </div>
                 </div>
             </div>
@@ -1907,31 +2117,73 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
             learningObjectives={learningObjectives}
             parentTeacherTips={tips}
         >
-            <div className={`print:hidden h-1 w-16 rounded-full bg-gradient-to-r ${is2x2 ? 'from-orange-400 to-red-400' : 'from-purple-400 to-indigo-400'} animate-gradient-x mb-2`} />
+            <PremiumWorksheetBanner
+                title={getTrans('title', 'Multiplication Wizard')}
+                subtitle={getTrans('subtitle', `${digitsTop}-Digit × ${digitsBottom}-Digit Challenges`)}
+                icons={{
+                    bg1: String.fromCodePoint(0x2692),
+                    bg2: String.fromCodePoint(0x1F522),
+                    float1: String.fromCodePoint(0x2728),
+                    float2: String.fromCodePoint(0x1F3AF)
+                }}
+                colors={{
+                    bg: is2x2 ? 'bg-gradient-to-br from-orange-50 to-red-50' : 'bg-gradient-to-br from-blue-50 to-indigo-50',
+                    border: is2x2 ? 'border-orange-200' : 'border-blue-200',
+                    pillBg: 'bg-white/80',
+                    pillBorder: is2x2 ? 'border-orange-300' : 'border-blue-300',
+                    pillText: is2x2 ? 'text-orange-800' : 'text-blue-800',
+                    accent: is2x2 ? 'text-orange-300' : 'text-blue-300'
+                }}
+            />
 
             {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="flex flex-col md:flex-row gap-6 items-start">
-                    <div className="space-y-2 text-sm flex-1">
-                        <div className="font-semibold text-base mb-2"><strong>{getTrans('example.title', 'How to solve:')}</strong></div>
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm shadow-sm">
+                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span className="uppercase tracking-wider">{getTrans('example.title', "Strategy Spotlight")}</span>
+                </div>
+                <div className="flex flex-col md:flex-row gap-6 items-center">
+                    <div className="space-y-3 text-sm flex-1">
+                        <div className="font-bold text-slate-800 text-lg mb-1">{getTrans('example.header', 'How to Solve Step-by-Step:')}</div>
                         {is2x2 ? (
-                            <div className="space-y-1 text-slate-700">
-                                <div>1. Multiply top number by the <strong>ones</strong> digit of bottom number.</div>
-                                <div>2. Put a <strong>zero</strong> placeholder on the second line.</div>
-                                <div>3. Multiply top number by the <strong>tens</strong> digit of bottom number.</div>
-                                <div>4. <strong>Add</strong> the two products together.</div>
+                            <div className="space-y-2 text-slate-700">
+                                <div className="flex gap-2">
+                                    <span className="font-bold text-blue-500">1.</span>
+                                    <p>Multiply the top number by the <strong>ones</strong> digit of the bottom number.</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <span className="font-bold text-blue-500">2.</span>
+                                    <p>Crucial Step: Put a <strong>zero (0)</strong> placeholder on the second line.</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <span className="font-bold text-blue-500">3.</span>
+                                    <p>Multiply the top number by the <strong>tens</strong> digit of the bottom number.</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <span className="font-bold text-blue-500">4.</span>
+                                    <p>Finally, <strong>add</strong> both partial products to find the final answer.</p>
+                                </div>
                             </div>
                         ) : (
-                            <div className="space-y-1 text-slate-700">
-                                <div>1. Multiply the bottom number by the <strong>ones</strong> place of the top number.</div>
-                                <div>2. Write the ones digit of the answer. Carry the tens digit if needed.</div>
-                                <div>3. Multiply the bottom number by the <strong>tens</strong> place. Add any carried number.</div>
+                            <div className="space-y-2 text-slate-700">
+                                <div className="flex gap-2">
+                                    <span className="font-bold text-blue-500">1.</span>
+                                    <p>Multiply the bottom number by the <strong>ones</strong> digit of the top number.</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <span className="font-bold text-blue-500">2.</span>
+                                    <p>Write the ones digit; carry over any tens digit to the next column.</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <span className="font-bold text-blue-500">3.</span>
+                                    <p>Multiply by the <strong>tens</strong> place and add your carried number.</p>
+                                </div>
                             </div>
                         )}
+                        <div className="text-xs text-blue-600 mt-2 italic font-medium bg-blue-100/50 p-2 rounded border border-blue-200">{getTrans('example.tip', '💡 Pro Tip: Keeping your columns perfectly aligned is the secret to accuracy!')}</div>
                     </div>
                     {/* Visual Example */}
-                    <div className="bg-white p-4 border border-slate-200 rounded shadow-sm text-center min-w-[120px]">
+                    <div className="bg-white p-5 border-2 border-slate-200 rounded-xl shadow-md text-center min-w-[140px]">
                         {is2x2 ? renderVerticalProblem(24, 12, true) : renderVerticalProblem(24, 3, true)}
                     </div>
                 </div>
