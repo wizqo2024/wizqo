@@ -1,5 +1,4 @@
 import React from 'react';
-import type { ReactNode } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared';
@@ -21,8 +20,9 @@ function useWorksheetTranslation(docId: string) {
 interface SpecificWorksheetProps {
     seed: string
     variant: number
-    showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode
+    showAnswersForDoc: (docId: string, render: () => React.ReactNode) => React.ReactNode
 }
+
 
 export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
     const { getTrans, t } = useWorksheetTranslation(docId);
@@ -713,8 +713,9 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
 
-    // Determine problem count based on docId/range roughly
-    const problemCount = docId.includes('1-12') ? 20 : 15;
+    const is1To12 = docId.includes('1-12');
+    const is6To12 = docId.includes('6-12');
+    const problemCount = is1To12 ? 20 : 16; // 16 for standard to match grid 4x4 or 2x8
 
     const facts: Array<[number, number]> = Array.from({ length: problemCount }).map(() => {
         const a = nextInt(range[0], range[1]);
@@ -722,237 +723,113 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
         return [a, b];
     });
 
-    const is1To12 = docId.includes('1-12');
-    const is6To12 = docId.includes('6-12');
-
-    // Defaults relative to specific doc, matching inline
-    let title = getTrans('title', 'Horizontal Times Table (1-5)');
-    let description = getTrans('description', 'Practice times tables 1-5 in horizontal format. Write the answer in each blank. Build confidence with simple, stress-free multiplication practice.');
-    let objectives = [
-        'Memorize multiplication facts for numbers 1-5',
-        'Practice multiplication in horizontal format',
-        'Build speed and accuracy with basic facts'
-    ];
-    let tips = [
-        'Start with easier facts (1s, 2s) and work up to 5s',
-        'Use skip counting to help: 3 x 4 means count by 3s four times',
-        'Practice daily for 5-10 minutes for best results',
-        'Extension: Time yourself and try to beat your record!'
-    ];
-
-    if (is1To12) {
-        title = getTrans('title', 'Complete Horizontal Times Table (1-12)');
-        description = getTrans('description', 'Comprehensive horizontal times table practice covering all facts 1-12. Perfect for building multiplication fluency and speed.');
-        objectives = [
-            'Master all multiplication facts 1-12',
-            'Build speed and accuracy with complete times tables',
-            'Practice multiplication in horizontal format'
-        ];
-        tips = [
-            'This is comprehensive practice - celebrate progress!',
-            'Use strategies: doubles (6x6), near doubles (6x7), patterns (9xn)',
-            'Practice daily for 10-15 minutes for best results',
-            'Extension: Time yourself and track improvement over time'
-        ];
-    } else if (is6To12) {
-        title = getTrans('title', 'Horizontal Times Table (6-12)');
-        description = getTrans('description', 'Master times tables 6-12 in horizontal format. Fun and simple worksheets to make multiplication easier for advancing learners.');
-        objectives = [
-            'Memorize multiplication facts for numbers 6-12',
-            'Practice multiplication in horizontal format',
-            'Build speed and accuracy with advanced facts'
-        ];
-        tips = [
-            'These facts are trickier - use strategies like doubling (6×7 = 2×3×7)',
-            'Break down larger facts: 8×9 = 8×10 - 8 = 80 - 8 = 72',
-            'Practice daily for 10-15 minutes for best results',
-            'Extension: Time yourself and try to beat your record!'
-        ];
-    }
+    const theme = is1To12 ? 'purple' : (is6To12 ? 'indigo' : 'blue');
+    const accentColor = is1To12 ? 'text-purple-600' : (is6To12 ? 'text-indigo-600' : 'text-blue-600');
+    const borderColor = is1To12 ? 'border-purple-200' : (is6To12 ? 'border-indigo-200' : 'border-blue-200');
 
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title={title}
+            title={getTrans('title', is1To12 ? 'Complete Horizontal Tables' : 'Horizontal Times Tables')}
             emoji={String.fromCodePoint(0x2716)}
-            description={description}
+            description={getTrans('description', "Practice your multiplication facts in horizontal format. Solve each problem carefully.")}
             problemCount={facts.length}
-            learningObjectives={(() => {
-                const obj = t(`worksheets.${docId}.learningObjectives`)
-                return Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string' ? obj : objectives
-            })()}
-            parentTeacherTips={(() => {
-                const obj = t(`worksheets.${docId}.parentTeacherTips`)
-                return Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string' ? obj : tips
-            })()}
+            learningObjectives={t('learningObjectives', [
+                'Master multiplication facts',
+                'Practice horizontal equation format',
+                'Build fluency and speed'
+            ])}
+            parentTeacherTips={t('parentTeacherTips', [
+                'Horizontal problems help students read math sentences from left to right',
+                'Encourage finding the answer first, then writing it down',
+                'Use skip counting or known facts to solve harder problems'
+            ])}
         >
             <PremiumWorksheetBanner
-                title={is1To12 ? "Complete Tables" : (is6To12 ? "Advanced Facts" : "Core Basics")}
-                subtitle={getTrans('banner.subtitle', "Multiplication Flow Training")}
+                title={is1To12 ? "Grand Multiplication Master" : "Multiplication Practice"}
+                subtitle={getTrans('subtitle', is1To12 ? "Mastering Facts 1-12" : `Facts ${range[0]} to ${range[1]}`)}
                 icons={{
-                    bg1: "🔢",
-                    bg2: "⚡",
-                    float1: is1To12 ? "🚀" : (is6To12 ? "🌟" : "💡"),
-                    float2: "📈"
+                    bg1: String.fromCodePoint(0x2716),
+                    bg2: String.fromCodePoint(0x1F4D0),
+                    float1: String.fromCodePoint(0x1F3AF),
+                    float2: String.fromCodePoint(0x2B50)
                 }}
                 colors={{
-                    bg: is1To12 ? "bg-gradient-to-br from-indigo-900 to-purple-900 border-4" : (is6To12 ? "bg-gradient-to-br from-purple-600 to-pink-600 border-4" : "bg-gradient-to-br from-blue-600 to-indigo-600 border-4"),
-                    border: is1To12 ? "border-yellow-400" : (is6To12 ? "border-purple-300" : "border-blue-300"),
-                    pillBg: is1To12 ? "bg-yellow-400" : "bg-white/20 backdrop-blur-sm",
-                    pillBorder: is1To12 ? "border-yellow-500" : "border-white/30",
-                    pillText: is1To12 ? "text-indigo-900" : "text-white",
-                    accent: "text-white/40"
+                    bg: is1To12 ? 'bg-gradient-to-br from-purple-50 to-indigo-50' : 'bg-gradient-to-br from-blue-50 to-cyan-50',
+                    border: is1To12 ? 'border-purple-200' : 'border-blue-200',
+                    pillBg: 'bg-white/80',
+                    pillBorder: is1To12 ? 'border-purple-300' : 'border-blue-300',
+                    pillText: is1To12 ? 'text-purple-800' : 'text-blue-800',
+                    accent: is1To12 ? 'text-purple-300' : 'text-blue-300'
                 }}
             />
 
-            {/* Worked Example */}
-            <div className={`my-8 p-6 bg-${is6To12 || is1To12 ? 'purple' : 'blue'}-50/50 border-2 border-${is6To12 || is1To12 ? 'purple' : 'blue'}-100 rounded-2xl relative overflow-hidden group shadow-sm`}>
-                <div className={`absolute -right-4 -bottom-4 text-8xl opacity-5 text-${is6To12 || is1To12 ? 'purple' : 'blue'}-500 group-hover:scale-110 transition-transform`}>{is1To12 ? '🚀' : (is6To12 ? '🌟' : '💡')}</div>
-                <div className={`font-black text-${is6To12 || is1To12 ? 'purple' : 'blue'}-900 mb-4 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
-                    <span className={`w-8 h-8 rounded-lg bg-${is6To12 || is1To12 ? 'purple' : 'blue'}-500 text-white flex items-center justify-center text-sm`}>{is1To12 ? '🚀' : (is6To12 ? '🌟' : '💡')}</span>
-                    {getTrans('example.title', "Strategy Guide")}
-                </div>
-                <div className="space-y-4 text-sm relative z-10">
-                    <div className="flex items-baseline gap-3">
-                        <span className="text-slate-400 font-mono text-xs uppercase tracking-tighter font-bold">{getTrans('example.goal', 'Goal:')}</span>
-                        <div className="text-lg font-medium text-slate-700 italic">
-                            {getTrans('example.problem', 'Solve:')} {getTrans('example.problemText', is1To12 ? '9 × 7 = ?' : (is6To12 ? '7 × 8 = ?' : '3 × 4 = ?'))}
+            {/* Strategy Spotlight */}
+            <div className="mb-8 page-break-inside-avoid break-inside-avoid">
+                <div className={`bg-white border-2 ${borderColor} rounded-xl p-6 shadow-sm relative overflow-hidden`}>
+                    <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
+                        <div className={`w-10 h-10 rounded-full ${is1To12 ? 'bg-purple-100' : 'bg-blue-100'} flex items-center justify-center text-xl shadow-inner`}>
+                            {String.fromCodePoint(0x1F4A1)}
                         </div>
+                        <h3 className={`font-bold text-lg ${is1To12 ? 'text-purple-900' : 'text-blue-900'}`}>
+                            {getTrans('example.title', "Strategy Spotlight")}
+                        </h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ml-2">
-                        {is1To12 ? (
-                            <>
-                                <div className="pl-4 border-l-4 border-indigo-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method1', 'Method 1 (9s trick)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method1Text', '9 × 7 is one group less than 10 × 7: 70 - 7 = 63')}</p>
-                                </div>
-                                <div className="pl-4 border-l-4 border-indigo-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method2', 'Method 2 (Known facts)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method2Text', 'If 9 × 6 = 54, then 54 + 9 = 63')}</p>
-                                </div>
-                                <div className="pl-4 border-l-4 border-indigo-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method3', 'Method 3 (Skip counting)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method3Text', '9, 18, 27, 36, 45, 54, 63')}</p>
-                                </div>
-                            </>
-                        ) : is6To12 ? (
-                            <>
-                                <div className="pl-4 border-l-4 border-purple-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method1', 'Method 1 (Break it down)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method1Text', '7 × 8 = (5 × 8) + (2 × 8) = 40 + 16 = 56')}</p>
-                                </div>
-                                <div className="pl-4 border-l-4 border-purple-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method2', 'Method 2 (Known facts)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method2Text', 'If 7 × 7 = 49, then 49 + 7 = 56')}</p>
-                                </div>
-                                <div className="pl-4 border-l-4 border-purple-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method3', 'Method 3 (Skip counting)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method3Text', '7, 14, 21, 28, 35, 42, 49, 56')}</p>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method1', 'Method 1 (Skip Counting)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method1Text', 'Count by 3s four times: 3, 6, 9, 12')}</p>
-                                </div>
-                                <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method2', 'Method 2 (Repeated Addition)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method2Text', '3 + 3 + 3 + 3 = 12')}</p>
-                                </div>
-                                <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
-                                    <div className="text-xs font-bold text-slate-800">{getTrans('example.method3', 'Method 3 (Visual)')}</div>
-                                    <p className="text-[11px] text-slate-500 italic">{getTrans('example.method3Text', '3 groups of 4 objects = 12')}</p>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                    <div className="mt-2 p-3 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center justify-between">
-                        <div className="text-emerald-800 font-black text-[10px] uppercase tracking-widest">{getTrans('example.answer', 'Final Answer')}</div>
-                        <div className="text-xl font-black text-emerald-600">{getTrans('example.answerText', is1To12 ? '63' : (is6To12 ? '56' : '12'))}</div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div className={`p-6 rounded-lg border ${borderColor} ${is1To12 ? 'bg-purple-50' : 'bg-blue-50'} flex flex-col items-center justify-center`}>
+                            <div className="font-mono text-3xl font-bold text-slate-800 mb-2">
+                                {is6To12 ? '7' : '3'} × {is6To12 ? '8' : '4'} = <span className={accentColor}>{is6To12 ? '56' : '12'}</span>
+                            </div>
+                            <div className="text-sm text-slate-600 text-center">
+                                {is6To12 ? '7 groups of 8' : '3 groups of 4'}
+                            </div>
+                        </div>
+
+                        <div className="space-y-3">
+                            <div className="flex items-start gap-3">
+                                <div className={`w-6 h-6 rounded-full ${is1To12 ? 'bg-purple-600' : 'bg-blue-600'} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>1</div>
+                                <div className="text-sm text-slate-700"><strong>Read the problem:</strong> <br />First number times second number.</div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className={`w-6 h-6 rounded-full ${is1To12 ? 'bg-purple-600' : 'bg-blue-600'} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>2</div>
+                                <div className="text-sm text-slate-700"><strong>Use a strategy:</strong> <br />Skip count, use known facts, or repeated addition.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 break-inside-avoid mb-8" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                    <div key={i} className={`relative border-2 border-${is6To12 || is1To12 ? 'purple' : 'blue'}-100 rounded-2xl p-6 bg-white hover:border-${is6To12 || is1To12 ? 'purple' : 'blue'}-300 transition-all group break-inside-avoid shadow-sm flex items-center justify-center`}>
-                        <div className="flex items-center gap-3 text-2xl font-black text-slate-700">
-                            <span className="absolute top-2 left-3 text-[10px] font-black text-slate-300">{i + 1}</span>
-                            <span>{a}</span>
-                            <span className={`text-${is6To12 || is1To12 ? 'purple' : 'blue'}-400 scale-75`}>×</span>
-                            <span>{b}</span>
-                            <span className="text-slate-300">=</span>
-                            <div className={`w-14 h-10 border-b-4 border-dashed border-${is6To12 || is1To12 ? 'purple' : 'blue'}-300 bg-${is6To12 || is1To12 ? 'purple' : 'blue'}-50/30 rounded-lg`} />
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-6 bg-white shadow-sm flex items-center justify-between break-inside-avoid">
+                        <div className="flex items-center gap-2 font-mono text-2xl font-bold text-slate-700">
+                            <span className="w-8 text-right">{a}</span>
+                            <span className="text-slate-400 text-xl">×</span>
+                            <span className="w-8 text-left">{b}</span>
+                            <span className="text-slate-400 text-xl">=</span>
                         </div>
+                        <div className="w-16 h-12 border-b-2 border-slate-300 bg-slate-50 rounded-t-lg"></div>
                     </div>
                 ))}
             </div>
 
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    {(() => {
-                        const items = t(`worksheets.${docId}.challenge.items`)
-                        const fallbackItems = [
-                            'Create your own multiplication problem: ___ x ___ = ?',
-                            'Solve: 5 x 5 = ? (the biggest fact in this worksheet!)',
-                            'Write all the facts that equal 12: ___ x ___ = 12',
-                            `Time yourself: Can you complete all ${facts.length} problems in under 2 minutes?`
-                        ]
-                        const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
-                        return itemsArray.map((item, i) => {
-                            const itemText = typeof item === 'string' ? item.replace('{count}', String(facts.length)) : item
-                            return <div key={i}>{i + 1}. {itemText}</div>
-                        })
-                    })()}
-                </div>
-            </div>
-
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                    {(() => {
-                        const items = t(`worksheets.${docId}.selfAssessment.items`)
-                        const fallbackItems = [
-                            'I can multiply numbers 1-5 easily',
-                            'I need more practice with some facts',
-                            'I can say the answers quickly (fluency)'
-                        ]
-                        const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
-                        return itemsArray.map((item, i) => (
-                            <div key={i}>{String.fromCodePoint(0x279C)}</div>
-                        ))
-                    })()}
-                </div>
-                {/* Simplified Self-Assessment fields */}
-                <div className="mt-3 text-xs">
-                    <strong>{getTrans('selfAssessment.score', 'My score:')}</strong> ___ / {facts.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{getTrans('selfAssessment.timeTaken', 'Time taken:')}</strong> _____ {getTrans('selfAssessment.minutes', 'minutes')}
-                </div>
-            </div>
-
+            {/* Answer Key */}
             {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="grid grid-cols-3 gap-2 text-sm">
+                <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
+                    <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
+                    <div className="grid grid-cols-4 gap-x-8 gap-y-2">
                         {facts.map(([a, b], i) => (
-                            <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                                {i + 1}. {a} x {b} = {a * b}
+                            <div key={i}>
+                                <span className="text-slate-500 mr-2">#{i + 1}:</span>
+                                <strong>{a * b}</strong>
                             </div>
                         ))}
-                    </div>
-                    <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                        <strong>{String.fromCodePoint(0x2705)}</strong> {getTrans('answerKey.studyTipText', 'Practice saying these facts out loud daily. Try to answer faster each time!')}
                     </div>
                 </div>
             ))}
         </WorksheetSectionWrapper>
-    )
+    );
 }
 
 export function MultiplicationWindowArrays({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
@@ -1073,148 +950,110 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
         return [a, b];
     });
 
+    const is1To12 = range[1] === 12 && range[0] === 1;
+
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title={getTrans('title', 'Times Table (Vertical)')}
+            title={getTrans('title', 'Vertical Times Tables')}
             emoji={String.fromCodePoint(0x2716)}
-            description={getTrans('description', "Solve each multiplication facts vertically.")}
+            description={getTrans('description', "Solve each multiplication problem in vertical format. Pay attention to place value alignment.")}
             problemCount={facts.length}
             learningObjectives={t('learningObjectives', [
-                'Master basic multiplication facts',
-                'Practice vertical multiplication format',
-                'Improve calculation speed and accuracy'
+                'Master vertical multiplication format',
+                'Practice place value alignment',
+                'Build calculation speed'
             ])}
             parentTeacherTips={t('parentTeacherTips', [
-                'Vertical format helps prepare students for multi-digit multiplication',
-                'Encourage students to say the facts out loud',
-                'Use a timer for a fun challenge!'
+                'Ensure numbers are stacked correctly (ones under ones)',
+                'Draw a line to separate the problem from the answer',
+                'Say the problem out loud as "top times bottom"'
             ])}
         >
             <PremiumWorksheetBanner
-                title={getTrans('title', 'Vertical Velocity')}
-                subtitle={getTrans('subtitle', `Mastering Facts ${range[0]} through ${range[1]}`)}
+                title={getTrans('banner.title', 'Vertical Velocity')}
+                subtitle={getTrans('banner.subtitle', `Vertical Mastery: ${range[0]}-${range[1]}`)}
                 icons={{
                     bg1: String.fromCodePoint(0x2716),
-                    bg2: String.fromCodePoint(0x1F680),
-                    float1: String.fromCodePoint(0x26A1),
-                    float2: String.fromCodePoint(0x1F3AF)
+                    bg2: String.fromCodePoint(0x1F4CA),
+                    float1: String.fromCodePoint(0x1F680),
+                    float2: String.fromCodePoint(0x1F4C8)
                 }}
                 colors={{
-                    bg: range[0] === 1 ? 'bg-gradient-to-br from-green-50 to-emerald-50' : 'bg-gradient-to-br from-purple-50 to-pink-50',
-                    border: range[0] === 1 ? 'border-green-200' : 'border-purple-200',
+                    bg: range[0] === 1 ? 'bg-gradient-to-br from-teal-50 to-emerald-50' : 'bg-gradient-to-br from-orange-50 to-amber-50',
+                    border: range[0] === 1 ? 'border-teal-200' : 'border-orange-200',
                     pillBg: 'bg-white/80',
-                    pillBorder: range[0] === 1 ? 'border-green-300' : 'border-purple-300',
-                    pillText: range[0] === 1 ? 'text-green-800' : 'text-purple-800',
-                    accent: range[0] === 1 ? 'text-green-300' : 'text-purple-300'
+                    pillBorder: range[0] === 1 ? 'border-teal-300' : 'border-orange-300',
+                    pillText: range[0] === 1 ? 'text-teal-800' : 'text-orange-800',
+                    accent: range[0] === 1 ? 'text-teal-300' : 'text-orange-300'
                 }}
             />
 
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm">
-                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
-                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
-                </div>
-                <div className="flex flex-col md:flex-row gap-6 items-start">
-                    <div className="font-mono text-base mb-2 min-w-[100px] border-l-4 border-blue-200 pl-4 bg-white/50 p-3 rounded">
-                        <div className="text-right">{range[0] === 1 ? 4 : range[0] === 6 ? 8 : 9}</div>
-                        <div className="flex items-center">
-                            <span className="mr-2">{String.fromCharCode(0x00D7)}</span>
-                            <span className="flex-1 text-right">{range[0] === 1 ? 3 : range[0] === 6 ? 7 : 8}</span>
+            {/* Strategy Spotlight */}
+            <div className="mb-8 page-break-inside-avoid break-inside-avoid">
+                <div className={`bg-white border-2 ${range[0] === 1 ? 'border-teal-200' : 'border-orange-200'} rounded-xl p-6 shadow-sm relative overflow-hidden`}>
+                    <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
+                        <div className={`w-10 h-10 rounded-full ${range[0] === 1 ? 'bg-teal-100' : 'bg-orange-100'} flex items-center justify-center text-xl shadow-inner`}>
+                            {String.fromCodePoint(0x1F4A1)}
                         </div>
-                        <div className="border-t-2 border-slate-600 mt-1 pt-1">{range[0] === 1 ? 12 : range[0] === 6 ? 56 : 72}</div>
+                        <h3 className={`font-bold text-lg ${range[0] === 1 ? 'text-teal-900' : 'text-orange-900'}`}>
+                            {getTrans('example.title', "Strategy Spotlight: Alignment")}
+                        </h3>
                     </div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Multiply the ones place.')}</div>
-                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Write the answer below the line.')}</div>
-                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {range[0] === 1 ? 12 : range[0] === 6 ? 56 : 72}</div>
-                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: You can use repeated addition if you get stuck!')}</div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div className={`p-6 rounded-lg border ${range[0] === 1 ? 'border-teal-200 bg-teal-50' : 'border-orange-200 bg-orange-50'} flex flex-col items-center justify-center`}>
+                            <div className="font-mono text-4xl font-bold text-slate-800 flex flex-col items-end leading-none">
+                                <div className="pr-2">{range[1] > 9 ? '12' : '4'}</div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xl text-slate-400">×</span>
+                                    <span className="pr-2">{range[1] > 9 ? '3' : '5'}</span>
+                                </div>
+                                <div className="w-full h-1 bg-slate-800 mt-2 mb-2"></div>
+                                <div className={`pr-1 ${range[0] === 1 ? 'text-teal-600' : 'text-orange-600'}`}>{range[1] > 9 ? '36' : '20'}</div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="flex items-start gap-3">
+                                <div className={`w-6 h-6 rounded-full ${range[0] === 1 ? 'bg-teal-600' : 'bg-orange-600'} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>1</div>
+                                <div className="text-sm text-slate-700"><strong>Stack it up:</strong> <br />Make sure the numbers are lined up on the right side (ones place).</div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className={`w-6 h-6 rounded-full ${range[0] === 1 ? 'bg-teal-600' : 'bg-orange-600'} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>2</div>
+                                <div className="text-sm text-slate-700"><strong>Multiply down:</strong> <br />Multiply the numbers and write the answer at the bottom, keeping it aligned!</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                    <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors">
-                        <div className="font-mono text-2xl leading-7">
-                            <div className="text-right mb-1 text-slate-800">{a}</div>
-                            <div className="flex items-center mb-1 text-slate-800">
-                                <span className="mr-2">{String.fromCharCode(0x00D7)}</span>
-                                <span className="flex-1 text-right">{b}</span>
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-6 bg-white shadow-sm flex flex-col items-center justify-center break-inside-avoid">
+                        <div className="absolute top-2 left-2 text-xs font-bold text-slate-300">#{i + 1}</div>
+                        <div className="font-mono text-3xl font-bold text-slate-800 flex flex-col items-end leading-snug">
+                            <div className="pr-2">{a}</div>
+                            <div className="flex items-center gap-3">
+                                <span className="text-xl text-slate-400">×</span>
+                                <span className="pr-2">{b}</span>
                             </div>
-                            <div className="border-t-[3px] border-slate-600 mt-2 pt-3 h-14 print:h-16 flex items-center justify-end">
-                                <span className="inline-block w-full h-full" />
-                            </div>
+                            <div className="w-24 h-1 bg-slate-700 mt-1 mb-2"></div>
+                            <div className="w-24 h-10 border-2 border-dashed border-slate-200 bg-slate-50 rounded"></div>
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border break-inside-avoid" style={{ pageBreakBefore: 'always' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x1F680)}</span>
-                    <span>{getTrans('challenge.title', 'Challenge Quest')}</span>
-                </div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    <div className="flex gap-2">
-                        <span className="font-bold cursor-default">01.</span>
-                        <p>{getTrans('challenge.item1', 'Create your own vertical multiplication problem and solve it.')}</p>
-                    </div>
-                    <div className="flex gap-2">
-                        <span className="font-bold cursor-default">02.</span>
-                        <p>{getTrans('challenge.item2', 'Write all the facts that equal 12 in vertical format.')}</p>
-                    </div>
-                    <div className="flex gap-2">
-                        <span className="font-bold cursor-default">03.</span>
-                        <p>{getTrans('challenge.item3', `Time yourself: Can you complete all ${facts.length} problems in under 2 minutes?`)}</p>
-                    </div>
-                </div>
-            </div>
-
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded-xl bg-slate-50/30" style={{ pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x270F)}</span>
-                    <span>{getTrans('selfAssessment.title', 'Progress Tracking')}</span>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2 text-xs">
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
-                            <span>{getTrans('selfAssessment.item1', `I can multiply numbers correctly in vertical format`)}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
-                            <span>{getTrans('selfAssessment.item2', 'I can align numbers correctly by their place value')}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
-                            <span>{getTrans('selfAssessment.item3', 'I can solve these facts quickly and accurately')}</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col justify-between border-l border-slate-200 pl-4">
-                        <div className="text-xs">
-                            <strong>{getTrans('myScore', 'My score:')}</strong> ___ / {facts.length}
-                        </div>
-                        <div className="text-xs mt-2">
-                            <strong>{getTrans('whatWasHardest', 'What was hardest?')}</strong> ____________________
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            {/* Answer Key */}
             {showAnswersForDoc(docId, () => (
-                <div className="mt-8 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-xl print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-4 text-xl flex items-center gap-2">
-                        {String.fromCodePoint(0x2705)} {getTrans('answerKey', 'Answer Key')}
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm font-mono">
+                <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
+                    <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
+                    <div className="grid grid-cols-4 gap-x-8 gap-y-2">
                         {facts.map(([a, b], i) => (
-                            <div key={i} className="p-2 border border-emerald-200 rounded bg-white">
-                                <div className="text-emerald-700 font-bold">#{i + 1}</div>
-                                <div className="text-emerald-800">{a} {String.fromCharCode(0x00D7)} {b} = {a * b}</div>
+                            <div key={i}>
+                                <span className="text-slate-500 mr-2">#{i + 1}:</span>
+                                <strong>{a * b}</strong>
                             </div>
                         ))}
                     </div>
@@ -1240,27 +1079,29 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
         return { b, answer, missingType: 'a' as const };
     });
 
+    const is1To12 = range[1] === 12 && range[0] === 1;
+
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title={getTrans('title', 'Times Table (Missing Numbers)')}
+            title={getTrans('title', 'Missing Numbers Challenge')}
             emoji={String.fromCodePoint(0x1F50D)}
-            description={getTrans('description', "Find the missing factor or product to complete each multiplication equation.")}
+            description={getTrans('description', "Find the missing number to complete each multiplication fact.")}
             problemCount={problems.length}
             learningObjectives={t('learningObjectives', [
                 'Master basic multiplication facts',
-                'Understand the relationship between factors and products',
-                'Apply inverse operations (division) to find missing numbers'
+                'Understand relationship between factors and products',
+                'Build algebraic thinking'
             ])}
             parentTeacherTips={t('parentTeacherTips', [
-                'Missing number problems build algebraic thinking',
-                'If your child is stuck, ask: "What times this number equals the product?"',
-                'Encourage students to check their work by multiplying the factors'
+                'Ask "multiply what by X to get Y?"',
+                'Explain that division is the reverse of multiplication',
+                'Use counters to show groups if stuck'
             ])}
         >
             <PremiumWorksheetBanner
-                title={getTrans('title', 'Fact Finder Challenge')}
-                subtitle={getTrans('subtitle', 'Search for the Missing Numbers')}
+                title={getTrans('banner.title', 'Fact Finder')}
+                subtitle={getTrans('banner.subtitle', 'Detective Mission: Missing Numbers')}
                 icons={{
                     bg1: String.fromCodePoint(0x1F50D),
                     bg2: String.fromCodePoint(0x2753),
@@ -1268,191 +1109,106 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
                     float2: String.fromCodePoint(0x1F4D6)
                 }}
                 colors={{
-                    bg: range[0] === 1 ? 'bg-gradient-to-br from-amber-50 to-orange-50' : 'bg-gradient-to-br from-purple-50 to-pink-50',
-                    border: range[0] === 1 ? 'border-amber-200' : 'border-purple-200',
+                    bg: range[0] === 1 ? 'bg-gradient-to-br from-amber-50 to-yellow-50' : 'bg-gradient-to-br from-indigo-50 to-violet-50',
+                    border: range[0] === 1 ? 'border-amber-200' : 'border-indigo-200',
                     pillBg: 'bg-white/80',
-                    pillBorder: range[0] === 1 ? 'border-amber-300' : 'border-purple-300',
-                    pillText: range[0] === 1 ? 'text-amber-800' : 'text-purple-800',
-                    accent: range[0] === 1 ? 'text-amber-300' : 'text-purple-300'
+                    pillBorder: range[0] === 1 ? 'border-amber-300' : 'border-indigo-300',
+                    pillText: range[0] === 1 ? 'text-amber-800' : 'text-indigo-800',
+                    accent: range[0] === 1 ? 'text-amber-300' : 'text-indigo-300'
                 }}
             />
 
-            {/* Worked Example */}
-            <div className={`my-8 p-6 bg-blue-50/50 border-2 border-blue-100 rounded-2xl relative overflow-hidden group shadow-sm`}>
-                <div className={`absolute -right-4 -bottom-4 text-8xl opacity-5 text-blue-500 group-hover:scale-110 transition-transform`}>🧩</div>
-                <div className={`font-black text-blue-900 mb-4 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
-                    <span className={`w-8 h-8 rounded-lg bg-blue-500 text-white flex items-center justify-center text-sm`}>🧩</span>
-                    {getTrans('example.title', "Problem Logic")}
-                </div>
-                <div className="space-y-4 text-sm relative z-10">
-                    <div className="flex items-baseline gap-3">
-                        <span className="text-slate-400 font-mono text-xs uppercase tracking-tighter font-bold">{getTrans('example.goal', 'Goal:')}</span>
-                        <div className="text-lg font-medium text-slate-700 italic">
-                            {getTrans('example.problem', 'Solve:')} ? {String.fromCharCode(0x00D7)} 3 = 12
+            {/* Strategy Spotlight */}
+            <div className="mb-8 page-break-inside-avoid break-inside-avoid">
+                <div className={`bg-white border-2 ${range[0] === 1 ? 'border-amber-200' : 'border-indigo-200'} rounded-xl p-6 shadow-sm relative overflow-hidden`}>
+                    <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
+                        <div className={`w-10 h-10 rounded-full ${range[0] === 1 ? 'bg-amber-100' : 'bg-indigo-100'} flex items-center justify-center text-xl shadow-inner`}>
+                            {String.fromCodePoint(0x1F575)}
                         </div>
+                        <h3 className={`font-bold text-lg ${range[0] === 1 ? 'text-amber-900' : 'text-indigo-900'}`}>
+                            {getTrans('example.title', "Detective's Guide")}
+                        </h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-2">
-                        <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
-                            <div className="text-xs font-bold text-slate-800">{getTrans('example.step1', 'Step 1: Ask')}</div>
-                            <p className="text-[11px] text-slate-500 italic">{getTrans('example.step1Text', 'Ask: "What times 3 equals 12?"')}</p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div className={`p-6 rounded-lg border ${range[0] === 1 ? 'border-amber-200 bg-amber-50' : 'border-indigo-200 bg-indigo-50'} flex flex-col items-center justify-center`}>
+                            <div className="font-mono text-3xl font-bold text-slate-800 flex items-center gap-3">
+                                <span>?</span>
+                                <span>×</span>
+                                <span>3</span>
+                                <span>=</span>
+                                <span className={range[0] === 1 ? 'text-amber-600' : 'text-indigo-600'}>12</span>
+                            </div>
+                            <div className="text-sm text-slate-500 mt-2 italic">{"What number times 3 is 12?"}</div>
+                            <div className={`mt-3 px-4 py-1 rounded-full ${range[0] === 1 ? 'bg-amber-100 text-amber-800' : 'bg-indigo-100 text-indigo-800'} text-xs font-bold`}>
+                                Answer: 4
+                            </div>
                         </div>
-                        <div className="pl-4 border-l-4 border-blue-200 py-1 space-y-1">
-                            <div className="text-xs font-bold text-slate-800">{getTrans('example.step2', 'Step 2: Connect')}</div>
-                            <p className="text-[11px] text-slate-500 italic">{getTrans('example.step2Text', 'Use multiplication facts or division (12 ÷ 3).')}</p>
+
+                        <div className="space-y-4">
+                            <div className="flex items-start gap-3">
+                                <div className={`w-6 h-6 rounded-full ${range[0] === 1 ? 'bg-amber-600' : 'bg-indigo-600'} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>1</div>
+                                <div className="text-sm text-slate-700"><strong>Ask the question:</strong> <br />"How many groups of 3 make 12?"</div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className={`w-6 h-6 rounded-full ${range[0] === 1 ? 'bg-amber-600' : 'bg-indigo-600'} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>2</div>
+                                <div className="text-sm text-slate-700"><strong>Use division:</strong> <br />You can rewrite it as division: 12 ÷ 3 = ?</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="mt-2 p-3 bg-emerald-50 rounded-xl border border-emerald-100 flex items-center justify-between">
-                        <div className="text-emerald-800 font-black text-[10px] uppercase tracking-widest">{getTrans('example.answer', 'Final Answer')}</div>
-                        <div className="text-xl font-black text-emerald-600">4</div>
-                    </div>
-                    <div className="text-xs text-blue-700 mt-2 italic font-medium bg-blue-100/50 p-2 rounded border border-blue-200">
-                        {String.fromCodePoint(0x1F4A1)} {getTrans('example.tip', 'Tip: Dividing the product by the known factor gives you the missing number!')}
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                    <div key={i} className={`relative border-2 border-slate-100 rounded-2xl p-8 bg-white hover:border-${range[0] === 1 ? 'amber' : 'purple'}-200 transition-all group break-inside-avoid shadow-sm flex flex-col items-center justify-center min-h-[140px]`}>
-                        <div className="absolute top-2 left-3 text-[10px] font-black text-slate-300">{i + 1}</div>
-                        <div className="font-mono text-2xl font-black text-slate-700 flex items-center justify-center gap-2">
-                            {p.missingType === 'a' ? <div className={`w-14 h-11 border-b-4 border-dashed border-${range[0] === 1 ? 'amber' : 'purple'}-300 bg-${range[0] === 1 ? 'amber' : 'purple'}-50/30 rounded-lg`} /> : <span>{p.a}</span>}
-                            <span className={`text-${range[0] === 1 ? 'amber' : 'purple'}-400 scale-75`}>×</span>
-                            {p.missingType === 'b' ? <div className={`w-14 h-11 border-b-4 border-dashed border-${range[0] === 1 ? 'amber' : 'purple'}-300 bg-${range[0] === 1 ? 'amber' : 'purple'}-50/30 rounded-lg`} /> : <span>{p.b}</span>}
-                            <span className="text-slate-300">=</span>
-                            {p.missingType === 'answer' ? <div className={`w-16 h-11 border-b-4 border-dashed border-${range[0] === 1 ? 'amber' : 'purple'}-300 bg-${range[0] === 1 ? 'amber' : 'purple'}-50/30 rounded-lg`} /> : <span>{p.answer}</span>}
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-8 bg-white shadow-sm flex items-center justify-center break-inside-avoid min-h-[140px]">
+                        <div className="absolute top-2 left-3 text-[10px] font-black text-slate-300">#{i + 1}</div>
+                        <div className="font-mono text-2xl font-bold text-slate-700 flex items-center justify-center gap-2">
+                            {p.missingType === 'a' ? (
+                                <div className={`w-14 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}>?</div>
+                            ) : <span>{p.a}</span>}
+
+                            <span className="text-slate-400 text-xl">×</span>
+
+                            {p.missingType === 'b' ? (
+                                <div className={`w-14 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}>?</div>
+                            ) : <span>{p.b}</span>}
+
+                            <span className="text-slate-400 text-xl">=</span>
+
+                            {p.missingType === 'answer' ? (
+                                <div className={`w-16 h-11 border-b-4 border-dashed ${range[0] === 1 ? 'border-amber-300 bg-amber-50' : 'border-indigo-300 bg-indigo-50'} rounded-lg flex items-center justify-center text-slate-400 opacity-50`}>?</div>
+                            ) : <span>{p.answer}</span>}
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border break-inside-avoid" style={{ pageBreakBefore: 'always' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x1F680)}</span>
-                    <span>{getTrans('challenge.title', 'Puzzle Master Challenge')}</span>
-                </div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    <div className="flex gap-2">
-                        <span className="font-bold">01.</span>
-                        <p>{getTrans('challenge.item1', 'Create your own missing number problem and challenge a friend.')}</p>
-                    </div>
-                    <div className="flex gap-2">
-                        <span className="font-bold">02.</span>
-                        <p>{getTrans('challenge.item2', `Write all the facts that equal ${range[0] === 1 ? 12 : 56} in vertical format.`)}</p>
-                    </div>
-                    <div className="flex gap-2">
-                        <span className="font-bold">03.</span>
-                        <p>{getTrans('challenge.item3', 'Find 3 different ways to fill the blanks: __ × __ = 24')}</p>
-                    </div>
-                </div>
-            </div>
-
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded-xl bg-slate-50/30" style={{ pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x270F)}</span>
-                    <span>{getTrans('selfAssessment.title', 'Knowledge Check')}</span>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2 text-xs text-slate-700">
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
-                            <span>{getTrans('selfAssessment.item1', 'I can find missing numbers in multiplication equations')}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border border-slate-400 rounded-sm"></div>
-                            <span>{getTrans('selfAssessment.item2', 'I understand how multiplication and division are related')}</span>
-                        </div>
-                    </div>
-                    <div className="border-l border-slate-200 pl-4 text-xs">
-                        <strong>{getTrans('myScore', 'My score:')}</strong> ___ / {problems.length}
-                    </div>
-                </div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded p-3 bg-white text-center break-inside-avoid">
-                        <div className="font-mono text-xl leading-7">
-                            {p.missingType === 'a' ? <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1 bg-slate-50" /> : p.a}
-                            {String.fromCharCode(0x00D7)}
-                            {p.missingType === 'b' ? <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1 bg-slate-50" /> : p.b}
-                            =
-                            {p.missingType === 'answer' ? <span className="inline-block w-12 h-8 border-b-[3px] border-slate-600 mx-1 bg-slate-50" /> : p.answer}
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)} {t('challenge.header', 'Challenge')}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    {t('challenge.items', [
-                        'Create your own missing number problem',
-                        `Write all the facts that equal ${range[0] === 1 ? 12 : 56}`,
-                        'Solve: ? x ? = ? (create a full equation)'
-                    ]).map((item: string, i: number) => (
-                        <div key={i}>{i + 1}. {item}</div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)} {t('selfAssessment.header', 'Self Assessment')}</div>
-                <div className="space-y-2 text-xs">
-                    {t('selfAssessment.items', [
-                        'I can find missing numbers in multiplication',
-                        'I understand the relationship between multiplication and division',
-                        'I can solve all types of missing number problems'
-                    ]).map((item: string, i: number) => (
-                        <div key={i}>{String.fromCharCode(0x2610)} {item}</div>
-                    ))}
-                </div>
-                <div className="mt-3 text-xs">
-                    <strong>{t('selfAssessment.score', 'My score:')}</strong> ___ / {problems.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{t('selfAssessment.factsToPractice', 'Facts I want to practice more:')}</strong> _________________________
-                </div>
-            </div>
-
+            {/* Answer Key */}
             {showAnswersForDoc(docId, () => {
                 const answers = problems.map((p) => {
                     if (p.missingType === 'answer') {
-                        return { a: p.a!, b: p.b!, answer: p.a! * p.b! };
+                        return { a: p.a!, b: p.b!, answer: p.a! * p.b!, note: `${p.a} × ${p.b} = ${p.a! * p.b!}` };
                     } else if (p.missingType === 'b' && p.a !== undefined && p.answer !== undefined) {
-                        return { a: p.a, b: p.answer / p.a, answer: p.answer };
+                        return { a: p.a, b: p.answer / p.a, answer: p.answer, note: `${p.answer} ÷ ${p.a} = ${p.answer / p.a}` };
                     } else if (p.missingType === 'a' && p.b !== undefined && p.answer !== undefined) {
-                        return { a: p.answer / p.b, b: p.b, answer: p.answer };
+                        return { a: p.answer / p.b, b: p.b, answer: p.answer, note: `${p.answer} ÷ ${p.b} = ${p.answer / p.b}` };
                     }
-                    return { a: 1, b: 1, answer: 1 }; // fallback
+                    return { a: 1, b: 1, answer: 1, note: '' }; // fallback
                 });
                 return (
-                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                        <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} {t('answerKey.header', 'Answer Key')}</div>
-                        <div className="space-y-2 text-sm">
-                            {answers.map((ans, i) => {
-                                const p = problems[i];
-                                let explanation = '';
-                                if (p.missingType === 'answer') {
-                                    explanation = `${ans.a} x ${ans.b} = ${ans.answer}`;
-                                } else if (p.missingType === 'b') {
-                                    explanation = `${ans.a} x ${ans.b} = ${ans.answer} (${ans.answer} / ${ans.a} = ${ans.b})`;
-                                } else {
-                                    explanation = `${ans.a} x ${ans.b} = ${ans.answer} (${ans.answer} / ${ans.b} = ${ans.a})`;
-                                }
-                                return (
-                                    <div key={i} className="border-b border-emerald-200 pb-1 text-emerald-800">
-                                        {i + 1}. {explanation}
-                                    </div>
-                                );
-                            })}
+                    <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
+                        <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-2">
+                            {answers.map((ans, i) => (
+                                <div key={i} className="flex justify-between border-b border-slate-100 pb-1">
+                                    <span className="text-slate-500 mr-2">#{i + 1}:</span>
+                                    <span className="font-bold text-slate-700">{ans.note}</span>
+                                </div>
+                            ))}
                         </div>
-                        <div className="mt-4 p-3 bg-emerald-100 rounded text-xs text-emerald-900">
-                            <strong>{String.fromCodePoint(0x2705)}</strong> {t('answerKey.studyTipText', 'Missing number problems help you understand multiplication and division are related!')}
+                        <div className="mt-4 p-2 bg-indigo-50 rounded text-xs text-indigo-700 italic border border-indigo-100">
+                            Tip: For missing factors, think about division!
                         </div>
                     </div>
                 );
