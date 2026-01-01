@@ -998,9 +998,11 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
                 }}
             />
 
-            <div className="my-8 print:my-4 bg-white p-6 print:p-4 rounded-xl border-2 border-slate-200 shadow-sm print:shadow-none break-inside-avoid">
-                <h3 className="text-center font-bold text-lg text-slate-800 mb-6 print:mb-2 text-base">Favorite Colors in Our Class</h3>
-                <div className="flex items-end justify-around h-64 print:h-48 border-b-2 border-l-2 border-slate-800 pl-2 pb-2 relative">
+            <div className="my-8 print:my-2 bg-white p-6 print:p-2 rounded-xl border-2 border-slate-200 shadow-sm print:shadow-none break-inside-avoid page-break-inside-avoid relative z-10">
+                <h3 className="text-center font-bold text-lg text-slate-800 mb-6 print:mb-4 text-base">Favorite Colors in Our Class</h3>
+
+                {/* Graph Container - Enforce height in print */}
+                <div className="flex items-end justify-around h-64 print:h-[250px] border-b-2 border-l-2 border-slate-800 pl-2 pb-2 relative w-full mb-6 print:mb-2">
                     {/* Y-axis labels simplified */}
                     <div className="absolute -left-8 top-0 bottom-0 flex flex-col justify-between text-xs text-slate-400 font-mono py-2">
                         <span>10</span>
@@ -1013,15 +1015,15 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
                     <div className="absolute left-0 right-0 top-[50%] border-t border-slate-100 w-full h-full pointer-events-none"></div>
 
                     {data.map((d, i) => (
-                        <div key={i} className="flex flex-col items-center w-12 sm:w-16 h-full justify-end group">
+                        <div key={i} className="flex flex-col items-center w-12 sm:w-16 h-full justify-end group z-20">
                             <div
-                                className="w-full bg-slate-300 rounded-t-sm transition-all print:border print:border-slate-800"
+                                className="w-full bg-slate-300 rounded-t-sm transition-all print:border print:border-slate-800 relative"
                                 style={{
                                     height: `${d.value * 10}%`,
                                     backgroundColor: d.name.toLowerCase() === 'yellow' ? '#fde047' : d.name.toLowerCase() === 'red' ? '#f87171' : d.name.toLowerCase() === 'blue' ? '#60a5fa' : '#4ade80'
                                 }}
                             >
-                                <span className="hidden print:block text-xs font-bold text-center -mt-5 bg-white rounded px-1 border border-slate-200">{d.value}</span>
+                                <span className="hidden print:block absolute -top-5 left-0 right-0 text-xs font-bold text-center bg-white/80 rounded px-1">{d.value}</span>
                             </div>
                             <span className="mt-2 text-xs font-bold text-slate-600 uppercase tracking-wider">{d.name}</span>
                         </div>
@@ -1029,8 +1031,8 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 print:gap-4 mt-8 print:mt-4">
-                <div className="bg-white p-6 print:p-4 rounded-xl border border-slate-200">
+            <div className="grid grid-cols-1 gap-6 print:gap-3 mt-8 print:mt-2 relative z-10">
+                <div className="bg-white p-6 print:p-2 rounded-xl border border-slate-200 shadow-sm print:border-none print:shadow-none">
                     <h4 className="font-bold text-slate-700 mb-4 print:mb-2">Answer the questions:</h4>
                     <div className="space-y-6">
                         <div className="flex items-start gap-3">
