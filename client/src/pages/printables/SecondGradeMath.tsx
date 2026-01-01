@@ -1328,7 +1328,7 @@ export function PlaceValueHTO({ showAnswersForDoc, seed, variant }: SpecificWork
                             {/* Visual Blocks */}
                             <div className="mb-4 print:mb-2 bg-white p-3 print:p-1 rounded-lg border border-violet-300 shadow-sm print:shadow-none">
                                 <div className="flex flex-col items-center gap-2">
-                                    <svg viewBox="0 0 280 70" className="w-full h-auto max-h-16" preserveAspectRatio="xMidYMid meet">
+                                    <svg viewBox="0 0 280 100" className="w-full h-auto max-h-24" preserveAspectRatio="xMidYMid meet">
                                         {/* Tens rods */}
                                         {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
                                             <rect key={j} x={5 + j * 38} y="5" width="35" height="55" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
