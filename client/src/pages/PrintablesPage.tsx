@@ -3191,10 +3191,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           }}
         />
 
-        {['addition-subtraction-0-10', 'number-tracing-1-10', 'number-tracing-1-20', 'place-value-hto', 'color-by-number', 'expanded-form-200', 'number-patterns-200', 'rounding-nearest-10', 'add-three-numbers', 'missing-addends', 'fact-families-20', 'mental-math-20', 'money-coins-bills', 'measurement-length', 'bar-graphs-data', 'add-2digit-100'].map((docId) => (
+        {/* Manual blocks replacing the previous loop to avoid duplication issues */}
+        {activeDocs.includes('addition-subtraction-0-10') && (
           <MathWorksheets
-            key={docId}
-            docId={docId}
+            docId="addition-subtraction-0-10"
             commonProps={{
               activeDocs,
               showAnswers,
@@ -3207,7 +3207,135 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               language
             }}
           />
-        ))}
+        )}
+        {activeDocs.includes('number-tracing-1-10') && (
+          <MathWorksheets
+            docId="number-tracing-1-10"
+            commonProps={{
+              activeDocs,
+              showAnswers,
+              docTitle,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              language
+            }}
+          />
+        )}
+        {activeDocs.includes('number-tracing-1-20') && (
+          <MathWorksheets
+            docId="number-tracing-1-20"
+            commonProps={{
+              activeDocs,
+              showAnswers,
+              docTitle,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              language
+            }}
+          />
+        )}
+        {activeDocs.includes('place-value-hto') && (
+          <MathWorksheets
+            docId="place-value-hto"
+            commonProps={{
+              activeDocs,
+              showAnswers,
+              docTitle,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              language
+            }}
+          />
+        )}
+        {activeDocs.includes('color-by-number') && (
+          <MathWorksheets
+            docId="color-by-number"
+            commonProps={{
+              activeDocs,
+              showAnswers,
+              docTitle,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              language
+            }}
+          />
+        )}
+        {activeDocs.includes('money-coins-bills') && (
+          <MathWorksheets
+            docId="money-coins-bills"
+            commonProps={{
+              activeDocs,
+              showAnswers,
+              docTitle,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              language
+            }}
+          />
+        )}
+        {activeDocs.includes('measurement-length') && (
+          <MathWorksheets
+            docId="measurement-length"
+            commonProps={{
+              activeDocs,
+              showAnswers,
+              docTitle,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              language
+            }}
+          />
+        )}
+        {activeDocs.includes('bar-graphs-data') && (
+          <MathWorksheets
+            docId="bar-graphs-data"
+            commonProps={{
+              activeDocs,
+              showAnswers,
+              docTitle,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              language
+            }}
+          />
+        )}
+        {activeDocs.includes('add-2digit-100') && (
+          <MathWorksheets
+            docId="add-2digit-100"
+            commonProps={{
+              activeDocs,
+              showAnswers,
+              docTitle,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              language
+            }}
+          />
+        )}
 
 
 
