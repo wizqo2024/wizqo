@@ -1102,42 +1102,4 @@ export function Add2Digit100({ showAnswersForDoc, seed, variant }: SpecificWorks
             ))}
         </WorksheetSectionWrapper>
     )
-}</span >
-                        </div >
-                    ))}
-                </div >
-            </div >
-
-    <div className="space-y-4 break-inside-avoid">
-        <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
-            <div className="font-bold text-slate-700 mb-1">1. How many students chose {most.name}?</div>
-            <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
-        </div>
-        <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
-            <div className="font-bold text-slate-700 mb-1">2. Which color had the least votes?</div>
-            <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
-        </div>
-        <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
-            <div className="font-bold text-slate-700 mb-1">3. How many more students chose {most.name} than {least.name}?</div>
-            <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
-        </div>
-    </div>
-
-{
-    showAnswersForDoc(docId, () => (
-        <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
-            <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">✅</span>
-                <h3 className="font-bold text-emerald-900">Answer Key</h3>
-            </div>
-            <div className="space-y-2 text-sm text-emerald-800 font-medium">
-                <div>1. {most.value}</div>
-                <div>2. {least.name}</div>
-                <div>3. {most.value} - {least.value} = {most.value - least.value}</div>
-            </div>
-        </div>
-    ))
-}
-        </WorksheetSectionWrapper >
-    )
 }
