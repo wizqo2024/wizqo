@@ -336,7 +336,7 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
             docId={docId}
             title={getTrans('title', 'Multiplication Arrays (2-5)')}
             emoji={String.fromCharCode(0x2716, 0xFE0F)}
-            description={getTrans('description', "Draw an array for each multiplication problem. Count the total number of objects and write the answer in the blank.")}
+            description={getTrans('description', "Find the product for each multiplication problem. Use the array to help you count.")}
             problemCount={arrays.length}
             learningObjectives={t('learningObjectives', [
                 'Use arrays to visualize multiplication',
@@ -369,31 +369,76 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
                 }}
             />
 
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white text-sm">
-                <div className="font-semibold text-blue-900 mb-3 text-sm flex items-center gap-2">
-                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
-                    <span>{getTrans('example.title', "Let's solve this together:")}</span>
-                </div>
-                <div className="space-y-2">
-                    <div className="font-semibold text-base"><strong>{getTrans('example.problem', 'Problem:')}</strong> 3 {String.fromCharCode(0x00D7)} 4 = ?</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>{getTrans('example.step1', 'Step 1:')}</strong> {getTrans('example.step1Text', 'Draw an array with 3 rows and 4 columns')}</div>
-                        <div><strong>{getTrans('example.step2', 'Step 2:')}</strong> {getTrans('example.step2Text', 'Count the objects in each row: 4 + 4 + 4')}</div>
-                        <div><strong>{getTrans('example.step3', 'Step 3:')}</strong> {getTrans('example.step3Text', 'Or skip count: 4, 8, 12 (count by 4s three times)')}</div>
-                        <div className="font-semibold text-blue-900"><strong>{getTrans('example.answer', 'Answer:')}</strong> {getTrans('example.answerText', '12')}</div>
-                        <div className="text-xs text-blue-700 mt-1 italic">{getTrans('example.tip', 'Tip: Double check your steps!')}</div>
+            {/* Strategy Spotlight: Worked Example */}
+            <div className="mb-8 page-break-inside-avoid break-inside-avoid">
+                <div className="bg-white border-2 border-blue-200 rounded-xl p-6 shadow-sm relative overflow-hidden">
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-blue-100 rounded-bl-full opacity-50 -z-10"></div>
+                    <div className="flex items-center gap-3 mb-4 border-b border-blue-100 pb-3">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-xl shadow-inner">
+                            {String.fromCodePoint(0x1F4A1)}
+                        </div>
+                        <h3 className="font-bold text-lg text-blue-900">{getTrans('example.title', "Strategy Spotlight: Using Arrays")}</h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        {/* Visual Representation */}
+                        <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100 flex flex-col items-center">
+                            <div className="mb-2 font-mono text-xl font-bold text-blue-800">3 × 4 = ?</div>
+                            <div className="grid gap-1 mb-2" style={{ gridTemplateColumns: `repeat(4, 1fr)`, width: '120px' }}>
+                                {Array.from({ length: 12 }).map((_, i) => (
+                                    <div key={i} className="aspect-square bg-blue-400 rounded-sm border border-blue-500 shadow-sm relative group cursor-help">
+                                        <span className="absolute inset-0 flex items-center justify-center text-[8px] text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity">{i + 1}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="text-xs text-blue-600 font-medium">3 rows of 4</div>
+                        </div>
+
+                        {/* Text Explanation */}
+                        <div className="space-y-3">
+                            <div className="flex items-start gap-3">
+                                <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">1</div>
+                                <div className="text-sm text-slate-700"><strong>Draw rows and columns:</strong> <br />Make 3 rows (down) and 4 columns (across).</div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">2</div>
+                                <div className="text-sm text-slate-700"><strong>Count the objects:</strong> <br />Count all the boxes to find the total.</div>
+                            </div>
+                            <div className="flex items-center gap-2 mt-2 bg-blue-100 px-3 py-2 rounded-lg border border-blue-200">
+                                <span className="text-sm font-bold text-blue-800">Answer:</span>
+                                <span className="font-mono font-bold text-lg text-blue-900">12</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+
+            <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
                 {arrays.map(([rows, cols], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-4 bg-white break-inside-avoid">
-                        <div className="text-center mb-2 font-semibold text-slate-800">{String.fromCodePoint(0x270F)}<span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 mx-1 align-middle" /></div>
-                        <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, maxWidth: '200px', margin: '0 auto' }}>
-                            {Array.from({ length: rows * cols }).map((_, idx) => (
-                                <div key={idx} className="aspect-square border border-slate-400 rounded bg-slate-100 print:bg-white" />
-                            ))}
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-5 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-16 h-16 bg-slate-50 rounded-br-full -z-10"></div>
+                        <div className="absolute top-2 right-2 text-xs font-bold text-slate-400 px-2 py-1 bg-slate-100 rounded-md">#{i + 1}</div>
+
+                        <div className="flex flex-col items-center">
+                            {/* Problem */}
+                            <div className="flex items-center gap-2 mb-4 font-mono text-xl font-bold text-slate-800">
+                                <span>{rows}</span>
+                                <span>×</span>
+                                <span>{cols}</span>
+                                <span>=</span>
+                                <div className="w-16 h-10 border-b-2 border-slate-400 bg-slate-50"></div>
+                            </div>
+
+                            {/* Array Visual */}
+                            <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 w-full flex justify-center">
+                                <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, width: 'fit-content' }}>
+                                    {Array.from({ length: rows * cols }).map((_, idx) => (
+                                        <div key={idx} className="w-6 h-6 border-2 border-slate-300 rounded bg-white print:border-slate-400" />
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="mt-2 text-xs text-slate-500 font-medium">Array Helper</div>
                         </div>
                     </div>
                 ))}
