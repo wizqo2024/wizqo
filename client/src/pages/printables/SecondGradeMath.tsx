@@ -978,6 +978,8 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
             emoji="📊"
             description={t(`worksheets.${docId}.description`, 'Read the graph to answer the questions about favorite colors.')}
             problemCount={4}
+            className="print:break-after-page"
+            style={{ breakAfter: 'page', pageBreakAfter: 'always' }}
         >
             <PremiumWorksheetBanner
                 title="Data Detective"
