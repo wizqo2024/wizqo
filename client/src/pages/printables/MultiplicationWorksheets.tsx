@@ -1700,16 +1700,52 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
             };
 
         } else if (difficulty === 'complex') {
-            // Complex: Larger numbers (2-digit x 1-digit)
-            const groups = nextInt(12, 19);
-            const inEach = nextInt(3, 9);
-            return {
-                text: `There are ${groups} ${item.containerPlural}. Each ${item.container.replace(/s$/, '')} holding ${inEach} ${item.name}. How many ${item.name} are there altogether?`,
-                step1: `Multiply ${groups} by ${inEach}`,
-                answer: groups * inEach,
-                answerUnit: item.name,
-                equation: `${groups} × ${inEach} = ${groups * inEach}`
-            };
+            // Complex: True multi-step problems or 3-digit x 1-digit / 2-digit x 2-digit variety
+            const type = nextInt(0, 2); // 0: Sum of two products, 1: Multi-step product, 2: Large numbers
+
+            if (type === 0) {
+                // Sum of two products: (A x B) + (C x D)
+                const g1 = nextInt(10, 15);
+                const i1 = nextInt(4, 6);
+                const g2 = nextInt(10, 15);
+                const i2 = nextInt(3, 5);
+                const item2 = pick(items.filter(it => it.name !== item.name));
+
+                return {
+                    text: `${name} has ${g1} ${item.containerPlural} of ${item.name} and ${g2} ${item2.containerPlural} of ${item2.name}. Each ${item.container.replace(/s$/, '')} has ${i1} ${item.name}, and each ${item2.container.replace(/s$/, '')} has ${i2} ${item2.name}. How many total items does ${name} have?`,
+                    step1: `${g1} × ${i1} = ${g1 * i1}`,
+                    step2: `${g2} × ${i2} = ${g2 * i2} | Total: ${g1 * i1} + ${g2 * i2} = ${(g1 * i1) + (g2 * i2)}`,
+                    answer: (g1 * i1) + (g2 * i2),
+                    answerUnit: 'items',
+                    equation: `(${g1} × ${i1}) + (${g2} × ${i2}) = ${(g1 * i1) + (g2 * i2)}`
+                };
+            } else if (type === 1) {
+                // Comparison: (A x B) - (C x D) or similar
+                const g1 = nextInt(15, 25);
+                const i1 = nextInt(5, 8);
+                const spent = nextInt(20, 50);
+
+                return {
+                    text: `A teacher buys ${g1} packs of pencils. Each pack contains ${i1} pencils. After the class uses ${spent} pencils, how many pencils are left in the storage?`,
+                    step1: `${g1} × ${i1} = ${g1 * i1}`,
+                    step2: `${g1 * i1} - ${spent} = ${(g1 * i1) - spent}`,
+                    answer: (g1 * i1) - spent,
+                    answerUnit: 'pencils',
+                    equation: `(${g1} × ${i1}) - ${spent} = ${(g1 * i1) - spent}`
+                };
+            } else {
+                // Large Numbers with a twist
+                const sets = nextInt(5, 8);
+                const itemsPerSet = nextInt(120, 150);
+                return {
+                    text: `A factory produces ${sets} sets of parts every hour. If each set contains ${itemsPerSet} small components, how many components are produced in one hour? Show your calculation.`,
+                    step1: `Multiply ${sets} by ${itemsPerSet}`,
+                    answer: sets * itemsPerSet,
+                    answerUnit: 'components',
+                    equation: `${sets} × ${itemsPerSet} = ${sets * itemsPerSet}`
+                };
+            }
+
         } else {
             // Basic: 1-step (1-digit x 1-digit)
             const groups = nextInt(2, 9);
@@ -1789,29 +1825,42 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
                                     {prob.text}
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                                    <div className="space-y-2">
-                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Strategic Workspace</span>
-                                        <div className="h-40 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 flex items-center justify-center">
-                                            <span className="text-slate-300 text-sm italic">Draw your model here...</span>
+                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+                                    <div className="lg:col-span-12 xl:col-span-7 space-y-2">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className="p-1 px-2 bg-slate-800 text-white text-[9px] font-black uppercase rounded tracking-widest">Workspace</span>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Strategic Thinking Area</span>
+                                        </div>
+                                        <div className="min-h-[180px] border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50 relative group">
+                                            <div className="absolute inset-4 border border-slate-100 flex items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity">
+                                                <span className="text-slate-300 text-sm italic">Sketch patterns, arrays, or bar models here...</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="flex flex-col justify-end">
-                                        <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 space-y-4">
-                                            <div className="space-y-1">
-                                                <span className="text-[10px] font-bold text-slate-400 uppercase">Equation</span>
-                                                <div className="h-10 border-b-2 border-slate-200" />
-                                            </div>
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex-grow space-y-1">
-                                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Final Answer</span>
-                                                    <div className="h-12 bg-white border-2 border-slate-200 rounded-lg" />
+                                    <div className="lg:col-span-12 xl:col-span-5 flex flex-col h-full">
+                                        <div className="bg-slate-50 border-2 border-slate-100 rounded-2xl p-5 space-y-5 h-full flex flex-col justify-between shadow-inner">
+                                            <div className="space-y-2">
+                                                <div className="flex justify-between items-center text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                                    <span>Equation</span>
+                                                    <span className="text-slate-300 lowercase font-normal italic">Show your steps</span>
                                                 </div>
-                                                <div className="pt-5 text-slate-400 font-medium italic text-sm">{prob.answerUnit}</div>
+                                                <div className="h-12 bg-white border-2 border-slate-200 rounded-xl shadow-sm" />
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <div className="flex justify-between items-center text-[10px] font-black text-indigo-400 uppercase tracking-widest">
+                                                    <span>Final Answer</span>
+                                                    <span className="text-indigo-300 lowercase font-normal italic">Including units</span>
+                                                </div>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="flex-grow h-14 bg-white border-b-4 border-indigo-200 border-2 border-indigo-100 rounded-xl shadow-sm flex items-center px-4" />
+                                                    <div className="text-slate-400 font-bold italic text-sm whitespace-nowrap bg-slate-100 px-3 py-1 rounded-full">{prob.answerUnit}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
