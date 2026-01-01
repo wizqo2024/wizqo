@@ -443,39 +443,14 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
                     </div>
                 ))}
             </div>
-            {/* Extension/Challenge and Self Assessment omitted for brevity in inline but good to include if extracted */}
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>{String.fromCodePoint(0x1F680)}</div>
-                    <div>3. Create a word problem that matches one of the arrays above</div>
-                </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can use arrays to solve multiplication</div>
-                    <div>{String.fromCharCode(0x2610)} I can count rows and columns correctly</div>
-                    <div>{String.fromCharCode(0x2610)} I understand how arrays show multiplication</div>
-                </div>
-                <div className="mt-3 text-xs">
-                    <strong>{getTrans('myScore', 'My score:')}</strong> ___ / {arrays.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{getTrans('whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-            </div>
-
             {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans('answerKey', String.fromCharCode(0x2705) + ' Answer Key')}</div>
-                    <div className="space-y-2">
+                <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
+                    <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
+                    <div className="grid grid-cols-3 gap-x-8 gap-y-2">
                         {arrays.map(([rows, cols], i) => (
-                            <div key={i} className="text-sm text-emerald-800">
-                                {i + 1}. {rows} x {cols} = <strong>{rows * cols}</strong> (count all {rows * cols} boxes in the array)
+                            <div key={i}>
+                                <span className="text-slate-500 mr-2">#{i + 1}:</span>
+                                <strong>{rows * cols}</strong>
                             </div>
                         ))}
                     </div>
@@ -484,6 +459,7 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
         </WorksheetSectionWrapper>
     );
 }
+
 
 export function SkipCountingMultiplication({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = "skip-count-mult"
