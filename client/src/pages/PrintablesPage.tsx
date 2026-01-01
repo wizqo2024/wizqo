@@ -30,7 +30,10 @@ import {
   MultiplicationFactFluency,
   MultiplicationMixedReview,
   MultiplicationStrategies,
-  MultiplicationBlankTable
+  MultiplicationBlankTable,
+  MultiplicationColorByNumber,
+  MultiplicationConfidence,
+  MultiplicationFluency
 } from './printables/MultiplicationWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
