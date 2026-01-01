@@ -97,7 +97,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
   };
 
   return (
-    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50" dir={isRTL ? 'rtl' : 'ltr'}>
+    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 print:hidden" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Left side - Logo and main nav */}
@@ -112,18 +112,18 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             <div className="hidden md:flex items-center space-x-6">
               <a href="/" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <svg className="w-5 h-5" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z"/>
-                  <path fill="#C5E5FE" d="M239.334 242.697H34.684a2.5 2.5 0 1 1 0-5h202.149V90.847a2.5 2.5 0 1 1 5 0v149.351a2.498 2.498 0 0 1-2.499 2.499zm-214.65 0h-8.018a2.5 2.5 0 1 1 0-5h8.018a2.5 2.5 0 1 1 0 5z"/>
-                  <circle fill="#FEB69F" cx="72.566" cy="149.895" r="21.155"/>
-                  <path fill="#13BF6D" d="M103.978 229.923H41.153v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z"/>
-                  <path fill="#76FFBB" d="M94.978 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z"/>
-                  <circle fill="#FEB69F" cx="128" cy="168.724" r="16.178"/>
-                  <path fill="#8B72E9" d="M152.022 229.923h-48.044v-20.999c0-13.267 10.755-24.022 24.022-24.022 13.267 0 24.022 10.755 24.022 24.022v20.999z"/>
-                  <path fill="#B8A4FF" d="M143.022 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.6a2.5 2.5 0 1 1 5 0v2.6a2.5 2.5 0 0 1-2.5 2.5zm-2.51-15A12.483 12.483 0 0 0 128 196.402a2.5 2.5 0 1 1 0-5c9.445 0 17.136 7.39 17.508 16.824a2.5 2.5 0 1 1-4.996.197z"/>
-                  <circle fill="#FEB69F" cx="183.435" cy="149.895" r="21.155"/>
-                  <path fill="#EDC21D" d="M214.847 229.923h-62.825v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z"/>
-                  <path fill="#F8E5B0" d="M205.847 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z"/>
-                  <path fill="#FC5D3D" d="m167.248 86.573-35.713 35.713a5 5 0 0 1-7.071 0L88.753 86.575c-7.226-7.226-7.224-18.941.002-26.165l.003-.003c7.225-7.222 18.936-7.221 26.16.003l9.546 9.546a5 5 0 0 0 7.07.001l9.553-9.55c7.225-7.222 18.936-7.221 26.16.002 7.225 7.226 7.225 18.939.001 26.164z"/>
+                  <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z" />
+                  <path fill="#C5E5FE" d="M239.334 242.697H34.684a2.5 2.5 0 1 1 0-5h202.149V90.847a2.5 2.5 0 1 1 5 0v149.351a2.498 2.498 0 0 1-2.499 2.499zm-214.65 0h-8.018a2.5 2.5 0 1 1 0-5h8.018a2.5 2.5 0 1 1 0 5z" />
+                  <circle fill="#FEB69F" cx="72.566" cy="149.895" r="21.155" />
+                  <path fill="#13BF6D" d="M103.978 229.923H41.153v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z" />
+                  <path fill="#76FFBB" d="M94.978 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z" />
+                  <circle fill="#FEB69F" cx="128" cy="168.724" r="16.178" />
+                  <path fill="#8B72E9" d="M152.022 229.923h-48.044v-20.999c0-13.267 10.755-24.022 24.022-24.022 13.267 0 24.022 10.755 24.022 24.022v20.999z" />
+                  <path fill="#B8A4FF" d="M143.022 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.6a2.5 2.5 0 1 1 5 0v2.6a2.5 2.5 0 0 1-2.5 2.5zm-2.51-15A12.483 12.483 0 0 0 128 196.402a2.5 2.5 0 1 1 0-5c9.445 0 17.136 7.39 17.508 16.824a2.5 2.5 0 1 1-4.996.197z" />
+                  <circle fill="#FEB69F" cx="183.435" cy="149.895" r="21.155" />
+                  <path fill="#EDC21D" d="M214.847 229.923h-62.825v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z" />
+                  <path fill="#F8E5B0" d="M205.847 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z" />
+                  <path fill="#FC5D3D" d="m167.248 86.573-35.713 35.713a5 5 0 0 1-7.071 0L88.753 86.575c-7.226-7.226-7.224-18.941.002-26.165l.003-.003c7.225-7.222 18.936-7.221 26.16.003l9.546 9.546a5 5 0 0 0 7.07.001l9.553-9.55c7.225-7.222 18.936-7.221 26.16.002 7.225 7.226 7.225 18.939.001 26.164z" />
                 </svg>
                 <span className="font-medium">{t('navigation.home')}</span>
               </a>
@@ -140,8 +140,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <a href="/worksheets/all" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors whitespace-nowrap ${(() => {
                     // Show active on /worksheets/all or interactive-worksheets-generator
                     const pathname = window.location.pathname;
-                    return pathname === '/worksheets/all' || currentPage === 'interactive-worksheets-generator' || 
-                           getIsWorksheetsPageActive();
+                    return pathname === '/worksheets/all' || currentPage === 'interactive-worksheets-generator' ||
+                      getIsWorksheetsPageActive();
                   })() ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showWorksheetsMenu}>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -167,7 +167,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   className={`absolute left-0 top-full mt-2 ${showWorksheetsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[320px] w-full md:w-auto md:max-w-[98vw] md:min-w-[800px] z-50 p-1.5`}
                   role="menu"
                   aria-label="Worksheets menu"
-                  onMouseEnter={() => { if (worksheetsMenuCloseTimer.current) { window.clearTimeout(worksheetsMenuCloseTimer.current); worksheetsMenuCloseTimer.current = null; }}}
+                  onMouseEnter={() => { if (worksheetsMenuCloseTimer.current) { window.clearTimeout(worksheetsMenuCloseTimer.current); worksheetsMenuCloseTimer.current = null; } }}
                   onMouseLeave={() => { worksheetsMenuCloseTimer.current = window.setTimeout(() => setShowWorksheetsMenu(false), 200) as unknown as number; }}
                 >
                   {/* caret */}
@@ -364,18 +364,18 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     <Puzzle className="w-4 h-4" />
                     <span className="font-medium">{t('navigation.kidsHub')}</span>
                   </a>
-                    <button
-                      type="button"
-                      aria-label="Toggle Kids menu"
-                      ref={kidsToggleRef}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setShowKidsMenu((v) => !v);
-                      }}
-                      className="px-2 py-2 text-slate-600 hover:text-slate-800"
-                    >
-                      <ChevronDown className={`w-5 h-5 transition-transform ${showKidsMenu ? 'rotate-180' : ''}`} />
-                    </button>
+                  <button
+                    type="button"
+                    aria-label="Toggle Kids menu"
+                    ref={kidsToggleRef}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowKidsMenu((v) => !v);
+                    }}
+                    className="px-2 py-2 text-slate-600 hover:text-slate-800"
+                  >
+                    <ChevronDown className={`w-5 h-5 transition-transform ${showKidsMenu ? 'rotate-180' : ''}`} />
+                  </button>
                 </div>
                 {/* Dropdown: Printables under Kids */}
                 <div
@@ -383,71 +383,71 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   className={`absolute left-0 top-full mt-2 ${showKidsMenu ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'} transition-all duration-150 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-2xl shadow-xl min-w-[280px] max-w-[850px] z-50 p-2`}
                   role="menu"
                   aria-label="Kids Hub menu"
-                  onMouseEnter={() => { if (kidsMenuCloseTimer.current) { window.clearTimeout(kidsMenuCloseTimer.current); kidsMenuCloseTimer.current = null; }}}
+                  onMouseEnter={() => { if (kidsMenuCloseTimer.current) { window.clearTimeout(kidsMenuCloseTimer.current); kidsMenuCloseTimer.current = null; } }}
                   onMouseLeave={() => { kidsMenuCloseTimer.current = window.setTimeout(() => setShowKidsMenu(false), 200) as unknown as number; }}
                 >
                   {/* caret */}
                   <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
-                    <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_2.8fr] md:max-w-[850px]">
-                      <div>
-                        <div className="px-2 py-1 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent border-b border-orange-100 pb-1.5">{t('navigation.kidsGames')}</div>
-                        <a href="/kids/games/memory" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                          <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="3" y="3" width="7" height="7" rx="1" />
-                            <rect x="14" y="3" width="7" height="7" rx="1" />
-                            <rect x="3" y="14" width="7" height="7" rx="1" />
-                            <rect x="14" y="14" width="7" height="7" rx="1" />
-                          </svg>
-                          <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">{t('navigation.memoryMatch')}</div>
-                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.memoryMatchDesc')}</div>
-                          </div>
-                        </a>
-                        <a href="/kids/games/word-search" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                          <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="11" cy="11" r="7" />
-                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                          </svg>
-                          <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">{t('navigation.wordSearch')}</div>
-                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.wordSearchDesc')}</div>
-                          </div>
-                        </a>
-                        <a href="/kids/games/puzzle" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                          <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M13 3h3a2 2 0 012 2v3h-2.5a1.5 1.5 0 100 3H18v3h-2.5a1.5 1.5 0 100 3H18v3a2 2 0 01-2 2h-3v-2.5a1.5 1.5 0 10-3 0V22H8a2 2 0 01-2-2v-3h2.5a1.5 1.5 0 000-3H6V9h2.5a1.5 1.5 0 000-3H6V5a2 2 0 012-2h3v2.5a1.5 1.5 0 003 0V3z" />
-                          </svg>
-                          <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">{t('navigation.puzzleBuilder')}</div>
-                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.puzzleBuilderDesc')}</div>
-                          </div>
-                        </a>
-                        <a href="/kids/games/typing" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                          <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
-                            <path d="M6 8h12" />
-                            <path d="M6 12h12" />
-                            <path d="M6 16h8" />
-                          </svg>
-                          <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">{t('navigation.typingSafari')}</div>
-                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.typingSafariDesc')}</div>
-                          </div>
-                        </a>
-                        <a href="/kids/games/pattern" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
-                          <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M4 4h4v4H4z" />
-                            <path d="M10 10h4v4h-4z" />
-                            <path d="M16 4h4v4h-4z" />
-                            <path d="M4 16h4v4H4z" />
-                            <path d="M16 16h4v4h-4z" />
-                          </svg>
-                          <div className="min-w-0">
-                            <div className="text-xs font-semibold text-slate-800">{t('navigation.patternBuilder')}</div>
-                            <div className="text-[10px] text-slate-600 truncate">{t('navigation.patternBuilderDesc')}</div>
-                          </div>
-                        </a>
-                      </div>
+                  <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_2.8fr] md:max-w-[850px]">
+                    <div>
+                      <div className="px-2 py-1 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent border-b border-orange-100 pb-1.5">{t('navigation.kidsGames')}</div>
+                      <a href="/kids/games/memory" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="3" y="3" width="7" height="7" rx="1" />
+                          <rect x="14" y="3" width="7" height="7" rx="1" />
+                          <rect x="3" y="14" width="7" height="7" rx="1" />
+                          <rect x="14" y="14" width="7" height="7" rx="1" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.memoryMatch')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.memoryMatchDesc')}</div>
+                        </div>
+                      </a>
+                      <a href="/kids/games/word-search" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="11" cy="11" r="7" />
+                          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.wordSearch')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.wordSearchDesc')}</div>
+                        </div>
+                      </a>
+                      <a href="/kids/games/puzzle" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M13 3h3a2 2 0 012 2v3h-2.5a1.5 1.5 0 100 3H18v3h-2.5a1.5 1.5 0 100 3H18v3a2 2 0 01-2 2h-3v-2.5a1.5 1.5 0 10-3 0V22H8a2 2 0 01-2-2v-3h2.5a1.5 1.5 0 000-3H6V9h2.5a1.5 1.5 0 000-3H6V5a2 2 0 012-2h3v2.5a1.5 1.5 0 003 0V3z" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.puzzleBuilder')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.puzzleBuilderDesc')}</div>
+                        </div>
+                      </a>
+                      <a href="/kids/games/typing" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+                          <path d="M6 8h12" />
+                          <path d="M6 12h12" />
+                          <path d="M6 16h8" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.typingSafari')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.typingSafariDesc')}</div>
+                        </div>
+                      </a>
+                      <a href="/kids/games/pattern" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                        <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 4h4v4H4z" />
+                          <path d="M10 10h4v4h-4z" />
+                          <path d="M16 4h4v4h-4z" />
+                          <path d="M4 16h4v4H4z" />
+                          <path d="M16 16h4v4h-4z" />
+                        </svg>
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold text-slate-800">{t('navigation.patternBuilder')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.patternBuilderDesc')}</div>
+                        </div>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -479,7 +479,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <span>{user?.user_metadata?.username || user?.email?.split('@')[0] || 'User'}</span>
                   <ChevronDown className="w-4 h-4" />
                 </Button>
-                
+
                 {showUserMenu && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
                     <div className="py-1">
@@ -521,35 +521,35 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
       {showMobileMenu && (
         <div className="md:hidden bg-white border-t border-slate-200 shadow-lg">
           <div className="px-4 py-3 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
-            <button 
+            <button
               onClick={() => {
                 window.location.href = '/';
                 setShowMobileMenu(false);
-              }} 
+              }}
               className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
             >
               <svg className="w-5 h-5" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z"/>
-                <path fill="#C5E5FE" d="M239.334 242.697H34.684a2.5 2.5 0 1 1 0-5h202.149V90.847a2.5 2.5 0 1 1 5 0v149.351a2.498 2.498 0 0 1-2.499 2.499zm-214.65 0h-8.018a2.5 2.5 0 1 1 0-5h8.018a2.5 2.5 0 1 1 0 5z"/>
-                <circle fill="#FEB69F" cx="72.566" cy="149.895" r="21.155"/>
-                <path fill="#13BF6D" d="M103.978 229.923H41.153v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z"/>
-                <path fill="#76FFBB" d="M94.978 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z"/>
-                <circle fill="#FEB69F" cx="128" cy="168.724" r="16.178"/>
-                <path fill="#8B72E9" d="M152.022 229.923h-48.044v-20.999c0-13.267 10.755-24.022 24.022-24.022 13.267 0 24.022 10.755 24.022 24.022v20.999z"/>
-                <path fill="#B8A4FF" d="M143.022 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.6a2.5 2.5 0 1 1 5 0v2.6a2.5 2.5 0 0 1-2.5 2.5zm-2.51-15A12.483 12.483 0 0 0 128 196.402a2.5 2.5 0 1 1 0-5c9.445 0 17.136 7.39 17.508 16.824a2.5 2.5 0 1 1-4.996.197z"/>
-                <circle fill="#FEB69F" cx="183.435" cy="149.895" r="21.155"/>
-                <path fill="#EDC21D" d="M214.847 229.923h-62.825v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z"/>
-                <path fill="#F8E5B0" d="M205.847 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z"/>
-                <path fill="#FC5D3D" d="m167.248 86.573-35.713 35.713a5 5 0 0 1-7.071 0L88.753 86.575c-7.226-7.226-7.224-18.941.002-26.165l.003-.003c7.225-7.222 18.936-7.221 26.16.003l9.546 9.546a5 5 0 0 0 7.07.001l9.553-9.55c7.225-7.222 18.936-7.221 26.16.002 7.225 7.226 7.225 18.939.001 26.164z"/>
+                <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z" />
+                <path fill="#C5E5FE" d="M239.334 242.697H34.684a2.5 2.5 0 1 1 0-5h202.149V90.847a2.5 2.5 0 1 1 5 0v149.351a2.498 2.498 0 0 1-2.499 2.499zm-214.65 0h-8.018a2.5 2.5 0 1 1 0-5h8.018a2.5 2.5 0 1 1 0 5z" />
+                <circle fill="#FEB69F" cx="72.566" cy="149.895" r="21.155" />
+                <path fill="#13BF6D" d="M103.978 229.923H41.153v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z" />
+                <path fill="#76FFBB" d="M94.978 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z" />
+                <circle fill="#FEB69F" cx="128" cy="168.724" r="16.178" />
+                <path fill="#8B72E9" d="M152.022 229.923h-48.044v-20.999c0-13.267 10.755-24.022 24.022-24.022 13.267 0 24.022 10.755 24.022 24.022v20.999z" />
+                <path fill="#B8A4FF" d="M143.022 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.6a2.5 2.5 0 1 1 5 0v2.6a2.5 2.5 0 0 1-2.5 2.5zm-2.51-15A12.483 12.483 0 0 0 128 196.402a2.5 2.5 0 1 1 0-5c9.445 0 17.136 7.39 17.508 16.824a2.5 2.5 0 1 1-4.996.197z" />
+                <circle fill="#FEB69F" cx="183.435" cy="149.895" r="21.155" />
+                <path fill="#EDC21D" d="M214.847 229.923h-62.825v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z" />
+                <path fill="#F8E5B0" d="M205.847 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z" />
+                <path fill="#FC5D3D" d="m167.248 86.573-35.713 35.713a5 5 0 0 1-7.071 0L88.753 86.575c-7.226-7.226-7.224-18.941.002-26.165l.003-.003c7.225-7.222 18.936-7.221 26.16.003l9.546 9.546a5 5 0 0 0 7.07.001l9.553-9.55c7.225-7.222 18.936-7.221 26.16.002 7.225 7.226 7.225 18.939.001 26.164z" />
               </svg>
               <span className="font-medium">{t('navigation.home')}</span>
             </button>
-            
-            <button 
+
+            <button
               onClick={() => {
                 window.location.href = '/blog';
                 setShowMobileMenu(false);
-              }} 
+              }}
               className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'blog' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -559,11 +559,11 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             </button>
 
             <div>
-              <button 
+              <button
                 onClick={() => {
                   window.location.href = '/interactive-worksheets-generator';
                   setShowMobileMenu(false);
-                }} 
+                }}
                 className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'interactive-worksheets-generator' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -571,138 +571,138 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 </svg>
                 <span className="font-medium">{t('navigation.worksheets')}</span>
               </button>
-              
+
               <div className="pl-7 pt-2 space-y-1">
                 <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent border-b border-purple-100">{t('navigation.createSomethingMagical')}</div>
-                <button 
+                <button
                   onClick={() => {
                     window.location.href = '/printables/certificate-maker';
                     setShowMobileMenu(false);
-                  }} 
+                  }}
                   className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
                 >
                   <span className="text-sm font-medium">{t('navigation.certificateMaker')}</span>
                 </button>
-                <button 
+                <button
                   onClick={() => {
                     window.location.href = '/printables/name-tracing-generator';
                     setShowMobileMenu(false);
-                  }} 
+                  }}
                   className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
                 >
                   <span className="text-sm font-medium">{t('navigation.nameTracingGenerator')}</span>
                 </button>
-                <button 
+                <button
                   onClick={() => {
                     window.location.href = '/worksheets/handwriting-worksheet-maker';
                     setShowMobileMenu(false);
-                  }} 
+                  }}
                   className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
                 >
                   <span className="text-sm font-medium">{t('navigation.handwritingWorksheetMaker')}</span>
                 </button>
-                
+
                 <div className="pt-3 mt-2">
                   <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent border-b border-blue-100">{t('navigation.freeWorksheetPDFs')}</div>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/worksheets/multiplication-worksheets';
-                    setShowMobileMenu(false);
-                  }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.multiplicationWorksheets')}</span>
-                </button>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/worksheets/times-table-multiplication-worksheets';
-                    setShowMobileMenu(false);
-                  }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.timesTableMultiplicationWorksheets')}</span>
-                </button>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/worksheets/kindergarten-math-worksheets';
-                    setShowMobileMenu(false);
-                  }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.kindergartenMathWorksheets')}</span>
-                </button>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/worksheets/1st-grade-math-worksheets';
-                    setShowMobileMenu(false);
-                  }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.firstGradeMathWorksheets')}</span>
-                </button>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/worksheets/2nd-grade-math-worksheets';
-                    setShowMobileMenu(false);
-                  }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.secondGradeMathWorksheets')}</span>
-                </button>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/worksheets/3rd-grade-math-worksheets';
-                    setShowMobileMenu(false);
-                  }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.thirdGradeMathWorksheets')}</span>
-                </button>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/worksheets/4th-grade-math-worksheets';
-                    setShowMobileMenu(false);
-                  }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.fourthGradeMathWorksheets')}</span>
-                </button>
-                <button 
-                  onClick={() => {
-                    window.location.href = '/worksheets/5th-grade-math-worksheets';
-                    setShowMobileMenu(false);
-                  }} 
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.fifthGradeMathWorksheets')}</span>
-                </button>
-                <button
-                  onClick={() => {
-                    window.location.href = '/worksheets/reading-comprehension';
-                    setShowMobileMenu(false);
-                  }}
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.readingComprehensionWorksheets')}</span>
-                </button>
-                <button
-                  onClick={() => {
-                    window.location.href = '/worksheets/fractions-to-decimals-worksheets';
-                    setShowMobileMenu(false);
-                  }}
-                  className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
-                >
-                  <span className="text-sm font-medium">{t('navigation.fractionsToDecimalsWorksheets')}</span>
-                </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/multiplication-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.multiplicationWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/times-table-multiplication-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.timesTableMultiplicationWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/kindergarten-math-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.kindergartenMathWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/1st-grade-math-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.firstGradeMathWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/2nd-grade-math-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.secondGradeMathWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/3rd-grade-math-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.thirdGradeMathWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/4th-grade-math-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.fourthGradeMathWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/5th-grade-math-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.fifthGradeMathWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/reading-comprehension';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.readingComprehensionWorksheets')}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.location.href = '/worksheets/fractions-to-decimals-worksheets';
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
+                  >
+                    <span className="text-sm font-medium">{t('navigation.fractionsToDecimalsWorksheets')}</span>
+                  </button>
                 </div>
-                
+
                 <div className="pt-3 mt-2">
                   <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent border-b border-green-100">{t('navigation.worksheetsQuickPacks')}</div>
-                  <button 
+                  <button
                     onClick={() => {
                       window.location.href = '/printables';
                       setShowMobileMenu(false);
-                    }} 
+                    }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-green-700 hover:bg-green-50 active:bg-green-100"
                   >
                     <span className="text-sm font-medium">{t('navigation.printables')}</span>
@@ -711,11 +711,11 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               </div>
             </div>
 
-            <button 
+            <button
               onClick={() => {
                 window.location.href = '/generate';
                 setShowMobileMenu(false);
-              }} 
+              }}
               className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -725,17 +725,17 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             </button>
 
             <div>
-              <button 
+              <button
                 onClick={() => {
                   window.location.href = '/kids';
                   setShowMobileMenu(false);
-                }} 
+                }}
                 className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
               >
                 <Puzzle className="w-4 h-4" />
                 <span className="font-medium">{t('navigation.kidsHub')}</span>
               </button>
-              
+
               <div className="pl-7 pt-2 space-y-1">
                 <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent border-b border-orange-100">{t('navigation.kidsGames')}</div>
                 {[
@@ -762,21 +762,21 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             {/* Mobile Account Section */}
             {user ? (
               <div className="pt-2 border-t border-slate-200 mt-2">
-                <button 
+                <button
                   onClick={() => {
                     window.location.href = '/dashboard';
                     setShowMobileMenu(false);
-                  }} 
+                  }}
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                 >
                   <LayoutDashboard className="w-4 h-4" />
                   <span className="font-medium">{t('navigation.dashboard')}</span>
                 </button>
-                <button 
+                <button
                   onClick={() => {
                     handleSignOut();
                     setShowMobileMenu(false);
-                  }} 
+                  }}
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                 >
                   <LogOut className="w-4 h-4" />
@@ -785,11 +785,11 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               </div>
             ) : (
               <div className="pt-2 border-t border-slate-200 mt-2">
-                <button 
+                <button
                   onClick={() => {
                     setShowAuthModal(true);
                     setShowMobileMenu(false);
-                  }} 
+                  }}
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"
                 >
                   <User className="w-4 h-4" />
@@ -800,10 +800,10 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
           </div>
         </div>
       )}
-      
-      <AuthModal 
-        isOpen={showAuthModal} 
-        onClose={() => setShowAuthModal(false)} 
+
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
       />
     </nav>
   );

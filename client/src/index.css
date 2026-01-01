@@ -1063,3 +1063,31 @@ html {
     }
   }
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0 !important;
+    /* Default: no margins - applies to all browsers */
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    background-color: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Ensure main container takes full width */
+  #root, main, article {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

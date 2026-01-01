@@ -78,7 +78,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-slate-50 print:bg-white print:p-0" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
         title={seoData.title}
         description={seoData.metaDescription}
@@ -90,9 +90,9 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
 
       <UnifiedNavigation />
 
-      <main id="main-content" className="container mx-auto px-4 py-8 max-w-4xl">
+      <main id="main-content" className="container mx-auto px-4 py-8 max-w-4xl print:max-w-none print:p-0 print:m-0">
         {/* Breadcrumbs */}
-        <nav className="mb-6 text-sm text-slate-600" aria-label="Breadcrumb">
+        <nav className="mb-6 text-sm text-slate-600 print:hidden" aria-label="Breadcrumb">
           <ol className="flex items-center space-x-2">
             <li><a href="/" className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Go to home page">Home</a></li>
             <li className="text-slate-400" aria-hidden="true">/</li>
@@ -105,9 +105,9 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         </nav>
 
         {/* Main Content */}
-        <article className="bg-white rounded-lg shadow-sm border border-slate-200 p-8 mb-8">
+        <article className="bg-white rounded-lg shadow-sm border border-slate-200 p-8 mb-8 print:shadow-none print:border-0 print:p-0 print:m-0">
           {/* Header */}
-          <header className="mb-6">
+          <header className="mb-6 print:hidden">
             <h1 className="text-3xl font-bold text-slate-900 mb-4">{seoData.h1}</h1>
             <div className="flex flex-wrap gap-2 mb-4">
               {seoData.grade.map(g => (
@@ -124,15 +124,15 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
           </header>
 
           {/* Intro Content */}
-          <div className="prose prose-slate max-w-none mb-8">
+          <div className="prose prose-slate max-w-none mb-8 print:hidden">
             <p className="text-lg text-slate-700 leading-relaxed">{seoData.intro}</p>
           </div>
 
 
 
           {/* Worksheet Preview */}
-          <div className="mb-8">
-            <div className="bg-slate-50 border-2 border-slate-200 rounded-lg p-4 mb-4">
+          <div className="mb-8 print:m-0 print:p-0 print:w-full">
+            <div className="bg-slate-50 border-2 border-slate-200 rounded-lg p-4 mb-4 print:bg-white print:border-0 print:p-0 print:m-0">
               <iframe
                 src={`${printUrl}&preview=1`}
                 className="w-full border-0 rounded"
@@ -143,7 +143,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             </div>
 
             {/* Print/Download Button */}
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center print:hidden">
               <button
                 onClick={handlePrintClick}
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors shadow-md hover:shadow-lg"
@@ -152,14 +152,14 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
                 📄 Print or Download PDF
               </button>
             </div>
-            <p className="text-sm text-slate-500 text-center mt-2">
+            <p className="text-sm text-slate-500 text-center mt-2 print:hidden">
               Click the button above to open the printable worksheet in a new window
             </p>
           </div>
 
           {/* Related Worksheets */}
           {seoData.relatedDocIds.length > 0 && (
-            <div className="mt-8 pt-8 border-t border-slate-200">
+            <div className="mt-8 pt-8 border-t border-slate-200 print:hidden">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Related Worksheets</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {seoData.relatedDocIds.slice(0, 4).map(relatedDocId => {
@@ -183,7 +183,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         </article>
 
         {/* Back to Category */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 print:hidden">
           <a
             href={categoryUrl}
             className="inline-flex items-center text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded font-medium"

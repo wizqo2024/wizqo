@@ -14,7 +14,7 @@ const SOCIAL_LINKS = {
 export function Footer() {
   const { t, isRTL } = useTranslation();
   return (
-    <footer className="bg-slate-900 text-white py-12" dir={isRTL ? 'rtl' : 'ltr'}>
+    <footer className="bg-slate-900 text-white py-12 print:hidden" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand Section */}
