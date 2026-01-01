@@ -1378,7 +1378,7 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
     );
 }
 
-export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId, range, count, timeLimit }: SpecificWorksheetProps & { docId: string, range: [number, number], count: number, timeLimit: string }) {
+export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId, range = [1, 12], count, timeLimit }: SpecificWorksheetProps & { docId: string, range?: [number, number], count: number, timeLimit: string }) {
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
@@ -3135,7 +3135,7 @@ export function MultiplicationDecimals({ seed, variant, showAnswersForDoc }: Spe
     );
 }
 
-export function MultiplicationBlankTable({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+export function MultiplicationBlankTable({ seed, variant, showAnswersForDoc, docId, range = [1, 12] }: SpecificWorksheetProps & { docId: string, range?: [number, number] }) {
     const { getTrans, t } = useWorksheetTranslation(docId);
 
     // Determine the numbers to show in headers/rows
@@ -3730,7 +3730,7 @@ export function MultiplicationFluency({ seed, variant, showAnswersForDoc, docId,
     );
 }
 
-export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, docId, range }: SpecificWorksheetProps & { docId: string, range: [number, number] }) {
+export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, docId, range = [1, 12] }: SpecificWorksheetProps & { docId: string, range?: [number, number] }) {
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
