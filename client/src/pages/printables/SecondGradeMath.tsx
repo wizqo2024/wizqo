@@ -915,7 +915,73 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
                             >
                                 <span className="hidden print:block text-xs font-bold text-center -mt-4">{d.value}</span>
                             </div>
-                            <span className="mt-2 text-xs font-bold text-slate-600 uppercase tracking-wider">{d.name}
+                            <span className="mt-2 text-xs font-bold text-slate-600 uppercase tracking-wider">{d.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 mt-8">
+                <div className="bg-white p-6 rounded-xl border border-slate-200">
+                    <h4 className="font-bold text-slate-700 mb-4">Answer the questions:</h4>
+                    <div className="space-y-6">
+                        <div className="flex items-start gap-3">
+                            <span className="font-bold text-slate-400">1.</span>
+                            <div className="flex-1">
+                                <div className="text-slate-800 font-medium mb-1">Which color got the most votes?</div>
+                                <div className="h-8 border-b-2 border-slate-200 w-full"></div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <span className="font-bold text-slate-400">2.</span>
+                            <div className="flex-1">
+                                <div className="text-slate-800 font-medium mb-1">Which color got the least votes?</div>
+                                <div className="h-8 border-b-2 border-slate-200 w-full"></div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <span className="font-bold text-slate-400">3.</span>
+                            <div className="flex-1">
+                                <div className="text-slate-800 font-medium mb-1">How many students voted for {data[0].name}?</div>
+                                <div className="h-8 border-b-2 border-slate-200 w-full"></div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <span className="font-bold text-slate-400">4.</span>
+                            <div className="flex-1">
+                                <div className="text-slate-800 font-medium mb-1">How many students voted in total?</div>
+                                <div className="h-8 border-b-2 border-slate-200 w-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {showAnswersForDoc(docId, () => {
+                const maxVal = Math.max(...data.map(d => d.value));
+                const minVal = Math.min(...data.map(d => d.value));
+                const most = data.find(d => d.value === maxVal)?.name;
+                const least = data.find(d => d.value === minVal)?.name;
+                const total = data.reduce((a, b) => a + b.value, 0);
+
+                return (
+                    <div className="mt-8 p-6 border-2 border-fuchsia-400 bg-fuchsia-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                        <div className="flex items-center gap-2 mb-4">
+                            <span className="text-2xl">✅</span>
+                            <h3 className="font-bold text-fuchsia-900">Answer Key</h3>
+                        </div>
+                        <div className="space-y-2 text-sm text-fuchsia-900 font-medium">
+                            <p>1. Most votes: <strong>{most}</strong> ({maxVal})</p>
+                            <p>2. Least votes: <strong>{least}</strong> ({minVal})</p>
+                            <p>3. Voted for {data[0].name}: <strong>{data[0].value}</strong></p>
+                            <p>4. Total students: <strong>{total}</strong></p>
+                        </div>
+                    </div>
+                )
+            })}
+        </WorksheetSectionWrapper>
+    )
+}
 
 // ==========================================
 // 2-Digit Addition (No Regrouping)
@@ -974,7 +1040,7 @@ export function Add2Digit100({ showAnswersForDoc, seed, variant }: SpecificWorks
                     <span>Visual Example: 23 + 45 = ?</span>
                 </div>
                 <div className="bg-white p-4 rounded-xl border-2 border-cyan-200 overflow-hidden shadow-sm print:shadow-none">
-                     <svg viewBox="0 0 600 200" className="w-full h-auto max-h-48" preserveAspectRatio="xMidYMid meet">
+                    <svg viewBox="0 0 600 200" className="w-full h-auto max-h-48" preserveAspectRatio="xMidYMid meet">
                         {/* 23 - 2 tens and 3 ones */}
                         <text x="10" y="25" fontSize="14" fill="#0891b2" fontWeight="bold">23 =</text>
                         {Array.from({ length: 2 }).map((_, j) => (
@@ -983,7 +1049,7 @@ export function Add2Digit100({ showAnswersForDoc, seed, variant }: SpecificWorks
                         {Array.from({ length: 3 }).map((_, j) => (
                             <rect key={`o1-${j}`} x={165 + j * 35} y="45" width="25" height="25" rx="2" fill="#67e8f9" stroke="#0891b2" strokeWidth="1.5" />
                         ))}
-                        
+
                         {/* Plus sign */}
                         <text x="280" y="45" fontSize="28" fill="#0891b2" fontWeight="bold">+</text>
 
@@ -1026,50 +1092,52 @@ export function Add2Digit100({ showAnswersForDoc, seed, variant }: SpecificWorks
                         <h3 className="font-bold text-emerald-900">Answer Key</h3>
                     </div>
                     <div className="grid grid-cols-4 gap-4 text-sm font-mono">
-                         {pairs.map(([a, b], i) => (
-                             <div key={i} className="flex items-center justify-center bg-white border border-emerald-100 rounded p-1 text-emerald-800">
-                                 {a} + {b} = <strong>{a+b}</strong>
-                             </div>
-                         ))}
+                        {pairs.map(([a, b], i) => (
+                            <div key={i} className="flex items-center justify-center bg-white border border-emerald-100 rounded p-1 text-emerald-800">
+                                {a} + {b} = <strong>{a + b}</strong>
+                            </div>
+                        ))}
                     </div>
                 </div>
             ))}
         </WorksheetSectionWrapper>
     )
-}</span>
-                        </div>
+}</span >
+                        </div >
                     ))}
-                </div>
-            </div>
+                </div >
+            </div >
 
-            <div className="space-y-4 break-inside-avoid">
-                <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
-                    <div className="font-bold text-slate-700 mb-1">1. How many students chose {most.name}?</div>
-                    <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
-                </div>
-                <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
-                    <div className="font-bold text-slate-700 mb-1">2. Which color had the least votes?</div>
-                    <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
-                </div>
-                <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
-                    <div className="font-bold text-slate-700 mb-1">3. How many more students chose {most.name} than {least.name}?</div>
-                    <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
-                </div>
-            </div>
+    <div className="space-y-4 break-inside-avoid">
+        <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
+            <div className="font-bold text-slate-700 mb-1">1. How many students chose {most.name}?</div>
+            <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
+        </div>
+        <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
+            <div className="font-bold text-slate-700 mb-1">2. Which color had the least votes?</div>
+            <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
+        </div>
+        <div className="p-4 bg-fuchsia-50 rounded-lg border border-fuchsia-100 print:bg-white print:border-slate-200">
+            <div className="font-bold text-slate-700 mb-1">3. How many more students chose {most.name} than {least.name}?</div>
+            <div className="w-full h-8 border-b border-slate-300 bg-white"></div>
+        </div>
+    </div>
 
-            {showAnswersForDoc(docId, () => (
-                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
-                    <div className="flex items-center gap-2 mb-4">
-                        <span className="text-2xl">✅</span>
-                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
-                    </div>
-                    <div className="space-y-2 text-sm text-emerald-800 font-medium">
-                        <div>1. {most.value}</div>
-                        <div>2. {least.name}</div>
-                        <div>3. {most.value} - {least.value} = {most.value - least.value}</div>
-                    </div>
-                </div>
-            ))}
-        </WorksheetSectionWrapper>
+{
+    showAnswersForDoc(docId, () => (
+        <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+            <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">✅</span>
+                <h3 className="font-bold text-emerald-900">Answer Key</h3>
+            </div>
+            <div className="space-y-2 text-sm text-emerald-800 font-medium">
+                <div>1. {most.value}</div>
+                <div>2. {least.name}</div>
+                <div>3. {most.value} - {least.value} = {most.value - least.value}</div>
+            </div>
+        </div>
+    ))
+}
+        </WorksheetSectionWrapper >
     )
 }
