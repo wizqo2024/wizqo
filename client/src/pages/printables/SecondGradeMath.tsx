@@ -1222,3 +1222,168 @@ export function Add2Digit100({ showAnswersForDoc, seed, variant }: SpecificWorks
         </WorksheetSectionWrapper>
     )
 }
+
+// ==========================================
+// Place Value: Tens & Ones
+// ==========================================
+export function PlaceValueHTO({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'place-value-hto'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const nextInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    const nums = (() => {
+        const set = new Set<number>()
+        while (set.size < 8) {
+            set.add(nextInt(10, 99))
+        }
+        return Array.from(set)
+    })()
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Place Value: Tens and Ones (to 99)')}
+            emoji="🔷"
+            description={t(`worksheets.${docId}.description`, 'Write how many tens and ones in each number. Then write the complete number in expanded form in the blank spaces.')}
+            problemCount={nums.length}
+        >
+            <PremiumWorksheetBanner
+                title="Place Value Power"
+                subtitle="Tens & Ones"
+                icons={{
+                    bg1: "🔷",
+                    bg2: "🟦",
+                    float1: "🔟",
+                    float2: "1️⃣"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-violet-50 to-purple-50",
+                    border: "border-violet-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-violet-300",
+                    pillText: "text-violet-800",
+                    accent: "text-violet-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="Tens & Ones Master Class"
+                steps={[
+                    { label: "Tens", text: "The first digit shows how many groups of 10." },
+                    { label: "Ones", text: "The second digit shows the extra ones." },
+                    { label: "Expanded", text: "Write the value of each: 47 = 40 + 7" }
+                ]}
+                color="purple"
+            />
+
+            {/* Visual Example: 47 */}
+            <div className="mb-6 print:mb-2 p-4 print:p-2 bg-violet-50/50 rounded-xl border border-violet-100 break-inside-avoid print:bg-white print:border-slate-300">
+                <div className="flex items-center gap-2 mb-3 text-violet-900 font-bold">
+                    <span className="text-xl">👁️</span>
+                    <span>Example: 47</span>
+                </div>
+
+                <div className="bg-white p-4 print:p-1 rounded-xl border-2 border-violet-200 shadow-sm print:shadow-none">
+                    <div className="flex flex-wrap items-center gap-6 md:gap-8 justify-center">
+                        {/* Tens */}
+                        <div className="flex flex-col items-center gap-2">
+                            <svg viewBox="0 0 240 80" className="w-auto h-20 print:h-12" preserveAspectRatio="xMidYMid meet">
+                                {Array.from({ length: 4 }).map((_, j) => (
+                                    <rect key={j} x={15 + j * 55} y="15" width="45" height="65" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
+                                ))}
+                            </svg>
+                            <span className="text-sm font-bold text-green-700">4 Tens = 40</span>
+                        </div>
+
+                        <div className="text-2xl text-slate-300 font-bold">+</div>
+
+                        {/* Ones */}
+                        <div className="flex flex-col items-center gap-2">
+                            <svg viewBox="0 0 250 50" className="w-auto h-16 print:h-10" preserveAspectRatio="xMidYMid meet">
+                                {Array.from({ length: 7 }).map((_, j) => (
+                                    <rect key={j} x={15 + j * 35} y="10" width="25" height="25" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
+                                ))}
+                            </svg>
+                            <span className="text-sm font-bold text-blue-700">7 Ones = 7</span>
+                        </div>
+
+                        <div className="text-2xl text-slate-300 font-bold">=</div>
+
+                        <div className="text-4xl font-bold text-violet-800">47</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:gap-2">
+                {nums.map((n, i) => {
+                    const tens = Math.floor(n / 10);
+                    const ones = n % 10;
+                    return (
+                        <div key={i} className="border-2 border-violet-200 rounded-xl p-4 print:p-2 bg-gradient-to-br from-violet-50/50 to-purple-50/50 break-inside-avoid print:bg-white">
+                            <div className="flex justify-between items-center mb-4 print:mb-2">
+                                <div className="text-violet-900 font-bold text-lg print:text-base">Number: <span className="text-2xl print:text-xl ml-2">{n}</span></div>
+                            </div>
+
+                            {/* Visual Blocks */}
+                            <div className="mb-4 print:mb-2 bg-white p-3 print:p-1 rounded-lg border border-violet-300 shadow-sm print:shadow-none">
+                                <div className="flex flex-col items-center gap-2">
+                                    <svg viewBox="0 0 280 70" className="w-full h-auto max-h-16" preserveAspectRatio="xMidYMid meet">
+                                        {/* Tens rods */}
+                                        {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
+                                            <rect key={j} x={5 + j * 38} y="5" width="35" height="55" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
+                                        ))}
+                                        {/* Ones cubes */}
+                                        {Array.from({ length: Math.min(ones, 8) }).map((_, j) => (
+                                            <rect key={j} x={5 + j * 28} y="65" width="20" height="20" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
+                                        ))}
+                                    </svg>
+                                    {tens > 5 && (
+                                        <div className="text-xs font-semibold text-green-700 whitespace-nowrap">
+                                            +{tens - 5} more tens...
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-3 print:gap-2">
+                                <div className="bg-white border-2 border-violet-200 rounded-lg p-2 text-center">
+                                    <div className="text-xs text-violet-500 font-bold uppercase mb-1">Tens</div>
+                                    <div className="h-8 border-b-2 border-violet-100"></div>
+                                </div>
+                                <div className="bg-white border-2 border-violet-200 rounded-lg p-2 text-center">
+                                    <div className="text-xs text-violet-500 font-bold uppercase mb-1">Ones</div>
+                                    <div className="h-8 border-b-2 border-violet-100"></div>
+                                </div>
+                                <div className="bg-white border-2 border-violet-200 rounded-lg p-2 text-center">
+                                    <div className="text-xs text-violet-500 font-bold uppercase mb-1">Expanded</div>
+                                    <div className="h-8 border-b-2 border-violet-100 flex items-center justify-center text-xs text-slate-300">__ + __</div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">✅</span>
+                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-mono text-emerald-800">
+                        {nums.map((n, i) => {
+                            const tens = Math.floor(n / 10);
+                            const ones = n % 10;
+                            return (
+                                <div key={i} className="border-b border-emerald-200 pb-1">
+                                    <strong>{n}:</strong> {tens} Tens, {ones} Ones <span className="text-slate-400">|</span> Expanded: {tens * 10} + {ones}
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
