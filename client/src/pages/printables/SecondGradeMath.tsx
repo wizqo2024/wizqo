@@ -998,9 +998,9 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
                 }}
             />
 
-            <div className="my-8 bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm print:shadow-none break-inside-avoid">
-                <h3 className="text-center font-bold text-lg text-slate-800 mb-6">Favorite Colors in Our Class</h3>
-                <div className="flex items-end justify-around h-64 border-b-2 border-l-2 border-slate-800 pl-2 pb-2 relative">
+            <div className="my-8 print:my-4 bg-white p-6 print:p-4 rounded-xl border-2 border-slate-200 shadow-sm print:shadow-none break-inside-avoid">
+                <h3 className="text-center font-bold text-lg text-slate-800 mb-6 print:mb-2 text-base">Favorite Colors in Our Class</h3>
+                <div className="flex items-end justify-around h-64 print:h-48 border-b-2 border-l-2 border-slate-800 pl-2 pb-2 relative">
                     {/* Y-axis labels simplified */}
                     <div className="absolute -left-8 top-0 bottom-0 flex flex-col justify-between text-xs text-slate-400 font-mono py-2">
                         <span>10</span>
@@ -1021,7 +1021,7 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
                                     backgroundColor: d.name.toLowerCase() === 'yellow' ? '#fde047' : d.name.toLowerCase() === 'red' ? '#f87171' : d.name.toLowerCase() === 'blue' ? '#60a5fa' : '#4ade80'
                                 }}
                             >
-                                <span className="hidden print:block text-xs font-bold text-center -mt-4">{d.value}</span>
+                                <span className="hidden print:block text-xs font-bold text-center -mt-5 bg-white rounded px-1 border border-slate-200">{d.value}</span>
                             </div>
                             <span className="mt-2 text-xs font-bold text-slate-600 uppercase tracking-wider">{d.name}</span>
                         </div>
@@ -1029,9 +1029,9 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 mt-8">
-                <div className="bg-white p-6 rounded-xl border border-slate-200">
-                    <h4 className="font-bold text-slate-700 mb-4">Answer the questions:</h4>
+            <div className="grid grid-cols-1 gap-6 print:gap-4 mt-8 print:mt-4">
+                <div className="bg-white p-6 print:p-4 rounded-xl border border-slate-200">
+                    <h4 className="font-bold text-slate-700 mb-4 print:mb-2">Answer the questions:</h4>
                     <div className="space-y-6">
                         <div className="flex items-start gap-3">
                             <span className="font-bold text-slate-400">1.</span>
