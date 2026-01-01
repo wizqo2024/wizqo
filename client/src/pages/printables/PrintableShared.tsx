@@ -1133,7 +1133,55 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
             return getTranslatedWorksheetTitle(docId, t, ' Probability')
         case 'adding-decimals-challenge':
             return getTranslatedWorksheetTitle(docId, t, ' Adding Decimals Challenge')
-        default:
-            return t ? t('pages.printables.printableFunLearning') : 'Printable Fun Learning Activities'
     }
+}
+
+interface StrategySpotlightProps {
+    title: string;
+    icon: string;
+    steps: { label: string; text: string }[];
+    color: string;
+    className?: string;
+}
+
+export function StrategySpotlight({ title, icon, steps, color, className = "" }: StrategySpotlightProps) {
+    // Map color name to Tailwind classes
+    const colorMap: Record<string, { border: string, bg: string, text: string, iconBg: string }> = {
+        purple: { border: 'border-purple-200', bg: 'bg-purple-50', text: 'text-purple-900', iconBg: 'bg-purple-100' },
+        blue: { border: 'border-blue-200', bg: 'bg-blue-50', text: 'text-blue-900', iconBg: 'bg-blue-100' },
+        green: { border: 'border-green-200', bg: 'bg-green-50', text: 'text-green-900', iconBg: 'bg-green-100' },
+        indigo: { border: 'border-indigo-200', bg: 'bg-indigo-50', text: 'text-indigo-900', iconBg: 'bg-indigo-100' },
+        pink: { border: 'border-pink-200', bg: 'bg-pink-50', text: 'text-pink-900', iconBg: 'bg-pink-100' },
+        emerald: { border: 'border-emerald-200', bg: 'bg-emerald-50', text: 'text-emerald-900', iconBg: 'bg-emerald-100' },
+    };
+
+    const theme = colorMap[color] || colorMap.blue;
+
+    return (
+        <div className={`mb-8 page-break-inside-avoid break-inside-avoid ${className}`}>
+            <div className={`bg-white border-2 ${theme.border} rounded-xl p-6 shadow-sm relative overflow-hidden`}>
+                <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
+                    <div className={`w-10 h-10 rounded-full ${theme.iconBg} flex items-center justify-center text-xl shadow-inner`}>
+                        {icon}
+                    </div>
+                    <h3 className={`font-bold text-lg ${theme.text}`}>
+                        {title}
+                    </h3>
+                </div>
+
+                <div className="space-y-4">
+                    {steps.map((step, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                            <div className={`w-6 h-6 rounded-full ${theme.bg.replace('50', '600')} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>
+                                {idx + 1}
+                            </div>
+                            <div className="text-sm text-slate-700">
+                                <strong>{step.label}:</strong> {step.text}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 }
