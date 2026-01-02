@@ -28170,10 +28170,20 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               const y = (viewBoxHeight - rectHeight) / 2;
 
               return (
-                <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`} className="w-24 h-24 mx-auto mb-2">
-                  <rect x={x} y={y} width={rectWidth} height={rectHeight} fill="none" stroke="#3b82f6" strokeWidth="2" />
-                  <text x={x + rectWidth / 2} y={y - 5} textAnchor="middle" fontSize="8" fill="#64748b">{length}</text>
-                  <text x={x - 8} y={y + rectHeight / 2} textAnchor="middle" fontSize="8" fill="#64748b" transform={`rotate(-90 ${x - 8} ${y + rectHeight / 2})`}>{width}</text>
+                <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                  <rect
+                    x={60 - (length * 10 / 2)}
+                    y={40 - (width * 10 / 2)}
+                    width={length * 10}
+                    height={width * 10}
+                    fill="#3b82f6"
+                    fillOpacity="0.1"
+                    stroke="#1e3a8a"
+                    strokeWidth="2"
+                  />
+                  {/* Dimensions */}
+                  <text x="60" y={40 - (width * 10 / 2) - 5} textAnchor="middle" fontSize="8" fontWeight="bold" fill="#1e3a8a">{length} units</text>
+                  <text x={60 - (length * 10 / 2) - 8} y="40" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#1e3a8a" transform={`rotate(-90 ${60 - (length * 10 / 2) - 8} 40)`}>{width} units</text>
                 </svg>
               );
             };
@@ -28198,26 +28208,67 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               >
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)} Worked Example</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Rectangle with length = 5, width = 3</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Add length + width: 5 + 3 = 8</div>
-                      <div><strong>Step 2:</strong> Multiply by 2: 8 × 2 = 16</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 16 units</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Perimeter is the total distance around!</div>
+                <div className="mb-6 bg-blue-900 rounded-xl overflow-hidden shadow-lg border-2 border-blue-800 print:border print:bg-white text-white">
+                  <div className="bg-blue-800 px-4 py-2 flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span className="font-bold uppercase tracking-wider text-sm">Worked Example: Site Analysis</span>
+                  </div>
+                  <div className="p-4 flex flex-col md:flex-row gap-6 bg-gradient-to-br from-blue-900 to-blue-800 print:text-black print:from-white print:to-white">
+                    <div className="w-full md:w-32 h-24 bg-blue-600 border border-white/30 relative rounded overflow-hidden flex-shrink-0">
+                      <div className="absolute inset-0 opacity-20 bg-[size:10px_10px] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)]"></div>
+                      <div className="absolute inset-4 border-2 border-white/60 bg-white/10 flex items-center justify-center font-mono text-xs text-white">
+                        5 x 3
+                      </div>
+                    </div>
+                    <div className="flex-1 space-y-3">
+                      <div className="text-sm">We need to find the perimeter of a rectangle that is <strong>5 units long</strong> and <strong>3 units wide</strong>.</div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="bg-white/10 p-2 rounded border border-white/20">
+                          <div className="text-[10px] uppercase opacity-70">Step 1: Add Sides</div>
+                          <div className="font-mono font-bold">5 + 3 = 8</div>
+                        </div>
+                        <div className="bg-white/10 p-2 rounded border border-white/20">
+                          <div className="text-[10px] uppercase opacity-70">Step 2: Double It</div>
+                          <div className="font-mono font-bold">8 × 2 = 16</div>
+                        </div>
+                      </div>
+                      <div className="pt-2 border-t border-white/20 flex items-center justify-between">
+                        <span className="font-bold text-yellow-300 print:text-blue-800 uppercase tracking-tight">Total Perimeter: 16 units</span>
+                        <span className="text-[10px] italic opacity-80">Tip: Distance around!</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-6" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      {renderRectangle(p.length, p.width)}
-                      <div className="text-center mb-2 text-sm font-semibold">Length: {p.length}, Width: {p.width}</div>
-                      <div className="text-center text-sm text-slate-600 mb-2">Perimeter: ____</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
+                    <div key={i} className="break-inside-avoid">
+                      <div className="bg-blue-600 p-1 rounded-t-lg w-fit px-3 text-white text-xs font-bold font-mono tracking-wider border-t border-l border-r border-white relative top-0.5 z-10">PLOT #{i + 1}</div>
+                      <div className="bg-blue-50 border-2 border-blue-900 p-4 relative overflow-hidden shadow-sm">
+                        {/* Blueprint Grid Background */}
+                        <div className="absolute inset-0 opacity-10 bg-[size:10px_10px] bg-[linear-gradient(to_right,#1e3a8a_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a_1px,transparent_1px)] pointer-events-none"></div>
+
+                        <div className="relative z-10 flex flex-col items-center">
+                          <div className="mb-2">
+                            {renderRectangle(p.length, p.width)}
+                          </div>
+
+                          <div className="w-full flex items-center justify-between gap-2 mt-2 bg-white px-2 py-1 rounded border border-blue-200">
+                            <div className="flex gap-3">
+                              <span className="text-[10px] font-bold text-blue-900">L: {p.length}</span>
+                              <span className="text-[10px] font-bold text-blue-900">W: {p.width}</span>
+                            </div>
+                            <div className="flex-1 flex items-center gap-1">
+                              <span className="text-[10px] font-bold text-slate-400">P:</span>
+                              <div className="flex-1 border-b border-black h-4"></div>
+                              <span className="text-[8px] text-slate-500">units</span>
+                            </div>
+                          </div>
+                          <div className="w-full mt-3">
+                            <div className="text-[8px] uppercase font-bold text-slate-400 mb-1">Calculation Area:</div>
+                            <div className="h-10 border border-dashed border-blue-200 rounded bg-white/50"></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
