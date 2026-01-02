@@ -12,7 +12,7 @@ import { Sudoku } from '@/pages/worksheets/Sudoku'
 import { WordSearch } from '@/pages/worksheets/WordSearch'
 import { CVCWords, SightWordsPrePrimer, LetterTracingAZ } from './printables/LanguageWorksheets'
 import { MoreLessEqual10, TenFrames1To10, Sub2Digit100 } from './printables/MathWorksheets'
-import { Add2Digit100, Add2DigitRegrouping, Sub2DigitRegrouping, EvenOdd100, Compare2Digit, FractionsHalvesThirdsFourths, SkipCounting5To120, MissingNumbers50, Time5Min } from './printables/SecondGradeMath'
+import { Add2DigitRegrouping, Sub2DigitRegrouping, EvenOdd100, Compare2Digit, FractionsHalvesThirdsFourths, SkipCounting5To120, MissingNumbers50, Time5Min } from './printables/SecondGradeMath'
 import { MassWeightConversion } from './printables/MeasurementWorksheets'
 import {
   MultiplicationFacts,
@@ -353,6 +353,8 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'skip-count-5-10-120',
   'add-2digit-100',
   'sub-2digit-100',
+  'add-2digit-regrouping',
+  'sub-2digit-regrouping',
   'word-problems-100',
   'compare-2digit',
   'even-odd-100',
@@ -28892,17 +28894,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
-        {
-          {
-            activeDocs.includes('mass-weight') && (
-              <MassWeightConversion
-                showAnswersForDoc={showAnswersForDoc}
-                seed={effectiveSeed}
-                variant={variant}
-              />
-            )
-          }
-        }
+        {activeDocs.includes('mass-weight') && (
+          <MassWeightConversion
+            showAnswersForDoc={showAnswersForDoc}
+            seed={effectiveSeed}
+            variant={variant}
+          />
+        )}
 
         {
           activeDocs.includes('multi-step-word-problems') && (() => {
