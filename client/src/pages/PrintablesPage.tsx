@@ -16492,35 +16492,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-pink-400 to-purple-500 animate-gradient-x mb-4" />
                 <div className="grid grid-cols-2 gap-8">
                   {problems.map((type, i) => (
-                    <div key={i} className="flex flex-col items-center p-6 border-2 border-pink-100 rounded-xl bg-pink-50">
-                      <div className="relative w-32 h-32">
-                        {/* Butterfly SVG Base */}
-                        <svg viewBox="0 0 100 100" className="w-full h-full">
-                          {/* Left Wing */}
-                          <path d="M 50 20 Q 10 0 10 40 Q 10 80 50 80" fill="#fbcfe8" stroke="#db2777" strokeWidth="2" />
-                          {/* Right Wing */}
-                          <path d="M 50 20 Q 90 0 90 40 Q 90 80 50 80" fill="#fbcfe8" stroke="#db2777" strokeWidth="2" />
-                          {/* Body */}
-                          <rect x="47" y="20" width="6" height="60" rx="3" fill="#831843" />
-                        </svg>
-
-                        {type === 'Is Symmetrical?' && (
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-0.5 h-full bg-slate-800 border-l border-dashed border-white"></div>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="mt-4 text-center w-full">
-                        <p className="text-sm font-bold text-pink-900 mb-2">{type === 'Draw Line' ? 'Draw the line of symmetry' : 'Is the line a line of symmetry?'}</p>
-                        {type === 'Is Symmetrical?' && (
-                          <div className="flex justify-center gap-4">
-                            <div className="w-12 h-8 border border-pink-300 bg-white rounded flex items-center justify-center text-xs text-slate-300">Yes</div>
-                            <div className="w-12 h-8 border border-pink-300 bg-white rounded flex items-center justify-center text-xs text-slate-300">No</div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                    <Symmetry
+                      key={i}
+                      type={type}
+                      seed={`${effectiveSeed}|v${variant}|doc=${doc}|p=${i}`}
+                      showAnswers={showAnswers[docId] || false}
+                    />
                   ))}
                 </div>
               </WorksheetSectionWrapper>
