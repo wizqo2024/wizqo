@@ -15876,16 +15876,16 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               return (
                 <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
                   {/* Main Line */}
-                  <line x1={padding} y1={lineY} x2={width - padding} y2={lineY} stroke={isDark ? "#065f46" : "#334155"} strokeWidth="4" strokeLinecap="round" />
+                  <line x1={padding} y1={lineY} x2={width - padding} y2={lineY} stroke={isDark ? "#2d7a5f" : "#334155"} strokeWidth="4" strokeLinecap="round" />
 
                   {/* Terminals */}
                   <g>
                     <line x1={padding} y1={lineY - 12} x2={padding} y2={lineY + 8} stroke={isDark ? "#6ee7b7" : "#1e293b"} strokeWidth="3" />
-                    <text x={padding} y={lineY + 28} textAnchor="middle" fontSize="14" fontWeight="900" fill={labelColor}>0</text>
+                    <text x={padding} y={lineY + 24} textAnchor="middle" fontSize="14" fontWeight="900" fill={labelColor}>0</text>
                   </g>
                   <g>
                     <line x1={width - padding} y1={lineY - 12} x2={width - padding} y2={lineY + 8} stroke={isDark ? "#6ee7b7" : "#1e293b"} strokeWidth="3" />
-                    <text x={width - padding} y={lineY + 28} textAnchor="middle" fontSize="14" fontWeight="900" fill={labelColor}>1</text>
+                    <text x={width - padding} y={lineY + 24} textAnchor="middle" fontSize="14" fontWeight="900" fill={labelColor}>1</text>
                   </g>
 
                   {/* Intervals */}
@@ -15916,17 +15916,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   })}
 
                   {/* Frog Marker (Answer Only) */}
-                  {isAnswer && (() => {
-                    const finalX = padding + (num / denom) * range
-                    return (
-                      <g>
-                        <circle cx={finalX} cy={lineY} r="5" fill="#22c55e" stroke="white" strokeWidth="2" />
-                        <text x={finalX} y={lineY - 20} textAnchor="middle" fontSize="10" fontWeight="900" fill={isDark ? "#ffffff" : "#15803d"}>
-                          {num}/{denom}
-                        </text>
-                      </g>
-                    )
-                  })()}
+                  {isAnswer && (
+                    <g>
+                      <circle cx={padding + (num / denom) * range} cy={lineY} r="5" fill="#22c55e" stroke="white" strokeWidth="2" />
+                      <text x={padding + (num / denom) * range} y={lineY - 22} textAnchor="middle" fontSize="12" fontWeight="900" fill={isDark ? "#ffffff" : "#15803d"}>
+                        {num}/{denom}
+                      </text>
+                    </g>
+                  )}
                 </svg>
               )
             }
