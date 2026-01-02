@@ -28318,7 +28318,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                       <div className="space-y-1 text-sm font-mono">
                         <div>Length: 5 units</div>
                         <div>Width:  4 units</div>
-                        <div className="mt-2 text-yellow-300 print:text-blue-700 font-bold">{String.fromCodePoint(0x279C)}</div>
+                        <div className="mt-2 text-yellow-300 print:text-blue-700 font-bold">{String.fromCodePoint(0x279C)} Area: 20 sq units</div>
                       </div>
                     </div>
                   </div>
@@ -28335,10 +28335,19 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                         <div className="relative z-10 flex flex-col items-center">
                           <div className="mb-2">
                             <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
-                              <rect x="10" y="10" width="100" height="60" fill="#3b82f6" fillOpacity="0.2" stroke="#1e3a8a" strokeWidth="2" />
+                              <rect
+                                x={60 - (p.length * 10 / 2)}
+                                y={40 - (p.width * 10 / 2)}
+                                width={p.length * 10}
+                                height={p.width * 10}
+                                fill="#3b82f6"
+                                fillOpacity="0.2"
+                                stroke="#1e3a8a"
+                                strokeWidth="2"
+                              />
                               {/* Dimensions */}
-                              <text x="60" y="85" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3  8a">{p.length} units</text>
-                              <text x="5" y="45" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3  8a" transform="rotate(-90 5 45)">{p.width} units</text>
+                              <text x="60" y={40 + (p.width * 10 / 2) + 12} textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a">{p.length} units</text>
+                              <text x={60 - (p.length * 10 / 2) - 10} y="40" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a" transform={`rotate(-90 ${60 - (p.length * 10 / 2) - 10} 40)`}>{p.width} units</text>
                             </svg>
                           </div>
 
@@ -28355,11 +28364,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x1F4CB)} Self-Assessment</div>
                   <div className="space-y-2 text-xs">
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
+                    <div>{String.fromCodePoint(0x2705)} I can find the area of a rectangle by multiplying.</div>
+                    <div>{String.fromCodePoint(0x2705)} I can explain what area represents in a blueprint.</div>
+                    <div>{String.fromCodePoint(0x2705)} I can use square units correctly.</div>
                   </div>
                 </div>
 
