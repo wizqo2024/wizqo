@@ -11409,17 +11409,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           activeDocs.includes('kindergarten-addition-pictures') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            export const makeRng = (seed: string) => {
-              const hash = Array.from(seed).reduce((acc, char) => {
-                return ((acc << 5) - acc) + char.charCodeAt(0) | 0
-              }, 0)
 
-              let state = hash
-              return () => {
-                state = (state * 1664525 + 1013904223) | 0
-                return (state >>> 0) / 4294967296
-              }
-            }
             const problems = Array.from({ length: 6 }, () => {
               const a = nextInt(1, 4);
               const b = nextInt(1, 4);
