@@ -1386,3 +1386,139 @@ export function PlaceValueHTO({ showAnswersForDoc, seed, variant }: SpecificWork
         </WorksheetSectionWrapper>
     )
 }
+
+// ==========================================
+// Time to 5 Minutes
+// ==========================================
+export function Time5Min({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'time-5min'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const nextInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    const times = Array.from({ length: 8 }, () => {
+        const h = nextInt(1, 12)
+        const m = nextInt(0, 11) * 5 // 0, 5, 10, ... 55
+        return `${h}:${m.toString().padStart(2, '0')}`
+    })
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Tell Time to 5 Minutes')}
+            emoji="🕰️"
+            description={t(`worksheets.${docId}.description`, 'Draw the clock hands to show each time.')}
+            problemCount={times.length}
+        >
+            <PremiumWorksheetBanner
+                title="Time Teller"
+                subtitle="Reading Clocks"
+                icons={{
+                    bg1: "🕰️",
+                    bg2: "⌚",
+                    float1: "⌛",
+                    float2: "⏰"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-cyan-50 to-sky-50",
+                    border: "border-cyan-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-cyan-300",
+                    pillText: "text-cyan-800",
+                    accent: "text-cyan-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="Clock Hands"
+                steps={[
+                    { label: "Short Hand", text: "The Hour Hand. It points to the hour number." },
+                    { label: "Long Hand", text: "The Minute Hand. It counts by 5s around the clock." },
+                    { label: "Tip", text: "If minutes are past 30, the hour hand moves halfway to the next number!" }
+                ]}
+                color="cyan"
+            />
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+                {times.map((time, i) => (
+                    <div key={i} className="flex flex-col items-center bg-cyan-50/50 p-4 rounded-xl border border-cyan-100 break-inside-avoid print:bg-white print:border-slate-300">
+                        <div className="w-full aspect-square relative mb-3">
+                            <svg viewBox="0 0 200 200" className="w-full h-full bg-white border-2 border-slate-300 rounded-full shadow-sm">
+                                <circle cx="100" cy="100" r="2" fill="#1e293b" />
+                                {/* Clock Face Marks */}
+                                {Array.from({ length: 12 }).map((_, k) => {
+                                    const angle = (k / 12) * Math.PI * 2 - Math.PI / 2 + (Math.PI / 6) // Start at 1
+                                    const x1 = 100 + Math.cos(angle) * 80
+                                    const y1 = 100 + Math.sin(angle) * 80
+                                    const x2 = 100 + Math.cos(angle) * 90
+                                    const y2 = 100 + Math.sin(angle) * 90
+                                    const tx = 100 + Math.cos(angle) * 70
+                                    const ty = 100 + Math.sin(angle) * 70
+                                    return (
+                                        <g key={k}>
+                                            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#64748b" strokeWidth="2" />
+                                            <text x={tx} y={ty + 5} textAnchor="middle" fontSize="14" fontWeight="bold" fill="#64748b">{k + 1}</text>
+                                        </g>
+                                    )
+                                })}
+                                {/* Student draws hands here */}
+                            </svg>
+                        </div>
+                        <div className="font-mono text-xl font-bold text-slate-700 bg-white px-4 py-1 rounded border border-slate-200">
+                            {time}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">✅</span>
+                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+                        {times.map((tStr, i) => {
+                            const [h, m] = tStr.split(':').map(Number)
+                            return (
+                                <div key={i} className="flex flex-col items-center">
+                                    <div className="mb-2 font-bold text-emerald-800">{tStr}</div>
+                                    <div className="w-24 h-24 relative">
+                                        <svg viewBox="0 0 200 200" className="w-full h-full bg-white border border-emerald-200 rounded-full">
+                                            {/* Hands */}
+                                            {(() => {
+                                                const hAngle = ((h % 12) + m / 60) * 30 - 90
+                                                const mAngle = m * 6 - 90
+                                                const hRad = hAngle * Math.PI / 180
+                                                const mRad = mAngle * Math.PI / 180
+                                                return (
+                                                    <g>
+                                                        {/* Hour Hand */}
+                                                        <line
+                                                            x1="100" y1="100"
+                                                            x2={100 + Math.cos(hRad) * 50}
+                                                            y2={100 + Math.sin(hRad) * 50}
+                                                            stroke="#059669" strokeWidth="4" strokeLinecap="round"
+                                                        />
+                                                        {/* Minute Hand */}
+                                                        <line
+                                                            x1="100" y1="100"
+                                                            x2={100 + Math.cos(mRad) * 75}
+                                                            y2={100 + Math.sin(mRad) * 75}
+                                                            stroke="#059669" strokeWidth="3" strokeLinecap="round"
+                                                        />
+                                                        <circle cx="100" cy="100" r="3" fill="#047857" />
+                                                    </g>
+                                                )
+                                            })()}
+                                        </svg>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}

@@ -428,6 +428,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'money-coins-bills',
   'measurement-length',
   'bar-graphs-data',
+  'time-5min',
   'more-less',
   'more-less-equal-10',
   // Kindergarten worksheets
@@ -4114,114 +4115,22 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           );
         })()}
 
-        {activeDocs.includes('time-5min') && (() => {
-          const times = ['3:25', '9:40', '12:05', '6:30', '1:55', '10:10', '7:45', '2:20'];
-          return (
-            <WorksheetSectionWrapper
-              docId="time-5min"
-              title="Tell Time to 5 Minutes"
-              emoji={String.fromCodePoint(0x1F552)}
-              description="Draw the clock hands to show each time."
-              problemCount={times.length}
-              learningObjectives={[
-                'Read time to the nearest 5 minutes',
-                'Draw hour and minute hands on analog clocks',
-                'Understand the relationship between hours and minutes',
-                'Practice telling time in real-world contexts'
-              ]}
-              parentTeacherTips={[
-                'The hour hand moves slowly between numbers',
-                'The minute hand moves quickly: each number is 5 minutes',
-                'When the minute hand is on 1, it\'s 5 minutes past',
-                'When the minute hand is on 6, it\'s 30 minutes (half past)',
-                'Practice with a real clock or clock manipulative',
-                'Extension: Try telling time to the exact minute'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-sky-400 to-indigo-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">How to Tell Time</div>
-                <div className="space-y-2 text-sm">
-                  <div className="font-semibold text-base"><strong>Time:</strong> 3:25</div>
-                  <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                    <div><strong>Step 1:</strong> Hour hand: Point between 3 and 4 (because it's 3:25, past 3:00)</div>
-                    <div><strong>Step 2:</strong> Minute hand: Count by 5s to 25 (5, 10, 15, 20, 25). Point to the 5.</div>
-                    <div className="font-semibold text-blue-900"><strong>Answer:</strong> Hour hand between 3 and 4, minute hand on 5</div>
-                    <div className="text-xs text-blue-700 mt-1">Tip: The hour hand is past the 3!</div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {times.map((t, i) => (
-                  <div key={i} className="break-inside-avoid">
-                    <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                      <circle cx="100" cy="100" r="80" fill="none" stroke="#111827" strokeWidth="3" />
-                      {/* hour marks */}
-                      {Array.from({ length: 12 }).map((_, k) => { const a = (k / 12) * Math.PI * 2; const x1 = 100 + Math.cos(a) * 70; const y1 = 100 + Math.sin(a) * 70; const x2 = 100 + Math.cos(a) * 80; const y2 = 100 + Math.sin(a) * 80; return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#111827" /> })}
-                      <text x="100" y="180" textAnchor="middle" fontSize="16" fill="#111827">{t}</text>
-                      {/* student draws hands */}
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Draw a clock showing 4:45. What is another way to say this time? (quarter to ___)</div>
-                  <div>2. Draw a clock showing 11:30. What is another way to say this time? (half past ___)</div>
-                  <div>3. If it's 2:15 now, what time will it be in 30 minutes? Draw it!</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can read time to 5 minutes</div>
-                  <div>{String.fromCharCode(0x2610)} I can draw the hour hand correctly</div>
-                  <div>{String.fromCharCode(0x2610)} I can draw the minute hand correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {times.length}
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('time-5min', () => {
-                const parseTime = (timeStr: string) => {
-                  const [h, m] = timeStr.split(':').map(Number);
-                  return { hour: h, minute: m };
-                };
-                return (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="space-y-3">
-                      {times.map((t, i) => {
-                        const { hour, minute } = parseTime(t);
-                        const hourAngle = ((hour % 12) * 30 + minute * 0.5 - 90) * Math.PI / 180;
-                        const minuteAngle = (minute * 6 - 90) * Math.PI / 180;
-                        return (
-                          <div key={i} className="text-sm text-emerald-800">
-                            <div className="font-semibold">{i + 1}. {t}:</div>
-                            <div className="pl-4">
-                              <div>Hour hand: Between {hour % 12} and {(hour % 12) + 1} (closer to {hour % 12} since it's {minute} minutes past)</div>
-                              <div>Minute hand: On {Math.floor(minute / 5)} (which is {minute} minutes past the hour)</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div className="text-xs text-emerald-700 mt-3">
-                      Remember: The hour hand moves slowly between numbers. The minute hand moves quickly - each number represents 5 minutes!
-                    </div>
-                  </div>
-                );
-              })}
-            </WorksheetSectionWrapper>
-          );
-        })()}
+        {activeDocs.includes('time-5min') && (
+          <MathWorksheets
+            docId='time-5min'
+            commonProps={{
+              activeDocs,
+              effectiveSeed,
+              variant,
+              showAnswersForDoc,
+              t,
+              getTrans,
+              showAnswers,
+              docTitle: doc,
+              language: i18n.language
+            }}
+          />
+        )}
 
         {activeDocs.includes('ten-frames-1-20') && (() => {
           const numbers = Array.from({ length: 20 }, (_, n) => n + 1);
