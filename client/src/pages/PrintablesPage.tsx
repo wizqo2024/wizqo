@@ -15660,7 +15660,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
                   {problems.map((p, i) => (
-                    <div key={i} className="flex flex-col items-center p-4 border-2 border-slate-100 rounded-xl bg-orange-50 relative">
+                    <div key={i} className="flex flex-col items-center p-4 border-2 border-slate-200 rounded-xl bg-white relative shadow-sm">
                       <div className="absolute top-2 left-2 bg-white px-2 py-1 rounded text-xs font-black text-orange-600 border border-orange-200 shadow-sm">#{i + 1}</div>
 
                       <div className="text-2xl font-black text-slate-800 mb-4 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200">
@@ -15669,7 +15669,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                       {/* Pizza SVG */}
                       <svg viewBox="0 0 100 100" className="w-32 h-32 transform -rotate-90">
-                        <circle cx="50" cy="50" r="48" fill="#fef3c7" stroke="#fbbf24" strokeWidth="2" />
+                        <circle cx="50" cy="50" r="48" fill="white" stroke="#fbbf24" strokeWidth="2" />
                         {Array.from({ length: p.denominator }).map((_, k) => {
                           const angle = (360 / p.denominator) * k;
                           const x = 50 + 48 * Math.cos((angle * Math.PI) / 180);
