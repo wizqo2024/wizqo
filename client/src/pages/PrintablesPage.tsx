@@ -15865,12 +15865,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               return { num, denom }
             })
 
-            const renderNumberLine = (num: number, denom: number, isAnswer: boolean = false) => {
+            const renderNumberLine = (num: number, denom: number, isAnswer: boolean = false, isDark: boolean = false) => {
               const width = 240
               const height = 80
               const padding = 20
               const lineY = 40
               const range = width - (2 * padding)
+              const labelColor = isDark ? "#ecfdf5" : "#0f172a" // Light vs Dark label
 
               return (
                 <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
@@ -15879,12 +15880,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                   {/* Terminals */}
                   <g>
-                    <line x1={padding} y1={lineY - 12} x2={padding} y2={lineY + 8} stroke="#1e293b" strokeWidth="3" />
-                    <text x={padding} y={lineY + 28} textAnchor="middle" fontSize="14" fontWeight="900" fill="#0f172a">0</text>
+                    <line x1={padding} y1={lineY - 12} x2={padding} y2={lineY + 8} stroke={isDark ? "#6ee7b7" : "#1e293b"} strokeWidth="3" />
+                    <text x={padding} y={lineY + 28} textAnchor="middle" fontSize="14" fontWeight="900" fill={labelColor}>0</text>
                   </g>
                   <g>
-                    <line x1={width - padding} y1={lineY - 12} x2={width - padding} y2={lineY + 8} stroke="#1e293b" strokeWidth="3" />
-                    <text x={width - padding} y={lineY + 28} textAnchor="middle" fontSize="14" fontWeight="900" fill="#0f172a">1</text>
+                    <line x1={width - padding} y1={lineY - 12} x2={width - padding} y2={lineY + 8} stroke={isDark ? "#6ee7b7" : "#1e293b"} strokeWidth="3" />
+                    <text x={width - padding} y={lineY + 28} textAnchor="middle" fontSize="14" fontWeight="900" fill={labelColor}>1</text>
                   </g>
 
                   {/* Intervals */}
@@ -15968,7 +15969,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   </div>
                   <div className="mt-4 bg-white/5 p-4 rounded-lg border border-white/10 flex justify-center print:bg-slate-50">
                     <div className="max-w-md w-full">
-                      {renderNumberLine(3, 4, true)}
+                      {renderNumberLine(3, 4, true, true)}
                     </div>
                   </div>
                 </div>
