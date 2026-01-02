@@ -15876,7 +15876,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               return (
                 <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
                   {/* Main Line */}
-                  <line x1={padding} y1={lineY} x2={width - padding} y2={lineY} stroke="#334155" strokeWidth="3" strokeLinecap="round" />
+                  <line x1={padding} y1={lineY} x2={width - padding} y2={lineY} stroke={isDark ? "#065f46" : "#334155"} strokeWidth="4" strokeLinecap="round" />
 
                   {/* Terminals */}
                   <g>
@@ -15892,7 +15892,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   {Array.from({ length: denom - 1 }).map((_, k) => {
                     const x = padding + ((k + 1) / denom) * range
                     return (
-                      <line key={k} x1={x} y1={lineY - 4} x2={x} y2={lineY + 2} stroke="#94a3b8" strokeWidth="1.5" />
+                      <line key={k} x1={x} y1={lineY - 4} x2={x} y2={lineY + 2} stroke={isDark ? "#34d399" : "#94a3b8"} strokeWidth="1.5" />
                     )
                   })}
 
@@ -15907,8 +15907,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                         key={`jump-${k}`}
                         d={`M ${startX} ${lineY} Q ${midX} ${lineY - arcH} ${endX} ${lineY}`}
                         fill="none"
-                        stroke="#16a34a"
-                        strokeWidth="2"
+                        stroke={isDark ? "#4ade80" : "#16a34a"}
+                        strokeWidth="3"
                         strokeDasharray={isAnswer ? "0" : "2,2"}
                         className={isAnswer ? "opacity-100" : "opacity-30"}
                       />
@@ -15920,8 +15920,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     const finalX = padding + (num / denom) * range
                     return (
                       <g>
-                        <circle cx={finalX} cy={lineY} r="5" fill="#16a34a" stroke="white" strokeWidth="2" />
-                        <text x={finalX} y={lineY - 20} textAnchor="middle" fontSize="8" fontWeight="bold" fill="#15803d">
+                        <circle cx={finalX} cy={lineY} r="5" fill="#22c55e" stroke="white" strokeWidth="2" />
+                        <text x={finalX} y={lineY - 20} textAnchor="middle" fontSize="10" fontWeight="900" fill={isDark ? "#ffffff" : "#15803d"}>
                           {num}/{denom}
                         </text>
                       </g>
