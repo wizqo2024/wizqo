@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeRng } from '../PrintablesPage'
+import { makeRng } from '@/utils/printableUtils'
 
 interface SymmetryProps {
     type: 'Draw Line' | 'Is Symmetrical?'
@@ -47,15 +47,36 @@ export const Symmetry: React.FC<SymmetryProps> = ({ type, seed, showAnswers }) =
                     {/* Right Wing */}
                     <path d="M 50 20 Q 90 0 90 40 Q 90 80 50 80" fill="#fbcfe8" stroke="#db2777" strokeWidth="2" />
                     {/* Head */}
-                    <circle cx="50" cy="15" r="5" fill="#831843" />
+                    <circle
+                        cx="50"
+                        cy="15"
+                        r="5"
+                        fill={type === 'Draw Line' ? '#fbcfe8' : '#831843'}
+                        stroke={type === 'Draw Line' ? '#db2777' : 'none'}
+                        strokeWidth={type === 'Draw Line' ? '1' : '0'}
+                    />
 
-                    {/* Body - Only show for "Is Symmetrical?" to avoid pre-drawn line look in drawing tasks */}
-                    {type !== 'Draw Line' && (
-                        <rect x="47" y="20" width="6" height="60" rx="3" fill="#831843" />
-                    )}
+                    {/* Body - Show lighter for "Draw Line" to avoid looking like a pre-drawn line */}
+                    <rect
+                        x="47"
+                        y="20"
+                        width="6"
+                        height="60"
+                        rx="3"
+                        fill={type === 'Draw Line' ? '#fbcfe8' : '#831843'}
+                        stroke={type === 'Draw Line' ? '#db2777' : 'none'}
+                        strokeWidth={type === 'Draw Line' ? '1' : '0'}
+                    />
 
                     {/* Tail */}
-                    <circle cx="50" cy="85" r="3" fill="#831843" />
+                    <circle
+                        cx="50"
+                        cy="85"
+                        r="3"
+                        fill={type === 'Draw Line' ? '#fbcfe8' : '#831843'}
+                        stroke={type === 'Draw Line' ? '#db2777' : 'none'}
+                        strokeWidth={type === 'Draw Line' ? '1' : '0'}
+                    />
                 </svg>
 
                 {type === 'Is Symmetrical?' && (
