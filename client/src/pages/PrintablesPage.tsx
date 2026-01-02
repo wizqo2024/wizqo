@@ -15867,9 +15867,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
             const renderNumberLine = (num: number, denom: number, isAnswer: boolean = false, isDark: boolean = false) => {
               const width = 240
-              const height = 80
+              const height = 100
               const padding = 20
-              const lineY = 40
+              const lineY = 50
               const range = width - (2 * padding)
               const labelColor = isDark ? "#ecfdf5" : "#0f172a" // Light vs Dark label
 
@@ -15881,11 +15881,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   {/* Terminals */}
                   <g>
                     <line x1={padding} y1={lineY - 12} x2={padding} y2={lineY + 8} stroke={isDark ? "#6ee7b7" : "#1e293b"} strokeWidth="3" />
-                    <text x={padding} y={lineY + 24} textAnchor="middle" fontSize="14" fontWeight="900" fill={labelColor}>0</text>
+                    <text x={padding} y={lineY + 32} textAnchor="middle" fontSize="16" fontWeight="900" fill={labelColor}>0</text>
                   </g>
                   <g>
                     <line x1={width - padding} y1={lineY - 12} x2={width - padding} y2={lineY + 8} stroke={isDark ? "#6ee7b7" : "#1e293b"} strokeWidth="3" />
-                    <text x={width - padding} y={lineY + 24} textAnchor="middle" fontSize="14" fontWeight="900" fill={labelColor}>1</text>
+                    <text x={width - padding} y={lineY + 32} textAnchor="middle" fontSize="16" fontWeight="900" fill={labelColor}>1</text>
                   </g>
 
                   {/* Intervals */}
@@ -15919,7 +15919,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   {isAnswer && (
                     <g>
                       <circle cx={padding + (num / denom) * range} cy={lineY} r="5" fill="#22c55e" stroke="white" strokeWidth="2" />
-                      <text x={padding + (num / denom) * range} y={lineY - 22} textAnchor="middle" fontSize="12" fontWeight="900" fill={isDark ? "#ffffff" : "#15803d"}>
+                      <text x={padding + (num / denom) * range} y={lineY - 25} textAnchor="middle" fontSize="14" fontWeight="900" fill={isDark ? "#ffffff" : "#15803d"}>
                         {num}/{denom}
                       </text>
                     </g>
