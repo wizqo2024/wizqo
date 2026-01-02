@@ -4127,7 +4127,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               getTrans,
               showAnswers,
               docTitle: doc,
-              language: i18n.language
+              language: language
             }}
           />
         )}
