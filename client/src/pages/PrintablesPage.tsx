@@ -15859,66 +15859,209 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const docId = 'fractions-number-line'
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const problems = Array.from({ length: 4 }, () => {
-              const denom = [3, 4, 6, 8][Math.floor(rng() * 4)]
+            const problems = Array.from({ length: 6 }, () => {
+              const denom = [2, 3, 4, 6, 8, 10][Math.floor(rng() * 6)]
               const num = Math.floor(rng() * (denom - 1)) + 1
               return { num, denom }
             })
 
+            const renderNumberLine = (num: number, denom: number, isAnswer: boolean = false) => {
+              const width = 240
+              const height = 40
+              const padding = 20
+              const lineY = height - 10
+              const range = width - (2 * padding)
+
+              return (
+                <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
+                  {/* Main Line */}
+                  <line x1={padding} y1={lineY} x2={width - padding} y2={lineY} stroke="#334155" strokeWidth="3" strokeLinecap="round" />
+
+                  {/* Terminals */}
+                  <g>
+                    <line x1={padding} y1={lineY - 8} x2={padding} y2={lineY + 4} stroke="#334155" strokeWidth="3" />
+                    <text x={padding} y={lineY + 16} textAnchor="middle" fontSize="10" fontWeight="bold">0</text>
+                  </g>
+                  <g>
+                    <line x1={width - padding} y1={lineY - 8} x2={width - padding} y2={lineY + 4} stroke="#334155" strokeWidth="3" />
+                    <text x={width - padding} y={lineY + 16} textAnchor="middle" fontSize="10" fontWeight="bold">1</text>
+                  </g>
+
+                  {/* Intervals */}
+                  {Array.from({ length: denom - 1 }).map((_, k) => {
+                    const x = padding + ((k + 1) / denom) * range
+                    return (
+                      <line key={k} x1={x} y1={lineY - 4} x2={x} y2={lineY + 2} stroke="#94a3b8" strokeWidth="1.5" />
+                    )
+                  })}
+
+                  {/* Jump Arcs */}
+                  {Array.from({ length: num }).map((_, k) => {
+                    const startX = padding + (k / denom) * range
+                    const endX = padding + ((k + 1) / denom) * range
+                    const midX = (startX + endX) / 2
+                    const arcH = 15
+                    return (
+                      <path
+                        key={`jump-${k}`}
+                        d={`M ${startX} ${lineY} Q ${midX} ${lineY - arcH} ${endX} ${lineY}`}
+                        fill="none"
+                        stroke="#16a34a"
+                        strokeWidth="2"
+                        strokeDasharray={isAnswer ? "0" : "2,2"}
+                        className={isAnswer ? "opacity-100" : "opacity-30"}
+                      />
+                    )
+                  })}
+
+                  {/* Frog Marker (Answer Only) */}
+                  {isAnswer && (() => {
+                    const finalX = padding + (num / denom) * range
+                    return (
+                      <g>
+                        <circle cx={finalX} cy={lineY} r="5" fill="#16a34a" stroke="white" strokeWidth="2" />
+                        <text x={finalX} y={lineY - 20} textAnchor="middle" fontSize="8" fontWeight="bold" fill="#15803d">
+                          {num}/{denom}
+                        </text>
+                      </g>
+                    )
+                  })()}
+                </svg>
+              )
+            }
+
             return (
               <WorksheetSectionWrapper
                 docId={docId}
-                title="Froggy Jumps: Number Line"
-                emoji={String.fromCodePoint(0x1F522)}
-                description="Help the frog jump to the correct spot on the number line! Mark the fraction."
+                title="Froggy Jumps: Fractions on a Number Line"
+                emoji={String.fromCodePoint(0x1F438)}
+                description="Help the frog find its home! Count the spaces and jump to the correct fraction."
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Represent fractions on a number line',
-                  'Understand fractions as distance from zero',
-                  'Count intervals on a number line'
+                  'Identify fractions on a 0-1 number line',
+                  'Understand that the denominator is the total number of equal parts',
+                  'Visualize fractions as distances from zero'
                 ]}
                 parentTeacherTips={[
-                  'Count the jumps from 0.',
-                  'The denominator tells how many jumps to reach 1.',
-                  'The numerator tells how many jumps to take.'
+                  'Remind students to count the spaces, not the tick marks.',
+                  'Each jump represents one unit fraction (e.g., 1/4).',
+                  'The final destination 1 is the same as denom/denom (e.g., 4/4).'
                 ]}
               >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-lime-400 to-green-600 animate-gradient-x mb-4" />
+                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-lime-400 to-emerald-600 animate-gradient-x mb-6" />
 
-                <div className="space-y-8">
+                {/* Worked Example */}
+                <div className="mb-8 bg-emerald-900 rounded-xl overflow-hidden shadow-lg border-2 border-emerald-800 print:border print:bg-white p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">{String.fromCodePoint(0x1F438)}</span>
+                    <span className="font-bold text-white uppercase tracking-wider text-sm print:text-black">Example: Jumping to 3/4</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-emerald-50 print:text-black">
+                    <div className="bg-white/10 p-3 rounded-lg border border-white/20 print:border-slate-300">
+                      <div className="text-xs uppercase opacity-70 mb-2">Step 1: Check the Denominator</div>
+                      <div className="text-sm">The bottom number is <b>4</b>, so we split the line into 4 equal spaces.</div>
+                    </div>
+                    <div className="bg-white/10 p-3 rounded-lg border border-white/20 print:border-slate-300">
+                      <div className="text-xs uppercase opacity-70 mb-2">Step 2: Jump!</div>
+                      <div className="text-sm">Jump <b>3</b> times from zero to find <b>3/4</b>.</div>
+                    </div>
+                  </div>
+                  <div className="mt-4 bg-white/5 p-4 rounded-lg border border-white/10 flex justify-center print:bg-slate-50">
+                    <div className="max-w-md w-full">
+                      {renderNumberLine(3, 4, true)}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Problems Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {problems.map((p, i) => (
-                    <div key={i} className="bg-white border-2 border-lime-200 rounded-xl p-6 relative">
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="text-3xl">{String.fromCodePoint(0x279C)}</span>
-                        <span className="font-bold text-slate-700">Jump to: <span className="text-lg bg-lime-100 px-2 py-1 rounded border border-lime-300">{p.num}/{p.denom}</span></span>
+                    <div key={i} className="bg-white border-2 border-slate-200 rounded-2xl p-6 relative shadow-sm hover:border-lime-400 transition-colors break-inside-avoid">
+                      <div className="absolute top-0 right-6 bg-lime-600 px-3 py-1 rounded-b-lg text-white font-mono text-xs font-bold uppercase tracking-widest print:bg-slate-800">
+                        Jump #{i + 1}
                       </div>
 
-                      <div className="relative h-12 mt-8 border-b-4 border-slate-700 w-full">
-                        {/* Ticks */}
-                        <div className="absolute left-0 bottom-[-16px] flex flex-col items-center">
-                          <div className="h-4 w-1 bg-slate-700"></div>
-                          <span className="font-bold mt-1">0</span>
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="p-2 bg-lime-100 rounded-lg text-2xl">🐸</div>
+                        <div>
+                          <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Target Fraction</div>
+                          <div className="text-xl font-black text-slate-800">{p.num}/{p.denom}</div>
                         </div>
-                        <div className="absolute right-0 bottom-[-16px] flex flex-col items-center">
-                          <div className="h-4 w-1 bg-slate-700"></div>
-                          <span className="font-bold mt-1">1</span>
-                        </div>
+                      </div>
 
-                        {/* Intervals */}
-                        {Array.from({ length: p.denom - 1 }).map((_, k) => (
-                          <div key={k}
-                            className="absolute bottom-0 w-px h-3 bg-slate-400"
-                            style={{ left: `${((k + 1) / p.denom) * 100}%` }}>
-                          </div>
-                        ))}
+                      <div className="mb-8">
+                        {renderNumberLine(p.num, p.denom, false)}
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-dashed border-slate-200">
+                        <div className="text-[10px] uppercase font-bold text-slate-400 mb-2">Instructions:</div>
+                        <p className="text-xs text-slate-600 italic">Draw {p.num} jumps and mark the spot with a dot!</p>
                       </div>
                     </div>
                   ))}
                 </div>
 
+                {/* Challenge Section */}
+                <div className="mt-10 p-6 bg-amber-50 border-2 border-dashed border-amber-300 rounded-2xl print:bg-white print:border-slate-300" style={{ pageBreakInside: 'avoid' }}>
+                  <div className="font-bold text-amber-900 mb-4 flex items-center gap-2">
+                    <span>{String.fromCodePoint(0x1F680)}</span>
+                    <span>Lily Pad Challenge</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-amber-900/80">
+                    <div className="bg-white/50 p-4 rounded-xl border border-amber-200">
+                      <div className="font-bold mb-1">1. Equivalent!</div>
+                      <p className="text-xs">If you jump to <b>4/8</b>, is that the same as <b>1/2</b>? Why?</p>
+                    </div>
+                    <div className="bg-white/50 p-4 rounded-xl border border-amber-200">
+                      <div className="font-bold mb-1">2. All the way!</div>
+                      <p className="text-xs">How many jumps do you need to reach <b>1</b> if the denominator is <b>6</b>?</p>
+                    </div>
+                    <div className="bg-white/50 p-4 rounded-xl border border-amber-200">
+                      <div className="font-bold mb-1">3. Empty!</div>
+                      <p className="text-xs">What fraction represents the frog staying at the very start?</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Self-Assessment */}
+                <div className="mt-6 p-6 border-2 border-slate-200 rounded-2xl print:mt-0" style={{ pageBreakInside: 'avoid' }}>
+                  <div className="font-black text-slate-800 mb-4 uppercase tracking-tighter text-sm flex items-center gap-2">
+                    <span className="p-1 bg-slate-100 rounded">📋</span>
+                    Assessment Checklist
+                  </div>
+                  <div className="space-y-3">
+                    {[
+                      'I can identify the denominator as the number of equal parts.',
+                      'I can count the spaces correctly from zero.',
+                      'I can mark the correct fraction with a dot.'
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3 text-xs text-slate-600">
+                        <div className="w-5 h-5 border-2 border-slate-300 rounded flex-shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {showAnswersForDoc(docId, () => (
-                  <div className="mt-4 p-2 bg-lime-50 rounded text-lime-900 border border-lime-200 text-sm text-center">
-                    Count {problems.map(p => p.num).join(', ')} jumps for each line.
+                  <div className="mt-8 p-6 border-4 border-double border-lime-800 bg-lime-50 rounded-2xl print:page-break-before-always print:bg-white">
+                    <div className="text-center font-black text-lime-900 mb-8 text-xl uppercase tracking-widest border-b-2 border-lime-200 pb-2">
+                      Froggy Map: Answer Key
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {problems.map((p, i) => (
+                        <div key={i} className="bg-white p-4 rounded-xl border border-lime-200 shadow-sm">
+                          <div className="flex justify-between items-center mb-4">
+                            <span className="font-bold text-lime-800 text-sm italic underline">Plot #{i + 1}</span>
+                            <span className="bg-lime-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">{p.num}/{p.denom}</span>
+                          </div>
+                          {renderNumberLine(p.num, p.denom, true)}
+                          <div className="mt-3 text-[10px] text-lime-700 font-medium">
+                            Frog jumps <b>{p.num}</b> times out of <b>{p.denom}</b> total equal segments.
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
