@@ -1522,3 +1522,558 @@ export function Time5Min({ showAnswersForDoc, seed, variant }: SpecificWorksheet
         </WorksheetSectionWrapper>
     )
 }
+
+// ==========================================
+// Compare 2-Digit Numbers
+// ==========================================
+export function Compare2Digit({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'compare-2digit'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const pairs: Array<[number, number]> = Array.from({ length: 10 }).map(() => {
+        const a = nextInt(10, 99); const b = nextInt(10, 99); return [a, b];
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Compare 2-Digit Numbers"
+            emoji={String.fromCodePoint(0x2696)}
+            description="Write one comparison symbol in each blank: > (greater than), < (less than), or = (equal to). Tip: Compare tens first. If tens are equal, compare ones."
+            problemCount={pairs.length}
+        >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-sky-400 animate-gradient-x mb-2" />
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>Problem:</strong> Compare 58 and 41</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>Step 1:</strong> Compare tens: 5 tens vs 4 tens</div>
+                        <div><strong>Step 2:</strong> 5 &gt; 4, so 58 &gt; 41</div>
+                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> 58 &gt; 41</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 text-xl font-mono break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {pairs.map(([a, b], i) => (
+                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between break-inside-avoid">
+                        <span>{a}</span>
+                        <span className="mx-2 inline-block w-16 h-10 border-b-[3px] border-slate-600 align-middle" aria-label="comparison symbol box" />
+                        <span>{b}</span>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="space-y-2">
+                        {pairs.map(([a, b], i) => {
+                            const symbol = a > b ? '>' : a < b ? '<' : '=';
+                            return (
+                                <div key={i} className="text-sm text-emerald-800">
+                                    {i + 1}. {a} <strong>{symbol}</strong> {b}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Even or Odd to 100
+// ==========================================
+export function EvenOdd100({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'even-odd-100'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const nums = Array.from({ length: 20 }).map(() => Math.floor(rng() * 100));
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Even or Odd? (to 100)"
+            emoji={String.fromCodePoint(0x1F4D1)}
+            description="Circle whether each number is even or odd."
+            problemCount={nums.length}
+        >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-rose-400 animate-gradient-x mb-2" />
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>Problem:</strong> Is 24 even or odd?</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>Step 1:</strong> Look at the ones digit: 4</div>
+                        <div><strong>Step 2:</strong> 4 is in the even list (0, 2, 4, 6, 8)</div>
+                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 is even</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 text-xl font-mono break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                {nums.map((n, i) => (
+                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between break-inside-avoid">
+                        <span>{n}</span>
+                        <span className="mx-2 text-base text-slate-400">Even / Odd</span>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="space-y-2">
+                        {nums.map((n, i) => (
+                            <div key={i} className="text-sm text-emerald-800">
+                                {i + 1}. {n} is <strong>{n % 2 === 0 ? 'Even' : 'Odd'}</strong>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Add 2-Digit with Regrouping
+// ==========================================
+export function Add2DigitRegrouping({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'add-2digit-regrouping'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+    function genPairsWithRegrouping(count: number) {
+        const out: Array<[number, number]> = [];
+        let guard = 0;
+        while (out.length < count && guard < 10000) {
+            const a = nextInt(15, 99);
+            const b = nextInt(6, 99);
+            if (a + b <= 100 && ((a % 10) + (b % 10)) >= 10) {
+                out.push([a, b]);
+            }
+            guard++;
+        }
+        return out;
+    }
+    const pairs = genPairsWithRegrouping(10);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="2-Digit Addition (WITH Regrouping)"
+            emoji={String.fromCodePoint(0x2795)}
+            description="Add the two numbers. You will need to regroup (carry) when the ones add up to 10 or more."
+        >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-3">
+                {pairs.map(([a, b], i) => (
+                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                        <div className="font-mono text-2xl leading-7 text-right">
+                            <div>{a}</div>
+                            <div>+ {b}</div>
+                            <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="font-semibold mb-1">Answer key</div>
+                    <ul className="list-disc list-inside space-y-0.5">
+                        {pairs.map(([a, b], i) => (<li key={i}>{a} + {b} = {a + b}</li>))}
+                    </ul>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Sub 2-Digit with Regrouping
+// ==========================================
+export function Sub2DigitRegrouping({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'sub-2digit-regrouping'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+    function genPairsWithRegrouping(count: number) {
+        const out: Array<[number, number]> = [];
+        let guard = 0;
+        while (out.length < count && guard < 10000) {
+            const a = nextInt(20, 99);
+            const b = nextInt(1, a - 1);
+            if ((a % 10) < (b % 10)) {
+                out.push([a, b]);
+            }
+            guard++;
+        }
+        return out;
+    }
+    const pairs = genPairsWithRegrouping(10);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="2-Digit Subtraction (WITH Regrouping)"
+            emoji={String.fromCharCode(0x2796)}
+            description="Subtract the two numbers. You will need to regroup (borrow) when the ones digit is smaller."
+        >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
+            <div className="grid grid-cols-2 gap-3">
+                {pairs.map(([a, b], i) => (
+                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
+                        <div className="font-mono text-2xl leading-7 text-right">
+                            <div>{a}</div>
+                            <div>{String.fromCharCode(0x2212)} {b}</div>
+                            <div className="border-t-[3px] border-slate-600 mt-2 pt-2 h-12 flex items-center"><span className="inline-block w-20 h-10 border-b-[3px] border-slate-600" /></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="font-semibold mb-1">Answer key</div>
+                    <ul className="list-disc list-inside space-y-0.5">
+                        {pairs.map(([a, b], i) => (<li key={i}>{a} {String.fromCharCode(0x2212)} {b} = {a - b}</li>))}
+                    </ul>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Fractions: Halves, Thirds, Fourths
+// ==========================================
+export function FractionsHalvesThirdsFourths({ showAnswersForDoc, seed, variant, activeDocs, showAnswers }: SpecificWorksheetProps & { activeDocs: string[], showAnswers: boolean }) {
+    const { t } = useTranslation()
+    const docId = 'fractions-halves-thirds-fourths'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+
+    const allFractions = [
+        { label: '1/2', parts: 2, filled: 1 },
+        { label: '1/3', parts: 3, filled: 1 },
+        { label: '2/3', parts: 3, filled: 2 },
+        { label: '1/4', parts: 4, filled: 1 },
+        { label: '2/4', parts: 4, filled: 2 },
+        { label: '3/4', parts: 4, filled: 3 },
+    ];
+    const problems = allFractions
+        .map(item => ({ item, sort: rng() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ item }) => item);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Fractions: Halves, Thirds, Fourths"
+            emoji={String.fromCharCode(0xD83C, 0xDF70)}
+            description="Color the fraction shown in each shape. Then write the fraction name in the blank space provided."
+            problemCount={6}
+        >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 animate-gradient-x mb-2" />
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>Fraction:</strong> 1/2 (one half)</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>Step 1:</strong> Look at the fraction: 1/2 means 1 out of 2 equal parts</div>
+                        <div><strong>Step 2:</strong> The shape is divided into 2 equal parts (halves)</div>
+                        <div><strong>Step 3:</strong> Color 1 of the 2 parts</div>
+                        <div><strong>Step 4:</strong> Write "one half" in the blank</div>
+                    </div>
+                </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                {problems.map((frac, idx) => (
+                    <div key={idx} className="border border-slate-300 rounded p-4 bg-white">
+                        <svg viewBox="0 0 200 200" className="w-full h-auto mb-2">
+                            {frac.parts === 2 ? (
+                                <>
+                                    <rect x="20" y="20" width="80" height="160" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                    <rect x="100" y="20" width="80" height="160" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                </>
+                            ) : frac.parts === 3 ? (
+                                <>
+                                    <rect x="20" y="20" width="53.33" height="160" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                    <rect x="73.33" y="20" width="53.33" height="160" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                    <rect x="126.66" y="20" width="53.34" height="160" fill={frac.filled >= 3 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                </>
+                            ) : (
+                                <>
+                                    <rect x="20" y="20" width="80" height="80" fill={frac.filled >= 1 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                    <rect x="100" y="20" width="80" height="80" fill={frac.filled >= 2 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                    <rect x="20" y="100" width="80" height="80" fill={frac.filled >= 3 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                    <rect x="100" y="100" width="80" height="80" fill={frac.filled >= 4 ? '#3b82f6' : '#e5e7eb'} stroke="#111827" strokeWidth="3" />
+                                </>
+                            )}
+                        </svg>
+                        <p className="text-center text-slate-700 font-semibold">{frac.label}</p>
+                        <p className="text-center text-slate-600 text-sm mt-1">
+                            Write: "{showAnswers && activeDocs.includes('fractions-halves-thirds-fourths') ? (
+                                <span className="text-emerald-700 font-semibold">
+                                    {frac.label === '1/2' ? 'one half' :
+                                        frac.label === '1/3' ? 'one third' :
+                                            frac.label === '2/3' ? 'two thirds' :
+                                                frac.label === '1/4' ? 'one fourth' :
+                                                    frac.label === '2/4' ? 'two fourths' :
+                                                        'three fourths'}
+                                </span>
+                            ) : '____'}"
+                        </p>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(t, 'common.answerKey', String.fromCharCode(0x2705) + ' Answer Key')}</div>
+                    <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
+                        <li><strong>1/2 = one half</strong></li>
+                        <li><strong>1/3 = one third</strong></li>
+                        <li><strong>2/3 = two thirds</strong></li>
+                        <li><strong>1/4 = one fourth</strong></li>
+                        <li><strong>2/4 = two fourths</strong></li>
+                        <li><strong>3/4 = three fourths</strong></li>
+                    </ul>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Skip Counting by 5s and 10s
+// ==========================================
+export function SkipCounting5To120({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'skip-counting-by-5s-and-10s-to-120'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const seq5 = Array.from({ length: 24 }, (_, i) => (i + 1) * 5); // 5..120
+    const seq10 = Array.from({ length: 12 }, (_, i) => (i + 1) * 10); // 10..120
+    const isBlank5 = (i: number) => i % 3 === 1;
+    const isBlank10 = (i: number) => i % 3 === 2;
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Skip Counting by 5s and 10s (to 120)"
+            emoji={String.fromCodePoint(0x1F430)}
+            description="Fill in the missing numbers."
+            problemCount={seq5.filter((_, i) => isBlank5(i)).length + seq10.filter((_, i) => isBlank10(i)).length}
+        >
+            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-fuchsia-400 to-amber-400 animate-gradient-x mb-2" />
+            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
+                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="space-y-2 text-sm">
+                    <div className="font-semibold text-base"><strong>Count by 5s:</strong> 5, 10, ___, 20, 25</div>
+                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
+                        <div><strong>Step 1:</strong> Look at the pattern: 5, 10, ___, 20, 25</div>
+                        <div><strong>Step 2:</strong> Each number is 5 more than the previous: 5 + 5 = 10, 10 + 5 = 15</div>
+                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15</div>
+                    </div>
+                </div>
+            </div>
+            <div className="space-y-6 text-sm break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+                <div>
+                    <div className="font-semibold text-slate-800 mb-2">Count by 5s to 120</div>
+                    <div className="grid grid-cols-12 gap-1">
+                        {seq5.map((n, i) => (
+                            <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white break-inside-avoid">
+                                {isBlank5(i) ? <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 align-middle" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div>
+                    <div className="font-semibold text-slate-800 mb-2">Count by 10s to 120</div>
+                    <div className="grid grid-cols-12 gap-1">
+                        {seq10.map((n, i) => (
+                            <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white break-inside-avoid">
+                                {isBlank10(i) ? <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 align-middle" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="space-y-3">
+                        <div className="text-sm text-emerald-800">
+                            <strong>Count by 5s to 120:</strong> The missing numbers are: {seq5.filter((_, i) => isBlank5(i)).map((n, idx) => `${idx + 1}. ${n}`).join(', ')}
+                        </div>
+                        <div className="text-sm text-emerald-800">
+                            <strong>Count by 10s to 120:</strong> The missing numbers are: {seq10.filter((_, i) => isBlank10(i)).map((n, idx) => `${idx + 1}. ${n}`).join(', ')}
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Missing Numbers (1-50 Train)
+// ==========================================
+export function MissingNumbers50({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'missing-numbers-50'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+
+    // Train Configurations
+    const trainConfigs = [
+        { id: 1, start: 1, length: 10, color: 'emerald' },
+        { id: 2, start: 11, length: 10, color: 'blue' },
+        { id: 3, start: 21, length: 10, color: 'purple' },
+        { id: 4, start: 31, length: 10, color: 'orange' },
+        { id: 5, start: 41, length: 10, color: 'rose' },
+    ]
+
+    const problems = trainConfigs.map(conf => {
+        const carriages = Array.from({ length: conf.length }, (_, i) => {
+            const num = conf.start + i
+            // Hide roughly 40-50% of numbers, but keep first and last sometimes for anchors?
+            // Let's make it random but ensure reasonably doable.
+            const isHidden = rng() > 0.5
+            return { num, isHidden }
+        })
+        return { ...conf, carriages }
+    })
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Number Train: 1 to 50')}
+            emoji="🔢"
+            description={t(`worksheets.${docId}.description`, 'All aboard! Fill in the missing numbers on the train carriages.')}
+            problemCount={5}
+            learningObjectives={[
+                'Identify missing numbers in sequences up to 50',
+                'Count forward from different starting points',
+                'Write two-digit numbers legibly',
+                'Recognize number patterns (tens and ones)'
+            ]}
+            parentTeacherTips={[
+                'Have your child read the full sequence out loud after filling in the blanks.',
+                'Point out patterns: "Look, all the numbers in this column end with 5!"',
+                'Use objects (like blocks) to build the train if they need concrete help.'
+            ]}
+        >
+            {/* Decorative Track Header */}
+            <div className="print:hidden w-full h-4 border-b-4 border-slate-400 border-dashed mb-6 relative">
+                <div className="absolute top-0 right-0 -mt-8 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>✂️</div>
+            </div>
+
+            <div className="space-y-6 break-inside-avoid">
+                {problems.map((train, idx) => (
+                    <div key={idx} className="w-full overflow-hidden p-2">
+                        {/* Ensure no wrapping and allow scrolling/shrinking if needed, but for print we want it to fit */}
+                        <div className="flex items-end gap-0.5 flex-nowrap">
+                            {/* Engine SVG */}
+                            <div className="shrink-0 w-24 h-20 mb-1 relative flex flex-col items-center justify-end">
+                                <svg viewBox="0 0 100 80" className={`w-full h-full text-${train.color}-600 fill-current drop-shadow-sm`}>
+                                    {/* Classic Steam Engine Profile */}
+                                    {/* Cabin */}
+                                    <path d="M55,30 L90,30 L90,65 L55,65 Z" />
+                                    {/* Roof */}
+                                    <path d="M52,30 L93,30 Q95,25 93,25 L52,25 Q50,25 52,30 Z" fillOpacity="0.8" />
+                                    {/* Boiler */}
+                                    <rect x="20" y="35" width="40" height="30" rx="2" />
+                                    {/* Funnel */}
+                                    <path d="M25,35 L25,20 L15,10 L35,10 L25,20 L25,35 Z" />
+                                    {/* Cow Catcher / Front */}
+                                    <path d="M20,65 L10,65 L5,55 L20,55 Z" />
+                                    {/* Window */}
+                                    <rect x="62" y="36" width="20" height="15" fill="white" fillOpacity="0.8" rx="1" />
+
+                                    {/* Wheels - Big Rear */}
+                                    <circle cx="75" cy="70" r="9" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="75" cy="70" r="3" fill="#94a3b8" />
+
+                                    {/* Wheels - Small Fronts */}
+                                    <circle cx="30" cy="70" r="7" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="30" cy="70" r="2" fill="#94a3b8" />
+                                    <circle cx="48" cy="70" r="7" fill="#334155" stroke="currentColor" strokeWidth="2" />
+                                    <circle cx="48" cy="70" r="2" fill="#94a3b8" />
+
+                                    {/* Smoke */}
+                                    <circle cx="25" cy="0" r="4" className="text-slate-300 animate-ping" style={{ transformOrigin: 'center', animationDuration: '2s' }} />
+                                    <circle cx="35" cy="-8" r="6" className="text-slate-200 animate-pulse" />
+                                </svg>
+                                <div className="absolute -top-1 left-0 w-full text-center">
+                                    <span className={`inline-block px-2 py-0.5 text-[10px] uppercase tracking-wider font-bold text-white bg-${train.color}-500 rounded-full shadow-sm`}>
+                                        Engine {train.start}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Carriages */}
+                            <div className="flex items-end flex-nowrap pl-1">
+                                {train.carriages.map((c, i) => (
+                                    <div key={i} className="flex items-end shrink-0">
+                                        {/* Coupler - adjusted margin/width */}
+                                        {i >= 0 && <div className={`w-1.5 h-1.5 rounded-full bg-slate-400 mb-5 relative z-0 -mr-0.5`}></div>}
+
+                                        {/* Carriage Box - adjusted size slightly to fit 10 */}
+                                        <div className={`w-10 h-12 md:w-11 md:h-14 border-2 border-${train.color}-400 bg-${train.color}-50 rounded-lg relative z-10 flex flex-col items-center justify-between pb-1 shadow-sm`}>
+                                            {/* Roof line */}
+                                            <div className={`w-full h-1.5 bg-${train.color}-200 border-b border-${train.color}-300 rounded-t-lg`}></div>
+
+                                            {/* Number Content */}
+                                            <div className="flex-1 flex items-center justify-center w-full">
+                                                {c.isHidden ? (
+                                                    <div className={`w-6 h-6 md:w-7 md:h-7 rounded bg-white border border-${train.color}-200 shadow-inner flex items-center justify-center`}>
+                                                    </div>
+                                                ) : (
+                                                    <span className={`text-lg md:text-xl font-bold text-${train.color}-900`}>{c.num}</span>
+                                                )}
+                                            </div>
+
+                                            {/* Wheels */}
+                                            <div className="w-full flex justify-around px-1 translate-y-2">
+                                                <div className="w-2.5 h-2.5 rounded-full bg-slate-700 border-2 border-slate-500 shadow-sm"></div>
+                                                <div className="w-2.5 h-2.5 rounded-full bg-slate-700 border-2 border-slate-500 shadow-sm"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="space-y-4">
+                        {problems.map((train, idx) => (
+                            <div key={idx} className="flex gap-2 items-center text-sm">
+                                <span className="font-bold w-16">Train {idx + 1}:</span>
+                                <div className="flex gap-1 font-mono">
+                                    {train.carriages.map(c => (
+                                        <span key={c.num} className={c.isHidden ? 'text-emerald-700 font-bold underline bg-emerald-100 px-1 rounded' : 'text-slate-400'}>
+                                            {c.num}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
