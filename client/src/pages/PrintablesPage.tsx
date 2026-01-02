@@ -16399,12 +16399,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const types = [
-              { type: 'Line', draw: (id: string) => <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="4" markerEnd={`url(#valhead-${id})`} markerStart={`url(#valstart-${id})`} /> },
-              { type: 'Ray', draw: (id: string) => <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="4" markerEnd={`url(#valhead-${id})`} /> }, // Start is dot
-              { type: 'Line Segment', draw: (id: string) => <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="4" strokeLinecap="round" /> }, // Dots at ends visually handled by linecap or explicit circles
-              { type: 'Right Angle', draw: (id: string) => <path d="M 25 25 L 25 75 L 75 75" fill="none" stroke="#3b82f6" strokeWidth="4" /> },
-              { type: 'Acute Angle', draw: (id: string) => <path d="M 65 25 L 25 75 L 75 75" fill="none" stroke="#3b82f6" strokeWidth="4" /> },
-              { type: 'Obtuse Angle', draw: (id: string) => <path d="M 15 50 L 50 75 L 85 50" fill="none" stroke="#3b82f6" strokeWidth="4" /> }
+              { type: 'Line', draw: (id: string) => <line x1="15" y1="50" x2="85" y2="50" stroke="#3b82f6" strokeWidth="4" markerEnd={`url(#valhead-${id})`} markerStart={`url(#valstart-${id})`} /> },
+              { type: 'Ray', draw: (id: string) => <line x1="15" y1="50" x2="85" y2="50" stroke="#3b82f6" strokeWidth="4" markerEnd={`url(#valhead-${id})`} /> }, // Start is dot
+              { type: 'Line Segment', draw: (id: string) => <line x1="15" y1="50" x2="85" y2="50" stroke="#3b82f6" strokeWidth="4" strokeLinecap="round" /> }, // Dots at ends visually handled by linecap or explicit circles
+              { type: 'Right Angle', draw: (id: string) => <path d="M 15 15 L 15 85 L 85 85" fill="none" stroke="#3b82f6" strokeWidth="4" /> },
+              { type: 'Acute Angle', draw: (id: string) => <path d="M 75 15 L 15 85 L 85 85" fill="none" stroke="#3b82f6" strokeWidth="4" /> },
+              { type: 'Obtuse Angle', draw: (id: string) => <path d="M 10 40 L 50 85 L 90 40" fill="none" stroke="#3b82f6" strokeWidth="4" /> }
             ]
 
             const problems = Array.from({ length: 6 }, () => {
@@ -16438,7 +16438,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {problems.map((p, i) => (
                     <div key={i} className="flex flex-col items-center p-4 border border-slate-200 rounded-lg bg-slate-50">
-                      <svg viewBox="0 0 100 100" className="w-32 h-32 mb-2">
+                      <svg viewBox="0 0 100 100" className="w-48 h-48 mb-2">
                         <defs>
                           <marker id={`valhead-${i}`} markerWidth="6" markerHeight="4" refX="0" refY="2" orient="auto" markerUnits="userSpaceOnUse" viewBox="0 0 6 4">
                             <polygon points="0 0, 6 2, 0 4" fill="#3b82f6" />
@@ -16450,11 +16450,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                         {p.draw(i.toString())}
                         {/* Visual dots for segments/rays */}
                         {p.type.includes('Segment') && <>
-                          <circle cx="30" cy="50" r="3" fill="#3b82f6" />
-                          <circle cx="70" cy="50" r="3" fill="#3b82f6" />
+                          <circle cx="15" cy="50" r="3" fill="#3b82f6" />
+                          <circle cx="85" cy="50" r="3" fill="#3b82f6" />
                         </>}
-                        {p.type === 'Ray' && <circle cx="30" cy="50" r="3" fill="#3b82f6" />}
-                        {p.type === 'Right Angle' && <polyline points="25,65 35,65 35,75" fill="none" stroke="#3b82f6" strokeWidth="1" />}
+                        {p.type === 'Ray' && <circle cx="15" cy="50" r="3" fill="#3b82f6" />}
+                        {p.type === 'Right Angle' && <polyline points="15,70 30,70 30,85" fill="none" stroke="#3b82f6" strokeWidth="1" />}
                       </svg>
                       <div className="w-full text-center">
                         <div className="w-full h-8 border-b-2 border-dashed border-slate-300 bg-white"></div>
