@@ -15559,9 +15559,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const docId = 'div-by-10-100'
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
-            const problems = Array.from({ length: 8 }, () => {
+            const problems = Array.from({ length: 12 }, () => {
               const isHundred = rng() > 0.5
-              const quotient = Math.floor(rng() * 9) + 1
+              const quotient = Math.floor(rng() * 89) + 11 // 11 to 99 for better practice
               const divisor = isHundred ? 100 : 10
               const dividend = quotient * divisor
               return { dividend, divisor, quotient }
@@ -15571,44 +15571,181 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               <WorksheetSectionWrapper
                 docId={docId}
                 title="Shrink Ray: Zero Zap"
-                emoji={String.fromCodePoint(0x2797)}
-                description="Zap the zeros! Divide by 10 or 100 by removing the matching zeros."
+                emoji={String.fromCodePoint(0x1F52B)}
+                description="Zap the zeros! Divide by 10 or 100 by removing the matching zeros from the dividend."
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Divide multiples of 10 and 100',
-                  'Recognize place value patterns in division',
-                  'Mental math fluency'
+                  'Divide multiples of 10 and 100 fluently',
+                  'Identify the relationship between zeros and powers of 10',
+                  'Perform mental division with place value recognition'
                 ]}
                 parentTeacherTips={[
-                  'Dividing by 10 is like taking away one zero.',
-                  'Dividing by 100 is like taking away two zeros.',
-                  'Think: 50 groups of 10 is 500!'
+                  'Dividing by 10 is like zapping one zero from the end of a number.',
+                  'Dividing by 100 is like zapping two zeros from the end.',
+                  'Example: 500 ÷ 100. Zap two zeros from 500 to get 5!'
                 ]}
               >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 animate-gradient-x mb-4" />
+                <div className="print:hidden h-1.5 w-full rounded-full bg-gradient-to-r from-indigo-600 via-cyan-400 to-red-500 animate-gradient-x mb-6" />
 
-                <div className="w-full flex justify-center mb-6">
-                  <div className="relative">
-                    <div className="text-6xl transform -rotate-12">{String.fromCodePoint(0x279C)}</div>
-                    <div className="absolute top-1/2 left-full w-24 h-1 bg-red-500 animate-pulse origin-left transform -translate-y-1/2"></div>
-                    <div className="absolute top-1/2 left-[120px] text-xs font-bold text-red-500 animate-ping">ZAP!</div>
+                {/* Master Example Card */}
+                <div className="mb-8 p-6 bg-slate-900 rounded-2xl border-4 border-indigo-500 shadow-xl print:border-2 print:bg-white overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full -mr-16 -mt-16 blur-2xl" />
+
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-indigo-500 rounded-lg text-white shadow-lg animate-pulse">
+                      {String.fromCodePoint(0x1F52B)}
+                    </div>
+                    <div>
+                      <h3 className="text-white font-black text-lg print:text-indigo-900 uppercase tracking-tighter">Zero-Zap Masterclass</h3>
+                      <p className="text-indigo-300 text-xs print:text-indigo-600 font-medium">How to use your mental shrink ray</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                    <div className="bg-slate-800/50 p-4 rounded-xl border border-indigo-500/30 print:bg-slate-50 print:border-slate-200">
+                      <div className="text-indigo-400 text-[10px] font-black uppercase mb-2">Technique #1: The ÷10 ZAP</div>
+                      <div className="flex items-center gap-4">
+                        <div className="text-3xl font-mono text-white print:text-slate-800 flex items-center">
+                          45<span className="relative">0<div className="absolute inset-0 bg-red-500 h-1 w-full top-1/2 -rotate-45" /></span>
+                        </div>
+                        <div className="text-indigo-500 font-black text-xl">÷ 10 =</div>
+                        <div className="text-3xl font-mono text-cyan-400 print:text-cyan-700">45</div>
+                      </div>
+                      <p className="text-indigo-100/60 text-[10px] mt-3 italic print:text-slate-500">Remove one zero when dividing by ten.</p>
+                    </div>
+
+                    <div className="bg-slate-800/50 p-4 rounded-xl border border-indigo-500/30 print:bg-slate-50 print:border-slate-200">
+                      <div className="text-rose-400 text-[10px] font-black uppercase mb-2">Technique #2: The ÷100 ZAP</div>
+                      <div className="flex items-center gap-4">
+                        <div className="text-3xl font-mono text-white print:text-slate-800 flex items-center">
+                          8<span className="relative">0<div className="absolute inset-0 bg-red-500 h-1 w-full top-1/2 -rotate-45" /></span><span className="relative">0<div className="absolute inset-0 bg-red-500 h-1 w-full top-1/2 -rotate-45" /></span>
+                        </div>
+                        <div className="text-rose-500 font-black text-xl">÷ 100 =</div>
+                        <div className="text-3xl font-mono text-cyan-400 print:text-cyan-700">8</div>
+                      </div>
+                      <p className="text-rose-100/60 text-[10px] mt-3 italic print:text-slate-500">Remove two zeros when dividing by a hundred.</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Problem Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {problems.map((p, i) => (
-                    <div key={i} className="flex items-center justify-between bg-white border border-slate-200 rounded-lg p-3 shadow-sm">
-                      <div className="text-xl font-mono text-slate-800 tracking-wider">
-                        {p.dividend}  {p.divisor}
+                    <div key={i} className="group relative bg-white border-2 border-slate-200 rounded-2xl p-5 hover:border-indigo-400 transition-all shadow-sm flex flex-col items-center">
+                      <div className="absolute -top-3 left-4 bg-slate-800 text-white px-2 py-0.5 rounded text-[10px] font-mono print:bg-slate-100 print:text-slate-500">
+                        ZAP #{String(i + 1).padStart(2, '0')}
                       </div>
-                      <div className="w-16 h-10 border-2 border-indigo-300 rounded bg-indigo-50 flex items-center justify-center font-black text-indigo-900 text-xl"></div>
+
+                      <div className="w-full flex justify-between items-center mb-4">
+                        <div className="text-[10px] font-black text-indigo-500 tracking-widest uppercase bg-indigo-50 px-2 py-0.5 rounded">÷{p.divisor}</div>
+                        <div className="text-slate-300 group-hover:text-indigo-200 transition-colors">
+                          {String.fromCodePoint(0x1F504)}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 w-full justify-center py-2 px-1 bg-slate-50 rounded-xl mb-4 border border-slate-100">
+                        <div className="text-2xl font-mono font-bold text-slate-800 tracking-tighter">{p.dividend}</div>
+                        <div className="text-xl font-black text-indigo-400">÷</div>
+                        <div className="text-xl font-mono font-bold text-slate-500">{p.divisor}</div>
+                      </div>
+
+                      <div className="w-full h-12 border-2 border-indigo-200 rounded-xl bg-white flex items-center justify-center relative overflow-hidden">
+                        <div className="absolute inset-y-0 left-0 w-1 bg-indigo-500" />
+                        <div className="w-full text-center text-2xl font-black text-indigo-900 font-mono tracking-widest bg-transparent">?</div>
+                      </div>
                     </div>
                   ))}
                 </div>
 
+                {/* Lightning Challenge */}
+                <div className="mt-12 p-6 bg-gradient-to-br from-indigo-900 to-indigo-800 rounded-3xl border-4 border-indigo-400 shadow-2xl relative overflow-hidden print:bg-white print:border-slate-300 print:shadow-none">
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -mr-24 -mt-24 rotate-45" />
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="text-3xl animate-bounce">⚡</div>
+                      <div>
+                        <h4 className="text-white print:text-indigo-900 font-black text-xl uppercase italic tracking-tighter leading-none">Lightning Super-Zap</h4>
+                        <p className="text-indigo-300 print:text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">Mental Speed Challenge</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {[
+                        { div: 45000, by: 1000 },
+                        { div: 120000, by: 100 },
+                        { div: 700, by: 10 }
+                      ].map((c, idx) => (
+                        <div key={idx} className="bg-indigo-950/40 p-5 rounded-2xl border border-white/10 flex flex-col items-center gap-3 print:bg-slate-50 print:border-slate-200">
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-2xl font-mono font-bold text-white print:text-slate-800">{c.div}</span>
+                            <span className="text-sm font-black text-indigo-400">÷</span>
+                            <span className="text-lg font-mono font-bold text-indigo-300 print:text-slate-500">{c.by}</span>
+                          </div>
+                          <div className="w-full h-10 border-2 border-dashed border-indigo-400/50 rounded-xl bg-white/5 print:bg-white flex items-center justify-center font-black text-white text-xl"></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Performance Log */}
+                <div className="mt-8 p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center text-xl shadow-sm">📊</div>
+                    <div>
+                      <h5 className="font-black text-slate-800 uppercase text-sm tracking-tight">Accuracy Report</h5>
+                      <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Self-Assessment Checklist</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[
+                      "I can divide by 10 by removing one zero.",
+                      "I can divide by 100 by removing two zeros.",
+                      "I double-checked my work for silly mistakes.",
+                      "I stayed focused during the Lightning Challenge!"
+                    ].map((check, idx) => (
+                      <div key={idx} className="flex items-center gap-3 p-3 bg-white border border-slate-100 rounded-xl">
+                        <div className="w-5 h-5 border-2 border-indigo-200 rounded-md bg-indigo-50/30 flex-shrink-0" />
+                        <span className="text-xs font-medium text-slate-600 leading-tight">{check}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {showAnswersForDoc(docId, () => (
-                  <div className="mt-4 text-center text-sm font-bold text-indigo-800">
-                    Answers: {problems.map(p => p.quotient).join(', ')}
+                  <div className="mt-12 p-8 border-4 border-double border-indigo-900 bg-indigo-50 rounded-3xl print:page-break-before-always print:bg-white print:border-slate-400">
+                    <div className="text-center mb-8">
+                      <div className="inline-block px-4 py-1 bg-indigo-900 text-white text-xs font-black uppercase tracking-[0.2em] rounded-full mb-2">Internal Clearance</div>
+                      <h4 className="text-2xl font-black text-indigo-950 uppercase italic tracking-tighter">ZAP Log: Decrypted Keys</h4>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="flex flex-col items-center bg-white p-3 rounded-xl border border-indigo-200 shadow-sm">
+                          <span className="text-[10px] font-bold text-indigo-400 mb-1 tracking-widest uppercase">ZAP #{i + 1}</span>
+                          <span className="text-xl font-mono font-black text-indigo-900">{p.quotient}</span>
+                          <span className="text-[8px] text-slate-400 mt-1">({p.dividend} ÷ {p.divisor})</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-dashed border-indigo-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                      <div className="flex gap-4">
+                        <div className="flex flex-col items-center">
+                          <span className="text-[10px] uppercase font-black text-rose-500">Lightning #1</span>
+                          <span className="text-xl font-mono font-black text-indigo-900">45</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <span className="text-[10px] uppercase font-black text-rose-500">Lightning #2</span>
+                          <span className="text-xl font-mono font-black text-indigo-900">1200</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <span className="text-[10px] uppercase font-black text-rose-500">Lightning #3</span>
+                          <span className="text-xl font-mono font-black text-indigo-900">70</span>
+                        </div>
+                      </div>
+                      <div className="text-[10px] font-bold text-indigo-300 italic">Total Problems Decrypted: {problems.length + 3}</div>
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
