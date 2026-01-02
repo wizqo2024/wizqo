@@ -15876,23 +15876,25 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               return (
                 <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
                   {/* Main Line */}
-                  <line x1={padding} y1={lineY} x2={width - padding} y2={lineY} stroke={isDark ? "#2d7a5f" : "#334155"} strokeWidth="4" strokeLinecap="round" />
+                  <line x1={padding} y1={lineY} x2={width - padding} y2={lineY} stroke={isDark ? "#065f46" : "#475569"} strokeWidth="2" />
 
                   {/* Terminals */}
                   <g>
                     <line x1={padding} y1={lineY - 12} x2={padding} y2={lineY + 8} stroke={isDark ? "#6ee7b7" : "#1e293b"} strokeWidth="3" />
-                    <text x={padding} y={lineY + 32} textAnchor="middle" fontSize="16" fontWeight="900" fill={labelColor}>0</text>
+                    <text x={padding} y={lineY + 30} textAnchor="middle" fontSize="16" fontWeight="900" fill={labelColor}>0</text>
                   </g>
                   <g>
                     <line x1={width - padding} y1={lineY - 12} x2={width - padding} y2={lineY + 8} stroke={isDark ? "#6ee7b7" : "#1e293b"} strokeWidth="3" />
-                    <text x={width - padding} y={lineY + 32} textAnchor="middle" fontSize="16" fontWeight="900" fill={labelColor}>1</text>
+                    <text x={width - padding} y={lineY + 30} textAnchor="middle" fontSize="16" fontWeight="900" fill={labelColor}>1</text>
                   </g>
 
                   {/* Intervals */}
                   {Array.from({ length: denom - 1 }).map((_, k) => {
                     const x = padding + ((k + 1) / denom) * range
                     return (
-                      <line key={k} x1={x} y1={lineY - 4} x2={x} y2={lineY + 2} stroke={isDark ? "#34d399" : "#94a3b8"} strokeWidth="1.5" />
+                      <g key={k}>
+                        <line x1={x} y1={lineY - 8} x2={x} y2={lineY + 8} stroke={isDark ? "#10b981" : "#94a3b8"} strokeWidth="1.5" />
+                      </g>
                     )
                   })}
 
