@@ -15867,24 +15867,24 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
             const renderNumberLine = (num: number, denom: number, isAnswer: boolean = false) => {
               const width = 240
-              const height = 60
+              const height = 80
               const padding = 20
-              const lineY = 30
+              const lineY = 40
               const range = width - (2 * padding)
 
               return (
-                <svg viewBox={`0 0 ${width} 60`} className="w-full h-auto">
+                <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-auto overflow-visible">
                   {/* Main Line */}
                   <line x1={padding} y1={lineY} x2={width - padding} y2={lineY} stroke="#334155" strokeWidth="3" strokeLinecap="round" />
 
                   {/* Terminals */}
                   <g>
-                    <line x1={padding} y1={lineY - 10} x2={padding} y2={lineY + 6} stroke="#1e293b" strokeWidth="3" />
-                    <text x={padding} y={lineY + 22} textAnchor="middle" fontSize="12" fontWeight="800" fill="#1e293b">0</text>
+                    <line x1={padding} y1={lineY - 12} x2={padding} y2={lineY + 8} stroke="#1e293b" strokeWidth="3" />
+                    <text x={padding} y={lineY + 28} textAnchor="middle" fontSize="14" fontWeight="900" fill="#0f172a">0</text>
                   </g>
                   <g>
-                    <line x1={width - padding} y1={lineY - 10} x2={width - padding} y2={lineY + 6} stroke="#1e293b" strokeWidth="3" />
-                    <text x={width - padding} y={lineY + 22} textAnchor="middle" fontSize="12" fontWeight="800" fill="#1e293b">1</text>
+                    <line x1={width - padding} y1={lineY - 12} x2={width - padding} y2={lineY + 8} stroke="#1e293b" strokeWidth="3" />
+                    <text x={width - padding} y={lineY + 28} textAnchor="middle" fontSize="14" fontWeight="900" fill="#0f172a">1</text>
                   </g>
 
                   {/* Intervals */}
@@ -15900,7 +15900,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     const startX = padding + (k / denom) * range
                     const endX = padding + ((k + 1) / denom) * range
                     const midX = (startX + endX) / 2
-                    const arcH = 15
+                    const arcH = 20
                     return (
                       <path
                         key={`jump-${k}`}
