@@ -28199,14 +28199,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
                 {/* Worked Example */}
                 <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)} Worked Example</div>
                   <div className="space-y-2 text-sm">
                     <div className="font-semibold text-base"><strong>Problem:</strong> Rectangle with length = 5, width = 3</div>
                     <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div><strong>Step 1:</strong> Add length + width: 5 + 3 = 8</div>
+                      <div><strong>Step 2:</strong> Multiply by 2: 8 × 2 = 16</div>
                       <div className="font-semibold text-blue-900"><strong>Answer:</strong> 16 units</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                      <div className="text-xs text-blue-700 mt-1">Tip: Perimeter is the total distance around!</div>
                     </div>
                   </div>
                 </div>
@@ -28223,7 +28223,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 </div>
                 {/* Extension/Challenge Problems */}
                 <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)} Rocket Challenge</div>
                   <div className="space-y-2 text-sm text-purple-800">
                     <div>1. Find the perimeter of a square with side length 6</div>
                     <div>2. A rectangle has perimeter 20. If length is 7, what is the width?</div>
@@ -28232,7 +28232,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 </div>
                 {/* Self-Assessment */}
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)} Self-Assessment</div>
                   <div className="space-y-2 text-xs">
                     <div>{String.fromCharCode(0x2610)} I can find the perimeter of rectangles</div>
                     <div>{String.fromCharCode(0x2610)} I understand what perimeter means</div>
@@ -28253,8 +28253,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                         <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
                           <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
                           <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCodePoint(0x279C)}</div>
-                            <div>{String.fromCodePoint(0x279C)}</div>
+                            <div><strong>Step 1:</strong> {p.length} + {p.width} = {p.length + p.width}</div>
+                            <div><strong>Step 2:</strong> {p.length + p.width} × 2 = {p.perimeter}</div>
                             <div className="font-semibold">Answer: {p.perimeter} units</div>
                           </div>
                         </div>
