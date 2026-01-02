@@ -16399,12 +16399,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
 
             const types = [
-              { type: 'Line', draw: (id: string) => <line x1="10" y1="50" x2="90" y2="50" stroke="#3b82f6" strokeWidth="4" markerEnd={`url(#valhead-${id})`} markerStart={`url(#valstart-${id})`} /> },
-              { type: 'Ray', draw: (id: string) => <line x1="10" y1="50" x2="90" y2="50" stroke="#3b82f6" strokeWidth="4" markerEnd={`url(#valhead-${id})`} /> }, // Start is dot
-              { type: 'Line Segment', draw: (id: string) => <line x1="20" y1="50" x2="80" y2="50" stroke="#3b82f6" strokeWidth="4" strokeLinecap="round" /> }, // Dots at ends visually handled by linecap or explicit circles
-              { type: 'Right Angle', draw: (id: string) => <path d="M 90 10 L 10 90 L 90 90" fill="none" stroke="#3b82f6" strokeWidth="4" /> },
-              { type: 'Acute Angle', draw: (id: string) => <path d="M 60 10 L 10 90 L 90 90" fill="none" stroke="#3b82f6" strokeWidth="4" /> },
-              { type: 'Obtuse Angle', draw: (id: string) => <path d="M 10 30 L 50 90 L 90 30" fill="none" stroke="#3b82f6" strokeWidth="4" /> }
+              { type: 'Line', draw: (id: string) => <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="4" markerEnd={`url(#valhead-${id})`} markerStart={`url(#valstart-${id})`} /> },
+              { type: 'Ray', draw: (id: string) => <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="4" markerEnd={`url(#valhead-${id})`} /> }, // Start is dot
+              { type: 'Line Segment', draw: (id: string) => <line x1="30" y1="50" x2="70" y2="50" stroke="#3b82f6" strokeWidth="4" strokeLinecap="round" /> }, // Dots at ends visually handled by linecap or explicit circles
+              { type: 'Right Angle', draw: (id: string) => <path d="M 25 25 L 25 75 L 75 75" fill="none" stroke="#3b82f6" strokeWidth="4" /> },
+              { type: 'Acute Angle', draw: (id: string) => <path d="M 65 25 L 25 75 L 75 75" fill="none" stroke="#3b82f6" strokeWidth="4" /> },
+              { type: 'Obtuse Angle', draw: (id: string) => <path d="M 15 50 L 50 75 L 85 50" fill="none" stroke="#3b82f6" strokeWidth="4" /> }
             ]
 
             const problems = Array.from({ length: 6 }, () => {
@@ -16426,11 +16426,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 {/* Define markers for lines/rays locally if possible, or assume simple visual fallback */}
                 <svg className="h-0 w-0 absolute">
                   <defs>
-                    <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6" />
+                    <marker id="valhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+                      <polygon points="0 0, 6 2, 0 4" fill="#334155" />
                     </marker>
-                    <marker id="arrowstart-blue" markerWidth="10" markerHeight="7" refX="1" refY="3.5" orient="auto-start-reverse">
-                      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6" />
+                    <marker id="valstart" markerWidth="6" markerHeight="4" refX="0" refY="2" orient="auto-start-reverse">
+                      <polygon points="0 0, 6 2, 0 4" fill="#334155" />
                     </marker>
                   </defs>
                 </svg>
@@ -16440,21 +16440,21 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <div key={i} className="flex flex-col items-center p-4 border border-slate-200 rounded-lg bg-slate-50">
                       <svg viewBox="0 0 100 100" className="w-32 h-32 mb-2">
                         <defs>
-                          <marker id={`valhead-${i}`} markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                          <marker id={`valhead-${i}`} markerWidth="6" markerHeight="4" refX="0" refY="2" orient="auto" markerUnits="userSpaceOnUse" viewBox="0 0 6 4">
                             <polygon points="0 0, 6 2, 0 4" fill="#3b82f6" />
                           </marker>
-                          <marker id={`valstart-${i}`} markerWidth="6" markerHeight="4" refX="1" refY="2" orient="auto-start-reverse">
+                          <marker id={`valstart-${i}`} markerWidth="6" markerHeight="4" refX="0" refY="2" orient="auto-start-reverse" markerUnits="userSpaceOnUse" viewBox="0 0 6 4">
                             <polygon points="0 0, 6 2, 0 4" fill="#3b82f6" />
                           </marker>
                         </defs>
                         {p.draw(i.toString())}
                         {/* Visual dots for segments/rays */}
                         {p.type.includes('Segment') && <>
-                          <circle cx="20" cy="50" r="3" fill="#3b82f6" />
-                          <circle cx="80" cy="50" r="3" fill="#3b82f6" />
+                          <circle cx="30" cy="50" r="3" fill="#3b82f6" />
+                          <circle cx="70" cy="50" r="3" fill="#3b82f6" />
                         </>}
-                        {p.type === 'Ray' && <circle cx="10" cy="50" r="3" fill="#3b82f6" />}
-                        {p.type === 'Right Angle' && <polyline points="20,80 20,90 30,90" fill="none" stroke="#3b82f6" strokeWidth="1" />}
+                        {p.type === 'Ray' && <circle cx="30" cy="50" r="3" fill="#3b82f6" />}
+                        {p.type === 'Right Angle' && <polyline points="25,65 35,65 35,75" fill="none" stroke="#3b82f6" strokeWidth="1" />}
                       </svg>
                       <div className="w-full text-center">
                         <div className="w-full h-8 border-b-2 border-dashed border-slate-300 bg-white"></div>
