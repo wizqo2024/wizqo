@@ -46,18 +46,16 @@ export const Symmetry: React.FC<SymmetryProps> = ({ type, seed, showAnswers }) =
                     <path d="M 50 20 Q 10 0 10 40 Q 10 80 50 80" fill="#fbcfe8" stroke="#db2777" strokeWidth="2" />
                     {/* Right Wing */}
                     <path d="M 50 20 Q 90 0 90 40 Q 90 80 50 80" fill="#fbcfe8" stroke="#db2777" strokeWidth="2" />
-                    {/* Body */}
-                    {/* Body - lighter for "Draw Line" to avoid looking like a pre-drawn answer */}
-                    <rect
-                        x="47"
-                        y="20"
-                        width="6"
-                        height="60"
-                        rx="3"
-                        fill={type === 'Draw Line' ? '#fbcfe8' : '#831843'}
-                        stroke={type === 'Draw Line' ? '#db2777' : 'none'}
-                        strokeWidth={type === 'Draw Line' ? '1' : '0'}
-                    />
+                    {/* Head */}
+                    <circle cx="50" cy="15" r="5" fill="#831843" />
+
+                    {/* Body - Only show for "Is Symmetrical?" to avoid pre-drawn line look in drawing tasks */}
+                    {type !== 'Draw Line' && (
+                        <rect x="47" y="20" width="6" height="60" rx="3" fill="#831843" />
+                    )}
+
+                    {/* Tail */}
+                    <circle cx="50" cy="85" r="3" fill="#831843" />
                 </svg>
 
                 {type === 'Is Symmetrical?' && (

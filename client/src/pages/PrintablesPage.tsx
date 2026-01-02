@@ -41,6 +41,7 @@ import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
 import { LogicWorksheets } from './LogicWorksheets';
 import { GeographyWorksheets } from './GeographyWorksheets'
+import { Symmetry } from './printables/Symmetry'
 import { ScienceWorksheets } from './printables/ScienceWorksheets'
 import {
   trackWorksheetDownload,
