@@ -17659,48 +17659,15 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('equivalent-fractions-4th') && (() => {
-            const docId = 'equivalent-fractions-4th'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const problems = Array.from({ length: 8 }, () => {
-              const d1 = [2, 3, 4, 5, 8, 10][Math.floor(rng() * 6)]
-              const n1 = Math.floor(rng() * (d1 - 1)) + 1
-              const factor = Math.floor(rng() * 3) + 2 // 2, 3, 4
-              return { n1, d1, n2: n1 * factor, d2: d1 * factor }
-            })
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title="Equivalent Fractions: Magic Mirrors"
-                emoji={String.fromCodePoint(0x1F370)}
-                description="Find the missing number to make the fractions equivalent."
-                problemCount={problems.length}
-                learningObjectives={[String.fromCodePoint(0x279C), 'Use visual fraction models to show equivalence']}
-                parentTeacherTips={['Whatever you do to the top (numerator), you must do to the bottom (denominator).', 'Multiplying by 2/2 or 3/3 is the same as multiplying by 1!']}
-              >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="flex items-center text-xl font-medium">
-                      <div className="flex flex-col items-center">
-                        <span className="border-b-2 border-slate-800 px-2">{p.n1}</span>
-                        <span className="px-2">{p.d1}</span>
-                      </div>
-                      <span className="mx-2">=</span>
-                      <div className="flex flex-col items-center">
-                        <span className="border-b-2 border-slate-800 px-2 w-8 h-8 bg-slate-100 rounded"></span>
-                        <span className="px-2">{p.d2}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc(docId, () => (
-                  <div className="grid grid-cols-4 gap-2 mt-4 p-2 bg-slate-50 text-xs text-center">
-                    {problems.map((p, i) => <div key={i}>{p.n2}/{p.d2} (Missing: {p.n2})</div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
+          activeDocs.includes('equivalent-fractions-4th') && (
+            <EquivFractions4th
+              docId="equivalent-fractions-4th"
+              activeDocs={activeDocs}
+              showAnswersForDoc={showAnswersForDoc}
+              seed={effectiveSeed}
+              variant={variant}
+            />
+          )
         }
 
         {
@@ -19327,220 +19294,27 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('comparing-fractions-4th') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems = Array.from({ length: 8 }, () => {
-              const denom1 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
-              const num1 = nextInt(1, denom1 - 1);
-              const denom2 = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
-              const num2 = nextInt(1, denom2 - 1);
-              const val1 = num1 / denom1;
-              const val2 = num2 / denom2;
-              return { frac1: `${num1}/${denom1}`, frac2: `${num2}/${denom2}`, val1, val2 };
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="comparing-fractions-4th"
-                title="Comparing Fractions"
-                emoji={String.fromCodePoint(0x1F370)}
-                description="Compare each pair of fractions using >, <, or =."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Compare fractions with different denominators',
-                  'Use common denominators to compare',
-                  'Convert fractions to decimals to compare',
-                  'Understand fraction relationships'
-                ]}
-                parentTeacherTips={[
-                  'Find common denominator to compare',
-                  'Or convert to decimals: divide numerator by denominator',
-                  'Visual models can help: draw fraction bars',
-                  'Larger denominator with same numerator = smaller fraction',
-                  'Extension: Order three or more fractions'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> 1/2 ____ 1/3</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 2:</strong> Convert: 1/2 = 3/6, 1/3 = 2/6</div>
-                      <div><strong>Step 3:</strong> Compare: 3/6 &gt; 2/6</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> &gt;</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-bold mb-2">
-                        {p.frac1} ____ {p.frac2}
-                      </div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Compare: 2/3 ____ 3/4</div>
-                    <div>2. Order from least to greatest: 1/4, 1/2, 1/3</div>
-                    <div>3. Explain how to compare fractions with different denominators</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can compare fractions with different denominators</div>
-                    <div>{String.fromCharCode(0x2610)} I can find common denominators</div>
-                    <div>{String.fromCharCode(0x2610)} I can convert fractions to decimals to compare</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('comparing-fractions-4th', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      {problems.map((p, i) => {
-                        const symbol = p.val1 > p.val2 ? '&gt;' : p.val1 < p.val2 ? '&lt;' : '=';
-                        const symbolText = p.val1 > p.val2 ? '>' : p.val1 < p.val2 ? '<' : '=';
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{i + 1}. {p.frac1} ____ {p.frac2}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>Step 1: Convert to decimals: {p.frac1} = {p.val1.toFixed(2)}, {p.frac2} = {p.val2.toFixed(2)}</div>
-                              <div>Step 2: Compare: {p.val1.toFixed(2)} {symbolText} {p.val2.toFixed(2)}</div>
-                              <div className="font-semibold">Answer: {symbolText}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('comparing-fractions-4th') && (
+            <ComparingFractions4th
+              docId="comparing-fractions-4th"
+              activeDocs={activeDocs}
+              showAnswersForDoc={showAnswersForDoc}
+              seed={effectiveSeed}
+              variant={variant}
+            />
+          )
         }
 
         {
-          activeDocs.includes('add-sub-fractions-4th') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems = Array.from({ length: 6 }, () => {
-              const denom = [2, 3, 4, 5, 6, 8][nextInt(0, 5)];
-              const num1 = nextInt(1, denom - 1);
-              const num2 = nextInt(1, denom - 1);
-              const op = nextInt(0, 1) === 0 ? '+' : '-';
-              return { num1, num2, denom, op };
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="add-sub-fractions-4th"
-                title="Adding & Subtracting Fractions"
-                emoji={String.fromCodePoint(0x2795)}
-                description="Add or subtract each pair of fractions with like denominators."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Add fractions with like denominators',
-                  'Subtract fractions with like denominators',
-                  'Keep the denominator the same',
-                  'Simplify fractions when possible'
-                ]}
-                parentTeacherTips={[
-                  'When denominators are the same, add or subtract numerators only',
-                  'Denominator stays the same',
-                  'Simplify the answer if possible',
-                  'For subtraction, make sure numerator is not negative',
-                  'Extension: Add and subtract fractions with unlike denominators'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> 2/5 + 1/5 = ____</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Denominators are the same (5), so keep it</div>
-                      <div><strong>Step 2:</strong> Add numerators: 2 + 1 = 3</div>
-                      <div><strong>Step 3:</strong> Write answer: 3/5</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/5</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center text-xl font-mono mb-2">
-                        {p.num1}/{p.denom} {p.op} {p.num2}/{p.denom} = ____
-                      </div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Solve: 5/8 + 2/8 = ____</div>
-                    <div>2. Solve: 7/9 - 3/9 = ____</div>
-                    <div>3. Create your own fraction addition and subtraction problems</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can add fractions with like denominators</div>
-                    <div>{String.fromCharCode(0x2610)} I can subtract fractions with like denominators</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('add-sub-fractions-4th', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      {problems.map((p, i) => {
-                        const result = p.op === '+' ? p.num1 + p.num2 : p.num1 - p.num2;
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{i + 1}. {p.num1}/{p.denom} {p.op} {p.num2}/{p.denom}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>Step 1: Denominators are the same ({p.denom}), keep it</div>
-                              <div>Step 2: {p.op === '+' ? 'Add' : 'Subtract'} numerators: {p.num1} {p.op} {p.num2} = {result}</div>
-                              <div className="font-semibold">Answer: {result}/{p.denom}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('add-sub-fractions-4th') && (
+            <AddSubFractions4th
+              docId="add-sub-fractions-4th"
+              activeDocs={activeDocs}
+              showAnswersForDoc={showAnswersForDoc}
+              seed={effectiveSeed}
+              variant={variant}
+            />
+          )
         }
 
         {
