@@ -18826,49 +18826,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
 
-        {
-          activeDocs.includes('area-perimeter-4th') && (() => {
-            const docId = 'area-perimeter-4th'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`)
-            const problems = Array.from({ length: 6 }, () => {
-              const w = Math.floor(rng() * 8) + 2
-              const l = Math.floor(rng() * 8) + w // Ensure L >= W
-              return { w, l, area: w * l, perim: 2 * (w + l) }
-            })
-            return (
-              <WorksheetSectionWrapper
-                docId={docId}
-                title="Area & Perimeter"
-                emoji={String.fromCodePoint(0x1F4CF)}
-                description="Find the area and perimeter of each rectangle."
-                problemCount={problems.length}
-                learningObjectives={['Apply the area and perimeter formulas for rectangles in real world and mathematical problems']}
-                parentTeacherTips={['Area = Length  Width', 'Perimeter = 2  (Length + Width)', 'Don\'t forget the units! (sq units for area)']}
-              >
-                <div className="grid grid-cols-2 gap-8">
-                  {problems.map((p, i) => (
-                    <div key={i} className="p-4 border rounded flex flex-col items-center">
-                      <div className="relative mb-4">
-                        <div className="border-2 border-black bg-slate-100" style={{ width: `${p.l * 10}px`, height: `${p.w * 10}px` }}></div>
-                        <span className="absolute -top-6 left-1/2 transform -translate-x-1/2">{p.l} cm</span>
-                        <span className="absolute top-1/2 -left-8 transform -translate-y-1/2">{p.w} cm</span>
-                      </div>
-                      <div className="w-full space-y-2 text-sm">
-                        <div className="flex justify-between"><span>Area:</span> <span className="border-b border-black w-16"></span></div>
-                        <div className="flex justify-between"><span>Perimeter:</span> <span className="border-b border-black w-16"></span></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {showAnswersForDoc(docId, () => (
-                  <div className="grid grid-cols-2 gap-4 mt-4 text-xs text-slate-500 text-center">
-                    {problems.map((p, i) => <div key={i}>A: {p.area}, P: {p.perim}</div>)}
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            )
-          })()
-        }
+
 
         {
           activeDocs.includes('converting-units') && (() => {
@@ -22399,104 +22357,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
-        {
-          activeDocs.includes('area-perimeter-4th') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems = Array.from({ length: 6 }, () => {
-              const length = nextInt(5, 15);
-              const width = nextInt(3, 10);
-              return { length, width, area: length * width, perimeter: 2 * (length + width) };
-            });
-            return (
-              <WorksheetSectionWrapper
-                docId="area-perimeter-4th"
-                title="Area & Perimeter"
-                emoji={String.fromCodePoint(0x25AD)}
-                description="Find the area and perimeter of each rectangle."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Calculate area of rectangles',
-                  'Calculate perimeter of rectangles',
-                  'Understand the difference between area and perimeter',
-                  'Apply formulas in problem-solving'
-                ]}
-                parentTeacherTips={[
-                  'Area = length  width (space inside)',
-                  'Perimeter = 2  (length + width) (distance around)',
-                  'Help students visualize: area = squares inside, perimeter = fence around',
-                  'Extension: Find area and perimeter of composite shapes'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Length: 7 units, Width: 4 units</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1 (Area):</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 2 (Perimeter):</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 28 sq units, Perimeter = 22 units</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="text-center mb-2 font-semibold">Length: {p.length} units, Width: {p.width} units</div>
-                      <div className="text-center text-sm text-slate-600 mb-2">Area: ____ Perimeter: ____</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-16 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Find the area and perimeter of a square with side length 9</div>
-                    <div>2. A rectangle has area 48. If length is 8, what is the width?</div>
-                    <div>3. Find the area and perimeter of your desk or table</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can find the area of rectangles</div>
-                    <div>{String.fromCharCode(0x2610)} I can find the perimeter of rectangles</div>
-                    <div>{String.fromCharCode(0x2610)} I understand the difference between area and perimeter</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('area-perimeter-4th', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      {problems.map((p, i) => (
-                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                          <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
-                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                            <div>{String.fromCodePoint(0x279C)}</div>
-                            <div>{String.fromCodePoint(0x279C)}</div>
-                            <div className="font-semibold">Answer: Area = {p.area} sq units, Perimeter = {p.perimeter} units</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
-        }
+
 
         {
           activeDocs.includes('area-triangles-parallelograms') && (() => {
@@ -22735,6 +22596,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('classifying-quadrilaterals') && (
             <ClassifyingQuadrilaterals docId="classifying-quadrilaterals" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('area-perimeter-4th') && (
+            <AreaPerimeter docId="area-perimeter-4th" showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
