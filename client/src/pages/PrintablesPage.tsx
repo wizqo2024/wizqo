@@ -13540,8 +13540,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.some(d => d === 'metric-units' || d === 'metric-conversion') && (() => {
-            const currentDoc = activeDocs.find(d => d === 'metric-units' || d === 'metric-conversion') || 'metric-units';
+          activeDocs.some((d: string) => d === 'metric-units' || d === 'metric-conversion') && (() => {
+            const currentDoc = activeDocs.find((d: string) => d === 'metric-units' || d === 'metric-conversion') || 'metric-units';
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${currentDoc}`);
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
             const problems = Array.from({ length: 6 }, () => {
@@ -13651,8 +13651,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.some(d => d === 'liquid-measurement' || d === 'liquid-measurement-4th') && (
-            <LiquidMeasurement docId={activeDocs.find(d => d === 'liquid-measurement' || d === 'liquid-measurement-4th')!} showAnswersForDoc={showAnswersForDoc} />
+          activeDocs.some((d: string) => d === 'liquid-measurement' || d === 'liquid-measurement-4th') && (
+            <LiquidMeasurement docId={activeDocs.find((d: string) => d === 'liquid-measurement' || d === 'liquid-measurement-4th')!} showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
@@ -13699,8 +13699,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.some(d => d === 'mass-weight' || d === 'mass-weight-4th') && (
-            <MassAndWeight docId={activeDocs.find(d => d === 'mass-weight' || d === 'mass-weight-4th')!} showAnswersForDoc={showAnswersForDoc} />
+          activeDocs.some((d: string) => d === 'mass-weight' || d === 'mass-weight-4th') && (
+            <MassAndWeight docId={activeDocs.find((d: string) => d === 'mass-weight' || d === 'mass-weight-4th')!} showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
@@ -13898,8 +13898,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('multi-step-word-problems') && (
-            <MultiStepWordProblems docId="multi-step-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          activeDocs.some((d: string) => d === 'multi-step-word-problems' || d === 'multi-step-word-4th') && (
+            <MultiStepWordProblems docId={activeDocs.find((d: string) => d === 'multi-step-word-problems' || d === 'multi-step-word-4th')!} showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
