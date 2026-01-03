@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 const { Component, Fragment, useEffect, useRef, useMemo, useState, useCallback, useReducer, isValidElement, memo } = React
 type ErrorInfo = React.ErrorInfo<any>
 type ReactNode = React.ReactNode
@@ -95,6 +95,34 @@ import {
   DividingBy10And100
 } from './printables/DivisionWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
+import {
+  PowersOf10,
+  RoundingDecimals,
+  EstimatingSumsDifferences,
+  EvaluatingExpressions,
+  SolvingOneStepEquations,
+  PatternsRules,
+  AddSubMixedNumbers,
+  MultiplyingFractions,
+  DividingFractions,
+  MultiplyingDecimals,
+  DividingDecimals,
+  FractionsDecimalsPercents,
+  ComparingOrderingFractionsDecimals,
+  AddingDecimalsChallenge,
+  VolumeRectangularPrisms,
+  AreaTrianglesParallelograms,
+  ClassifyingShapes5th,
+  CoordinateGraphing,
+  Nets3DShapes,
+  Transformations5th,
+  LineGraphs,
+  MeanMedianModeRange,
+  StemLeafPlots,
+  Probability5th,
+  FifthGradeWordProblems,
+  WritingExpressions
+} from './printables/FifthGradeWorksheets'
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -13721,6 +13749,40 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             <MeanMedianMode docId="mean-median-mode" showAnswersForDoc={showAnswersForDoc} />
           )
         }
+
+        {/* 5th Grade Worksheets */}
+        {activeDocs.includes('powers-of-10') && <PowersOf10 {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('rounding-decimals') && <RoundingDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('estimating-sums-differences') && <EstimatingSumsDifferences {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('evaluating-expressions') && <EvaluatingExpressions {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('writing-expressions') && <WritingExpressions {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('solving-one-step-equations') && <SolvingOneStepEquations {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('patterns-rules') && <PatternsRules {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('add-sub-mixed-numbers') && <AddSubMixedNumbers {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('multiplying-fractions') && <MultiplyingFractions {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('dividing-fractions') && <DividingFractions {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('multiplying-decimals') && <MultiplyingDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('dividing-decimals') && <DividingDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('fractions-decimals-percents') && <FractionsDecimalsPercents {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('comparing-ordering-fractions-decimals') && <ComparingOrderingFractionsDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('adding-decimals-challenge') && <AddingDecimalsChallenge {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('volume-rectangular-prisms') && <VolumeRectangularPrisms {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('area-triangles-parallelograms') && <AreaTrianglesParallelograms {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('classifying-shapes') && <ClassifyingShapes5th {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('coordinate-graphing') && <CoordinateGraphing {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('nets-3d-shapes') && <Nets3DShapes {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('transformations-5th') && <Transformations5th {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('line-graphs') && <LineGraphs {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('mean-median-mode-range') && <MeanMedianModeRange {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('stem-leaf-plots') && <StemLeafPlots {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('probability') && <Probability5th {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+
+        {/* 5th Grade Word Problems */}
+        {activeDocs.includes('multi-step-word-5th') && <FifthGradeWordProblems docId="multi-step-word-5th" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('fraction-word-problems-5th') && <FifthGradeWordProblems docId="fraction-word-problems-5th" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('decimal-word-problems-5th') && <FifthGradeWordProblems docId="decimal-word-problems-5th" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('ratio-proportion-word-problems') && <FifthGradeWordProblems docId="ratio-proportion-word-problems" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('percent-word-problems') && <FifthGradeWordProblems docId="percent-word-problems" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
 
         {
           activeDocs.includes('elapsed-time-4th') && (
