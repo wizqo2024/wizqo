@@ -54,6 +54,7 @@ import { LogicWorksheets } from './LogicWorksheets';
 import { GeographyWorksheets } from './GeographyWorksheets'
 import { Symmetry } from './printables/Symmetry'
 import { ScienceWorksheets } from './printables/ScienceWorksheets'
+import { LinePlots, BarGraphs, MeanMedianMode } from './printables/DataAnalysisWorksheets'
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -21263,7 +21264,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <StrategySpotlight
                   title="Grandmaster Strategy"
                   icon="🧠"
-                  items={[
+                  steps={[
                     { label: "Estimate", text: "Think: How many times does it fit?" },
                     { label: "Check", text: "Multiply back to see if you're close." },
                     { label: "Remainder", text: "Must be smaller than the divisor!" }
@@ -25180,194 +25181,23 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
-        {
-          activeDocs.includes('line-plots') && (() => {
-            const data = [3, 4, 4, 5, 5, 5, 6, 6, 7];
-            const mode = 5;
-            const range = 7 - 3;
-            return (
-              <WorksheetSectionWrapper
-                docId="line-plots"
-                title="Line Plots"
-                emoji={String.fromCodePoint(0x1F4C9)}
-                description="Create a line plot from the data and answer questions."
-                problemCount={1}
-                learningObjectives={[
-                  'Create line plots from data',
-                  'Find mode (most frequent value) from line plots',
-                  'Calculate range (difference between max and min)'
-                ]}
-                parentTeacherTips={[
-                  'Line plots show data on a number line with X marks',
-                  'Mode is the number that appears most often',
-                  'Range = largest value - smallest value',
-                  'Extension: Create line plots from your own data'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Data:</strong> 2, 3, 3, 4, 4, 4</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Create line plot with X marks above each number</div>
-                      <div><strong>Step 2 (Mode):</strong> Count X marks - 4 appears most (3 times)</div>
-                      <div><strong>Step 3 (Range):</strong> Largest = 4, Smallest = 2, Range = 4 - 2 = 2</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mode = 4, Range = 2</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  <div className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="mb-2 font-semibold">Data: {data.join(', ')}</div>
-                    <div className="text-sm text-slate-600 mb-2">Create line plot and find: Mode = ____, Range = ____</div>
-                    <div className="mt-2 text-xs text-slate-600">Draw your line plot here:</div>
-                    <div className="min-h-32 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                  </div>
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create a line plot for: 5, 6, 6, 7, 7, 7, 8</div>
-                    <div>2. Find mode and range for your own data</div>
-                    <div>3. Explain what a line plot shows</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can create a line plot</div>
-                    <div>{String.fromCharCode(0x2610)} I can find the mode</div>
-                    <div>{String.fromCharCode(0x2610)} I can calculate the range</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 1
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('line-plots', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">Data: {data.join(', ')}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Create line plot with X marks above each number</div>
-                          <div>Step 2 (Mode): Count X marks - 5 appears 3 times (most often)</div>
-                          <div>Step 3 (Range): Largest = 7, Smallest = 3, Range = 7 - 3 = 4</div>
-                          <div className="font-semibold">Answer: Mode = {mode}, Range = {range}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
-        }
 
         {
-          activeDocs.includes('bar-graphs-pictographs') && (() => {
-            const data = [
-              { item: 'Apples', count: 8 },
-              { item: 'Bananas', count: 6 },
-              { item: 'Oranges', count: 4 },
-              { item: 'Grapes', count: 10 },
-            ];
-            return (
-              <WorksheetSectionWrapper
-                docId="bar-graphs-pictographs"
-                title="Bar Graphs & Pictographs"
-                emoji={String.fromCodePoint(0x1F4CA)}
-                description="Create a bar graph from the data."
-                problemCount={1}
-                learningObjectives={[
-                  'Create bar graphs from data',
-                  'Understand how to represent data visually',
-                  'Read and interpret bar graphs'
-                ]}
-                parentTeacherTips={[
-                  'Bar graphs use bars to show quantities',
-                  'Each bar represents one category',
-                  'The height of the bar shows the value',
-                  'Extension: Create pictographs (using pictures instead of bars)'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Data:</strong> Red: 5, Blue: 3, Green: 7</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Draw a bar for each color</div>
-                      <div><strong>Step 2:</strong> Red bar = 5 units tall, Blue = 3 units, Green = 7 units</div>
-                      <div><strong>Step 3:</strong> Label each bar with its color</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Bar graph with 3 bars showing the values</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  <div className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                    <div className="mb-2 font-semibold">Fruit Sales</div>
-                    {data.map((d, i) => (
-                      <div key={i} className="text-sm mb-1">{d.item}: {d.count}</div>
-                    ))}
-                    <div className="text-sm text-slate-600 mt-2 mb-2">Create bar graph:</div>
-                    <div className="min-h-40 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                  </div>
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create a bar graph for: Dogs: 12, Cats: 8, Birds: 5</div>
-                    <div>2. Create a pictograph using pictures instead of bars</div>
-                    <div>3. Collect your own data and create a bar graph</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can create a bar graph</div>
-                    <div>{String.fromCharCode(0x2610)} I can read data from a bar graph</div>
-                    <div>{String.fromCharCode(0x2610)} I understand how bar graphs work</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / 1
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('bar-graphs-pictographs', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">Fruit Sales Bar Graph</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          {data.map((d, i) => (
-                            <div key={i}>{d.item}: Bar height = {d.count} units</div>
-                          ))}
-                          <div className="mt-2">The bar graph should show 4 bars with heights matching the counts above.</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('line-plots') && (
+            <LinePlots docId="line-plots" />
+          )
         }
+
+
+
+
+        {
+          activeDocs.includes('bar-graphs-pictographs') && (
+            <BarGraphs docId="bar-graphs-pictographs" />
+          )
+        }
+
+
 
         {
           activeDocs.includes('line-graphs') && (() => {
@@ -25523,109 +25353,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })()
         }
 
-        {
-          activeDocs.includes('mean-median-mode') && (() => {
-            const datasets = [
-              { data: [3, 5, 7, 9, 11], mean: 7, median: 7, mode: 'none' },
-              { data: [2, 4, 4, 6, 8], mean: 4.8, median: 4, mode: 4 },
-              { data: [1, 3, 5, 5, 7, 9], mean: 5, median: 5, mode: 5 },
-            ];
-            return (
-              <WorksheetSectionWrapper
-                docId="mean-median-mode"
-                title="Mean, Median, Mode"
-                emoji={String.fromCodePoint(0x1F4C8)}
-                description="Calculate mean, median, and mode for each dataset."
-                problemCount={datasets.length}
-                learningObjectives={[
-                  'Calculate the mean (average) of a dataset',
-                  'Find the median (middle value) of a dataset',
-                  'Identify the mode (most frequent value) of a dataset'
-                ]}
-                parentTeacherTips={[
-                  'Mean: Add all numbers, divide by count',
-                  'Median: Put numbers in order, find the middle',
-                  'Mode: The number that appears most often',
-                  'Extension: Find mean, median, mode for your own data'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Data:</strong> 2, 4, 4, 6</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Mean:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Median:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Mode:</strong> 4 appears most often (twice)</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Mean = 4, Median = 4, Mode = 4</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                  {datasets.map((d, i) => (
-                    <div key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2 font-semibold">Data: {d.data.join(', ')}</div>
-                      <div className="text-sm text-slate-600 mb-2">Mean: ____ Median: ____ Mode: ____</div>
-                      <div className="mt-2 text-xs text-slate-600">Show your work:</div>
-                      <div className="min-h-20 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </div>
-                  ))}
-                </div>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Find mean, median, mode for: 5, 7, 7, 9, 11</div>
-                    <div>2. Collect your own data (test scores, ages, etc.) and find mean, median, mode</div>
-                    <div>3. Explain when mean and median might be different</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can calculate the mean</div>
-                    <div>{String.fromCharCode(0x2610)} I can find the median</div>
-                    <div>{String.fromCharCode(0x2610)} I can identify the mode</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {datasets.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-                {showAnswersForDoc('mean-median-mode', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      {datasets.map((d, i) => {
-                        const sum = d.data.reduce((a, b) => a + b, 0);
-                        const sorted = [...d.data].sort((a, b) => a - b);
-                        const mid = Math.floor(sorted.length / 2);
-                        const median = sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
-                        return (
-                          <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                            <div className="font-semibold mb-2 text-sm">{i + 1}. Data: {d.data.join(', ')}</div>
-                            <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                              <div>{String.fromCodePoint(0x279C)}</div>
-                              <div>Median: Ordered: {sorted.join(', ')}. Middle = {median}</div>
-                              <div>Mode: {d.mode === 'none' ? 'No number appears more than once (no mode)' : `${d.mode} appears most often`}</div>
-                              <div className="font-semibold mt-1">Answer: Mean = {d.mean}, Median = {d.median}, Mode = {d.mode === 'none' ? 'none' : d.mode}</div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
-        }
+
 
         {
           activeDocs.includes('mean-median-mode-range') && (() => {
@@ -25732,6 +25460,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               </WorksheetSectionWrapper>
             );
           })()
+        }
+
+        {
+          activeDocs.includes('mean-median-mode') && (
+            <MeanMedianMode docId="mean-median-mode" />
+          )
         }
 
         {
@@ -30690,7 +30424,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         <footer className="text-center text-slate-500 text-xs print:hidden">
           {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
         </footer>
-      </div>
+      </div >
     </div >
   )
 }
