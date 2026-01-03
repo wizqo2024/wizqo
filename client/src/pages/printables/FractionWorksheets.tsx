@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 type ReactNode = React.ReactNode;
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
@@ -128,7 +128,7 @@ export function EquivFractions4th({ showAnswersForDoc, seed, variant }: Specific
                                 {renderFractionCircle(p.targetNum, p.targetDenom, 60, "#a855f7")}
                             </div>
                             <div className="font-bold text-2xl text-purple-900 flex flex-col items-center">
-                                <div className="w-10 h-10 border-2 border-dashed border-purple-400 rounded bg-purple-50 flex items-center justify-center text-purple-600">?</div>
+                                <div className="w-10 h-10 border-2 border-dashed border-purple-400 rounded bg-purple-50 flex items-center justify-center text-purple-600"></div>
                                 <span className="h-0.5 w-8 bg-purple-900 my-1 rounded-full"></span>
                                 <span>{p.targetDenom}</span>
                             </div>
@@ -408,7 +408,7 @@ export function MixedImproperFractions({ showAnswersForDoc, seed, variant }: Spe
                                     </div>
                                     <div className="text-orange-400">→</div>
                                     <div className="flex flex-col items-center leading-none">
-                                        <div className="w-10 h-10 border-b-2 border-orange-900 bg-white/50 rounded-t flex items-center justify-center">?</div>
+                                        <div className="w-10 h-10 border-b-2 border-orange-900 bg-white/50 rounded-t flex items-center justify-center"></div>
                                         <div className="w-10 h-10 bg-white/50 rounded-b flex items-center justify-center">{p.denom}</div>
                                     </div>
                                 </>
@@ -421,9 +421,9 @@ export function MixedImproperFractions({ showAnswersForDoc, seed, variant }: Spe
                                     </div>
                                     <div className="text-orange-400">→</div>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-10 h-12 border border-dashed border-orange-400 rounded bg-white flex items-center justify-center">?</div>
+                                        <div className="w-10 h-12 border border-dashed border-orange-400 rounded bg-white flex items-center justify-center"></div>
                                         <div className="flex flex-col items-center leading-none">
-                                            <div className="w-8 h-8 border-b border-orange-900 bg-white/50 flex items-center justify-center text-sm">?</div>
+                                            <div className="w-8 h-8 border-b border-orange-900 bg-white/50 flex items-center justify-center text-sm"></div>
                                             <div className="w-8 h-8 bg-white/50 flex items-center justify-center text-sm">{p.denom}</div>
                                         </div>
                                     </div>
