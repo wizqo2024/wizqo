@@ -58,8 +58,20 @@ export const LinePlots: FC<{ docId: string }> = ({ docId }) => {
             <PremiumWorksheetBanner
                 title="Line Plot Explorer"
                 subtitle="Graphing & Analysis"
-                theme="blue"
-                icon="📉"
+                icons={{
+                    bg1: "📉",
+                    bg2: "📊",
+                    float1: "📈",
+                    float2: "📍"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-cyan-50 to-blue-50",
+                    border: "border-cyan-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-cyan-300",
+                    pillText: "text-cyan-800",
+                    accent: "text-cyan-300"
+                }}
             />
 
             <StrategySpotlight
@@ -150,8 +162,20 @@ export const BarGraphs: FC<{ docId: string }> = ({ docId }) => {
             <PremiumWorksheetBanner
                 title="Graphing Guru"
                 subtitle="Data Visualization"
-                theme="purple"
-                icon="📊"
+                icons={{
+                    bg1: "📊",
+                    bg2: "📉",
+                    float1: "📏",
+                    float2: "📝"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-purple-50 to-indigo-50",
+                    border: "border-purple-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-purple-300",
+                    pillText: "text-purple-800",
+                    accent: "text-purple-300"
+                }}
             />
 
             <StrategySpotlight
@@ -203,7 +227,7 @@ export const BarGraphs: FC<{ docId: string }> = ({ docId }) => {
                         <div className="absolute bottom-0 -left-8 text-xs text-slate-500 font-mono">0</div>
                     </div>
 
-                    <div className="absolute bottom-4 left-0 w-full text-center text-slate-500 text-xs italic">Label Categories Here -></div>
+                    <div className="absolute bottom-4 left-0 w-full text-center text-slate-500 text-xs italic">Label Categories Here &rarr;</div>
                 </div>
             </div>
         </WorksheetSectionWrapper>
@@ -262,8 +286,20 @@ export const MeanMedianMode: FC<{ docId: string }> = ({ docId }) => {
             <PremiumWorksheetBanner
                 title="The 3 M's of Data"
                 subtitle="Statistical Analysis"
-                theme="emerald"
-                icon="📉"
+                icons={{
+                    bg1: "📉",
+                    bg2: "📊",
+                    float1: "🧠",
+                    float2: "🔢"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-emerald-50 to-teal-50",
+                    border: "border-emerald-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-emerald-300",
+                    pillText: "text-emerald-800",
+                    accent: "text-emerald-300"
+                }}
             />
 
             <StrategySpotlight

@@ -6,10 +6,16 @@ export function makeRng(seedStr: any) {
 
     let seed = 0
     for (let i = 0; i < str.length; i++) seed = (seed + str.charCodeAt(i)) >>> 0
-    return function rng() {
+
+    const rng = function () {
         seed = (seed * 1664525 + 1013904223) >>> 0
-        return seed / 4294967296 // Divisor 2^32 ensures result is [0, 1)
+        return seed / 4294967296
     }
+
+    return Object.assign(rng, {
+        int: (min: number, max: number) => Math.floor(rng() * (max - min)) + min,
+        pick: <T>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+    })
 }
 
 export function pick<T>(arr: T[], rng: any = Math.random) {
