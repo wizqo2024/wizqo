@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeRng } from '../utils/printableUtils';
-import { WorksheetSectionWrapper } from './PrintablesPage';
+import { WorksheetSectionWrapper } from './printables/PrintableShared';
 
 // Standard props expected by worksheet components
 interface MathMazeWorksheetsProps {

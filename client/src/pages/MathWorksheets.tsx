@@ -1,5 +1,5 @@
 import React from 'react';
-import { WorksheetSectionWrapper, getWorksheetTheme } from './PrintablesPage';
+import { WorksheetSectionWrapper, getWorksheetTheme } from './printables/PrintableShared';
 import { makeRng, shuffleArray } from '@/utils/printableUtils';
 import { ExpandedForm200, NumberPatterns200, RoundingNearest10, AddThreeNumbers, MissingAddends, FactFamilies20, MentalMath20, MoneyCoinsBills, MeasurementLength, BarGraphsData, Add2Digit100, PlaceValueHTO } from './printables/SecondGradeMath';
 

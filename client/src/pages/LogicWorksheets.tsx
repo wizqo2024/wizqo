@@ -1,5 +1,5 @@
 import React from 'react';
-import { WorksheetSectionWrapper } from './PrintablesPage';
+import { WorksheetSectionWrapper } from './printables/PrintableShared';
 import { makeRng } from '@/utils/printableUtils';
 
 function generateLogicPuzzle(seed: string) {
