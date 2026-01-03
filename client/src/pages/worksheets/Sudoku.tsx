@@ -1,9 +1,8 @@
 
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { WorksheetSectionWrapper } from '@/components/worksheet/WorksheetSectionWrapper'
 import { makeRng, shuffleArray } from '@/utils/printableUtils'
 import { useTranslation } from '@/context/TranslationContext'
-import { getTrans } from '@/utils/translations'
 
 function genSudoku(side: number, boxRows: number, boxCols: number, rng: () => number, minClues: number, maxClues: number) {
     const nums = Array.from({ length: side }, (_, i) => i + 1)
@@ -58,7 +57,7 @@ export function Sudoku({
     showAnswers: boolean,
     effectiveSeed: string,
     variant: string,
-    showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode
+    showAnswersForDoc: (id: string, render: () => ReactNode) => ReactNode
 }) {
     const { t } = useTranslation()
 

@@ -1,6 +1,5 @@
 
-import React from 'react'
-import type { ReactNode } from 'react'
+import React, { type ReactNode } from 'react'
 import { WorksheetSectionWrapper } from '@/components/worksheet/WorksheetSectionWrapper'
 import { makeRng, pick, pickNUnique, shuffleArray } from '@/utils/printableUtils'
 import { useTranslation } from '@/context/TranslationContext'
@@ -25,7 +24,7 @@ export function generateWordSearchGrid(size: number, words: string[], rng: () =>
         const maxAttempts = 100
 
         while (!placed && attempts < maxAttempts) {
-            const dir = pick(directions, rng)
+            const dir = pick(directions, rng)!
             const rStep = dir[0]
             const cStep = dir[1]
 
@@ -145,7 +144,7 @@ export function WordSearch({
     packAge: string,
     packSkill: string,
     fromParam?: string,
-    showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode
+    showAnswersForDoc: (id: string, render: () => ReactNode) => ReactNode
 }) {
     const { t } = useTranslation()
     const isK2 = packAge === 'k2'
@@ -158,7 +157,7 @@ export function WordSearch({
     const wsSize = 8;
     const seedStr = `${effectiveSeed}|v${variant}|t${packTime}|a${packAge}|s${packSkill}`;
     const rng = makeRng(seedStr);
-    const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : pick(['animals', 'space', 'sight'], rng));
+    const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : pick(['animals', 'space', 'sight'], rng)!);
     const wordsFull = buildWords(theme, packAge);
     const words = pickNUnique(wordsFull, 8, rng);
     const grid = generateWordSearchGrid(wsSize, words.slice(0, 8), rng);
@@ -170,17 +169,17 @@ export function WordSearch({
         mazePath = pick([
             'M10 20h80v20H30v20h60v20H40v20h50',
             'M10 20h70v20H30v20h50v20H20v20h70'
-        ], rng);
+        ], rng)!;
     } else if (is25 || is35) {
         mazePath = pick([
             'M10 20h90v15H20v15h80v15H30v15h70v15H40v15h60',
             'M10 20h80v15H30v15h70v15H20v15h80v15H30v15h70'
-        ], rng);
+        ], rng)!;
     } else {
         mazePath = pick([
             'M10 15h90v10H20v10h80v10H30v10h70v10H40v10h60v10H50v10h50',
             'M10 15h70v10H30v10h80v10H40v10h70v10H50v10h60v10H60v10h40'
-        ], rng);
+        ], rng)!;
     }
 
     const drawingPrompt = packSkill === 'creativity'

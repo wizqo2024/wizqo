@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Component, ErrorInfo, ReactNode, FC, CSSProperties, ComponentType, MouseEvent, Fragment } from 'react'
+const { useEffect, useRef, useMemo, useState, useCallback, useReducer, isValidElement, memo } = React
 import { useTranslation } from '@/context/TranslationContext'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 import { formatNumber } from '@/utils/numbers'
-import { WorksheetFooter, ProblemBox } from '@/components/worksheet'
+import { WorksheetFooter, ProblemBox, WorksheetHeader } from '@/components/worksheet'
 // Local components defined below to avoid conflicts
 import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/printableUtils'
 import { Sudoku } from '@/pages/worksheets/Sudoku'
@@ -35,7 +36,10 @@ import {
   MultiplicationBlankTable,
   MultiplicationColorByNumber,
   MultiplicationConfidence,
-  MultiplicationFluency
+  MultiplicationFluency,
+  MultiplicationBy10And100,
+  MultiplicationProperties,
+  MultiplicationDecimals
 } from './printables/MultiplicationWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
@@ -198,12 +202,12 @@ export function WorksheetSectionWrapper({
   title: string
   emoji?: string
   description?: string
-  children: React.ReactNode
+  children: ReactNode
   problemCount?: number
   learningObjectives?: string[]
   parentTeacherTips?: string[]
   hideDefaultHeader?: boolean
-  footer?: React.ReactNode
+  footer?: ReactNode
 }) {
   const { t, isRTL, language } = useTranslation()
   const theme = getWorksheetTheme(docId)
@@ -211,7 +215,7 @@ export function WorksheetSectionWrapper({
   // Try to get translated title/description if available
   // Use language in dependency to force re-render when language changes
   // Only try to translate if the title/description looks like a translation key (starts with 'worksheets.')
-  const translatedTitle = React.useMemo(() => {
+  const translatedTitle = useMemo(() => {
     // If title is already a translated string (doesn't start with 'worksheets.'), use it as-is
     if (title && !title.startsWith('worksheets.')) {
       return title
@@ -220,7 +224,7 @@ export function WorksheetSectionWrapper({
     return translated !== `worksheets.${docId}.title` ? translated : title
   }, [t, docId, title, language])
 
-  const translatedDescription = React.useMemo(() => {
+  const translatedDescription = useMemo(() => {
     if (!description) return description
     // If description is already a translated string (doesn't start with 'worksheets.'), use it as-is
     if (description && !description.startsWith('worksheets.')) {
@@ -230,7 +234,7 @@ export function WorksheetSectionWrapper({
     return translated !== `worksheets.${docId}.description` ? translated : description
   }, [t, docId, description, language])
 
-  const translatedObjectives = React.useMemo(() => {
+  const translatedObjectives = useMemo(() => {
     if (!learningObjectives) return undefined
     return learningObjectives.map((obj, idx) => {
       const key = `worksheets.${docId}.learningObjectives.${idx}`
@@ -239,7 +243,7 @@ export function WorksheetSectionWrapper({
     })
   }, [t, docId, learningObjectives, language])
 
-  const translatedTips = React.useMemo(() => {
+  const translatedTips = useMemo(() => {
     if (!parentTeacherTips) return undefined
     return parentTeacherTips.map((tip, idx) => {
       const key = `worksheets.${docId}.parentTeacherTips.${idx}`
@@ -260,7 +264,7 @@ export function WorksheetSectionWrapper({
         breakBefore: 'auto',
         marginTop: 0,
         marginBottom: 0
-      } as React.CSSProperties}
+      } as CSSProperties}
     >
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
@@ -272,7 +276,7 @@ export function WorksheetSectionWrapper({
           breakInside: 'auto',
           paddingTop: 0,
           marginTop: 0
-        } as React.CSSProperties}
+        } as CSSProperties}
       >
         {!hideDefaultHeader && <LocalWorksheetHeader problemCount={problemCount} />}
         <h2
@@ -284,7 +288,7 @@ export function WorksheetSectionWrapper({
             breakInside: 'avoid',
             marginTop: 0,
             paddingTop: 0
-          } as React.CSSProperties}
+          } as CSSProperties}
         >
           {emoji && <span className="text-4xl">{emoji}</span>}
           <span>{translatedTitle}</span>
@@ -296,13 +300,13 @@ export function WorksheetSectionWrapper({
               pageBreakAfter: 'avoid',
               breakAfter: 'avoid',
               marginTop: '0.25rem'
-            } as React.CSSProperties}
+            } as CSSProperties}
           >
             {translatedDescription}
           </p>
         )}
 
-        <div className="print:mt-0" style={{ marginTop: 0, paddingTop: 0, pageBreakBefore: 'auto' } as React.CSSProperties}>
+        <div className="print:mt-0" style={{ marginTop: 0, paddingTop: 0, pageBreakBefore: 'auto' } as CSSProperties}>
           {children}
         </div>
         {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}
@@ -1375,16 +1379,16 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   // Force re-render when language changes (important for /print route with ?lang=ar)
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  const [_, forceUpdate] = React.useReducer((x: number) => x + 1, 0)
+  const [_, forceUpdate] = useReducer((x: number) => x + 1, 0)
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Force re-render when language changes to ensure translations update
     forceUpdate()
   }, [language])
 
   // Helper function to get translations with fallback
   // Include language in dependencies to ensure it updates when language changes
-  const getTrans = React.useCallback((key: string, fallback: string) => {
+  const getTrans = useCallback((key: string, fallback: string) => {
     try {
       if (!t || typeof t !== 'function') {
         return fallback
@@ -1415,14 +1419,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   // CRITICAL: Early check to ensure we're on /print route, not /printables or other routes
   // This prevents autoprint from triggering on category pages
-  const [isPrintRoute, setIsPrintRoute] = React.useState(() => {
+  const [isPrintRoute, setIsPrintRoute] = useState(() => {
     if (typeof window === 'undefined') return false
     const pathname = window.location.pathname
     return pathname === '/print' || pathname.startsWith('/print?')
   })
 
   // Update route check when location changes
-  React.useEffect(() => {
+  useEffect(() => {
     const checkRoute = () => {
       if (typeof window === 'undefined') return
       const pathname = window.location.pathname
@@ -1435,12 +1439,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   }, [])
 
   // Track URL search params in state so they update reactively when URL changes
-  const [urlSearch, setUrlSearch] = React.useState(() =>
+  const [urlSearch, setUrlSearch] = useState(() =>
     typeof window !== 'undefined' ? window.location.search : ''
   )
 
   // Update URL search when location changes (for language changes)
-  React.useEffect(() => {
+  useEffect(() => {
     const updateSearch = () => {
       const currentSearch = typeof window !== 'undefined' ? window.location.search : ''
       if (currentSearch !== urlSearch) {
@@ -1465,7 +1469,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
     }
   }, [urlSearch])
 
-  const params = React.useMemo(() => {
+  const params = useMemo(() => {
     return new URLSearchParams(urlSearch)
   }, [urlSearch])
 
@@ -1483,13 +1487,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   const timestampParam = params.get('timestamp') || ''
   const variantParam = params.get('variant') || '1'
   // Initialize showAnswers from URL parameter if present, otherwise default to false
-  const [showAnswers, setShowAnswers] = React.useState(() => {
+  const [showAnswers, setShowAnswers] = useState(() => {
     const showAnswersParam = params.get('showAnswers')
     return showAnswersParam === '1' || showAnswersParam === 'true'
   })
-  const [copiedLink, setCopiedLink] = React.useState(false)
-  const [isDownloadingPDF, setIsDownloadingPDF] = React.useState(false)
-  const [isDownloadingPNG, setIsDownloadingPNG] = React.useState(false)
+  const [copiedLink, setCopiedLink] = useState(false)
+  const [isDownloadingPDF, setIsDownloadingPDF] = useState(false)
+  const [isDownloadingPNG, setIsDownloadingPNG] = useState(false)
   const bundleItemsParam = params.get('items') || ''
   const bundleCategoryParam = params.get('category') || ''
   // Customization parameters
@@ -1497,7 +1501,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   const className = params.get('class') || ''
   const studentsParam = params.get('students') || ''
   const studentNames = studentsParam ? studentsParam.split(',').map((s: string) => s.trim()).filter(Boolean) : []
-  const activeDocs = React.useMemo(() => {
+  const activeDocs = useMemo(() => {
     if (doc === 'bundle') {
       return bundleItemsParam
         .split(',')
@@ -1506,18 +1510,18 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
     }
     return doc ? [doc] : []
   }, [doc, bundleItemsParam])
-  const interactiveDocs = React.useMemo(
+  const interactiveDocs = useMemo(
     () => activeDocs.filter((id: string) => id.startsWith('interactive-')),
     [activeDocs]
   )
   const primaryDoc = activeDocs[0] || doc || ''
-  const answerableDocs = React.useMemo(
+  const answerableDocs = useMemo(
     () => new Set([...ANSWERABLE_BASE_DOC_IDS, ...INTERACTIVE_DOC_IDS]),
     []
   )
   const bundleHasAnswers = doc === 'bundle' && activeDocs.some((id: string) => answerableDocs.has(id))
   const shouldShowAnswerToggle = (activeDocs.length === 1 && answerableDocs.has(primaryDoc)) || bundleHasAnswers
-  const docTitle = React.useMemo(() => {
+  const docTitle = useMemo(() => {
     // If single worksheet, show its title instead of "Bundle"
     if (doc === 'bundle' && activeDocs.length === 1 && activeDocs[0].startsWith('interactive-')) {
       const singleDocId = activeDocs[0]
@@ -1534,7 +1538,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
     }
     return resolveDocTitle(doc || '', { packTime, bundleCategory: bundleCategoryParam || undefined, t })
   }, [doc, packTime, bundleCategoryParam, activeDocs, t, language])
-  const pinHref = React.useMemo(() => {
+  const pinHref = useMemo(() => {
     try {
       const url = typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print'
       const desc = `${docTitle}  free printable for kids`
@@ -1545,7 +1549,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   }, [docTitle])
 
   // Build a daily/variant seed: today if none provided
-  const todaySeed = React.useMemo(() => {
+  const todaySeed = useMemo(() => {
     try {
       const d = new Date()
       const y = d.getUTCFullYear()
@@ -1559,14 +1563,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   const effectiveSeed = seedParam || (timestampParam ? `ts:${timestampParam}` : todaySeed)
   const variant = parseInt(variantParam || '1', 10)
-  const bundleAnswerSections: Array<{ docId: string; title: string; content: React.ReactNode }> = []
-  const showAnswersForDoc = (docId: string, factory: () => React.ReactNode) => {
+  const bundleAnswerSections: Array<{ docId: string; title: string; content: ReactNode }> = []
+  const showAnswersForDoc = (docId: string, factory: () => ReactNode) => {
     if (!showAnswers) return null
     const content = factory()
     if (doc === 'bundle') {
       const title = resolveDocTitle(docId, { packTime, bundleCategory: bundleCategoryParam || undefined, t })
       let summaryContent = content
-      if (React.isValidElement(content)) {
+      if (isValidElement(content)) {
         // Clone to remove some props or simplify for summary if needed
         // For now just keep as is
       }
@@ -1603,7 +1607,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   // local components
   function SafeImg({ sources, alt, className }: { sources: string[]; alt: string; className?: string }) {
-    const [idx, setIdx] = React.useState(0)
+    const [idx, setIdx] = useState(0)
     const src = sources[idx] || sources[0]
     return (
       <img
@@ -1618,7 +1622,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
     )
   }
   // Track worksheet view on mount
-  React.useEffect(() => {
+  useEffect(() => {
     if (doc && primaryDoc) {
       const from = params.get('from') || 'unknown'
       const grade = from.includes('grade') ? from.replace('-grade', '') :
@@ -1630,7 +1634,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   }, [doc, primaryDoc, docTitle])
 
   // Track time on page
-  React.useEffect(() => {
+  useEffect(() => {
     const startTime = Date.now()
     return () => {
       const timeSpent = Math.floor((Date.now() - startTime) / 1000)
@@ -1641,7 +1645,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   }, [doc])
 
   // Track scroll depth
-  React.useEffect(() => {
+  useEffect(() => {
     let maxScroll = 0
     const handleScroll = () => {
       const scrollPercent = Math.round(
@@ -1665,7 +1669,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   }, [doc])
 
   // PDF download function - completely rewritten from scratch to match Ctrl+P exactly
-  const downloadPDF = React.useCallback(async () => {
+  const downloadPDF = useCallback(async () => {
     try {
       setIsDownloadingPDF(true)
 
@@ -2070,7 +2074,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           borderImage: innerDiv.style.borderImage,
           webkitPrintColorAdjust: innerDiv.style.webkitPrintColorAdjust,
           printColorAdjust: innerDiv.style.printColorAdjust,
-          colorAdjust: innerDiv.style.colorAdjust
+          colorAdjust: (innerDiv.style as any).colorAdjust
         })
         // Match print styles with colorful border and padding
         innerDiv.style.position = 'relative'
@@ -2102,7 +2106,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         scrollY: 0,
         windowWidth: 794,
         windowHeight: contentElement.scrollHeight,
-        onclone: (clonedDoc) => {
+        onclone: (clonedDoc: Document) => {
           // Remove style tags
           clonedDoc.querySelectorAll('style').forEach(tag => {
             if (tag.id !== 'pdf-export-print-styles') {
@@ -2133,7 +2137,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               clonedInnerDiv.style.borderImageSlice = '1'
               clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
               clonedInnerDiv.style.printColorAdjust = 'exact'
-              clonedInnerDiv.style.colorAdjust = 'exact'
+                ; (clonedInnerDiv.style as any).colorAdjust = 'exact'
               clonedInnerDiv.style.padding = '20px 24px 24px 24px'
               clonedInnerDiv.style.margin = '0.5in'
               clonedInnerDiv.style.backgroundColor = 'white'
@@ -2276,7 +2280,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   // OLD PDF download function - kept for reference but not used
   // This was causing blank pages, so we now use browser print dialog instead
-  const downloadPDF_OLD = React.useCallback(async () => {
+  const downloadPDF_OLD = useCallback(async () => {
     let wrapperElement: HTMLElement | null = null
     let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
 
@@ -2352,7 +2356,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   // OLD PDF download function - kept for reference but not used
   // This was causing blank pages, so we now use browser print dialog instead
-  const downloadPDF_OLD2 = React.useCallback(async () => {
+  const downloadPDF_OLD2 = useCallback(async () => {
     let wrapperElement: HTMLElement | null = null
     let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
 
@@ -2427,7 +2431,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   }, [doc, docTitle, showAnswers])
 
   // Auto-download PDF when download=1 parameter is present
-  React.useEffect(() => {
+  useEffect(() => {
     if (!autoDownload) return
     // Defer a bit to let the view render fully
     const t = setTimeout(() => {
@@ -2438,14 +2442,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   // Track if print has already been called to prevent multiple popups
   // Use a more robust approach with sessionStorage and ref to persist across re-renders
-  const hasPrintedRef = React.useRef(false)
-  const printCallTimeRef = React.useRef<number>(0)
-  const printTimeoutRef = React.useRef<NodeJS.Timeout | null>(null)
-  const hasScheduledPrintRef = React.useRef(false)
+  const hasPrintedRef = useRef(false)
+  const printCallTimeRef = useRef<number>(0)
+  const printTimeoutRef = useRef<any>(null)
+  const hasScheduledPrintRef = useRef(false)
 
   // Auto-open browser print dialog when requested (e.g., from "Download PDF" links)
   // ONLY run on /print route, not on category pages like /printables or in preview mode (iframes)
-  React.useEffect(() => {
+  useEffect(() => {
     // Skip if not in browser
     if (typeof window === 'undefined') return
 
@@ -2582,8 +2586,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   // Reset print flag when URL changes (new worksheet loaded)
   // Use a ref to track the previous URL to only reset when URL actually changes
-  const previousUrlRef = React.useRef<string>('')
-  React.useEffect(() => {
+  const previousUrlRef = useRef<string>('')
+  useEffect(() => {
     if (typeof window === 'undefined') return
 
     // Only reset on exact /print route, not /printables
@@ -2896,7 +2900,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   return '/printables'
                 }
               })()}
-              onClick={(e) => {
+              onClick={(e: MouseEvent) => {
                 // If coming from within the site (internal referrer) AND we have history, use history.back()
                 // Checking history.length > 1 is critical: if opened in new tab, referrer exists but back() does nothing.
                 if (typeof window !== 'undefined' &&
@@ -2953,7 +2957,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             </a>
             <div className="flex items-center gap-2">
               <button
-                onClick={(e) => {
+                onClick={(e: MouseEvent) => {
                   e.preventDefault()
                   e.stopPropagation()
                   try {
@@ -2976,7 +2980,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <span>{String.fromCodePoint(0x1F5A8)}</span> Print
               </button>
               <button
-                onClick={(e) => {
+                onClick={(e: MouseEvent) => {
                   e.preventDefault()
                   e.stopPropagation()
                   if (isDownloadingPNG) return
@@ -3079,7 +3083,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               {shouldShowAnswerToggle && (
                 <div className="print:hidden">
                   <button
-                    onClick={() => {
+                    onClick={(e: MouseEvent) => {
                       const newValue = !showAnswers
                       setShowAnswers(newValue)
                       trackAnswerKeyToggle(primaryDoc, newValue ? 'show' : 'hide')
@@ -3100,19 +3104,20 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
 
         {/* Doc-specific sections (unique content per topic) */}
-        {interactiveDocs.length > 0 && (
-          <InteractiveBundleSections
-            key={`interactive-${interactiveDocs.join('-')}-${language}-${effectiveSeed}`}
-            docIds={interactiveDocs}
-            seed={effectiveSeed}
-            variant={variant}
-            showAnswers={showAnswers}
-            teacherName={teacherName}
-            className={className}
-            studentNames={studentNames}
-            isPrintMode={true}
-          />
-        )}
+        <div key={`interactive-${interactiveDocs.join('-')}-${language}-${effectiveSeed}`}>
+          {interactiveDocs.length > 0 && (
+            <InteractiveBundleSections
+              docIds={interactiveDocs}
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswers={showAnswers}
+              teacherName={teacherName}
+              className={className}
+              studentNames={studentNames}
+              isPrintMode={true}
+            />
+          )}
+        </div>
         {/* Geography Worksheets */}
         <GeographyWorksheets
           docId="geo-continents-k2"
@@ -6435,9 +6440,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           const is35 = packAge === '35';
           const wsSize = 8;
           const seedStr = `${effectiveSeed}|v${variant}|t${packTime}|a${packAge}|s${packSkill}`;
-          const rng = makeRng(seedStr);
-          const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : pick(['animals', 'space', 'sight'], rng));
-          const wordsFull = buildWords(theme, packAge);
+          const rng = makeRng(seedStr || 'default');
+          const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : pick(['animals', 'space', 'sight'], rng) || 'animals');
+          const wordsFull = buildWords(theme, String(packAge));
           const words = pickNUnique(wordsFull, 8, rng);
           const grid = generateWordSearchGrid(wsSize, words.slice(0, 8), rng).flat();
           const treatAsMath = packSkill === 'math';
@@ -6447,18 +6452,18 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             mazePath = pick([
               'M10 20h80v20H30v20h60v20H40v20h50',
               'M10 20h70v20H30v20h50v20H20v20h70'
-            ], rng);
+            ], rng) || '';
           } else if (is25 || is35) {
             // 2nd-5th Grade or 3-5: use intermediate difficulty
             mazePath = pick([
               'M10 20h90v15H20v15h80v15H30v15h70v15H40v15h60',
               'M10 20h80v15H30v15h70v15H20v15h80v15H30v15h70'
-            ], rng);
+            ], rng) || '';
           } else {
             mazePath = pick([
               'M10 15h90v10H20v10h80v10H30v10h70v10H40v10h60v10H50v10h50',
               'M10 15h70v10H30v10h80v10H40v10h70v10H50v10h60v10H60v10h40'
-            ], rng);
+            ], rng) || '';
           }
           const drawingPrompt = packSkill === 'creativity'
             ? 'Invent a gadget for school. Label 3 parts.'
@@ -7521,8 +7526,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
         {activeDocs.includes('spelling') && (() => {
-          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-          const gradeLevel = (parseInt(seed.slice(-1), 16) % 3) + 1 // Grades 1-3
+          const rng = makeRng(`${effectiveSeed}|v${variant}|doc=spelling`)
+          const gradeLevel = (parseInt(effectiveSeed.slice(-1), 16) % 3) + 1 // Grades 1-3
 
           // Vocabulary words by pattern
           const vocabWords = {
@@ -7899,7 +7904,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <div className="font-bold text-slate-800 bg-slate-100 p-2 rounded">Mouth</div>
 
                 {[1, 2, 3, 4, 5, 6].map((num, i) => (
-                  <React.Fragment key={num}>
+                  <Fragment key={num}>
                     <div className="flex items-center justify-center font-bold text-2xl border border-slate-200 rounded">{num}</div>
 
                     {/* Body */}
@@ -7922,7 +7927,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                         {selectedMouths[i].path}
                       </svg>
                     </div>
-                  </React.Fragment>
+                  </Fragment>
                 ))}
               </div>
 
@@ -8926,11 +8931,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <div className="flex-1">
                       <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
                         {generateWordSearchGrid(12, [...words], makeRng(`${effectiveSeed}|ws-world|main|v${variant}`)).map((row, r) => (
-                          <React.Fragment key={r}>
+                          <Fragment key={r}>
                             {row.map((ch, c) => (
                               <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
                             ))}
-                          </React.Fragment>
+                          </Fragment>
                         ))}
                       </div>
                     </div>
@@ -9166,11 +9171,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-pink-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-12 gap-[2px] font-mono text-sm bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0">
                 {generateWordSearchGrid(12, ["DOG", "CAT", "LION", "BEAR", "WOLF", "SEAL", "FROG", "EAGLE", "MOUSE", "HORSE", "ZEBRA", "SNAKE"], makeRng(`${effectiveSeed}|ws-animals|main|v${variant}`)).map((row, r) => (
-                  <React.Fragment key={r}>
+                  <Fragment key={r}>
                     {row.map((ch, c) => (
                       <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center rounded-sm">{ch}</div>
                     ))}
-                  </React.Fragment>
+                  </Fragment>
                 ))}
               </div>
               {showAnswersForDoc('ws-animals', () => (
@@ -9208,11 +9213,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 animate-gradient-x mb-2" />
               <div className="grid grid-cols-12 gap-1 font-mono text-sm">
                 {generateWordSearchGrid(12, ["STAR", "MOON", "SUN", "COMET", "ORBIT", "SPACE", "ALIEN", "ROVER", "MARS", "VENUS", "NEBULA", "ASTRO"], makeRng(`${effectiveSeed}|ws-space|main|v${variant}`)).map((row, r) => (
-                  <React.Fragment key={r}>
+                  <Fragment key={r}>
                     {row.map((ch, c) => (
                       <div key={c} className="w-6 h-6 border border-slate-300 flex items-center justify-center">{ch}</div>
                     ))}
-                  </React.Fragment>
+                  </Fragment>
                 ))}
               </div>
               {showAnswersForDoc('ws-space', () => (
@@ -9231,7 +9236,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           activeDocs={activeDocs}
           showAnswers={showAnswers}
           effectiveSeed={effectiveSeed}
-          variant={variant}
+          variant={String(variant)}
           showAnswersForDoc={showAnswersForDoc}
         />
 
@@ -11557,7 +11562,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('kindergarten-counting-visual') && (() => {
             // Cute character components
-            const CuteBear = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            const CuteBear = ({ x, y, size = 60 }: { x: number; y: number; size?: number; key?: any }) => (
               <g transform={`translate(${x}, ${y})`}>
                 <circle cx={size / 2} cy={size / 2} r={size * 0.45} fill="#FF7F50" />
                 <circle cx={size * 0.25} cy={size * 0.25} r={size * 0.15} fill="#FF6347" />
@@ -11575,7 +11580,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               </g>
             );
 
-            const CuteStar = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            const CuteStar = ({ x, y, size = 60 }: { x: number; y: number; size?: number; key?: any }) => (
               <g transform={`translate(${x}, ${y})`}>
                 <polygon
                   points={`
@@ -11605,7 +11610,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               </g>
             );
 
-            const CuteCat = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            const CuteCat = ({ x, y, size = 60 }: { x: number; y: number; size?: number; key?: any }) => (
               <g transform={`translate(${x}, ${y})`}>
                 <circle cx={size / 2} cy={size / 2} r={size * 0.45} fill="#CE93D8" />
                 <path d={`M${size * 0.2} ${size * 0.2} L${size * 0.35} ${size * 0.05} L${size * 0.45} ${size * 0.25} Z`} fill="#F48FB1" />
@@ -11617,14 +11622,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <path d={`M${size * 0.5} ${size * 0.5} L${size * 0.48} ${size * 0.55} L${size * 0.52} ${size * 0.55} Z`} fill="#F48FB1" />
                 <path
                   d={`M${size * 0.4} ${size * 0.65} Q${size * 0.5} ${size * 0.75}, ${size * 0.6} ${size * 0.65}`}
-                  stroke="#4  148C"
+                  stroke="#4A148C"
                   strokeWidth={size * 0.03}
                   fill="none"
                 />
               </g>
             );
 
-            const CuteApple = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            const CuteApple = ({ x, y, size = 60 }: { x: number; y: number; size?: number; key?: any }) => (
               <g transform={`translate(${x}, ${y})`}>
                 <path
                   d={`M${size * 0.5} 0 C0 0, 0 ${size * 1.0}, ${size * 0.5} ${size * 1.0} C${size * 1.0} ${size * 1.0}, ${size * 1.0} 0, ${size * 0.5} 0 Z`}
@@ -11646,7 +11651,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               </g>
             );
 
-            const CuteFlower = ({ x, y, size = 60 }: { x: number; y: number; size?: number }) => (
+            const CuteFlower = ({ x, y, size = 60 }: { x: number; y: number; size?: number; key?: any }) => (
               <g transform={`translate(${x}, ${y})`}>
                 <circle cx={size / 2} cy={size / 2} r={size * 0.25} fill="#FF9800" />
                 <circle cx={size / 2} cy={size * 0.2} r={size * 0.2} fill="#E91E63" />
@@ -11686,7 +11691,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               return { count, charIndex, layout };
             });
 
-            const CountingProblemCard = ({ title, count, Component, layout }: { title: string; count: number; Component: React.ComponentType<{ x: number; y: number; size?: number }>; layout: 'row' | 'grid' }) => {
+            const CountingProblemCard = (props: { title: string; count: number; Component: any; layout: 'row' | 'grid' }) => {
+              const { title, count, Component, layout } = props;
               const charSize = 60;
               const padding = 10;
               let svgWidth = 650;
@@ -11794,7 +11800,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                         title={charData.title}
                         count={p.count}
                         Component={charData.Component}
-                        layout={p.layout}
+                        layout={p.layout as "row" | "grid"}
                       />
                     );
                   })}
@@ -12440,14 +12446,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           activeDocs.includes('picture-addition-10') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
             const potionIngredients = [
-              { name: 'Mushroom', icon: '' },
-              { name: 'Crystal', icon: '' },
-              { name: 'Potion', icon: '' },
-              { name: 'Star', icon: '' },
-              { name: 'Spider', icon: '' },
-              { name: 'Eye', icon: '' },
-              { name: 'Leaf', icon: '' },
-              { name: 'Moon', icon: '' },
+              { name: 'Mushroom', icon: String.fromCodePoint(0x1F344) },
+              { name: 'Crystal', icon: String.fromCodePoint(0x1F52E) },
+              { name: 'Potion', icon: String.fromCodePoint(0x2697) },
+              { name: 'Star', icon: String.fromCodePoint(0x2B50) },
+              { name: 'Spider', icon: String.fromCodePoint(0x1F577) },
+              { name: 'Eye', icon: String.fromCodePoint(0x1F441) },
+              { name: 'Leaf', icon: String.fromCodePoint(0x1F343) },
+              { name: 'Moon', icon: String.fromCodePoint(0x1F319) },
             ]
 
             // Generate 8 addition problems with sum <= 10
@@ -14292,7 +14298,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
                     <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                       {patterns.map((p, i) => {
-                        const nextLabel = p.next.type === 'emoji' ? p.next.emoji : `${p.next.color.name} ${shapes[p.next.shape as keyof typeof shapes].label}`;
+                        const nextLabel = p.next.type === 'emoji' ? p.next.emoji : `${p.next.color?.name || ''} ${shapes[p.next.shape as keyof typeof shapes]?.label || ''}`;
                         return (
                           <li key={i}>
                             <strong>Pattern {i + 1}:</strong> Next item is {nextLabel}
@@ -16190,7 +16196,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
             const problems = Array.from({ length: 10 }, () => {
               const type = rng() > 0.5 ? 'same-denom' : 'same-num'
-              let n1, d1, n2, d2;
+              let n1 = 0, d1 = 1, n2 = 0, d2 = 1;
 
               if (type === 'same-denom') {
                 d1 = d2 = [3, 4, 6, 8, 10][Math.floor(rng() * 5)]
@@ -27621,7 +27627,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <ul className="list-disc list-inside space-y-1 text-sm">
                       {shapes.map((s, i) => (
                         <li key={i} className="text-emerald-800">
-                          {s}: Draw a {s === 'circle' ? 'round circle' : s === 'square' ? 'four equal sides' : s === 'triangle' ? 'three sides' : s === 'rectangle' ? 'four sides (longer than wide)' : s === 'oval' ? 'elongated circle' : 'four equal sides rotated 45'}
+                          {s.name}: Draw a {s.name === 'circle' ? 'round circle' : s.name === 'square' ? 'four equal sides' : s.name === 'triangle' ? 'three sides' : s.name === 'rectangle' ? 'four sides (longer than wide)' : s.name === 'oval' ? 'elongated circle' : 'four equal sides rotated 45'}
                         </li>
                       ))}
                     </ul>
@@ -30340,32 +30346,30 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
         {
-          activeDocs.some(d => d.startsWith('reading-g1')) && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            // For now, map all G1 docs to the generic generator, but seeded differently per doc
-            const data = generateReadingStory(`${effectiveSeed}|${doc}`, 1)
+          activeDocs.some((d: string) => d.startsWith('reading-g1')) && (() => {
+            const data = generateReadingStory(`${effectiveSeed}|reading-g1`, 1) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
 
             return (
               <WorksheetSectionWrapper
                 docId={doc}
-                title={data.title}
-                emoji={data.emoji}
+                title={data?.title}
+                emoji={data?.emoji}
                 description="Read the story and answer the questions."
-                problemCount={data.questions.length}
+                problemCount={data?.questions?.length}
               >
                 <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
-                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data.title}</h3>
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
                   <div className="text-lg leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8">
-                    {data.story}
+                    {data?.story}
                   </div>
 
                   <div className="space-y-6">
                     <div className="font-bold border-b border-slate-200 pb-2">Questions:</div>
-                    {data.questions.map((q, i) => (
+                    {data?.questions?.map((q: any, i: number) => (
                       <div key={i} className="bg-slate-50 p-4 rounded-lg">
-                        <div className="font-medium mb-2">{i + 1}. {q.q}</div>
+                        <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
                         <div className="flex flex-col gap-2">
-                          {q.options.sort((a, b) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt, k) => (
+                          {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
                             <div key={k} className="flex items-center gap-2">
                               <div className="w-4 h-4 rounded-full border border-slate-300"></div>
                               <span>{opt}</span>
@@ -30379,7 +30383,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                 {showAnswersForDoc(doc, () => (
                   <div className="mt-4 p-4 border rounded font-mono text-sm">
-                    {data.questions.map((q, i) => (
+                    {data?.questions?.map((q: any, i: number) => (
                       <div key={i} className="mb-1">{i + 1}) {q.a}</div>
                     ))}
                   </div>
@@ -30391,31 +30395,30 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
         {
-          activeDocs.some(d => d.startsWith('reading-g2')) && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const data = generateReadingStory(`${effectiveSeed}|${doc}`, 2)
+          activeDocs.some((d: string) => d.startsWith('reading-g2')) && (() => {
+            const data = generateReadingStory(`${effectiveSeed}|reading-g2`, 2) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
 
             return (
               <WorksheetSectionWrapper
                 docId={doc}
-                title={data.title}
-                emoji={data.emoji}
+                title={data?.title}
+                emoji={data?.emoji}
                 description="Read the story and answer the questions."
-                problemCount={data.questions.length}
+                problemCount={data?.questions?.length}
               >
                 <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
-                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data.title}</h3>
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
                   <div className="text-lg leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8">
-                    {data.story}
+                    {data?.story}
                   </div>
 
                   <div className="space-y-6">
                     <div className="font-bold border-b border-slate-200 pb-2">Questions:</div>
-                    {data.questions.map((q, i) => (
+                    {data?.questions?.map((q: any, i: number) => (
                       <div key={i} className="bg-slate-50 p-4 rounded-lg">
-                        <div className="font-medium mb-2">{i + 1}. {q.q}</div>
+                        <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
                         <div className="flex flex-col gap-2">
-                          {q.options.sort((a, b) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt, k) => (
+                          {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
                             <div key={k} className="flex items-center gap-2">
                               <div className="w-4 h-4 rounded-full border border-slate-300"></div>
                               <span>{opt}</span>
@@ -30429,8 +30432,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                 {showAnswersForDoc(doc, () => (
                   <div className="mt-4 p-4 border rounded font-mono text-sm">
-                    {data.questions.map((q, i) => (
-                      <div key={i} className="mb-1">{i + 1}) {q.a}</div>
+                    {data?.questions?.map((q: any, i: number) => (
+                      <div key={i} className="mb-1">{i + 1}) {q?.a}</div>
                     ))}
                   </div>
                 ))}
@@ -30440,31 +30443,30 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.some(d => d.startsWith('reading-g3')) && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const data = generateReadingStory(`${effectiveSeed}|${doc}`, 3)
+          activeDocs.some((d: string) => d.startsWith('reading-g3')) && (() => {
+            const data = generateReadingStory(`${effectiveSeed}|reading-g3`, 3) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
 
             return (
               <WorksheetSectionWrapper
                 docId={doc}
-                title={data.title}
-                emoji={data.emoji}
+                title={data?.title}
+                emoji={data?.emoji}
                 description="Read the passage and answer the questions."
-                problemCount={data.questions.length}
+                problemCount={data?.questions?.length}
               >
                 <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-3xl mx-auto">
-                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data.title}</h3>
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
                   <div className="text-base leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8 columns-1 md:columns-2 gap-8">
-                    {data.story}
+                    {data?.story}
                   </div>
 
                   <div className="space-y-6 break-inside-avoid">
                     <div className="font-bold border-b border-slate-200 pb-2">Comprehension Check:</div>
-                    {data.questions.map((q, i) => (
+                    {data?.questions?.map((q: any, i: number) => (
                       <div key={i} className="bg-slate-50 p-4 rounded-lg">
-                        <div className="font-medium mb-2">{i + 1}. {q.q}</div>
+                        <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
                         <div className="flex flex-col gap-2">
-                          {q.options.sort((a, b) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt, k) => (
+                          {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
                             <div key={k} className="flex items-center gap-2">
                               <div className="w-4 h-4 rounded-full border border-slate-300"></div>
                               <span>{opt}</span>
@@ -30478,8 +30480,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                 {showAnswersForDoc(doc, () => (
                   <div className="mt-4 p-4 border rounded font-mono text-sm">
-                    {data.questions.map((q, i) => (
-                      <div key={i} className="mb-1">{i + 1}) {q.a}</div>
+                    {data?.questions?.map((q: any, i: number) => (
+                      <div key={i} className="mb-1">{i + 1}) {q?.a}</div>
                     ))}
                   </div>
                 ))}
@@ -30491,9 +30493,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
         {
-          activeDocs.some(d => d.startsWith('science-lifecycle') || d.startsWith('science-match')) && (
+          activeDocs.some((d: string) => d.startsWith('science-lifecycle') || d.startsWith('science-match')) && (
             <ScienceWorksheets
-              doc={doc}
+              doc={doc || ''}
               effectiveSeed={typeof effectiveSeed === 'string' ? effectiveSeed : String(effectiveSeed)}
               variant={typeof variant === 'string' ? variant : String(variant)}
               showAnswersForDoc={showAnswersForDoc}
@@ -30505,23 +30507,22 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
         {
-          activeDocs.some(d => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const data = generateWordSearch(`${effectiveSeed}|${doc}`)
+          activeDocs.some((d: string) => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
+            const data = generateWordSearch(`${effectiveSeed}|${doc}`) || { theme: 'Words', words: [], grid: [] }
 
             return (
               <WorksheetSectionWrapper
                 docId={doc}
-                title={`${data.theme} Word Search`}
+                title={`${data?.theme || 'Words'} Word Search`}
                 emoji="🔎"
-                description={`Find these words hidden in the grid: ${data.words.join(', ')}`}
-                problemCount={data.words.length}
+                description={`Find these words hidden in the grid: ${(data?.words || []).join(', ')}`}
+                problemCount={data?.words?.length || 0}
               >
                 <div className="flex flex-col md:flex-row gap-8 items-start">
                   <div className="bg-white p-2 rounded-lg border-2 border-slate-800">
-                    {data.grid.map((row, r) => (
+                    {(data?.grid || []).map((row: string[], r: number) => (
                       <div key={r} className="flex">
-                        {row.map((letter, c) => (
+                        {(row || []).map((letter: string, c: number) => (
                           <div key={c} className="w-8 h-8 flex items-center justify-center font-mono font-bold text-lg border border-slate-100 hover:bg-yellow-100 cursor-pointer">
                             {letter}
                           </div>
@@ -30533,7 +30534,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   <div className="flex-1 bg-white p-6 rounded-xl border border-slate-200">
                     <h3 className="font-bold mb-4">Word Bank</h3>
                     <div className="flex flex-wrap gap-2">
-                      {data.words.map((w, i) => (
+                      {data?.words?.map((w: string, i: number) => (
                         <div key={i} className="px-3 py-1 bg-slate-100 rounded text-sm font-medium border border-slate-300">
                           {w}
                         </div>
