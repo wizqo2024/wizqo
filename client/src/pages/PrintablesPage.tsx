@@ -16046,7 +16046,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                         {/* Comparison Box */}
                         <div className="w-16 h-16 border-2 border-dashed border-emerald-300 rounded-2xl flex items-center justify-center text-3xl font-black text-emerald-600 bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                          <span className="opacity-10 font-sans">?</span>
+                          {/* Empty for input */}
                         </div>
 
                         {/* Fraction 2 */}
@@ -16159,7 +16159,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                 <div className="flex flex-col items-center mt-2 font-mono">
                   {isMissing ? (
-                    <div className="w-10 h-10 border-2 border-dashed border-fuchsia-400 rounded-lg bg-fuchsia-50 flex items-center justify-center font-black text-fuchsia-900 group-hover:border-fuchsia-600 transition-colors shadow-inner text-xl">?</div>
+                    <div className="w-10 h-10 border-2 border-dashed border-fuchsia-400 rounded-lg bg-fuchsia-50 flex items-center justify-center font-black text-fuchsia-900 group-hover:border-fuchsia-600 transition-colors shadow-inner text-xl"></div>
                   ) : (
                     <div className="text-2xl font-black text-slate-800">{n}</div>
                   )}
