@@ -1,5 +1,4 @@
-import React from 'react'
-import type { ReactNode } from 'react'
+import React, { type ReactNode } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared'
 import { makeRng } from '@/utils/printableUtils'
@@ -1598,23 +1597,52 @@ export function EvenOdd100({ showAnswersForDoc, seed, variant }: SpecificWorkshe
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="Even or Odd? (to 100)"
+            title={t(`worksheets.${docId}.title`, 'Even or Odd? (to 100)')}
             emoji={String.fromCodePoint(0x1F4D1)}
-            description="Circle whether each number is even or odd."
+            description={t(`worksheets.${docId}.description`, 'Circle whether each number is even or odd.')}
             problemCount={nums.length}
+            learningObjectives={[
+                'Identify even and odd numbers',
+                'Understand that even numbers end in 0, 2, 4, 6, 8',
+                'Understand that odd numbers end in 1, 3, 5, 7, 9'
+            ]}
+            parentTeacherTips={[
+                'Even numbers can be divided by 2 with no remainder',
+                'Look at the ones digit: 0, 2, 4, 6, 8 = even; 1, 3, 5, 7, 9 = odd',
+                'Even numbers: 2, 4, 6, 8, 10, 12...',
+                'Odd numbers: 1, 3, 5, 7, 9, 11, 13...',
+                'Extension: Find patterns in even and odd numbers'
+            ]}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-rose-400 animate-gradient-x mb-2" />
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Is 24 even or odd?</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>Step 1:</strong> Look at the ones digit: 4</div>
-                        <div><strong>Step 2:</strong> 4 is in the even list (0, 2, 4, 6, 8)</div>
-                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> 24 is even</div>
-                    </div>
-                </div>
-            </div>
+            <PremiumWorksheetBanner
+                title="Even or Odd?"
+                subtitle="Number Sorting"
+                icons={{
+                    bg1: "🔢",
+                    bg2: "⚖️",
+                    float1: "2️⃣",
+                    float2: "❓"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-violet-50 to-rose-50",
+                    border: "border-violet-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-violet-300",
+                    pillText: "text-violet-800",
+                    accent: "text-violet-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="How to Check"
+                icon="💡"
+                steps={[
+                    { label: "Look", text: "Look at the Ones digit (the last number)." },
+                    { label: "Even", text: "0, 2, 4, 6, 8 -> It is EVEN!" },
+                    { label: "Odd", text: "1, 3, 5, 7, 9 -> It is ODD!" }
+                ]}
+                color="violet"
+            />
 
             <div className="grid grid-cols-2 gap-3 text-xl font-mono break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {nums.map((n, i) => (
@@ -1838,7 +1866,7 @@ export function FractionsHalvesThirdsFourths({ showAnswersForDoc, seed, variant,
 
             {showAnswersForDoc(docId, () => (
                 <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{getTrans(t, 'common.answerKey', String.fromCharCode(0x2705) + ' Answer Key')}</div>
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{t('common.answerKey') || (String.fromCharCode(0x2705) + ' Answer Key')}</div>
                     <ul className="list-disc list-inside space-y-2 text-sm text-emerald-800">
                         <li><strong>1/2 = one half</strong></li>
                         <li><strong>1/3 = one third</strong></li>
