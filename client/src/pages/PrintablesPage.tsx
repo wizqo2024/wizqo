@@ -19406,7 +19406,6 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     pillText: "text-purple-800",
                     accent: "text-purple-300"
                   }}
-```
                 />
 
                 <StrategySpotlight
