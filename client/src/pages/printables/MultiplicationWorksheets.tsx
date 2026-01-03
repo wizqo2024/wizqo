@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ReactNode } from 'react';
+type ReactNode = React.ReactNode;
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared';
@@ -3887,6 +3887,225 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
                                     {a} × {b} = <span className={`font-black ${colorMap[p]?.color.replace('bg-', 'text-')}`}>{p}</span>
                                 </div>
                             </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function PartialProducts({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'partial-products';
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 6 }).map(() => {
+        // 2-digit x 1-digit or 3-digit x 1-digit
+        const isThreeDigit = rng() > 0.6;
+        const a = isThreeDigit ? nextInt(100, 400) : nextInt(20, 99);
+        const b = nextInt(2, 9);
+        return { a, b };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Partial Products Method')}
+            emoji="🏗️"
+            description={getTrans('description', "Break apart the larger number to solve using partial products.")}
+            problemCount={problems.length}
+            learningObjectives={['Use place value to multiply', 'Decompose numbers into expanded form', 'Add partial products to find total']}
+            parentTeacherTips={['Partial products helps students understand value of digits', 'Example: 24 x 3 becomes (20 x 3) + (4 x 3)', 'Sum the parts to get the final answer']}
+        >
+            <PremiumWorksheetBanner
+                title="Number Deconstruction"
+                subtitle="Building Multiplication"
+                icons={{ bg1: "🏗️", bg2: "🧱", float1: "🔨", float2: "📐" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-amber-50 to-orange-50",
+                    border: "border-amber-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-amber-300",
+                    pillText: "text-amber-800",
+                    accent: "text-amber-300"
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {problems.map((p, i) => {
+                    // Calculate parts
+                    const ones = p.a % 10;
+                    const tens = Math.floor((p.a % 100) / 10) * 10;
+                    const hundreds = Math.floor(p.a / 100) * 100;
+
+                    return (
+                        <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-6 break-inside-avoid">
+                            <div className="flex items-center gap-3 mb-4 pl-2 border-l-4 border-amber-300">
+                                <span className="font-mono text-2xl font-bold text-slate-700">{p.a} × {p.b}</span>
+                            </div>
+
+                            <div className="space-y-2 font-mono text-lg">
+                                {/* Steps */}
+                                {hundreds > 0 && (
+                                    <div className="flex justify-between items-center bg-slate-50 p-2 rounded">
+                                        <span className="text-slate-500">{hundreds} × {p.b}</span>
+                                        <div className="flex items-center gap-2">
+                                            <span>=</span>
+                                            <div className="w-20 h-8 border-b border-slate-300 bg-white"></div>
+                                        </div>
+                                    </div>
+                                )}
+                                {tens > 0 && (
+                                    <div className="flex justify-between items-center bg-slate-50 p-2 rounded">
+                                        <span className="text-slate-500">{tens} × {p.b}</span>
+                                        <div className="flex items-center gap-2">
+                                            <span>=</span>
+                                            <div className="w-20 h-8 border-b border-slate-300 bg-white"></div>
+                                        </div>
+                                    </div>
+                                )}
+                                {ones > 0 && (
+                                    <div className="flex justify-between items-center bg-slate-50 p-2 rounded">
+                                        <span className="text-slate-500">{ones} × {p.b}</span>
+                                        <div className="flex items-center gap-2">
+                                            <span>=</span>
+                                            <div className="w-20 h-8 border-b border-slate-300 bg-white"></div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="border-t-2 border-slate-800 my-2"></div>
+
+                                <div className="flex justify-end items-center gap-2 font-bold text-xl pt-1">
+                                    <span className="text-sm uppercase tracking-wider text-slate-400 mr-2">Total</span>
+                                    <div className="w-24 h-10 border-2 border-amber-200 rounded bg-amber-50/50"></div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded break-inside-avoid">
+                    <div className="font-bold mb-2 text-slate-700">Answer Key</div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 font-mono text-sm">
+                        {problems.map((p, i) => (
+                            <div key={i}>#{i + 1}: <strong>{p.a * p.b}</strong></div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'area-model-mult';
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 4 }).map(() => {
+        // 2-digit x 2-digit
+        const a = nextInt(12, 55);
+        const b = nextInt(12, 55);
+        return { a, b };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Area Model Multiplication')}
+            emoji="📐"
+            description={getTrans('description', "Use the box method (area model) to solve 2-digit by 2-digit multiplication.")}
+            problemCount={problems.length}
+            learningObjectives={['Visualize multiplication using area', 'Decompose numbers into place values', 'Sum partial products to find total area']}
+            parentTeacherTips={['Split each number into tens and ones (e.g., 24 = 20 + 4)', 'Find the area of each smaller rectangle', 'Add all 4 areas together for the final answer']}
+        >
+            <PremiumWorksheetBanner
+                title="Area Architects"
+                subtitle="The Box Method"
+                icons={{ bg1: "📐", bg2: "🔳", float1: "✏️", float2: "✖️" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-cyan-50 to-blue-50",
+                    border: "border-cyan-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-cyan-300",
+                    pillText: "text-cyan-800",
+                    accent: "text-cyan-300"
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                {problems.map((p, i) => {
+                    const at = Math.floor(p.a / 10) * 10;
+                    const ao = p.a % 10;
+                    const bt = Math.floor(p.b / 10) * 10;
+                    const bo = p.b % 10;
+
+                    return (
+                        <div key={i} className="break-inside-avoid">
+                            <div className="flex items-center gap-3 mb-6 font-mono text-2xl font-bold text-slate-700 justify-center">
+                                <div className="w-8 h-8 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center text-sm shadow-sm">{i + 1}</div>
+                                {p.a} × {p.b} = ?
+                            </div>
+
+                            <div className="relative mx-auto w-64">
+                                {/* Top Labels */}
+                                <div className="flex absolute -top-8 w-full font-mono font-bold text-slate-500">
+                                    <div className="flex-1 text-center">{at}</div>
+                                    <div className="flex-1 text-center">{ao}</div>
+                                </div>
+
+                                {/* Left Labels */}
+                                <div className="flex flex-col absolute -left-10 h-full font-mono font-bold text-slate-500 justify-around py-4">
+                                    <span>{bt}</span>
+                                    <span>{bo}</span>
+                                </div>
+
+                                {/* Grid */}
+                                <div className="grid grid-cols-2 grid-rows-2 border-4 border-slate-800 rounded bg-white overflow-hidden">
+                                    {/* Box 1: Tens x Tens */}
+                                    <div className="h-24 border-r border-b border-slate-300 p-2 bg-blue-50/30 flex flex-col items-center justify-center">
+                                        <div className="text-[10px] text-slate-400">{at}×{bt}</div>
+                                        <div className="w-16 h-8 border-b border-dashed border-slate-300"></div>
+                                    </div>
+                                    {/* Box 2: Ones x Tens */}
+                                    <div className="h-24 border-b border-slate-300 p-2 bg-cyan-50/30 flex flex-col items-center justify-center">
+                                        <div className="text-[10px] text-slate-400">{ao}×{bt}</div>
+                                        <div className="w-16 h-8 border-b border-dashed border-slate-300"></div>
+                                    </div>
+                                    {/* Box 3: Tens x Ones */}
+                                    <div className="h-24 border-r border-slate-300 p-2 bg-indigo-50/30 flex flex-col items-center justify-center">
+                                        <div className="text-[10px] text-slate-400">{at}×{bo}</div>
+                                        <div className="w-16 h-8 border-b border-dashed border-slate-300"></div>
+                                    </div>
+                                    {/* Box 4: Ones x Ones */}
+                                    <div className="h-24 p-2 bg-sky-50/30 flex flex-col items-center justify-center">
+                                        <div className="text-[10px] text-slate-400">{ao}×{bo}</div>
+                                        <div className="w-16 h-8 border-b border-dashed border-slate-300"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 flex items-center justify-center gap-2">
+                                <span className="font-bold text-slate-400 text-sm uppercase">Total Sum:</span>
+                                <div className="w-32 h-10 border-2 border-cyan-200 rounded-lg bg-cyan-50"></div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded break-inside-avoid">
+                    <div className="font-bold mb-2 text-slate-700">Answer Key</div>
+                    <div className="grid grid-cols-2 gap-4 font-mono text-sm">
+                        {problems.map((p, i) => (
+                            <div key={i}>#{i + 1}: <strong>{p.a * p.b}</strong></div>
                         ))}
                     </div>
                 </div>

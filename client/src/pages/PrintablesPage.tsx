@@ -48,12 +48,20 @@ import {
   MultiplicationProperties,
   MultiplicationDecimals
 } from './printables/MultiplicationWorksheets'
-import {
-  EquivFractions4th,
+EquivFractions4th,
   ComparingFractions4th,
   AddSubFractions4th,
   MixedImproperFractions
 } from './printables/FractionWorksheets'
+import {
+  MultiplicationFacts,
+  MultiplicationArrays2To5,
+  SkipCountingMultiplication,
+  MultiplicationArraysModels,
+  TimesTableHorizontal,
+  PartialProducts,
+  AreaModelMult
+} from './printables/MultiplicationWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
 import { LogicWorksheets } from './LogicWorksheets';
@@ -13716,6 +13724,37 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('symmetry-transformations') && (
             <SymmetryTransformations docId="symmetry-transformations" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+
+        {
+          activeDocs.includes('comparing-fractions-4th') && (
+            <ComparingFractions4th {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('equivalent-fractions-4th') && (
+            <EquivFractions4th {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('add-sub-fractions-4th') && (
+            <AddSubFractions4th {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('partial-products') && (
+            <PartialProducts {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('area-model-mult') && (
+            <AreaModelMult {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
           )
         }
 
