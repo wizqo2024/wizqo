@@ -82,6 +82,11 @@ import {
   FractionsToDecimals
 } from './DecimalWorksheets'
 import {
+  LongDivision1Digit,
+  LongDivision2Digit,
+  LongDivisionMultiDigit
+} from './printables/DivisionWorksheets'
+import {
   trackWorksheetDownload,
   trackWorksheetView,
   trackPrintDialog,
@@ -13638,6 +13643,24 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('liquid-measurement') && (
             <LiquidMeasurement docId="liquid-measurement" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('long-division-1digit') && (
+            <LongDivision1Digit {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('long-division-2digit') && (
+            <LongDivision2Digit {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('long-division-multidigit') && (
+            <LongDivisionMultiDigit {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
           )
         }
 
