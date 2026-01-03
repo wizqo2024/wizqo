@@ -1,5 +1,8 @@
 import * as React from 'react'
 import { useTranslation } from '@/context/TranslationContext'
+
+type ReactNode = React.ReactNode
+type FC<T = {}> = React.FC<T>
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared'
 import { makeRng } from '@/utils/printableUtils'
 
@@ -527,27 +530,27 @@ export const GeometryWordProblems: React.FC<{ docId: string; showAnswersForDoc: 
 export const WordProblems100: React.FC<{ docId: string; showAnswersForDoc: ShowAnswersFn }> = ({ docId, showAnswersForDoc }) => {
     const { t } = useTranslation()
     const problems = React.useMemo(() => {
-        const rng = makeRng(new Date().toDateString())
+        const rng = makeRng(docId)
         return Array.from({ length: 6 }).map(() => {
             const isAdd = rng() > 0.5
             let n1, n2, ans, text, steps
 
             if (isAdd) {
                 // Addition within 100
-                n1 = rng.int(10, 60)
-                n2 = rng.int(5, 39)
+                n1 = Math.floor(rng() * 50) + 10
+                n2 = Math.floor(rng() * 30) + 5
                 ans = n1 + n2
-                const items = rng.pick(['marbles', 'stickers', 'cards', 'pages'])
-                const name = rng.pick(['Mia', 'Liam', 'Noah', 'Ava'])
+                const items = ["marbles", "stickers", "cards", "pages"][Math.floor(rng() * 4)]
+                const name = ["Mia", "Liam", "Noah", "Ava"][Math.floor(rng() * 4)]
                 text = `${name} has ${n1} ${items}. ${name === 'Mia' || name === 'Ava' ? 'She' : 'He'} gets ${n2} more. How many ${items} does ${name === 'Mia' || name === 'Ava' ? 'she' : 'he'} have now?`
                 steps = [`Identify: Start with ${n1}, add ${n2}`, `Solve: ${n1} + ${n2} = ${ans}`]
             } else {
                 // Subtraction within 100
-                n1 = rng.int(30, 99)
-                n2 = rng.int(5, 25)
+                n1 = Math.floor(rng() * 60) + 30
+                n2 = Math.floor(rng() * 20) + 5
                 ans = n1 - n2
-                const items = rng.pick(['apples', 'pencils', 'cookies', 'books'])
-                const name = rng.pick(['Tom', 'Sara', 'Leo', 'Zoe'])
+                const items = ["apples", "pencils", "cookies", "books"][Math.floor(rng() * 4)]
+                const name = ["Tom", "Sara", "Leo", "Zoe"][Math.floor(rng() * 4)]
                 text = `${name} had ${n1} ${items}. ${name === 'Sara' || name === 'Zoe' ? 'She' : 'He'} gave away ${n2}. How many ${items} are left?`
                 steps = [`Identify: Start with ${n1}, subtract ${n2}`, `Solve: ${n1} - ${n2} = ${ans}`]
             }
@@ -557,7 +560,7 @@ export const WordProblems100: React.FC<{ docId: string; showAnswersForDoc: ShowA
                 finalAnswer: `${ans}`
             }
         })
-    }, [])
+    }, [docId])
 
     return (
         <WorksheetSectionWrapper
@@ -609,6 +612,110 @@ export const WordProblems100: React.FC<{ docId: string; showAnswersForDoc: ShowA
                                         ))}
                                         <div className="font-bold text-emerald-700 mt-2 border-t pt-1 border-emerald-100">
                                             Ans: {p.finalAnswer}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </WordProblemLayout>
+        </WorksheetSectionWrapper>
+    )
+}
+
+export const MultiStepWordProblems: React.FC<{ docId: string; showAnswersForDoc: ShowAnswersFn }> = ({ docId, showAnswersForDoc }) => {
+    const problems = React.useMemo(() => {
+        const rng = makeRng(docId)
+        function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min }
+
+        return Array.from({ length: 6 }).map((_, i) => {
+            const type = nextInt(0, 2)
+            if (type === 0) {
+                // (A * B) - C
+                const a = nextInt(3, 8)
+                const b = nextInt(2, 5)
+                const c = nextInt(1, a * b - 1)
+                return {
+                    text: `Detective Zoom found ${a} boxes of evidence. Each box had ${b} clues. But ${c} clues resulted in a dead end. How many useful clues are left?`,
+                    answerSteps: [`${a} boxes × ${b} clues = ${a * b} total clues`, `${a * b} - ${c} dead ends = ${a * b - c}`],
+                    finalAnswer: `${a * b - c} clues`
+                }
+            } else if (type === 1) {
+                // (A + B) - C
+                const a = nextInt(10, 30)
+                const b = nextInt(5, 20)
+                const c = nextInt(5, 15)
+                return {
+                    text: `There were ${a} witnesses on Monday and ${b} on Tuesday. ${c} of them were suspects. How many were innocent witnesses?`,
+                    answerSteps: [`${a} Monday + ${b} Tuesday = ${a + b} total people`, `${a + b} - ${c} suspects = ${a + b - c}`],
+                    finalAnswer: `${a + b - c} witnesses`
+                }
+            } else {
+                // (A - B) + C
+                const a = nextInt(20, 50)
+                const b = nextInt(5, 15)
+                const c = nextInt(10, 20)
+                return {
+                    text: `Officer Pat had ${a} donuts. The team ate ${b}. Then Officer Mike brought ${c} more. How many donuts are there now?`,
+                    answerSteps: [`${a} start - ${b} eaten = ${a - b} left`, `${a - b} + ${c} fresh = ${a - b + c}`],
+                    finalAnswer: `${a - b + c} donuts`
+                }
+            }
+        })
+    }, [docId])
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Math Detective Agency"
+            emoji="🕵️‍♂️"
+            description="Crack the case! Solve step-by-step to catch the answer."
+            problemCount={problems.length}
+            learningObjectives={['Solve multi-step word problems', 'Identify sequence of operations', 'Show work for each clue']}
+            parentTeacherTips={['Look for keywords: "each", "total", "left", "more"', 'Solve one clue at a time', 'Double check the final verdict']}
+        >
+            <WordProblemLayout
+                title="Top Secret Case Files"
+                subtitle="Authorized Eyes Only"
+                emoji="🕵️‍♂️"
+                color="blue"
+                bannerIcons={{ bg1: "🔍", bg2: "📂", float1: "💼", float2: "🔒" }}
+                strategy={{
+                    title: "Investigative Steps",
+                    steps: [
+                        { label: "1. Briefing", text: "Read the case twice to understand the mystery." },
+                        { label: "2. Clues", text: "Find the hidden numbers and what they mean." },
+                        { label: "3. Blueprint", text: "Decide which operation (+, -, ×) to use first." },
+                        { label: "4. Verdict", text: "Solve all steps to find the final answer." }
+                    ]
+                }}
+                workedExample={{
+                    problem: "Detective Max has 3 folders with 5 cases each. He solves 4 cases. How many are left?",
+                    steps: [
+                        "Clue 1: 3 folders × 5 cases = 15 total cases.",
+                        "Clue 2: 15 total - 4 solved = 11 cases.",
+                    ],
+                    answer: "11 cases",
+                    tip: "Solve the multiplication part first!"
+                }}
+                problems={problems}
+            >
+                {showAnswersForDoc(docId, () => (
+                    <div className="mt-8 p-6 border-2 border-emerald-300 bg-emerald-50 rounded-xl break-before-page">
+                        <div className="font-bold text-emerald-900 mb-4 text-xl flex items-center gap-2">
+                            <span>✅</span> Case Verdicts (Answer Key)
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {problems.map((p, i) => (
+                                <div key={i} className="bg-white p-4 rounded-lg border border-emerald-200">
+                                    <div className="font-bold text-emerald-800 mb-2">Case #{400 + i}</div>
+                                    <div className="text-sm text-slate-600 space-y-1">
+                                        {p.answerSteps.map((step, si) => (
+                                            <div key={si}>• {step}</div>
+                                        ))}
+                                        <div className="font-bold text-emerald-700 mt-2 border-t pt-1 border-emerald-100">
+                                            Verdict: {p.finalAnswer}
                                         </div>
                                     </div>
                                 </div>

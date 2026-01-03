@@ -13802,155 +13802,35 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('multi-step-word-problems') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-            const problems = Array.from({ length: 6 }, () => {
-              const type = nextInt(0, 3);
-              if (type === 0) {
-                // (A * B) - C
-                const a = nextInt(3, 8);
-                const b = nextInt(2, 5);
-                const c = nextInt(1, a * b - 1);
-                return {
-                  text: `Detective Zoom found ${a} boxes of evidence. Each box had ${b} clues. But ${c} clues resulted in a dead end. How many useful clues are left?`,
-                  steps: [`${a}  ${b} = ${a * b} total clues`, `${a * b} - ${c} = ${a * b - c}`],
-                  answer: `${a * b - c} clues`
-                };
-              } else if (type === 1) {
-                // (A + B) - C
-                const a = nextInt(10, 30);
-                const b = nextInt(5, 20);
-                const c = nextInt(5, 15);
-                return {
-                  text: `There were ${a} witnesses on Monday and ${b} on Tuesday. ${c} of them were suspects. How many were innocent witnesses?`,
-                  steps: [`${a} + ${b} = ${a + b} total people`, `${a + b} - ${c} = ${a + b - c}`],
-                  answer: `${a + b - c} witnesses`
-                };
-              } else {
-                // (A - B) + C
-                const a = nextInt(20, 50);
-                const b = nextInt(5, 15);
-                const c = nextInt(10, 20);
-                return {
-                  text: `Officer Pat had ${a} donuts. The team ate ${b}. Then Officer Mike brought ${c} more. How many donuts are there now?`,
-                  steps: [`${a} - ${b} = ${a - b} left`, `${a - b} + ${c} = ${a - b + c}`],
-                  answer: `${a - b + c} donuts`
-                };
-              }
-            });
-
-            return (
-              <WorksheetSectionWrapper
-                docId="multi-step-word-problems"
-                title="Math Detective Agency"
-                emoji={String.fromCharCode(0xD83D, 0xDD75, 0xFE0F)}
-                description="Crack the case! Solve step-by-step to catch the answer."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Solve multi-step word problems',
-                  'Identify sequence of operations',
-                  'Show work for each clue'
-                ]}
-                parentTeacherTips={[
-                  'Look for keywords: "each", "total", "left", "more"',
-                  'Solve one clue at a time',
-                  'Double check the final verdict'
-                ]}
-              >
-                {/* Agency Header */}
-                <div className="print:hidden w-full h-20 mb-6 relative overflow-hidden bg-slate-800 rounded-t-lg border-b-4 border-yellow-500 shadow-lg">
-                  <div className="absolute top-2 left-4 text-4xl">{String.fromCodePoint(0x279C)}</div>
-                  <div className="flex flex-col items-center justify-center h-full">
-                    <div className="text-2xl font-bold text-slate-100 font-mono tracking-widest uppercase">Top Secret Case Files</div>
-                    <div className="text-yellow-500 font-bold text-xs uppercase bg-slate-900 px-2 py-0.5 rounded border border-yellow-500 mt-1">Authorized Eyes Only</div>
-                  </div>
-                </div>
-
-                {/* Example Case */}
-                <div className="mb-8 mx-auto max-w-2xl bg-amber-50 p-1 border border-slate-300 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] rotate-0 relative">
-                  {/* Paperclip */}
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full border-4 border-slate-400 z-10 bg-transparent border-b-transparent"></div>
-
-                  <div className="bg-white p-6 border border-slate-200">
-                    <div className="flex justify-between items-start mb-4 border-b-2 border-slate-800 pb-2">
-                      <div>
-                        <h3 className="font-bold text-slate-900 uppercase tracking-wide">Case #00-EXAMPLE</h3>
-                        <p className="text-xs text-slate-500">Subject: The Missing Marbles</p>
-                      </div>
-                      <div className="text-4xl opacity-20">{String.fromCodePoint(0x270F)}</div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <div className="font-serif italic text-slate-700 text-lg">
-                        "Start with 15 marbles. Lose 5. Find 8 more. How many now?"
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 text-sm font-mono mt-4 bg-slate-50 p-4 rounded border border-slate-200">
-                        <div>
-                          <span className="bg-slate-200 text-slate-600 px-1 text-xs rounded uppercase font-bold mr-2">Clue 1</span>
-                          15 - 5 = 10
-                        </div>
-                        <div>
-                          <span className="bg-slate-200 text-slate-600 px-1 text-xs rounded uppercase font-bold mr-2">Clue 2</span>
-                          10 + 8 = 18
-                        </div>
-                      </div>
-
-                      <div className="mt-2 text-right">
-                        <span className="text-red-600 font-bold text-xl font-stamp transform -rotate-2 inline-block border-2 border-red-600 px-2 py-1">VERDICT: 18</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <div key={i} className="relative group break-inside-avoid">
-                      {/* Folder Tab */}
-                      <div className="absolute -top-3 left-0 w-24 h-4 bg-amber-200 rounded-t-lg border-t border-l border-r border-amber-300 group-hover:-top-4 transition-all"></div>
-
-                      <div className="bg-amber-100 p-6 rounded-b-lg rounded-tr-lg border border-amber-300 shadow-md relative">
-                        <div className="absolute top-2 right-2 text-xs font-mono text-amber-600 opacity-50">CASE #{400 + i}</div>
-                        <div className="font-serif text-slate-800 mb-4 leading-relaxed">
-                          {p.text}
-                        </div>
-
-                        <div className="bg-white p-3 rounded border border-amber-200 h-28 relative">
-                          <div className="absolute top-1 left-2 text-[10px] text-slate-400 uppercase tracking-wider">Investigative Notes</div>
-                          {/* Lines for writing */}
-                          <div className="w-full h-full pt-4 space-y-6">
-                            <div className="border-b border-slate-200"></div>
-                            <div className="border-b border-slate-200"></div>
-                            <div className="border-b border-slate-200"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {showAnswersForDoc('multi-step-word-problems', () => (
-                  <div className="mt-6 p-6 border-l-4 border-slate-800 bg-slate-50 rounded print:page-break-before-always">
-                    <div className="font-bold text-slate-900 mb-4 text-xl uppercase tracking-widest border-b border-slate-300 pb-2">{String.fromCodePoint(0x270F)}</div>
-                    <div className="grid grid-cols-1 gap-4">
-                      {problems.map((p, i) => (
-                        <div key={i} className="flex flex-col text-sm font-mono text-slate-700 bg-white p-3 border border-slate-200 shadow-sm">
-                          <div className="font-bold text-slate-900 mb-1">CASE #{400 + i}</div>
-                          <div className="flex flex-wrap gap-x-4">
-                            {p.steps.map((s, j) => <span key={j} className="text-slate-500">STEP {j + 1}: {s}</span>)}
-                          </div>
-                          <div className="mt-1 font-bold text-red-600">VERDICT: {p.answer}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
-          })()
+          activeDocs.includes('decimal-word-problems') && (
+            <DecimalWordProblems docId="decimal-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
         }
+
+        {
+          activeDocs.includes('fraction-word-problems') && (
+            <FractionWordProblems docId="fraction-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('geometry-word-problems') && (
+            <GeometryWordProblems docId="geometry-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('measurement-word-problems') && (
+            <MeasurementWordProblems docId="measurement-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('multi-step-word-problems') && (
+            <MultiStepWordProblems docId="multi-step-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
 
         {
           activeDocs.includes('elapsed-time-word-problems') && (() => {
