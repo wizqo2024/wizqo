@@ -25184,7 +25184,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {
           activeDocs.includes('line-plots') && (
-            <LinePlots docId="line-plots" />
+            <LinePlots docId="line-plots" showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
@@ -25193,7 +25193,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {
           activeDocs.includes('bar-graphs-pictographs') && (
-            <BarGraphs docId="bar-graphs-pictographs" />
+            <BarGraphs docId="bar-graphs-pictographs" showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
@@ -25464,7 +25464,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {
           activeDocs.includes('mean-median-mode') && (
-            <MeanMedianMode docId="mean-median-mode" />
+            <MeanMedianMode docId="mean-median-mode" showAnswersForDoc={showAnswersForDoc} />
           )
         }
 

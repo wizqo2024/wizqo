@@ -1,10 +1,11 @@
-import React from 'react'
-import type { FC } from 'react'
+import * as React from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared'
 import { makeRng } from '@/utils/printableUtils'
 
-export const LinePlots: FC<{ docId: string }> = ({ docId }) => {
+type ShowAnswersFn = (docId: string, content: () => React.ReactNode) => React.ReactNode
+
+export const LinePlots: React.FC<{ docId: string; showAnswersForDoc: ShowAnswersFn }> = ({ docId, showAnswersForDoc }) => {
     const { t } = useTranslation()
     const rng = makeRng(docId)
 
@@ -120,11 +121,26 @@ export const LinePlots: FC<{ docId: string }> = ({ docId }) => {
                     </div>
                 </div>
             </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
+                    <div className="grid grid-cols-2 gap-4 text-sm text-emerald-800">
+                        <div>
+                            <strong>Data:</strong> {data.join(', ')}
+                        </div>
+                        <div>
+                            <div><strong>Mode:</strong> {mode.join(', ')}</div>
+                            <div><strong>Range:</strong> {range} ({maxVal} - {minVal})</div>
+                        </div>
+                    </div>
+                </div>
+            ))}
         </WorksheetSectionWrapper>
     )
 }
 
-export const BarGraphs: FC<{ docId: string }> = ({ docId }) => {
+export const BarGraphs: React.FC<{ docId: string; showAnswersForDoc: ShowAnswersFn }> = ({ docId, showAnswersForDoc }) => {
     const { t } = useTranslation()
     const rng = makeRng(docId)
 
@@ -230,11 +246,25 @@ export const BarGraphs: FC<{ docId: string }> = ({ docId }) => {
                     <div className="absolute bottom-4 left-0 w-full text-center text-slate-500 text-xs italic">Label Categories Here &rarr;</div>
                 </div>
             </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
+                    <div className="text-sm text-emerald-800">
+                        <div className="mb-2 font-semibold">Verify Heights:</div>
+                        <ul className="list-disc list-inside">
+                            {data.map((row, i) => (
+                                <li key={i}>{row.item}: <strong>{row.count}</strong></li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            ))}
         </WorksheetSectionWrapper>
     )
 }
 
-export const MeanMedianMode: FC<{ docId: string }> = ({ docId }) => {
+export const MeanMedianMode: React.FC<{ docId: string; showAnswersForDoc: ShowAnswersFn }> = ({ docId, showAnswersForDoc }) => {
     const { t } = useTranslation()
     const rng = makeRng(docId)
 
@@ -342,6 +372,49 @@ export const MeanMedianMode: FC<{ docId: string }> = ({ docId }) => {
                     </div>
                 ))}
             </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
+                    <div className="space-y-4">
+                        {problems.map((p, i) => {
+                            const sum = p.data.reduce((a, b) => a + b, 0)
+                            const mean = sum / p.data.length
+                            const mid = Math.floor(p.data.length / 2)
+                            const median = p.data.length % 2 === 0
+                                ? (p.data[mid - 1] + p.data[mid]) / 2 // Should not happen with current odd generation logic but safe to have
+                                : p.data[mid]
+
+                            // Mode calc
+                            const counts: Record<number, number> = {}
+                            let maxCount = 0
+                            let modes: number[] = []
+                            p.data.forEach(n => {
+                                counts[n] = (counts[n] || 0) + 1
+                                if (counts[n] > maxCount) {
+                                    maxCount = counts[n]; modes = [n]
+                                } else if (counts[n] === maxCount) {
+                                    modes.push(n)
+                                }
+                            })
+                            // If all appear once (maxCount=1), strictly speaking no mode or all mode, but for 4th grade distinct repeats usually expected.
+                            // Our generation doesn't enforce repeats. If maxCount is 1, let's say "None" or list all.
+                            const modeStr = maxCount > 1 ? modes.join(', ') : "None (all appear once)"
+
+                            return (
+                                <div key={i} className="border-b border-emerald-200 pb-2 last:border-0">
+                                    <div className="font-semibold text-emerald-900 text-sm mb-1">Set {i + 1}: {p.data.join(', ')}</div>
+                                    <div className="grid grid-cols-3 gap-2 text-xs text-emerald-800">
+                                        <div>Mean: <strong>{mean % 1 === 0 ? mean : mean.toFixed(1)}</strong></div>
+                                        <div>Median: <strong>{median}</strong></div>
+                                        <div>Mode: <strong>{modeStr}</strong></div>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            ))}
         </WorksheetSectionWrapper>
     )
 }
