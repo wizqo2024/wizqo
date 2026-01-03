@@ -16529,63 +16529,191 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
             const problems = Array.from({ length: 6 }, () => {
               const denom = [3, 4, 5, 6, 8][Math.floor(rng() * 5)]
-              const n1 = Math.floor(rng() * (denom - 2)) + 1
+              const n1 = Math.floor(rng() * (denom - 1)) + 1
               const maxN2 = denom - n1
               const n2 = Math.floor(rng() * maxN2) + 1
-              // Ensure sum <= denom
               return { n1, n2, denom, sum: n1 + n2 }
             })
+
+            const renderCookie = (num: number, denom: number, size: number = 80, isAnswer: boolean = false) => {
+              const radius = size / 2
+              const center = size / 2
+              const chipCount = num
+
+              // Seeded random positions for chips per segment
+              const getChips = (segmentIdx: number) => {
+                const chips = []
+                const seed = `${effectiveSeed}-${segmentIdx}`
+                const segmentRng = makeRng(seed)
+                const chipsInSegment = Math.floor(segmentRng() * 2) + 2 // 2-3 chips per slice
+
+                for (let i = 0; i < chipsInSegment; i++) {
+                  const angleOffset = (segmentRng() * 0.6 + 0.2) * (360 / denom)
+                  const dist = (segmentRng() * 0.4 + 0.3) * radius
+                  chips.push({ angleOffset, dist })
+                }
+                return chips
+              }
+
+              return (
+                <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="overflow-visible">
+                  <defs>
+                    <radialGradient id="cookieGrad">
+                      <stop offset="60%" stopColor="#f59e0b" />
+                      <stop offset="100%" stopColor="#d97706" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* Base Cookie */}
+                  <circle cx={center} cy={center} r={radius} fill="url(#cookieGrad)" stroke="#78350f" strokeWidth="2" />
+
+                  {/* Partitions */}
+                  {Array.from({ length: denom }).map((_, i) => {
+                    const angle = (i * 360) / denom
+                    const x2 = center + radius * Math.cos((angle * Math.PI) / 180)
+                    const y2 = center + radius * Math.sin((angle * Math.PI) / 180)
+                    return (
+                      <line
+                        key={i}
+                        x1={center} y1={center} x2={x2} y2={y2}
+                        stroke="#78350f" strokeWidth="1" strokeOpacity="0.3"
+                      />
+                    )
+                  })}
+
+                  {/* Highlighted Slices (Numerator) */}
+                  {Array.from({ length: num }).map((_, i) => {
+                    const startAngle = (i * 360) / denom
+                    const endAngle = ((i + 1) * 360) / denom
+                    const x1 = center + radius * Math.cos((startAngle * Math.PI) / 180)
+                    const y1 = center + radius * Math.sin((startAngle * Math.PI) / 180)
+                    const x2 = center + radius * Math.cos((endAngle * Math.PI) / 180)
+                    const y2 = center + radius * Math.sin((endAngle * Math.PI) / 180)
+                    const largeArc = 360 / denom > 180 ? 1 : 0
+
+                    return (
+                      <g key={i}>
+                        <path
+                          d={`M ${center} ${center} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z`}
+                          fill="#78350f" fillOpacity="0.1"
+                        />
+                        {/* Chocolate Chips */}
+                        {getChips(i).map((chip, ci) => {
+                          const chipAngle = startAngle + chip.angleOffset
+                          const cx = center + chip.dist * Math.cos((chipAngle * Math.PI) / 180)
+                          const cy = center + chip.dist * Math.sin((chipAngle * Math.PI) / 180)
+                          return <circle key={ci} cx={cx} cy={cy} r="2.5" fill="#451a03" />
+                        })}
+                      </g>
+                    )
+                  })}
+                </svg>
+              )
+            }
 
             return (
               <WorksheetSectionWrapper
                 docId={docId}
-                title="Cookie Bakery: Adding Fractions"
-                emoji={String.fromCodePoint(0x2795)}
-                description="Add the cookie pieces together. Since the pieces are the same size, the bottom number stays the same!"
+                title="Chef Crumb's Cookie Bakery"
+                emoji={String.fromCodePoint(0x1F36A)}
+                description="The bakery is busy! Add the cookie slices together. Remember: The size of the cookie (denominator) never changes!"
                 problemCount={problems.length}
                 learningObjectives={[
-                  'Add fractions with like denominators',
-                  'Understand that only numerators are added',
-                  'Visual addition models'
+                  'Add fractions with common denominators',
+                  'Understand that only parts (numerators) are added',
+                  'Visualize fraction addition using area models'
                 ]}
                 parentTeacherTips={[
-                  '1 cookie piece + 2 cookie pieces = 3 cookie pieces.',
-                  'The size of the piece (denominator) does NOT change.',
-                  '"Top plus top, bottom stays the same!"'
+                  'Focus on the chocolate chips! If you have 1 slice and 2 slices, you have 3 slices total.',
+                  'The denominator tells us how many slices make a WHOLE cookie. It stays the same!',
+                  'Encourage students to draw the final sum on the blank cookie.'
                 ]}
               >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-amber-400 to-yellow-600 animate-gradient-x mb-4" />
+                <div className="print:hidden h-1.5 w-full rounded-full bg-gradient-to-r from-amber-900 via-orange-500 to-yellow-300 animate-gradient-x mb-8" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {problems.map((p, i) => (
-                    <div key={i} className="flex flex-col items-center p-4 bg-amber-50 border-2 border-amber-200 rounded-xl">
-                      <div className="flex items-center gap-3 text-2xl font-bold text-amber-900 mb-4">
-                        <div>{p.n1}/{p.denom}</div>
-                        <div>+</div>
-                        <div>{p.n2}/{p.denom}</div>
-                        <div>=</div>
-                        <div className="w-16 h-10 border-2 border-dashed border-amber-400 bg-white rounded flex items-center justify-center text-slate-300">?</div>
+                {/* Baker's Secret Masterclass */}
+                <div className="mb-10 p-6 bg-amber-950 rounded-2xl border-4 border-amber-600 shadow-xl print:border-2 print:bg-white overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-xl" />
+
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-amber-50 rounded-lg text-amber-900 shadow-lg animate-bounce">
+                      {String.fromCodePoint(0x1F36A)}
+                    </div>
+                    <div>
+                      <h3 className="text-white font-black text-lg print:text-amber-900 uppercase tracking-tighter">The Baker's Secret</h3>
+                      <p className="text-amber-300 text-xs print:text-amber-600 font-medium italic">Master the art of cookie addition!</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                    <div className="flex items-center justify-around bg-white/10 p-4 rounded-xl border border-white/10 print:bg-slate-50 print:border-slate-200">
+                      <div className="flex flex-col items-center gap-2">
+                        {renderCookie(1, 4, 60)}
+                        <div className="text-white font-black print:text-slate-800 text-lg">1/4</div>
                       </div>
-
-                      {/* Visual Cookie Model */}
-                      <div className="flex items-center gap-2">
-                        <div className="w-12 h-12 rounded-full border-2 border-amber-600 bg-amber-200 flex items-center justify-center relative overflow-hidden">
-                          <div className="absolute inset-0 bg-amber-600 opacity-20" style={{ clipPath: `circle(${(p.n1 / p.denom) * 100}% at 50% 50%)` }}></div>
-                          {/* Simple text fallback for visual complexity */}
-                          <span className="text-xs font-bold">{p.n1} pcs</span>
-                        </div>
-                        <span className="text-amber-400">+</span>
-                        <div className="w-12 h-12 rounded-full border-2 border-amber-600 bg-amber-200 flex items-center justify-center relative overflow-hidden">
-                          <span className="text-xs font-bold">{p.n2} pcs</span>
-                        </div>
+                      <div className="text-3xl font-black text-amber-500">+</div>
+                      <div className="flex flex-col items-center gap-2">
+                        {renderCookie(2, 4, 60)}
+                        <div className="text-white font-black print:text-slate-800 text-lg">2/4</div>
+                      </div>
+                      <div className="text-3xl font-black text-amber-500">=</div>
+                      <div className="flex flex-col items-center gap-2">
+                        {renderCookie(3, 4, 60)}
+                        <div className="text-amber-400 font-black text-lg">3/4</div>
                       </div>
                     </div>
-                  ))}
+                    <div className="text-amber-50/80 text-xs flex flex-col justify-center print:text-slate-600">
+                      <p className="font-bold text-amber-400 mb-1">Baker's Tip #1:</p>
+                      "When the cookies are the same size, just add the slices (numerators) together. The size (denominator) stays the same!"
+                    </div>
+                  </div>
+                </div>
+
+                {/* Master Baker Checklist */}
+                <div className="mt-12 p-8 bg-amber-50 border-2 border-amber-200 rounded-3xl relative overflow-hidden">
+                  <div className="absolute -bottom-8 -right-8 text-9xl opacity-[0.05] rotate-12 pointer-events-none">🍪</div>
+                  <div className="flex items-center gap-4 mb-6 relative z-10">
+                    <div className="w-12 h-12 bg-white border-2 border-amber-300 rounded-2xl flex items-center justify-center text-2xl shadow-sm">👨‍🍳</div>
+                    <div>
+                      <h4 className="font-black text-amber-900 uppercase text-lg tracking-tighter">Master Baker Checklist</h4>
+                      <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Quality control for every batch</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
+                    {[
+                      "I only added the chocolate chips (numerators).",
+                      "I kept the cookie size (denominator) the same.",
+                      "I drew the total chips on the answer cookie.",
+                      "My final fraction matches my drawing."
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3 bg-white p-4 rounded-xl border border-amber-100 shadow-sm">
+                        <div className="w-6 h-6 border-2 border-amber-200 rounded-lg flex-shrink-0 flex items-center justify-center text-xs text-amber-400 font-black italic">!</div>
+                        <span className="text-xs font-semibold text-amber-700 leading-tight">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 {showAnswersForDoc(docId, () => (
-                  <div className="mt-4 p-2 bg-amber-100 rounded text-center text-amber-900 border border-amber-200 text-sm font-bold">
-                    Answers: {problems.map(p => `${p.sum}/${p.denom}`).join(', ')}
+                  <div className="mt-12 p-10 border-4 border-double border-amber-900 bg-amber-50 rounded-[40px] print:page-break-before-always print:bg-white print:border-slate-300">
+                    <div className="text-center mb-12">
+                      <div className="inline-block px-4 py-1.5 bg-amber-900 text-amber-100 text-[10px] font-black uppercase tracking-[0.3em] rounded-full mb-4">Oven Fresh</div>
+                      <h4 className="text-4xl font-black text-amber-950 uppercase italic tracking-tighter">The Bakery Ledger: Solutions</h4>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                      {problems.map((p, i) => (
+                        <div key={i} className="bg-white p-4 rounded-2xl border border-amber-200 shadow-sm text-center transform hover:scale-105 transition-all">
+                          <div className="text-[10px] font-black text-amber-400 mb-3 tracking-widest uppercase">Batch #{i + 1}</div>
+                          <div className="mb-4 flex justify-center">
+                            {renderCookie(p.sum, p.denom, 50, true)}
+                          </div>
+                          <div className="font-mono font-black text-amber-900 text-lg">
+                            {p.sum}/{p.denom}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
