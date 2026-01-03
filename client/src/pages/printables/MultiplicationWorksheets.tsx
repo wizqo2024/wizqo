@@ -1,4 +1,5 @@
-import React, { type ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared';
@@ -910,7 +911,7 @@ export function MultiplicationWindowArrays({ seed, variant, showAnswersForDoc }:
                                 <div className="w-10 h-8 border-b-2 border-slate-400 flex items-center justify-center bg-slate-50">{p.cols}</div>
                             </div>
                             <span>=</span>
-                            <div className="w-14 h-10 border-2 border-dashed border-cyan-500 rounded flex items-center justify-center bg-cyan-50 text-cyan-800">?</div>
+                            <div className="w-14 h-10 border-2 border-dashed border-cyan-500 rounded flex items-center justify-center bg-cyan-50 text-cyan-800"></div>
                         </div>
                     </div>
                 ))}
