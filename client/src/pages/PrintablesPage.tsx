@@ -15482,14 +15482,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
                       <div className="flex flex-col items-center justify-center mt-12 mb-8">
                         <div className="flex gap-4 items-center">
+                          <div className="w-16 h-16 rounded-full bg-slate-50 border-2 border-slate-100 flex items-center justify-center font-black text-slate-800 text-xl overflow-hidden shadow-xl">
+                            {renderPizza(p.dividend, p.dividend + 1, 60)}
+                          </div>
+                          <div className="text-xl font-black text-slate-200 group-hover:text-amber-400 transition-colors">&rarr;</div>
                           <div className="flex flex-wrap gap-2 max-w-[120px] justify-center">
                             {Array.from({ length: p.divisor }).map((_, k) => (
                               <div key={k} className="w-12 h-12 rounded-xl bg-orange-50 border-2 border-orange-200 flex items-center justify-center text-xs font-black text-orange-400 shadow-inner">Box</div>
                             ))}
-                          </div>
-                          <div className="text-xl font-black text-slate-200 group-hover:text-amber-400 transition-colors">&rarr;</div>
-                          <div className="w-16 h-16 rounded-full bg-slate-50 border-2 border-slate-100 flex items-center justify-center font-black text-slate-800 text-xl overflow-hidden shadow-xl">
-                            {renderPizza(p.dividend, p.dividend + 1, 60)}
                           </div>
                         </div>
                       </div>
