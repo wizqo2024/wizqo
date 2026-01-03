@@ -46,7 +46,9 @@ import {
   MultiplicationFluency,
   MultiplicationBy10And100,
   MultiplicationProperties,
-  MultiplicationDecimals
+  MultiplicationDecimals,
+  PartialProducts,
+  AreaModelMult
 } from './printables/MultiplicationWorksheets'
 import {
   EquivFractions4th,
@@ -54,15 +56,7 @@ import {
   AddSubFractions4th,
   MixedImproperFractions
 } from './printables/FractionWorksheets'
-import {
-  MultiplicationFacts,
-  MultiplicationArrays2To5,
-  SkipCountingMultiplication,
-  MultiplicationArraysModels,
-  TimesTableHorizontal,
-  PartialProducts,
-  AreaModelMult
-} from './printables/MultiplicationWorksheets'
+
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
 import { LogicWorksheets } from './LogicWorksheets';
@@ -13768,6 +13762,42 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('mixed-improper-fractions') && (
             <MixedImproperFractions {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('decimals-place-value') && (
+            <DecimalsPlaceValue docId="decimals-place-value" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('comparing-decimals') && (
+            <ComparingDecimals docId="comparing-decimals" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('add-sub-decimals') && (
+            <AddSubDecimals docId="add-sub-decimals" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('fractions-to-decimals') && (
+            <FractionsToDecimals docId="fractions-to-decimals" variant="mixed" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('fractions-to-decimals-basic-tenths') && (
+            <FractionsToDecimals docId="fractions-to-decimals-basic-tenths" variant="tenths" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('fractions-to-decimals-division') && (
+            <FractionsToDecimals docId="fractions-to-decimals-division" variant="division" showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
