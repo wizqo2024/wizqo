@@ -38,6 +38,8 @@ export function LongDivision1Digit({ seed, variant, showAnswersForDoc }: Specifi
         return { dividend, divisor, quotient, remainder };
     });
 
+    console.log('DEBUG: LongDivision1Digit rendering', { docId, problemsCount: problems.length });
+
     return (
         <WorksheetSectionWrapper
             docId={docId}
@@ -56,6 +58,11 @@ export function LongDivision1Digit({ seed, variant, showAnswersForDoc }: Specifi
                 'Check answers by multiplying: Quotient x Divisor + Remainder = Dividend'
             ]}
         >
+            <div className="bg-red-500 text-white p-4 text-center font-bold text-xl border-4 border-yellow-400 mb-8">
+                DEBUG MODE: IF YOU SEE THIS, THE COMPONENT IS MOUNTING
+                <br />
+                Problems generated: {problems.length}
+            </div>
             <PremiumWorksheetBanner
                 title="Division Detective"
                 subtitle="Mastering the Long Division Method"
