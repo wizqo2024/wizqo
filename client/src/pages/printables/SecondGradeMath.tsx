@@ -1,4 +1,5 @@
-import React, { type ReactNode } from 'react'
+import React from 'react'
+import type { ReactNode } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared'
 import { makeRng } from '@/utils/printableUtils'
@@ -81,6 +82,7 @@ export function ExpandedForm200({ showAnswersForDoc, seed, variant }: SpecificWo
 
             <StrategySpotlight
                 title="Stretch it Out!"
+                icon="↔️"
                 steps={[
                     { label: "Step 1", text: "Say the number out loud slowly." },
                     { label: "Step 2", text: "134 sounds like 'One hundred... thirty... four'." },
@@ -207,6 +209,7 @@ export function NumberPatterns200({ showAnswersForDoc, seed, variant }: Specific
 
             <StrategySpotlight
                 title="Find the Rule"
+                icon="🔍"
                 steps={[
                     { label: "Look", text: "Look at two numbers side-by-side." },
                     { label: "Check", text: "Are they getting bigger (+) or smaller (-)?" },
@@ -310,6 +313,7 @@ export function RoundingNearest10({ showAnswersForDoc, seed, variant }: Specific
 
             <StrategySpotlight
                 title="Rocket Rules for Rounding"
+                icon="🚀"
                 steps={[
                     { label: "Step 1", text: "Look at the digit in the ones place (the neighbor)." },
                     { label: "Step 2", text: "5 or more? Round UP to the next 10. (🚀 Blast off!)" },
@@ -390,6 +394,7 @@ export function AddThreeNumbers({ showAnswersForDoc, seed, variant }: SpecificWo
 
             <StrategySpotlight
                 title="Strategy: Make it Easier!"
+                icon="✨"
                 steps={[
                     { label: "Step 1", text: "Look for pairs that make 10 (like 6 + 4)." },
                     { label: "Step 2", text: "Look for doubles (like 3 + 3)." },
@@ -482,6 +487,7 @@ export function MissingAddends({ showAnswersForDoc, seed, variant }: SpecificWor
 
             <StrategySpotlight
                 title="Part + Part = Whole"
+                icon="🧩"
                 steps={[
                     { label: "Idea", text: "If a PART is missing, SUBTRACT the other part from the Whole." },
                     { label: "Example", text: "5 + ? = 12 (12 is Whole, 5 is Part)." },
@@ -579,6 +585,7 @@ export function FactFamilies20({ showAnswersForDoc, seed, variant }: SpecificWor
 
             <StrategySpotlight
                 title="3 Numbers = 4 Facts"
+                icon="🏠"
                 steps={[
                     { label: "Tip 1", text: "Big number is always the Sum (Addition) or the Whole (Subtraction)." },
                     { label: "Tip 2", text: "Add the small parts: 3 + 4 = 7" },
@@ -696,6 +703,7 @@ export function MentalMath20({ showAnswersForDoc, seed, variant }: SpecificWorks
 
             <StrategySpotlight
                 title="Mental Math Tricks"
+                icon="🧠"
                 steps={[
                     { label: "Doubles", text: "6 + 7 is just 6 + 6 + 1 (13)." },
                     { label: "Make 10", text: "8 + 5 -> 8 + 2 is 10, plus 3 more is 13." },
@@ -757,7 +765,7 @@ export function MoneyCoinsBills({ showAnswersForDoc, seed, variant }: SpecificWo
         return { q: quarters, d: dimes, n: nickels, p: pennies, total }
     })
 
-    const Coin = ({ type, size }: { type: 'Q' | 'D' | 'N' | 'P', size: number }) => {
+    const Coin = ({ type, size }: { type: 'Q' | 'D' | 'N' | 'P', size: number, key?: any }) => {
         const colors = { Q: '#9ca3af', D: '#9ca3af', N: '#9ca3af', P: '#b45309' } // Silver/Copper
         const labels = { Q: '25¢', D: '10¢', N: '5¢', P: '1¢' }
         return (
@@ -804,6 +812,7 @@ export function MoneyCoinsBills({ showAnswersForDoc, seed, variant }: SpecificWo
 
             <StrategySpotlight
                 title="Counting Coins Strategy"
+                icon="🪙"
                 steps={[
                     { label: "Step 1", text: "Start with the biggest value coins (Quarters 25¢)." },
                     { label: "Step 2", text: "Add the Dimes (10¢), then Nickels (5¢)." },
@@ -977,8 +986,6 @@ export function BarGraphsData({ showAnswersForDoc, seed, variant }: SpecificWork
             emoji="📊"
             description={t(`worksheets.${docId}.description`, 'Read the graph to answer the questions about favorite colors.')}
             problemCount={4}
-            className="print:break-after-page"
-            style={{ breakAfter: 'page', pageBreakAfter: 'always' }}
         >
             <PremiumWorksheetBanner
                 title="Data Detective"
@@ -1146,6 +1153,7 @@ export function Add2Digit100({ showAnswersForDoc, seed, variant }: SpecificWorks
 
             <StrategySpotlight
                 title="Building Numbers"
+                icon="🏗️"
                 steps={[
                     { label: "Line Up", text: "Line up the numbers: Ones under Ones, Tens under Tens." },
                     { label: "Step 1", text: "Add the Ones column first." },
@@ -1272,6 +1280,7 @@ export function PlaceValueHTO({ showAnswersForDoc, seed, variant }: SpecificWork
 
             <StrategySpotlight
                 title="Tens & Ones Master Class"
+                icon="🎓"
                 steps={[
                     { label: "Tens", text: "The first digit shows how many groups of 10." },
                     { label: "Ones", text: "The second digit shows the extra ones." },
@@ -1430,6 +1439,7 @@ export function Time5Min({ showAnswersForDoc, seed, variant }: SpecificWorksheet
 
             <StrategySpotlight
                 title="Clock Hands"
+                icon="🕑"
                 steps={[
                     { label: "Short Hand", text: "The Hour Hand. It points to the hour number." },
                     { label: "Long Hand", text: "The Minute Hand. It counts by 5s around the clock." },
@@ -1697,11 +1707,51 @@ export function Add2DigitRegrouping({ showAnswersForDoc, seed, variant }: Specif
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="2-Digit Addition (WITH Regrouping)"
+            title={t(`worksheets.${docId}.title`, '2-Digit Addition (WITH Regrouping)')}
             emoji={String.fromCodePoint(0x2795)}
-            description="Add the two numbers. You will need to regroup (carry) when the ones add up to 10 or more."
+            description={t(`worksheets.${docId}.description`, 'Add the two numbers. You will need to regroup (carry) when the ones add up to 10 or more.')}
+            problemCount={pairs.length}
+            learningObjectives={[
+                'Add 2-digit numbers with regrouping',
+                'Understand place value involved in carrying',
+                'Build addition fluency'
+            ]}
+            parentTeacherTips={[
+                'Line up the numbers vertically',
+                'Always start with the ones place',
+                'If ones add to 10+, write the ones digit and carry the ten',
+                'Don\'t forget to add the carried 1!'
+            ]}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+            <PremiumWorksheetBanner
+                title="Addition Regrouping"
+                subtitle="Carrying to the Tens"
+                icons={{
+                    bg1: "➕",
+                    bg2: "🔟",
+                    float1: "⬆️",
+                    float2: "1️⃣"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-pink-50 to-rose-50",
+                    border: "border-pink-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-pink-300",
+                    pillText: "text-pink-800",
+                    accent: "text-pink-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="Regrouping Rule"
+                icon="☝️"
+                steps={[
+                    { label: "Step 1", text: "Add the ONES first." },
+                    { label: "Step 2", text: "If the sum is 10 or more..." },
+                    { label: "Step 3", text: "Write the ones digit at bottom, CARRY the ten to top!" }
+                ]}
+                color="pink"
+            />
             <div className="grid grid-cols-2 gap-3">
                 {pairs.map(([a, b], i) => (
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
@@ -1753,11 +1803,51 @@ export function Sub2DigitRegrouping({ showAnswersForDoc, seed, variant }: Specif
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="2-Digit Subtraction (WITH Regrouping)"
+            title={t(`worksheets.${docId}.title`, '2-Digit Subtraction (WITH Regrouping)')}
             emoji={String.fromCharCode(0x2796)}
-            description="Subtract the two numbers. You will need to regroup (borrow) when the ones digit is smaller."
+            description={t(`worksheets.${docId}.description`, 'Subtract the two numbers. You will need to regroup (borrow) when the ones digit is smaller.')}
+            problemCount={pairs.length}
+            learningObjectives={[
+                'Subtract 2-digit numbers with regrouping',
+                'Understand borrowing/trading from tens',
+                'Check answers using addition'
+            ]}
+            parentTeacherTips={[
+                'Check if the top number in the ones place is smaller',
+                'If so, borrow 1 ten (which becomes 10 ones)',
+                'Change the tens number (it goes down by 1)',
+                'Always subtract ones first, then tens'
+            ]}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-red-400 animate-gradient-x mb-2" />
+            <PremiumWorksheetBanner
+                title="Subtraction Regrouping"
+                subtitle="Borrowing from Tens"
+                icons={{
+                    bg1: "➖",
+                    bg2: "📉",
+                    float1: "⬇️",
+                    float2: "🔙"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-orange-50 to-red-50",
+                    border: "border-orange-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-orange-300",
+                    pillText: "text-orange-800",
+                    accent: "text-orange-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="Subtraction Poem"
+                icon="🗣️"
+                steps={[
+                    { label: "Top > Bottom", text: "More on top? No need to stop!" },
+                    { label: "Bottom > Top", text: "More on the floor? Go next door, get 10 more!" },
+                    { label: "Same", text: "Numbers the same? Zero's the game!" }
+                ]}
+                color="orange"
+            />
             <div className="grid grid-cols-2 gap-3">
                 {pairs.map(([a, b], i) => (
                     <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full">
