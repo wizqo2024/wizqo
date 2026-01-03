@@ -25764,89 +25764,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('fraction-word-problems') && (() => {
-            const problems = [
-              'Emma ate 1/4 of a pizza. Jake ate 1/3 of the same pizza. How much pizza did they eat together?',
-              'A recipe calls for 3/4 cup of flour. Sarah has 1/2 cup. How much more does she need?',
-              'There are 24 students. 1/3 are wearing red shirts. How many students are wearing red?',
-              'A rope is 12 feet long. Tom cuts off 1/4 of it. How long is the remaining rope?',
-              'Lisa has 2/3 of a dollar. How much money does she have?',
-              'A pie is cut into 8 equal pieces. 3 pieces are eaten. What fraction of the pie remains?',
-            ];
-            return (
-              <WorksheetSectionWrapper
-                docId="fraction-word-problems"
-                title="Fraction Word Problems"
-                emoji={String.fromCodePoint(0x1F370)}
-                description="Solve each word problem involving fractions."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Solve word problems involving fractions',
-                  'Add and subtract fractions in real-world contexts',
-                  'Multiply fractions by whole numbers',
-                  'Understand fractions in everyday situations'
-                ]}
-                parentTeacherTips={[
-                  'Help students identify what operation to use',
-                  'Draw pictures or use visual models to help',
-                  'Check that answers make sense in the context',
-                  'Extension: Create your own fraction word problems'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Sarah ate 1/2 of a pizza. Tom ate 1/4 of the same pizza. How much did they eat together?</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Find common denominator: 1/2 = 2/4</div>
-                      <div><strong>Step 2:</strong> Add: 2/4 + 1/4 = 3/4</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 3/4 of the pizza</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2">{p}</div>
-                      <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </li>
-                  ))}
-                </ol>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own fraction word problem</div>
-                    <div>2. Solve: A cake is cut into 12 pieces. 1/3 are eaten. How many pieces remain?</div>
-                    <div>3. Explain how fractions are used in real life</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can solve fraction word problems</div>
-                    <div>{String.fromCharCode(0x2610)} I can add and subtract fractions</div>
-                    <div>{String.fromCharCode(0x2610)} I can multiply fractions by whole numbers</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-{
-          activeDocs.includes('fraction-word-problems') && (
-            <FractionWordProblems docId="fraction-word-problems" showAnswersForDoc={showAnswersForDoc} />
-          )
-        }
-          })()
-        }
+
+          {
+            activeDocs.includes('fraction-word-problems') && (
+              <FractionWordProblems docId="fraction-word-problems" showAnswersForDoc={showAnswersForDoc} />
+            )
+          }
+
 
         {
           activeDocs.includes('fraction-word-problems-5th') && (() => {
@@ -25986,91 +25910,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('decimal-word-problems') && (() => {
-            const problems = [
-              'Emma buys a book for $12.50 and a pen for $3.75. How much does she spend in total?',
-              'A rope is 8.5 meters long. Tom cuts off 2.3 meters. How long is the remaining rope?',
-              'Sarah runs 3.2 miles on Monday and 4.5 miles on Tuesday. How many miles did she run in total?',
-              'A store sells apples for $1.25 per pound. Jake buys 3.5 pounds. How much does he pay?',
-              'A tank holds 15.8 gallons. It already has 6.4 gallons. How much more can it hold?',
-              'Lisa has $20.00. She spends $8.75. How much money does she have left?',
-            ];
-            return (
-              <WorksheetSectionWrapper
-                docId="decimal-word-problems"
-                title="Decimal Word Problems"
-                emoji={String.fromCodePoint(0x1F4DD)}
-                description="Solve each word problem involving decimals."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Solve word problems involving decimal addition',
-                  'Solve word problems involving decimal subtraction',
-                  'Solve word problems involving decimal multiplication',
-                  'Apply decimal operations in real-world contexts'
-                ]}
-                parentTeacherTips={[
-                  'Help students identify the operation needed',
-                  'Remind students to align decimal points when adding/subtracting',
-                  'For multiplication, count decimal places in the answer',
-                  'Check that answers make sense in the context',
-                  'Extension: Create your own decimal word problems'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">How to Solve</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> Tom buys a toy for $5.25 and a book for $3.50. How much does he spend in total?</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Identify operation: addition</div>
-                      <div><strong>Step 2:</strong> Align decimals: $5.25 + $3.50</div>
-                      <div><strong>Step 3:</strong> Add: $5.25 + $3.50 = $8.75</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> $8.75</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Line up the decimal points!</div>
-                    </div>
-                  </div>
-                </div>
-                <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2">{p}</div>
-                      <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </li>
-                  ))}
-                </ol>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">Math Challenge</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own decimal word problem</div>
-                    <div>2. Solve: A recipe calls for 2.5 cups of flour. You need to make 3 batches. How much flour?</div>
-                    <div>3. Explain when you use decimals in everyday life</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">Check Your Learning</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can solve decimal word problems</div>
-                    <div>{String.fromCharCode(0x2610)} I can add and subtract decimals</div>
-                    <div>{String.fromCharCode(0x2610)} I can multiply decimals</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-{
-          activeDocs.includes('decimal-word-problems') && (
-            <DecimalWordProblems docId="decimal-word-problems" showAnswersForDoc={showAnswersForDoc} />
-          )
-        }
-          })()
-        }
+
+          {
+            activeDocs.includes('decimal-word-problems') && (
+              <DecimalWordProblems docId="decimal-word-problems" showAnswersForDoc={showAnswersForDoc} />
+            )
+          }
+
 
         {
           activeDocs.includes('decimal-word-problems-5th') && (() => {
@@ -26212,178 +26058,22 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('measurement-word-problems') && (() => {
-            const problems = [
-              'Emma has a ribbon that is 3 feet long. She needs 18 inches. Does she have enough?',
-              'A room is 12 feet long and 8 feet wide. What is the area in square feet?',
-              'Tom weighs 85 pounds. His backpack weighs 12 pounds. What is the total weight?',
-              'A recipe calls for 2 cups of flour. Sarah only has a 1/2 cup measure. How many times does she need to use it?',
-              'A car travels 240 miles in 4 hours. How many miles per hour is it traveling?',
-              'A box is 2 feet long, 1.5 feet wide, and 1 foot tall. What is the volume?',
-            ];
-            return (
-              <WorksheetSectionWrapper
-                docId="measurement-word-problems"
-                title="Measurement Word Problems"
-                emoji={String.fromCodePoint(0x1F4CF)}
-                description="Solve each word problem involving measurement and unit conversions."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Solve word problems involving measurement',
-                  'Convert between different units of measurement',
-                  'Calculate area, volume, and other measurements',
-                  'Apply measurement concepts in real-world contexts'
-                ]}
-                parentTeacherTips={[
-                  'Help students identify what measurement is needed',
-                  'Remind students to convert units when necessary',
-                  'For area: length  width, for volume: length  width  height',
-                  'Check that answers make sense in the context',
-                  'Extension: Create your own measurement word problems'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> Identify: This is an area problem</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15 square feet</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                  </div>
-                </div>
-                <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2">{p}</div>
-                      <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </li>
-                  ))}
-                </ol>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own measurement word problem</div>
-                    <div>2. Solve: A garden is 10 feet by 8 feet. How many square feet is it? How many square yards?</div>
-                    <div>3. Explain when you use measurements in everyday life</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can solve measurement word problems</div>
-                    <div>{String.fromCharCode(0x2610)} I can convert between units</div>
-                    <div>{String.fromCharCode(0x2610)} I can calculate area and volume</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-{
-          activeDocs.includes('measurement-word-problems') && (
-            <MeasurementWordProblems docId="measurement-word-problems" showAnswersForDoc={showAnswersForDoc} />
-          )
-        }
-          })()
-        }
+
+          {
+            activeDocs.includes('measurement-word-problems') && (
+              <MeasurementWordProblems docId="measurement-word-problems" showAnswersForDoc={showAnswersForDoc} />
+            )
+          }
+
 
         {
-          activeDocs.includes('geometry-word-problems') && (() => {
-            const problems = [
-              'A rectangle has a length of 10 cm and width of 6 cm. What is the area and perimeter?',
-              'A square has sides of 8 inches. What is the area and perimeter?',
-              'A triangle has a base of 12 cm and height of 5 cm. What is the area?',
-              'A rectangular garden is 15 feet long and 10 feet wide. What is the area?',
-              'A circle has a radius of 4 cm. What is the diameter?',
-              'A rectangular room is 12 feet by 9 feet. How many square feet of carpet are needed?',
-            ];
-            return (
-              <WorksheetSectionWrapper
-                docId="geometry-word-problems"
-                title="Geometry Word Problems"
-                emoji={String.fromCodePoint(0x1F4D0)}
-                description="Solve each word problem involving area, perimeter, and geometry."
-                problemCount={problems.length}
-                learningObjectives={[
-                  'Solve word problems involving area and perimeter',
-                  'Calculate area of rectangles, squares, and triangles',
-                  'Understand geometric relationships (diameter, radius)',
-                  'Apply geometry formulas in real-world contexts'
-                ]}
-                parentTeacherTips={[
-                  'Area of rectangle = length  width',
-                  'Area of square = side  side',
-                  'Area of triangle = (base  height)  2',
-                  'Perimeter = sum of all sides',
-                  'Diameter = 2  radius',
-                  'Extension: Create your own geometry word problems'
-                ]}
-              >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-                {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">How to Solve</div>
-                  <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> A rectangle is 8cm long and 6cm wide. Find Area & Perimeter.</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1 (Area):</strong> Formula L × W: 8 × 6 = 48</div>
-                      <div><strong>Step 2 (Perimeter):</strong> Formula 2L + 2W: 16 + 12 = 28</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> Area = 48 sq cm, Perimeter = 28 cm</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Area is space inside, Perimeter is distance around.</div>
-                    </div>
-                  </div>
-                </div>
-                <ol className="list-decimal list-inside space-y-4 text-sm text-slate-800" style={{ pageBreakAfter: 'auto' }}>
-                  {problems.map((p, i) => (
-                    <li key={i} className="border border-slate-300 rounded-lg p-4 bg-white break-inside-avoid">
-                      <div className="mb-2">{p}</div>
-                      <div className="mt-2 text-xs text-slate-600 mb-2">Show your work:</div>
-                      <div className="min-h-24 border border-dashed border-slate-300 rounded p-2 bg-slate-50 print:bg-white" />
-                    </li>
-                  ))}
-                </ol>
-                {/* Extension/Challenge Problems */}
-                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-purple-900 mb-3 text-sm">Math Challenge</div>
-                  <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Create your own geometry word problem</div>
-                    <div>2. Solve: A triangle has a base of 10 cm and height of 6 cm. What is the area?</div>
-                    <div>3. Explain when you use geometry in everyday life</div>
-                  </div>
-                </div>
-                {/* Self-Assessment */}
-                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                  <div className="font-semibold text-slate-800 mb-3 text-sm">Check Your Learning</div>
-                  <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can solve geometry word problems</div>
-                    <div>{String.fromCharCode(0x2610)} I can calculate area and perimeter</div>
-                    <div>{String.fromCharCode(0x2610)} I understand geometric relationships</div>
-                  </div>
-                  <div className="mt-3 text-xs">
-                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                  </div>
-                  <div className="mt-2 text-xs">
-                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                  </div>
-                </div>
-{
-          activeDocs.includes('geometry-word-problems') && (
-            <GeometryWordProblems docId="geometry-word-problems" showAnswersForDoc={showAnswersForDoc} />
-          )
-        }
-          })()
-        }
+
+          {
+            activeDocs.includes('geometry-word-problems') && (
+              <GeometryWordProblems docId="geometry-word-problems" showAnswersForDoc={showAnswersForDoc} />
+            )
+          }
+
 
         {
           activeDocs.includes('ratio-proportion-word-problems') && (() => {
