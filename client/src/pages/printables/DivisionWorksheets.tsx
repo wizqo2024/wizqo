@@ -266,3 +266,243 @@ export function LongDivisionMultiDigit({ seed, variant, showAnswersForDoc }: Spe
         </WorksheetSectionWrapper>
     );
 }
+
+export function DivisionFacts({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'div-facts-1-12';
+    const { getTrans } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 24 }).map(() => {
+        const b = nextInt(1, 12);
+        const quotient = nextInt(1, 12);
+        const a = b * quotient;
+        return { a, b, quotient };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'The Division Depths')}
+            emoji="🌊"
+            description={getTrans('description', 'Dive deep and solve these basic division facts!')}
+            problemCount={problems.length}
+            learningObjectives={['Master division facts 1-12', 'Understand relationship between mult/div']}
+        >
+            <PremiumWorksheetBanner
+                title="The Division Depths"
+                subtitle="Fact Power Challenge"
+                icons={{ bg1: "🌊", bg2: "🐙", float1: "🔱", float2: "💎" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-blue-600 to-indigo-900",
+                    border: "border-blue-400",
+                    pillBg: "bg-white/10",
+                    pillBorder: "border-blue-300/30",
+                    pillText: "text-blue-50",
+                    accent: "text-cyan-400"
+                }}
+            />
+
+            <div className="grid grid-cols-3 md:grid-cols-4 gap-6 mt-8">
+                {problems.map((p, i) => (
+                    <div key={i} className="flex items-center justify-center p-4 bg-white rounded-lg border-2 border-blue-100 shadow-sm font-mono text-xl">
+                        {p.a} ÷ {p.b} = <span className="ml-2 w-10 border-b-2 border-blue-200"></span>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded grid grid-cols-6 gap-2 text-sm font-mono">
+                    {problems.map((p, i) => <div key={i}>{i + 1}: {p.quotient}</div>)}
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function DivisionWithRemainders({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'div-with-remainders';
+    const { getTrans } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 12 }).map(() => {
+        const divisor = nextInt(2, 9);
+        const dividend = nextInt(10, 80);
+        const quotient = Math.floor(dividend / divisor);
+        const remainder = dividend % divisor;
+        return { dividend, divisor, quotient, remainder };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'The Remainder Restaurant')}
+            emoji="🍕"
+            description={getTrans('description', 'Some slices are left over! Solve with remainders.')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="The Remainder Restaurant"
+                subtitle="Leftover Logic Challenge"
+                icons={{ bg1: "🍕", bg2: "🍔", float1: "🥤", float2: "🍟" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-orange-400 to-red-600",
+                    border: "border-orange-300",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-orange-200",
+                    pillText: "text-orange-900",
+                    accent: "text-yellow-400"
+                }}
+            />
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                {problems.map((p, i) => (
+                    <div key={i} className="p-6 bg-white rounded-xl border-2 border-orange-100 shadow-sm break-inside-avoid">
+                        <div className="text-2xl font-mono text-center mb-4">
+                            {p.dividend} ÷ {p.divisor} =
+                        </div>
+                        <div className="h-20 border-2 border-dashed border-orange-50 rounded-lg flex items-center justify-center text-slate-300 italic text-sm">
+                            Show Work
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-4 bg-orange-50 border border-orange-200 rounded grid grid-cols-3 gap-4 text-sm font-mono text-orange-900">
+                    {problems.map((p, i) => (
+                        <div key={i}>{i + 1}: {p.quotient} r{p.remainder}</div>
+                    ))}
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function DivisionWordProblems({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'div-word-problems';
+    const { getTrans } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 6 }).map(() => {
+        const scenarios = [
+            { item: 'jewels', container: 'chests', action: 'placed' },
+            { item: 'maps', container: 'explorers', action: 'given to' },
+            { item: 'artifacts', container: 'museums', action: 'shipped to' }
+        ];
+        const scenario = scenarios[nextInt(0, 2)];
+        const b = nextInt(3, 8);
+        const quotient = nextInt(5, 12);
+        const a = b * quotient;
+        return {
+            text: `The Quest for the Golden Quotient leads you to ${a} ${scenario.item}. They must be ${scenario.action} equally into ${b} ${scenario.container}. How many ${scenario.item} go into each one?`,
+            ans: `${quotient} ${scenario.item}`,
+            a, b, quotient
+        };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Quest for the Golden Quotient')}
+            emoji="🔱"
+            description={getTrans('description', 'Crack the code with division word problems!')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Golden Quotient Quest"
+                subtitle="Ancient Artifact Division"
+                icons={{ bg1: "🔱", bg2: "📜", float1: "🗺️", float2: "🏛️" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-yellow-300 to-amber-600",
+                    border: "border-yellow-400",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-yellow-300",
+                    pillText: "text-amber-900",
+                    accent: "text-white"
+                }}
+            />
+
+            <div className="space-y-8 mt-8">
+                {problems.map((p, i) => (
+                    <div key={i} className="p-6 bg-amber-50 rounded-xl border-l-8 border-amber-500 shadow-sm break-inside-avoid">
+                        <p className="text-lg text-slate-800 leading-relaxed mb-4">{p.text}</p>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="h-24 bg-white rounded border border-amber-200 p-2 text-[10px] text-amber-300 uppercase font-bold">Calculation Zone</div>
+                            <div className="h-24 bg-white rounded border border-amber-200 p-2 text-[10px] text-amber-300 uppercase font-bold text-right">Final Verdict</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 bg-slate-900 text-amber-400 rounded-xl font-mono text-sm border-2 border-amber-500">
+                    <h4 className="font-bold text-amber-500 mb-4 border-b border-amber-900 pb-2 uppercase tracking-widest">Oracle Answer Key</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {problems.map((p, i) => (
+                            <div key={i} className="flex gap-4">
+                                <span className="text-amber-600">MISSION {i + 1}:</span>
+                                <span>{p.ans} ({p.a} ÷ {p.b} = {p.quotient})</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function DividingBy10And100({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'div-by-10-100';
+    const { getTrans } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 20 }).map((_, i) => {
+        const is100 = i >= 10;
+        const base = nextInt(1, 99);
+        const divisor = is100 ? 100 : 10;
+        const dividend = base * divisor;
+        return { dividend, divisor, quotient: base };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Speedy Division')}
+            emoji="⚡"
+            description={getTrans('description', 'Master division by 10 and 100 with lightning speed!')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Speedy Division"
+                subtitle="Mental Math Power-Up"
+                icons={{ bg1: "⚡", bg2: "🏎️", float1: "⏱️", float2: "🚀" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-cyan-400 to-blue-600",
+                    border: "border-cyan-300",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-cyan-200",
+                    pillText: "text-cyan-900",
+                    accent: "text-white"
+                }}
+            />
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                {problems.map((p, i) => (
+                    <div key={i} className="p-4 bg-white rounded-lg border-2 border-cyan-100 text-lg font-mono text-center">
+                        {p.dividend} ÷ {p.divisor} = ___
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-4 bg-cyan-50 border border-cyan-200 rounded grid grid-cols-5 gap-2 text-xs font-mono text-cyan-800">
+                    {problems.map((p, i) => <div key={i}>{i + 1}: {p.quotient}</div>)}
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}

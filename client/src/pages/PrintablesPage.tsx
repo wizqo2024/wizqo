@@ -64,7 +64,7 @@ import { GeographyWorksheets } from './GeographyWorksheets'
 import { Symmetry } from './printables/Symmetry'
 import { ScienceWorksheets } from './printables/ScienceWorksheets'
 import { LinePlots, BarGraphs, MeanMedianMode } from './printables/DataAnalysisWorksheets'
-import { GeometryWordProblems, MeasurementWordProblems, DecimalWordProblems, FractionWordProblems, WordProblems100 } from './printables/WordProblemWorksheets'
+import { GeometryWordProblems, MeasurementWordProblems, DecimalWordProblems, FractionWordProblems, WordProblems100, MultiStepWordProblems } from './printables/WordProblemWorksheets'
 import {
   ClassifyingTriangles,
   ClassifyingQuadrilaterals,
@@ -88,8 +88,13 @@ import {
 import {
   LongDivision1Digit,
   LongDivision2Digit,
-  LongDivisionMultiDigit
+  LongDivisionMultiDigit,
+  DivisionFacts,
+  DivisionWithRemainders,
+  DivisionWordProblems,
+  DividingBy10And100
 } from './printables/DivisionWorksheets'
+import { OrderOfOperations } from './printables/OrderOfOperations'
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -13535,8 +13540,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('metric-units') && (() => {
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+          activeDocs.some(d => d === 'metric-units' || d === 'metric-conversion') && (() => {
+            const currentDoc = activeDocs.find(d => d === 'metric-units' || d === 'metric-conversion') || 'metric-units';
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${currentDoc}`);
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
             const problems = Array.from({ length: 6 }, () => {
               const meters = nextInt(1, 10);
@@ -13544,7 +13550,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             });
             return (
               <WorksheetSectionWrapper
-                docId="metric-units"
+                docId={currentDoc}
                 title="Mad Science: Metric Analysis"
                 emoji={String.fromCharCode(0xD83D, 0xDCCF)}
                 description="Analyze the samples using the metric system! Convert meters to centimeters for the final report."
@@ -13627,7 +13633,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   </div>
                 </div>
 
-                {showAnswersForDoc('metric-units', () => (
+                {showAnswersForDoc(doc, () => (
                   <div className="mt-6 p-4 border-2 border-cyan-500 bg-cyan-50 rounded print:border print:bg-white print:page-break-before-always">
                     <div className="font-bold text-cyan-900 mb-3 text-base font-mono">{String.fromCodePoint(0x279C)}</div>
                     <div className="grid grid-cols-2 gap-4 font-mono text-sm">
@@ -13645,8 +13651,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('liquid-measurement') && (
-            <LiquidMeasurement docId="liquid-measurement" showAnswersForDoc={showAnswersForDoc} />
+          activeDocs.some(d => d === 'liquid-measurement' || d === 'liquid-measurement-4th') && (
+            <LiquidMeasurement docId={activeDocs.find(d => d === 'liquid-measurement' || d === 'liquid-measurement-4th')!} showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
@@ -13669,8 +13675,32 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('mass-weight') && (
-            <MassAndWeight docId="mass-weight" showAnswersForDoc={showAnswersForDoc} />
+          activeDocs.includes('div-facts-1-12') && (
+            <DivisionFacts {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('div-with-remainders') && (
+            <DivisionWithRemainders {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('div-word-problems') && (
+            <DivisionWordProblems {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.includes('div-by-10-100') && (
+            <DividingBy10And100 {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
+          )
+        }
+
+        {
+          activeDocs.some(d => d === 'mass-weight' || d === 'mass-weight-4th') && (
+            <MassAndWeight docId={activeDocs.find(d => d === 'mass-weight' || d === 'mass-weight-4th')!} showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
@@ -13689,6 +13719,48 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('mean-median-mode') && (
             <MeanMedianMode docId="mean-median-mode" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('elapsed-time-4th') && (
+            <ElapsedTime docId="elapsed-time-4th" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('customary-conversion') && (
+            <CustomaryUnits docId="customary-conversion" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('order-of-operations') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'order-of-operations' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-basic') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-basic' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-parentheses') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-parentheses' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-exponents') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-exponents' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-multistep') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-multistep' }} />
           )
         }
 
@@ -14088,6 +14160,93 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                         <div key={i} className="border-b border-slate-100 pb-2 text-sm">
                           <span className="font-bold">Job #{100 + i}:</span> {p.val} {p.unit} ({p.type})
                         </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('money-word-problems') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=money-word-problems`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const problems = Array.from({ length: 6 }, () => {
+              const type = nextInt(0, 2);
+              if (type === 0) {
+                // Addition/Multiplication
+                const a = nextInt(5, 15);
+                const price = nextInt(2, 5);
+                const total = a * price;
+                return {
+                  text: `Leo bought ${a} notebooks at $${price} each. How much did he spend in total?`,
+                  answer: `$${total}`,
+                  steps: [`${a} x $${price} = $${total}`]
+                };
+              } else if (type === 1) {
+                // Change
+                const spent = nextInt(5, 15);
+                const paid = 20;
+                const change = paid - spent;
+                return {
+                  text: `Zoe bought a toy for $${spent}. She paid with a $20 bill. How much change did she get?`,
+                  answer: `$${change}`,
+                  steps: [`$20 - $${spent} = $${change}`]
+                };
+              } else {
+                // Division
+                const total = nextInt(20, 40);
+                const count = nextInt(2, 5);
+                const each = (total / count).toFixed(2);
+                return {
+                  text: `A box of ${count} puzzles costs $${total}. How much does each puzzle cost if they are all the same price?`,
+                  answer: `$${each}`,
+                  steps: [`$${total} ÷ ${count} = $${each}`]
+                };
+              }
+            });
+
+            return (
+              <WorksheetSectionWrapper
+                docId="money-word-problems"
+                title="Coin & Cash Challenge"
+                emoji="💰"
+                description="Solve these money-themed word problems. Don't forget the dollar sign!"
+                problemCount={problems.length}
+              >
+                <PremiumWorksheetBanner
+                  title="Money Word Problems"
+                  subtitle="Shopping Math Challenge"
+                  icons={{ bg1: "💰", bg2: "🏦", float1: "💵", float2: "🪙" }}
+                  colors={{
+                    bg: "bg-gradient-to-br from-green-100 to-emerald-200",
+                    border: "border-green-300",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-green-400",
+                    pillText: "text-green-900",
+                    accent: "text-green-600"
+                  }}
+                />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                  {problems.map((p, i) => (
+                    <div key={i} className="p-6 bg-white rounded-xl border-2 border-green-100 shadow-sm relative break-inside-avoid">
+                      <div className="absolute -top-3 -left-3 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">{i + 1}</div>
+                      <p className="text-slate-800 leading-relaxed mb-4">{p.text}</p>
+                      <div className="h-24 border border-dashed border-green-200 rounded p-2 text-[10px] text-green-300 uppercase font-bold">Workspace</div>
+                    </div>
+                  ))}
+                </div>
+
+                {showAnswersForDoc('money-word-problems', () => (
+                  <div className="mt-8 p-4 bg-green-50 border border-green-200 rounded font-mono text-sm text-green-800">
+                    <h4 className="font-bold mb-2">Answer Key</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i}>{i + 1}: {p.answer} ({p.steps.join(', ')})</div>
                       ))}
                     </div>
                   </div>
