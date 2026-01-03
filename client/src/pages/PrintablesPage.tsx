@@ -16147,9 +16147,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                       </div>
                     </div>
                     {/* Tick Marks */}
-                    <div className="absolute inset-0 flex flex-col justify-between py-2 px-1">
+                    <div className="absolute inset-0 flex flex-col justify-between px-1">
                       {Array.from({ length: d + 1 }).map((_, k) => (
-                        <div key={k} className="w-2 h-0.5 bg-slate-300" />
+                        <div key={k} className={`h-0.5 ${k % (d / d) === 0 ? 'w-3 bg-slate-400' : 'w-2 bg-slate-300'} ${isMissing ? 'bg-fuchsia-300/50' : ''}`} />
                       ))}
                     </div>
                   </div>
@@ -16204,21 +16204,29 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
-                    <div className="flex items-center justify-around bg-white/10 p-4 rounded-xl border border-white/10 print:bg-slate-50 print:border-slate-200">
-                      <div className="flex flex-col items-center">
-                        <div className="text-2xl font-black text-white print:text-slate-800">1</div>
-                        <div className="w-8 h-1 bg-white print:bg-slate-800 my-1" />
-                        <div className="text-2xl font-black text-slate-300 print:text-slate-500">2</div>
+                    <div className="flex flex-col items-center gap-4 bg-white/10 p-4 rounded-xl border border-white/10 print:bg-slate-50 print:border-slate-200">
+                      <div className="flex items-center justify-around w-full gap-4">
+                        {renderBeaker(1, 2, "#a855f7")}
+                        <div className="flex flex-col items-center text-amber-400 font-black italic">
+                          <div className="text-xs">x 2</div>
+                          <div className="text-xl">➔</div>
+                          <div className="text-xs">x 2</div>
+                        </div>
+                        {renderBeaker(2, 4, "#ec4899")}
                       </div>
-                      <div className="flex flex-col items-center text-amber-400 font-black italic">
-                        <div className="text-xs">x 2</div>
-                        <div className="text-xl">➔</div>
-                        <div className="text-xs">x 2</div>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="text-2xl font-black text-amber-400">2</div>
-                        <div className="w-8 h-1 bg-amber-400 my-1" />
-                        <div className="text-2xl font-black text-amber-600">4</div>
+
+                      <div className="flex items-center justify-between w-full px-4 pt-2 border-t border-white/10 print:border-slate-200">
+                        <div className="flex flex-col items-center scale-75 origin-top">
+                          <div className="text-xl font-black text-white print:text-slate-800">1</div>
+                          <div className="w-6 h-1 bg-white print:bg-slate-800 my-0.5" />
+                          <div className="text-xl font-black text-slate-300 print:text-slate-500">2</div>
+                        </div>
+                        <div className="text-xl font-black text-white print:text-slate-300">=</div>
+                        <div className="flex flex-col items-center scale-75 origin-top">
+                          <div className="text-xl font-black text-amber-400">2</div>
+                          <div className="w-6 h-1 bg-amber-400 my-0.5" />
+                          <div className="text-xl font-black text-amber-600">4</div>
+                        </div>
                       </div>
                     </div>
                     <div className="text-purple-100/80 text-xs flex flex-col justify-center print:text-slate-600">
@@ -16239,7 +16247,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                       <div className="flex items-center justify-between w-full gap-4 mt-2">
                         {renderBeaker(p.n1, p.d1, "#a855f7")}
                         <div className="text-2xl font-black text-purple-200">=</div>
-                        {renderBeaker(0, p.d2, "#ec4899", true)}
+                        {renderBeaker(p.n2, p.d2, "#ec4899", true)}
                       </div>
 
                       <div className="mt-8 pt-4 border-t border-dashed border-slate-100 w-full text-center">
