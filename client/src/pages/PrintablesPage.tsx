@@ -1,5 +1,6 @@
-import React, { Component, ErrorInfo, ReactNode, FC, CSSProperties, ComponentType, MouseEvent, Fragment } from 'react'
-const { useEffect, useRef, useMemo, useState, useCallback, useReducer, isValidElement, memo } = React
+import React from 'react'
+import type { ErrorInfo, ReactNode, FC, CSSProperties, ComponentType, MouseEvent } from 'react'
+const { Component, Fragment, useEffect, useRef, useMemo, useState, useCallback, useReducer, isValidElement, memo } = React
 import { useTranslation } from '@/context/TranslationContext'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
@@ -7,6 +8,7 @@ import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/pri
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
 import { formatNumber } from '@/utils/numbers'
 import { WorksheetFooter, ProblemBox, WorksheetHeader } from '@/components/worksheet'
+import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './printables/PrintableShared'
 // Local components defined below to avoid conflicts
 import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/printableUtils'
 import { Sudoku } from '@/pages/worksheets/Sudoku'
@@ -41,6 +43,11 @@ import {
   MultiplicationProperties,
   MultiplicationDecimals
 } from './printables/MultiplicationWorksheets'
+import {
+  EquivFractions4th,
+  ComparingFractions4th,
+  AddSubFractions4th
+} from './printables/FractionWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
 import { LogicWorksheets } from './LogicWorksheets';
@@ -17795,9 +17802,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('long-division') && (() => {
-            const docId = 'long-division'
-            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+          (activeDocs.includes('long-division') || activeDocs.includes('long-division-1digit')) && (() => {
+            const docId = activeDocs.includes('long-division-1digit') ? 'long-division-1digit' : 'long-division'
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${docId}`)
 
             const problems = Array.from({ length: 4 }, () => {
               const divisor = Math.floor(rng() * 8) + 2 // 2-9
@@ -17809,27 +17816,94 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             return (
               <WorksheetSectionWrapper
                 docId={docId}
-                title="Division Detectives: Long & Strong"
+                title="Division Detectives: 1-Digit"
                 emoji={String.fromCodePoint(0x2797)}
-                description="Solve division problems with remainders using long division."
+                description="Solve division problems with 1-digit divisors. Show your work!"
                 problemCount={problems.length}
-                learningObjectives={['Perform long division with 1-digit divisors', 'Interpret remainders in division']}
-                parentTeacherTips={['Current method: Divide, Multiply, Subtract, Bring Down (Does McDonald\'s Sell Burgers?)', 'Check answer: Quotient  Divisor + Remainder = Dividend']}
+                learningObjectives={['Perform long division with 1-digit divisors', 'Interpret remainders in division', 'Check answers using multiplication']}
+                parentTeacherTips={['Current method: Divide, Multiply, Subtract, Bring Down', 'Check answer: Quotient × Divisor + Remainder = Dividend', 'Keep digits aligned in columns']}
               >
-                <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-800 animate-gradient-x mb-4" />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <PremiumWorksheetBanner
+                  title="Division Detective"
+                  subtitle="1-Digit Mysteries"
+                  icons={{
+                    bg1: "🔍",
+                    bg2: "➗",
+                    float1: "🕵️",
+                    float2: "📝"
+                  }}
+                  colors={{
+                    bg: "bg-gradient-to-br from-teal-50 to-emerald-50",
+                    border: "border-teal-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-teal-300",
+                    pillText: "text-teal-800",
+                    accent: "text-teal-300"
+                  }}
+                />
+
+                <StrategySpotlight
+                  title="Detective Tools: DMSB"
+                  icon="🕵️"
+                  steps={[
+                    { label: "Divide", text: "Does the divisor fit?" },
+                    { label: "Multiply", text: "Top number × Divisor." },
+                    { label: "Subtract", text: "Find what's left over." },
+                    { label: "Bring Down", text: "Bring down the next clue (digit)." }
+                  ]}
+                  color="teal"
+                  className="mb-8"
+                />
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-teal-50 border-2 border-teal-200 rounded-lg print:border print:bg-white relative overflow-hidden">
+                  <div className="font-semibold text-teal-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>Case File: 75 ÷ 3</span>
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="font-mono text-lg bg-white p-2 rounded border border-teal-100 inline-block">3 ) 75 = 25</div>
+                    <div className="pl-4 border-l-2 border-teal-300 space-y-1 text-slate-700">
+                      <div><strong>1. Divide:</strong> 3 goes into 7 <span className="text-teal-700 font-bold">2 times</span>.</div>
+                      <div><strong>2. Multiply:</strong> 2 x 3 = 6.</div>
+                      <div><strong>3. Subtract:</strong> 7 - 6 = 1.</div>
+                      <div><strong>4. Bring Down:</strong> Bring down 5. Now 15.</div>
+                      <div><strong>5. Repeat:</strong> 3 goes into 15 <span className="text-teal-700 font-bold">5 times</span>.</div>
+                      <div className="font-semibold text-teal-900 mt-1">Answer: 25</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-8 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
-                    <div key={i} className="p-6 border-2 border-purple-200 rounded-lg bg-purple-50 flex justify-center">
-                      <div className="font-mono text-2xl relative">
-                        <span className="mr-2">{p.divisor}</span>
-                        <span className="border-t-2 border-l-2 border-slate-800 px-2 py-1 inline-block min-w-[100px]">{p.dividend}</span>
+                    <div key={i} className="p-6 border border-slate-300 rounded-xl bg-white shadow-sm flex flex-col gap-4 break-inside-avoid">
+                      <div className="flex justify-between items-start">
+                        <div className="bg-slate-100 text-slate-500 px-2 py-1 rounded text-xs font-bold">#{i + 1}</div>
+                      </div>
+                      <div className="flex justify-center">
+                        <div className="font-mono text-3xl relative">
+                          <span className="mr-3 text-slate-600 font-bold">{p.divisor}</span>
+                          <span className="border-t-2 border-l-2 border-slate-800 px-4 py-1 inline-block min-w-[120px] font-bold tracking-widest">{p.dividend}</span>
+                        </div>
+                      </div>
+                      <div className="mt-4 border-t border-dashed border-slate-200 pt-2">
+                        <div className="text-xs text-slate-400 mb-1">Workspace:</div>
+                        <div className="h-32 w-full bg-slate-50 rounded border border-slate-100"></div>
                       </div>
                     </div>
                   ))}
                 </div>
                 {showAnswersForDoc(docId, () => (
-                  <div className="mt-4 p-2 bg-purple-100 rounded text-center text-xs">
-                    {problems.map(p => `${p.dividend}  ${p.divisor} = ${Math.floor(p.dividend / p.divisor)} R${p.dividend % p.divisor}`).join(' | ')}
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key</div>
+                    <div className="grid grid-cols-2 gap-4 text-xs text-emerald-800">
+                      {problems.map((p, i) => (
+                        <div key={i} className="flex gap-2 items-baseline">
+                          <span className="font-bold">#{i + 1}:</span>
+                          <span>{p.dividend} ÷ {p.divisor} = <strong>{p.quotient}</strong> {p.remainder > 0 ? `R${p.remainder}` : ''}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </WorksheetSectionWrapper>
@@ -19315,20 +19389,54 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   'Extension: Practice with 3-digit divisors'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                <PremiumWorksheetBanner
+                  title="Long Division Wizard"
+                  subtitle="2-Digit Divisors"
+                  icons={{
+                    bg1: String.fromCodePoint(0x2797),
+                    bg2: String.fromCodePoint(0x1F522),
+                    float1: String.fromCodePoint(0x1F9E0),
+                    float2: String.fromCodePoint(0x270D)
+                  }}
+                  colors={{
+                    bg: "bg-gradient-to-br from-purple-50 to-pink-50",
+                    border: "border-purple-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-purple-300",
+                    pillText: "text-purple-800",
+                    accent: "text-purple-300"
+                  }}
+```
+                />
+
+                <StrategySpotlight
+                  title="Division Steps: DMSB"
+                  icon="🎢"
+                  steps={[
+                    { label: "Divide", text: "How many times does it fit?" },
+                    { label: "Multiply", text: "Top number × Side number" },
+                    { label: "Subtract", text: "Find the remainder" },
+                    { label: "Bring Down", text: "Bring down the next number" }
+                  ]}
+                  color="purple"
+                  className="mb-8"
+                />
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="mb-6 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg print:border print:bg-white relative overflow-hidden">
+                  <div className="font-semibold text-purple-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>Example: 156 ÷ 12</span>
+                  </div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Problem:</strong> 12 ) 156</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 3:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 4:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 5:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                    <div className="font-mono text-lg bg-white p-2 rounded border border-purple-100 inline-block">12 ) 156 = 13</div>
+                    <div className="pl-4 border-l-2 border-purple-300 space-y-1 text-slate-700">
+                      <div><strong>1. Divide:</strong> 12 goes into 15 <span className="text-purple-700 font-bold">1 time</span>.</div>
+                      <div><strong>2. Multiply:</strong> 1 x 12 = 12.</div>
+                      <div><strong>3. Subtract:</strong> 15 - 12 = 3.</div>
+                      <div><strong>4. Bring Down:</strong> Bring down the 6 to make 36.</div>
+                      <div><strong>5. Repeat:</strong> 12 goes into 36 <span className="text-purple-700 font-bold">3 times</span>.</div>
+                      <div className="font-semibold text-purple-900 mt-1">Answer: 13</div>
                     </div>
                   </div>
                 </div>
@@ -21134,20 +21242,52 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   'Extension: Try with 3-digit divisors'
                 ]}
               >
-                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                <PremiumWorksheetBanner
+                  title="Division Grandmaster"
+                  subtitle="Multi-Digit Challenge"
+                  icons={{
+                    bg1: String.fromCodePoint(0x2797),
+                    bg2: "🔢",
+                    float1: "🏆",
+                    float2: "⚡"
+                  }}
+                  colors={{
+                    bg: "bg-gradient-to-br from-indigo-50 to-purple-50",
+                    border: "border-indigo-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-800",
+                    accent: "text-indigo-300"
+                  }}
+                />
+
+                <StrategySpotlight
+                  title="Grandmaster Strategy"
+                  icon="🧠"
+                  items={[
+                    { label: "Estimate", text: "Think: How many times does it fit?" },
+                    { label: "Check", text: "Multiply back to see if you're close." },
+                    { label: "Remainder", text: "Must be smaller than the divisor!" }
+                  ]}
+                  color="indigo"
+                  className="mb-8"
+                />
+
                 {/* Worked Example */}
-                <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                  <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                <div className="mb-6 p-4 bg-indigo-50 border-2 border-indigo-200 rounded-lg print:border print:bg-white relative overflow-hidden">
+                  <div className="font-semibold text-indigo-900 mb-3 text-sm flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span>Example Walkthrough</span>
+                  </div>
                   <div className="space-y-2 text-sm">
-                    <div className="font-mono text-base"><strong>Problem:</strong>{String.fromCodePoint(0x1F4A1)}</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                      <div><strong>Step 1:</strong> How many times does 12 go into 15? 1 time</div>
-                      <div><strong>Step 2:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div><strong>Step 3:</strong> Bring down 6, now we have 36</div>
-                      <div><strong>Step 4:</strong> How many times does 12 go into 36? 3 times</div>
-                      <div><strong>Step 5:</strong>{String.fromCodePoint(0x279C)}</div>
-                      <div className="font-semibold text-blue-900"><strong>Answer:</strong> 13</div>
-                      <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
+                    <div className="font-mono text-base bg-white p-2 rounded border border-indigo-100 inline-block"><strong>Problem:</strong> 372 ÷ 12 = ?</div>
+                    <div className="pl-4 border-l-2 border-indigo-300 space-y-1 text-slate-700">
+                      <div><strong>Step 1:</strong> 12 goes into 37 about 3 times (12 × 3 = 36).</div>
+                      <div><strong>Step 2:</strong> Subtract 36 from 37. Remainder 1.</div>
+                      <div><strong>Step 3:</strong> Bring down 2. Now we have 12.</div>
+                      <div><strong>Step 4:</strong> 12 goes into 12 exactly 1 time.</div>
+                      <div className="font-semibold text-indigo-900 mt-2"><strong>Answer:</strong> 31</div>
+                      <div className="text-xs text-indigo-700 mt-1 italic">Tip: 12 × 31 = 372. Always check your work!</div>
                     </div>
                   </div>
                 </div>
