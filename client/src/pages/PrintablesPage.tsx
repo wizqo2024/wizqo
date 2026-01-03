@@ -12138,2140 +12138,2207 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('picture-addition-10') && (() => {
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-            const potionIngredients = [
-              { name: 'Mushroom', icon: String.fromCodePoint(0x1F344) },
-              { name: 'Crystal', icon: String.fromCodePoint(0x1F52E) },
-              { name: 'Potion', icon: String.fromCodePoint(0x2697) },
-              { name: 'Star', icon: String.fromCodePoint(0x2B50) },
-              { name: 'Spider', icon: String.fromCodePoint(0x1F577) },
-              { name: 'Eye', icon: String.fromCodePoint(0x1F441) },
-              { name: 'Leaf', icon: String.fromCodePoint(0x1F343) },
-              { name: 'Moon', icon: String.fromCodePoint(0x1F319) },
-            ]
+            const visuals = ['🍎', '⭐️', '🍄', '⚽️', '🚗', '🐶', '🍕', '🎈']
 
-            // Generate 8 addition problems with sum <= 10
             const problems = Array.from({ length: 8 }, () => {
+              const icon = visuals[Math.floor(rng() * visuals.length)]
               const a = Math.floor(rng() * 5) + 1
               const b = Math.floor(rng() * 5) + 1
-              const item = potionIngredients[Math.floor(rng() * potionIngredients.length)]
-              return { a, b, sum: a + b, item }
-                  </div>
-    </div>
-                {/* Self-Assessment */ }
-  <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-    <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-    <div className="space-y-2 text-xs">
-      <div>{String.fromCharCode(0x2610)} I can find the different one</div>
-      <div>{String.fromCharCode(0x2610)} I can see what's the same</div>
-      <div>{String.fromCharCode(0x2610)} I understand same and different</div>
-    </div>
-    <div className="mt-3 text-xs">
-      <strong>Something I found that's different:</strong> _________________________
-    </div>
-  </div>
-  {
-    showAnswersForDoc('same-different', () => (
-      <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-        <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-        <ul className="list-disc list-inside space-y-1 text-sm">
-          {sets.map((s, i) => (<li key={i} className="text-emerald-800">Position {s.different + 1} is different</li>))}
-        </ul>
-      </div>
-    ))
-  }
-              </WorksheetSectionWrapper >
-            );
-}) ()
-        }
-
-{
-  activeDocs.includes('line-tracing') && (() => {
-    const rng = makeRng('line-tracing');
-
-    // Icons for Tracing Missions (Start -> End)
-    const tracingThemes = [
-      {
-        name: 'Nature',
-        start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐝</text> },
-        end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌸</text> }
-      },
-      {
-        name: 'Space',
-        start: { label: 'Rocket', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚀</text> },
-        end: { label: 'Planet', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🪐</text> }
-      },
-      {
-        name: 'Home',
-        start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚗</text> },
-        end: { label: 'House', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏠</text> }
-      },
-      {
-        name: 'Pets',
-        start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐶</text> },
-        end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🦴</text> }
-      },
-      {
-        name: 'Sports',
-        start: { label: 'Player', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏃</text> },
-        end: { label: 'Finish', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏁</text> }
-      },
-      {
-        name: 'Food',
-        start: { label: 'Rabbit', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐰</text> },
-        end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🥕</text> }
-      },
-    ];
-
-    const lines = Array.from({ length: 6 }).map((_, i) => {
-      const theme = tracingThemes[i % tracingThemes.length]; // Cycle through themes
-      const isDiagonal = rng() > 0.4; // 60% chance of diagonal
-
-      // Coordinates (viewBox 0 0 100 50)
-      // Start X: 15, End X: 85
-      const yStart = 25;
-      // If diagonal, vary End Y significantly
-      const yEnd = isDiagonal
-        ? (rng() > 0.5 ? 10 : 40) // Up to 10 or Down to 40
-        : 25; // Straight across
-
-      return {
-        id: i,
-        theme,
-        x1: 15, y1: yStart,
-        x2: 85, y2: yEnd,
-        label: `Help the ${theme.start.label} find the ${theme.end.label}`
-      };
-    });
-    return (
-      <WorksheetSectionWrapper
-        docId="line-tracing"
-        title="Line Tracing Mission"
-        emoji={String.fromCharCode(0xD83D, 0xDD8A, 0xFE0F)}
-        description="Help the friends find their way! Trace the dashed lines."
-        problemCount={lines.length}
-        learningObjectives={[
-          'Trace lines from left to right',
-          'Control pencil movement (Start to Stop)',
-          'Develop fine motor precision'
-        ]}
-        parentTeacherTips={[
-          'Say: "Start at the Green dot, stop at the Red dot"',
-          'Encourage one continuous smooth line',
-          'Make it a game: "Zoom the rocket to the planet!"'
-        ]}
-      >
-        <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-          {lines.map((line, i) => (
-            <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
-              <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{line.theme.name} Mission</div>
-              <div className="relative">
-                <svg viewBox="0 0 100 60" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
-                  {/* Guide Line */}
-                  <line
-                    x1={line.x1}
-                    y1={line.y1}
-                    x2={line.x2}
-                    y2={line.y2}
-                    stroke="#94a3b8"
-                    strokeWidth="3"
-                    strokeDasharray="4 4"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Start Dot (Green) */}
-                  <circle cx={line.x1} cy={line.y1} r="3" fill="#22c55e" />
-
-                  {/* End Dot (Red) */}
-                  <circle cx={line.x2} cy={line.y2} r="3" fill="#ef4444" />
-
-                  {/* Render Start Icon */}
-                  <line.theme.start.render
-                    x={line.x1}
-                    y={line.y1}
-                    fontSize="22"
-                    dominantBaseline="middle"
-                    style={{ userSelect: 'none' }}
-                  />
-
-                  {/* Render End Icon */}
-                  <line.theme.end.render
-                    x={line.x2}
-                    y={line.y2}
-                    fontSize="22"
-                    dominantBaseline="middle"
-                    style={{ userSelect: 'none' }}
-                  />
-                </svg>
-              </div>
-              <div className="mt-2 text-center text-sm font-medium text-slate-700">
-                {line.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Challenge */}
-        <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-purple-900 mb-2 text-sm">{String.fromCodePoint(0x1F680)}</div>
-          <div className="text-sm text-purple-800">
-            Can you trace the lines without lifting your pencil?
-          </div>
-        </div>
-
-        {showAnswersForDoc('line-tracing', () => (
-          <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-            <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Mission Check</div>
-            <div className="text-sm text-emerald-800">
-              Check if the line connects the two pictures neatly. Did they stay on the dashed line?
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('curve-tracing') && (() => {
-    const rng = makeRng('curve-tracing');
-
-    // Themes: Start -> End paired with a Curve Type preference
-    const curveThemes = [
-      {
-        name: 'Frog Hop',
-        type: 'arc', // Quadratic Bezier (Job)
-        start: { label: 'Frog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F438)}</text> },
-        end: { label: 'Lilypad', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1FAB7)}</text> }
-      },
-      {
-        name: 'Kangaroo Jump',
-        type: 'arc',
-        start: { label: 'Kangaroo', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F998)}</text> },
-        end: { label: 'Grass', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F33F)}</text> }
-      },
-      {
-        name: 'Dolphin Dive',
-        type: 'wave', // S-Curve
-        start: { label: 'Dolphin', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F42C)}</text> },
-        end: { label: 'Ocean', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F30A)}</text> }
-      },
-      {
-        name: 'Butterfly Flutter',
-        type: 'loop', // Complex wave/loop
-        start: { label: 'Butterfly', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F98B)}</text> },
-        end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F33C)}</text> }
-      },
-      {
-        name: 'Bee Flight',
-        type: 'wave',
-        start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F41D)}</text> },
-        end: { label: 'Hive', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F3E2)}</text> }
-      },
-      {
-        name: 'Bunny Hop',
-        type: 'arc',
-        start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F430)}</text> },
-        end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F955)}</text> }
-      },
-    ];
-
-    const curves = Array.from({ length: 6 }).map((_, i) => {
-      const theme = curveThemes[i % curveThemes.length];
-
-      // Coordinates
-      const x1 = 15, y1 = 40;
-      const x2 = 85, y2 = 40;
-
-      let d = '';
-      // Generate path based on type
-      if (theme.type === 'arc') {
-        // High arch: Control point in middle, very high
-        // Randomize height slightly: 5 to 15
-        const controlY = 5 + (rng() * 10);
-        d = `M ${x1} ${y1} Q 50 ${controlY}, ${x2} ${y2}`;
-      } else if (theme.type === 'wave') {
-        // S-Curve: Up then Down
-        // C (x1+20, y1-20) (x2-20, y2+20) x2 y2
-        const amp = 15 + rng() * 10;
-        d = `M ${x1} ${y1} C ${x1 + 25} ${y1 - amp}, ${x2 - 25} ${y2 + amp}, ${x2} ${y2}`;
-      } else {
-        // Loop/Flutter: Double bump
-        // M start Q (1/3, up) (1/2, mid) Q (2/3, down) end
-        const midX = 50;
-        const amp = 20;
-        d = `M ${x1} ${y1} Q ${x1 + 15} ${y1 - amp} ${midX} ${y1} Q ${x2 - 15} ${y2 + amp} ${x2} ${y2}`;
-      }
-
-      return {
-        id: i,
-        theme,
-        x1, y1, x2, y2,
-        d,
-        label: `Help the ${theme.start.label} reach the ${theme.end.label}`
-      };
-    });
-    return (
-      <WorksheetSectionWrapper
-        docId="curve-tracing"
-        title="Curve Tracing Adventure"
-        emoji={String.fromCharCode(0xD83D, 0xDC3E)}
-        description="Follow the path! Help the animals move."
-        problemCount={curves.length}
-        learningObjectives={[
-          'Trace curved lines (Waves and Arcs)',
-          'Develop fluid pencil movement',
-          'Practice continuous strokes'
-        ]}
-        parentTeacherTips={[
-          'Encourage one continuous smooth motion (no stopping)',
-          'Say: "Up and down like a wave"',
-          'Rotate the paper if needed'
-        ]}
-      >
-        <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-          {curves.map((curve, i) => (
-            <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
-              <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{curve.theme.name}</div>
-              <div className="relative">
-                <svg viewBox="0 0 100 60" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
-                  {/* Guide Line */}
-                  <path
-                    d={curve.d}
-                    fill="none"
-                    stroke="#94a3b8"
-                    strokeWidth="3"
-                    strokeDasharray="4 4"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Start Dot (Green) */}
-                  <circle cx={curve.x1} cy={curve.y1} r="3" fill="#22c55e" />
-
-                  {/* End Dot (Red) */}
-                  <circle cx={curve.x2} cy={curve.y2} r="3" fill="#ef4444" />
-
-                  {/* Render Start Icon */}
-                  <curve.theme.start.render
-                    x={curve.x1}
-                    y={curve.y1}
-                    fontSize="22"
-                    dominantBaseline="middle"
-                    style={{ userSelect: 'none' }}
-                  />
-
-                  {/* Render End Icon */}
-                  <curve.theme.end.render
-                    x={curve.x2}
-                    y={curve.y2}
-                    fontSize="22"
-                    dominantBaseline="middle"
-                    style={{ userSelect: 'none' }}
-                  />
-                </svg>
-              </div>
-              <div className="mt-2 text-center text-sm font-medium text-slate-700">
-                {curve.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Challenge */}
-        <div className="mt-6 print:mt-0 p-4 bg-blue-50 border-2 border-blue-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-blue-900 mb-2 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-          <div className="text-sm text-blue-800">
-            <div>1. Trace the wave with your finger first.</div>
-            <div>2. Now try with a blue crayon!</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('curve-tracing', () => (
-          <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-            <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-            <div className="text-sm text-emerald-800">
-              Did the line stay smooth? Did they connect the start to the end?
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('zigzag-lines') && (() => {
-    const rng = makeRng('zigzag-lines');
-
-    // Themes: Start -> End
-    const zigzagThemes = [
-      {
-        name: 'Mountain Climb',
-        type: 'mountain', // Wide, tall
-        start: { label: 'Hiker', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9D7)}</text> },
-        end: { label: 'Flag', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F6A9)}</text> }
-      },
-      {
-        name: 'Brushing Teeth',
-        type: 'teeth', // Sharp, narrow
-        start: { label: 'Tooth', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9B7)}</text> },
-        end: { label: 'Sparkle', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9EA)}</text> }
-      },
-      {
-        name: 'Bunny Hops',
-        type: 'grass', // Regular
-        start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F430)}</text> },
-        end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F955)}</text> }
-      },
-      {
-        name: 'Stormy Sky',
-        type: 'lightning', // Irregular
-        start: { label: 'Cloud', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2601)}</text> },
-        end: { label: 'Tree', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F332)}</text> }
-      },
-      {
-        name: 'Pyramid Trek',
-        type: 'mountain',
-        start: { label: 'Camel', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F42A)}</text> },
-        end: { label: 'Oasis', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F3DD)}</text> }
-      },
-      {
-        name: 'Puppy Run',
-        type: 'grass',
-        start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F436)}</text> },
-        end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9B4)}</text> }
-      },
-    ];
-
-    const zigzagPaths = Array.from({ length: 6 }).map((_, i) => {
-      const theme = zigzagThemes[i % zigzagThemes.length];
-
-      // Coordinates
-      const xStart = 15;
-      const xEnd = 85;
-      const yBase = 50;
-
-      let points = [`${xStart} ${yBase}`];
-      let currentX = xStart;
-
-      // Configuration based on type
-      let minWidth, maxWidth, minHeight, maxHeight;
-
-      if (theme.type === 'mountain') {
-        minWidth = 15; maxWidth = 25;
-        minHeight = 25; maxHeight = 35;
-      } else if (theme.type === 'teeth') {
-        minWidth = 8; maxWidth = 12;
-        minHeight = 15; maxHeight = 25;
-      } else {
-        // grass/lightning
-        minWidth = 12; maxWidth = 18;
-        minHeight = 20; maxHeight = 30;
-      }
-
-      let up = true;
-
-      while (currentX < xEnd) {
-        // Determine step width
-        const stepW = minWidth + (rng() * (maxWidth - minWidth));
-
-        // Check if next step overshoots significantly, if so, clamp to end
-        let nextX = currentX + stepW;
-        if (nextX > xEnd) {
-          nextX = xEnd;
-        }
-
-        // Determine height target
-        // Up moves to yBase - height, Down moves to yBase + height?
-        // Actually lets align 'base' as center (50), so Up is < 50, Down is > 50?
-        // Or just zigzag from Base (50) to Peak (20) back to Base (50)?
-        // Let's do triangular pulses: Base -> Peak -> Base
-
-        // Simple zigzag: Alternating High/Low
-        // Low = 50 + (height/2), High = 50 - (height/2)
-        const h = minHeight + (rng() * (maxHeight - minHeight));
-        const yTarget = up ? (50 - h) : (50 + h);
-
-        points.push(`${nextX} ${yTarget}`);
-
-        currentX = nextX;
-        up = !up;
-      }
-
-      // Ensure we end at a reasonable spot? 
-      // The logic above traces to xEnd.
-      // Let's create the SVG path command.
-      // M x0 y0 L x1 y1 L x2 y2 ...
-      const d = 'M ' + points.map(p => p).join(' L ');
-
-      // Calculate start/end for dots (First and Last point)
-      // Parse "x y"
-      const startCoord = points[0].split(' ');
-      const endCoord = points[points.length - 1].split(' ');
-
-      return {
-        id: i,
-        theme,
-        d,
-        x1: parseFloat(startCoord[0]),
-        y1: parseFloat(startCoord[1]),
-        x2: parseFloat(endCoord[0]),
-        y2: parseFloat(endCoord[1]),
-        label: `Trace the ${theme.type} path!`
-      };
-    });
-
-    return (
-      <WorksheetSectionWrapper
-        docId="zigzag-lines"
-        title="Zigzag Mountains & Monsters"
-        emoji={String.fromCharCode(0x26F0, 0xFE0F)}
-        description="Climb the mountains and brush the teeth! Trace the sharp lines."
-        problemCount={zigzagPaths.length}
-        learningObjectives={[
-          'Trace angular lines (Zigzags)',
-          'Practice sharp turns (Stop and Pivot)',
-          'Develop rhythm in writing'
-        ]}
-        parentTeacherTips={[
-          'Say: "Zoom UP, Stop. Zoom DOWN, Stop."',
-          'Encourage sharp points, not rounded curves',
-          'Keep the pencil on the paper'
-        ]}
-      >
-        <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 animate-gradient-x mb-2" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-          {zigzagPaths.map((path, i) => (
-            <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
-              <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{path.theme.name}</div>
-              <div className="relative">
-                <svg viewBox="0 0 100 80" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
-                  {/* Guide Line */}
-                  <path
-                    d={path.d}
-                    fill="none"
-                    stroke="#94a3b8"
-                    strokeWidth="3"
-                    strokeDasharray="4 4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-
-                  {/* Start Dot (Green) */}
-                  <circle cx={path.x1} cy={path.y1} r="3" fill="#22c55e" />
-
-                  {/* End Dot (Red) */}
-                  <circle cx={path.x2} cy={path.y2} r="3" fill="#ef4444" />
-
-                  {/* Render Start Icon */}
-                  <path.theme.start.render
-                    x={path.x1}
-                    y={path.y1}
-                    fontSize="22"
-                    dominantBaseline="middle"
-                    style={{ userSelect: 'none' }}
-                  />
-
-                  {/* Render End Icon */}
-                  <path.theme.end.render
-                    x={path.x2}
-                    y={path.y2}
-                    fontSize="22"
-                    dominantBaseline="middle"
-                    style={{ userSelect: 'none' }}
-                  />
-                </svg>
-              </div>
-              <div className="mt-2 text-center text-sm font-medium text-slate-700">
-                {path.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Challenge */}
-        <div className="mt-6 print:mt-0 p-4 bg-emerald-50 border-2 border-emerald-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-emerald-900 mb-2 text-sm">{String.fromCodePoint(0x2705)}</div>
-          <div className="text-sm text-emerald-800">
-            <div>1. Can you draw mountains on the back?</div>
-            <div>2. Draw sharp teeth for a silly monster!</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('zigzag-lines', () => (
-          <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-            <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-            <div className="text-sm text-emerald-800">
-              Are the points sharp? Did the line go up and down?
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('path-tracing') && (() => {
-    const rng = makeRng('path-tracing');
-
-    // Themes: Start -> End
-    const pathThemes = [
-      {
-        name: 'City Drive',
-        type: 'road',
-        start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F697)}</text> },
-        end: { label: 'Garage', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F3E0)}</text> }
-      },
-      {
-        name: 'Mouse Hunt',
-        type: 'tube',
-        start: { label: 'Mouse', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F42D)}</text> },
-        end: { label: 'Cheese', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9C0)}</text> }
-      },
-      {
-        name: 'Space Mission',
-        type: 'road',
-        start: { label: 'Rocket', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F680)}</text> },
-        end: { label: 'Earth', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F30D)}</text> }
-      },
-      {
-        name: 'Bear Cave',
-        type: 'tube',
-        start: { label: 'Bear', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F43B)}</text> },
-        end: { label: 'Cave', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F573)}</text> }
-      },
-      {
-        name: 'Deep Sea',
-        type: 'road',
-        start: { label: 'Sub', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F6F3)}</text> },
-        end: { label: 'Gem', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F48E)}</text> }
-      },
-      {
-        name: 'Garden Path',
-        type: 'tube',
-        start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F41D)}</text> },
-        end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F33B)}</text> }
-      },
-    ];
-
-    const mazePaths = Array.from({ length: 6 }).map((_, i) => {
-      const theme = pathThemes[i % pathThemes.length];
-
-      // Coordinates
-      const x1 = 20, y1 = 20;
-      const x2 = 80, y2 = 80;
-
-      let d = '';
-      // Logic: Generate a path that stays within bounds but has turns
-      // Grid: 20, 50, 80
-
-      const type = i % 3; // 0: L-shape, 1: Z-shape, 2: Curve
-
-      if (type === 0) {
-        // L-Shape variations
-        // 1: Right then Down
-        // 2: Down then Right
-        const downFirst = rng() > 0.5;
-        if (downFirst) {
-          d = `M ${x1} ${y1} L ${x1} ${y2} L ${x2} ${y2}`;
-        } else {
-          d = `M ${x1} ${y1} L ${x2} ${y1} L ${x2} ${y2}`;
-        }
-      } else if (type === 1) {
-        // Z-Shape / Step
-        // Right, Down, Right OR Down, Right, Down
-        const downFirst = rng() > 0.5;
-        if (downFirst) {
-          const midY = 50;
-          d = `M ${x1} ${y1} L ${x1} ${midY} L ${x2} ${midY} L ${x2} ${y2}`;
-        } else {
-          const midX = 50;
-          d = `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
-        }
-      } else {
-        // Curve / S-Bend
-        // C (x1, y2) (x2, y1) x2 y2
-        const cp1x = x1 + (rng() * 40);
-        const cp1y = y1 + (rng() * 60);
-        const cp2x = x2 - (rng() * 40);
-        const cp2y = y2 - (rng() * 60);
-        d = `M ${x1} ${y1} C ${cp1x} ${y1} ${cp2x} ${y2} ${x2} ${y2}`;
-      }
-
-      return {
-        id: i,
-        theme,
-        d,
-        x1, y1, x2, y2,
-        label: `Help the ${theme.start.label} find the ${theme.end.label}`
-      };
-    });
-
-    return (
-      <WorksheetSectionWrapper
-        docId="path-tracing"
-        title="Lost & Found Mazes"
-        emoji={String.fromCharCode(0xD83D, 0xDE97)}
-        description="Follow the road! Don't go off the track."
-        problemCount={mazePaths.length}
-        learningObjectives={[
-          'Trace inside lines (Precision)',
-          'Solve simple mazes',
-          'Plan hand movement'
-        ]}
-        parentTeacherTips={[
-          'Say: "Stay on the road!"',
-          'If they go off, say "Crash! Try again."',
-          'Use a thick marker for easier tracing'
-        ]}
-      >
-        <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 animate-gradient-x mb-2" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-          {mazePaths.map((path, i) => (
-            <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
-              <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{path.theme.name}</div>
-              <div className="relative">
-                <svg viewBox="0 0 100 100" className="w-full h-48 border border-slate-100 rounded-lg bg-slate-50">
-                  {/* Road Background - Thick Light Gray */}
-                  <path
-                    d={path.d}
-                    fill="none"
-                    stroke="#e2e8f0"
-                    strokeWidth="20"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-
-                  {/* Road Center - Dashed White/Darker */}
-                  <path
-                    d={path.d}
-                    fill="none"
-                    stroke="#94a3b8"
-                    strokeWidth="2"
-                    strokeDasharray="6 6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-
-                  {/* Start Dot (Green) */}
-                  <circle cx={path.x1} cy={path.y1} r="3" fill="#22c55e" />
-
-                  {/* End Dot (Red) */}
-                  <circle cx={path.x2} cy={path.y2} r="3" fill="#ef4444" />
-
-                  {/* Render Start Icon */}
-                  <path.theme.start.render
-                    x={path.x1}
-                    y={path.y1}
-                    fontSize="28"
-                    dominantBaseline="middle"
-                    style={{ userSelect: 'none' }}
-                  />
-
-                  {/* Render End Icon */}
-                  <path.theme.end.render
-                    x={path.x2}
-                    y={path.y2}
-                    fontSize="28"
-                    dominantBaseline="middle"
-                    style={{ userSelect: 'none' }}
-                  />
-                </svg>
-              </div>
-              <div className="mt-2 text-center text-sm font-medium text-slate-700">
-                {path.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Challenge */}
-        <div className="mt-6 print:mt-0 p-4 bg-orange-50 border-2 border-orange-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-orange-900 mb-2 text-sm">{String.fromCodePoint(0x270F)}</div>
-          <div className="text-sm text-orange-800">
-            <div>1. Trace fast like a race car!</div>
-            <div>2. Trace slow like a turtle.</div>
-            <div>3. Can you do it without touching the sides?</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('path-tracing', () => (
-          <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-            <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-            <div className="text-sm text-emerald-800">
-              Did they stay on the gray road? Did they reach the end?
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('perimeter-shapes') && (() => {
-    const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-    const problems = Array.from({ length: 6 }, () => {
-      const length = nextInt(4, 10);
-      const width = nextInt(3, 8);
-      return { length, width, perimeter: 2 * (length + width) };
-    });
-    const renderRectangle = (length: number, width: number) => {
-      const scale = 8;
-      const rectWidth = length * scale;
-      const rectHeight = width * scale;
-      const viewBoxWidth = Math.max(rectWidth, 60) + 20;
-      const viewBoxHeight = Math.max(rectHeight, 60) + 20;
-      const x = (viewBoxWidth - rectWidth) / 2;
-      const y = (viewBoxHeight - rectHeight) / 2;
-
-      return (
-        <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
-          <rect
-            x={60 - (length * 10 / 2)}
-            y={40 - (width * 10 / 2)}
-            width={length * 10}
-            height={width * 10}
-            fill="#3b82f6"
-            fillOpacity="0.1"
-            stroke="#1e3a8a"
-            strokeWidth="2"
-          />
-          {/* Dimensions */}
-          <text x="60" y={40 - (width * 10 / 2) - 5} textAnchor="middle" fontSize="8" fontWeight="bold" fill="#1e3a8a">{length} units</text>
-          <text x={60 - (length * 10 / 2) - 8} y="40" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#1e3a8a" transform={`rotate(-90 ${60 - (length * 10 / 2) - 8} 40)`}>{width} units</text>
-        </svg>
-      );
-    };
-    return (
-      <WorksheetSectionWrapper
-        docId="perimeter-shapes"
-        title="Perimeter of Shapes"
-        emoji={String.fromCharCode(0xD83D, 0xDF92)}
-        description="Find the perimeter of each rectangle."
-        problemCount={problems.length}
-        learningObjectives={[
-          'Calculate perimeter of rectangles',
-          'Understand that perimeter is the distance around a shape',
-          'Use the formula: Perimeter = 2  (length + width)'
-        ]}
-        parentTeacherTips={[
-          'Perimeter = distance around the shape',
-          'For rectangles: P = 2  (length + width)',
-          'Or: P = length + width + length + width',
-          'Extension: Find perimeter of irregular shapes'
-        ]}
-      >
-        <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
-        {/* Worked Example */}
-        <div className="mb-6 bg-blue-900 rounded-xl overflow-hidden shadow-lg border-2 border-blue-800 print:border print:bg-white text-white">
-          <div className="bg-blue-800 px-4 py-2 flex items-center gap-2">
-            <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
-            <span className="font-bold uppercase tracking-wider text-sm">Worked Example: Site Analysis</span>
-          </div>
-          <div className="p-4 flex flex-col md:flex-row gap-6 bg-gradient-to-br from-blue-900 to-blue-800 print:text-black print:from-white print:to-white">
-            <div className="w-full md:w-32 h-24 bg-blue-600 border border-white/30 relative rounded overflow-hidden flex-shrink-0">
-              <div className="absolute inset-0 opacity-20 bg-[size:10px_10px] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)]"></div>
-              <div className="absolute inset-4 border-2 border-white/60 bg-white/10 flex items-center justify-center font-mono text-xs text-white">
-                5 x 3
-              </div>
-            </div>
-            <div className="flex-1 space-y-3">
-              <div className="text-sm">We need to find the perimeter of a rectangle that is <strong>5 units long</strong> and <strong>3 units wide</strong>.</div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="bg-white/10 p-2 rounded border border-white/20">
-                  <div className="text-[10px] uppercase opacity-70">Step 1: Add Sides</div>
-                  <div className="font-mono font-bold">5 + 3 = 8</div>
-                </div>
-                <div className="bg-white/10 p-2 rounded border border-white/20">
-                  <div className="text-[10px] uppercase opacity-70">Step 2: Double It</div>
-                  <div className="font-mono font-bold">8 × 2 = 16</div>
-                </div>
-              </div>
-              <div className="pt-2 border-t border-white/20 flex items-center justify-between">
-                <span className="font-bold text-yellow-300 print:text-blue-800 uppercase tracking-tight">Total Perimeter: 16 units</span>
-                <span className="text-[10px] italic opacity-80">Tip: Distance around!</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-6" style={{ pageBreakAfter: 'auto' }}>
-          {problems.map((p, i) => (
-            <div key={i} className="break-inside-avoid">
-              <div className="bg-blue-600 p-1 rounded-t-lg w-fit px-3 text-white text-xs font-bold font-mono tracking-wider border-t border-l border-r border-white relative top-0.5 z-10">PLOT #{i + 1}</div>
-              <div className="bg-blue-50 border-2 border-blue-900 p-4 relative overflow-hidden shadow-sm">
-                {/* Blueprint Grid Background */}
-                <div className="absolute inset-0 opacity-10 bg-[size:10px_10px] bg-[linear-gradient(to_right,#1e3a8a_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a_1px,transparent_1px)] pointer-events-none"></div>
-
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="mb-2">
-                    {renderRectangle(p.length, p.width)}
-                  </div>
-
-                  <div className="w-full flex items-center justify-between gap-2 mt-2 bg-white px-2 py-1 rounded border border-blue-200">
-                    <div className="flex gap-3">
-                      <span className="text-[10px] font-bold text-blue-900">L: {p.length}</span>
-                      <span className="text-[10px] font-bold text-blue-900">W: {p.width}</span>
-                    </div>
-                    <div className="flex-1 flex items-center gap-1">
-                      <span className="text-[10px] font-bold text-slate-400">P:</span>
-                      <div className="flex-1 border-b border-black h-4"></div>
-                      <span className="text-[8px] text-slate-500">units</span>
-                    </div>
-                  </div>
-                  <div className="w-full mt-3">
-                    <div className="text-[8px] uppercase font-bold text-slate-400 mb-1">Calculation Area:</div>
-                    <div className="h-10 border border-dashed border-blue-200 rounded bg-white/50"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        {/* Extension/Challenge Problems */}
-        <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)} Rocket Challenge</div>
-          <div className="space-y-2 text-sm text-purple-800">
-            <div>1. Find the perimeter of a square with side length 6</div>
-            <div>2. A rectangle has perimeter 20. If length is 7, what is the width?</div>
-            <div>3. Find the perimeter of your desk or table</div>
-          </div>
-        </div>
-        {/* Self-Assessment */}
-        <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)} Self-Assessment</div>
-          <div className="space-y-2 text-xs">
-            <div>{String.fromCharCode(0x2610)} I can find the perimeter of rectangles</div>
-            <div>{String.fromCharCode(0x2610)} I understand what perimeter means</div>
-            <div>{String.fromCharCode(0x2610)} I can use the formula correctly</div>
-          </div>
-          <div className="mt-3 text-xs">
-            <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-          </div>
-          <div className="mt-2 text-xs">
-            <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-          </div>
-        </div>
-        {showAnswersForDoc('perimeter-shapes', () => (
-          <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-            <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-            <div className="space-y-3">
-              {problems.map((p, i) => (
-                <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
-                  <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
-                  <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                    <div><strong>Step 1:</strong> {p.length} + {p.width} = {p.length + p.width}</div>
-                    <div><strong>Step 2:</strong> {p.length + p.width} × 2 = {p.perimeter}</div>
-                    <div className="font-semibold">Answer: {p.perimeter} units</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('area-rectangles') && (() => {
-    const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-    const problems = Array.from({ length: 6 }, () => {
-      const length = nextInt(4, 9);
-      const width = nextInt(2, 6);
-      return { label: `Room ${String.fromCharCode(65 + nextInt(0, 5))}-${nextInt(10, 99)}`, length, width, area: length * width };
-    });
-
-    return (
-      <WorksheetSectionWrapper
-        docId="area-rectangles"
-        title="Construction Zone: Blueprint Area"
-        emoji={String.fromCharCode(0xD83C, 0xDFE0)}
-        description="The architect needs the floor area for each room! Calculate the space inside the blueprints."
-        problemCount={problems.length}
-        learningObjectives={[
-          'Calculate area of rectangles using multiplication',
-          'Understand area as \"space inside\" (square units)',
-          'Read blueprint dimensions'
-        ]}
-        parentTeacherTips={[
-          'Area = Length  Width',
-          'Imagine tiling the floor with squares',
-          'Units are always \"squared\" (sq ft, sq m) for area'
-        ]}
-      >
-        {/* Blueprint Header */}
-        <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-blue-600 rounded-lg flex items-center justify-center border-4 border-white shadow-lg">
-          <div className="absolute inset-0 opacity-30 bg-[size:20px_20px] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]"></div>
-          <div className="text-2xl font-black text-white z-10 flex gap-4 items-center tracking-widest uppercase" style={{ textShadow: '2px 2px 0px #000' }}>
-            ARCHITECT BLUEPRINTS
-          </div>
-        </div>
-
-        {/* Worked Example */}
-        <div className="mb-6 p-4 bg-blue-900 text-white border-2 border-white rounded-lg print:bg-white print:text-black print:border-blue-900 shadow-md">
-          <div className="flex gap-4 items-start">
-            <div className="hidden md:block w-32 h-24 bg-blue-600 border border-white relative">
-              <div className="absolute inset-0 opacity-30 bg-[size:10px_10px] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)]"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-mono text-xs">
-                5 x 4
-              </div>
-            </div>
-            <div className="flex-1">
-              <div className="font-bold border-b border-blue-400 mb-2 pb-1 text-sm uppercase">Example: Master Bedroom</div>
-              <div className="space-y-1 text-sm font-mono">
-                <div>Length: 5 units</div>
-                <div>Width:  4 units</div>
-                <div className="mt-2 text-yellow-300 print:text-blue-700 font-bold">{String.fromCodePoint(0x279C)} Area: 20 sq units</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-x-8 gap-y-6" style={{ pageBreakAfter: 'auto' }}>
-          {problems.map((p, i) => (
-            <div key={i} className="break-inside-avoid">
-              <div className="bg-blue-600 p-1 rounded-t-lg w-fit px-3 text-white text-xs font-bold font-mono tracking-wider border-t border-l border-r border-white relative top-0.5 z-10">{p.label}</div>
-              <div className="bg-blue-50 border-2 border-blue-900 p-4 relative overflow-hidden shadow-sm">
-                {/* Grid Background */}
-                <div className="absolute inset-0 opacity-10 bg-[size:10px_10px] bg-[linear-gradient(to_right,#1e3a8a_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a_1px,transparent_1px)] pointer-events-none"></div>
-
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="mb-2">
-                    <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
-                      <rect
-                        x={60 - (p.length * 10 / 2)}
-                        y={40 - (p.width * 10 / 2)}
-                        width={p.length * 10}
-                        height={p.width * 10}
-                        fill="#3b82f6"
-                        fillOpacity="0.2"
-                        stroke="#1e3a8a"
-                        strokeWidth="2"
-                      />
-                      {/* Dimensions */}
-                      <text x="60" y={40 + (p.width * 10 / 2) + 12} textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a">{p.length} units</text>
-                      <text x={60 - (p.length * 10 / 2) - 10} y="40" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a" transform={`rotate(-90 ${60 - (p.length * 10 / 2) - 10} 40)`}>{p.width} units</text>
-                    </svg>
-                  </div>
-
-                  <div className="w-full flex items-center justify-between gap-2 mt-2 bg-white px-2 py-1 rounded border border-blue-200">
-                    <span className="text-xs font-bold text-blue-900">AREA:</span>
-                    <div className="w-16 border-b border-black"></div>
-                    <span className="text-[10px] text-slate-500">sq units</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Self-Assessment */}
-        <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x1F4CB)} Self-Assessment</div>
-          <div className="space-y-2 text-xs">
-            <div>{String.fromCodePoint(0x2705)} I can find the area of a rectangle by multiplying.</div>
-            <div>{String.fromCodePoint(0x2705)} I can explain what area represents in a blueprint.</div>
-            <div>{String.fromCodePoint(0x2705)} I can use square units correctly.</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('area-rectangles', () => (
-          <div className="mt-6 p-4 border-4 border-double border-blue-900 bg-blue-50 rounded print:border print:bg-white print:page-break-before-always font-mono">
-            <div className="text-center font-bold text-blue-900 mb-6 text-xl border-b border-blue-200 pb-2">{String.fromCodePoint(0x1F4A1)}</div>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              {problems.map((p, i) => (
-                <div key={i} className="flex justify-between border-b border-blue-200 pb-1">
-                  <span>{String.fromCodePoint(0x279C)}</span>
-                  <span className="font-bold">{p.area} sq units</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-{
-  activeDocs.includes('time-to-minute') && (() => {
-    const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-    const times = Array.from({ length: 6 }, () => {
-      const hour = nextInt(1, 12);
-      const minute = nextInt(0, 59);
-      return `${hour}:${minute.toString().padStart(2, '0')}`;
-    });
-    const renderClockTheme = (time: string, seed: number) => {
-      const [hours, minutes] = time.split(':').map(Number);
-      const hourAngle = ((hours % 12) * 30 + minutes * 0.5 - 90) * (Math.PI / 180);
-      const minuteAngle = (minutes * 6 - 90) * (Math.PI / 180);
-      const centerX = 50;
-      const centerY = 50;
-      const radius = 35;
-
-      // Future/Tech styled clock
-      return (
-        <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
-          <defs>
-            <radialGradient id={`clockGrad${seed}`} cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-              <stop offset="0%" stopColor="#1e293b" />
-              <stop offset="90%" stopColor="#0f172a" />
-              <stop offset="100%" stopColor="#3b82f6" />
-            </radialGradient>
-          </defs>
-
-          {/* Outer Rim */}
-          <circle cx={centerX} cy={centerY} r={radius + 4} fill="none" stroke="#3b82f6" strokeWidth="2" strokeDasharray="10 2" className="animate-[spin_10s_linear_infinite]" />
-          <circle cx={centerX} cy={centerY} r={radius} fill={`url(#clockGrad${seed})`} stroke="#60a5fa" strokeWidth="1" />
-
-          {/* Ticks */}
-          {Array.from({ length: 12 }, (_, i) => {
-            const angle = (i * 30 - 90) * (Math.PI / 180);
-            const isMain = i % 3 === 0;
-            const len = isMain ? 6 : 3;
-            const x1 = centerX + (radius - len) * Math.cos(angle);
-            const y1 = centerY + (radius - len) * Math.sin(angle);
-            const x2 = centerX + (radius - 1) * Math.cos(angle);
-            const y2 = centerY + (radius - 1) * Math.sin(angle);
-            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={isMain ? "#60a5fa" : "#475569"} strokeWidth={isMain ? 2 : 1} />;
-          })}
-
-          {/* Hands - Glowing */}
-          <line x1={centerX} y1={centerY} x2={centerX + 18 * Math.cos(hourAngle)} y2={centerY + 18 * Math.sin(hourAngle)} stroke="#06b6d4" strokeWidth="3" strokeLinecap="round" />
-          <line x1={centerX} y1={centerY} x2={centerX + 28 * Math.cos(minuteAngle)} y2={centerY + 28 * Math.sin(minuteAngle)} stroke="#22d3ee" strokeWidth="2" strokeLinecap="round" />
-
-          {/* Center Hub */}
-          <circle cx={centerX} cy={centerY} r="3" fill="#0891b2" stroke="white" strokeWidth="1" />
-        </svg>
-      );
-    };
-    return (
-      <WorksheetSectionWrapper
-        docId="time-to-minute"
-        title="Time Traveler's Mission"
-        emoji={String.fromCharCode(0x23F0)}
-        description="Use the Temporal Portals to jump through time! Read the clock to set your destination."
-        problemCount={times.length}
-        learningObjectives={[
-          'Read time on analog clocks to the minute',
-          'Understand hour and minute hands',
-          'Write time in digital format'
-        ]}
-        parentTeacherTips={[
-          'Blue Hand (Short) = Hours',
-          'Aqua Hand (Long) = Minutes',
-          'Each number equals 5 minutes',
-          'Mission: Write the time exactly!'
-        ]}
-      >
-        {/* Time Travel Header */}
-        <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-cyan-500">
-          <div className="absolute inset-x-0 h-full w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900 via-slate-900 to-black opacity-80"></div>
-          {/* Stars */}
-          <div className="absolute top-2 left-10 text-xs text-white opacity-60">{String.fromCodePoint(0x2B50)}</div>
-          <div className="absolute bottom-4 right-20 text-xs text-white opacity-40">{String.fromCodePoint(0x2B50)}</div>
-
-          <div className="text-2xl font-mono text-cyan-400 z-10 flex gap-4 items-center tracking-widest shadow-cyan-500/50">
-            <span>{String.fromCodePoint(0x2B50)}</span> CHRONOS SYSTEM <span>{String.fromCodePoint(0x2B50)}</span>
-          </div>
-        </div>
-
-        {/* Worked Example */}
-        <div className="mb-6 p-4 bg-slate-100 border-2 border-slate-300 rounded-lg print:border print:bg-white flex gap-4 items-center">
-          <div className="shrink-0">
-            <svg viewBox="0 0 100 100" className="w-20 h-20">
-              <circle cx="50" cy="50" r="35" fill="#1e293b" stroke="#3b82f6" strokeWidth="2" />
-              <line x1="50" y1="50" x2="65" y2="65" stroke="#06b6d4" strokeWidth="3" />
-              <line x1="50" y1="50" x2="50" y2="20" stroke="#22d3ee" strokeWidth="2" />
-            </svg>
-          </div>
-          <div className="space-y-1 text-sm font-mono text-slate-700">
-            <div className="font-bold text-indigo-700">DESTINATION: DINO ERA</div>
-            <div>Hour Hand (Short): Past 4</div>
-            <div>Minute Hand (Long): At 12 (:00)</div>
-            <div className="bg-slate-800 text-green-400 inline-block px-2 py-1 rounded font-bold mt-1">TIME SET: 4:00</div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
-          {times.map((t, i) => (
-            <div key={i} className="border-4 border-slate-200 rounded-xl p-4 bg-white break-inside-avoid relative overflow-hidden shadow-sm">
-              {/* Tech deco */}
-              <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-cyan-100 rounded-tl-xl"></div>
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-cyan-100 rounded-br-xl"></div>
-
-              {renderClockTheme(t, i)}
-
-              <div className="text-center font-mono text-slate-500 text-xs mb-1">TARGET COORDINATES</div>
-              <div className="flex justify-center">
-                <div className="bg-slate-100 border-2 border-slate-300 rounded px-4 py-2 w-32 h-12 flex items-center justify-center">
-                  {/* Student writes time here */}
-                  <span className="text-slate-300 text-2xl font-digital">__:__</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Self-Assessment */}
-        <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-          <div className="space-y-2 text-xs font-mono">
-            <div>[ ] Time jump successful</div>
-            <div>[ ] No temporal paradoxes detected</div>
-            <div>[ ] Ready for next jump</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('time-to-minute', () => (
-          <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-            <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-            <div className="grid grid-cols-2 gap-4">
-              {times.map((t, i) => (
-                <div key={i} className="text-sm border-b border-emerald-200 pb-2">
-                  <span className="font-mono font-bold text-emerald-800">JUMP #{i + 1}:</span> {t}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('customary-units') && (() => {
-    const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-    const problems = Array.from({ length: 6 }, () => {
-      const feet = nextInt(1, 10);
-      return { feet, inches: feet * 12 };
-    });
-    return (
-      <WorksheetSectionWrapper
-        docId="customary-units"
-        title="Mad Science: Length Formula"
-        emoji={String.fromCharCode(0xD83E, 0xDDEC)}
-        description="Professor Quant needs precise measurements for the secret formula! Convert the units to complete the experiment."
-        problemCount={problems.length}
-        learningObjectives={[
-          'Convert between inches, feet, and yards',
-          'Understand customary measurement relationships',
-          'Use multiplication and division for conversions'
-        ]}
-        parentTeacherTips={[
-          '1 foot = 12 inches',
-          '1 yard = 3 feet = 36 inches',
-          'Scientist Tip: Big Unit -> Small Unit = Multiply!',
-          'Precision is key in the lab.'
-        ]}
-      >
-        {/* Lab Header */}
-        <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-800 rounded-lg flex items-center justify-center border-b-4 border-lime-400">
-          <div className="text-2xl font-mono text-lime-400 font-bold z-10 flex gap-4 items-center animate-pulse">
-            <span>{String.fromCodePoint(0x279C)}</span>
-          </div>
-        </div>
-
-        {/* Worked Example */}
-        <div className="mb-6 p-4 bg-yellow-50 border-4 border-slate-800 rounded-lg print:border print:bg-white shadow-[4px_4px_0px_0px_rgba(30,41,59,1)]">
-          <div className="font-mono text-slate-900 font-bold border-b-2 border-slate-800 mb-2 pb-1">{String.fromCodePoint(0x270F)}</div>
-          <div className="space-y-2 text-sm font-mono text-slate-800">
-            <div className="text-base"><strong>TASK:</strong> Convert 3 Feet of Copper Wire</div>
-            <div className="pl-4 border-l-4 border-lime-400 bg-white p-2 space-y-1">
-              <div><strong className="text-blue-600">FORMULA:</strong> 1 Foot = 12 Inches</div>
-              <div>{String.fromCodePoint(0x270F)}</div>
-              <div className="font-bold text-lg text-lime-600 bg-slate-900 inline-block px-2 transform -rotate-1">RESULT: 36 INCHES</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4 p-3 bg-slate-100 border-2 border-slate-300 rounded text-sm text-slate-700 font-mono text-center">
-          <strong>{String.fromCodePoint(0x270F)}</strong> 1 Yard = 3 Feet | 1 Foot = 12 Inches
-        </div>
-
-        <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-          {problems.map((p, i) => (
-            <div key={i} className="border-2 border-slate-300 rounded-lg p-0 bg-white break-inside-avoid overflow-hidden">
-              <div className="bg-slate-100 p-2 border-b border-slate-300 font-mono text-xs text-slate-500 flex justify-between">
-                <span>SAMPLE #{i + 140}</span>
-                <span>STATUS: PENDING</span>
-              </div>
-              <div className="p-4">
-                <div className="text-center mb-3 font-bold text-lg font-mono text-slate-800">
-                  {p.feet} FEET <span className="text-slate-400">{String.fromCodePoint(0x270F)}</span> ____ INCHES
-                </div>
-
-                {/* Visual Ruler */}
-                <div className="h-6 w-full bg-yellow-300 border border-yellow-500 mb-3 relative opacity-50">
-                  <div className="absolute top-0 bottom-0 left-0 w-px bg-black"></div>
-                  <div className="absolute top-0 bottom-0 left-1/4 w-px bg-black opacity-50"></div>
-                  <div className="absolute top-0 bottom-0 left-1/2 w-px bg-black"></div>
-                  <div className="absolute top-0 bottom-0 left-3/4 w-px bg-black opacity-50"></div>
-                  <div className="absolute top-0 bottom-0 right-0 w-px bg-black"></div>
-                </div>
-
-                <div className="bg-slate-50 border border-slate-200 rounded p-2">
-                  <div className="text-[10px] text-slate-500 uppercase mb-1">Calculations:</div>
-                  <div className="h-8 border-b border-dashed border-slate-300"></div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Self-Assessment */}
-        <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-          <div className="space-y-2 text-xs">
-            <div>{String.fromCodePoint(0x270F)}</div>
-            <div>{String.fromCodePoint(0x270F)}</div>
-            <div>{String.fromCodePoint(0x270F)}</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('customary-units', () => (
-          <div className="mt-6 p-4 border-2 border-lime-500 bg-lime-50 rounded print:border print:bg-white print:page-break-before-always">
-            <div className="font-bold text-lime-900 mb-3 text-base font-mono">{String.fromCodePoint(0x279C)}</div>
-            <div className="space-y-3">
-              {problems.map((p, i) => (
-                <div key={i} className="border-b border-lime-200 pb-3 last:border-b-0 font-mono text-sm">
-                  <div><strong>SAMPLE #{i + 140}:</strong> {p.feet} ft = <span className="bg-lime-200 px-1">{p.inches} in</span></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('metric-units') && (() => {
-    const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-    const problems = Array.from({ length: 6 }, () => {
-      const meters = nextInt(1, 10);
-      return { meters, centimeters: meters * 100 };
-    });
-    return (
-      <WorksheetSectionWrapper
-        docId="metric-units"
-        title="Mad Science: Metric Analysis"
-        emoji={String.fromCharCode(0xD83D, 0xDCCF)}
-        description="Analyze the samples using the metric system! Convert meters to centimeters for the final report."
-        problemCount={problems.length}
-        learningObjectives={[
-          'Convert between centimeters, meters, and kilometers',
-          'Understand metric measurement relationships',
-          'Use multiplication and division for conversions'
-        ]}
-        parentTeacherTips={[
-          '1 meter = 100 centimeters',
-          '1 kilometer = 1000 meters',
-          'Metric system is based on powers of 10!',
-          'Meters are for length, Centimeters are for small details.'
-        ]}
-      >
-        {/* Lab Header */}
-        <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-cyan-400">
-          <div className="absolute top-0 right-0 p-1">
-            <div className="w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
-          </div>
-          <div className="text-2xl font-mono text-cyan-400 font-bold z-10 flex gap-4 items-center tracking-widest">
-            METRIC SECTOR
-          </div>
-        </div>
-
-        {/* Worked Example */}
-        <div className="mb-6 p-4 bg-cyan-50 border-4 border-slate-800 rounded-lg print:border print:bg-white relative">
-          <div className="absolute -top-3 left-4 bg-slate-800 text-cyan-400 font-mono text-xs px-2 py-1 rounded">SYS: ACTIVE</div>
-          <div className="font-mono text-slate-900 font-bold mb-2">{String.fromCodePoint(0x270F)}</div>
-          <div className="space-y-2 text-sm font-mono text-slate-800">
-            <div className="text-base"><strong>SUBJECT:</strong> Alien Vine Growth</div>
-            <div className="pl-4 border-l-4 border-cyan-500 bg-white p-2">
-              <div><strong>MEASUREMENT:</strong> 2 Meters</div>
-              <div><strong>CONVERSION RATE:</strong> 1m = 100cm</div>
-              <div><strong>CALCULATION:</strong>{String.fromCodePoint(0x279C)}</div>
-              <div className="mt-1 font-bold text-cyan-700">FINAL DATA: 200 cm</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4 p-3 bg-slate-800 border-2 border-slate-600 rounded text-sm text-cyan-400 font-mono text-center shadow-inner">
-          <strong>{String.fromCodePoint(0x1F4CF)}</strong> 1 km = 1000 m | 1 m = 100 cm
-        </div>
-
-        <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
-          {problems.map((p, i) => (
-            <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid relative">
-              <div className="absolute top-2 right-2 text-xs font-mono text-slate-400">ID: {i + 800}</div>
-
-              <div className="flex flex-col items-center">
-                {/* Stylized Laser Measure */}
-                <div className="w-full h-2 bg-slate-200 mb-4 relative rounded overflow-hidden">
-                  <div className="absolute left-0 top-0 bottom-0 bg-red-500 w-1/2 opacity-50"></div>
-                  <div className="absolute left-1/2 top-0 bottom-0 bg-green-500 w-1/2 opacity-50"></div>
-                  {/* Laser dot */}
-                  <div className="absolute top-1/2 left-3/4 w-2 h-2 bg-red-600 rounded-full transform -translate-y-1/2 shadow-[0_0_5px_rgba(220,38,38,1)]"></div>
-                </div>
-
-                <div className="text-center mb-2 font-bold text-lg font-mono text-slate-800">
-                  {p.meters} m <span className="text-slate-400">=</span> ____ cm
-                </div>
-
-                <div className="w-full border-t border-slate-100 pt-2">
-                  <div className="text-xs text-slate-500 font-mono text-center">Enter Value:</div>
-                  <div className="h-8 bg-slate-50 border border-slate-300 rounded mt-1"></div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Self-Assessment */}
-        <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-          <div className="space-y-2 text-xs">
-            <div>{String.fromCodePoint(0x270F)}</div>
-            <div>{String.fromCodePoint(0x270F)}</div>
-            <div>{String.fromCodePoint(0x270F)}</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('metric-units', () => (
-          <div className="mt-6 p-4 border-2 border-cyan-500 bg-cyan-50 rounded print:border print:bg-white print:page-break-before-always">
-            <div className="font-bold text-cyan-900 mb-3 text-base font-mono">{String.fromCodePoint(0x279C)}</div>
-            <div className="grid grid-cols-2 gap-4 font-mono text-sm">
-              {problems.map((p, i) => (
-                <div key={i} className="border-b border-cyan-200 pb-2">
-                  <span className="font-bold">{p.meters} m</span>  {p.centimeters} cm
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('liquid-measurement') && (
-    <LiquidMeasurement docId="liquid-measurement" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('mass-weight') && (
-    <MassAndWeight docId="mass-weight" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('line-plots') && (
-    <LinePlots docId="line-plots" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('bar-graphs-pictographs') && (
-    <BarGraphs docId="bar-graphs-pictographs" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('mean-median-mode') && (
-    <MeanMedianMode docId="mean-median-mode" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('classifying-triangles') && (
-    <ClassifyingTriangles docId="classifying-triangles" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('classifying-quadrilaterals') && (
-    <ClassifyingQuadrilaterals docId="classifying-quadrilaterals" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('lines-angles-4th') && (
-    <LinesAndAngles docId="lines-angles-4th" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('classifying-angles') && (
-    <ClassifyingAngles docId="classifying-angles" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('symmetry-transformations') && (
-    <SymmetryTransformations docId="symmetry-transformations" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('area-perimeter-4th') && (
-    <AreaPerimeter docId="area-perimeter-4th" showAnswersForDoc={showAnswersForDoc} />
-  )
-}
-
-{
-  activeDocs.includes('multi-step-word-problems') && (() => {
-    const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-    const problems = Array.from({ length: 6 }, () => {
-      const type = nextInt(0, 3);
-      if (type === 0) {
-        // (A * B) - C
-        const a = nextInt(3, 8);
-        const b = nextInt(2, 5);
-        const c = nextInt(1, a * b - 1);
-        return {
-          text: `Detective Zoom found ${a} boxes of evidence. Each box had ${b} clues. But ${c} clues resulted in a dead end. How many useful clues are left?`,
-          steps: [`${a}  ${b} = ${a * b} total clues`, `${a * b} - ${c} = ${a * b - c}`],
-          answer: `${a * b - c} clues`
-        };
-      } else if (type === 1) {
-        // (A + B) - C
-        const a = nextInt(10, 30);
-        const b = nextInt(5, 20);
-        const c = nextInt(5, 15);
-        return {
-          text: `There were ${a} witnesses on Monday and ${b} on Tuesday. ${c} of them were suspects. How many were innocent witnesses?`,
-          steps: [`${a} + ${b} = ${a + b} total people`, `${a + b} - ${c} = ${a + b - c}`],
-          answer: `${a + b - c} witnesses`
-        };
-      } else {
-        // (A - B) + C
-        const a = nextInt(20, 50);
-        const b = nextInt(5, 15);
-        const c = nextInt(10, 20);
-        return {
-          text: `Officer Pat had ${a} donuts. The team ate ${b}. Then Officer Mike brought ${c} more. How many donuts are there now?`,
-          steps: [`${a} - ${b} = ${a - b} left`, `${a - b} + ${c} = ${a - b + c}`],
-          answer: `${a - b + c} donuts`
-        };
-      }
-    });
-
-    return (
-      <WorksheetSectionWrapper
-        docId="multi-step-word-problems"
-        title="Math Detective Agency"
-        emoji={String.fromCharCode(0xD83D, 0xDD75, 0xFE0F)}
-        description="Crack the case! Solve step-by-step to catch the answer."
-        problemCount={problems.length}
-        learningObjectives={[
-          'Solve multi-step word problems',
-          'Identify sequence of operations',
-          'Show work for each clue'
-        ]}
-        parentTeacherTips={[
-          'Look for keywords: "each", "total", "left", "more"',
-          'Solve one clue at a time',
-          'Double check the final verdict'
-        ]}
-      >
-        {/* Agency Header */}
-        <div className="print:hidden w-full h-20 mb-6 relative overflow-hidden bg-slate-800 rounded-t-lg border-b-4 border-yellow-500 shadow-lg">
-          <div className="absolute top-2 left-4 text-4xl">{String.fromCodePoint(0x279C)}</div>
-          <div className="flex flex-col items-center justify-center h-full">
-            <div className="text-2xl font-bold text-slate-100 font-mono tracking-widest uppercase">Top Secret Case Files</div>
-            <div className="text-yellow-500 font-bold text-xs uppercase bg-slate-900 px-2 py-0.5 rounded border border-yellow-500 mt-1">Authorized Eyes Only</div>
-          </div>
-        </div>
-
-        {/* Example Case */}
-        <div className="mb-8 mx-auto max-w-2xl bg-amber-50 p-1 border border-slate-300 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] rotate-0 relative">
-          {/* Paperclip */}
-          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full border-4 border-slate-400 z-10 bg-transparent border-b-transparent"></div>
-
-          <div className="bg-white p-6 border border-slate-200">
-            <div className="flex justify-between items-start mb-4 border-b-2 border-slate-800 pb-2">
-              <div>
-                <h3 className="font-bold text-slate-900 uppercase tracking-wide">Case #00-EXAMPLE</h3>
-                <p className="text-xs text-slate-500">Subject: The Missing Marbles</p>
-              </div>
-              <div className="text-4xl opacity-20">{String.fromCodePoint(0x270F)}</div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="font-serif italic text-slate-700 text-lg">
-                "Start with 15 marbles. Lose 5. Find 8 more. How many now?"
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 text-sm font-mono mt-4 bg-slate-50 p-4 rounded border border-slate-200">
-                <div>
-                  <span className="bg-slate-200 text-slate-600 px-1 text-xs rounded uppercase font-bold mr-2">Clue 1</span>
-                  15 - 5 = 10
-                </div>
-                <div>
-                  <span className="bg-slate-200 text-slate-600 px-1 text-xs rounded uppercase font-bold mr-2">Clue 2</span>
-                  10 + 8 = 18
-                </div>
-              </div>
-
-              <div className="mt-2 text-right">
-                <span className="text-red-600 font-bold text-xl font-stamp transform -rotate-2 inline-block border-2 border-red-600 px-2 py-1">VERDICT: 18</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ pageBreakAfter: 'auto' }}>
-          {problems.map((p, i) => (
-            <div key={i} className="relative group break-inside-avoid">
-              {/* Folder Tab */}
-              <div className="absolute -top-3 left-0 w-24 h-4 bg-amber-200 rounded-t-lg border-t border-l border-r border-amber-300 group-hover:-top-4 transition-all"></div>
-
-              <div className="bg-amber-100 p-6 rounded-b-lg rounded-tr-lg border border-amber-300 shadow-md relative">
-                <div className="absolute top-2 right-2 text-xs font-mono text-amber-600 opacity-50">CASE #{400 + i}</div>
-                <div className="font-serif text-slate-800 mb-4 leading-relaxed">
-                  {p.text}
-                </div>
-
-                <div className="bg-white p-3 rounded border border-amber-200 h-28 relative">
-                  <div className="absolute top-1 left-2 text-[10px] text-slate-400 uppercase tracking-wider">Investigative Notes</div>
-                  {/* Lines for writing */}
-                  <div className="w-full h-full pt-4 space-y-6">
-                    <div className="border-b border-slate-200"></div>
-                    <div className="border-b border-slate-200"></div>
-                    <div className="border-b border-slate-200"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {showAnswersForDoc('multi-step-word-problems', () => (
-          <div className="mt-6 p-6 border-l-4 border-slate-800 bg-slate-50 rounded print:page-break-before-always">
-            <div className="font-bold text-slate-900 mb-4 text-xl uppercase tracking-widest border-b border-slate-300 pb-2">{String.fromCodePoint(0x270F)}</div>
-            <div className="grid grid-cols-1 gap-4">
-              {problems.map((p, i) => (
-                <div key={i} className="flex flex-col text-sm font-mono text-slate-700 bg-white p-3 border border-slate-200 shadow-sm">
-                  <div className="font-bold text-slate-900 mb-1">CASE #{400 + i}</div>
-                  <div className="flex flex-wrap gap-x-4">
-                    {p.steps.map((s, j) => <span key={j} className="text-slate-500">STEP {j + 1}: {s}</span>)}
-                  </div>
-                  <div className="mt-1 font-bold text-red-600">VERDICT: {p.answer}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-{
-  activeDocs.includes('elapsed-time-word-problems') && (() => {
-    const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-    // Generate time travel scenarios
-    const problems = Array.from({ length: 6 }, () => {
-      const startHour = nextInt(1, 10);
-      const startMin = nextInt(0, 3) * 15; // 00, 15, 30, 45
-      const durationMin = nextInt(2, 6) * 15; // 30 mins to 90 mins
-
-      const totalStartMin = startHour * 60 + startMin;
-      const totalEndMin = totalStartMin + durationMin;
-
-      const endHour = Math.floor(totalEndMin / 60);
-      const endMin = totalEndMin % 60;
-
-      // Format times
-      const pad = (n: number) => n.toString().padStart(2, '0');
-      const startTime = `${startHour}:${pad(startMin)} PM`;
-      const endTime = `${endHour}:${pad(endMin)} PM`;
-
-      const dHours = Math.floor(durationMin / 60);
-      const dMins = durationMin % 60;
-      const durationStr = dHours > 0
-        ? `${dHours} hr ${dMins > 0 ? `${dMins} min` : ''}`
-        : `${dMins} min`;
-
-      return {
-        mission: `Mission #${nextInt(100, 999)}`,
-        scenario: `Rocket launch at ${startTime}. Landed at ${endTime}.`,
-        question: "How long was the mission?",
-        answer: durationStr,
-        start: startTime,
-        end: endTime,
-        calc: `${endTime} - ${startTime} = ${durationStr}`
-      };
-    });
-
-    return (
-      <WorksheetSectionWrapper
-        docId="elapsed-time-word-problems"
-        title="Time Travel Mission Control"
-        emoji={String.fromCharCode(0xD83D, 0xDE80)}
-        description="Calculate mission durations! The space station needs precise flight logs."
-        problemCount={problems.length}
-        learningObjectives={[
-          'Calculate elapsed time between two events',
-          'Solve word problems involving hours and minutes',
-          'Work with AM/PM time contexts'
-        ]}
-        parentTeacherTips={[
-          'Use a \"Z-Chart\" or number line to jump to the next hour',
-          'Count hours first, then add remaining minutes',
-          'Example: 3:15 to 4:00 (45m) + 4:00 to 4:30 (30m) = 75m = 1h 15m'
-        ]}
-      >
-        {/* Mission Control Header */}
-        <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-blue-500">
-          <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-          <div className="text-2xl font-mono text-blue-400 font-bold z-10 flex gap-4 items-center tracking-widest uppercase">
-            FLIGHT LOGS
-          </div>
-        </div>
-
-        {/* Worked Example */}
-        <div className="mb-6 p-4 bg-slate-900 text-blue-100 border-2 border-blue-500 rounded-lg print:bg-white print:text-black print:border-slate-300">
-          <div className="font-mono text-blue-300 mb-2 text-sm print:text-slate-600">MISSION BRIEFING:</div>
-          <div className="flex flex-col md:flex-row gap-6 items-center">
-            <div className="font-mono text-2xl border-2 border-blue-400 px-4 py-2 rounded bg-slate-800 print:bg-slate-100 print:text-slate-800">
-              14:00  15:30
-            </div>
-            <div className="space-y-1 text-sm font-mono">
-              <div><span className="text-blue-400 font-bold print:text-blue-700">LAUNCH:</span> 2:00 PM</div>
-              <div><span className="text-green-400 font-bold print:text-green-700">LANDING:</span> 3:30 PM</div>
-              <div className="border-t border-blue-700 my-1 pt-1 print:border-slate-300">
-                <span className="text-yellow-400 font-bold print:text-slate-900">DURATION:</span> 1 hour 30 minutes
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
-          {problems.map((p, i) => (
-            <div key={i} className="relative bg-white border-2 border-slate-200 rounded-xl p-4 shadow-sm break-inside-avoid overflow-hidden">
-              <div className="absolute top-0 left-0 w-2 h-full bg-slate-100 border-r border-dotted border-slate-300"></div>
-              <div className="pl-4">
-                <div className="flex justify-between mb-2 border-b border-slate-100 pb-2">
-                  <span className="font-mono text-xs font-bold text-slate-400 bg-slate-100 px-2 rounded py-0.5">{p.mission}</span>
-                  <span className="text-xl">{String.fromCodePoint(0x1F680)}</span>
-                </div>
-
-                <div className="mb-4">
-                  <div className="text-sm font-bold text-slate-700 mb-1">Flight Path:</div>
-                  <div className="text-lg font-mono text-slate-800 bg-slate-50 p-2 rounded border border-slate-200 text-center">
-                    {p.start} <span className="text-slate-400 mx-1">{String.fromCodePoint(0x279C)}</span> {p.end}
-                  </div>
-                </div>
-
-                <div className="text-sm text-slate-600 font-medium mb-3">{p.question}</div>
-
-                <div className="bg-blue-50 rounded p-2 h-16 border border-blue-100 relative">
-                  <div className="absolute top-1 left-2 text-[10px] text-blue-300 uppercase">Mission Duration</div>
-                  {/* Space for answer */}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Self-Assessment - Mission Debrief */}
-        <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-blue-900 rounded bg-slate-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-bold text-slate-900 mb-3 text-sm uppercase tracking-wider">MISSION DEBRIEF</div>
-          <div className="space-y-2 text-xs text-slate-700 font-mono">
-            <div>[ ] Time calculations accurate</div>
-            <div>[ ] Flight logs completed</div>
-            <div>[ ] Ready for deep space mission</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('elapsed-time-word-problems', () => (
-          <div className="mt-6 p-6 border-2 border-dashed border-slate-400 bg-white rounded print:page-break-before-always font-mono">
-            <div className="text-center font-bold text-slate-800 mb-6 text-xl border-b mb-4 pb-2">ANSWER LOG</div>
-            <div className="grid grid-cols-2 gap-4">
-              {problems.map((p, i) => (
-                <div key={i} className="border-b border-slate-200 pb-2">
-                  <div className="text-xs text-slate-500 mb-1">{p.mission}</div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs">{p.start} - {p.end}</span>
-                    <span className="font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">{p.answer}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-{
-  activeDocs.includes('perimeter-area-word-problems') && (() => {
-    const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-    const problems = Array.from({ length: 6 }, () => {
-      const length = nextInt(5, 12);
-      const width = nextInt(4, 8);
-      const isPerim = rng() > 0.5;
-
-      const scenario = isPerim
-        ? `Mrs. Green needs to put a fence around her rectangular garden. It is ${length}m long and ${width}m wide. How much fencing does she need?`
-        : `Mr. Brown is planting grass in his rectangular backyard. It is ${length}m long and ${width}m wide. What is the area of the yard?`;
-
-      return {
-        text: scenario,
-        type: isPerim ? 'PERIMETER' : 'AREA',
-        length, width,
-        val: isPerim ? 2 * (length + width) : length * width,
-        unit: isPerim ? 'm' : 'sq m'
-      };
-    });
-
-    return (
-      <WorksheetSectionWrapper
-        docId="perimeter-area-word-problems"
-        title="Landscape Design Co."
-        emoji={String.fromCharCode(0xD83C, 0xDF3B)}
-        description="Help the gardeners plan! Calculate perimeter for fencing and area for grass."
-        problemCount={problems.length}
-        learningObjectives={[
-          'Distinguish between perimeter (outside) and area (inside)',
-          'Solve real-world word problems',
-          'Apply formulas correctly'
-        ]}
-        parentTeacherTips={[
-          'Perimeter = Fencing/Border (Add all sides)',
-          'Area = Grass/Carpet/Floor (Multiply Length x Width)',
-          'Draw the garden to visualize!'
-        ]}
-      >
-        {/* Landscape Header */}
-        <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center border-b-4 border-emerald-800">
-          <div className="text-2xl font-serif text-white font-bold z-10 flex gap-4 items-center shadow-black drop-shadow-md">
-            GREEN THUMB LANDSCAPING
-          </div>
-        </div>
-
-        {/* Worked Example */}
-        <div className="mb-6 p-4 bg-green-50 border-2 border-green-600 rounded-lg print:border print:bg-white flex gap-4 items-center">
-          <div className="text-4xl">{String.fromCodePoint(0x2705)}</div>
-          <div className="space-y-2 text-sm flex-1">
-            <div className="font-bold text-green-800 border-b border-green-300 pb-1">TRAINING MANUAL:</div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-2 rounded border border-green-200">
-                <div className="font-bold text-green-700">PERIMETER (Fencing)</div>
-                <div className="text-xs text-slate-600">Distance AROUND the edge.</div>
-                <div className="font-mono text-xs mt-1">{String.fromCodePoint(0x270F)}</div>
-              </div>
-              <div className="bg-white p-2 rounded border border-green-200">
-                <div className="font-bold text-green-700">AREA (Grass)</div>
-                <div className="text-xs text-slate-600">Space INSIDE the shape.</div>
-                <div className="font-mono text-xs mt-1">{String.fromCodePoint(0x270F)}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
-          {problems.map((p, i) => (
-            <div key={i} className="relative bg-white border border-slate-300 rounded-xl p-5 shadow-sm break-inside-avoid">
-              <div className="absolute top-0 right-0 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded-bl-lg border-l border-b border-green-200">
-                JOB #{100 + i}
-              </div>
-
-              <div className="flex gap-3 mb-3">
-                <div className="text-2xl pt-1">
-                  {p.type === 'PERIMETER' ? '' : ''}
-                </div>
-                <div className="text-sm text-slate-800 leading-relaxed font-medium">
-                  {p.text}
-                </div>
-              </div>
-
-              <div className="bg-slate-50 p-3 rounded border border-slate-200">
-                <div className="flex justify-between text-xs text-slate-500 uppercase font-bold mb-2">
-                  <span>Plan:</span>
-                  <span>Solution:</span>
-                </div>
-                <div className="h-8 border-b border-slate-300 flex items-end justify-between px-2 pb-1">
-                  <span className="text-slate-400 italic text-xs">{p.type}</span>
-                  <span className="font-bold text-lg text-slate-300">____________ {p.unit}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Self-Assessment */}
-        <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-green-700 rounded bg-green-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-          <div className="font-bold text-green-900 mb-3 text-sm">{String.fromCodePoint(0x2705)}</div>
-          <div className="space-y-2 text-xs text-green-800">
-            <div>{String.fromCodePoint(0x2705)}</div>
-            <div>{String.fromCodePoint(0x2705)}</div>
-            <div>{String.fromCodePoint(0x279C)}</div>
-          </div>
-        </div>
-
-        {showAnswersForDoc('perimeter-area-word-problems', () => (
-          <div className="mt-6 p-6 border-2 border-emerald-500 bg-white rounded print:page-break-before-always font-mono">
-            <div className="text-center font-bold text-emerald-900 mb-6 text-xl border-b border-emerald-100 pb-2">{String.fromCodePoint(0x279C)}</div>
-            <div className="grid grid-cols-2 gap-4">
-              {problems.map((p, i) => (
-                <div key={i} className="border-b border-slate-100 pb-2 text-sm">
-                  <span className="font-bold">Job #{100 + i}:</span> {p.val} {p.unit} ({p.type})
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    );
-  })()
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{
-  activeDocs.some((d: string) => d.startsWith('reading-g1')) && (() => {
-    const data = generateReadingStory(`${effectiveSeed}|reading-g1`, 1) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
-
-    return (
-      <WorksheetSectionWrapper
-        docId={doc}
-        title={data?.title}
-        emoji={data?.emoji}
-        description="Read the story and answer the questions."
-        problemCount={data?.questions?.length}
-      >
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
-          <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
-          <div className="text-lg leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8">
-            {data?.story}
-          </div>
-
-          <div className="space-y-6">
-            <div className="font-bold border-b border-slate-200 pb-2">Questions:</div>
-            {data?.questions?.map((q: any, i: number) => (
-              <div key={i} className="bg-slate-50 p-4 rounded-lg">
-                <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
-                <div className="flex flex-col gap-2">
-                  {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
-                    <div key={k} className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full border border-slate-300"></div>
-                      <span>{opt}</span>
+              return { a, b, sum: a + b, icon }
+            })
+
+            return (
+              <WorksheetSectionWrapper
+                docId="picture-addition-10"
+                title="Picture Addition"
+                emoji="➕"
+                description="Count the pictures and add them together."
+                problemCount={problems.length}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-4 flex items-center justify-center text-2xl bg-white shadow-sm">
+                      <div className="flex gap-1">
+                        {Array.from({ length: p.a }).map((_, k) => <div key={k}>{p.icon}</div>)}
+                      </div>
+                      <div className="mx-3 font-bold text-slate-400">+</div>
+                      <div className="flex gap-1">
+                        {Array.from({ length: p.b }).map((_, k) => <div key={k}>{p.icon}</div>)}
+                      </div>
+                      <div className="mx-3 font-bold text-slate-400">=</div>
+                      <div className="w-12 h-12 border-2 border-slate-300 rounded-lg bg-slate-50"></div>
                     </div>
                   ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {showAnswersForDoc(doc, () => (
-          <div className="mt-4 p-4 border rounded font-mono text-sm">
-            {data?.questions?.map((q: any, i: number) => (
-              <div key={i} className="mb-1">{i + 1}) {q.a}</div>
-            ))}
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    )
-  })()
-}
-
-
-{
-  activeDocs.some((d: string) => d.startsWith('reading-g2')) && (() => {
-    const data = generateReadingStory(`${effectiveSeed}|reading-g2`, 2) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
-
-    return (
-      <WorksheetSectionWrapper
-        docId={doc}
-        title={data?.title}
-        emoji={data?.emoji}
-        description="Read the story and answer the questions."
-        problemCount={data?.questions?.length}
-      >
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
-          <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
-          <div className="text-lg leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8">
-            {data?.story}
-          </div>
-
-          <div className="space-y-6">
-            <div className="font-bold border-b border-slate-200 pb-2">Questions:</div>
-            {data?.questions?.map((q: any, i: number) => (
-              <div key={i} className="bg-slate-50 p-4 rounded-lg">
-                <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
-                <div className="flex flex-col gap-2">
-                  {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
-                    <div key={k} className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full border border-slate-300"></div>
-                      <span>{opt}</span>
+                {showAnswersForDoc('picture-addition-10', () => (
+                  <div className="mt-4 p-4 border-2 border-emerald-300 bg-emerald-50 rounded text-sm text-emerald-900">
+                    <div className="font-bold mb-2">Answer Key:</div>
+                    <div className="grid grid-cols-4 gap-2">
+                      {problems.map((p, i) => <div key={i}>{p.a} + {p.b} = <strong>{p.sum}</strong></div>)}
                     </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {showAnswersForDoc(doc, () => (
-          <div className="mt-4 p-4 border rounded font-mono text-sm">
-            {data?.questions?.map((q: any, i: number) => (
-              <div key={i} className="mb-1">{i + 1}) {q?.a}</div>
-            ))}
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    )
-  })()
-}
-
-{
-  activeDocs.some((d: string) => d.startsWith('reading-g3')) && (() => {
-    const data = generateReadingStory(`${effectiveSeed}|reading-g3`, 3) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
-
-    return (
-      <WorksheetSectionWrapper
-        docId={doc}
-        title={data?.title}
-        emoji={data?.emoji}
-        description="Read the passage and answer the questions."
-        problemCount={data?.questions?.length}
-      >
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-3xl mx-auto">
-          <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
-          <div className="text-base leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8 columns-1 md:columns-2 gap-8">
-            {data?.story}
-          </div>
-
-          <div className="space-y-6 break-inside-avoid">
-            <div className="font-bold border-b border-slate-200 pb-2">Comprehension Check:</div>
-            {data?.questions?.map((q: any, i: number) => (
-              <div key={i} className="bg-slate-50 p-4 rounded-lg">
-                <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
-                <div className="flex flex-col gap-2">
-                  {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
-                    <div key={k} className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full border border-slate-300"></div>
-                      <span>{opt}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {showAnswersForDoc(doc, () => (
-          <div className="mt-4 p-4 border rounded font-mono text-sm">
-            {data?.questions?.map((q: any, i: number) => (
-              <div key={i} className="mb-1">{i + 1}) {q?.a}</div>
-            ))}
-          </div>
-        ))}
-      </WorksheetSectionWrapper>
-    )
-  })()
-}
-
-
-
-{
-  activeDocs.some((d: string) => d.startsWith('science-lifecycle') || d.startsWith('science-match')) && (
-    <ScienceWorksheets
-      doc={doc || ''}
-      effectiveSeed={typeof effectiveSeed === 'string' ? effectiveSeed : String(effectiveSeed)}
-      variant={typeof variant === 'string' ? variant : String(variant)}
-      showAnswersForDoc={showAnswersForDoc}
-    />
-  )
-}
-
-
-
-
-{
-  activeDocs.some((d: string) => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
-    const data = generateWordSearch(`${effectiveSeed}|${doc}`) || { theme: 'Words', words: [], grid: [] }
-
-    return (
-      <WorksheetSectionWrapper
-        docId={doc}
-        title={`${data?.theme || 'Words'} Word Search`}
-        emoji="🔎"
-        description={`Find these words hidden in the grid: ${(data?.words || []).join(', ')}`}
-        problemCount={data?.words?.length || 0}
-      >
-        <div className="flex flex-col md:flex-row gap-8 items-start">
-          <div className="bg-white p-2 rounded-lg border-2 border-slate-800">
-            {(data?.grid || []).map((row: string[], r: number) => (
-              <div key={r} className="flex">
-                {(row || []).map((letter: string, c: number) => (
-                  <div key={c} className="w-8 h-8 flex items-center justify-center font-mono font-bold text-lg border border-slate-100 hover:bg-yellow-100 cursor-pointer">
-                    {letter}
                   </div>
                 ))}
-              </div>
-            ))}
-          </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
 
-          <div className="flex-1 bg-white p-6 rounded-xl border border-slate-200">
-            <h3 className="font-bold mb-4">Word Bank</h3>
-            <div className="flex flex-wrap gap-2">
-              {data?.words?.map((w: string, i: number) => (
-                <div key={i} className="px-3 py-1 bg-slate-100 rounded text-sm font-medium border border-slate-300">
-                  {w}
+        {
+          activeDocs.includes('same-different') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
+            const themes = [
+              { same: '🍎', diff: '🍏' },
+              { same: '🐶', diff: '🐱' },
+              { same: '🚗', diff: '🚙' },
+              { same: '⭕️', diff: '❌' },
+              { same: '🙂', diff: '😐' },
+              { same: '🌲', diff: '🌳' },
+              { same: '⭐️', diff: '🌟' },
+              { same: '🔷', diff: '🔵' },
+            ]
+
+            const sets = Array.from({ length: 8 }, () => {
+              const theme = themes[Math.floor(rng() * themes.length)]
+              const different = Math.floor(rng() * 4)
+              return { ...theme, different }
+            })
+
+            return (
+              <WorksheetSectionWrapper
+                docId="same-different"
+                title="Same or Different?"
+                emoji="🤔"
+                description="Circle the picture that is different from the others."
+                problemCount={sets.length}
+              >
+                <div className="space-y-4">
+                  {sets.map((p, i) => (
+                    <div key={i} className="flex justify-around items-center p-4 border-2 border-slate-200 rounded-xl bg-white">
+                      {Array.from({ length: 4 }).map((_, j) => (
+                        <div key={j} className="text-4xl transform hover:scale-110 transition-transform cursor-pointer">
+                          {j === p.different ? p.diff : p.same}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </WorksheetSectionWrapper>
-    )
-  })()
-}
+
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                  <div className="space-y-2 text-xs">
+                    <div>{String.fromCharCode(0x2610)} I can find the different one</div>
+                    <div>{String.fromCharCode(0x2610)} I can see what's the same</div>
+                    <div>{String.fromCharCode(0x2610)} I understand same and different</div>
+                  </div>
+                  <div className="mt-3 text-xs">
+                    <strong>Something I found that's different:</strong> _________________________
+                  </div>
+                </div>
+
+                {
+                  showAnswersForDoc('same-different', () => (
+                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                      <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                      <ul className="list-disc list-inside space-y-1 text-sm">
+                        {sets.map((s, i) => (<li key={i} className="text-emerald-800">Row {i + 1}: Position {s.different + 1} is different</li>))}
+                      </ul>
+                    </div>
+                  ))
+                }
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('line-tracing') && (() => {
+            const rng = makeRng('line-tracing');
+
+            // Icons for Tracing Missions (Start -> End)
+            const tracingThemes = [
+              {
+                name: 'Nature',
+                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐝</text> },
+                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🌸</text> }
+              },
+              {
+                name: 'Space',
+                start: { label: 'Rocket', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚀</text> },
+                end: { label: 'Planet', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🪐</text> }
+              },
+              {
+                name: 'Home',
+                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🚗</text> },
+                end: { label: 'House', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏠</text> }
+              },
+              {
+                name: 'Pets',
+                start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐶</text> },
+                end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🦴</text> }
+              },
+              {
+                name: 'Sports',
+                start: { label: 'Player', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏃</text> },
+                end: { label: 'Finish', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🏁</text> }
+              },
+              {
+                name: 'Food',
+                start: { label: 'Rabbit', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🐰</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>🥕</text> }
+              },
+            ];
+
+            const lines = Array.from({ length: 6 }).map((_, i) => {
+              const theme = tracingThemes[i % tracingThemes.length]; // Cycle through themes
+              const isDiagonal = rng() > 0.4; // 60% chance of diagonal
+
+              // Coordinates (viewBox 0 0 100 50)
+              // Start X: 15, End X: 85
+              const yStart = 25;
+              // If diagonal, vary End Y significantly
+              const yEnd = isDiagonal
+                ? (rng() > 0.5 ? 10 : 40) // Up to 10 or Down to 40
+                : 25; // Straight across
+
+              return {
+                id: i,
+                theme,
+                x1: 15, y1: yStart,
+                x2: 85, y2: yEnd,
+                label: `Help the ${theme.start.label} find the ${theme.end.label}`
+              };
+            });
+            return (
+              <WorksheetSectionWrapper
+                docId="line-tracing"
+                title="Line Tracing Mission"
+                emoji={String.fromCharCode(0xD83D, 0xDD8A, 0xFE0F)}
+                description="Help the friends find their way! Trace the dashed lines."
+                problemCount={lines.length}
+                learningObjectives={[
+                  'Trace lines from left to right',
+                  'Control pencil movement (Start to Stop)',
+                  'Develop fine motor precision'
+                ]}
+                parentTeacherTips={[
+                  'Say: "Start at the Green dot, stop at the Red dot"',
+                  'Encourage one continuous smooth line',
+                  'Make it a game: "Zoom the rocket to the planet!"'
+                ]}
+              >
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                  {lines.map((line, i) => (
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
+                      <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{line.theme.name} Mission</div>
+                      <div className="relative">
+                        <svg viewBox="0 0 100 60" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
+                          {/* Guide Line */}
+                          <line
+                            x1={line.x1}
+                            y1={line.y1}
+                            x2={line.x2}
+                            y2={line.y2}
+                            stroke="#94a3b8"
+                            strokeWidth="3"
+                            strokeDasharray="4 4"
+                            strokeLinecap="round"
+                          />
+
+                          {/* Start Dot (Green) */}
+                          <circle cx={line.x1} cy={line.y1} r="3" fill="#22c55e" />
+
+                          {/* End Dot (Red) */}
+                          <circle cx={line.x2} cy={line.y2} r="3" fill="#ef4444" />
+
+                          {/* Render Start Icon */}
+                          <line.theme.start.render
+                            x={line.x1}
+                            y={line.y1}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+
+                          {/* Render End Icon */}
+                          <line.theme.end.render
+                            x={line.x2}
+                            y={line.y2}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+                        </svg>
+                      </div>
+                      <div className="mt-2 text-center text-sm font-medium text-slate-700">
+                        {line.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Challenge */}
+                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-purple-900 mb-2 text-sm">{String.fromCodePoint(0x1F680)}</div>
+                  <div className="text-sm text-purple-800">
+                    Can you trace the lines without lifting your pencil?
+                  </div>
+                </div>
+
+                {showAnswersForDoc('line-tracing', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Mission Check</div>
+                    <div className="text-sm text-emerald-800">
+                      Check if the line connects the two pictures neatly. Did they stay on the dashed line?
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('curve-tracing') && (() => {
+            const rng = makeRng('curve-tracing');
+
+            // Themes: Start -> End paired with a Curve Type preference
+            const curveThemes = [
+              {
+                name: 'Frog Hop',
+                type: 'arc', // Quadratic Bezier (Job)
+                start: { label: 'Frog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F438)}</text> },
+                end: { label: 'Lilypad', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1FAB7)}</text> }
+              },
+              {
+                name: 'Kangaroo Jump',
+                type: 'arc',
+                start: { label: 'Kangaroo', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F998)}</text> },
+                end: { label: 'Grass', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F33F)}</text> }
+              },
+              {
+                name: 'Dolphin Dive',
+                type: 'wave', // S-Curve
+                start: { label: 'Dolphin', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F42C)}</text> },
+                end: { label: 'Ocean', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F30A)}</text> }
+              },
+              {
+                name: 'Butterfly Flutter',
+                type: 'loop', // Complex wave/loop
+                start: { label: 'Butterfly', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F98B)}</text> },
+                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F33C)}</text> }
+              },
+              {
+                name: 'Bee Flight',
+                type: 'wave',
+                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F41D)}</text> },
+                end: { label: 'Hive', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F3E2)}</text> }
+              },
+              {
+                name: 'Bunny Hop',
+                type: 'arc',
+                start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F430)}</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F955)}</text> }
+              },
+            ];
+
+            const curves = Array.from({ length: 6 }).map((_, i) => {
+              const theme = curveThemes[i % curveThemes.length];
+
+              // Coordinates
+              const x1 = 15, y1 = 40;
+              const x2 = 85, y2 = 40;
+
+              let d = '';
+              // Generate path based on type
+              if (theme.type === 'arc') {
+                // High arch: Control point in middle, very high
+                // Randomize height slightly: 5 to 15
+                const controlY = 5 + (rng() * 10);
+                d = `M ${x1} ${y1} Q 50 ${controlY}, ${x2} ${y2}`;
+              } else if (theme.type === 'wave') {
+                // S-Curve: Up then Down
+                // C (x1+20, y1-20) (x2-20, y2+20) x2 y2
+                const amp = 15 + rng() * 10;
+                d = `M ${x1} ${y1} C ${x1 + 25} ${y1 - amp}, ${x2 - 25} ${y2 + amp}, ${x2} ${y2}`;
+              } else {
+                // Loop/Flutter: Double bump
+                // M start Q (1/3, up) (1/2, mid) Q (2/3, down) end
+                const midX = 50;
+                const amp = 20;
+                d = `M ${x1} ${y1} Q ${x1 + 15} ${y1 - amp} ${midX} ${y1} Q ${x2 - 15} ${y2 + amp} ${x2} ${y2}`;
+              }
+
+              return {
+                id: i,
+                theme,
+                x1, y1, x2, y2,
+                d,
+                label: `Help the ${theme.start.label} reach the ${theme.end.label}`
+              };
+            });
+            return (
+              <WorksheetSectionWrapper
+                docId="curve-tracing"
+                title="Curve Tracing Adventure"
+                emoji={String.fromCharCode(0xD83D, 0xDC3E)}
+                description="Follow the path! Help the animals move."
+                problemCount={curves.length}
+                learningObjectives={[
+                  'Trace curved lines (Waves and Arcs)',
+                  'Develop fluid pencil movement',
+                  'Practice continuous strokes'
+                ]}
+                parentTeacherTips={[
+                  'Encourage one continuous smooth motion (no stopping)',
+                  'Say: "Up and down like a wave"',
+                  'Rotate the paper if needed'
+                ]}
+              >
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 animate-gradient-x mb-2" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                  {curves.map((curve, i) => (
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
+                      <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{curve.theme.name}</div>
+                      <div className="relative">
+                        <svg viewBox="0 0 100 60" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
+                          {/* Guide Line */}
+                          <path
+                            d={curve.d}
+                            fill="none"
+                            stroke="#94a3b8"
+                            strokeWidth="3"
+                            strokeDasharray="4 4"
+                            strokeLinecap="round"
+                          />
+
+                          {/* Start Dot (Green) */}
+                          <circle cx={curve.x1} cy={curve.y1} r="3" fill="#22c55e" />
+
+                          {/* End Dot (Red) */}
+                          <circle cx={curve.x2} cy={curve.y2} r="3" fill="#ef4444" />
+
+                          {/* Render Start Icon */}
+                          <curve.theme.start.render
+                            x={curve.x1}
+                            y={curve.y1}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+
+                          {/* Render End Icon */}
+                          <curve.theme.end.render
+                            x={curve.x2}
+                            y={curve.y2}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+                        </svg>
+                      </div>
+                      <div className="mt-2 text-center text-sm font-medium text-slate-700">
+                        {curve.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Challenge */}
+                <div className="mt-6 print:mt-0 p-4 bg-blue-50 border-2 border-blue-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-blue-900 mb-2 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
+                  <div className="text-sm text-blue-800">
+                    <div>1. Trace the wave with your finger first.</div>
+                    <div>2. Now try with a blue crayon!</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('curve-tracing', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="text-sm text-emerald-800">
+                      Did the line stay smooth? Did they connect the start to the end?
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('zigzag-lines') && (() => {
+            const rng = makeRng('zigzag-lines');
+
+            // Themes: Start -> End
+            const zigzagThemes = [
+              {
+                name: 'Mountain Climb',
+                type: 'mountain', // Wide, tall
+                start: { label: 'Hiker', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9D7)}</text> },
+                end: { label: 'Flag', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F6A9)}</text> }
+              },
+              {
+                name: 'Brushing Teeth',
+                type: 'teeth', // Sharp, narrow
+                start: { label: 'Tooth', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9B7)}</text> },
+                end: { label: 'Sparkle', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9EA)}</text> }
+              },
+              {
+                name: 'Bunny Hops',
+                type: 'grass', // Regular
+                start: { label: 'Bunny', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F430)}</text> },
+                end: { label: 'Carrot', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F955)}</text> }
+              },
+              {
+                name: 'Stormy Sky',
+                type: 'lightning', // Irregular
+                start: { label: 'Cloud', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x2601)}</text> },
+                end: { label: 'Tree', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F332)}</text> }
+              },
+              {
+                name: 'Pyramid Trek',
+                type: 'mountain',
+                start: { label: 'Camel', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F42A)}</text> },
+                end: { label: 'Oasis', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F3DD)}</text> }
+              },
+              {
+                name: 'Puppy Run',
+                type: 'grass',
+                start: { label: 'Dog', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F436)}</text> },
+                end: { label: 'Bone', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9B4)}</text> }
+              },
+            ];
+
+            const zigzagPaths = Array.from({ length: 6 }).map((_, i) => {
+              const theme = zigzagThemes[i % zigzagThemes.length];
+
+              // Coordinates
+              const xStart = 15;
+              const xEnd = 85;
+              const yBase = 50;
+
+              let points = [`${xStart} ${yBase}`];
+              let currentX = xStart;
+
+              // Configuration based on type
+              let minWidth, maxWidth, minHeight, maxHeight;
+
+              if (theme.type === 'mountain') {
+                minWidth = 15; maxWidth = 25;
+                minHeight = 25; maxHeight = 35;
+              } else if (theme.type === 'teeth') {
+                minWidth = 8; maxWidth = 12;
+                minHeight = 15; maxHeight = 25;
+              } else {
+                // grass/lightning
+                minWidth = 12; maxWidth = 18;
+                minHeight = 20; maxHeight = 30;
+              }
+
+              let up = true;
+
+              while (currentX < xEnd) {
+                // Determine step width
+                const stepW = minWidth + (rng() * (maxWidth - minWidth));
+
+                // Check if next step overshoots significantly, if so, clamp to end
+                let nextX = currentX + stepW;
+                if (nextX > xEnd) {
+                  nextX = xEnd;
+                }
+
+                // Determine height target
+                // Up moves to yBase - height, Down moves to yBase + height?
+                // Actually lets align 'base' as center (50), so Up is < 50, Down is > 50?
+                // Or just zigzag from Base (50) to Peak (20) back to Base (50)?
+                // Let's do triangular pulses: Base -> Peak -> Base
+
+                // Simple zigzag: Alternating High/Low
+                // Low = 50 + (height/2), High = 50 - (height/2)
+                const h = minHeight + (rng() * (maxHeight - minHeight));
+                const yTarget = up ? (50 - h) : (50 + h);
+
+                points.push(`${nextX} ${yTarget}`);
+
+                currentX = nextX;
+                up = !up;
+              }
+
+              // Ensure we end at a reasonable spot? 
+              // The logic above traces to xEnd.
+              // Let's create the SVG path command.
+              // M x0 y0 L x1 y1 L x2 y2 ...
+              const d = 'M ' + points.map(p => p).join(' L ');
+
+              // Calculate start/end for dots (First and Last point)
+              // Parse "x y"
+              const startCoord = points[0].split(' ');
+              const endCoord = points[points.length - 1].split(' ');
+
+              return {
+                id: i,
+                theme,
+                d,
+                x1: parseFloat(startCoord[0]),
+                y1: parseFloat(startCoord[1]),
+                x2: parseFloat(endCoord[0]),
+                y2: parseFloat(endCoord[1]),
+                label: `Trace the ${theme.type} path!`
+              };
+            });
+
+            return (
+              <WorksheetSectionWrapper
+                docId="zigzag-lines"
+                title="Zigzag Mountains & Monsters"
+                emoji={String.fromCharCode(0x26F0, 0xFE0F)}
+                description="Climb the mountains and brush the teeth! Trace the sharp lines."
+                problemCount={zigzagPaths.length}
+                learningObjectives={[
+                  'Trace angular lines (Zigzags)',
+                  'Practice sharp turns (Stop and Pivot)',
+                  'Develop rhythm in writing'
+                ]}
+                parentTeacherTips={[
+                  'Say: "Zoom UP, Stop. Zoom DOWN, Stop."',
+                  'Encourage sharp points, not rounded curves',
+                  'Keep the pencil on the paper'
+                ]}
+              >
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 animate-gradient-x mb-2" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                  {zigzagPaths.map((path, i) => (
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
+                      <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{path.theme.name}</div>
+                      <div className="relative">
+                        <svg viewBox="0 0 100 80" className="w-full h-32 border border-slate-100 rounded-lg bg-slate-50">
+                          {/* Guide Line */}
+                          <path
+                            d={path.d}
+                            fill="none"
+                            stroke="#94a3b8"
+                            strokeWidth="3"
+                            strokeDasharray="4 4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+
+                          {/* Start Dot (Green) */}
+                          <circle cx={path.x1} cy={path.y1} r="3" fill="#22c55e" />
+
+                          {/* End Dot (Red) */}
+                          <circle cx={path.x2} cy={path.y2} r="3" fill="#ef4444" />
+
+                          {/* Render Start Icon */}
+                          <path.theme.start.render
+                            x={path.x1}
+                            y={path.y1}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+
+                          {/* Render End Icon */}
+                          <path.theme.end.render
+                            x={path.x2}
+                            y={path.y2}
+                            fontSize="22"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+                        </svg>
+                      </div>
+                      <div className="mt-2 text-center text-sm font-medium text-slate-700">
+                        {path.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Challenge */}
+                <div className="mt-6 print:mt-0 p-4 bg-emerald-50 border-2 border-emerald-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-emerald-900 mb-2 text-sm">{String.fromCodePoint(0x2705)}</div>
+                  <div className="text-sm text-emerald-800">
+                    <div>1. Can you draw mountains on the back?</div>
+                    <div>2. Draw sharp teeth for a silly monster!</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('zigzag-lines', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="text-sm text-emerald-800">
+                      Are the points sharp? Did the line go up and down?
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('path-tracing') && (() => {
+            const rng = makeRng('path-tracing');
+
+            // Themes: Start -> End
+            const pathThemes = [
+              {
+                name: 'City Drive',
+                type: 'road',
+                start: { label: 'Car', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F697)}</text> },
+                end: { label: 'Garage', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F3E0)}</text> }
+              },
+              {
+                name: 'Mouse Hunt',
+                type: 'tube',
+                start: { label: 'Mouse', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F42D)}</text> },
+                end: { label: 'Cheese', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F9C0)}</text> }
+              },
+              {
+                name: 'Space Mission',
+                type: 'road',
+                start: { label: 'Rocket', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F680)}</text> },
+                end: { label: 'Earth', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F30D)}</text> }
+              },
+              {
+                name: 'Bear Cave',
+                type: 'tube',
+                start: { label: 'Bear', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F43B)}</text> },
+                end: { label: 'Cave', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F573)}</text> }
+              },
+              {
+                name: 'Deep Sea',
+                type: 'road',
+                start: { label: 'Sub', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F6F3)}</text> },
+                end: { label: 'Gem', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F48E)}</text> }
+              },
+              {
+                name: 'Garden Path',
+                type: 'tube',
+                start: { label: 'Bee', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F41D)}</text> },
+                end: { label: 'Flower', render: (props: any) => <text fontSize="40" x="50" y="65" textAnchor="middle" {...props}>{String.fromCodePoint(0x1F33B)}</text> }
+              },
+            ];
+
+            const mazePaths = Array.from({ length: 6 }).map((_, i) => {
+              const theme = pathThemes[i % pathThemes.length];
+
+              // Coordinates
+              const x1 = 20, y1 = 20;
+              const x2 = 80, y2 = 80;
+
+              let d = '';
+              // Logic: Generate a path that stays within bounds but has turns
+              // Grid: 20, 50, 80
+
+              const type = i % 3; // 0: L-shape, 1: Z-shape, 2: Curve
+
+              if (type === 0) {
+                // L-Shape variations
+                // 1: Right then Down
+                // 2: Down then Right
+                const downFirst = rng() > 0.5;
+                if (downFirst) {
+                  d = `M ${x1} ${y1} L ${x1} ${y2} L ${x2} ${y2}`;
+                } else {
+                  d = `M ${x1} ${y1} L ${x2} ${y1} L ${x2} ${y2}`;
+                }
+              } else if (type === 1) {
+                // Z-Shape / Step
+                // Right, Down, Right OR Down, Right, Down
+                const downFirst = rng() > 0.5;
+                if (downFirst) {
+                  const midY = 50;
+                  d = `M ${x1} ${y1} L ${x1} ${midY} L ${x2} ${midY} L ${x2} ${y2}`;
+                } else {
+                  const midX = 50;
+                  d = `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
+                }
+              } else {
+                // Curve / S-Bend
+                // C (x1, y2) (x2, y1) x2 y2
+                const cp1x = x1 + (rng() * 40);
+                const cp1y = y1 + (rng() * 60);
+                const cp2x = x2 - (rng() * 40);
+                const cp2y = y2 - (rng() * 60);
+                d = `M ${x1} ${y1} C ${cp1x} ${y1} ${cp2x} ${y2} ${x2} ${y2}`;
+              }
+
+              return {
+                id: i,
+                theme,
+                d,
+                x1, y1, x2, y2,
+                label: `Help the ${theme.start.label} find the ${theme.end.label}`
+              };
+            });
+
+            return (
+              <WorksheetSectionWrapper
+                docId="path-tracing"
+                title="Lost & Found Mazes"
+                emoji={String.fromCharCode(0xD83D, 0xDE97)}
+                description="Follow the road! Don't go off the track."
+                problemCount={mazePaths.length}
+                learningObjectives={[
+                  'Trace inside lines (Precision)',
+                  'Solve simple mazes',
+                  'Plan hand movement'
+                ]}
+                parentTeacherTips={[
+                  'Say: "Stay on the road!"',
+                  'If they go off, say "Crash! Try again."',
+                  'Use a thick marker for easier tracing'
+                ]}
+              >
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 animate-gradient-x mb-2" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                  {mazePaths.map((path, i) => (
+                    <div key={i} className="border-2 border-slate-300 rounded-xl p-4 bg-white break-inside-avoid">
+                      <div className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider text-center">{path.theme.name}</div>
+                      <div className="relative">
+                        <svg viewBox="0 0 100 100" className="w-full h-48 border border-slate-100 rounded-lg bg-slate-50">
+                          {/* Road Background - Thick Light Gray */}
+                          <path
+                            d={path.d}
+                            fill="none"
+                            stroke="#e2e8f0"
+                            strokeWidth="20"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+
+                          {/* Road Center - Dashed White/Darker */}
+                          <path
+                            d={path.d}
+                            fill="none"
+                            stroke="#94a3b8"
+                            strokeWidth="2"
+                            strokeDasharray="6 6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+
+                          {/* Start Dot (Green) */}
+                          <circle cx={path.x1} cy={path.y1} r="3" fill="#22c55e" />
+
+                          {/* End Dot (Red) */}
+                          <circle cx={path.x2} cy={path.y2} r="3" fill="#ef4444" />
+
+                          {/* Render Start Icon */}
+                          <path.theme.start.render
+                            x={path.x1}
+                            y={path.y1}
+                            fontSize="28"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+
+                          {/* Render End Icon */}
+                          <path.theme.end.render
+                            x={path.x2}
+                            y={path.y2}
+                            fontSize="28"
+                            dominantBaseline="middle"
+                            style={{ userSelect: 'none' }}
+                          />
+                        </svg>
+                      </div>
+                      <div className="mt-2 text-center text-sm font-medium text-slate-700">
+                        {path.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Challenge */}
+                <div className="mt-6 print:mt-0 p-4 bg-orange-50 border-2 border-orange-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-orange-900 mb-2 text-sm">{String.fromCodePoint(0x270F)}</div>
+                  <div className="text-sm text-orange-800">
+                    <div>1. Trace fast like a race car!</div>
+                    <div>2. Trace slow like a turtle.</div>
+                    <div>3. Can you do it without touching the sides?</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('path-tracing', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="text-sm text-emerald-800">
+                      Did they stay on the gray road? Did they reach the end?
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('perimeter-shapes') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+            const problems = Array.from({ length: 6 }, () => {
+              const length = nextInt(4, 10);
+              const width = nextInt(3, 8);
+              return { length, width, perimeter: 2 * (length + width) };
+            });
+            const renderRectangle = (length: number, width: number) => {
+              const scale = 8;
+              const rectWidth = length * scale;
+              const rectHeight = width * scale;
+              const viewBoxWidth = Math.max(rectWidth, 60) + 20;
+              const viewBoxHeight = Math.max(rectHeight, 60) + 20;
+              const x = (viewBoxWidth - rectWidth) / 2;
+              const y = (viewBoxHeight - rectHeight) / 2;
+
+              return (
+                <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                  <rect
+                    x={60 - (length * 10 / 2)}
+                    y={40 - (width * 10 / 2)}
+                    width={length * 10}
+                    height={width * 10}
+                    fill="#3b82f6"
+                    fillOpacity="0.1"
+                    stroke="#1e3a8a"
+                    strokeWidth="2"
+                  />
+                  {/* Dimensions */}
+                  <text x="60" y={40 - (width * 10 / 2) - 5} textAnchor="middle" fontSize="8" fontWeight="bold" fill="#1e3a8a">{length} units</text>
+                  <text x={60 - (length * 10 / 2) - 8} y="40" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#1e3a8a" transform={`rotate(-90 ${60 - (length * 10 / 2) - 8} 40)`}>{width} units</text>
+                </svg>
+              );
+            };
+            return (
+              <WorksheetSectionWrapper
+                docId="perimeter-shapes"
+                title="Perimeter of Shapes"
+                emoji={String.fromCharCode(0xD83D, 0xDF92)}
+                description="Find the perimeter of each rectangle."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Calculate perimeter of rectangles',
+                  'Understand that perimeter is the distance around a shape',
+                  'Use the formula: Perimeter = 2  (length + width)'
+                ]}
+                parentTeacherTips={[
+                  'Perimeter = distance around the shape',
+                  'For rectangles: P = 2  (length + width)',
+                  'Or: P = length + width + length + width',
+                  'Extension: Find perimeter of irregular shapes'
+                ]}
+              >
+                <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-gradient-x mb-2" />
+                {/* Worked Example */}
+                <div className="mb-6 bg-blue-900 rounded-xl overflow-hidden shadow-lg border-2 border-blue-800 print:border print:bg-white text-white">
+                  <div className="bg-blue-800 px-4 py-2 flex items-center gap-2">
+                    <span className="text-xl">{String.fromCodePoint(0x1F4A1)}</span>
+                    <span className="font-bold uppercase tracking-wider text-sm">Worked Example: Site Analysis</span>
+                  </div>
+                  <div className="p-4 flex flex-col md:flex-row gap-6 bg-gradient-to-br from-blue-900 to-blue-800 print:text-black print:from-white print:to-white">
+                    <div className="w-full md:w-32 h-24 bg-blue-600 border border-white/30 relative rounded overflow-hidden flex-shrink-0">
+                      <div className="absolute inset-0 opacity-20 bg-[size:10px_10px] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)]"></div>
+                      <div className="absolute inset-4 border-2 border-white/60 bg-white/10 flex items-center justify-center font-mono text-xs text-white">
+                        5 x 3
+                      </div>
+                    </div>
+                    <div className="flex-1 space-y-3">
+                      <div className="text-sm">We need to find the perimeter of a rectangle that is <strong>5 units long</strong> and <strong>3 units wide</strong>.</div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="bg-white/10 p-2 rounded border border-white/20">
+                          <div className="text-[10px] uppercase opacity-70">Step 1: Add Sides</div>
+                          <div className="font-mono font-bold">5 + 3 = 8</div>
+                        </div>
+                        <div className="bg-white/10 p-2 rounded border border-white/20">
+                          <div className="text-[10px] uppercase opacity-70">Step 2: Double It</div>
+                          <div className="font-mono font-bold">8 × 2 = 16</div>
+                        </div>
+                      </div>
+                      <div className="pt-2 border-t border-white/20 flex items-center justify-between">
+                        <span className="font-bold text-yellow-300 print:text-blue-800 uppercase tracking-tight">Total Perimeter: 16 units</span>
+                        <span className="text-[10px] italic opacity-80">Tip: Distance around!</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-6" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((p, i) => (
+                    <div key={i} className="break-inside-avoid">
+                      <div className="bg-blue-600 p-1 rounded-t-lg w-fit px-3 text-white text-xs font-bold font-mono tracking-wider border-t border-l border-r border-white relative top-0.5 z-10">PLOT #{i + 1}</div>
+                      <div className="bg-blue-50 border-2 border-blue-900 p-4 relative overflow-hidden shadow-sm">
+                        {/* Blueprint Grid Background */}
+                        <div className="absolute inset-0 opacity-10 bg-[size:10px_10px] bg-[linear-gradient(to_right,#1e3a8a_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a_1px,transparent_1px)] pointer-events-none"></div>
+
+                        <div className="relative z-10 flex flex-col items-center">
+                          <div className="mb-2">
+                            {renderRectangle(p.length, p.width)}
+                          </div>
+
+                          <div className="w-full flex items-center justify-between gap-2 mt-2 bg-white px-2 py-1 rounded border border-blue-200">
+                            <div className="flex gap-3">
+                              <span className="text-[10px] font-bold text-blue-900">L: {p.length}</span>
+                              <span className="text-[10px] font-bold text-blue-900">W: {p.width}</span>
+                            </div>
+                            <div className="flex-1 flex items-center gap-1">
+                              <span className="text-[10px] font-bold text-slate-400">P:</span>
+                              <div className="flex-1 border-b border-black h-4"></div>
+                              <span className="text-[8px] text-slate-500">units</span>
+                            </div>
+                          </div>
+                          <div className="w-full mt-3">
+                            <div className="text-[8px] uppercase font-bold text-slate-400 mb-1">Calculation Area:</div>
+                            <div className="h-10 border border-dashed border-blue-200 rounded bg-white/50"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {/* Extension/Challenge Problems */}
+                <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)} Rocket Challenge</div>
+                  <div className="space-y-2 text-sm text-purple-800">
+                    <div>1. Find the perimeter of a square with side length 6</div>
+                    <div>2. A rectangle has perimeter 20. If length is 7, what is the width?</div>
+                    <div>3. Find the perimeter of your desk or table</div>
+                  </div>
+                </div>
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)} Self-Assessment</div>
+                  <div className="space-y-2 text-xs">
+                    <div>{String.fromCharCode(0x2610)} I can find the perimeter of rectangles</div>
+                    <div>{String.fromCharCode(0x2610)} I understand what perimeter means</div>
+                    <div>{String.fromCharCode(0x2610)} I can use the formula correctly</div>
+                  </div>
+                  <div className="mt-3 text-xs">
+                    <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
+                  </div>
+                  <div className="mt-2 text-xs">
+                    <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
+                  </div>
+                </div>
+                {showAnswersForDoc('perimeter-shapes', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
+                    <div className="space-y-3">
+                      {problems.map((p, i) => (
+                        <div key={i} className="border-b border-emerald-200 pb-3 last:border-b-0">
+                          <div className="font-semibold mb-2 text-sm">{i + 1}. Length: {p.length}, Width: {p.width}</div>
+                          <div className="text-xs text-emerald-800 space-y-1 pl-4">
+                            <div><strong>Step 1:</strong> {p.length} + {p.width} = {p.length + p.width}</div>
+                            <div><strong>Step 2:</strong> {p.length + p.width} × 2 = {p.perimeter}</div>
+                            <div className="font-semibold">Answer: {p.perimeter} units</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('area-rectangles') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const problems = Array.from({ length: 6 }, () => {
+              const length = nextInt(4, 9);
+              const width = nextInt(2, 6);
+              return { label: `Room ${String.fromCharCode(65 + nextInt(0, 5))}-${nextInt(10, 99)}`, length, width, area: length * width };
+            });
+
+            return (
+              <WorksheetSectionWrapper
+                docId="area-rectangles"
+                title="Construction Zone: Blueprint Area"
+                emoji={String.fromCharCode(0xD83C, 0xDFE0)}
+                description="The architect needs the floor area for each room! Calculate the space inside the blueprints."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Calculate area of rectangles using multiplication',
+                  'Understand area as \"space inside\" (square units)',
+                  'Read blueprint dimensions'
+                ]}
+                parentTeacherTips={[
+                  'Area = Length  Width',
+                  'Imagine tiling the floor with squares',
+                  'Units are always \"squared\" (sq ft, sq m) for area'
+                ]}
+              >
+                {/* Blueprint Header */}
+                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-blue-600 rounded-lg flex items-center justify-center border-4 border-white shadow-lg">
+                  <div className="absolute inset-0 opacity-30 bg-[size:20px_20px] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]"></div>
+                  <div className="text-2xl font-black text-white z-10 flex gap-4 items-center tracking-widest uppercase" style={{ textShadow: '2px 2px 0px #000' }}>
+                    ARCHITECT BLUEPRINTS
+                  </div>
+                </div>
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-blue-900 text-white border-2 border-white rounded-lg print:bg-white print:text-black print:border-blue-900 shadow-md">
+                  <div className="flex gap-4 items-start">
+                    <div className="hidden md:block w-32 h-24 bg-blue-600 border border-white relative">
+                      <div className="absolute inset-0 opacity-30 bg-[size:10px_10px] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)]"></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-mono text-xs">
+                        5 x 4
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-bold border-b border-blue-400 mb-2 pb-1 text-sm uppercase">Example: Master Bedroom</div>
+                      <div className="space-y-1 text-sm font-mono">
+                        <div>Length: 5 units</div>
+                        <div>Width:  4 units</div>
+                        <div className="mt-2 text-yellow-300 print:text-blue-700 font-bold">{String.fromCodePoint(0x279C)} Area: 20 sq units</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-x-8 gap-y-6" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((p, i) => (
+                    <div key={i} className="break-inside-avoid">
+                      <div className="bg-blue-600 p-1 rounded-t-lg w-fit px-3 text-white text-xs font-bold font-mono tracking-wider border-t border-l border-r border-white relative top-0.5 z-10">{p.label}</div>
+                      <div className="bg-blue-50 border-2 border-blue-900 p-4 relative overflow-hidden shadow-sm">
+                        {/* Grid Background */}
+                        <div className="absolute inset-0 opacity-10 bg-[size:10px_10px] bg-[linear-gradient(to_right,#1e3a8a_1px,transparent_1px),linear-gradient(to_bottom,#1e3a8a_1px,transparent_1px)] pointer-events-none"></div>
+
+                        <div className="relative z-10 flex flex-col items-center">
+                          <div className="mb-2">
+                            <svg width="120" height="80" viewBox="0 0 120 80" className="overflow-visible">
+                              <rect
+                                x={60 - (p.length * 10 / 2)}
+                                y={40 - (p.width * 10 / 2)}
+                                width={p.length * 10}
+                                height={p.width * 10}
+                                fill="#3b82f6"
+                                fillOpacity="0.2"
+                                stroke="#1e3a8a"
+                                strokeWidth="2"
+                              />
+                              {/* Dimensions */}
+                              <text x="60" y={40 + (p.width * 10 / 2) + 12} textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a">{p.length} units</text>
+                              <text x={60 - (p.length * 10 / 2) - 10} y="40" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1e3a8a" transform={`rotate(-90 ${60 - (p.length * 10 / 2) - 10} 40)`}>{p.width} units</text>
+                            </svg>
+                          </div>
+
+                          <div className="w-full flex items-center justify-between gap-2 mt-2 bg-white px-2 py-1 rounded border border-blue-200">
+                            <span className="text-xs font-bold text-blue-900">AREA:</span>
+                            <div className="w-16 border-b border-black"></div>
+                            <span className="text-[10px] text-slate-500">sq units</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x1F4CB)} Self-Assessment</div>
+                  <div className="space-y-2 text-xs">
+                    <div>{String.fromCodePoint(0x2705)} I can find the area of a rectangle by multiplying.</div>
+                    <div>{String.fromCodePoint(0x2705)} I can explain what area represents in a blueprint.</div>
+                    <div>{String.fromCodePoint(0x2705)} I can use square units correctly.</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('area-rectangles', () => (
+                  <div className="mt-6 p-4 border-4 border-double border-blue-900 bg-blue-50 rounded print:border print:bg-white print:page-break-before-always font-mono">
+                    <div className="text-center font-bold text-blue-900 mb-6 text-xl border-b border-blue-200 pb-2">{String.fromCodePoint(0x1F4A1)}</div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      {problems.map((p, i) => (
+                        <div key={i} className="flex justify-between border-b border-blue-200 pb-1">
+                          <span>{String.fromCodePoint(0x279C)}</span>
+                          <span className="font-bold">{p.area} sq units</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+        {
+          activeDocs.includes('time-to-minute') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const times = Array.from({ length: 6 }, () => {
+              const hour = nextInt(1, 12);
+              const minute = nextInt(0, 59);
+              return `${hour}:${minute.toString().padStart(2, '0')}`;
+            });
+            const renderClockTheme = (time: string, seed: number) => {
+              const [hours, minutes] = time.split(':').map(Number);
+              const hourAngle = ((hours % 12) * 30 + minutes * 0.5 - 90) * (Math.PI / 180);
+              const minuteAngle = (minutes * 6 - 90) * (Math.PI / 180);
+              const centerX = 50;
+              const centerY = 50;
+              const radius = 35;
+
+              // Future/Tech styled clock
+              return (
+                <svg viewBox="0 0 100 100" className="w-24 h-24 mx-auto mb-2">
+                  <defs>
+                    <radialGradient id={`clockGrad${seed}`} cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                      <stop offset="0%" stopColor="#1e293b" />
+                      <stop offset="90%" stopColor="#0f172a" />
+                      <stop offset="100%" stopColor="#3b82f6" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* Outer Rim */}
+                  <circle cx={centerX} cy={centerY} r={radius + 4} fill="none" stroke="#3b82f6" strokeWidth="2" strokeDasharray="10 2" className="animate-[spin_10s_linear_infinite]" />
+                  <circle cx={centerX} cy={centerY} r={radius} fill={`url(#clockGrad${seed})`} stroke="#60a5fa" strokeWidth="1" />
+
+                  {/* Ticks */}
+                  {Array.from({ length: 12 }, (_, i) => {
+                    const angle = (i * 30 - 90) * (Math.PI / 180);
+                    const isMain = i % 3 === 0;
+                    const len = isMain ? 6 : 3;
+                    const x1 = centerX + (radius - len) * Math.cos(angle);
+                    const y1 = centerY + (radius - len) * Math.sin(angle);
+                    const x2 = centerX + (radius - 1) * Math.cos(angle);
+                    const y2 = centerY + (radius - 1) * Math.sin(angle);
+                    return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={isMain ? "#60a5fa" : "#475569"} strokeWidth={isMain ? 2 : 1} />;
+                  })}
+
+                  {/* Hands - Glowing */}
+                  <line x1={centerX} y1={centerY} x2={centerX + 18 * Math.cos(hourAngle)} y2={centerY + 18 * Math.sin(hourAngle)} stroke="#06b6d4" strokeWidth="3" strokeLinecap="round" />
+                  <line x1={centerX} y1={centerY} x2={centerX + 28 * Math.cos(minuteAngle)} y2={centerY + 28 * Math.sin(minuteAngle)} stroke="#22d3ee" strokeWidth="2" strokeLinecap="round" />
+
+                  {/* Center Hub */}
+                  <circle cx={centerX} cy={centerY} r="3" fill="#0891b2" stroke="white" strokeWidth="1" />
+                </svg>
+              );
+            };
+            return (
+              <WorksheetSectionWrapper
+                docId="time-to-minute"
+                title="Time Traveler's Mission"
+                emoji={String.fromCharCode(0x23F0)}
+                description="Use the Temporal Portals to jump through time! Read the clock to set your destination."
+                problemCount={times.length}
+                learningObjectives={[
+                  'Read time on analog clocks to the minute',
+                  'Understand hour and minute hands',
+                  'Write time in digital format'
+                ]}
+                parentTeacherTips={[
+                  'Blue Hand (Short) = Hours',
+                  'Aqua Hand (Long) = Minutes',
+                  'Each number equals 5 minutes',
+                  'Mission: Write the time exactly!'
+                ]}
+              >
+                {/* Time Travel Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-cyan-500">
+                  <div className="absolute inset-x-0 h-full w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900 via-slate-900 to-black opacity-80"></div>
+                  {/* Stars */}
+                  <div className="absolute top-2 left-10 text-xs text-white opacity-60">{String.fromCodePoint(0x2B50)}</div>
+                  <div className="absolute bottom-4 right-20 text-xs text-white opacity-40">{String.fromCodePoint(0x2B50)}</div>
+
+                  <div className="text-2xl font-mono text-cyan-400 z-10 flex gap-4 items-center tracking-widest shadow-cyan-500/50">
+                    <span>{String.fromCodePoint(0x2B50)}</span> CHRONOS SYSTEM <span>{String.fromCodePoint(0x2B50)}</span>
+                  </div>
+                </div>
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-slate-100 border-2 border-slate-300 rounded-lg print:border print:bg-white flex gap-4 items-center">
+                  <div className="shrink-0">
+                    <svg viewBox="0 0 100 100" className="w-20 h-20">
+                      <circle cx="50" cy="50" r="35" fill="#1e293b" stroke="#3b82f6" strokeWidth="2" />
+                      <line x1="50" y1="50" x2="65" y2="65" stroke="#06b6d4" strokeWidth="3" />
+                      <line x1="50" y1="50" x2="50" y2="20" stroke="#22d3ee" strokeWidth="2" />
+                    </svg>
+                  </div>
+                  <div className="space-y-1 text-sm font-mono text-slate-700">
+                    <div className="font-bold text-indigo-700">DESTINATION: DINO ERA</div>
+                    <div>Hour Hand (Short): Past 4</div>
+                    <div>Minute Hand (Long): At 12 (:00)</div>
+                    <div className="bg-slate-800 text-green-400 inline-block px-2 py-1 rounded font-bold mt-1">TIME SET: 4:00</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                  {times.map((t, i) => (
+                    <div key={i} className="border-4 border-slate-200 rounded-xl p-4 bg-white break-inside-avoid relative overflow-hidden shadow-sm">
+                      {/* Tech deco */}
+                      <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-cyan-100 rounded-tl-xl"></div>
+                      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-cyan-100 rounded-br-xl"></div>
+
+                      {renderClockTheme(t, i)}
+
+                      <div className="text-center font-mono text-slate-500 text-xs mb-1">TARGET COORDINATES</div>
+                      <div className="flex justify-center">
+                        <div className="bg-slate-100 border-2 border-slate-300 rounded px-4 py-2 w-32 h-12 flex items-center justify-center">
+                          {/* Student writes time here */}
+                          <span className="text-slate-300 text-2xl font-digital">__:__</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                  <div className="space-y-2 text-xs font-mono">
+                    <div>[ ] Time jump successful</div>
+                    <div>[ ] No temporal paradoxes detected</div>
+                    <div>[ ] Ready for next jump</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('time-to-minute', () => (
+                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {times.map((t, i) => (
+                        <div key={i} className="text-sm border-b border-emerald-200 pb-2">
+                          <span className="font-mono font-bold text-emerald-800">JUMP #{i + 1}:</span> {t}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('customary-units') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+            const problems = Array.from({ length: 6 }, () => {
+              const feet = nextInt(1, 10);
+              return { feet, inches: feet * 12 };
+            });
+            return (
+              <WorksheetSectionWrapper
+                docId="customary-units"
+                title="Mad Science: Length Formula"
+                emoji={String.fromCharCode(0xD83E, 0xDDEC)}
+                description="Professor Quant needs precise measurements for the secret formula! Convert the units to complete the experiment."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Convert between inches, feet, and yards',
+                  'Understand customary measurement relationships',
+                  'Use multiplication and division for conversions'
+                ]}
+                parentTeacherTips={[
+                  '1 foot = 12 inches',
+                  '1 yard = 3 feet = 36 inches',
+                  'Scientist Tip: Big Unit -> Small Unit = Multiply!',
+                  'Precision is key in the lab.'
+                ]}
+              >
+                {/* Lab Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-800 rounded-lg flex items-center justify-center border-b-4 border-lime-400">
+                  <div className="text-2xl font-mono text-lime-400 font-bold z-10 flex gap-4 items-center animate-pulse">
+                    <span>{String.fromCodePoint(0x279C)}</span>
+                  </div>
+                </div>
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-yellow-50 border-4 border-slate-800 rounded-lg print:border print:bg-white shadow-[4px_4px_0px_0px_rgba(30,41,59,1)]">
+                  <div className="font-mono text-slate-900 font-bold border-b-2 border-slate-800 mb-2 pb-1">{String.fromCodePoint(0x270F)}</div>
+                  <div className="space-y-2 text-sm font-mono text-slate-800">
+                    <div className="text-base"><strong>TASK:</strong> Convert 3 Feet of Copper Wire</div>
+                    <div className="pl-4 border-l-4 border-lime-400 bg-white p-2 space-y-1">
+                      <div><strong className="text-blue-600">FORMULA:</strong> 1 Foot = 12 Inches</div>
+                      <div>{String.fromCodePoint(0x270F)}</div>
+                      <div className="font-bold text-lg text-lime-600 bg-slate-900 inline-block px-2 transform -rotate-1">RESULT: 36 INCHES</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-4 p-3 bg-slate-100 border-2 border-slate-300 rounded text-sm text-slate-700 font-mono text-center">
+                  <strong>{String.fromCodePoint(0x270F)}</strong> 1 Yard = 3 Feet | 1 Foot = 12 Inches
+                </div>
+
+                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-300 rounded-lg p-0 bg-white break-inside-avoid overflow-hidden">
+                      <div className="bg-slate-100 p-2 border-b border-slate-300 font-mono text-xs text-slate-500 flex justify-between">
+                        <span>SAMPLE #{i + 140}</span>
+                        <span>STATUS: PENDING</span>
+                      </div>
+                      <div className="p-4">
+                        <div className="text-center mb-3 font-bold text-lg font-mono text-slate-800">
+                          {p.feet} FEET <span className="text-slate-400">{String.fromCodePoint(0x270F)}</span> ____ INCHES
+                        </div>
+
+                        {/* Visual Ruler */}
+                        <div className="h-6 w-full bg-yellow-300 border border-yellow-500 mb-3 relative opacity-50">
+                          <div className="absolute top-0 bottom-0 left-0 w-px bg-black"></div>
+                          <div className="absolute top-0 bottom-0 left-1/4 w-px bg-black opacity-50"></div>
+                          <div className="absolute top-0 bottom-0 left-1/2 w-px bg-black"></div>
+                          <div className="absolute top-0 bottom-0 left-3/4 w-px bg-black opacity-50"></div>
+                          <div className="absolute top-0 bottom-0 right-0 w-px bg-black"></div>
+                        </div>
+
+                        <div className="bg-slate-50 border border-slate-200 rounded p-2">
+                          <div className="text-[10px] text-slate-500 uppercase mb-1">Calculations:</div>
+                          <div className="h-8 border-b border-dashed border-slate-300"></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                  <div className="space-y-2 text-xs">
+                    <div>{String.fromCodePoint(0x270F)}</div>
+                    <div>{String.fromCodePoint(0x270F)}</div>
+                    <div>{String.fromCodePoint(0x270F)}</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('customary-units', () => (
+                  <div className="mt-6 p-4 border-2 border-lime-500 bg-lime-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-lime-900 mb-3 text-base font-mono">{String.fromCodePoint(0x279C)}</div>
+                    <div className="space-y-3">
+                      {problems.map((p, i) => (
+                        <div key={i} className="border-b border-lime-200 pb-3 last:border-b-0 font-mono text-sm">
+                          <div><strong>SAMPLE #{i + 140}:</strong> {p.feet} ft = <span className="bg-lime-200 px-1">{p.inches} in</span></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('metric-units') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+            const problems = Array.from({ length: 6 }, () => {
+              const meters = nextInt(1, 10);
+              return { meters, centimeters: meters * 100 };
+            });
+            return (
+              <WorksheetSectionWrapper
+                docId="metric-units"
+                title="Mad Science: Metric Analysis"
+                emoji={String.fromCharCode(0xD83D, 0xDCCF)}
+                description="Analyze the samples using the metric system! Convert meters to centimeters for the final report."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Convert between centimeters, meters, and kilometers',
+                  'Understand metric measurement relationships',
+                  'Use multiplication and division for conversions'
+                ]}
+                parentTeacherTips={[
+                  '1 meter = 100 centimeters',
+                  '1 kilometer = 1000 meters',
+                  'Metric system is based on powers of 10!',
+                  'Meters are for length, Centimeters are for small details.'
+                ]}
+              >
+                {/* Lab Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-cyan-400">
+                  <div className="absolute top-0 right-0 p-1">
+                    <div className="w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+                  </div>
+                  <div className="text-2xl font-mono text-cyan-400 font-bold z-10 flex gap-4 items-center tracking-widest">
+                    METRIC SECTOR
+                  </div>
+                </div>
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-cyan-50 border-4 border-slate-800 rounded-lg print:border print:bg-white relative">
+                  <div className="absolute -top-3 left-4 bg-slate-800 text-cyan-400 font-mono text-xs px-2 py-1 rounded">SYS: ACTIVE</div>
+                  <div className="font-mono text-slate-900 font-bold mb-2">{String.fromCodePoint(0x270F)}</div>
+                  <div className="space-y-2 text-sm font-mono text-slate-800">
+                    <div className="text-base"><strong>SUBJECT:</strong> Alien Vine Growth</div>
+                    <div className="pl-4 border-l-4 border-cyan-500 bg-white p-2">
+                      <div><strong>MEASUREMENT:</strong> 2 Meters</div>
+                      <div><strong>CONVERSION RATE:</strong> 1m = 100cm</div>
+                      <div><strong>CALCULATION:</strong>{String.fromCodePoint(0x279C)}</div>
+                      <div className="mt-1 font-bold text-cyan-700">FINAL DATA: 200 cm</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-4 p-3 bg-slate-800 border-2 border-slate-600 rounded text-sm text-cyan-400 font-mono text-center shadow-inner">
+                  <strong>{String.fromCodePoint(0x1F4CF)}</strong> 1 km = 1000 m | 1 m = 100 cm
+                </div>
+
+                <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid relative">
+                      <div className="absolute top-2 right-2 text-xs font-mono text-slate-400">ID: {i + 800}</div>
+
+                      <div className="flex flex-col items-center">
+                        {/* Stylized Laser Measure */}
+                        <div className="w-full h-2 bg-slate-200 mb-4 relative rounded overflow-hidden">
+                          <div className="absolute left-0 top-0 bottom-0 bg-red-500 w-1/2 opacity-50"></div>
+                          <div className="absolute left-1/2 top-0 bottom-0 bg-green-500 w-1/2 opacity-50"></div>
+                          {/* Laser dot */}
+                          <div className="absolute top-1/2 left-3/4 w-2 h-2 bg-red-600 rounded-full transform -translate-y-1/2 shadow-[0_0_5px_rgba(220,38,38,1)]"></div>
+                        </div>
+
+                        <div className="text-center mb-2 font-bold text-lg font-mono text-slate-800">
+                          {p.meters} m <span className="text-slate-400">=</span> ____ cm
+                        </div>
+
+                        <div className="w-full border-t border-slate-100 pt-2">
+                          <div className="text-xs text-slate-500 font-mono text-center">Enter Value:</div>
+                          <div className="h-8 bg-slate-50 border border-slate-300 rounded mt-1"></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
+                  <div className="space-y-2 text-xs">
+                    <div>{String.fromCodePoint(0x270F)}</div>
+                    <div>{String.fromCodePoint(0x270F)}</div>
+                    <div>{String.fromCodePoint(0x270F)}</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('metric-units', () => (
+                  <div className="mt-6 p-4 border-2 border-cyan-500 bg-cyan-50 rounded print:border print:bg-white print:page-break-before-always">
+                    <div className="font-bold text-cyan-900 mb-3 text-base font-mono">{String.fromCodePoint(0x279C)}</div>
+                    <div className="grid grid-cols-2 gap-4 font-mono text-sm">
+                      {problems.map((p, i) => (
+                        <div key={i} className="border-b border-cyan-200 pb-2">
+                          <span className="font-bold">{p.meters} m</span>  {p.centimeters} cm
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('liquid-measurement') && (
+            <LiquidMeasurement docId="liquid-measurement" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('mass-weight') && (
+            <MassAndWeight docId="mass-weight" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('line-plots') && (
+            <LinePlots docId="line-plots" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('bar-graphs-pictographs') && (
+            <BarGraphs docId="bar-graphs-pictographs" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('mean-median-mode') && (
+            <MeanMedianMode docId="mean-median-mode" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('classifying-triangles') && (
+            <ClassifyingTriangles docId="classifying-triangles" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('classifying-quadrilaterals') && (
+            <ClassifyingQuadrilaterals docId="classifying-quadrilaterals" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('lines-angles-4th') && (
+            <LinesAndAngles docId="lines-angles-4th" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('classifying-angles') && (
+            <ClassifyingAngles docId="classifying-angles" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('symmetry-transformations') && (
+            <SymmetryTransformations docId="symmetry-transformations" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('area-perimeter-4th') && (
+            <AreaPerimeter docId="area-perimeter-4th" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('multi-step-word-problems') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const problems = Array.from({ length: 6 }, () => {
+              const type = nextInt(0, 3);
+              if (type === 0) {
+                // (A * B) - C
+                const a = nextInt(3, 8);
+                const b = nextInt(2, 5);
+                const c = nextInt(1, a * b - 1);
+                return {
+                  text: `Detective Zoom found ${a} boxes of evidence. Each box had ${b} clues. But ${c} clues resulted in a dead end. How many useful clues are left?`,
+                  steps: [`${a}  ${b} = ${a * b} total clues`, `${a * b} - ${c} = ${a * b - c}`],
+                  answer: `${a * b - c} clues`
+                };
+              } else if (type === 1) {
+                // (A + B) - C
+                const a = nextInt(10, 30);
+                const b = nextInt(5, 20);
+                const c = nextInt(5, 15);
+                return {
+                  text: `There were ${a} witnesses on Monday and ${b} on Tuesday. ${c} of them were suspects. How many were innocent witnesses?`,
+                  steps: [`${a} + ${b} = ${a + b} total people`, `${a + b} - ${c} = ${a + b - c}`],
+                  answer: `${a + b - c} witnesses`
+                };
+              } else {
+                // (A - B) + C
+                const a = nextInt(20, 50);
+                const b = nextInt(5, 15);
+                const c = nextInt(10, 20);
+                return {
+                  text: `Officer Pat had ${a} donuts. The team ate ${b}. Then Officer Mike brought ${c} more. How many donuts are there now?`,
+                  steps: [`${a} - ${b} = ${a - b} left`, `${a - b} + ${c} = ${a - b + c}`],
+                  answer: `${a - b + c} donuts`
+                };
+              }
+            });
+
+            return (
+              <WorksheetSectionWrapper
+                docId="multi-step-word-problems"
+                title="Math Detective Agency"
+                emoji={String.fromCharCode(0xD83D, 0xDD75, 0xFE0F)}
+                description="Crack the case! Solve step-by-step to catch the answer."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Solve multi-step word problems',
+                  'Identify sequence of operations',
+                  'Show work for each clue'
+                ]}
+                parentTeacherTips={[
+                  'Look for keywords: "each", "total", "left", "more"',
+                  'Solve one clue at a time',
+                  'Double check the final verdict'
+                ]}
+              >
+                {/* Agency Header */}
+                <div className="print:hidden w-full h-20 mb-6 relative overflow-hidden bg-slate-800 rounded-t-lg border-b-4 border-yellow-500 shadow-lg">
+                  <div className="absolute top-2 left-4 text-4xl">{String.fromCodePoint(0x279C)}</div>
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <div className="text-2xl font-bold text-slate-100 font-mono tracking-widest uppercase">Top Secret Case Files</div>
+                    <div className="text-yellow-500 font-bold text-xs uppercase bg-slate-900 px-2 py-0.5 rounded border border-yellow-500 mt-1">Authorized Eyes Only</div>
+                  </div>
+                </div>
+
+                {/* Example Case */}
+                <div className="mb-8 mx-auto max-w-2xl bg-amber-50 p-1 border border-slate-300 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] rotate-0 relative">
+                  {/* Paperclip */}
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full border-4 border-slate-400 z-10 bg-transparent border-b-transparent"></div>
+
+                  <div className="bg-white p-6 border border-slate-200">
+                    <div className="flex justify-between items-start mb-4 border-b-2 border-slate-800 pb-2">
+                      <div>
+                        <h3 className="font-bold text-slate-900 uppercase tracking-wide">Case #00-EXAMPLE</h3>
+                        <p className="text-xs text-slate-500">Subject: The Missing Marbles</p>
+                      </div>
+                      <div className="text-4xl opacity-20">{String.fromCodePoint(0x270F)}</div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="font-serif italic text-slate-700 text-lg">
+                        "Start with 15 marbles. Lose 5. Find 8 more. How many now?"
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 text-sm font-mono mt-4 bg-slate-50 p-4 rounded border border-slate-200">
+                        <div>
+                          <span className="bg-slate-200 text-slate-600 px-1 text-xs rounded uppercase font-bold mr-2">Clue 1</span>
+                          15 - 5 = 10
+                        </div>
+                        <div>
+                          <span className="bg-slate-200 text-slate-600 px-1 text-xs rounded uppercase font-bold mr-2">Clue 2</span>
+                          10 + 8 = 18
+                        </div>
+                      </div>
+
+                      <div className="mt-2 text-right">
+                        <span className="text-red-600 font-bold text-xl font-stamp transform -rotate-2 inline-block border-2 border-red-600 px-2 py-1">VERDICT: 18</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((p, i) => (
+                    <div key={i} className="relative group break-inside-avoid">
+                      {/* Folder Tab */}
+                      <div className="absolute -top-3 left-0 w-24 h-4 bg-amber-200 rounded-t-lg border-t border-l border-r border-amber-300 group-hover:-top-4 transition-all"></div>
+
+                      <div className="bg-amber-100 p-6 rounded-b-lg rounded-tr-lg border border-amber-300 shadow-md relative">
+                        <div className="absolute top-2 right-2 text-xs font-mono text-amber-600 opacity-50">CASE #{400 + i}</div>
+                        <div className="font-serif text-slate-800 mb-4 leading-relaxed">
+                          {p.text}
+                        </div>
+
+                        <div className="bg-white p-3 rounded border border-amber-200 h-28 relative">
+                          <div className="absolute top-1 left-2 text-[10px] text-slate-400 uppercase tracking-wider">Investigative Notes</div>
+                          {/* Lines for writing */}
+                          <div className="w-full h-full pt-4 space-y-6">
+                            <div className="border-b border-slate-200"></div>
+                            <div className="border-b border-slate-200"></div>
+                            <div className="border-b border-slate-200"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {showAnswersForDoc('multi-step-word-problems', () => (
+                  <div className="mt-6 p-6 border-l-4 border-slate-800 bg-slate-50 rounded print:page-break-before-always">
+                    <div className="font-bold text-slate-900 mb-4 text-xl uppercase tracking-widest border-b border-slate-300 pb-2">{String.fromCodePoint(0x270F)}</div>
+                    <div className="grid grid-cols-1 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="flex flex-col text-sm font-mono text-slate-700 bg-white p-3 border border-slate-200 shadow-sm">
+                          <div className="font-bold text-slate-900 mb-1">CASE #{400 + i}</div>
+                          <div className="flex flex-wrap gap-x-4">
+                            {p.steps.map((s, j) => <span key={j} className="text-slate-500">STEP {j + 1}: {s}</span>)}
+                          </div>
+                          <div className="mt-1 font-bold text-red-600">VERDICT: {p.answer}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+
+        {
+          activeDocs.includes('elapsed-time-word-problems') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            // Generate time travel scenarios
+            const problems = Array.from({ length: 6 }, () => {
+              const startHour = nextInt(1, 10);
+              const startMin = nextInt(0, 3) * 15; // 00, 15, 30, 45
+              const durationMin = nextInt(2, 6) * 15; // 30 mins to 90 mins
+
+              const totalStartMin = startHour * 60 + startMin;
+              const totalEndMin = totalStartMin + durationMin;
+
+              const endHour = Math.floor(totalEndMin / 60);
+              const endMin = totalEndMin % 60;
+
+              // Format times
+              const pad = (n: number) => n.toString().padStart(2, '0');
+              const startTime = `${startHour}:${pad(startMin)} PM`;
+              const endTime = `${endHour}:${pad(endMin)} PM`;
+
+              const dHours = Math.floor(durationMin / 60);
+              const dMins = durationMin % 60;
+              const durationStr = dHours > 0
+                ? `${dHours} hr ${dMins > 0 ? `${dMins} min` : ''}`
+                : `${dMins} min`;
+
+              return {
+                mission: `Mission #${nextInt(100, 999)}`,
+                scenario: `Rocket launch at ${startTime}. Landed at ${endTime}.`,
+                question: "How long was the mission?",
+                answer: durationStr,
+                start: startTime,
+                end: endTime,
+                calc: `${endTime} - ${startTime} = ${durationStr}`
+              };
+            });
+
+            return (
+              <WorksheetSectionWrapper
+                docId="elapsed-time-word-problems"
+                title="Time Travel Mission Control"
+                emoji={String.fromCharCode(0xD83D, 0xDE80)}
+                description="Calculate mission durations! The space station needs precise flight logs."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Calculate elapsed time between two events',
+                  'Solve word problems involving hours and minutes',
+                  'Work with AM/PM time contexts'
+                ]}
+                parentTeacherTips={[
+                  'Use a \"Z-Chart\" or number line to jump to the next hour',
+                  'Count hours first, then add remaining minutes',
+                  'Example: 3:15 to 4:00 (45m) + 4:00 to 4:30 (30m) = 75m = 1h 15m'
+                ]}
+              >
+                {/* Mission Control Header */}
+                <div className="print:hidden w-full h-16 mb-6 relative overflow-hidden bg-slate-900 rounded-lg flex items-center justify-center border-b-4 border-blue-500">
+                  <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+                  <div className="text-2xl font-mono text-blue-400 font-bold z-10 flex gap-4 items-center tracking-widest uppercase">
+                    FLIGHT LOGS
+                  </div>
+                </div>
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-slate-900 text-blue-100 border-2 border-blue-500 rounded-lg print:bg-white print:text-black print:border-slate-300">
+                  <div className="font-mono text-blue-300 mb-2 text-sm print:text-slate-600">MISSION BRIEFING:</div>
+                  <div className="flex flex-col md:flex-row gap-6 items-center">
+                    <div className="font-mono text-2xl border-2 border-blue-400 px-4 py-2 rounded bg-slate-800 print:bg-slate-100 print:text-slate-800">
+                      14:00  15:30
+                    </div>
+                    <div className="space-y-1 text-sm font-mono">
+                      <div><span className="text-blue-400 font-bold print:text-blue-700">LAUNCH:</span> 2:00 PM</div>
+                      <div><span className="text-green-400 font-bold print:text-green-700">LANDING:</span> 3:30 PM</div>
+                      <div className="border-t border-blue-700 my-1 pt-1 print:border-slate-300">
+                        <span className="text-yellow-400 font-bold print:text-slate-900">DURATION:</span> 1 hour 30 minutes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((p, i) => (
+                    <div key={i} className="relative bg-white border-2 border-slate-200 rounded-xl p-4 shadow-sm break-inside-avoid overflow-hidden">
+                      <div className="absolute top-0 left-0 w-2 h-full bg-slate-100 border-r border-dotted border-slate-300"></div>
+                      <div className="pl-4">
+                        <div className="flex justify-between mb-2 border-b border-slate-100 pb-2">
+                          <span className="font-mono text-xs font-bold text-slate-400 bg-slate-100 px-2 rounded py-0.5">{p.mission}</span>
+                          <span className="text-xl">{String.fromCodePoint(0x1F680)}</span>
+                        </div>
+
+                        <div className="mb-4">
+                          <div className="text-sm font-bold text-slate-700 mb-1">Flight Path:</div>
+                          <div className="text-lg font-mono text-slate-800 bg-slate-50 p-2 rounded border border-slate-200 text-center">
+                            {p.start} <span className="text-slate-400 mx-1">{String.fromCodePoint(0x279C)}</span> {p.end}
+                          </div>
+                        </div>
+
+                        <div className="text-sm text-slate-600 font-medium mb-3">{p.question}</div>
+
+                        <div className="bg-blue-50 rounded p-2 h-16 border border-blue-100 relative">
+                          <div className="absolute top-1 left-2 text-[10px] text-blue-300 uppercase">Mission Duration</div>
+                          {/* Space for answer */}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Self-Assessment - Mission Debrief */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-blue-900 rounded bg-slate-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-bold text-slate-900 mb-3 text-sm uppercase tracking-wider">MISSION DEBRIEF</div>
+                  <div className="space-y-2 text-xs text-slate-700 font-mono">
+                    <div>[ ] Time calculations accurate</div>
+                    <div>[ ] Flight logs completed</div>
+                    <div>[ ] Ready for deep space mission</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('elapsed-time-word-problems', () => (
+                  <div className="mt-6 p-6 border-2 border-dashed border-slate-400 bg-white rounded print:page-break-before-always font-mono">
+                    <div className="text-center font-bold text-slate-800 mb-6 text-xl border-b mb-4 pb-2">ANSWER LOG</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="border-b border-slate-200 pb-2">
+                          <div className="text-xs text-slate-500 mb-1">{p.mission}</div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs">{p.start} - {p.end}</span>
+                            <span className="font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">{p.answer}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
+        {
+          activeDocs.includes('perimeter-area-word-problems') && (() => {
+            const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`);
+            function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+            const problems = Array.from({ length: 6 }, () => {
+              const length = nextInt(5, 12);
+              const width = nextInt(4, 8);
+              const isPerim = rng() > 0.5;
+
+              const scenario = isPerim
+                ? `Mrs. Green needs to put a fence around her rectangular garden. It is ${length}m long and ${width}m wide. How much fencing does she need?`
+                : `Mr. Brown is planting grass in his rectangular backyard. It is ${length}m long and ${width}m wide. What is the area of the yard?`;
+
+              return {
+                text: scenario,
+                type: isPerim ? 'PERIMETER' : 'AREA',
+                length, width,
+                val: isPerim ? 2 * (length + width) : length * width,
+                unit: isPerim ? 'm' : 'sq m'
+              };
+            });
+
+            return (
+              <WorksheetSectionWrapper
+                docId="perimeter-area-word-problems"
+                title="Landscape Design Co."
+                emoji={String.fromCharCode(0xD83C, 0xDF3B)}
+                description="Help the gardeners plan! Calculate perimeter for fencing and area for grass."
+                problemCount={problems.length}
+                learningObjectives={[
+                  'Distinguish between perimeter (outside) and area (inside)',
+                  'Solve real-world word problems',
+                  'Apply formulas correctly'
+                ]}
+                parentTeacherTips={[
+                  'Perimeter = Fencing/Border (Add all sides)',
+                  'Area = Grass/Carpet/Floor (Multiply Length x Width)',
+                  'Draw the garden to visualize!'
+                ]}
+              >
+                {/* Landscape Header */}
+                <div className="print:hidden w-full h-16 mb-4 relative overflow-hidden bg-gradient-to-br from-green-400 to-emerald-600 rounded-lg flex items-center justify-center border-b-4 border-emerald-800">
+                  <div className="text-2xl font-serif text-white font-bold z-10 flex gap-4 items-center shadow-black drop-shadow-md">
+                    GREEN THUMB LANDSCAPING
+                  </div>
+                </div>
+
+                {/* Worked Example */}
+                <div className="mb-6 p-4 bg-green-50 border-2 border-green-600 rounded-lg print:border print:bg-white flex gap-4 items-center">
+                  <div className="text-4xl">{String.fromCodePoint(0x2705)}</div>
+                  <div className="space-y-2 text-sm flex-1">
+                    <div className="font-bold text-green-800 border-b border-green-300 pb-1">TRAINING MANUAL:</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white p-2 rounded border border-green-200">
+                        <div className="font-bold text-green-700">PERIMETER (Fencing)</div>
+                        <div className="text-xs text-slate-600">Distance AROUND the edge.</div>
+                        <div className="font-mono text-xs mt-1">{String.fromCodePoint(0x270F)}</div>
+                      </div>
+                      <div className="bg-white p-2 rounded border border-green-200">
+                        <div className="font-bold text-green-700">AREA (Grass)</div>
+                        <div className="text-xs text-slate-600">Space INSIDE the shape.</div>
+                        <div className="font-mono text-xs mt-1">{String.fromCodePoint(0x270F)}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
+                  {problems.map((p, i) => (
+                    <div key={i} className="relative bg-white border border-slate-300 rounded-xl p-5 shadow-sm break-inside-avoid">
+                      <div className="absolute top-0 right-0 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded-bl-lg border-l border-b border-green-200">
+                        JOB #{100 + i}
+                      </div>
+
+                      <div className="flex gap-3 mb-3">
+                        <div className="text-2xl pt-1">
+                          {p.type === 'PERIMETER' ? '' : ''}
+                        </div>
+                        <div className="text-sm text-slate-800 leading-relaxed font-medium">
+                          {p.text}
+                        </div>
+                      </div>
+
+                      <div className="bg-slate-50 p-3 rounded border border-slate-200">
+                        <div className="flex justify-between text-xs text-slate-500 uppercase font-bold mb-2">
+                          <span>Plan:</span>
+                          <span>Solution:</span>
+                        </div>
+                        <div className="h-8 border-b border-slate-300 flex items-end justify-between px-2 pb-1">
+                          <span className="text-slate-400 italic text-xs">{p.type}</span>
+                          <span className="font-bold text-lg text-slate-300">____________ {p.unit}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Self-Assessment */}
+                <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-green-700 rounded bg-green-50" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                  <div className="font-bold text-green-900 mb-3 text-sm">{String.fromCodePoint(0x2705)}</div>
+                  <div className="space-y-2 text-xs text-green-800">
+                    <div>{String.fromCodePoint(0x2705)}</div>
+                    <div>{String.fromCodePoint(0x2705)}</div>
+                    <div>{String.fromCodePoint(0x279C)}</div>
+                  </div>
+                </div>
+
+                {showAnswersForDoc('perimeter-area-word-problems', () => (
+                  <div className="mt-6 p-6 border-2 border-emerald-500 bg-white rounded print:page-break-before-always font-mono">
+                    <div className="text-center font-bold text-emerald-900 mb-6 text-xl border-b border-emerald-100 pb-2">{String.fromCodePoint(0x279C)}</div>
+                    <div className="grid grid-cols-2 gap-4">
+                      {problems.map((p, i) => (
+                        <div key={i} className="border-b border-slate-100 pb-2 text-sm">
+                          <span className="font-bold">Job #{100 + i}:</span> {p.val} {p.unit} ({p.type})
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            );
+          })()
+        }
 
 
-<footer className="text-center text-slate-500 text-xs print:hidden">
-  {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
-</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+          activeDocs.some((d: string) => d.startsWith('reading-g1')) && (() => {
+            const data = generateReadingStory(`${effectiveSeed}|reading-g1`, 1) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={data?.title}
+                emoji={data?.emoji}
+                description="Read the story and answer the questions."
+                problemCount={data?.questions?.length}
+              >
+                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
+                  <div className="text-lg leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8">
+                    {data?.story}
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="font-bold border-b border-slate-200 pb-2">Questions:</div>
+                    {data?.questions?.map((q: any, i: number) => (
+                      <div key={i} className="bg-slate-50 p-4 rounded-lg">
+                        <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
+                        <div className="flex flex-col gap-2">
+                          {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
+                            <div key={k} className="flex items-center gap-2">
+                              <div className="w-4 h-4 rounded-full border border-slate-300"></div>
+                              <span>{opt}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm">
+                    {data?.questions?.map((q: any, i: number) => (
+                      <div key={i} className="mb-1">{i + 1}) {q.a}</div>
+                    ))}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+
+        {
+          activeDocs.some((d: string) => d.startsWith('reading-g2')) && (() => {
+            const data = generateReadingStory(`${effectiveSeed}|reading-g2`, 2) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={data?.title}
+                emoji={data?.emoji}
+                description="Read the story and answer the questions."
+                problemCount={data?.questions?.length}
+              >
+                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-2xl mx-auto">
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
+                  <div className="text-lg leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8">
+                    {data?.story}
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="font-bold border-b border-slate-200 pb-2">Questions:</div>
+                    {data?.questions?.map((q: any, i: number) => (
+                      <div key={i} className="bg-slate-50 p-4 rounded-lg">
+                        <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
+                        <div className="flex flex-col gap-2">
+                          {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
+                            <div key={k} className="flex items-center gap-2">
+                              <div className="w-4 h-4 rounded-full border border-slate-300"></div>
+                              <span>{opt}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm">
+                    {data?.questions?.map((q: any, i: number) => (
+                      <div key={i} className="mb-1">{i + 1}) {q?.a}</div>
+                    ))}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+        {
+          activeDocs.some((d: string) => d.startsWith('reading-g3')) && (() => {
+            const data = generateReadingStory(`${effectiveSeed}|reading-g3`, 3) || { title: 'Reading', story: '', questions: [], emoji: '📖' }
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={data?.title}
+                emoji={data?.emoji}
+                description="Read the passage and answer the questions."
+                problemCount={data?.questions?.length}
+              >
+                <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm max-w-3xl mx-auto">
+                  <h3 className="text-xl font-bold text-center mb-4 text-slate-800">{data?.title}</h3>
+                  <div className="text-base leading-relaxed font-serif text-slate-700 whitespace-pre-line mb-8 columns-1 md:columns-2 gap-8">
+                    {data?.story}
+                  </div>
+
+                  <div className="space-y-6 break-inside-avoid">
+                    <div className="font-bold border-b border-slate-200 pb-2">Comprehension Check:</div>
+                    {data?.questions?.map((q: any, i: number) => (
+                      <div key={i} className="bg-slate-50 p-4 rounded-lg">
+                        <div className="font-medium mb-2">{i + 1}. {q?.q}</div>
+                        <div className="flex flex-col gap-2">
+                          {(q?.options || []).sort((a: string, b: string) => makeRng(`${effectiveSeed}|q${i}` + a)() - 0.5).map((opt: string, k: number) => (
+                            <div key={k} className="flex items-center gap-2">
+                              <div className="w-4 h-4 rounded-full border border-slate-300"></div>
+                              <span>{opt}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {showAnswersForDoc(doc, () => (
+                  <div className="mt-4 p-4 border rounded font-mono text-sm">
+                    {data?.questions?.map((q: any, i: number) => (
+                      <div key={i} className="mb-1">{i + 1}) {q?.a}</div>
+                    ))}
+                  </div>
+                ))}
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+
+
+        {
+          activeDocs.some((d: string) => d.startsWith('science-lifecycle') || d.startsWith('science-match')) && (
+            <ScienceWorksheets
+              doc={doc || ''}
+              effectiveSeed={typeof effectiveSeed === 'string' ? effectiveSeed : String(effectiveSeed)}
+              variant={typeof variant === 'string' ? variant : String(variant)}
+              showAnswersForDoc={showAnswersForDoc}
+            />
+          )
+        }
+
+
+
+
+        {
+          activeDocs.some((d: string) => d.startsWith('word-search') || d.startsWith('spelling')) && (() => {
+            const data = generateWordSearch(`${effectiveSeed}|${doc}`) || { theme: 'Words', words: [], grid: [] }
+
+            return (
+              <WorksheetSectionWrapper
+                docId={doc}
+                title={`${data?.theme || 'Words'} Word Search`}
+                emoji="🔎"
+                description={`Find these words hidden in the grid: ${(data?.words || []).join(', ')}`}
+                problemCount={data?.words?.length || 0}
+              >
+                <div className="flex flex-col md:flex-row gap-8 items-start">
+                  <div className="bg-white p-2 rounded-lg border-2 border-slate-800">
+                    {(data?.grid || []).map((row: string[], r: number) => (
+                      <div key={r} className="flex">
+                        {(row || []).map((letter: string, c: number) => (
+                          <div key={c} className="w-8 h-8 flex items-center justify-center font-mono font-bold text-lg border border-slate-100 hover:bg-yellow-100 cursor-pointer">
+                            {letter}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex-1 bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 className="font-bold mb-4">Word Bank</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {data?.words?.map((w: string, i: number) => (
+                        <div key={i} className="px-3 py-1 bg-slate-100 rounded text-sm font-medium border border-slate-300">
+                          {w}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </WorksheetSectionWrapper>
+            )
+          })()
+        }
+
+
+        <footer className="text-center text-slate-500 text-xs print:hidden">
+          {getTrans('common.printTip', 'Tip: Use your browser menu  Print  Save as PDF.')}
+        </footer>
       </div >
     </div >
   )
