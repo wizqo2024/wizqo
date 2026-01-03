@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ReactNode } from 'react';
+type ReactNode = React.ReactNode;
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared';
@@ -338,4 +338,116 @@ export function AddSubFractions4th({ showAnswersForDoc, seed, variant }: Specifi
         </WorksheetSectionWrapper>
     );
 
+}
+
+export function MixedImproperFractions({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const docId = 'mixed-improper-fractions';
+    const { t } = useTranslation();
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    const problems = Array.from({ length: 6 }).map(() => {
+        const whole = Math.floor(rng() * 3) + 1; // 1 to 3
+        const denom = Math.floor(rng() * 4) + 2; // 2, 3, 4, 5
+        const num = Math.floor(rng() * (denom - 1)) + 1; // 1 to denom-1
+
+        const improperNum = (whole * denom) + num;
+
+        // Randomly decide direction: mixed -> improper OR improper -> mixed
+        const type = rng() > 0.5 ? 'toImproper' : 'toMixed';
+
+        return { whole, num, denom, improperNum, type };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Mixed Numbers & Improper Fractions"
+            emoji="🍕"
+            description="Convert between mixed numbers and improper fractions."
+            problemCount={problems.length}
+            learningObjectives={['Convert mixed numbers to improper fractions', 'Convert improper fractions to mixed numbers', 'Visualize fractional parts greater than 1']}
+            parentTeacherTips={['Multiply whole number by bottom number, then add top number!', 'Divide top by bottom. The remainder is the new top number.', 'Think of full pizzas plus extra slices.']}
+        >
+            <PremiumWorksheetBanner
+                title="Pizza Party Fractions"
+                subtitle="Whole & Parts"
+                icons={{ bg1: "🍕", bg2: "🥧", float1: "🔢", float2: "🔄" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-orange-600 to-red-700",
+                    border: "border-orange-500",
+                    pillBg: "bg-orange-800/50",
+                    pillBorder: "border-orange-400",
+                    pillText: "text-orange-100",
+                    accent: "text-yellow-300"
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="bg-orange-50 p-6 rounded-xl border-2 border-orange-200 flex flex-col items-center break-inside-avoid">
+                        <div className="flex items-center gap-4 mb-4">
+                            {/* Visuals */}
+                            <div className="flex gap-2">
+                                {Array.from({ length: p.whole }).map((_, w) => (
+                                    <div key={w}>{renderFractionCircle(p.denom, p.denom, 40, "#c2410c")}</div>
+                                ))}
+                                <div>{renderFractionCircle(p.num, p.denom, 40, "#c2410c")}</div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-8 text-2xl font-bold text-orange-900">
+                            {p.type === 'toImproper' ? (
+                                <>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-4xl">{p.whole}</span>
+                                        <div className="flex flex-col items-center leading-none">
+                                            <span>{p.num}</span>
+                                            <span className="w-6 h-0.5 bg-orange-900 my-1"></span>
+                                            <span>{p.denom}</span>
+                                        </div>
+                                    </div>
+                                    <div className="text-orange-400">→</div>
+                                    <div className="flex flex-col items-center leading-none">
+                                        <div className="w-10 h-10 border-b-2 border-orange-900 bg-white/50 rounded-t flex items-center justify-center">?</div>
+                                        <div className="w-10 h-10 bg-white/50 rounded-b flex items-center justify-center">{p.denom}</div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="flex flex-col items-center leading-none">
+                                        <span>{p.improperNum}</span>
+                                        <span className="w-8 h-0.5 bg-orange-900 my-1"></span>
+                                        <span>{p.denom}</span>
+                                    </div>
+                                    <div className="text-orange-400">→</div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-10 h-12 border border-dashed border-orange-400 rounded bg-white flex items-center justify-center">?</div>
+                                        <div className="flex flex-col items-center leading-none">
+                                            <div className="w-8 h-8 border-b border-orange-900 bg-white/50 flex items-center justify-center text-sm">?</div>
+                                            <div className="w-8 h-8 bg-white/50 flex items-center justify-center text-sm">{p.denom}</div>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded">
+                    <div className="font-bold text-emerald-900 mb-2">Answer Key</div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                        {problems.map((p, i) => (
+                            <div key={i}>
+                                #{i + 1}: {p.type === 'toImproper'
+                                    ? <strong>{p.improperNum}/{p.denom}</strong>
+                                    : <strong>{p.whole} {p.num}/{p.denom}</strong>}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
 }

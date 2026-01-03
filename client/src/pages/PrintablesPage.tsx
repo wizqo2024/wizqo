@@ -51,7 +51,8 @@ import {
 import {
   EquivFractions4th,
   ComparingFractions4th,
-  AddSubFractions4th
+  AddSubFractions4th,
+  MixedImproperFractions
 } from './printables/FractionWorksheets'
 import MathMazeWorksheets from './MathMazeWorksheets'
 import { MathWorksheets } from './MathWorksheets';
@@ -13721,6 +13722,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('area-perimeter-4th') && (
             <AreaPerimeter docId="area-perimeter-4th" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          activeDocs.includes('mixed-improper-fractions') && (
+            <MixedImproperFractions {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />
           )
         }
 
