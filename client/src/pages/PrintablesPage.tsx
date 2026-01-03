@@ -55,6 +55,7 @@ import { GeographyWorksheets } from './GeographyWorksheets'
 import { Symmetry } from './printables/Symmetry'
 import { ScienceWorksheets } from './printables/ScienceWorksheets'
 import { LinePlots, BarGraphs, MeanMedianMode } from './printables/DataAnalysisWorksheets'
+import { GeometryWordProblems, MeasurementWordProblems, DecimalWordProblems, FractionWordProblems, WordProblems100 } from './printables/WordProblemWorksheets'
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -3669,177 +3670,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           <Sub2Digit100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
 
-        {activeDocs.includes('word-problems-100') && (() => {
-          const problems = [
-            { problem: 'Mia has 24 marbles. She gets 15 more. How many now?', equation: '24 + 15 = ?', answer: '39 marbles' },
-            { problem: 'A class has 32 books on one shelf and 17 on another. How many in all?', equation: '32 + 17 = ?', answer: '49 books' },
-            { problem: 'Liam had 45 stickers. He gave 20 to a friend. How many left?', equation: '45 - 20 = ?', answer: '25 stickers' },
-            { problem: 'A box has 38 pencils. 10 were used. How many remain?', equation: '38 - 10 = ?', answer: '28 pencils' },
-            { problem: 'Sara read 27 pages on Monday and 22 on Tuesday. How many pages total?', equation: '27 + 22 = ?', answer: '49 pages' }
-          ];
-          return (
-            <WorksheetSectionWrapper
-              docId="word-problems-100"
-              title="2nd-Grade Word Problems (within 100)"
-              emoji={String.fromCodePoint(0x1F4DD)}
-              description="Read each word problem carefully. Write a number sentence (equation) and solve. Show your answer in the blank space."
-              problemCount={problems.length}
-              learningObjectives={[
-                'Read and understand word problems',
-                'Write number sentences (equations) from word problems',
-                'Solve addition and subtraction word problems within 100'
-              ]}
-              parentTeacherTips={[
-                'Help students identify key words: "more", "in all", "left", "remain", "total"',
-                'Encourage students to write the equation before solving',
-                'Check that students understand what the question is asking',
-                'Extension: Create your own word problems'
-              ]}
-            >
-              <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-amber-400 to-lime-400 animate-gradient-x mb-2" />
-              {/* Worked Example */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-amber-50 to-lime-50 border-2 border-amber-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-amber-900 mb-3 text-sm flex items-center gap-2">
-                  <span className="text-2xl">{String.fromCodePoint(0x279C)}</span>
-                  <span>Example - Let's solve this together:</span>
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="font-semibold text-base text-amber-900"><strong>Problem:</strong> Tom has 15 apples. He buys 12 more. How many apples does he have now?</div>
-                  {/* Visual illustration */}
-                  <div className="bg-white p-4 rounded-lg border-2 border-amber-300">
-                    <div className="flex items-center justify-center gap-4 mb-3">
-                      <div className="text-center">
-                        <div className="text-2xl mb-1">Tom has:</div>
-                        <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
-                          {Array.from({ length: 15 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x1F34E)}</span>
-                          ))}
-                        </div>
-                        <div className="text-sm font-semibold text-amber-700 mt-1">15 apples</div>
-                      </div>
-                      <div className="text-3xl text-amber-700 font-bold">+</div>
-                      <div className="text-center">
-                        <div className="text-2xl mb-1">Buys:</div>
-                        <div className="flex gap-1 flex-wrap justify-center max-w-[200px]">
-                          {Array.from({ length: 12 }).map((_, i) => (
-                            <span key={i} className="text-2xl">{String.fromCodePoint(0x1F34E)}</span>
-                          ))}
-                        </div>
-                        <div className="text-sm font-semibold text-amber-700 mt-1">12 more</div>
-                      </div>
-                      <div className="text-3xl text-amber-700 font-bold">=</div>
-                      <div className="text-center">
-                        <div className="text-2xl mb-1">Total:</div>
-                        <div className="text-4xl font-bold text-amber-700">27</div>
-                        <div className="text-sm font-semibold text-amber-700 mt-1">apples</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="pl-4 border-l-2 border-amber-300 space-y-1">
-                    <div><strong>{t('common.step1')}</strong> {t('worksheets.wordProblems.example.step1Text', 'Find the numbers:')} <span className="text-amber-700 font-bold">15 apples, 12 more</span></div>
-                    <div><strong>{t('common.step2')}</strong> {t('worksheets.wordProblems.example.step2Text', 'Write the equation:')} <span className="text-amber-700 font-bold text-lg">15 + 12 = ?</span></div>
-                    <div><strong>{t('common.step3')}</strong> {t('worksheets.wordProblems.example.step3Text', 'Solve:')} <span className="text-amber-700 font-bold text-lg">15 + 12 = 27</span></div>
-                    <div className="font-semibold text-amber-900 mt-2"><strong>{t('common.answer')}</strong> <span className="text-2xl text-amber-700">27 apples</span></div>
-                    <div className="text-xs text-amber-700 mt-2 flex items-center gap-1">
-                      <span>{String.fromCodePoint(0x279C)}</span>
-                      <span>{t('common.tip')} {t('worksheets.wordProblems.example.tip', '"More" or "in all" usually means addition! "Left" or "remain" usually means subtraction!')}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {problems.map((item, i) => {
-                  const isAdd = item.equation.includes('+');
-                  const nums = item.equation.match(/\d+/g) || [];
-                  const num1 = parseInt(nums[0] || '0');
-                  const num2 = parseInt(nums[1] || '0');
-                  const emoji = item.problem.includes('marbles') ? '' :
-                    item.problem.includes('books') ? '' :
-                      item.problem.includes('stickers') ? '' :
-                        item.problem.includes('pencils') ? '' : '';
-                  return (
-                    <div key={i} className="border-2 border-amber-200 rounded-lg p-4 bg-gradient-to-br from-amber-50 to-lime-50 break-inside-avoid">
-                      <div className="text-base font-semibold text-amber-900 mb-3 flex items-start gap-2">
-                        <span className="text-xl">{i + 1}.</span>
-                        <span>{item.problem}</span>
-                      </div>
-                      {/* Visual illustration */}
-                      <div className="bg-white p-3 rounded-lg border-2 border-amber-300 mb-3">
-                        <div className="flex items-center justify-center gap-3">
-                          <div className="text-center">
-                            <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
-                              {Array.from({ length: Math.min(num1, 20) }).map((_, j) => (
-                                <span key={j} className="text-xl">{emoji}</span>
-                              ))}
-                            </div>
-                            <div className="text-xs font-semibold text-amber-700">{num1}</div>
-                          </div>
-                          <div className="text-2xl text-amber-700 font-bold">{String.fromCodePoint(0x279C)}</div>
-                          <div className="text-center">
-                            <div className="flex gap-1 flex-wrap justify-center max-w-[150px] mb-1">
-                              {Array.from({ length: Math.min(num2, 20) }).map((_, j) => (
-                                <span key={j} className="text-xl">{emoji}</span>
-                              ))}
-                            </div>
-                            <div className="text-xs font-semibold text-amber-700">{num2}</div>
-                          </div>
-                          <div className="text-2xl text-amber-700 font-bold">=</div>
-                          <div className="text-center">
-                            <div className="text-2xl font-bold text-amber-700">?</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mb-2">
-                        <div className="text-sm text-amber-700 mb-1 font-semibold">Equation:</div>
-                        <div className="text-lg font-mono text-amber-900 bg-white px-3 py-1 rounded border border-amber-300">{item.equation}</div>
-                      </div>
-                      <div>
-                        <div className="text-sm text-amber-700 mb-1 font-semibold">Answer:</div>
-                        <div className="h-10 border-b-[3px] border-amber-600 mt-2 bg-white rounded px-2" />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              {/* Extension/Challenge Problems */}
-              <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                  <div>1. Create your own word problem using addition</div>
-                  <div>2. Create your own word problem using subtraction</div>
-                  <div>3. Draw a picture to help solve one of the problems above</div>
-                </div>
-              </div>
-              {/* Self-Assessment */}
-              <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                  <div>{String.fromCharCode(0x2610)} I can read and understand word problems</div>
-                  <div>{String.fromCharCode(0x2610)} I can write number sentences</div>
-                  <div>{String.fromCharCode(0x2610)} I can solve word problems correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                  <strong>{getTrans('common.myScore', 'My score:')}</strong> ___ / {problems.length}
-                </div>
-                <div className="mt-2 text-xs">
-                  <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-              </div>
-              {showAnswersForDoc('word-problems-100', () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                  <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                  <div className="space-y-2">
-                    {problems.map((item, i) => (
-                      <div key={i} className="text-sm text-emerald-800">
-                        {i + 1}. {item.equation.replace('?', item.answer.split(' ')[0])} = <strong>{item.answer}</strong>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </WorksheetSectionWrapper>
-          );
-        })()}
+        {activeDocs.includes('word-problems-100') && (
+          <WordProblems100 docId="word-problems-100" showAnswersForDoc={showAnswersForDoc} />
+        )}
 
         {activeDocs.includes('compare-2digit') && (
           <Compare2Digit
@@ -26007,61 +25840,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
                   </div>
                 </div>
-                {showAnswersForDoc('fraction-word-problems', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Find common denominator: 1/4 = 3/12, 1/3 = 4/12</div>
-                          <div>Step 2: Add: 3/12 + 4/12 = 7/12</div>
-                          <div className="font-semibold">Answer: 7/12 of the pizza</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Find common denominator: 3/4 = 3/4, 1/2 = 2/4</div>
-                          <div>Step 2: Subtract: 3/4 - 2/4 = 1/4</div>
-                          <div className="font-semibold">Answer: 1/4 cup more</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: 8 students</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>Step 2: 12 - 3 = 9 feet</div>
-                          <div className="font-semibold">Answer: 9 feet</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: $0.67</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: 8 - 3 = 5 pieces remain</div>
-                          <div>Step 2: 5 out of 8 = 5/8</div>
-                          <div className="font-semibold">Answer: 5/8 of the pie</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
+{
+          activeDocs.includes('fraction-word-problems') && (
+            <FractionWordProblems docId="fraction-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
           })()
         }
 
@@ -26281,63 +26064,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
                   </div>
                 </div>
-                {showAnswersForDoc('decimal-word-problems', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Add: $12.50 + $3.75</div>
-                          <div>Step 2: Align decimals and add: $12.50 + $3.75 = $16.25</div>
-                          <div className="font-semibold">Answer: $16.25</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Subtract: 8.5 - 2.3</div>
-                          <div>Step 2: Align decimals and subtract: 8.5 - 2.3 = 6.2</div>
-                          <div className="font-semibold">Answer: 6.2 meters</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Add: 3.2 + 4.5</div>
-                          <div>Step 2: Align decimals and add: 3.2 + 4.5 = 7.7</div>
-                          <div className="font-semibold">Answer: 7.7 miles</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: $4.38 (rounded to nearest cent)</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Subtract: 15.8 - 6.4</div>
-                          <div>Step 2: Align decimals and subtract: 15.8 - 6.4 = 9.4</div>
-                          <div className="font-semibold">Answer: 9.4 gallons</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Subtract: $20.00 - $8.75</div>
-                          <div>Step 2: Align decimals and subtract: $20.00 - $8.75 = $11.25</div>
-                          <div className="font-semibold">Answer: $11.25</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
+{
+          activeDocs.includes('decimal-word-problems') && (
+            <DecimalWordProblems docId="decimal-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
           })()
         }
 
@@ -26559,62 +26290,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
                   </div>
                 </div>
-                {showAnswersForDoc('measurement-word-problems', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>Step 2: Compare: 36 inches &gt; 18 inches</div>
-                          <div className="font-semibold">Answer: Yes, she has enough (36 inches &gt; 18 inches)</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: 96 square feet</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>Step 1: Add: 85 + 12</div>
-                          <div>Step 2: Calculate: 85 + 12 = 97</div>
-                          <div className="font-semibold">Answer: 97 pounds</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: 4 times</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: 60 miles per hour</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: 3 cubic feet</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
+{
+          activeDocs.includes('measurement-word-problems') && (
+            <MeasurementWordProblems docId="measurement-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
           })()
         }
 
@@ -26697,63 +26377,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <strong>{getTrans('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
                   </div>
                 </div>
-                {showAnswersForDoc('geometry-word-problems', () => (
-                  <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCharCode(0x2705)} Answer Key (with steps)</div>
-                    <div className="space-y-3">
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">1. {problems[0]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: Area = 60 sq cm, Perimeter = 32 cm</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">2. {problems[1]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: Area = 64 sq inches, Perimeter = 32 inches</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">3. {problems[2]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: Area = 30 sq cm</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">4. {problems[3]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: Area = 150 sq feet</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3">
-                        <div className="font-semibold mb-2 text-sm">5. {problems[4]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: Diameter = 8 cm</div>
-                        </div>
-                      </div>
-                      <div className="border-b border-emerald-200 pb-3 last:border-b-0">
-                        <div className="font-semibold mb-2 text-sm">6. {problems[5]}</div>
-                        <div className="text-xs text-emerald-800 space-y-1 pl-4">
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div>{String.fromCodePoint(0x279C)}</div>
-                          <div className="font-semibold">Answer: Area = 108 sq feet</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </WorksheetSectionWrapper>
-            );
+{
+          activeDocs.includes('geometry-word-problems') && (
+            <GeometryWordProblems docId="geometry-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
           })()
         }
 
