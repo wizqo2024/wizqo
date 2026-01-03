@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared';
@@ -20,7 +20,7 @@ function useWorksheetTranslation(docId: string) {
 interface SpecificWorksheetProps {
     seed: string
     variant: number
-    showAnswersForDoc: (docId: string, render: () => React.ReactNode) => React.ReactNode
+    showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode
 }
 
 
@@ -883,7 +883,6 @@ export function MultiplicationWindowArrays({ seed, variant, showAnswersForDoc }:
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {problems.map((p, i) => (
                     <div key={i} className="bg-slate-100 border-b-8 border-slate-300 rounded-t-xl p-6 flex flex-col items-center relative">
-                        <div className="absolute top-2 left-2 text-xs font-bold text-slate-400">BLDG-{i + 100}</div>
 
                         {/* The Building */}
                         <div className="bg-blue-900 p-3 rounded-lg shadow-lg mb-4 border-2 border-blue-800" style={{
@@ -923,7 +922,7 @@ export function MultiplicationWindowArrays({ seed, variant, showAnswersForDoc }:
                     <div className="grid grid-cols-2 gap-4 text-xs text-cyan-800">
                         {problems.map((p, i) => (
                             <div key={i}>
-                                <strong>BLDG-{i + 100}:</strong> {p.rows} rows x {p.cols} cols = <strong>{p.product} windows</strong>
+                                <strong>Problem {i + 1}:</strong> {p.rows} rows x {p.cols} cols = <strong>{p.product} windows</strong>
                             </div>
                         ))}
                     </div>
