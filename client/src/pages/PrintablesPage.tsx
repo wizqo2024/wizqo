@@ -25765,11 +25765,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {
 
-          {
-            activeDocs.includes('fraction-word-problems') && (
-              <FractionWordProblems docId="fraction-word-problems" showAnswersForDoc={showAnswersForDoc} />
-            )
-          }
+          activeDocs.includes('fraction-word-problems') && (
+            <FractionWordProblems docId="fraction-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
 
 
         {
@@ -25911,11 +25910,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {
 
-          {
-            activeDocs.includes('decimal-word-problems') && (
-              <DecimalWordProblems docId="decimal-word-problems" showAnswersForDoc={showAnswersForDoc} />
-            )
-          }
+          activeDocs.includes('decimal-word-problems') && (
+            <DecimalWordProblems docId="decimal-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
 
 
         {
@@ -26059,20 +26057,18 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
         {
 
-          {
-            activeDocs.includes('measurement-word-problems') && (
-              <MeasurementWordProblems docId="measurement-word-problems" showAnswersForDoc={showAnswersForDoc} />
-            )
-          }
+          activeDocs.includes('measurement-word-problems') && (
+            <MeasurementWordProblems docId="measurement-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
 
 
         {
 
-          {
-            activeDocs.includes('geometry-word-problems') && (
-              <GeometryWordProblems docId="geometry-word-problems" showAnswersForDoc={showAnswersForDoc} />
-            )
-          }
+          activeDocs.includes('geometry-word-problems') && (
+            <GeometryWordProblems docId="geometry-word-problems" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
 
 
         {
