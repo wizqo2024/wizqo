@@ -48,7 +48,8 @@ import {
   MultiplicationProperties,
   MultiplicationDecimals
 } from './printables/MultiplicationWorksheets'
-EquivFractions4th,
+import {
+  EquivFractions4th,
   ComparingFractions4th,
   AddSubFractions4th,
   MixedImproperFractions
