@@ -537,7 +537,7 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
                             {(data as any).items.map((item: any, i: number) => (
                                 <div key={i} className={`relative flex flex-col items-center justify-center shrink-0 w-20 h-20 sm:w-32 sm:h-32 border-4 rounded-full bg-white shadow-sm transition-all
                                     ${item.missing ? 'border-dashed border-slate-300' : 'border-slate-200 text-slate-700'}`}>
-                                    <span className="text-4xl sm:text-6xl">{item.missing ? <span className="text-slate-200 font-bold">?</span> : item.icon}</span>
+                                    <span className="text-4xl sm:text-6xl">{item.missing ? '' : item.icon}</span>
                                 </div>
                             ))}
                         </div>
