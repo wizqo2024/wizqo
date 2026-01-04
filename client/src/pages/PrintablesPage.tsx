@@ -96,7 +96,8 @@ import {
   DividingBy10And100
 } from './printables/DivisionWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
-import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitionWorksheet } from './printables/KindergartenExtraWorksheets'
+import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitionWorksheet, SpotDifferenceWorksheet } from './printables/KindergartenExtraWorksheets'
+import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories } from './printables/FirstGradeMathWorksheets'
 import {
   PowersOf10,
   RoundingDecimals,
@@ -10618,10 +10619,46 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          ['draw-shape', 'color-recognition', 'shape-sorting', 'color-shapes', 'shape-identification'].map(id =>
+          ['draw-shape', 'color-recognition', 'shape-sorting', 'color-shapes', 'shape-identification', 'missing-shape', 'size-comparison'].map(id =>
             activeDocs.includes(id) && (
               <ShapeWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
             )
+          )
+        }
+
+        {
+          activeDocs.includes('pattern-complete') && (
+            <PatternWorksheet docId='pattern-complete' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('spot-difference') && (
+            <SpotDifferenceWorksheet docId='spot-difference' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('number-line-add') && (
+            <NumberLineAddition docId='number-line-add' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('skip-count-2s') && (
+            <SkipCountingWorksheet docId='skip-count-2s' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('balance-equations-10') && (
+            <BalanceEquations docId='balance-equations-10' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('subtraction-stories') && (
+            <SubtractionStories docId='subtraction-stories' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
           )
         }
 

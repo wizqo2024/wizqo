@@ -143,6 +143,33 @@ export function ComparisonWorksheet({ docId, showAnswersForDoc, seed, variant }:
 
 // --- Pattern Worksheets ---
 
+// Helper function for pattern generation
+const generatePattern = (rng: any, elements: string[], type: 'AB' | 'AAB' | 'ABC') => {
+    const shuffledElements = shuffleArray([...elements], rng);
+    const e1 = shuffledElements[0];
+    const e2 = shuffledElements[1];
+    const e3 = shuffledElements[2];
+
+    let sequence: string[] = [];
+    let answer: string = '';
+    let options: string[] = [];
+
+    if (type === 'AB') {
+        sequence = [e1, e2, e1, e2, e1];
+        answer = e2;
+        options = shuffleArray([e1, e2], rng);
+    } else if (type === 'AAB') {
+        sequence = [e1, e1, e2, e1, e1];
+        answer = e2;
+        options = shuffleArray([e1, e2], rng);
+    } else if (type === 'ABC') {
+        sequence = [e1, e2, e3, e1, e2];
+        answer = e3;
+        options = shuffleArray([e1, e2, e3], rng);
+    }
+    return { sequence, options, answer };
+};
+
 const PATTERN_TYPES: Record<string, { title: string, emoji: string, description: string, generator: (rng: any) => { sequence: string[], options: string[], answer: string } }> = {
     'ab-pattern': {
         title: 'AB Patterns',
@@ -203,6 +230,18 @@ const PATTERN_TYPES: Record<string, { title: string, emoji: string, description:
             const sequence = [e1, e2, e1, e2, e1, e2];
             return { sequence, options: [e1, e2], answer: e1 };
         }
+    },
+    'what-comes-next-shapes': {
+        title: 'What Comes Next?',
+        emoji: '❓',
+        description: 'Draw the shape that comes next in the pattern!',
+        generator: (rng: any) => generatePattern(rng, ['🟥', '🟦', '🟢', '⭐'], 'ABC')
+    },
+    'pattern-complete': {
+        title: 'Complete the Pattern',
+        emoji: '🧩',
+        description: 'Fill in the missing parts of the pattern!',
+        generator: (rng: any) => generatePattern(rng, ['🍎', '🍌', '🍇', '🍊', '🍓'], 'AAB')
     }
 };
 
@@ -289,17 +328,27 @@ const SHAPE_DATA: Record<string, { title: string, emoji: string, description: st
         generator: (rng: any) => {
             const shapes = [
                 { name: 'Circle', icon: '⭕' },
-                { name: 'Square', icon: '🟦' },
-                { name: 'Triangle', icon: '📐' },
+                { name: 'Square', icon: '🟥' },
+                { name: 'Triangle', icon: '🔺' },
                 { name: 'Star', icon: '⭐' },
                 { name: 'Heart', icon: '❤️' },
-                { name: 'Diamond', icon: '💎' }
-            ];
-            const problems = shuffleArray([...shapes], rng).slice(0, 6);
-            return problems.map(s => {
-                const options = shuffleArray([s.name, ...shuffleArray(shapes.filter(sh => sh.name !== s.name), rng).slice(0, 2).map(sh => sh.name)], rng);
-                return { ...s, options };
-            });
+            ]
+            const shape = shapes[Math.floor(rng() * shapes.length)]
+            const options = shuffleArray(shapes.map(s => s.name), rng).slice(0, 3)
+            if (!options.includes(shape.name)) options[0] = shape.name
+            return { shape: shape.icon, correctAnswer: shape.name, options: shuffleArray(options, rng) }
+        }
+    },
+    'missing-shape': {
+        title: 'Missing Shape',
+        emoji: '❓',
+        description: 'Which circle is missing a piece? Draw it in!',
+        generator: (rng: any) => {
+            // Visual logic: 3 complete shapes, 1 incomplete
+            return {
+                type: 'visual-puzzle',
+                items: ['⭕', '🟥', '⭐', '🔺'].map((icon, i) => ({ icon, missing: i === 3 })) // Simple stub logic
+            }
         }
     },
     'color-shapes': {
