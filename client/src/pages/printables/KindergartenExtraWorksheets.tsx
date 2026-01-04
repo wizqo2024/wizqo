@@ -523,6 +523,21 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
                         </div>
                     </div>
                 ))}
+
+                {docId === 'missing-shape' && (
+                    <div className="col-span-1 md:col-span-2 space-y-8">
+                        {/* Display multiple puzzles if needed, but generator returns single object for now. Let's wrap in array or handle single obj */}
+                        <div className="flex flex-wrap justify-center gap-8 p-8 border-2 border-slate-200 rounded-3xl bg-slate-50">
+                            {(data as any).items.map((item: any, i: number) => (
+                                <div key={i} className={`relative flex flex-col items-center justify-center w-32 h-32 border-4 rounded-full bg-white shadow-sm transition-all
+                                    ${item.missing ? 'border-dashed border-slate-300 text-slate-300' : 'border-slate-200 text-slate-700'}`}>
+                                    <span className="text-6xl">{item.missing ? '?' : item.icon}</span>
+                                    {item.missing && <div className="absolute -bottom-8 text-sm font-bold text-slate-400 uppercase tracking-widest">Draw Here</div>}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {showAnswersForDoc(docId, () => (

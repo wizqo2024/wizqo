@@ -10611,15 +10611,16 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          ['ab-pattern', 'color-patterns', 'shape-patterns', 'what-comes-next'].map(id =>
+          ['ab-pattern', 'color-patterns', 'shape-patterns', 'what-comes-next', 'size-comparison'].map(id =>
             activeDocs.includes(id) && (
-              <PatternWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+              id === 'size-comparison' ? <ComparisonWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} /> :
+                <PatternWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
             )
           )
         }
 
         {
-          ['draw-shape', 'color-recognition', 'shape-sorting', 'color-shapes', 'shape-identification', 'missing-shape', 'size-comparison'].map(id =>
+          ['draw-shape', 'color-recognition', 'shape-sorting', 'color-shapes', 'shape-identification', 'missing-shape'].map(id =>
             activeDocs.includes(id) && (
               <ShapeWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
             )
