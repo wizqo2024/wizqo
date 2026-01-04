@@ -94,22 +94,29 @@ export function ComparisonWorksheet({ docId, showAnswersForDoc, seed, variant }:
                 'Use these concepts during everyday activities like sorting groceries or cleaning up toys.'
             ]}
         >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 print:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print:gap-4">
                 {displayPairs.map((pair, i) => (
-                    <div key={i} className="border-2 border-slate-200 rounded-2xl p-6 bg-white flex flex-col items-center justify-center gap-4 hover:border-blue-300 transition-colors break-inside-avoid">
-                        <div className="flex items-center justify-around w-full gap-8">
-                            <div className="flex flex-col items-center gap-2 group cursor-pointer">
-                                <div className="text-6xl md:text-7xl p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors w-32 h-32 flex items-center justify-center">
-                                    {pair.a.icon}
+                    <div key={i} className="border-2 border-slate-200 rounded-2xl p-6 bg-white flex flex-col items-center justify-center gap-6 hover:border-blue-300 transition-colors break-inside-avoid shadow-sm">
+                        <div className="flex items-center justify-between w-full gap-4">
+                            <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                                <div className="text-5xl md:text-6xl p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors min-h-[140px] w-full flex items-center justify-center flex-wrap gap-1 cursor-pointer">
+                                    {/* Handle multi-emoji strings for more-less worksheet */}
+                                    {Array.from(pair.a.icon).map((emoji, idx) => (
+                                        <span key={idx}>{emoji}</span>
+                                    ))}
                                 </div>
-                                <span className="font-semibold text-slate-700">{pair.a.label}</span>
+                                <span className="font-bold text-slate-800 text-center">{pair.a.label}</span>
                             </div>
-                            <div className="text-2xl font-bold text-slate-300">vs</div>
-                            <div className="flex flex-col items-center gap-2 group cursor-pointer">
-                                <div className="text-6xl md:text-7xl p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors w-32 h-32 flex items-center justify-center">
-                                    {pair.b.icon}
+
+                            <div className="text-xl font-black text-slate-200 uppercase tracking-tighter shrink-0">vs</div>
+
+                            <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                                <div className="text-5xl md:text-6xl p-4 bg-slate-50 rounded-2xl group-hover:bg-blue-50 transition-colors min-h-[140px] w-full flex items-center justify-center flex-wrap gap-1 cursor-pointer">
+                                    {Array.from(pair.b.icon).map((emoji, idx) => (
+                                        <span key={idx}>{emoji}</span>
+                                    ))}
                                 </div>
-                                <span className="font-semibold text-slate-700">{pair.b.label}</span>
+                                <span className="font-bold text-slate-800 text-center">{pair.b.label}</span>
                             </div>
                         </div>
                     </div>
