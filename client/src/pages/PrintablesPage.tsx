@@ -1313,6 +1313,10 @@ const BUNDLE_DOC_ALLOWLIST = new Set<string>([
   ...interactiveDocIds,
 ])
 
+// Generate a seed based on today's date for consistent daily content
+const today = new Date()
+const todaySeed = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+
 export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   const { t, language } = useTranslation()
 
