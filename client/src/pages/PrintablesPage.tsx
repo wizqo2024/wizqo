@@ -96,7 +96,7 @@ import {
   DividingBy10And100
 } from './printables/DivisionWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
-import { ComparisonWorksheet, PatternWorksheet } from './printables/KindergartenExtraWorksheets'
+import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitionWorksheet } from './printables/KindergartenExtraWorksheets'
 import {
   PowersOf10,
   RoundingDecimals,
@@ -10613,6 +10613,22 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           ['ab-pattern', 'color-patterns', 'shape-patterns', 'what-comes-next'].map(id =>
             activeDocs.includes(id) && (
               <PatternWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+            )
+          )
+        }
+
+        {
+          ['draw-shape', 'color-recognition', 'shape-sorting', 'color-shapes', 'shape-identification'].map(id =>
+            activeDocs.includes(id) && (
+              <ShapeWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+            )
+          )
+        }
+
+        {
+          ['find-number-1-10', 'number-order-1-20', 'number-matching-1-15', 'number-id-1-10'].map(id =>
+            activeDocs.includes(id) && (
+              <NumberRecognitionWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
             )
           )
         }
