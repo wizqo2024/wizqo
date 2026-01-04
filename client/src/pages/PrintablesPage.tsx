@@ -12404,8 +12404,62 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
+          activeDocs.includes('pemdas-practice') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-practice' }} />
+          )
+        }
+
+        {
           activeDocs.includes('pemdas-exponents') && (
             <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-exponents' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-multistep') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-multistep' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-word-problems') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-word-problems' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-advanced') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-advanced' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-complex') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-complex' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-rules') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-rules' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-mixed-review') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-mixed-review' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-fluency') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-fluency' }} />
+          )
+        }
+
+        {
+          activeDocs.includes('pemdas-step-by-step') && (
+            <OrderOfOperations {...{ seed: effectiveSeed, variant, showAnswersForDoc, docId: 'pemdas-step-by-step' }} />
           )
         }
 
