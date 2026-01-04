@@ -1,4 +1,5 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState, lazy, Suspense } from 'react';
+import * as React from 'react';
+const { useEffect, useLayoutEffect, useMemo, useState, lazy, Suspense } = React;
 import { supabase } from './lib/supabase';
 import { UnifiedNavigation } from './components/UnifiedNavigation';
 import { SplitPlanInterface } from './components/SplitPlanInterface';
@@ -57,9 +58,9 @@ type QuizAnswers = {
 };
 
 export default function App() {
-  const [planData, setPlanData] = useState<any | null>(null);
-  const [hydratedPlan, setHydratedPlan] = useState<any | null>(null);
-  const [hydrating, setHydrating] = useState(false);
+  const [planData, setPlanData] = React.useState<any | null>(null);
+  const [hydratedPlan, setHydratedPlan] = React.useState<any | null>(null);
+  const [hydrating, setHydrating] = React.useState(false);
 
   const handleGeneratePlan = async (hobby: string, answers: QuizAnswers) => {
     // Try to include user_id for per-day limit
@@ -77,7 +78,7 @@ export default function App() {
       body: JSON.stringify({ hobby, ...answers, user_id: userId })
     });
     if (resp.status === 429) {
-      const j = await resp.json().catch(() => ({}));
+      const j = await resp.json().catch(() => ({} as any));
       throw new Error(j?.error === 'plan_limit_reached' ? 'Plan limit reached (5 per account).' : 'Rate limited');
     }
     if (resp.status === 409) {
@@ -115,11 +116,11 @@ export default function App() {
   })();
 
   // NEW: Use proper URL routing with locale support
-  const [route, setRoute] = useState<string>(() => {
+  const [route, setRoute] = React.useState<string>(() => {
     const path = window.location.pathname + window.location.search;
     return path || '/';
   });
-  const [isNavigating, setIsNavigating] = useState(false);
+  const [isNavigating, setIsNavigating] = React.useState(false);
 
   // NEW: Navigation function that updates URL properly and preserves locale
   const navigateTo = React.useCallback((path: string) => {
@@ -521,7 +522,7 @@ export default function App() {
                     return (
                       <>
                         <SEOMetaTags
-                          title={worksheetSEO?.title || `${routeSubKey.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())} Worksheet`}
+                          title={worksheetSEO?.title || `${routeSubKey.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())} Worksheet`}
                           description={worksheetSEO?.metaDescription || `Free printable ${routeSubKey.replace(/-/g, ' ')} worksheet.`}
                           keywords={worksheetSEO?.keywords || `${routeSubKey}, worksheet, printable`}
                           canonicalUrl={`https://wizqo.com${canonical}`}
@@ -584,6 +585,15 @@ export default function App() {
                     '3rd-grade-math-worksheets',
                     '4th-grade-math-worksheets',
                     '5th-grade-math-worksheets',
+                    'geometry-worksheets',
+                    'geography-worksheets',
+                    'measurement-worksheets',
+                    'logic-worksheets',
+                    'decimal-worksheets',
+                    'math-maze-worksheets',
+                    'data-analysis-worksheets',
+                    'word-problem-worksheets',
+                    'science-worksheets',
                     'all',
                     'match-object-to-shadow'
                   ];
@@ -756,6 +766,23 @@ export default function App() {
                           canonicalUrl={`https://wizqo.com${canonical}`}
                         />
                         <WorksheetsFifthGradePage />
+                      </>
+                    );
+                  }
+
+                  // Handle remaining collection categories
+                  if (routeSubKey && categoryPages.includes(routeSubKey)) {
+                    const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
+                    const title = routeSubKey.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                    return (
+                      <>
+                        <SEOMetaTags
+                          title={`Free Printable ${title} – PDF & Answer Keys | Wizqo`}
+                          description={`Download free printable ${title.toLowerCase()}. Perfect for students and teachers! High-quality PDFs with answer keys included.`}
+                          keywords={`${title.toLowerCase()}, worksheets, free, printable, pdf`}
+                          canonicalUrl={`https://wizqo.com${canonical}`}
+                        />
+                        <PrintablesPage docId={routeSubKey} />
                       </>
                     );
                   }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-const { Component, Fragment, useEffect, useRef, useMemo, useState, useCallback, useReducer, isValidElement, memo } = React
+const { Component, Fragment, useEffect, useLayoutEffect, useRef, useMemo, useState, useCallback, useReducer, isValidElement, memo, lazy, Suspense } = React
 type ErrorInfo = React.ErrorInfo<any>
 type ReactNode = React.ReactNode
 type FC<P = {}> = React.FC<P>
@@ -100,7 +100,7 @@ import {
 } from './printables/DivisionWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
 import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitionWorksheet, SpotDifferenceWorksheet } from './printables/KindergartenExtraWorksheets'
-import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50, DoublesFacts, PictureAddition10 } from './printables/FirstGradeMathWorksheets'
+import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10 } from './printables/FirstGradeMathWorksheets'
 import { SentenceBuilding } from './printables/LanguageWorksheets'
 import { FractionBasicID } from './printables/FractionWorksheets'
 import {
@@ -2804,6 +2804,33 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   if (from === 'handwriting') {
                     return '/worksheets/handwriting-worksheet-maker'
                   }
+                  if (from === 'geometry-worksheets' || from === 'geometry') {
+                    return '/printables/geometry-worksheets'
+                  }
+                  if (from === 'geography-worksheets' || from === 'geography') {
+                    return '/printables/geography-worksheets'
+                  }
+                  if (from === 'measurement-worksheets' || from === 'measurement') {
+                    return '/printables/measurement-worksheets'
+                  }
+                  if (from === 'logic-worksheets' || from === 'logic') {
+                    return '/printables/logic-worksheets'
+                  }
+                  if (from === 'decimal-worksheets' || from === 'decimal') {
+                    return '/printables/decimal-worksheets'
+                  }
+                  if (from === 'math-maze-worksheets' || from === 'math-maze') {
+                    return '/printables/math-maze-worksheets'
+                  }
+                  if (from === 'data-analysis-worksheets') {
+                    return '/printables/data-analysis-worksheets'
+                  }
+                  if (from === 'word-problem-worksheets') {
+                    return '/printables/word-problem-worksheets'
+                  }
+                  if (from === 'science-worksheets') {
+                    return '/printables/science-worksheets'
+                  }
                   if (from === 'all') {
                     return '/worksheets/all'
                   }
@@ -2900,6 +2927,33 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   }
                   if (from === 'handwriting') {
                     return t('pages.handwriting.title')
+                  }
+                  if (from === 'geometry-worksheets' || from === 'geometry') {
+                    return 'Back to Geometry Worksheets'
+                  }
+                  if (from === 'geography-worksheets' || from === 'geography') {
+                    return 'Back to Geography Worksheets'
+                  }
+                  if (from === 'measurement-worksheets' || from === 'measurement') {
+                    return 'Back to Measurement Worksheets'
+                  }
+                  if (from === 'logic-worksheets' || from === 'logic') {
+                    return 'Back to Logic Worksheets'
+                  }
+                  if (from === 'decimal-worksheets' || from === 'decimal') {
+                    return 'Back to Decimals Worksheets'
+                  }
+                  if (from === 'math-maze-worksheets' || from === 'math-maze') {
+                    return 'Back to Math Maze Worksheets'
+                  }
+                  if (from === 'data-analysis-worksheets') {
+                    return 'Back to Data Analysis Worksheets'
+                  }
+                  if (from === 'word-problem-worksheets') {
+                    return 'Back to Word Problem Worksheets'
+                  }
+                  if (from === 'science-worksheets') {
+                    return 'Back to Science Worksheets'
                   }
                   if (from === 'all') {
                     return t('pages.printables.backToAllWorksheets')

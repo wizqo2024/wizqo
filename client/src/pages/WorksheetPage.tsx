@@ -1,5 +1,6 @@
 /** @jsxImportSource react */
 import * as React from 'react'
+const { useEffect, useState, useMemo, useCallback } = React
 import { useTranslation } from '@/context/TranslationContext'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
@@ -20,8 +21,8 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
   }
 
   const { t, isRTL } = useTranslation()
-  const [seoData, setSeoData] = React.useState<any>(null)
-  const [notFound, setNotFound] = React.useState(false)
+  const [seoData, setSeoData] = useState<any>(null)
+  const [notFound, setNotFound] = useState(false)
 
   React.useEffect(() => {
     const data = getWorksheetSEOBySlug(slug)
@@ -63,19 +64,33 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         ? 'reading-comprehension'
         : seoData.category.includes('order-of-operations')
           ? 'order-of-operations-worksheets'
-          : seoData.grade.includes('5th Grade')
-            ? '5th-grade-math-worksheets'
-            : seoData.grade.includes('4th Grade')
-              ? '4th-grade-math-worksheets'
-              : seoData.grade.includes('3rd Grade')
-                ? '3rd-grade-math-worksheets'
-                : seoData.grade.includes('2nd Grade')
-                  ? '2nd-grade-math-worksheets'
-                  : seoData.grade.includes('1st Grade')
-                    ? '1st-grade-math-worksheets'
-                    : seoData.grade.includes('Kindergarten')
-                      ? 'kindergarten-math-worksheets'
-                      : null
+          : seoData.category.includes('geometry')
+            ? 'geometry-worksheets'
+            : seoData.category.includes('geography')
+              ? 'geography-worksheets'
+              : seoData.category.includes('measurement')
+                ? 'measurement-worksheets'
+                : seoData.category.includes('logic')
+                  ? 'logic-worksheets'
+                  : seoData.category.includes('decimal')
+                    ? 'decimal-worksheets'
+                    : seoData.category.includes('math-maze')
+                      ? 'math-maze-worksheets'
+                      : seoData.category.includes('science')
+                        ? 'science-worksheets'
+                        : seoData.grade.includes('5th Grade')
+                          ? '5th-grade-math-worksheets'
+                          : seoData.grade.includes('4th Grade')
+                            ? '4th-grade-math-worksheets'
+                            : seoData.grade.includes('3rd Grade')
+                              ? '3rd-grade-math-worksheets'
+                              : seoData.grade.includes('2nd Grade')
+                                ? '2nd-grade-math-worksheets'
+                                : seoData.grade.includes('1st Grade')
+                                  ? '1st-grade-math-worksheets'
+                                  : seoData.grade.includes('Kindergarten')
+                                    ? 'kindergarten-math-worksheets'
+                                    : null
 
   const categoryUrl = categorySlug ? `/worksheets/${categorySlug}` : '/worksheets'
 
