@@ -570,20 +570,53 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
                 )}
             </div>
 
-            {showAnswersForDoc(docId, () => (
-                <div className="mt-8 p-6 bg-blue-50 border-2 border-blue-200 rounded-2xl print:bg-white">
-                    <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
-                        <span>💡</span> Teaching Guide
-                    </h3>
-                    <p className="text-sm text-blue-800 leading-relaxed italic">
-                        {docId === 'shape-identification' ? 'Ensure students can correctly identify each shape by name.' :
-                            docId === 'color-shapes' ? 'Check if students follow both the color and shape instructions.' :
+            {showAnswersForDoc(docId, () =>
+                docId === 'missing-shape' ? (
+                    <div className="mt-8 p-6 bg-purple-50 border-2 border-purple-200 rounded-2xl print:bg-white print:border-slate-300">
+                        <h3 className="text-lg font-bold text-purple-900 print:text-slate-900 mb-4 flex items-center gap-2">
+                            <span>✨</span> Answer Key
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {(data as any[]).map((problem: any, i: number) => {
+                                const missingItem = problem.items.find((it: any) => it.missing);
+                                return (
+                                    <div key={i} className="flex items-center gap-3 text-sm">
+                                        <span className="font-bold text-slate-500">Row {i + 1}:</span>
+                                        <span>The missing shape is</span>
+                                        <span className="text-2xl">{missingItem ? missingItem.icon : '?'}</span>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                ) : docId === 'shape-identification' ? (
+                    <div className="mt-8 p-6 bg-emerald-50 border-2 border-emerald-200 rounded-2xl print:bg-white print:border-slate-300">
+                        <h3 className="text-lg font-bold text-emerald-900 print:text-slate-900 mb-4 flex items-center gap-2">
+                            <span>✅</span> Answer Key
+                        </h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            {(data as any[]).map((item: any, i: number) => (
+                                <div key={i} className="flex items-center gap-3">
+                                    <span className="text-2xl">{item.shape}</span>
+                                    <span className="font-bold text-slate-700">is a {item.correctAnswer}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div className="mt-8 p-6 bg-blue-50 border-2 border-blue-200 rounded-2xl print:bg-white">
+                        <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                            <span>💡</span> Teaching Guide
+                        </h3>
+                        <p className="text-sm text-blue-800 leading-relaxed italic">
+                            {docId === 'color-shapes' ? 'Check if students follow both the color and shape instructions.' :
                                 docId === 'shape-sorting' ? 'Round items go in the Round box, items with corners go in the other.' :
                                     docId === 'color-recognition' ? 'Listen for correct pronunciation and immediate recognition of each color.' :
                                         'Focus on proper pencil grip and following the directional flow of the shapes.'}
-                    </p>
-                </div>
-            ))}
+                        </p>
+                    </div>
+                )
+            )}
         </WorksheetSectionWrapper>
     );
 }
