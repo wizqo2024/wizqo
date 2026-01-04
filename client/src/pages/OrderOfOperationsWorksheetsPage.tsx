@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import * as React from 'react'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
@@ -19,12 +19,13 @@ interface WorksheetItem {
   customDownloadUrl?: string
 }
 
+// ...
+
 export default function OrderOfOperationsWorksheetsPage() {
   const { t, language, isRTL } = useTranslation()
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
-  React.useEffect(() => { }, [language])
 
-  const PEMDAS_CATEGORIES: Category[] = useMemo(() => [
+  const PEMDAS_CATEGORIES: Category[] = React.useMemo(() => [
     { id: 'basic', label: 'Basic PEMDAS', icon: '🔢' },
     { id: 'parentheses', label: 'With Parentheses', icon: '📝' },
     { id: 'exponents', label: 'With Exponents', icon: '⚡' },
@@ -33,7 +34,7 @@ export default function OrderOfOperationsWorksheetsPage() {
     { id: 'practice', label: 'Practice Sheets', icon: '✏️' },
   ], [])
 
-  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+  const [selectedCategories, setSelectedCategories] = React.useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
     setSelectedCategories((prev) => {
@@ -55,7 +56,7 @@ export default function OrderOfOperationsWorksheetsPage() {
   }
 
   // Define all worksheets with their categories - unique PEMDAS worksheets
-  const allWorksheets: WorksheetItem[] = useMemo(() => [
+  const allWorksheets: WorksheetItem[] = React.useMemo(() => [
     // 4th Grade - Beginner worksheets
     { title: 'Basic Order of Operations (PEMDAS)', description: 'Start with simple expressions using multiplication, division, addition, and subtraction. Perfect for building confidence in 4th grade students.', href: getWorksheetURL('pemdas-basic', 'order-of-operations'), docId: 'pemdas-basic', categories: ['basic', 'practice'], gradeRange: '4th' },
     { title: 'PEMDAS with Parentheses', description: 'Practice solving expressions with parentheses. Step-by-step exercises that help kids understand which operations come first.', href: getWorksheetURL('pemdas-parentheses', 'order-of-operations'), docId: 'pemdas-parentheses', categories: ['parentheses', 'basic'], gradeRange: '4th' },
@@ -75,7 +76,7 @@ export default function OrderOfOperationsWorksheetsPage() {
   ], [])
 
   // Filter worksheets based on selected categories
-  const filteredWorksheets = useMemo(() => {
+  const filteredWorksheets = React.useMemo(() => {
     // Reverse the array to show newly added worksheets (at the bottom of the list) first
     const newestFirst = [...allWorksheets].reverse()
     if (selectedCategories.size === 0) return newestFirst
@@ -85,7 +86,7 @@ export default function OrderOfOperationsWorksheetsPage() {
   }, [selectedCategories, allWorksheets])
 
   // Group filtered worksheets by grade range
-  const groupedWorksheets = useMemo(() => {
+  const groupedWorksheets = React.useMemo(() => {
     const groups: Record<string, WorksheetItem[]> = {}
     filteredWorksheets.forEach((ws) => {
       const range = ws.gradeRange || 'All'
