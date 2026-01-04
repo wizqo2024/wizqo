@@ -501,13 +501,13 @@ export function MissingAddends({ showAnswersForDoc, seed, variant }: SpecificWor
                     <div key={i} className="flex items-center justify-center p-6 bg-indigo-50/50 rounded-xl border border-indigo-100 shadow-sm print:bg-white print:border-slate-300 break-inside-avoid">
                         <div className="flex items-center gap-3 text-2xl font-bold font-mono text-slate-700">
                             {p.hideA ? (
-                                <div className="w-12 h-12 bg-white border-2 border-indigo-300 rounded flex items-center justify-center text-indigo-300 shadow-inner">?</div>
+                                <div className="w-12 h-12 bg-white border-2 border-indigo-300 rounded flex items-center justify-center text-indigo-300 shadow-inner"></div>
                             ) : (
                                 <span>{p.a}</span>
                             )}
                             <span className="text-indigo-400">+</span>
                             {!p.hideA ? (
-                                <div className="w-12 h-12 bg-white border-2 border-indigo-300 rounded flex items-center justify-center text-indigo-300 shadow-inner">?</div>
+                                <div className="w-12 h-12 bg-white border-2 border-indigo-300 rounded flex items-center justify-center text-indigo-300 shadow-inner"></div>
                             ) : (
                                 <span>{p.b}</span>
                             )}
