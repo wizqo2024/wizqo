@@ -2799,6 +2799,18 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   if (from === 'fractions-to-decimals') {
                     return '/worksheets/fractions-to-decimals-worksheets'
                   }
+                  if (from === 'handwriting') {
+                    return '/worksheets/handwriting-worksheet-maker'
+                  }
+                  if (from === 'all') {
+                    return '/worksheets/all'
+                  }
+
+                  // Robust fallback: if 'from' looks like a full internal path, use it
+                  if (from && (from.startsWith('/') || from.includes('-worksheets'))) {
+                    if (from.startsWith('/')) return from
+                    return `/worksheets/${from}`
+                  }
                   // Determine category anchor by doc or bundle selection
                   const cat = (() => {
                     if (docId === 'bundle') {
@@ -2871,6 +2883,19 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   }
                   if (from === 'times-table') {
                     return t('pages.printables.backToTimesTable')
+                  }
+                  if (from === 'fractions-to-decimals') {
+                    return t('pages.printables.backToFractionsToDecimals')
+                  }
+                  if (from === 'handwriting') {
+                    return t('pages.handwriting.title')
+                  }
+                  if (from === 'all') {
+                    return t('pages.printables.backToAllWorksheets')
+                  }
+                  if (from && from.includes('grade')) {
+                    // Title-ize if we don't have a specific translation
+                    return `Back to ${from.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}`
                   }
                   return t('pages.printables.backPrintablePage')
                 } catch {

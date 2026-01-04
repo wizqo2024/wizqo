@@ -11,11 +11,12 @@ import { getWorksheetSEO } from '@shared/worksheetSEO'
  */
 export function getWorksheetURL(docId: string, fallbackFrom?: string): string {
   const seo = getWorksheetSEO(docId)
+  const from = fallbackFrom || 'worksheets'
+
   if (seo) {
-    return `/worksheets/${seo.slug}`
+    return `/worksheets/${seo.slug}${from ? `?from=${from}` : ''}`
   }
   // Fallback to print URL if SEO data not available
-  const from = fallbackFrom || 'worksheets'
   return `/print?doc=${docId}&from=${from}`
 }
 

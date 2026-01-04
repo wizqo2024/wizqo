@@ -18,7 +18,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
   }
 
   const { t, isRTL } = useTranslation()
-  const [seoData, setSeoData] = React.useState<ReturnType<typeof getWorksheetSEOBySlug> | null>(null)
+  const [seoData, setSeoData] = React.useState<any>(null)
   const [notFound, setNotFound] = React.useState(false)
 
   React.useEffect(() => {
@@ -48,8 +48,11 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
     )
   }
 
+  // Get 'from' parameter from URL
+  const fromParam = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('from') : null
+
   // Get print URL (noindexed route) - include 'from' parameter for tracking and 'autoprint=1' to auto-open print dialog
-  const printUrl = `/print?doc=${seoData.docId}&from=${slug}&autoprint=1`
+  const printUrl = `/print?doc=${seoData.docId}&from=${fromParam || slug}&autoprint=1`
 
   // Get category page URL
   const categoryUrl = seoData.category.includes('multiplication')
@@ -110,12 +113,12 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
           <header className="mb-6 print:hidden">
             <h1 className="text-3xl font-bold text-slate-900 mb-4">{seoData.h1}</h1>
             <div className="flex flex-wrap gap-2 mb-4">
-              {seoData.grade.map(g => (
+              {seoData.grade.map((g: string) => (
                 <span key={g} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
                   {g}
                 </span>
               ))}
-              {seoData.category.map(c => (
+              {seoData.category.map((c: string) => (
                 <span key={c} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
                   {c}
                 </span>
@@ -162,7 +165,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             <div className="mt-8 pt-8 border-t border-slate-200 print:hidden">
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Related Worksheets</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {seoData.relatedDocIds.slice(0, 4).map(relatedDocId => {
+                {seoData.relatedDocIds.slice(0, 4).map((relatedDocId: string) => {
                   const related = getWorksheetSEO(relatedDocId)
                   if (!related) return null
                   return (

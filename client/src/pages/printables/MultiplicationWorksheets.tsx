@@ -1,8 +1,10 @@
+/** @jsxImportSource react */
 import React from 'react';
-type ReactNode = React.ReactNode;
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared';
+
+type ReactNode = React.ReactNode;
 
 // Helper for translations with fallback
 function useWorksheetTranslation(docId: string) {
@@ -79,22 +81,40 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
                     }}
                 />
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {problems.map((p, i) => (
-                        <div key={i} className="relative bg-white border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center shadow-sm overflow-hidden">
-                            <div className="absolute -right-4 -top-4 w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold text-xs pt-2 pr-2">#{i + 1}</div>
-
-                            <div className="z-10 flex flex-col items-end">
-                                <div className="text-2xl font-black text-slate-700">{p.a}</div>
-                                <div className="flex items-center gap-1 text-2xl font-black text-slate-700">
-                                    <span className="text-base text-slate-400">x</span> {p.b}
-                                </div>
-                                <div className="w-full h-1 bg-slate-800 my-1"></div>
-                                <div className="w-16 h-10 border-2 border-dashed border-blue-300 bg-blue-50 rounded flex items-center justify-center text-xl font-bold text-blue-800"></div>
+                        <div key={i} className="relative bg-white border-2 border-slate-200 rounded-2xl p-6 flex flex-col items-center shadow-sm hover:shadow-md transition-shadow group overflow-hidden">
+                            {/* Problem Number Shield */}
+                            <div className="absolute -left-2 -top-2 w-10 h-10 bg-yellow-400 text-blue-900 rounded-lg flex items-center justify-center font-black text-xs rotate-[-15deg] shadow-sm z-20 border-2 border-yellow-500">
+                                {i + 1}
                             </div>
 
-                            {/* Background Shield Opacity */}
-                            <div className="absolute bottom-1 left-1 text-4xl opacity-10">{String.fromCodePoint(0x1F4A1)}</div>
+                            <div className="z-10 flex flex-col items-center w-full">
+                                <div className="text-4xl font-black text-slate-800 mb-1 flex items-center gap-4">
+                                    <div className="flex flex-col items-end">
+                                        <span>{p.a}</span>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xl text-blue-500 font-bold">×</span>
+                                            <span>{p.b}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full h-1.5 bg-slate-900 rounded-full my-2"></div>
+                                <div className="w-full h-14 border-4 border-dashed border-blue-200 bg-blue-50/50 rounded-xl flex items-center justify-center text-2xl font-black text-blue-700 shadow-inner">
+                                </div>
+                            </div>
+
+                            {/* Background Hero Decoration */}
+                            <div className="absolute -right-2 -bottom-2 text-6xl opacity-[0.03] group-hover:scale-125 group-hover:opacity-[0.06] transition-all duration-500 rotate-12">
+                                {String.fromCodePoint(0x1F680)}
+                            </div>
+
+                            {/* Fact Shield Watermark */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
+                                <svg viewBox="0 0 100 100" className="w-32 h-32 fill-blue-900 translate-y-2">
+                                    <path d="M50 5 L10 25 L10 50 C10 75 50 95 50 95 C50 95 90 75 90 50 L90 25 L50 5 Z" />
+                                </svg>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -168,21 +188,21 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
             })()}
         >
             <PremiumWorksheetBanner
-                title={isAdvanced ? "Advanced Skills" : "Foundation Training"}
-                subtitle={isAdvanced ? "6-12 Multiplication" : "1-5 Multiplication"}
+                title={isAdvanced ? "Space Colony Master" : "Foundation Training"}
+                subtitle={isAdvanced ? "6-12 Multiplication Universe" : "1-5 Multiplication Facts"}
                 icons={{
-                    bg1: isAdvanced ? "🚀" : "🎯",
-                    bg2: "✖️",
+                    bg1: isAdvanced ? "🪐" : "🎯",
+                    bg2: isAdvanced ? "👨‍🚀" : "✖️",
                     float1: isAdvanced ? "🌟" : "💡",
-                    float2: "⚡"
+                    float2: isAdvanced ? "🚀" : "⚡"
                 }}
                 colors={{
-                    bg: isAdvanced ? "bg-purple-50" : "bg-blue-50",
-                    border: isAdvanced ? "border-purple-200" : "border-blue-200",
-                    pillBg: "bg-white/90",
-                    pillBorder: isAdvanced ? "border-purple-300" : "border-blue-300",
-                    pillText: isAdvanced ? "text-purple-900" : "text-blue-900",
-                    accent: isAdvanced ? "text-purple-200" : "text-blue-200"
+                    bg: isAdvanced ? "bg-gradient-to-br from-indigo-900 to-purple-900 text-white border-b-4 border-yellow-400" : "bg-blue-50",
+                    border: isAdvanced ? "border-indigo-400" : "border-blue-200",
+                    pillBg: isAdvanced ? "bg-yellow-400" : "bg-white/90",
+                    pillBorder: isAdvanced ? "border-yellow-500" : "border-blue-300",
+                    pillText: isAdvanced ? "text-indigo-900" : "text-blue-900",
+                    accent: isAdvanced ? "text-white/20" : "text-blue-200"
                 }}
             />
 
@@ -232,18 +252,27 @@ export function MultiplicationFacts({ seed, variant, showAnswersForDoc, docId, r
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className={`grid ${isAdvanced ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2'} gap-6 break-inside-avoid`} style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                    <div key={i} className={`relative border-2 border-${isAdvanced ? 'purple' : 'blue'}-100 rounded-2xl p-6 bg-white hover:border-${isAdvanced ? 'purple' : 'blue'}-300 transition-all group break-inside-avoid shadow-sm`}>
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="flex items-center gap-3 text-2xl font-black text-slate-700">
-                                <span className="w-6 text-[10px] font-black text-slate-300 mr-2">{i + 1}</span>
+                    <div key={i} className={`relative border-2 ${isAdvanced ? 'border-indigo-100 bg-white shadow-sm' : 'border-blue-100 bg-white'} rounded-3xl p-6 hover:border-${isAdvanced ? 'indigo' : 'blue'}-300 transition-all group break-inside-avoid shadow-sm overflow-hidden`}>
+                        {/* Number Badge */}
+                        <div className={`absolute -right-3 -top-3 w-10 h-10 ${isAdvanced ? 'bg-indigo-600' : 'bg-blue-500'} text-white rounded-xl flex items-center justify-center font-black text-xs rotate-12 shadow-md z-10`}>
+                            {i + 1}
+                        </div>
+
+                        <div className="flex flex-col items-center gap-3">
+                            <div className="flex items-center gap-4 text-3xl font-black text-slate-800">
                                 <span>{a}</span>
-                                <span className={`text-${isAdvanced ? 'purple' : 'blue'}-400 scale-75`}>×</span>
+                                <span className={`${isAdvanced ? 'text-indigo-400' : 'text-blue-400'} scale-90`}>×</span>
                                 <span>{b}</span>
                                 <span className="text-slate-300">=</span>
-                                <div className={`w-16 h-10 border-b-4 border-dashed border-${isAdvanced ? 'purple' : 'blue'}-300 bg-${isAdvanced ? 'purple' : 'blue'}-50/30 rounded-lg`} />
                             </div>
+                            <div className={`w-full h-14 border-4 border-dashed ${isAdvanced ? 'border-indigo-100 bg-indigo-50/30' : 'border-blue-100 bg-blue-50/30'} rounded-2xl flex items-center justify-center`} />
+                        </div>
+
+                        {/* Thematic Icon Watermark */}
+                        <div className={`absolute -bottom-2 -left-2 text-5xl opacity-[0.03] group-hover:scale-110 transition-transform ${isAdvanced ? 'rotate-[-20deg]' : ''}`}>
+                            {isAdvanced ? '🪐' : '💡'}
                         </div>
                     </div>
                 ))}
@@ -1706,51 +1735,78 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
 
             <div className="space-y-8">
                 {problems.map((prob, i) => (
-                    <div key={i} className={`relative overflow-hidden bg-white border-2 border-slate-100 rounded-2xl p-6 shadow-sm hover:border-${themeColor}-200 transition-colors break-inside-avoid`}>
-                        <div className={`absolute top-0 right-0 bg-${themeColor}-100 text-${themeColor}-800 px-4 py-1 rounded-bl-xl font-bold text-xs uppercase tracking-widest`}>Task #{i + 1}</div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="flex-grow">
-                                <div className="text-lg font-medium text-slate-800 mb-6 leading-relaxed pt-2">
-                                    {prob.text}
+                    <div key={i} className={`relative overflow-hidden bg-white border-2 border-slate-200 rounded-2xl p-0 shadow-sm hover:border-${themeColor}-300 transition-colors break-inside-avoid`}>
+                        {/* Case File Header */}
+                        <div className={`bg-${themeColor}-50 border-b-2 border-slate-100 p-4 flex justify-between items-center`}>
+                            <div className="flex items-center gap-3">
+                                <div className={`w-10 h-10 rounded-lg bg-white border-2 border-${themeColor}-200 flex items-center justify-center shadow-sm`}>
+                                    <span className="text-xl">🕵️</span>
                                 </div>
+                                <div>
+                                    <div className={`text-[10px] font-black text-${themeColor}-500 uppercase tracking-widest leading-none mb-1`}>Evidence Set</div>
+                                    <div className="text-sm font-bold text-slate-700">Case Inquiry #{i + 1}</div>
+                                </div>
+                            </div>
+                            <div className={`text-[10px] font-black text-slate-400 uppercase tracking-widest bg-white px-3 py-1 rounded-full border border-slate-100 shadow-sm`}>
+                                Status: <span className={`text-${themeColor}-600`}>Open Investigation</span>
+                            </div>
+                        </div>
 
-                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
-                                    <div className="lg:col-span-12 xl:col-span-7 space-y-2">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <span className="p-1 px-2 bg-slate-800 text-white text-[9px] font-black uppercase rounded tracking-widest">Workspace</span>
-                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Strategic Thinking Area</span>
+                        <div className="p-6">
+                            <div className="flex gap-4 items-start">
+                                <div className="flex-grow">
+                                    <div className="text-lg font-medium text-slate-800 mb-8 leading-relaxed">
+                                        {prob.text}
+                                    </div>
+
+                                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                                        {/* Strategic Workspace */}
+                                        <div className="lg:col-span-7 space-y-3">
+                                            <div className="flex items-center gap-2">
+                                                <div className={`w-2 h-2 rounded-full bg-${themeColor}-400 shadow-[0_0_8px_rgba(0,0,0,0.1)]`} />
+                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Workspace: Action Plan</span>
+                                            </div>
+                                            <div className="min-h-[220px] border-2 border-slate-100 rounded-2xl bg-white relative group overflow-hidden shadow-inner">
+                                                {/* Grid Background */}
+                                                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
+                                                <div className="absolute inset-0 flex items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity">
+                                                    <div className="text-center space-y-1">
+                                                        <div className="text-slate-300 text-sm italic font-medium">Draw models or sketch calculations...</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="min-h-[180px] border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50 relative group">
-                                            <div className="absolute inset-4 border border-slate-100 flex items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity">
-                                                <span className="text-slate-300 text-sm italic">Sketch patterns, arrays, or bar models here...</span>
+
+                                        {/* Official Debrief (Answer Section) */}
+                                        <div className="lg:col-span-5 flex flex-col h-full space-y-4">
+                                            <div className={`bg-slate-50 border-2 border-slate-100 rounded-2xl p-5 space-y-6 flex-grow shadow-sm`}>
+                                                <div className="space-y-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                                                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Official Equation</span>
+                                                    </div>
+                                                    <div className="h-14 bg-white border-2 border-slate-200 rounded-xl shadow-inner flex items-center px-4" />
+                                                </div>
+
+                                                <div className="space-y-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className={`w-1.5 h-1.5 rounded-full bg-${themeColor}-400`} />
+                                                        <span className={`text-[10px] font-black text-${themeColor}-500 uppercase tracking-widest leading-none`}>Final Solution</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-3">
+                                                        <div className={`flex-grow h-16 bg-white border-b-4 border-${themeColor}-200 border-2 border-${themeColor}-100 rounded-2xl shadow-sm flex items-center px-4`} />
+                                                        <div className={`text-slate-500 font-bold text-xs bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 shadow-sm`}>{prob.answerUnit}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Stamp Decoration */}
+                                            <div className="self-end mr-2 text-[10px] font-black text-white bg-slate-800 px-4 py-2 rounded-lg rotate-3 uppercase tracking-widest shadow-lg">
+                                                Verified Item
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="lg:col-span-12 xl:col-span-5 flex flex-col h-full">
-                                        <div className="bg-slate-50 border-2 border-slate-100 rounded-2xl p-5 space-y-5 h-full flex flex-col justify-between shadow-inner">
-                                            <div className="space-y-2">
-                                                <div className="flex justify-between items-center text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                                    <span>Equation</span>
-                                                    <span className="text-slate-300 lowercase font-normal italic">Show your steps</span>
-                                                </div>
-                                                <div className="h-12 bg-white border-2 border-slate-200 rounded-xl shadow-sm" />
-                                            </div>
-
-                                            <div className="space-y-2">
-                                                <div className="flex justify-between items-center text-[10px] font-black text-indigo-400 uppercase tracking-widest">
-                                                    <span>Final Answer</span>
-                                                    <span className="text-indigo-300 lowercase font-normal italic">Including units</span>
-                                                </div>
-                                                <div className="flex items-center gap-3">
-                                                    <div className="flex-grow h-14 bg-white border-b-4 border-indigo-200 border-2 border-indigo-100 rounded-xl shadow-sm flex items-center px-4" />
-                                                    <div className="text-slate-400 font-bold italic text-sm whitespace-nowrap bg-slate-100 px-3 py-1 rounded-full">{prob.answerUnit}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -2003,45 +2059,46 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
 
     // Helper to render a vertical problem
     const renderVerticalProblem = (a: number, b: number, showSolution = false) => {
-        const aStr = a.toString();
-        const bStr = b.toString();
         const product = a * b;
+        const aStr = a.toString();
 
-        // Calculations for solution display
-        const ones = a % 10;
-        const tens = Math.floor(a / 10);
-
-        // For 2x1
-        const bOnes = b % 10;
-        const line1 = a * bOnes;
-
-        // For 2x2
-        const bTens = Math.floor(b / 10);
-        const line2 = a * bTens; // Actual value (e.g. 240) but we might display 24 with offset
+        // Find how many carry boxes we need (size of top number)
+        const carryBoxes = Array.from({ length: aStr.length }).map((_, i) => i);
 
         return (
-            <div className="inline-block font-mono text-xl leading-none text-right mx-auto">
-                <div className="tracking-widest">{a}</div>
-                <div className="tracking-widest border-b-2 border-slate-800 mb-1 pb-1 relative">
-                    <span className="absolute left-[-1ch] bottom-1">{String.fromCharCode(0x00D7)}</span>
-                    {b}
+            <div className="flex flex-col items-center">
+                {/* Regrouping / Carry Boxes */}
+                <div className="flex justify-end w-full pr-1 mb-1 gap-1">
+                    {carryBoxes.map(i => (
+                        <div key={i} className="w-6 h-6 border-2 border-orange-200 bg-orange-50/50 rounded flex items-center justify-center text-[10px] font-bold text-orange-600 shadow-inner">
+                            {/* Carry digit would go here */}
+                        </div>
+                    ))}
                 </div>
-                {showSolution && (
-                    <div className="leading-snug text-emerald-700 font-bold">
-                        {digitsBottom === 2 ? (
-                            <>
-                                <div>{line1}</div>
-                                <div>{line2}0</div>
-                                <div className="border-t border-slate-400 pt-1">{product}</div>
-                            </>
-                        ) : (
-                            <div>{product}</div>
-                        )}
+
+                <div className="inline-block font-mono text-3xl leading-none text-right">
+                    <div className="tracking-[0.2em] pr-1">{a}</div>
+                    <div className="tracking-[0.2em] border-b-4 border-slate-800 mb-2 pb-2 relative pr-1">
+                        <span className="absolute left-[-1.5ch] bottom-2 text-xl text-orange-500 font-black">{String.fromCharCode(0x00D7)}</span>
+                        {b}
                     </div>
-                )}
-                {!showSolution && (
-                    <div className="h-16 w-full"></div>
-                )}
+                    {showSolution && (
+                        <div className="leading-tight text-emerald-700 font-black tracking-[0.2em] pr-1">
+                            {digitsBottom === 2 ? (
+                                <div className="space-y-1">
+                                    <div className="opacity-50 text-xl">{(a * (b % 10))}</div>
+                                    <div className="opacity-50 text-xl">{(a * Math.floor(b / 10))}0</div>
+                                    <div className="border-t-2 border-emerald-200 pt-1">{product}</div>
+                                </div>
+                            ) : (
+                                <div>{product}</div>
+                            )}
+                        </div>
+                    )}
+                    {!showSolution && (
+                        <div className={`w-full ${digitsBottom === 2 ? 'h-24' : 'h-12'}`}></div>
+                    )}
+                </div>
             </div>
         );
     };
@@ -2057,21 +2114,21 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
             parentTeacherTips={tips}
         >
             <PremiumWorksheetBanner
-                title={getTrans('title', 'Multiplication Wizard')}
+                title={getTrans('title', 'Vertical Velocity')}
                 subtitle={getTrans('subtitle', `${digitsTop}-Digit × ${digitsBottom}-Digit Challenges`)}
                 icons={{
-                    bg1: String.fromCodePoint(0x2692),
-                    bg2: String.fromCodePoint(0x1F522),
-                    float1: String.fromCodePoint(0x2728),
-                    float2: String.fromCodePoint(0x1F3AF)
+                    bg1: "🏗️",
+                    bg2: "🚜",
+                    float1: "🚧",
+                    float2: "🛠️"
                 }}
                 colors={{
-                    bg: is2x2 ? 'bg-gradient-to-br from-orange-50 to-red-50' : 'bg-gradient-to-br from-blue-50 to-indigo-50',
-                    border: is2x2 ? 'border-orange-200' : 'border-blue-200',
-                    pillBg: 'bg-white/80',
-                    pillBorder: is2x2 ? 'border-orange-300' : 'border-blue-300',
-                    pillText: is2x2 ? 'text-orange-800' : 'text-blue-800',
-                    accent: is2x2 ? 'text-orange-300' : 'text-blue-300'
+                    bg: "bg-orange-950 text-white border-b-4 border-yellow-500",
+                    border: "border-orange-800",
+                    pillBg: "bg-yellow-400",
+                    pillBorder: "border-yellow-600",
+                    pillText: "text-orange-950",
+                    accent: "text-white/10"
                 }}
             />
 

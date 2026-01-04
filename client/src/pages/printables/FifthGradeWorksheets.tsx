@@ -1,9 +1,10 @@
-import * as React from 'react';
-type ReactNode = React.ReactNode;
-type FC<T = {}> = React.FC<T>;
+/** @jsxImportSource react */
+import React from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared';
+
+type ReactNode = React.ReactNode;
 
 interface SpecificWorksheetProps {
     seed: string;
@@ -94,16 +95,35 @@ export function PowersOf10({ seed, variant, showAnswersForDoc }: SpecificWorkshe
                 ]}
             />
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                 {problems.map((p, i) => (
-                    <div key={i} className="border-2 border-slate-200 rounded-xl p-4 bg-white relative">
-                        <div className="absolute top-1 right-2 text-[10px] text-slate-300 font-mono">#{p.id}</div>
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="text-lg font-mono font-bold text-slate-800">
-                                {p.base} {p.isMult ? '×' : '÷'} {p.power}
+                    <div key={i} className="border-2 border-slate-200 rounded-2xl p-6 bg-white relative overflow-hidden group shadow-sm hover:border-indigo-300 transition-all break-inside-avoid">
+                        <div className="absolute top-2 right-3 text-[10px] font-black text-slate-300">#{i + 1}</div>
+
+                        <div className="flex flex-col gap-6">
+                            <div className="flex items-center justify-between">
+                                <div className="text-3xl font-mono font-black text-slate-800 tracking-tight">
+                                    {p.base} <span className="text-indigo-500 font-bold">{p.isMult ? '×' : '÷'}</span> {p.power}
+                                </div>
                             </div>
-                            <div className="w-full border-t border-slate-100 pt-2 text-center text-slate-400 font-mono">
-                                = __________
+
+                            {/* Base 10 Visualizer */}
+                            <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 relative h-20 flex items-center justify-center">
+                                <div className="flex items-center gap-1 font-mono text-lg text-slate-400 opacity-40">
+                                    {Array.from(p.base.replace('.', '')).map((digit, idx) => (
+                                        <div key={idx} className="w-8 h-8 rounded border border-slate-200 flex items-center justify-center bg-white">{digit}</div>
+                                    ))}
+                                </div>
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className={`flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg text-xs font-black uppercase tracking-widest shadow-lg ${p.isMult ? 'animate-bounce-h-right' : 'animate-bounce-h-left'}`}>
+                                        {p.isMult ? 'Shift Right →' : '← Shift Left'}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-4">
+                                <div className="text-sm font-bold text-slate-400 uppercase tracking-widest">Final Position:</div>
+                                <div className="flex-1 h-12 bg-white border-b-4 border-indigo-200 border-2 border-indigo-50 rounded-xl flex items-center px-4" />
                             </div>
                         </div>
                     </div>
@@ -406,24 +426,50 @@ export function EvaluatingExpressions({ seed, variant, showAnswersForDoc }: Spec
                 }}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            <div className="space-y-10 mt-8">
                 {problems.map((p, i) => (
-                    <div key={i} className="border-2 border-slate-200 rounded-2xl p-6 bg-white flex flex-col gap-6">
-                        <div className="text-2xl font-mono font-bold text-indigo-700">{p.expr}</div>
+                    <div key={i} className="border-2 border-slate-200 rounded-3xl p-8 bg-white shadow-sm hover:border-indigo-400 transition-all break-inside-avoid relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-indigo-600 text-white px-6 py-1 rounded-bl-2xl font-black text-xs uppercase tracking-widest shadow-md">
+                            Logic Flow #{i + 1}
+                        </div>
 
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-4">
-                                <span className="text-slate-400">Step 1:</span>
-                                <div className="flex-1 h-8 border-b-2 border-slate-100 border-dashed"></div>
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            {/* Expression Header */}
+                            <div className="lg:col-span-4 flex flex-col justify-center gap-2">
+                                <div className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.2em] leading-none mb-1">Target Expression</div>
+                                <div className="text-3xl font-mono font-black text-slate-800 tracking-tighter">
+                                    {p.expr}
+                                </div>
                             </div>
-                            <div className="flex items-center gap-4">
-                                <span className="text-slate-400">Step 2:</span>
-                                <div className="flex-1 h-8 border-b-2 border-slate-100 border-dashed"></div>
+
+                            {/* Logic Flowchart */}
+                            <div className="lg:col-span-8 flex flex-col md:flex-row items-center justify-between gap-4 py-4 relative">
+                                {/* Flow Lines (Desktop) */}
+                                <div className="hidden md:block absolute top-[50%] left-0 right-0 h-0.5 bg-slate-100 -z-10" />
+
+                                {[1, 2, 3].map(step => (
+                                    <div key={step} className="flex flex-col items-center gap-3 group">
+                                        <div className={`w-8 h-8 rounded-full border-2 border-slate-200 bg-white flex items-center justify-center text-[10px] font-black text-slate-400 group-hover:border-indigo-500 group-hover:text-indigo-600 transition-colors z-10 shadow-sm`}>
+                                            {step}
+                                        </div>
+                                        {step < 3 ? (
+                                            <div className="w-32 h-14 bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl relative flex items-center justify-center group-hover:border-indigo-200 group-hover:bg-indigo-50/50 transition-all">
+                                                <div className="text-[8px] font-bold text-slate-300 uppercase italic">Partial Value</div>
+                                            </div>
+                                        ) : (
+                                            <div className="w-32 h-16 bg-indigo-900 border-2 border-indigo-700 rounded-2xl flex items-center justify-center text-white shadow-xl rotate-1 group-hover:rotate-0 transition-transform">
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-indigo-300">Final Core</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
-                            <div className="flex items-center gap-4 pt-2">
-                                <span className="font-bold text-slate-800">Final Answer:</span>
-                                <div className="w-32 h-10 bg-indigo-50 border-2 border-indigo-200 rounded-lg"></div>
-                            </div>
+                        </div>
+
+                        {/* Connection Arrows (Mobile Hidden) */}
+                        <div className="hidden lg:flex justify-around absolute bottom-4 left-[33%] right-[20%] text-slate-200 pointer-events-none">
+                            <span className="text-xl">➔</span>
+                            <span className="text-xl">➔</span>
                         </div>
                     </div>
                 ))}
