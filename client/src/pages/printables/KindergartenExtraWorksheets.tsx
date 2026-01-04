@@ -356,23 +356,16 @@ const SHAPE_DATA: Record<string, { title: string, emoji: string, description: st
             const shapes = ['⭕', '🟥', '⭐', '🔺', '🔷', '❤️', '🟩', '🔶'];
             return Array.from({ length: 5 }).map(() => {
                 const [s1, s2] = shuffleArray(shapes, rng).slice(0, 2);
-                // Randomly decide pattern type: ABAB or AAB
-                const isABAB = rng() > 0.5;
-                const items = isABAB
-                    ? [
+                // Strict ABAB Pattern (A B A -> B) to avoid ambiguity
+                // The pattern is ALWAYS: Item1, Item2, Item1, [Hidden Item2]
+                return {
+                    items: [
                         { icon: s1, missing: false },
                         { icon: s2, missing: false },
                         { icon: s1, missing: false },
                         { icon: s2, missing: true }
                     ]
-                    : [
-                        { icon: s1, missing: false },
-                        { icon: s1, missing: false },
-                        { icon: s2, missing: false },
-                        { icon: s2, missing: true }
-                    ];
-
-                return { items };
+                };
             });
         }
     },
