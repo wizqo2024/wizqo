@@ -533,11 +533,11 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
 
                 {docId === 'missing-shape' && (
                     <div className="col-span-1 md:col-span-2 space-y-8">
-                        <div className="flex flex-wrap justify-center gap-8 p-12 border-2 border-slate-200 rounded-3xl bg-slate-50">
+                        <div className="flex flex-nowrap justify-center gap-4 sm:gap-8 p-6 sm:p-12 border-2 border-slate-200 rounded-3xl bg-slate-50 overflow-x-auto">
                             {(data as any).items.map((item: any, i: number) => (
-                                <div key={i} className={`relative flex flex-col items-center justify-center w-32 h-32 border-4 rounded-full bg-white shadow-sm transition-all
+                                <div key={i} className={`relative flex flex-col items-center justify-center shrink-0 w-20 h-20 sm:w-32 sm:h-32 border-4 rounded-full bg-white shadow-sm transition-all
                                     ${item.missing ? 'border-dashed border-slate-300' : 'border-slate-200 text-slate-700'}`}>
-                                    <span className="text-6xl">{item.missing ? '' : item.icon}</span>
+                                    <span className="text-4xl sm:text-6xl">{item.missing ? <span className="text-slate-200 font-bold">?</span> : item.icon}</span>
                                 </div>
                             ))}
                         </div>
