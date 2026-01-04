@@ -1,5 +1,5 @@
-import React from 'react'
-import type { ReactNode } from 'react'
+import * as React from 'react'
+type ReactNode = React.ReactNode
 import { useTranslation } from '@/context/TranslationContext'
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared'
 import { makeRng } from '@/utils/printableUtils'
@@ -2188,6 +2188,195 @@ export function MissingNumbers50({ showAnswersForDoc, seed, variant }: SpecificW
                                     ))}
                                 </div>
                             </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Doubles & Near Doubles
+// ==========================================
+export function DoublesNearDoubles({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'doubles-near-doubles'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const nextInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    const problems = Array.from({ length: 8 }, () => {
+        const base = nextInt(2, 9)
+        const type = rng() > 0.5 ? 'plus1' : 'minus1'
+        const neighbor = type === 'plus1' ? base + 1 : base - 1
+
+        return {
+            base,
+            neighbor,
+            sum: base + neighbor,
+            doubleSum: base * 2
+        }
+    })
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Doubles & Near Doubles')}
+            emoji="👯"
+            description={t(`worksheets.${docId}.description`, 'Use your doubles facts to solve the near doubles!')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Near Doubles"
+                subtitle="One More, One Less"
+                icons={{
+                    bg1: "➕",
+                    bg2: "➖",
+                    float1: "1️⃣",
+                    float2: "🍬"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-pink-50 to-rose-50",
+                    border: "border-pink-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-pink-300",
+                    pillText: "text-pink-800",
+                    accent: "text-pink-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="Use What You Know!"
+                icon="💡"
+                steps={[
+                    { label: "Double It", text: "You know 6 + 6 = 12" },
+                    { label: "Add One", text: "6 + 7 is just one more... so it's 13!" }
+                ]}
+                color="pink"
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="p-4 border-2 border-pink-100 rounded-xl bg-pink-50/50 break-inside-avoid shadow-sm flex items-center justify-between">
+                        <div className="flex flex-col gap-2">
+                            <div className="text-sm text-slate-500 font-semibold mb-1">
+                                Think: {p.base} + {p.base} = {p.doubleSum}
+                            </div>
+                            <div className="flex items-center gap-3 text-3xl font-bold text-slate-700">
+                                <span>{p.base}</span>
+                                <span className="text-pink-400">+</span>
+                                <span>{p.neighbor}</span>
+                                <span>=</span>
+                                <div className="w-16 h-12 border-2 border-pink-300 bg-white rounded-lg shadow-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded">
+                    <div className="font-bold text-emerald-900 mb-2">Answers:</div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                        {problems.map((p, i) => (
+                            <div key={i}>{p.base} + {p.neighbor} = <strong>{p.sum}</strong></div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Number Line to 200
+// ==========================================
+export function NumberLine200({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'number-line-200'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const nextInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    const problems = Array.from({ length: 5 }, () => {
+        // Start somewhere between 0 and 150
+        const start = Math.floor(nextInt(0, 15) * 10)
+        const step = nextInt(1, 3) === 1 ? 5 : 10
+        const targetOffset = nextInt(1, 4) * step
+        const target = start + targetOffset
+
+        return { start, step, target, targetOffset }
+    })
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Number Line Journey (to 200)')}
+            emoji="🛤️"
+            description={t(`worksheets.${docId}.description`, 'Find the missing numbers on the number line.')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Number Line Layout"
+                subtitle="Jumping to 200"
+                icons={{
+                    bg1: "📏",
+                    bg2: "🐸",
+                    float1: "📍",
+                    float2: "🚩"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-indigo-50 to-violet-50",
+                    border: "border-indigo-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-800",
+                    accent: "text-indigo-300"
+                }}
+            />
+
+            <div className="space-y-8 mt-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="p-6 border-2 border-indigo-100 rounded-xl bg-white break-inside-avoid">
+                        <div className="mb-4 font-bold text-slate-700">
+                            Problem {i + 1}: <span className="font-normal text-slate-500">Skip count by {p.step}s</span>
+                        </div>
+
+                        <div className="relative h-20 w-full flex items-center">
+                            {/* Main Line */}
+                            <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-300 rounded"></div>
+
+                            {/* Ticks and Labels */}
+                            {Array.from({ length: 11 }).map((_, k) => {
+                                const val = p.start + (k * p.step)
+                                const isTarget = val === p.target
+                                const isHidden = isTarget // Hide the target
+
+                                return (
+                                    <div key={k} className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center gap-2" style={{ left: `${k * 10}%` }}>
+                                        <div className="w-0.5 h-4 bg-slate-400"></div>
+                                        {isHidden ? (
+                                            <div className="w-10 h-8 border-2 border-indigo-400 rounded bg-indigo-50 shadow-inner flex items-center justify-center font-bold text-indigo-600">
+                                                ?
+                                            </div>
+                                        ) : (
+                                            <span className="text-sm font-bold text-slate-600 transform -rotate-45 origin-top-left translate-y-2">{val}</span>
+                                        )}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded">
+                    <div className="font-bold text-emerald-900 mb-2">Answers:</div>
+                    <div className="flex flex-wrap gap-4 text-sm">
+                        {problems.map((p, i) => (
+                            <span key={i} className="px-2 py-1 bg-white rounded border border-emerald-200">
+                                #{i + 1}: <strong>{p.target}</strong>
+                            </span>
                         ))}
                     </div>
                 </div>

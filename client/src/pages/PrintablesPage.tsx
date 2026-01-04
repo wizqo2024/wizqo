@@ -100,7 +100,21 @@ import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitio
 import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50, DoublesFacts, PictureAddition10 } from './printables/FirstGradeMathWorksheets'
 import { SentenceBuilding } from './printables/LanguageWorksheets'
 import { FractionBasicID } from './printables/FractionWorksheets'
-import { ExpandedForm200, NumberPatterns200, RoundingNearest10 } from './printables/SecondGradeMath'
+import {
+  ExpandedForm200,
+  NumberPatterns200,
+  RoundingNearest10,
+  AddThreeNumbers,
+  MissingAddends,
+  FactFamilies20,
+  MentalMath20,
+  DoublesNearDoubles,
+  NumberLine200,
+  MoneyCoinsBills,
+  MeasurementLength,
+  BarGraphsData,
+  Add2Digit100
+} from './printables/SecondGradeMath'
 import {
   PowersOf10,
   RoundingDecimals,
@@ -10707,6 +10721,36 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('expanded-form-200') && (
             <ExpandedForm200 docId='expanded-form-200' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('add-three-numbers') && (
+            <AddThreeNumbers docId='add-three-numbers' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('missing-addends') && (
+            <MissingAddends docId='missing-addends' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('fact-families-20') && (
+            <FactFamilies20 docId='fact-families-20' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('mental-math-20') && (
+            <MentalMath20 docId='mental-math-20' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('doubles-near-doubles') && (
+            <DoublesNearDoubles docId='doubles-near-doubles' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('number-line-200') && (
+            <NumberLine200 docId='number-line-200' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
           )
         }
         {
