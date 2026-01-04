@@ -1,74 +1,77 @@
-import React from 'react'
-import type { ReactNode } from 'react'
-import { WorksheetSectionWrapper } from './PrintableShared'
-import { makeRng, pick } from '@/utils/printableUtils'
+import React, { ReactNode } from 'react'
+import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared'
+import { makeRng, pick, shuffleArray } from '@/utils/printableUtils'
+import { useTranslation } from '@/context/TranslationContext'
 
-// --- Helper Functions ---
+// --- Extended Logic for Premium Science ---
 
-interface Theme {
-    name: string;
-    sets: Record<string, string[]>;
+interface LifecycleData {
+    name: string
+    stages: string[]
 }
 
-function generateScienceSorting(seed: string) {
+function generateLifecycle(seed: string): LifecycleData {
     const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+    const cycles = [
+        { name: 'Butterfly', stages: ['Egg 🥚', 'Caterpillar 🐛', 'Pupa 🧱', 'Butterfly 🦋'] },
+        { name: 'Frog', stages: ['Egg 🥚', 'Tadpole 🐟', 'Froglet 🐸', 'Adult Frog 🐸'] },
+        { name: 'Plant', stages: ['Seed 🌱', 'Sprout 🌿', 'Young Plant 🌳', 'Flower 🌸'] },
+        { name: 'Chicken', stages: ['Egg 🥚', 'Hatchling 🐣', 'Chick 🐥', 'Hen 🐔'] },
+    ]
+    const cycle = cycles[Math.floor(rng() * cycles.length)]
+    return cycle
+}
 
-    const themes: Theme[] = [
+interface SortingData {
+    theme: string
+    items: { name: string, category: string }[]
+    categories: string[]
+}
+
+function generateScienceSorting(seed: string): SortingData {
+    const rng = makeRng(seed)
+    const themes = [
         {
             name: 'Living vs Non-Living',
             sets: {
-                'Living': ['🐶', '🌲', '🐛', '🌷', '🦋', '🍄', '🐢'],
-                'Non-Living': ['rock', 'car', 'balloon', 'spoon', 'robot', 'cup', 'pencil'] // Using words/simple text if emojis ambiguous
+                'Living': ['Puppy 🐶', 'Tree 🌲', 'Spider 🕷️', 'Flower 🌷', 'Bird 🐦', 'Mushroom 🍄'],
+                'Non-Living': ['Rock 🪨', 'Car 🚗', 'Toy 🧸', 'Spoon 🥄', 'Robot 🤖', 'Pencil ✏️']
             }
         },
         {
             name: 'Sink or Float',
             sets: {
-                'Float': ['apple', 'wood', 'leaf', 'boat', 'feather'],
-                'Sink': ['rock', 'coin', 'key', 'brick', 'metal spoon']
+                'Float': ['Apple 🍎', 'Wood 🪵', 'Leaf 🍃', 'Boat ⛵', 'Feather 🪶', 'Cork 🍾'],
+                'Sink': ['Coin 🪙', 'Key 🔑', 'Stone 🪨', 'Brick 🧱', 'Anchor ⚓', 'Marble 🔮']
             }
         },
         {
-            name: 'Vertebrate vs Invertebrate',
+            name: 'Solids vs Liquids',
             sets: {
-                'Vertebrate': ['Human', 'Dog', 'Bird', 'Fish', 'Frog'],
-                'Invertebrate': ['Worm', 'Spider', 'Jellyfish', 'Octopus', 'Snail']
+                'Solid': ['Ice 🧊', 'Wood 🪵', 'Metal 🔩', 'Glass 🥛', 'Bread 🍞', 'Paper 📄'],
+                'Liquid': ['Water 💧', 'Milk 🥛', 'Juice 🧃', 'Oil 🫗', 'Rain 🌧️', 'Honey 🍯']
             }
         }
     ]
 
-    const theme = pick(themes)
+    const theme = themes[Math.floor(rng() * themes.length)]
     const cats = Object.keys(theme.sets)
     const cat1 = cats[0]
     const cat2 = cats[1]
 
-    // Pick 3 items from each
-    const set1 = theme.sets[cat1].sort(() => rng() - 0.5).slice(0, 3)
-    const set2 = theme.sets[cat2].sort(() => rng() - 0.5).slice(0, 3)
+    const set1 = shuffleArray(theme.sets[cat1], rng).slice(0, 4)
+    const set2 = shuffleArray(theme.sets[cat2], rng).slice(0, 4)
 
-    const items = [...set1.map((i: string) => ({ name: i, Cat: cat1 })), ...set2.map((i: string) => ({ name: i, Cat: cat2 }))]
-    items.sort(() => rng() - 0.5)
+    const items = [
+        ...set1.map(i => ({ name: i, category: cat1 })),
+        ...set2.map(i => ({ name: i, category: cat2 }))
+    ]
+    shuffleArray(items, rng)
 
     return { theme: theme.name, items, categories: [cat1, cat2] }
 }
 
-function generateLifecycle(seed: string) {
-    const rng = makeRng(seed)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
-
-    const cycles = [
-        { name: 'Butterfly', stages: ['Egg 🥚', 'Caterpillar 🐛', 'Pupa 🧱', 'Butterfly 🦋'] },
-        { name: 'Frog', stages: ['Egg 🥚', 'Tadpole 🐟', 'Froglet 🐸', 'Adult Frog 🐸'] },
-        { name: 'Plant', stages: ['Seed 🌱', 'Sprout 🌿', 'Plant 🌳', 'Flower 🌸'] },
-        { name: 'Chicken', stages: ['Egg 🥚', 'Hatchling 🐣', 'Chick 🐥', 'Chicken 🐔'] },
-    ]
-
-    const lifecycle = pick(cycles)
-    return { name: lifecycle.name, stages: lifecycle.stages } // Stages are already in order
-}
-
-// --- Component ---
+// --- Components ---
 
 export function ScienceWorksheets({
     doc,
@@ -81,38 +84,103 @@ export function ScienceWorksheets({
     variant: string
     showAnswersForDoc: (docId: string, factory: () => ReactNode) => ReactNode
 }) {
+    const { t } = useTranslation()
 
-    // Science Lifecycle
+    // --- Lifecycle Upgrade ---
     if (doc.startsWith('science-lifecycle')) {
-        const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${doc}`)
-        const data = generateLifecycle(`${effectiveSeed}|${doc}`)
+        const data = generateLifecycle(`${effectiveSeed}|${doc}|v${variant}`)
+        const rng = makeRng(`${effectiveSeed}|${doc}|v${variant}`)
+        const shuffledStages = shuffleArray(data.stages.map((s, i) => ({ text: s, originalIdx: i })), rng)
 
         return (
             <WorksheetSectionWrapper
                 docId={doc}
                 title={`${data.name} Lifecycle`}
                 emoji="🔄"
-                description={`Order the stages of the ${data.name} lifecycle.`}
+                description={`Order the stages of the ${data.name} lifecycle by writing 1-4 in the circles.`}
                 problemCount={4}
+                learningObjectives={[
+                    `Understand the sequence of biological growth in a ${data.name.toLowerCase()}`,
+                    'Identify key vocabulary for developmental stages',
+                    'Practice sequence and pattern recognition in nature'
+                ]}
+                parentTeacherTips={[
+                    'Explain that lifecycles are continuous loops—the end stage creates the beginning!',
+                    'Ask what special needs the organism has in each stage (e.g., food, shelter).',
+                    'Discuss how long each stage might last in the real world.'
+                ]}
             >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {data.stages.sort(() => rng() - 0.5).map((stage, i) => (
-                        <div key={i} className="flex flex-col items-center gap-4 bg-white p-6 rounded-xl border-2 border-dashed border-slate-300">
-                            <div className="text-4xl">{stage.split(' ')[1] || '❓'}</div>
-                            <div className="font-bold text-center text-lg">{stage.split(' ')[0]}</div>
-                            <div className="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-slate-300 font-bold">
-                                #
-                            </div>
+                <PremiumWorksheetBanner
+                    title="Nature's Cycle"
+                    subtitle={`${data.name} Growth Journey`}
+                    icons={{ bg1: "🌱", bg2: "🦋", float1: "🔄", float2: "☀️" }}
+                    colors={{
+                        bg: "bg-gradient-to-br from-green-50 to-emerald-50",
+                        border: "border-green-200",
+                        pillBg: "bg-white/80",
+                        pillBorder: "border-green-300",
+                        pillText: "text-green-900",
+                        accent: "text-green-400"
+                    }}
+                />
+
+                <StrategySpotlight
+                    title="Scientist's Note: The Loop of Life"
+                    description="A lifecycle shows how a living thing grows, changes, and produces more of its kind. It starts with a seed or egg and goes all the way to a full-grown adult!"
+                    icon="🔬"
+                    color="green"
+                />
+
+                <div className="mt-12 mb-12 flex justify-center break-inside-avoid">
+                    <div className="relative w-full max-w-2xl aspect-[1.2/1]">
+                        {/* Central Visual (Optional placeholder or logo) */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-emerald-100 rounded-full flex items-center justify-center border-4 border-emerald-200 opacity-50">
+                            <span className="text-6xl opacity-30">🔄</span>
                         </div>
-                    ))}
+
+                        {/* Circular Layout of Stages */}
+                        {shuffledStages.map((stage, i) => {
+                            const angle = (i * 90) * (Math.PI / 180)
+                            const rX = 40 // % radius
+                            const rY = 35 // % radius
+                            const x = 50 + rX * Math.cos(angle - Math.PI / 2)
+                            const y = 50 + rY * Math.sin(angle - Math.PI / 2)
+
+                            return (
+                                <div
+                                    key={i}
+                                    className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3 w-40"
+                                    style={{ left: `${x}%`, top: `${y}%` }}
+                                >
+                                    <div className="bg-white p-6 rounded-2xl border-4 border-slate-200 shadow-md w-full aspect-square flex flex-col items-center justify-center group hover:border-emerald-300 transition-colors">
+                                        <div className="text-5xl mb-2">{stage.text.split(' ')[1] || '❓'}</div>
+                                        <div className="font-bold text-slate-800 text-center">{stage.text.split(' ')[0]}</div>
+                                    </div>
+
+                                    {/* Ordering Circle */}
+                                    <div className="w-10 h-10 rounded-full border-4 border-emerald-500 bg-white shadow-sm flex items-center justify-center font-black text-emerald-900 z-10">
+                                        {/* Blank for child to fill */}
+                                    </div>
+                                </div>
+                            )
+                        })}
+
+                        {/* Connection Arrows (Simplified for print) */}
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 100 100">
+                            <path d="M 65 30 Q 75 50 65 70" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+                            <path d="M 35 70 Q 25 50 35 30" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+                            <path d="M 40 20 Q 50 10 60 20" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+                            <path d="M 60 80 Q 50 90 40 80" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+                        </svg>
+                    </div>
                 </div>
 
                 {showAnswersForDoc(doc, () => (
-                    <div className="mt-4 p-4 border rounded font-mono text-sm max-w-md mx-auto">
-                        <div className="font-bold mb-2">Correct Order:</div>
-                        <ol className="list-decimal pl-5 space-y-1">
-                            {data.stages.map((s, i) => (
-                                <li key={i}>{s}</li>
+                    <div className="mt-8 p-6 bg-emerald-50 border-2 border-emerald-200 rounded-2xl print:bg-white">
+                        <div className="font-bold text-emerald-900 mb-2">Answer Key: {data.name} Lifecycle</div>
+                        <ol className="list-decimal list-inside space-y-1 text-emerald-800 font-medium">
+                            {data.stages.map((s, idx) => (
+                                <li key={idx}>Stage {idx + 1}: {s}</li>
                             ))}
                         </ol>
                     </div>
@@ -121,52 +189,98 @@ export function ScienceWorksheets({
         )
     }
 
-    // Science Sorting (Match)
+    // --- Sorting Upgrade ---
     if (doc.startsWith('science-match')) {
-        const data = generateScienceSorting(`${effectiveSeed}|${doc}`)
+        const data = generateScienceSorting(`${effectiveSeed}|${doc}|v${variant}`)
 
         return (
             <WorksheetSectionWrapper
                 docId={doc}
                 title={data.theme}
                 emoji="🔬"
-                description={`Sort the items into: ${data.categories.join(' vs ')}`}
-                problemCount={6}
+                description={`Sort the items into the correct categories: ${data.categories[0]} or ${data.categories[1]}.`}
+                problemCount={data.items.length}
+                learningObjectives={[
+                    `Identify key characteristics that define ${data.categories[0]} and ${data.categories[1]}`,
+                    'Apply classification skills to real-world objects',
+                    'Develop scientific observation and logical grouping'
+                ]}
+                parentTeacherTips={[
+                    `For "${data.theme}", ask the child to describe one physical property for each category.`,
+                    'If they get stuck, try a real-world experiment (like dropping objects in water for float/sink).',
+                    'Discuss "edge cases"—items that might fit in both or change state.'
+                ]}
             >
-                <div className="max-w-2xl mx-auto">
-                    <div className="flex justify-between mb-8 px-8">
-                        {data.categories.map((cat, i) => (
-                            <div key={i} className="flex flex-col items-center gap-2">
-                                <div className="text-xl font-bold text-indigo-600 border-b-2 border-indigo-200 pb-1">{cat}</div>
-                                <div className="w-32 h-32 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400">
-                                    Place Items Here
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                <PremiumWorksheetBanner
+                    title="The Sorting Lab"
+                    subtitle={`Exercise: ${data.theme}`}
+                    icons={{ bg1: "🔬", bg2: "🧪", float1: "⚖️", float2: "🥽" }}
+                    colors={{
+                        bg: "bg-gradient-to-br from-indigo-50 to-blue-50",
+                        border: "border-indigo-200",
+                        pillBg: "bg-white/80",
+                        pillBorder: "border-indigo-300",
+                        pillText: "text-indigo-900",
+                        accent: "text-indigo-400"
+                    }}
+                />
 
-                    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <div className="text-center font-bold mb-4 text-slate-600">Items to Sort:</div>
-                        <div className="flex flex-wrap justify-center gap-4">
+                <div className="grid md:grid-cols-2 gap-8 mt-10 items-start break-inside-avoid">
+                    {/* Items Bank */}
+                    <div className="bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-sm">
+                        <h3 className="font-bold text-slate-700 mb-4 border-b pb-2 text-center uppercase tracking-widest text-xs">
+                            Materials Log
+                        </h3>
+                        <div className="grid grid-cols-2 gap-3">
                             {data.items.map((item, i) => (
-                                <div key={i} className="px-4 py-2 bg-indigo-50 text-indigo-800 rounded-lg font-medium border border-indigo-100">
-                                    {item.name}
+                                <div key={i} className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-800">
+                                    <div className="w-4 h-4 rounded-full border-2 border-slate-300"></div>
+                                    <span>{item.name}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
+
+                    {/* Sorting Buckets (SVG) */}
+                    <div className="space-y-6">
+                        {data.categories.map((cat, i) => (
+                            <div key={i} className="relative group">
+                                <div className="absolute -top-3 left-6 px-3 py-1 bg-white border-2 border-indigo-500 rounded-full font-bold text-indigo-700 text-sm z-10">
+                                    {cat}
+                                </div>
+                                <div className="h-44 bg-indigo-50/30 border-2 border-indigo-200 border-t-0 rounded-b-3xl rounded-t-lg relative overflow-hidden">
+                                    {/* Liquid-ish background visual */}
+                                    {/* <div className="absolute bottom-0 w-full h-1/2 bg-indigo-100/50"></div> */}
+
+                                    {/* Placeholder for writing */}
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="text-indigo-300 text-xs font-bold opacity-30 uppercase tracking-[0.2em]">
+                                            Write items here
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 {showAnswersForDoc(doc, () => (
-                    <div className="mt-4 grid grid-cols-2 gap-4 max-w-lg mx-auto">
-                        {data.categories.map((cat, i) => (
-                            <div key={i} className="p-3 border rounded bg-slate-50">
-                                <div className="font-bold border-b mb-2">{cat}</div>
-                                {data.items.filter(item => item.Cat === cat).map((item, k) => (
-                                    <div key={k} className="text-sm">{item.name}</div>
-                                ))}
-                            </div>
-                        ))}
+                    <div className="mt-8 p-6 bg-indigo-50 border-2 border-indigo-200 rounded-2xl">
+                        <div className="font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                            <span>🥽</span> Lab Results: Answer Key
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            {data.categories.map(cat => (
+                                <div key={cat} className="space-y-1">
+                                    <div className="font-bold text-indigo-700 text-sm">{cat}:</div>
+                                    <ul className="text-sm text-indigo-900 italic">
+                                        {data.items.filter(it => it.category === cat).map(it => (
+                                            <li key={it.name}>• {it.name}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 ))}
             </WorksheetSectionWrapper>
