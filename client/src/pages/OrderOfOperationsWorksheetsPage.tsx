@@ -37,7 +37,7 @@ export default function OrderOfOperationsWorksheetsPage() {
   const [selectedCategories, setSelectedCategories] = React.useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
-    setSelectedCategories((prev) => {
+    setSelectedCategories((prev: Set<string>) => {
       const next = new Set(prev)
       const isSelecting = !next.has(categoryId)
       if (isSelecting) {
@@ -88,7 +88,7 @@ export default function OrderOfOperationsWorksheetsPage() {
   // Group filtered worksheets by grade range
   const groupedWorksheets = React.useMemo(() => {
     const groups: Record<string, WorksheetItem[]> = {}
-    filteredWorksheets.forEach((ws) => {
+    filteredWorksheets.forEach((ws: WorksheetItem) => {
       const range = ws.gradeRange || 'All'
       if (!groups[range]) groups[range] = []
       groups[range].push(ws)
@@ -210,7 +210,7 @@ export default function OrderOfOperationsWorksheetsPage() {
                   <div key={gradeRange}>
                     <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
                     <div className="grid sm:grid-cols-2 gap-6">
-                      {worksheets.map((ws) => (
+                      {(worksheets as WorksheetItem[]).map((ws: WorksheetItem) => (
                         <WorksheetThumbnailCard
                           key={ws.docId}
                           title={ws.title}
@@ -417,7 +417,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         {/* Thumbnail content using iframe with preview mode */}
         <iframe
           src={previewUrl}
-          className={`w-full h-full border-0 transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          className={`w-full h-full border-0 transition-opacity duration-700 ease-in-out bg-slate-50 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           style={{
             transform: 'scale(0.25)',
             transformOrigin: 'top left',
@@ -447,7 +447,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent) => {
               e.preventDefault(); // Prevent navigation on download click
               if (customDownloadUrl) {
                 window.open(customDownloadUrl, '_blank')

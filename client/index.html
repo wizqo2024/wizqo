@@ -123,22 +123,14 @@
   <link rel="preconnect" href="https://www.youtube.com" />
   <link rel="dns-prefetch" href="https://www.youtube.com" />
   <style>
-    .seo-hidden-links {
-      position: absolute;
-      left: -10000px;
-      top: auto;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-
-    /* Critical CSS to prevent FOUC */
+    /* Critical CSS to prevent FOUC & White Flash */
     html,
     body {
       margin: 0;
       padding: 0;
-      background-color: #f8fafc;
-      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f8fafc; /* wizqo-slate-50 background */
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
     }
 
     #root {
@@ -146,33 +138,54 @@
       background-color: #f8fafc;
     }
 
-    /* Animation to delay fallback visibility - prevents flash for users */
-    @keyframes seoFadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
+    /* Skeleton Shell Styling */
+    .skeleton-header {
+      height: 64px;
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      items-center: center;
+      padding: 0 1rem;
     }
 
-    /* SEO Fallback: Initially invisible, fades in after delay if React hasn't loaded */
+    .skeleton-nav-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .skeleton-logo {
+      width: 40px;
+      height: 23px;
+      background: #8B5CF6;
+      border-radius: 4px;
+      opacity: 0.2;
+    }
+
+    .skeleton-nav-item {
+      height: 8px;
+      width: 60px;
+      background: #e2e8f0;
+      border-radius: 4px;
+    }
+
+    /* SEO Fallback: Visible but matches app style */
     #seo-fallback {
-      display: block;
-      visibility: visible;
-      opacity: 0;
-      animation: seoFadeIn 0.5s ease-in forwards;
-      animation-delay: 1.5s;
-      /* 1.5s grace period for React to load */
+      max-width: 1152px; /* max-w-6xl */
+      margin: 0 auto;
+      padding: 4rem 1rem;
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
     }
 
-    /* Hide SEO fallback ONLY once React has loaded */
-    body.react-loaded #seo-fallback {
+    /* Hide SEO fallback ONLY once React has loaded to avoid duplication */
+    body.react-loaded #seo-fallback,
+    body.react-loaded .skeleton-header {
       display: none !important;
       visibility: hidden !important;
-      height: 0 !important;
-      overflow: hidden !important;
     }
   </style>
   <script>
@@ -440,51 +453,13 @@
 
 
 
-    // Additional removal/hiding after React loads (backup)
+    // Removal/hiding after React loads
     window.addEventListener('load', function () {
       setTimeout(function () {
-        var root = document.getElementById('root');
-        var fallback = document.getElementById('seo-fallback');
-
-        // If fallback still exists, check if we should remove it
-        if (fallback) {
-          var path = '';
-          try {
-            if (typeof location !== 'undefined') {
-              path = location.pathname || '';
-            }
-          } catch (e) { }
-
-          var isBlogPage = path && (path === '/blog' || path.startsWith('/blog/'));
-          var isInteractivePage = path && path.includes('interactive-worksheets-generator');
-          var isKidsPage = path && (path === '/kids' || path.startsWith('/kids/'));
-          var isPrintablesPage = path && (path === '/printables' || path.startsWith('/printables/'));
-          var isPrintPage = path && (path === '/print' || path.startsWith('/print/'));
-          var isWorksheetPage = path && path.startsWith('/worksheets/');
-          var isSpecialPage = path && (path.includes('fractions-to-decimals-worksheets') || path.includes('order-of-operations-worksheets'));
-
-          // For non-worksheet pages AND special pages, remove entirely (they have their own H1 in React)
-          if (isBlogPage || isInteractivePage || isKidsPage || isPrintablesPage || isPrintPage || isSpecialPage || (!isWorksheetPage && !isSpecialPage)) {
-            fallback.remove();
-          } else if (root && root.children.length > 0) {
-            // For worksheet pages, just hide it
-            fallback.style.display = 'none';
-            fallback.style.position = 'absolute';
-            fallback.style.left = '-9999px';
-            fallback.style.width = '1px';
-            fallback.style.height = '1px';
-            fallback.style.overflow = 'hidden';
-            fallback.style.visibility = 'hidden';
-            fallback.style.opacity = '0';
-            fallback.style.pointerEvents = 'none';
-            fallback.setAttribute('aria-hidden', 'true');
-          }
-        }
-
         if (document.body) {
           document.body.classList.add('react-loaded');
         }
-      }, 50);
+      }, 50); // Minimal delay to ensure React has painted
     });
   </script>
 </head>
@@ -492,14 +467,22 @@
 <body>
 
 
-  <!-- Visible SEO Content - Always crawlable, even without JavaScript -->
-  <!-- Note: Using H2 here instead of H1 to avoid duplicate H1 when React loads -->
-  <main id="seo-fallback"
-    style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif;">
-    <h2 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">
+  <!-- Skeleton Shell: Prevents Layout Shift -->
+  <header class="skeleton-header">
+    <div class="skeleton-nav-shell">
+      <div class="skeleton-logo"></div>
+      <div class="skeleton-nav-item"></div>
+      <div class="skeleton-nav-item"></div>
+      <div class="skeleton-nav-item"></div>
+    </div>
+  </header>
+
+  <!-- Visible SEO Content - Always crawlable, perfectly aligned -->
+  <main id="seo-fallback">
+    <h2 style="font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 1.5rem; line-height: 1.2; letter-spacing: -0.025em;">
       Free Worksheets for Kids (K-5) | Math, Reading & More | Wizqo
     </h2>
-    <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
+    <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6; max-width: 42rem;">
       Download free printable worksheets for kids (K-5). Math, reading, writing, tracing, and multiplication worksheets
       with answer keys—100% free, ready to print.
     </p>
