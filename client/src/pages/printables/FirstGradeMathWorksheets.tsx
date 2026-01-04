@@ -1,6 +1,6 @@
 
-import * as React from 'react';
-import type { ReactNode } from 'react';
+import React from 'react';
+type ReactNode = React.ReactNode;
 import { WorksheetSectionWrapper } from './PrintableShared';
 import { makeRng, pick, shuffleArray } from '@/utils/printableUtils';
 import { useTranslation } from '@/context/TranslationContext';
@@ -260,6 +260,233 @@ export function SubtractionStories({ docId, showAnswersForDoc, seed, variant }: 
             {showAnswersForDoc(docId, () => (
                 <div className="mt-4 p-4 border border-emerald-300 bg-emerald-50 rounded text-sm text-emerald-800">
                     <strong>Answers:</strong> {problems.map((p, i) => `${p.total} - ${p.take} = ${p.left}`).join(' | ')}
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+// --- Number Bonds (Making 10) ---
+export function NumberBonds10({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const rng = makeRng(`${seed}-${docId}-${variant}`);
+    const problems = Array.from({ length: 8 }).map(() => {
+        const whole = 10;
+        const part1 = Math.floor(rng() * 10) + 1; // 1-10
+        const part2 = whole - part1;
+        // Randomly hide part1 or part2
+        const hidePart1 = rng() > 0.5;
+        return { whole, part1, part2, hidePart1 };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Number Bonds to 10"
+            emoji="🔗"
+            description="Fill in the missing number to make 10!"
+            problemCount={problems.length}
+        >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="flex flex-col items-center gap-2 p-4 bg-white border-2 border-slate-200 rounded-xl">
+                        {/* Start (Whole) */}
+                        <div className="w-12 h-12 rounded-full border-2 border-emerald-500 bg-emerald-50 flex items-center justify-center text-xl font-bold text-emerald-700">
+                            {p.whole}
+                        </div>
+                        {/* Lines */}
+                        <div className="flex gap-4 w-16 justify-center">
+                            <div className="w-0.5 h-6 bg-slate-300 rotate-[-20deg]"></div>
+                            <div className="w-0.5 h-6 bg-slate-300 rotate-[20deg]"></div>
+                        </div>
+                        {/* Parts */}
+                        <div className="flex gap-4">
+                            <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center text-xl font-bold
+                                ${p.hidePart1 ? 'border-dashed border-slate-400 bg-white' : 'border-blue-500 bg-blue-50 text-blue-700'}`}>
+                                {p.hidePart1 ? '' : p.part1}
+                            </div>
+                            <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center text-xl font-bold
+                                ${!p.hidePart1 ? 'border-dashed border-slate-400 bg-white' : 'border-blue-500 bg-blue-50 text-blue-700'}`}>
+                                {!p.hidePart1 ? '' : p.part2}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-4 p-4 border border-emerald-300 bg-emerald-50 rounded text-sm text-emerald-800">
+                    <strong>Answers:</strong> {problems.map((p, i) => `(Missing: ${p.hidePart1 ? p.part1 : p.part2})`).join(', ')}
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+// --- Count & Write to 30 ---
+export function CountWrite30({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const rng = makeRng(`${seed}-${docId}-${variant}`);
+    const items = ['⭐', '🍎', '🎈', '🍪', '✏️'];
+    const problems = Array.from({ length: 4 }).map(() => {
+        const count = Math.floor(rng() * 11) + 20; // 20-30
+        const item = items[Math.floor(rng() * items.length)];
+        return { count, item };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Count and Write (to 30)"
+            emoji="📝"
+            description="Count the objects and write the total number."
+            problemCount={problems.length}
+        >
+            <div className="space-y-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="p-4 border-2 border-slate-200 rounded-xl bg-white flex flex-col md:flex-row items-center gap-4 break-inside-avoid">
+                        <div className="flex-1 flex flex-wrap gap-2 p-2 bg-slate-50 rounded-lg justify-center md:justify-start">
+                            {Array.from({ length: p.count }).map((_, k) => (
+                                <span key={k} className="text-xl">{p.item}</span>
+                            ))}
+                        </div>
+                        <div className="flex flex-col items-center gap-2 min-w-[100px]">
+                            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">How many?</span>
+                            <div className="w-16 h-12 border-2 border-slate-300 rounded bg-white shadow-inner flex items-center justify-center text-2xl font-handwriting text-slate-400">
+                                {/* Blank for writing */}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-4 p-4 border border-emerald-300 bg-emerald-50 rounded text-sm text-emerald-800">
+                    <strong>Answers:</strong> {problems.map((p, i) => `${p.count}`).join(', ')}
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+// --- Missing Numbers to 50 ---
+export function MissingNumbers50({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const rng = makeRng(`${seed}-${docId}-${variant}`);
+    const grid = Array.from({ length: 50 }, (_, i) => {
+        const num = i + 1;
+        const hide = rng() > 0.6; // Hide ~40% of numbers
+        return { num, hide };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Number Grid Challenge (1-50)"
+            emoji="🔢"
+            description="Fill in the missing numbers on the grid."
+            problemCount={1}
+        >
+            <div className="grid grid-cols-10 gap-1 md:gap-2 max-w-2xl mx-auto border-2 border-slate-800 p-2 bg-slate-100 rounded-lg">
+                {grid.map((cell, i) => (
+                    <div key={i} className={`
+                        aspect-square flex items-center justify-center rounded text-sm md:text-xl font-bold border border-slate-300
+                        ${cell.hide ? 'bg-white text-transparent' : 'bg-white text-slate-800'}
+                    `}>
+                        {cell.hide ? '' : cell.num}
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-4 p-4 border border-emerald-300 bg-emerald-50 rounded text-sm text-emerald-800">
+                    <p>All missing numbers should be filled in sequentially 1-50.</p>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+// --- Doubles Facts ---
+export function DoublesFacts({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const rng = makeRng(`${seed}-${docId}-${variant}`); // Used for stability if needed, though data is static-ish
+    // Fixed visual doubles concepts
+    const concepts = [
+        { num: 1, label: 'eyes on a face', emoji: '👀', count: 2 },
+        { num: 2, label: 'wheels on a car', emoji: '🚗', count: 4 },
+        { num: 3, label: 'legs on an insect (per side)', emoji: '🐞', count: 6 },
+        { num: 4, label: 'spider legs (per side)', emoji: '🕷️', count: 8 },
+        { num: 5, label: 'fingers on hands', emoji: '👐', count: 10 },
+    ];
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Doubles Delight"
+            emoji="👯"
+            description="Add the doubles! Use the pictures to help you."
+            problemCount={concepts.length}
+        >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {concepts.map((c, i) => (
+                    <div key={i} className="flex items-center gap-4 p-4 border-2 border-purple-100 rounded-xl bg-purple-50 break-inside-avoid">
+                        <div className="text-4xl">{c.emoji}</div>
+                        <div className="flex-1">
+                            <div className="text-sm text-purple-800 font-bold mb-1 uppercase">{c.label}</div>
+                            <div className="flex items-center gap-2 text-2xl font-bold text-slate-700">
+                                <span>{c.num}</span>
+                                <span>+</span>
+                                <span>{c.num}</span>
+                                <span>=</span>
+                                <div className="w-12 h-10 border-2 border-purple-300 bg-white rounded flex items-center justify-center shadow-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-4 p-4 border border-emerald-300 bg-emerald-50 rounded text-sm text-emerald-800">
+                    <strong>Answers:</strong> {concepts.map(c => `${c.num} + ${c.num} = ${c.num * 2}`).join(', ')}
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+// --- Picture Addition ---
+export function PictureAddition10({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const rng = makeRng(`${seed}-${docId}-${variant}`);
+    const items = ['🧁', '🐱', '🦋', '⚽', '🍌'];
+    const problems = Array.from({ length: 5 }).map(() => {
+        const item = items[Math.floor(rng() * items.length)];
+        const a = Math.floor(rng() * 5) + 1; // 1-5
+        const b = Math.floor(rng() * 5) + 1; // 1-5
+        return { item, a, b, sum: a + b };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Picture Addition"
+            emoji="🖼️"
+            description="Count the pictures to find the sum."
+            problemCount={problems.length}
+        >
+            <div className="space-y-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="flex flex-col md:flex-row items-center gap-4 p-4 border-2 border-slate-200 rounded-xl bg-white break-inside-avoid">
+                        {/* Group A */}
+                        <div className="flex gap-1 p-2 bg-blue-50 rounded-lg border border-blue-100">
+                            {Array.from({ length: p.a }).map((_, k) => <span key={k} className="text-2xl">{p.item}</span>)}
+                        </div>
+                        <div className="text-2xl font-bold text-slate-400">+</div>
+                        {/* Group B */}
+                        <div className="flex gap-1 p-2 bg-blue-50 rounded-lg border border-blue-100">
+                            {Array.from({ length: p.b }).map((_, k) => <span key={k} className="text-2xl">{p.item}</span>)}
+                        </div>
+                        <div className="text-2xl font-bold text-slate-400">=</div>
+                        {/* Answer */}
+                        <div className="w-16 h-12 border-2 border-slate-300 rounded bg-white shadow-inner flex items-center justify-center text-xl"></div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-4 p-4 border border-emerald-300 bg-emerald-50 rounded text-sm text-emerald-800">
+                    <strong>Answers:</strong> {problems.map(p => `${p.a} + ${p.b} = ${p.sum}`).join(', ')}
                 </div>
             ))}
         </WorksheetSectionWrapper>

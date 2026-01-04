@@ -97,7 +97,10 @@ import {
 } from './printables/DivisionWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
 import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitionWorksheet, SpotDifferenceWorksheet } from './printables/KindergartenExtraWorksheets'
-import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories } from './printables/FirstGradeMathWorksheets'
+import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50, DoublesFacts, PictureAddition10 } from './printables/FirstGradeMathWorksheets'
+import { SentenceBuilding } from './printables/LanguageWorksheets'
+import { FractionBasicID } from './printables/FractionWorksheets'
+import { ExpandedForm200, NumberPatterns200, RoundingNearest10 } from './printables/SecondGradeMath'
 import {
   PowersOf10,
   RoundingDecimals,
@@ -10660,6 +10663,60 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('subtraction-stories') && (
             <SubtractionStories docId='subtraction-stories' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('number-bonds-10') && (
+            <NumberBonds10 docId='number-bonds-10' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('count-write-30') && (
+            <CountWrite30 docId='count-write-30' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('missing-numbers-50') && (
+            <MissingNumbers50 docId='missing-numbers-50' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('doubles-facts') && (
+            <DoublesFacts docId='doubles-facts' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('picture-addition-10') && (
+            <PictureAddition10 docId='picture-addition-10' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('sentence-building') && (
+            <SentenceBuilding docId='sentence-building' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('fractions-halves-thirds-fourths') && (
+            <FractionBasicID docId='fractions-halves-thirds-fourths' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {
+          activeDocs.includes('expanded-form-200') && (
+            <ExpandedForm200 docId='expanded-form-200' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('number-patterns-200') && (
+            <NumberPatterns200 docId='number-patterns-200' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('rounding-nearest-10') && (
+            <RoundingNearest10 docId='rounding-nearest-10' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
           )
         }
 

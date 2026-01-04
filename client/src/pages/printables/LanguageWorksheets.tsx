@@ -1,10 +1,11 @@
 import React from 'react'
-import type { ReactNode } from 'react'
+type ReactNode = React.ReactNode
 import { useTranslation } from '@/context/TranslationContext'
 import { WorksheetSectionWrapper } from './PrintableShared'
+import { makeRng, shuffleArray } from '@/utils/printableUtils'
 
 interface SpecificWorksheetProps {
-    docId?: string
+    docId: string
     activeDocs?: string[]
     showAnswersForDoc: (docId: string, factory: () => ReactNode) => ReactNode
     seed: string
@@ -299,6 +300,74 @@ export function LetterTracingAZ({ showAnswersForDoc }: SpecificWorksheetProps) {
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                     <div className="font-semibold mb-1">Teaching tip</div>
                     <p className="text-sm">Start at the red dot and follow the arrow direction. Practice saying the letter name and sound while tracing. Use proper pencil grip and take your time.</p>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+export function SentenceBuilding({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const rng = makeRng(`${seed}-${docId}-${variant}`)
+
+    const sentences = [
+        "The cat is black.",
+        "I like to play.",
+        "The sun is hot.",
+        "My dog runs fast.",
+        "We go to school.",
+        "The bird can fly.",
+        "Look at the bug.",
+        "She has a red hat.",
+        "He is my friend.",
+        "I see a big bus."
+    ]
+
+    const problems = Array.from({ length: 5 }).map(() => {
+        // Pick a random sentence
+        const sentence = sentences[Math.floor(rng() * sentences.length)]
+        // Split and shuffle
+        const words = sentence.replace('.', '').split(' ')
+        const shuffled = shuffleArray([...words], rng)
+        return { sentence, shuffled }
+    })
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Sentence Building"
+            emoji="🏗️"
+            description="Unscramble the words to make a sentence. Write it on the line."
+            problemCount={problems.length}
+        >
+            <div className="space-y-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="p-4 border-2 border-slate-200 rounded-xl bg-slate-50 break-inside-avoid">
+                        {/* Shuffled Words */}
+                        <div className="flex flex-wrap gap-2 mb-4 justify-center">
+                            {p.shuffled.map((w, k) => (
+                                <div key={k} className="px-3 py-1 bg-white border border-slate-300 rounded shadow-sm text-lg font-bold text-slate-700">
+                                    {w}
+                                </div>
+                            ))}
+                        </div>
+                        {/* Writing Line */}
+                        <div className="relative h-12 w-full">
+                            <svg width="100%" height="100%" preserveAspectRatio="none" className="absolute top-0 left-0">
+                                <line x1="0" y1="80%" x2="100%" y2="80%" stroke="#334155" strokeWidth="2" />
+                                <line x1="0" y1="40%" x2="100%" y2="40%" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4 4" />
+                            </svg>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-4 p-4 border border-emerald-300 bg-emerald-50 rounded text-sm text-emerald-800">
+                    <strong>Answers:</strong>
+                    <ul className="list-disc list-inside mt-2">
+                        {problems.map((p, i) => (
+                            <li key={i}>{p.sentence}</li>
+                        ))}
+                    </ul>
                 </div>
             ))}
         </WorksheetSectionWrapper>

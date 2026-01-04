@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 type ReactNode = React.ReactNode;
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
@@ -450,4 +450,69 @@ export function MixedImproperFractions({ showAnswersForDoc, seed, variant }: Spe
             ))}
         </WorksheetSectionWrapper>
     );
+}
+
+export function FractionBasicID({ docId = 'fractions-halves-thirds-fourths', showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation();
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    // Simple identification: Halves (1/2), Thirds (1/3, 2/3), Fourths (1/4, 2/4, 3/4)
+    const problems = Array.from({ length: 6 }).map(() => {
+        const denom = [2, 3, 4][Math.floor(rng() * 3)];
+        const num = Math.floor(rng() * (denom - 1)) + 1; // 1 to denom-1 (proper fraction)
+        return { num, denom };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Fraction Fun: Halves, Thirds, Fourths')}
+            emoji="🍰"
+            description={t(`worksheets.${docId}.description`, 'Color the correct parts or write the fraction shown.')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Fraction Identification"
+                subtitle="Halves, Thirds, Fourths"
+                icons={{ bg1: "🍰", bg2: "🍕", float1: "½", float2: "¼" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-pink-500 to-rose-600",
+                    border: "border-pink-400",
+                    pillBg: "bg-pink-700/50",
+                    pillBorder: "border-pink-300",
+                    pillText: "text-pink-100",
+                    accent: "text-yellow-300"
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                {problems.map((p, i) => (
+                    <div key={i} className="flex flex-col items-center p-4 bg-white border-2 border-slate-200 rounded-xl shadow-sm break-inside-avoid">
+                        <div className="mb-4">
+                            {renderFractionCircle(p.num, p.denom, 80, "#ec4899")}
+                        </div>
+                        <div className="w-full flex flex-col items-center gap-2">
+                            <div className="text-sm font-bold text-slate-400 uppercase tracking-wider">Write the Fraction</div>
+                            <div className="flex flex-col items-center">
+                                <div className="w-12 h-10 border-2 border-slate-300 rounded bg-slate-50 flex items-center justify-center text-xl font-bold text-slate-700 shadow-inner"></div>
+                                <div className="w-12 h-0.5 bg-slate-400 my-1"></div>
+                                <div className="w-12 h-10 border-2 border-slate-300 rounded bg-slate-50 flex items-center justify-center text-xl font-bold text-slate-700 shadow-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded">
+                    <div className="font-bold text-emerald-900 mb-2">Answer Key</div>
+                    <div className="grid grid-cols-3 gap-4 text-sm">
+                        {problems.map((p, i) => (
+                            <div key={i}>#{i + 1}: <strong>{p.num}/{p.denom}</strong></div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
 }
