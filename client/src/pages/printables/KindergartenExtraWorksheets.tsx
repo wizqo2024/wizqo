@@ -1,5 +1,5 @@
-import * as React from 'react';
-import type { ReactNode } from 'react';
+import React from 'react';
+type ReactNode = React.ReactNode;
 import { WorksheetSectionWrapper } from './PrintableShared';
 import { makeRng, shuffleArray } from '@/utils/printableUtils';
 import { useTranslation } from '@/context/TranslationContext';
@@ -332,11 +332,20 @@ const SHAPE_DATA: Record<string, { title: string, emoji: string, description: st
                 { name: 'Triangle', icon: '🔺' },
                 { name: 'Star', icon: '⭐' },
                 { name: 'Heart', icon: '❤️' },
+                { name: 'Diamond', icon: '🔷' }
             ]
-            const shape = shapes[Math.floor(rng() * shapes.length)]
-            const options = shuffleArray(shapes.map(s => s.name), rng).slice(0, 3)
-            if (!options.includes(shape.name)) options[0] = shape.name
-            return { shape: shape.icon, correctAnswer: shape.name, options: shuffleArray(options, rng) }
+
+            // Generate 4 unique problems if possible, or just 4 random ones
+            return Array.from({ length: 4 }).map(() => {
+                const shape = shapes[Math.floor(rng() * shapes.length)]
+                const options = shuffleArray(shapes.map(s => s.name), rng).slice(0, 3)
+                if (!options.includes(shape.name)) options[0] = shape.name
+                return {
+                    shape: shape.icon,
+                    correctAnswer: shape.name,
+                    options: shuffleArray(options, rng)
+                }
+            })
         }
     },
     'missing-shape': {
@@ -344,18 +353,27 @@ const SHAPE_DATA: Record<string, { title: string, emoji: string, description: st
         emoji: '❓',
         description: 'Look at the pattern. Which shape is missing? Draw it in the empty circle!',
         generator: (rng: any) => {
-            // A-B-A-B Pattern
-            const shapes = ['⭕', '🟥', '⭐', '🔺', '🔷', '❤️'];
-            const [s1, s2] = shuffleArray(shapes, rng).slice(0, 2);
-            return {
-                type: 'pattern-puzzle',
-                items: [
-                    { icon: s1, missing: false },
-                    { icon: s2, missing: false },
-                    { icon: s1, missing: false },
-                    { icon: s2, missing: true } // Implicitly s2
-                ]
-            }
+            const shapes = ['⭕', '🟥', '⭐', '🔺', '🔷', '❤️', '🟩', '🔶'];
+            return Array.from({ length: 5 }).map(() => {
+                const [s1, s2] = shuffleArray(shapes, rng).slice(0, 2);
+                // Randomly decide pattern type: ABAB or AAB
+                const isABAB = rng() > 0.5;
+                const items = isABAB
+                    ? [
+                        { icon: s1, missing: false },
+                        { icon: s2, missing: false },
+                        { icon: s1, missing: false },
+                        { icon: s2, missing: true }
+                    ]
+                    : [
+                        { icon: s1, missing: false },
+                        { icon: s1, missing: false },
+                        { icon: s2, missing: false },
+                        { icon: s2, missing: true }
+                    ];
+
+                return { items };
+            });
         }
     },
     'color-shapes': {
@@ -532,15 +550,22 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
                 ))}
 
                 {docId === 'missing-shape' && (
-                    <div className="col-span-1 md:col-span-2 space-y-8">
-                        <div className="flex flex-nowrap justify-center gap-4 sm:gap-8 p-6 sm:p-12 border-2 border-slate-200 rounded-3xl bg-slate-50 overflow-x-auto">
-                            {(data as any).items.map((item: any, i: number) => (
-                                <div key={i} className={`relative flex flex-col items-center justify-center shrink-0 w-20 h-20 sm:w-32 sm:h-32 border-4 rounded-full bg-white shadow-sm transition-all
-                                    ${item.missing ? 'border-dashed border-slate-300' : 'border-slate-200 text-slate-700'}`}>
-                                    <span className="text-4xl sm:text-6xl">{item.missing ? '' : item.icon}</span>
+                    <div className="col-span-1 md:col-span-2 space-y-6">
+                        {(data as any[]).map((problem: any, rowIdx: number) => (
+                            <div key={rowIdx} className="flex flex-nowrap items-center justify-between gap-2 sm:gap-4 p-4 border-2 border-slate-200 rounded-2xl bg-white break-inside-avoid shadow-sm">
+                                <div className="flex items-center gap-2 sm:gap-4 flex-1 justify-center">
+                                    {problem.items.map((item: any, i: number) => (
+                                        <div key={i} className={`relative flex flex-col items-center justify-center w-14 h-14 sm:w-20 sm:h-20 border-3 rounded-xl sm:rounded-2xl transition-all
+                                            ${item.missing ? 'border-dashed border-slate-300 bg-slate-50' : 'border-slate-100 bg-white text-slate-700'}`}>
+                                            <span className="text-2xl sm:text-4xl">{item.missing ? '' : item.icon}</span>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
+                                {/* Visual Separator/Arrow */}
+                                <div className="hidden sm:block text-slate-300">➜</div>
+                                {/* Copy Box (Optional, or just the missing spot is enough. Let's keep it simple as just the sequence with missing spot) */}
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>
