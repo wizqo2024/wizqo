@@ -96,6 +96,7 @@ import {
   DividingBy10And100
 } from './printables/DivisionWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
+import { ComparisonWorksheet, PatternWorksheet } from './printables/KindergartenExtraWorksheets'
 import {
   PowersOf10,
   RoundingDecimals,
@@ -10598,6 +10599,22 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               </WorksheetSectionWrapper>
             );
           })()
+        }
+
+        {
+          ['heavy-light', 'long-short', 'more-less', 'big-small'].map(id =>
+            activeDocs.includes(id) && (
+              <ComparisonWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+            )
+          )
+        }
+
+        {
+          ['ab-pattern', 'color-patterns', 'shape-patterns', 'what-comes-next'].map(id =>
+            activeDocs.includes(id) && (
+              <PatternWorksheet key={id} docId={id} showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+            )
+          )
         }
 
         {
