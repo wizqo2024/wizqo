@@ -128,15 +128,23 @@ export function WordSearch({
 }) {
     const { t } = useTranslation()
 
-    // Only render if activeDocs includes 'word-search'
-    if (!activeDocs.includes('word-search')) return null;
+    // Check if any word search variant is active
+    const activeDetails = activeDocs.find(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words'].includes(d));
+    if (!activeDetails) return null;
 
     const wsSize = 10; // Increased size for premium feel
     const seedStr = `${effectiveSeed}|v${variant}|t${packTime}|a${packAge}|s${packSkill}`;
     const rng = makeRng(seedStr);
 
-    // Select Theme
-    const theme = packSkill === 'reading' ? 'sight' : (packSkill === 'stem' ? 'space' : pick(['animals', 'space', 'sight'], rng)!);
+    // Select Theme based on docId or packSkill
+    let theme = 'animals';
+    if (activeDetails === 'ws-space') theme = 'space';
+    else if (activeDetails === 'ws-sight-words' || packSkill === 'reading') theme = 'sight';
+    else if (activeDetails === 'word-search') theme = pick(['animals', 'space', 'sight'], rng)!;
+
+    // Override if packSkill implies a specific theme
+    if (packSkill === 'stem' && theme !== 'space') theme = 'space';
+
     const wordsFull = buildWords(theme, packAge);
     const words = pickNUnique(wordsFull, 10, rng);
 

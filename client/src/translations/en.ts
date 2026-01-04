@@ -114,6 +114,26 @@ export const en = {
     },
   },
   worksheets: {
+    'coloring-animals': {
+      title: 'Animal Coloring Page',
+      description: 'Fun coloring pages featuring your favorite animals.',
+    },
+    'coloring-nature': {
+      title: 'Nature Coloring Page',
+      description: 'Beautiful scenes from nature to color.',
+    },
+    'coloring-space': {
+      title: 'Space Coloring Page',
+      description: 'Blast off with these space-themed coloring pages.',
+    },
+    'coloring-vehicles': {
+      title: 'Vehicle Coloring Page',
+      description: 'Cars, trucks, and more for you to color.',
+    },
+    'coloring': {
+      title: 'Fun Coloring Page',
+      description: 'Express your creativity with these coloring pages.',
+    },
     countObjectsAndWriteNumber: 'Count the objects and write the number.',
     countThe: 'Count the {{object}}',
     numberLabel: 'Number',

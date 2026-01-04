@@ -677,239 +677,239 @@ const COLORING_ASSETS = {
     // Animals Theme
     animals: [
         {
-            name: 'Friendly Lion',
+            name: 'Majestic Lion',
             viewBox: '0 0 500 500',
             path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
-                    {/* Mane */}
-                    <path d="M250 100 C200 50, 100 150, 120 250 C100 300, 150 400, 250 420 C350 400, 400 300, 380 250 C400 150, 300 50, 250 100 Z" />
-                    {/* Face */}
-                    <circle cx="250" cy="250" r="80" />
+                <g stroke="#000" strokeWidth="2" fill="none">
+                    {/* Detailed Mane */}
+                    <path d="M250 80 Q210 40, 160 80 Q120 60, 100 110 Q60 120, 70 170 Q40 210, 70 250 Q60 300, 100 320 Q120 370, 170 360 Q210 400, 250 370 Q290 400, 330 360 Q380 370, 400 320 Q440 300, 430 250 Q460 210, 430 170 Q440 120, 400 110 Q380 60, 340 80 Q290 40, 250 80 Z" />
+                    <path d="M100 110 C80 150, 80 280, 100 320" strokeDasharray="5,5" />
+                    <path d="M400 110 C420 150, 420 280, 400 320" strokeDasharray="5,5" />
+
+                    {/* Face Outline */}
+                    <path d="M150 150 Q130 250, 160 320 Q250 350, 340 320 Q370 250, 350 150 Q250 110, 150 150" />
+
                     {/* Ears */}
-                    <path d="M190 190 Q170 150, 210 180" />
-                    <path d="M310 190 Q330 150, 290 180" />
-                    {/* Eyes */}
-                    <circle cx="225" cy="230" r="5" fill="#000" />
-                    <circle cx="275" cy="230" r="5" fill="#000" />
-                    {/* Nose & Mouth */}
-                    <path d="M240 260 L260 260 L250 275 Z" fill="#000" />
-                    <path d="M250 275 Q230 290, 220 280" />
-                    <path d="M250 275 Q270 290, 280 280" />
-                    {/* Whiskers */}
-                    <line x1="200" y1="260" x2="160" y2="250" />
-                    <line x1="200" y1="270" x2="160" y2="275" />
-                    <line x1="300" y1="260" x2="340" y2="250" />
-                    <line x1="300" y1="270" x2="340" y2="275" />
+                    <path d="M150 150 Q130 110, 110 130" />
+                    <path d="M350 150 Q370 110, 390 130" />
+
+                    {/* Detailed Eyes */}
+                    <path d="M180 200 Q200 190, 220 200" />
+                    <circle cx="200" cy="205" r="5" fill="#000" />
+                    <path d="M280 200 Q300 190, 320 200" />
+                    <circle cx="300" cy="205" r="5" fill="#000" />
+
+                    {/* Nose */}
+                    <path d="M230 250 Q250 240, 270 250 L250 280 Z" fill="#000" />
+
+                    {/* Mouth & Whiskers */}
+                    <path d="M250 280 Q230 300, 210 280" />
+                    <path d="M250 280 Q270 300, 290 280" />
+
+                    <path d="M180 260 L140 250 M180 270 L140 275 M180 280 L140 290" />
+                    <path d="M320 260 L360 250 M320 270 L360 275 M320 280 L360 290" />
+
+                    {/* Fur Details */}
+                    <path d="M250 370 L250 450 M220 450 L280 450" />
+                    <path d="M170 360 L150 420 M330 360 L350 420" />
                 </g>
             )
         },
         {
-            name: 'Owl in Tree',
+            name: 'Wise Owl',
             viewBox: '0 0 500 500',
             path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
-                    {/* Tree Branch */}
-                    <path d="M0 400 Q150 420, 300 380 Q400 360, 500 380" strokeWidth="15" />
-                    {/* Leaves */}
-                    <path d="M50 400 Q30 350, 70 340 Q90 350, 80 400" />
-                    <path d="M400 370 Q420 320, 460 330 Q480 340, 450 380" />
+                <g stroke="#000" strokeWidth="2" fill="none">
+                    {/* Detailed Tree */}
+                    <path d="M0 450 Q100 440, 150 400 Q200 380, 350 400 Q450 410, 500 380" strokeWidth="12" />
+                    <path d="M350 400 Q400 350, 420 300" strokeWidth="8" />
+
                     {/* Owl Body */}
-                    <ellipse cx="250" cy="300" rx="60" ry="80" />
-                    {/* Wings */}
-                    <path d="M190 300 Q170 350, 200 360" />
-                    <path d="M310 300 Q330 350, 300 360" />
-                    {/* Eyes */}
-                    <circle cx="230" cy="270" r="15" />
-                    <circle cx="270" cy="270" r="15" />
-                    <circle cx="230" cy="270" r="3" fill="#000" />
-                    <circle cx="270" cy="270" r="3" fill="#000" />
-                    {/* Beak */}
-                    <path d="M245 285 L255 285 L250 295 Z" fill="#000" />
-                    {/* Feet */}
-                    <path d="M230 380 L230 395" strokeWidth="5" />
-                    <path d="M270 380 L270 395" strokeWidth="5" />
+                    <path d="M200 200 Q150 250, 180 380 Q250 410, 320 380 Q350 250, 300 200" />
+                    <path d="M200 200 Q250 180, 300 200" /> {/* Head top */}
+
+                    {/* Wings with Feathers */}
+                    <path d="M180 240 Q150 300, 180 350" />
+                    <path d="M180 240 Q170 270, 180 290 M175 260 Q165 290, 175 310" />
+                    <path d="M320 240 Q350 300, 320 350" />
+                    <path d="M320 240 Q330 270, 320 290 M325 260 Q335 290, 325 310" />
+
+                    {/* Face */}
+                    <circle cx="225" cy="240" r="25" />
+                    <circle cx="275" cy="240" r="25" />
+                    <circle cx="225" cy="240" r="8" fill="#000" />
+                    <circle cx="275" cy="240" r="8" fill="#000" />
+                    <path d="M240 260 L260 260 L250 280 Z" fill="#000" />
+
+                    {/* Chest Feathers */}
+                    <path d="M210 300 Q225 310, 240 300 M260 300 Q275 310, 290 300" />
+                    <path d="M220 320 Q235 330, 250 320 M270 320 Q285 330, 300 320" />
+                    <path d="M230 340 Q245 350, 260 340" />
+
+                    {/* Leaves */}
+                    <path d="M420 300 Q400 280, 420 260 Q440 280, 420 300" />
+                    <path d="M420 300 Q440 320, 460 300 Q440 280, 420 300" />
                 </g>
             )
         },
         {
-            name: 'Happy Elephant',
+            name: 'Playful Elephant',
             viewBox: '0 0 500 500',
             path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
+                <g stroke="#000" strokeWidth="2" fill="none">
+                    {/* Head & Trunk */}
+                    <path d="M180 150 Q140 100, 240 100 Q300 100, 320 150" />
+                    <path d="M180 150 Q160 250, 180 300" /> {/* Left face */}
+                    <path d="M320 150 Q340 250, 320 280" /> {/* Right face */}
+
+                    <path d="M220 250 Q200 280, 210 330 Q220 360, 250 350 Q260 340, 250 330 Q230 330, 230 280" /> {/* Trunk */}
+
+                    {/* Ears */}
+                    <path d="M180 150 Q100 120, 120 250 Q160 280, 180 220" />
+                    <path d="M320 150 Q400 120, 380 250 Q340 280, 320 220" />
+
                     {/* Body */}
-                    <path d="M150 200 Q100 100, 250 100 Q350 100, 400 200 Q450 300, 400 400 L150 400 Z" />
-                    {/* Head */}
-                    <circle cx="180" cy="180" r="70" />
-                    {/* Trunk */}
-                    <path d="M130 200 Q100 250, 110 300 Q120 320, 140 310" strokeWidth="20" strokeLinecap="round" />
-                    {/* Ear */}
-                    <path d="M220 150 Q300 100, 280 250 Q220 250, 220 200" />
-                    {/* Eye */}
-                    <circle cx="160" cy="160" r="5" fill="#000" />
+                    <path d="M160 300 Q100 350, 120 450 L380 450 Q400 350, 340 300" />
+
                     {/* Legs */}
-                    <rect x="180" y="400" width="40" height="60" />
-                    <rect x="350" y="400" width="40" height="60" />
-                    {/* Tail */}
-                    <path d="M400 250 Q450 250, 440 300" />
-                </g>
-            )
-        }
-    ],
-    // Space Theme
-    space: [
-        {
-            name: 'Rocket Launch',
-            viewBox: '0 0 500 500',
-            path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
-                    {/* Rocket Body */}
-                    <path d="M200 350 L200 150 Q250 50, 300 150 L300 350 Z" />
-                    {/* Fins */}
-                    <path d="M200 350 L150 400 L200 380" />
-                    <path d="M300 350 L350 400 L300 380" />
-                    {/* Window */}
-                    <circle cx="250" cy="200" r="30" />
-                    {/* Flames */}
-                    <path d="M220 350 Q250 450, 280 350" strokeDasharray="5,5" />
-                    {/* Planets */}
-                    <circle cx="100" cy="100" r="40" />
-                    <path d="M50 100 Q100 150, 150 100" />
-                    <circle cx="400" cy="300" r="20" />
-                    {/* Stars */}
-                    <path d="M400 100 L410 80 L420 100 L440 110 L420 120 L410 140 L400 120 L380 110 Z" />
-                    <path d="M100 400 L110 380 L120 400 L140 410 L120 420 L110 440 L100 420 L80 410 Z" />
+                    <path d="M180 450 L180 400 Q200 390, 220 400 L220 450" />
+                    <path d="M280 450 L280 400 Q300 390, 320 400 L320 450" />
+
+                    {/* Eyes */}
+                    <path d="M200 180 Q215 170, 230 180" />
+                    <circle cx="215" cy="185" r="4" fill="#000" />
+                    <path d="M270 180 Q285 170, 300 180" />
+                    <circle cx="285" cy="185" r="4" fill="#000" />
+
+                    {/* Water Splash */}
+                    <path d="M250 350 Q240 380, 220 390" strokeDasharray="2,4" />
+                    <path d="M250 350 Q260 380, 280 390" strokeDasharray="2,4" />
+                    <circle cx="250" cy="370" r="2" fill="#3b82f6" stroke="none" />
+                    <circle cx="230" cy="380" r="3" fill="#3b82f6" stroke="none" />
                 </g>
             )
         },
         {
-            name: 'To The Moon',
+            name: 'Happy Dog',
             viewBox: '0 0 500 500',
             path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
-                    {/* Moon Surface */}
-                    <path d="M0 400 Q250 350, 500 400 L500 500 L0 500 Z" />
-                    {/* Craters */}
-                    <ellipse cx="100" cy="450" rx="40" ry="10" />
-                    <ellipse cx="300" cy="420" rx="30" ry="8" />
-                    <ellipse cx="450" cy="460" rx="20" ry="5" />
-                    {/* Astronaut */}
-                    <rect x="200" y="200" width="60" height="80" rx="10" />
-                    <circle cx="230" cy="180" r="25" />
-                    <line x1="200" y1="230" x2="170" y2="260" />
-                    <line x1="260" y1="230" x2="290" y2="260" />
-                    <line x1="210" y1="280" x2="210" y2="350" />
-                    <line x1="250" y1="280" x2="250" y2="350" />
-                    {/* Flag */}
-                    <line x1="350" y1="350" x2="350" y2="150" strokeWidth="5" />
-                    <rect x="350" y="150" width="80" height="50" />
-                    {/* Earth in distance */}
-                    <circle cx="400" cy="80" r="30" />
+                <g stroke="#000" strokeWidth="2" fill="none">
+                    {/* Head */}
+                    <path d="M250 120 Q180 120, 180 200 Q180 280, 250 300 Q320 280, 320 200 Q320 120, 250 120" />
+
+                    {/* Ears (Floppy) */}
+                    <path d="M190 150 Q140 140, 140 200 Q150 240, 180 210" />
+                    <path d="M310 150 Q360 140, 360 200 Q350 240, 320 210" />
+
+                    {/* Face */}
+                    <ellipse cx="230" cy="190" rx="8" ry="12" fill="#000" />
+                    <ellipse cx="270" cy="190" rx="8" ry="12" fill="#000" />
+                    <path d="M250 230 L240 220 L260 220 Z" fill="#000" />
+                    <path d="M250 230 Q230 250, 210 230" />
+                    <path d="M250 230 Q270 250, 290 230" />
+                    <path d="M250 240 Q250 280, 250 290" strokeWidth="4" stroke="pink" /> {/* Tongue */}
+
+                    {/* Body */}
+                    <path d="M210 300 Q180 350, 160 450 L340 450 Q320 350, 290 300" />
+
+                    {/* Collar */}
+                    <path d="M200 300 Q250 320, 300 300" strokeWidth="4" />
+                    <circle cx="250" cy="310" r="8" />
+
+                    {/* Tail */}
+                    <path d="M320 380 Q360 350, 350 320 Q330 330, 320 360" />
                 </g>
             )
         }
     ],
-    // Nature Theme
+    // Nature Theme (Detailed)
     nature: [
         {
-            name: 'Flower Garden',
+            name: 'Forest Scene',
             viewBox: '0 0 500 500',
             path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
-                    {/* Grass */}
-                    <path d="M0 450 L50 420 L100 450 L150 420 L200 450 L250 420 L300 450 L350 420 L400 450 L450 420 L500 450 L500 500 L0 500 Z" />
-                    {/* Flower Center */}
-                    <line x1="250" y1="450" x2="250" y2="300" strokeWidth="5" />
-                    <circle cx="250" cy="250" r="30" />
-                    {/* Petals */}
-                    <circle cx="250" cy="190" r="30" />
-                    <circle cx="250" cy="310" r="30" />
-                    <circle cx="190" cy="250" r="30" />
-                    <circle cx="310" cy="250" r="30" />
-                    <circle cx="210" cy="210" r="25" />
-                    <circle cx="290" cy="210" r="25" />
-                    <circle cx="210" cy="290" r="25" />
-                    <circle cx="290" cy="290" r="25" />
-                    {/* Leaves */}
-                    <path d="M250 350 Q300 320, 320 340 Q300 370, 250 360" />
-                    <path d="M250 380 Q200 350, 180 370 Q200 400, 250 390" />
-                    {/* Sun */}
-                    <circle cx="50" cy="50" r="30" />
-                    <line x1="50" y1="10" x2="50" y2="0" />
-                    <line x1="50" y1="90" x2="50" y2="100" />
-                    <line x1="10" y1="50" x2="0" y2="50" />
-                    <line x1="90" y1="50" x2="100" y2="50" />
-                </g>
-            )
-        },
-        {
-            name: 'Mountains',
-            viewBox: '0 0 500 500',
-            path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
-                    {/* Foreground Hills */}
-                    <path d="M0 500 L0 400 Q150 350, 300 450 Q400 500, 500 400 L500 500 Z" />
-                    {/* Big Mountain */}
-                    <path d="M50 400 L250 100 L450 400" />
-                    {/* Snow Cap */}
-                    <path d="M200 175 L220 200 L250 175 L280 200 L300 175" />
-                    {/* Cloud */}
-                    <path d="M50 100 Q70 80, 90 100 Q110 80, 130 100 Q150 80, 170 100 L50 100" />
-                    {/* Sun */}
-                    <circle cx="400" cy="80" r="40" />
+                <g stroke="#000" strokeWidth="2" fill="none">
+                    {/* Mountains */}
+                    <path d="M50 350 L150 150 L250 350" />
+                    <path d="M200 350 L350 100 L500 350" />
+                    <path d="M125 200 L150 230 L175 200" /> {/* Snow */}
+                    <path d="M310 160 L350 200 L390 160" /> {/* Snow */}
+
                     {/* Trees */}
-                    <path d="M50 450 L60 420 L70 450" fill="#000" />
-                    <path d="M100 470 L110 440 L120 470" fill="#000" />
+                    <path d="M50 450 L50 380 M20 450 L50 380 L80 450" />
+                    <path d="M450 450 L450 380 M420 450 L450 380 L480 450" />
+
+                    {/* Sun */}
+                    <circle cx="400" cy="80" r="30" />
+                    <path d="M400 40 L400 20 M440 80 L460 80 M400 120 L400 140 M360 80 L340 80" />
+
+                    {/* Clouds */}
+                    <path d="M100 100 Q120 80, 140 100 Q160 80, 180 100 L100 100" />
+
+                    {/* Stream */}
+                    <path d="M200 350 Q250 400, 200 450 Q150 500, 250 500" strokeWidth="2" />
+                    <path d="M220 360 Q270 410, 220 460" strokeWidth="1" />
                 </g>
             )
         }
     ],
-    // Vehicles Theme
-    vehicles: [
+    // Space Theme (Detailed)
+    space: [
         {
-            name: 'Fast Car',
+            name: 'Space Explorer',
             viewBox: '0 0 500 500',
             path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
-                    {/* Car Body */}
-                    <path d="M50 300 L100 250 L350 250 L400 300 L450 300 L450 350 L50 350 Z" />
-                    {/* Roof / Windows */}
-                    <path d="M120 250 L150 180 L300 180 L330 250" />
-                    <line x1="225" y1="180" x2="225" y2="250" />
-                    {/* Wheels */}
-                    <circle cx="120" cy="350" r="40" />
-                    <circle cx="120" cy="350" r="20" />
-                    <circle cx="380" cy="350" r="40" />
-                    <circle cx="380" cy="350" r="20" />
-                    {/* Headlights */}
-                    <circle cx="440" cy="320" r="10" />
-                    {/* Road */}
-                    <line x1="0" y1="400" x2="500" y2="400" strokeWidth="2" />
+                <g stroke="#000" strokeWidth="2" fill="none">
+                    {/* Rocket Detail */}
+                    <path d="M220 350 L220 150 Q250 80, 280 150 L280 350" />
+                    <path d="M220 350 Q250 360, 280 350" />
+                    <circle cx="250" cy="200" r="20" />
+                    <circle cx="250" cy="200" r="15" />
+                    <path d="M220 320 L180 380 L220 360" /> {/* Left Fin */}
+                    <path d="M280 320 L320 380 L280 360" /> {/* Right Fin */}
+                    <path d="M250 360 L240 380 L260 380 Z" /> {/* Engine */}
+
+                    {/* Flames */}
+                    <path d="M240 380 Q250 420, 260 380" />
+                    <path d="M245 380 Q250 400, 255 380" />
+
+                    {/* Planet Saturn-like */}
+                    <circle cx="100" cy="120" r="30" />
+                    <ellipse cx="100" cy="120" rx="50" ry="10" transform="rotate(-20 100 120)" />
+
+                    {/* Stars */}
+                    <path d="M400 100 L405 90 L410 100 L420 105 L410 110 L405 120 L400 110 L390 105 Z" />
+                    <circle cx="50" cy="300" r="2" fill=" #000" />
+                    <circle cx="450" cy="400" r="3" fill="#000" />
                 </g>
             )
-        },
+        }
+    ],
+    // Vehicles Theme (Detailed)
+    vehicles: [
         {
-            name: 'Sailboat',
+            name: 'Off-Road Truck',
             viewBox: '0 0 500 500',
             path: (
-                <g stroke="#000" strokeWidth="3" fill="none">
-                    {/* Water */}
-                    <path d="M0 400 Q25 390, 50 400 T100 400 T150 400 T200 400 T250 400 T300 400 T350 400 T400 400 T450 400 T500 400" />
-                    <path d="M0 430 Q25 420, 50 430 T100 430 T150 430 T200 430 T250 430 T300 430 T350 430 T400 430 T450 430 T500 430" />
-                    {/* Boat Hull */}
-                    <path d="M100 350 L400 350 L350 400 L150 400 Z" />
-                    {/* Mast */}
-                    <line x1="250" y1="350" x2="250" y2="100" />
-                    {/* Sail Right */}
-                    <path d="M255 110 L255 340 L380 340 Z" />
-                    {/* Sail Left */}
-                    <path d="M245 130 L245 340 L150 340 Z" />
-                    {/* Flag */}
-                    <path d="M250 100 L280 115 L250 130" />
-                    {/* Sun */}
-                    <circle cx="400" cy="80" r="30" />
-                    {/* Birds */}
-                    <path d="M100 100 L110 110 L120 100" />
-                    <path d="M50 150 L60 160 L70 150" />
+                <g stroke="#000" strokeWidth="2" fill="none">
+                    {/* Body */}
+                    <path d="M100 300 L100 240 L160 200 L280 200 L280 240 L380 240 L380 300" />
+                    <path d="M100 300 L380 300" />
+
+                    {/* Windows */}
+                    <path d="M170 210 L270 210 L270 240 L165 240 Z" />
+                    <line x1="220" y1="210" x2="220" y2="240" />
+
+                    {/* Wheels (Big) */}
+                    <circle cx="140" cy="300" r="40" />
+                    <circle cx="140" cy="300" r="25" />
+                    <circle cx="140" cy="300" r="10" />
+                    <circle cx="340" cy="300" r="40" />
+                    <circle cx="340" cy="300" r="25" />
+                    <circle cx="340" cy="300" r="10" />
+
+                    {/* Ground */}
+                    <path d="M50 340 L100 340 M180 340 L300 340 M380 340 L450 340" strokeWidth="3" />
                 </g>
             )
         }
@@ -979,5 +979,266 @@ export function ColoringWorksheet({ docId, seed, variant }: SpecificWorksheetPro
             </div>
         </WorksheetSectionWrapper>
     );
+}
+
+// --- Color By Number ---
+export function ColorByNumberWorksheet({ docId, seed, variant }: SpecificWorksheetProps) {
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Color by Number: Mystery Picture"
+            emoji="🎨"
+            description="Use the code key to color the picture and reveal the hidden image!"
+            problemCount={1}
+            learningObjectives={['Number recognition', 'Color word recognition', 'Fine motor skills', 'Following specific instructions']}
+        >
+            <div className="flex flex-col items-center gap-6 break-inside-avoid">
+                <div className="flex gap-4 mb-4 flex-wrap justify-center">
+                    {[
+                        { num: 1, color: 'Red', hex: '#ef4444' },
+                        { num: 2, color: 'Blue', hex: '#3b82f6' },
+                        { num: 3, color: 'Yellow', hex: '#eab308' },
+                        { num: 4, color: 'Green', hex: '#22c55e' }
+                    ].map(k => (
+                        <div key={k.num} className="flex items-center gap-2 border px-3 py-1 rounded-full bg-slate-50">
+                            <span className="font-bold text-slate-900">{k.num}</span>
+                            <span>=</span>
+                            <div className="w-4 h-4 rounded-full" style={{ backgroundColor: k.hex }} />
+                            <span className="text-sm font-medium text-slate-600">{k.color}</span>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="w-full max-w-lg aspect-square border-4 border-slate-900 bg-white relative">
+                    <svg viewBox="0 0 400 400" className="w-full h-full">
+                        <g fill="none" stroke="#000" strokeWidth="2">
+                            {/* Sun (Yellow/3) */}
+                            <circle cx="60" cy="60" r="30" />
+                            <text x="60" y="65" textAnchor="middle" fontSize="20" stroke="none" fill="#000">3</text>
+
+                            {/* Sky (Blue/2) */}
+                            <path d="M0 0 L400 0 L400 300 L0 300 Z" stroke="none" fill="none" />
+                            <text x="200" y="100" textAnchor="middle" fontSize="20" stroke="none" fill="#000">2</text>
+                            <text x="350" y="50" textAnchor="middle" fontSize="20" stroke="none" fill="#000">2</text>
+
+                            {/* Hills (Green/4) */}
+                            <path d="M0 300 Q100 250, 200 300 T400 300 L400 400 L0 400 Z" />
+                            <text x="100" y="350" textAnchor="middle" fontSize="20" stroke="none" fill="#000">4</text>
+                            <text x="300" y="350" textAnchor="middle" fontSize="20" stroke="none" fill="#000">4</text>
+
+                            {/* House (Red/1) */}
+                            <path d="M220 320 L220 250 L280 200 L340 250 L340 320 Z" />
+                            <text x="280" y="280" textAnchor="middle" fontSize="20" stroke="none" fill="#000">1</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
+
+// --- Design A Monster ---
+export function DesignMonsterWorksheet({ docId, seed, variant }: SpecificWorksheetProps) {
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Design a Monster!"
+            emoji="👾"
+            description="Use your imagination to draw a friendly (or scary!) monster. Give it eyes, mouths, and arms!"
+            problemCount={1}
+            learningObjectives={['Creative expression', 'Drawing body parts', 'Descriptive adjectives', 'Fine motor skills']}
+        >
+            <div className="flex flex-col items-center gap-6 break-inside-avoid">
+                <div className="w-full h-96 border-4 border-dashed border-purple-300 rounded-xl bg-purple-50 flex items-center justify-center relative p-8">
+                    <span className="absolute top-4 left-4 text-purple-200 text-6xl opacity-30">⚡</span>
+                    <span className="absolute bottom-4 right-4 text-purple-200 text-6xl opacity-30">🎈</span>
+
+                    <div className="text-center text-purple-400 font-bold text-xl border-dashed border-2 border-purple-200 p-8 rounded-lg">
+                        Draw your Monster Here!
+                    </div>
+                </div>
+
+                <div className="w-full border-t-2 border-slate-200 pt-6">
+                    <h4 className="font-bold text-slate-700 mb-4">My Monster's Stats:</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="flex items-center gap-2">
+                            <span>Name:</span>
+                            <div className="border-b-2 border-slate-300 flex-1 h-8"></div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span>Superpower:</span>
+                            <div className="border-b-2 border-slate-300 flex-1 h-8"></div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span>Number of Eyes:</span>
+                            <div className="border-b-2 border-slate-300 flex-1 h-8"></div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span>Favorite Food:</span>
+                            <div className="border-b-2 border-slate-300 flex-1 h-8"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
+
+// --- Draw Half ---
+export function DrawHalfWorksheet({ docId, seed, variant }: SpecificWorksheetProps) {
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Finish the Picture (Symmetry)"
+            emoji="🦋"
+            description="Use the grid to draw the missing half of the picture. Try to make it look exactly like the other side!"
+            problemCount={1}
+            learningObjectives={['Spatial reasoning', 'Understanding symmetry', 'Counting grid units', 'Fine motor control']}
+        >
+            <div className="flex justify-center break-inside-avoid">
+                <div className="relative w-full max-w-lg aspect-square border-4 border-slate-900 bg-white">
+                    {/* Grid */}
+                    <svg viewBox="0 0 20 20" className="w-full h-full opacity-20 pointer-events-none absolute top-0 left-0">
+                        <pattern id="grid" x="0" y="0" width="1" height="1" patternUnits="userSpaceOnUse">
+                            <rect width="1" height="1" fill="none" stroke="#000" strokeWidth="0.05" />
+                        </pattern>
+                        <rect width="20" height="20" fill="url(#grid)" />
+                    </svg>
+
+                    {/* The Drawing (Butterfly Half) */}
+                    <svg viewBox="0 0 200 200" className="w-full h-full relative z-10">
+                        {/* Left Side (Visible) */}
+                        <g fill="none" stroke="#000" strokeWidth="2">
+                            <path d="M100 20 Q60 10, 50 60 Q20 80, 50 110 Q40 160, 100 180" /> {/* Wing */}
+                            <path d="M100 40 Q80 40, 80 100 Q80 160, 100 160" /> {/* Body Left */}
+                            <line x1="100" y1="20" x2="100" y2="180" strokeDasharray="5,5" strokeWidth="1" /> {/* Center Line */}
+                        </g>
+
+                        {/* Right Side (Faint Guide) */}
+                        <path d="M100 20 Q140 10, 150 60 Q180 80, 150 110 Q160 160, 100 180" fill="none" stroke="#ddd" strokeWidth="2" strokeDasharray="2,2" />
+                    </svg>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
+
+// --- Bookmark Templates ---
+export function BookmarkTemplates({ docId, seed }: SpecificWorksheetProps) {
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="DIY Bookmarks"
+            emoji="🔖"
+            description="Color, cut, and create your own bookmarks!"
+            problemCount={4}
+            learningObjectives={['Reading encouragement', 'Creativity and design', 'Fine motor skills', 'Personal expression']}
+        >
+            <div className="flex justify-around items-stretch h-[600px] break-inside-avoid gap-4">
+                {[1, 2, 3, 4].map(i => (
+                    <div key={i} className="flex-1 border-4 border-dashed border-slate-300 rounded-full flex flex-col items-center p-4 relative bg-white">
+                        <div className="w-4 h-4 rounded-full border-2 border-slate-900 absolute top-4"></div>
+
+                        {i === 1 && <div className="mt-12 text-center font-bold text-2xl rotate-90 origin-center translate-y-32 whitespace-nowrap">READ MORE!</div>}
+                        {i === 1 && <div className="absolute bottom-12 text-4xl">📚</div>}
+
+                        {i === 2 && <div className="mt-12 flex flex-col gap-4 items-center">
+                            {[...Array(5)].map((_, idx) => <div key={idx} className="text-2xl">⭐</div>)}
+                        </div>}
+
+                        {i === 3 && <div className="mt-20 w-full flex flex-col gap-8 opacity-30 px-2">
+                            {[...Array(6)].map((_, idx) => <div key={idx} className="border-b-2 border-black w-full"></div>)}
+                        </div>}
+
+                        {i === 4 && (
+                            <>
+                                <div className="mt-12 text-center text-lg font-bold">Ex Libris:</div>
+                                <div className="mt-4 border-b-2 border-black w-3/4"></div>
+                            </>
+                        )}
+
+                        <div className="absolute bottom-1 w-full text-center text-[10px] text-slate-400">Cut Here</div>
+                    </div>
+                ))}
+            </div>
+        </WorksheetSectionWrapper>
+    )
+}
+
+// --- Hidden Object ---
+export function HiddenObjectWorksheet({ docId, seed }: SpecificWorksheetProps) {
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Hidden Picture Puzzle"
+            emoji="🔍"
+            description="Can you find the hidden objects in the scene? Circle them when you find them!"
+            problemCount={5}
+            learningObjectives={['Visual discrimination', 'Attention to detail', 'Figure-ground perception', 'Patience']}
+        >
+            <div className="flex flex-col gap-4 break-inside-avoid">
+                <div className="flex justify-center gap-8 bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <div className="flex flex-col items-center"><span className="text-2xl">✏️</span><span className="text-xs">Pencil</span></div>
+                    <div className="flex flex-col items-center"><span className="text-2xl">🗝️</span><span className="text-xs">Key</span></div>
+                    <div className="flex flex-col items-center"><span className="text-2xl">🍕</span><span className="text-xs">Pizza</span></div>
+                    <div className="flex flex-col items-center"><span className="text-2xl">🎈</span><span className="text-xs">Balloon</span></div>
+                </div>
+
+                <div className="w-full aspect-video border-4 border-slate-900 rounded-lg relative bg-white overflow-hidden">
+                    <svg viewBox="0 0 800 500" className="w-full h-full">
+                        <g fill="none" stroke="#000" strokeWidth="2">
+                            {/* Tree */}
+                            <path d="M100 400 L100 200 Q50 150, 150 100 Q250 150, 200 200 L200 400" />
+                            <path d="M50 400 L750 400" />
+                            <circle cx="600" cy="100" r="40" />
+
+                            {/* Bench */}
+                            <rect x="400" y="320" width="150" height="20" rx="5" />
+                            <rect x="420" y="340" width="10" height="40" />
+                            <rect x="520" y="340" width="10" height="40" />
+
+                            {/* Hidden Items */}
+                            <path d="M110 350 L110 300 Q115 290, 120 300 L120 350 Z" stroke="#333" />
+                            <path d="M600 50 L600 30 M595 40 L605 40" stroke="#333" />
+                            <path d="M50 350 Q70 320, 90 350" />
+                            <path d="M250 380 Q270 350, 290 380" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    )
+}
+
+// --- Maze Focus ---
+export function MazeFocusWorksheet({ docId, seed }: SpecificWorksheetProps) {
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Maze Runner"
+            emoji="🌀"
+            description="Help the character find their way to the goal! Stay inside the lines."
+            problemCount={1}
+            learningObjectives={['Fine motor control', 'Spatial planning', 'Problem solving', 'Hand-eye coordination']}
+        >
+            <div className="flex justify-center p-4 break-inside-avoid">
+                <div className="w-full max-w-2xl relative">
+                    <div className="absolute top-0 left-0 -translate-x-full pr-4 text-4xl">🐹</div>
+                    <div className="absolute bottom-0 right-0 translate-x-full pl-4 text-4xl">🧀</div>
+
+                    <svg viewBox="0 0 400 400" className="w-full h-auto border-4 border-slate-900 bg-white">
+                        <defs>
+                            <pattern id="mazePattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M0 0 L40 0 L40 40" fill="none" stroke="#000" strokeWidth="2" />
+                            </pattern>
+                        </defs>
+                        <g fill="none" stroke="#000" strokeWidth="4" strokeLinecap="round">
+                            <path d="M20 20 L380 20 L380 380 L20 380 L20 60 L340 60 L340 340 L60 340 L60 100 L300 100 L300 300 L100 300 L100 140 L260 140 L260 260 L140 260 L140 180 L220 180" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    )
 }
 

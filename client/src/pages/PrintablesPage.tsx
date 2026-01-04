@@ -113,7 +113,20 @@ import {
   DividingBy10And100
 } from './printables/DivisionWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
-import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitionWorksheet, SpotDifferenceWorksheet, ColoringWorksheet } from './printables/KindergartenExtraWorksheets'
+import {
+  ComparisonWorksheet,
+  PatternWorksheet,
+  ShapeWorksheet,
+  NumberRecognitionWorksheet,
+  SpotDifferenceWorksheet,
+  ColoringWorksheet,
+  ColorByNumberWorksheet,
+  DesignMonsterWorksheet,
+  DrawHalfWorksheet,
+  HiddenObjectWorksheet,
+  MazeFocusWorksheet,
+  BookmarkTemplates
+} from './printables/KindergartenExtraWorksheets'
 import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10 } from './printables/FirstGradeMathWorksheets'
 import { SentenceBuilding } from './printables/LanguageWorksheets'
 import { FractionBasicID } from './printables/FractionWorksheets'
@@ -4290,6 +4303,41 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               </div>
             ))}
           </WorksheetSectionWrapper>
+        )}
+
+
+        {/* Creative & Brain Worksheets */}
+        {activeDocs.includes('color-by-number') && (
+          <ColorByNumberWorksheet docId="color-by-number" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('design-monster') && (
+          <DesignMonsterWorksheet docId="design-monster" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('draw-half') && (
+          <DrawHalfWorksheet docId="draw-half" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('hidden-object') && (
+          <HiddenObjectWorksheet docId="hidden-object" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('maze-focus') && (
+          <MazeFocusWorksheet docId="maze-focus" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('bookmark-templates') && (
+          <BookmarkTemplates docId="bookmark-templates" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+
+        {/* Word Search Handler (Generic) */}
+        {activeDocs.some(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words'].includes(d)) && (
+          <WordSearch
+            activeDocs={activeDocs}
+            showAnswers={true}
+            effectiveSeed={effectiveSeed}
+            variant={String(variant)}
+            packTime="free"
+            packAge="k2"
+            packSkill="brain"
+            showAnswersForDoc={showAnswersForDoc}
+          />
         )}
 
         {activeDocs.includes('reward-chart') && (
