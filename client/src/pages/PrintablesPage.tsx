@@ -12327,6 +12327,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           )
         }
 
+        {/* Decimal Worksheets */}
+        {activeDocs.includes('decimals-place-value') && <DecimalsPlaceValue docId="decimals-place-value" showAnswersForDoc={showAnswersForDoc} />}
+        {activeDocs.includes('comparing-decimals') && <ComparingDecimals docId="comparing-decimals" showAnswersForDoc={showAnswersForDoc} />}
+        {activeDocs.includes('add-sub-decimals') && <AddSubDecimals docId="add-sub-decimals" showAnswersForDoc={showAnswersForDoc} />}
+        {activeDocs.includes('fractions-to-decimals-basic-tenths') && <FractionsToDecimals docId="fractions-to-decimals-basic-tenths" variant="tenths" showAnswersForDoc={showAnswersForDoc} />}
+        {activeDocs.includes('fractions-to-decimals-division') && <FractionsToDecimals docId="fractions-to-decimals-division" variant="division" showAnswersForDoc={showAnswersForDoc} />}
+        {activeDocs.includes('fractions-to-decimals') && <FractionsToDecimals docId="fractions-to-decimals" variant="mixed" showAnswersForDoc={showAnswersForDoc} />}
+
         {/* 5th Grade Worksheets */}
         {activeDocs.includes('powers-of-10') && <PowersOf10 {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
         {activeDocs.includes('rounding-decimals') && <RoundingDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
@@ -12341,7 +12349,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {activeDocs.includes('multiplying-decimals') && <MultiplyingDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
         {activeDocs.includes('dividing-decimals') && <DividingDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
         {activeDocs.includes('fractions-decimals-percents') && <FractionsDecimalsPercents {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
-        {activeDocs.includes('comparing-ordering-fractions-decimals') && <ComparingOrderingFractionsDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('fractions-out-of-100') && <FractionsDecimalsPercents docId="fractions-out-of-100" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('decimal-to-percent') && <FractionsDecimalsPercents docId="decimal-to-percent" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('percent-to-decimal') && <FractionsDecimalsPercents docId="percent-to-decimal" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {activeDocs.includes('fractions-decimals-percents-advanced') && <FractionsDecimalsPercents docId="fractions-decimals-percents-advanced" {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
+        {(activeDocs.includes('comparing-ordering-fractions-decimals') || activeDocs.includes('ordering-fractions-decimals')) && <ComparingOrderingFractionsDecimals {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
         {activeDocs.includes('adding-decimals-challenge') && <AddingDecimalsChallenge {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
         {activeDocs.includes('volume-rectangular-prisms') && <VolumeRectangularPrisms {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}
         {activeDocs.includes('area-triangles-parallelograms') && <AreaTrianglesParallelograms {...{ seed: effectiveSeed, variant, showAnswersForDoc }} />}

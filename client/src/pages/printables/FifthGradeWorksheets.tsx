@@ -1224,36 +1224,99 @@ export function DividingDecimals({ seed, variant, showAnswersForDoc }: SpecificW
 /**
  * Fractions, Decimals & Percents
  */
-export function FractionsDecimalsPercents({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
-    const docId = 'fractions-decimals-percents';
+export function FractionsDecimalsPercents({ seed, variant, showAnswersForDoc, docId: propDocId }: SpecificWorksheetProps) {
+    const docId = propDocId || 'fractions-decimals-percents';
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
 
     function nextInt(min: number, max: number) {
         return Math.floor(rng() * (max - min + 1)) + min;
     }
 
-    const common = [
-        { f: '1/2', d: '0.50', p: '50%' },
-        { f: '1/4', d: '0.25', p: '25%' },
-        { f: '3/4', d: '0.75', p: '75%' },
-        { f: '1/5', d: '0.20', p: '20%' },
-        { f: '2/5', d: '0.40', p: '40%' },
-        { f: '1/10', d: '0.10', p: '10%' },
-        { f: '4/5', d: '0.80', p: '80%' }
-    ];
+    const isAdvanced = docId.includes('advanced');
+    const isOutOf100 = docId === 'fractions-out-of-100';
+    const isPercentToDecimal = docId === 'percent-to-decimal';
+    const isDecimalToPercent = docId === 'decimal-to-percent';
 
-    const problems = Array.from({ length: 6 }, () => {
-        const item = common[nextInt(0, common.length - 1)];
-        const missing = nextInt(0, 2); // 0: frac missing, 1: dec missing, 2: per missing
-        return { ...item, missing, id: nextInt(100, 999) };
-    });
+    let problems;
+
+    if (isOutOf100) {
+        problems = Array.from({ length: 8 }, () => {
+            const num = nextInt(1, 99);
+            const den = 100;
+            const f = `${num}/${den}`;
+            const d = (num / 100).toFixed(2);
+            const p = `${num}%`;
+            return { f, d, p, missing: 1, id: nextInt(100, 999) };
+        });
+    } else if (isPercentToDecimal) {
+        problems = Array.from({ length: 12 }, () => {
+            const val = nextInt(1, 150);
+            const p = `${val}%`;
+            const d = (val / 100).toString();
+            return { f: '', d, p, missing: 1, id: nextInt(100, 999) };
+        });
+    } else if (isDecimalToPercent) {
+        problems = Array.from({ length: 12 }, () => {
+            const val = nextInt(1, 150);
+            const d = (val / 100).toString();
+            const p = `${val}%`;
+            return { f: '', d, p, missing: 2, id: nextInt(100, 999) };
+        });
+    } else if (isAdvanced) {
+        problems = Array.from({ length: 8 }, () => {
+            const whole = nextInt(1, 5);
+            const den = [2, 4, 5, 8, 10, 20, 25, 50][nextInt(0, 7)];
+            const num = nextInt(1, den - 1);
+            const val = whole + (num / den);
+            const f = `${whole} ${num}/${den}`;
+            const d = val.toFixed(den === 8 ? 3 : 2).replace(/\.?0+$/, '');
+            const p = `${(val * 100).toFixed(den === 8 ? 1 : 0).replace(/\.0$/, '')}%`;
+            const missing = rng() > 0.5 ? 1 : 2;
+            return { f, d, p, missing, id: nextInt(100, 999) };
+        });
+    } else {
+        const common = [
+            { f: '1/2', d: '0.50', p: '50%' },
+            { f: '1/4', d: '0.25', p: '25%' },
+            { f: '3/4', d: '0.75', p: '75%' },
+            { f: '1/5', d: '0.20', p: '20%' },
+            { f: '2/5', d: '0.40', p: '40%' },
+            { f: '1/10', d: '0.10', p: '10%' },
+            { f: '4/5', d: '0.80', p: '80%' }
+        ];
+        problems = Array.from({ length: 6 }, () => {
+            const item = common[nextInt(0, common.length - 1)];
+            const missing = nextInt(0, 2);
+            return { ...item, missing, id: nextInt(100, 999) };
+        });
+    }
+
+    let title = "The Triple Threat: F-D-P";
+    let desc = "Convert between fractions, decimals, and percents.";
+    let cols = 3;
+
+    if (isOutOf100) {
+        title = "Fractions Out of 100";
+        desc = "Convert fractions with denominator 100 into decimals.";
+    } else if (isPercentToDecimal) {
+        title = "Percent to Decimal";
+        desc = "Convert percents to decimals.";
+        cols = 2;
+    } else if (isDecimalToPercent) {
+        title = "Decimal to Percent";
+        desc = "Convert decimals to percents.";
+        cols = 2;
+    } else if (isAdvanced) {
+        title = "Mixed Numbers & Decimals";
+        desc = "Convert mixed numbers to decimals and percents.";
+    }
 
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="The Triple Threat: F-D-P"
+            title={title}
             emoji="🎭"
-            description="Convert between fractions, decimals, and percents. See the same value in three different ways!"
+            description={desc}
             problemCount={problems.length}
             learningObjectives={[
                 'Convert fractions to decimals and percents',
@@ -1267,7 +1330,7 @@ export function FractionsDecimalsPercents({ seed, variant, showAnswersForDoc }: 
             ]}
         >
             <PremiumWorksheetBanner
-                title="Identity Crisis"
+                title={title}
                 subtitle="Help the numbers find their other faces!"
                 icons={{
                     bg1: '🤡',
@@ -1285,27 +1348,64 @@ export function FractionsDecimalsPercents({ seed, variant, showAnswersForDoc }: 
                 }}
             />
 
-            <div className="space-y-6 mt-10">
+            <div className={`grid ${cols === 3 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'} gap-6 mt-10`}>
                 {problems.map((p, i) => (
-                    <div key={i} className="grid grid-cols-3 gap-8 bg-white border-2 border-slate-100 p-6 rounded-2xl shadow-sm">
-                        <div className="flex flex-col items-center gap-2">
-                            <span className="text-xs uppercase text-slate-400 font-bold">Fraction</span>
-                            <div className="text-2xl font-mono h-12 flex items-center justify-center w-full">
-                                {p.missing === 0 ? <div className="w-16 h-10 border-b-2 border-dashed border-slate-300"></div> : p.f}
+                    <div key={i} className={`bg-white border-2 border-slate-100 p-6 rounded-2xl shadow-sm ${cols === 3 ? 'grid grid-cols-3 gap-4' : 'flex items-center justify-around'}`}>
+                        {(!isPercentToDecimal && !isDecimalToPercent) && (
+                            <div className="flex flex-col items-center gap-2">
+                                <span className="text-xs uppercase text-slate-400 font-bold">Fraction</span>
+                                <div className="text-xl font-mono h-12 flex items-center justify-center w-full">
+                                    {p.missing === 0 ? <div className="w-16 h-10 border-b-2 border-dashed border-slate-300"></div> : p.f}
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex flex-col items-center gap-2 border-x border-slate-100">
-                            <span className="text-xs uppercase text-slate-400 font-bold">Decimal</span>
-                            <div className="text-2xl font-mono h-12 flex items-center justify-center w-full text-indigo-600">
-                                {p.missing === 1 ? <div className="w-16 h-10 border-b-2 border-dashed border-slate-300"></div> : p.d}
+                        )}
+
+                        {(cols === 2 && (isDecimalToPercent || isPercentToDecimal)) && p.missing !== 1 && (
+                            <div className="flex flex-col items-center gap-2">
+                                <span className="text-xs uppercase text-slate-400 font-bold">Decimal</span>
+                                <div className="text-xl font-mono h-12 flex items-center justify-center w-full text-indigo-600">
+                                    {p.d}
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                            <span className="text-xs uppercase text-slate-400 font-bold">Percent</span>
-                            <div className="text-2xl font-mono h-12 flex items-center justify-center w-full text-emerald-600">
-                                {p.missing === 2 ? <div className="w-16 h-10 border-b-2 border-dashed border-slate-300"></div> : p.p}
+                        )}
+
+                        {(cols === 3) && (
+                            <div className="flex flex-col items-center gap-2 border-x border-slate-100 px-2">
+                                <span className="text-xs uppercase text-slate-400 font-bold">Decimal</span>
+                                <div className="text-xl font-mono h-12 flex items-center justify-center w-full text-indigo-600">
+                                    {p.missing === 1 ? <div className="w-16 h-10 border-b-2 border-dashed border-slate-300"></div> : p.d}
+                                </div>
                             </div>
-                        </div>
+                        )}
+
+                        {(cols === 2 && isPercentToDecimal && p.missing === 1) && (
+                            <div className="flex flex-col items-center gap-2">
+                                <span className="text-xs uppercase text-slate-400 font-bold">Decimal</span>
+                                <div className="text-xl font-mono h-12 flex items-center justify-center w-full text-indigo-600">
+                                    <div className="w-16 h-10 border-b-2 border-dashed border-slate-300"></div>
+                                </div>
+                            </div>
+                        )}
+
+                        {cols === 2 && <div className="text-slate-300 text-2xl">➔</div>}
+
+                        {(cols === 3) && (
+                            <div className="flex flex-col items-center gap-2">
+                                <span className="text-xs uppercase text-slate-400 font-bold">Percent</span>
+                                <div className="text-xl font-mono h-12 flex items-center justify-center w-full text-emerald-600">
+                                    {p.missing === 2 ? <div className="w-16 h-10 border-b-2 border-dashed border-slate-300"></div> : p.p}
+                                </div>
+                            </div>
+                        )}
+
+                        {(cols === 2 && (isDecimalToPercent || isPercentToDecimal)) && (
+                            <div className="flex flex-col items-center gap-2">
+                                <span className="text-xs uppercase text-slate-400 font-bold">Percent</span>
+                                <div className="text-xl font-mono h-12 flex items-center justify-center w-full text-emerald-600">
+                                    {p.missing === 2 ? <div className="w-16 h-10 border-b-2 border-dashed border-slate-300"></div> : p.p}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
@@ -1313,14 +1413,14 @@ export function FractionsDecimalsPercents({ seed, variant, showAnswersForDoc }: 
             {showAnswersForDoc(docId, () => (
                 <div className="mt-12 p-8 bg-slate-50 border-2 border-slate-200 rounded-3xl print:bg-white text-sm">
                     <h3 className="text-lg font-bold text-slate-800 mb-6 underline">Backstage Access: Converting Key</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-x-12 gap-y-4">
                         {problems.map((p, i) => (
                             <div key={i} className="flex justify-between items-center border-b border-slate-200 pb-2">
-                                <span className="font-bold text-slate-600">Identity #{i + 1}</span>
-                                <div className="flex gap-4 font-mono">
-                                    <span className={p.missing === 0 ? 'text-blue-600 font-bold' : ''}>{p.f}</span>
-                                    <span className={p.missing === 1 ? 'text-blue-600 font-bold' : ''}>{p.d}</span>
-                                    <span className={p.missing === 2 ? 'text-blue-600 font-bold' : ''}>{p.p}</span>
+                                <span className="font-bold text-slate-600">#{i + 1}</span>
+                                <div className="flex gap-4 font-mono text-base">
+                                    {(!isPercentToDecimal && !isDecimalToPercent) && <span>{p.f}</span>}
+                                    <span>{p.d}</span>
+                                    {!isOutOf100 && <span>{p.p}</span>}
                                 </div>
                             </div>
                         ))}
@@ -2133,8 +2233,8 @@ export function Transformations5th({ seed, variant, showAnswersForDoc }: Specifi
                                 <div className="relative">
                                     <div
                                         className={`w-12 h-12 bg-indigo-500 border-2 border-indigo-700 rounded-lg flex items-center justify-center font-bold text-white shadow-md transition-all duration-500 ${p.type.includes('Rotation') ? 'rotate-90' :
-                                                p.type.includes('Reflection') ? 'scale-x-100 translate-x-2' :
-                                                    'translate-y-4 translate-x-4'
+                                            p.type.includes('Reflection') ? 'scale-x-100 translate-x-2' :
+                                                'translate-y-4 translate-x-4'
                                             }`}
                                     >
                                         <span className={`${p.type.includes('Reflection') ? 'scale-x-[-1]' : ''}`}>B</span>
