@@ -113,7 +113,7 @@ import {
   DividingBy10And100
 } from './printables/DivisionWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
-import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitionWorksheet, SpotDifferenceWorksheet } from './printables/KindergartenExtraWorksheets'
+import { ComparisonWorksheet, PatternWorksheet, ShapeWorksheet, NumberRecognitionWorksheet, SpotDifferenceWorksheet, ColoringWorksheet } from './printables/KindergartenExtraWorksheets'
 import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10 } from './printables/FirstGradeMathWorksheets'
 import { SentenceBuilding } from './printables/LanguageWorksheets'
 import { FractionBasicID } from './printables/FractionWorksheets'
@@ -4111,6 +4111,17 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             ))}
           </WorksheetSectionWrapper>
         )}
+
+        {/* Coloring Worksheets (Generic Handler) */}
+        {activeDocs.filter(doc => doc.startsWith('coloring')).map(docId => (
+          <ColoringWorksheet
+            key={docId}
+            docId={docId}
+            showAnswersForDoc={showAnswersForDoc}
+            seed={effectiveSeed}
+            variant={variant}
+          />
+        ))}
 
         {activeDocs.includes('spot-difference') && (
           <SpotDifferenceWorksheet

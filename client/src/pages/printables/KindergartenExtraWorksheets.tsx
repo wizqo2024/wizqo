@@ -670,3 +670,314 @@ export function SpotDifferenceWorksheet({ docId, showAnswersForDoc, seed, varian
         </WorksheetSectionWrapper>
     );
 }
+
+// --- Coloring Worksheets (Restored & Upgraded) ---
+
+const COLORING_ASSETS = {
+    // Animals Theme
+    animals: [
+        {
+            name: 'Friendly Lion',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Mane */}
+                    <path d="M250 100 C200 50, 100 150, 120 250 C100 300, 150 400, 250 420 C350 400, 400 300, 380 250 C400 150, 300 50, 250 100 Z" />
+                    {/* Face */}
+                    <circle cx="250" cy="250" r="80" />
+                    {/* Ears */}
+                    <path d="M190 190 Q170 150, 210 180" />
+                    <path d="M310 190 Q330 150, 290 180" />
+                    {/* Eyes */}
+                    <circle cx="225" cy="230" r="5" fill="#000" />
+                    <circle cx="275" cy="230" r="5" fill="#000" />
+                    {/* Nose & Mouth */}
+                    <path d="M240 260 L260 260 L250 275 Z" fill="#000" />
+                    <path d="M250 275 Q230 290, 220 280" />
+                    <path d="M250 275 Q270 290, 280 280" />
+                    {/* Whiskers */}
+                    <line x1="200" y1="260" x2="160" y2="250" />
+                    <line x1="200" y1="270" x2="160" y2="275" />
+                    <line x1="300" y1="260" x2="340" y2="250" />
+                    <line x1="300" y1="270" x2="340" y2="275" />
+                </g>
+            )
+        },
+        {
+            name: 'Owl in Tree',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Tree Branch */}
+                    <path d="M0 400 Q150 420, 300 380 Q400 360, 500 380" strokeWidth="15" />
+                    {/* Leaves */}
+                    <path d="M50 400 Q30 350, 70 340 Q90 350, 80 400" />
+                    <path d="M400 370 Q420 320, 460 330 Q480 340, 450 380" />
+                    {/* Owl Body */}
+                    <ellipse cx="250" cy="300" rx="60" ry="80" />
+                    {/* Wings */}
+                    <path d="M190 300 Q170 350, 200 360" />
+                    <path d="M310 300 Q330 350, 300 360" />
+                    {/* Eyes */}
+                    <circle cx="230" cy="270" r="15" />
+                    <circle cx="270" cy="270" r="15" />
+                    <circle cx="230" cy="270" r="3" fill="#000" />
+                    <circle cx="270" cy="270" r="3" fill="#000" />
+                    {/* Beak */}
+                    <path d="M245 285 L255 285 L250 295 Z" fill="#000" />
+                    {/* Feet */}
+                    <path d="M230 380 L230 395" strokeWidth="5" />
+                    <path d="M270 380 L270 395" strokeWidth="5" />
+                </g>
+            )
+        },
+        {
+            name: 'Happy Elephant',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Body */}
+                    <path d="M150 200 Q100 100, 250 100 Q350 100, 400 200 Q450 300, 400 400 L150 400 Z" />
+                    {/* Head */}
+                    <circle cx="180" cy="180" r="70" />
+                    {/* Trunk */}
+                    <path d="M130 200 Q100 250, 110 300 Q120 320, 140 310" strokeWidth="20" strokeLinecap="round" />
+                    {/* Ear */}
+                    <path d="M220 150 Q300 100, 280 250 Q220 250, 220 200" />
+                    {/* Eye */}
+                    <circle cx="160" cy="160" r="5" fill="#000" />
+                    {/* Legs */}
+                    <rect x="180" y="400" width="40" height="60" />
+                    <rect x="350" y="400" width="40" height="60" />
+                    {/* Tail */}
+                    <path d="M400 250 Q450 250, 440 300" />
+                </g>
+            )
+        }
+    ],
+    // Space Theme
+    space: [
+        {
+            name: 'Rocket Launch',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Rocket Body */}
+                    <path d="M200 350 L200 150 Q250 50, 300 150 L300 350 Z" />
+                    {/* Fins */}
+                    <path d="M200 350 L150 400 L200 380" />
+                    <path d="M300 350 L350 400 L300 380" />
+                    {/* Window */}
+                    <circle cx="250" cy="200" r="30" />
+                    {/* Flames */}
+                    <path d="M220 350 Q250 450, 280 350" strokeDasharray="5,5" />
+                    {/* Planets */}
+                    <circle cx="100" cy="100" r="40" />
+                    <path d="M50 100 Q100 150, 150 100" />
+                    <circle cx="400" cy="300" r="20" />
+                    {/* Stars */}
+                    <path d="M400 100 L410 80 L420 100 L440 110 L420 120 L410 140 L400 120 L380 110 Z" />
+                    <path d="M100 400 L110 380 L120 400 L140 410 L120 420 L110 440 L100 420 L80 410 Z" />
+                </g>
+            )
+        },
+        {
+            name: 'To The Moon',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Moon Surface */}
+                    <path d="M0 400 Q250 350, 500 400 L500 500 L0 500 Z" />
+                    {/* Craters */}
+                    <ellipse cx="100" cy="450" rx="40" ry="10" />
+                    <ellipse cx="300" cy="420" rx="30" ry="8" />
+                    <ellipse cx="450" cy="460" rx="20" ry="5" />
+                    {/* Astronaut */}
+                    <rect x="200" y="200" width="60" height="80" rx="10" />
+                    <circle cx="230" cy="180" r="25" />
+                    <line x1="200" y1="230" x2="170" y2="260" />
+                    <line x1="260" y1="230" x2="290" y2="260" />
+                    <line x1="210" y1="280" x2="210" y2="350" />
+                    <line x1="250" y1="280" x2="250" y2="350" />
+                    {/* Flag */}
+                    <line x1="350" y1="350" x2="350" y2="150" strokeWidth="5" />
+                    <rect x="350" y="150" width="80" height="50" />
+                    {/* Earth in distance */}
+                    <circle cx="400" cy="80" r="30" />
+                </g>
+            )
+        }
+    ],
+    // Nature Theme
+    nature: [
+        {
+            name: 'Flower Garden',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Grass */}
+                    <path d="M0 450 L50 420 L100 450 L150 420 L200 450 L250 420 L300 450 L350 420 L400 450 L450 420 L500 450 L500 500 L0 500 Z" />
+                    {/* Flower Center */}
+                    <line x1="250" y1="450" x2="250" y2="300" strokeWidth="5" />
+                    <circle cx="250" cy="250" r="30" />
+                    {/* Petals */}
+                    <circle cx="250" cy="190" r="30" />
+                    <circle cx="250" cy="310" r="30" />
+                    <circle cx="190" cy="250" r="30" />
+                    <circle cx="310" cy="250" r="30" />
+                    <circle cx="210" cy="210" r="25" />
+                    <circle cx="290" cy="210" r="25" />
+                    <circle cx="210" cy="290" r="25" />
+                    <circle cx="290" cy="290" r="25" />
+                    {/* Leaves */}
+                    <path d="M250 350 Q300 320, 320 340 Q300 370, 250 360" />
+                    <path d="M250 380 Q200 350, 180 370 Q200 400, 250 390" />
+                    {/* Sun */}
+                    <circle cx="50" cy="50" r="30" />
+                    <line x1="50" y1="10" x2="50" y2="0" />
+                    <line x1="50" y1="90" x2="50" y2="100" />
+                    <line x1="10" y1="50" x2="0" y2="50" />
+                    <line x1="90" y1="50" x2="100" y2="50" />
+                </g>
+            )
+        },
+        {
+            name: 'Mountains',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Foreground Hills */}
+                    <path d="M0 500 L0 400 Q150 350, 300 450 Q400 500, 500 400 L500 500 Z" />
+                    {/* Big Mountain */}
+                    <path d="M50 400 L250 100 L450 400" />
+                    {/* Snow Cap */}
+                    <path d="M200 175 L220 200 L250 175 L280 200 L300 175" />
+                    {/* Cloud */}
+                    <path d="M50 100 Q70 80, 90 100 Q110 80, 130 100 Q150 80, 170 100 L50 100" />
+                    {/* Sun */}
+                    <circle cx="400" cy="80" r="40" />
+                    {/* Trees */}
+                    <path d="M50 450 L60 420 L70 450" fill="#000" />
+                    <path d="M100 470 L110 440 L120 470" fill="#000" />
+                </g>
+            )
+        }
+    ],
+    // Vehicles Theme
+    vehicles: [
+        {
+            name: 'Fast Car',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Car Body */}
+                    <path d="M50 300 L100 250 L350 250 L400 300 L450 300 L450 350 L50 350 Z" />
+                    {/* Roof / Windows */}
+                    <path d="M120 250 L150 180 L300 180 L330 250" />
+                    <line x1="225" y1="180" x2="225" y2="250" />
+                    {/* Wheels */}
+                    <circle cx="120" cy="350" r="40" />
+                    <circle cx="120" cy="350" r="20" />
+                    <circle cx="380" cy="350" r="40" />
+                    <circle cx="380" cy="350" r="20" />
+                    {/* Headlights */}
+                    <circle cx="440" cy="320" r="10" />
+                    {/* Road */}
+                    <line x1="0" y1="400" x2="500" y2="400" strokeWidth="2" />
+                </g>
+            )
+        },
+        {
+            name: 'Sailboat',
+            viewBox: '0 0 500 500',
+            path: (
+                <g stroke="#000" strokeWidth="3" fill="none">
+                    {/* Water */}
+                    <path d="M0 400 Q25 390, 50 400 T100 400 T150 400 T200 400 T250 400 T300 400 T350 400 T400 400 T450 400 T500 400" />
+                    <path d="M0 430 Q25 420, 50 430 T100 430 T150 430 T200 430 T250 430 T300 430 T350 430 T400 430 T450 430 T500 430" />
+                    {/* Boat Hull */}
+                    <path d="M100 350 L400 350 L350 400 L150 400 Z" />
+                    {/* Mast */}
+                    <line x1="250" y1="350" x2="250" y2="100" />
+                    {/* Sail Right */}
+                    <path d="M255 110 L255 340 L380 340 Z" />
+                    {/* Sail Left */}
+                    <path d="M245 130 L245 340 L150 340 Z" />
+                    {/* Flag */}
+                    <path d="M250 100 L280 115 L250 130" />
+                    {/* Sun */}
+                    <circle cx="400" cy="80" r="30" />
+                    {/* Birds */}
+                    <path d="M100 100 L110 110 L120 100" />
+                    <path d="M50 150 L60 160 L70 150" />
+                </g>
+            )
+        }
+    ]
+};
+
+export function ColoringWorksheet({ docId, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation();
+
+    // Determine Theme
+    const theme = useMemo(() => {
+        if (docId.includes('animal')) return 'animals';
+        if (docId.includes('space')) return 'space';
+        if (docId.includes('nature')) return 'nature';
+        if (docId.includes('vehicles')) return 'vehicles';
+        if (docId.includes('letter')) return 'nature'; // Fallback for now
+        return 'animals'; // Default default
+    }, [docId]);
+
+    // Select specific image based on seed
+    const { selectedImage, currentPool } = useMemo(() => {
+        const pool = COLORING_ASSETS[theme as keyof typeof COLORING_ASSETS] || COLORING_ASSETS['animals'];
+        const rng = makeRng(`${seed}-${docId}-${variant}`);
+        const img = pick(pool, rng);
+        return { selectedImage: img, currentPool: pool };
+    }, [seed, docId, variant, theme]);
+
+    // Use selectedImage properties
+    if (!selectedImage) return null;
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={`${t(`worksheets.${docId}.title`) || 'Fun Coloring Page'}: ${selectedImage.name}`}
+            emoji="🎨"
+            description="Use your favorite colors to bring this scene to life!"
+            problemCount={1}
+            learningObjectives={[
+                'Develop fine motor skills',
+                'Practice color recognition',
+                'Encourage creativity and self-expression',
+                'Improve focus and concentration'
+            ]}
+        >
+            <div className="flex flex-col items-center justify-center p-8 break-inside-avoid">
+                <div className="w-full max-w-2xl aspect-square border-4 border-slate-900 rounded-xl bg-white p-4 shadow-xl">
+                    <svg
+                        viewBox={selectedImage.viewBox}
+                        className="w-full h-full"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        {selectedImage.path}
+                    </svg>
+                </div>
+
+                <div className="mt-8 flex gap-4 print:hidden">
+                    <div className="flex gap-2">
+                        {['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#a855f7'].map(c => (
+                            <div key={c} className="w-8 h-8 rounded-full border border-slate-200" style={{ backgroundColor: c }}></div>
+                        ))}
+                    </div>
+                </div>
+
+                <p className="mt-4 text-slate-500 text-sm italic print:block hidden">
+                    My Masterpiece by: _________________________________  Date: ___________
+                </p>
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
+
