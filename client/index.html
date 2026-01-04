@@ -128,7 +128,8 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #f8fafc; /* wizqo-slate-50 background */
+      background-color: #f8fafc;
+      /* wizqo-slate-50 background */
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       overflow-x: hidden;
     }
@@ -144,7 +145,7 @@
       background: white;
       border-bottom: 1px solid #e2e8f0;
       display: flex;
-      items-center: center;
+      align-items: center;
       padding: 0 1rem;
     }
 
@@ -174,7 +175,8 @@
 
     /* SEO Fallback: Visible but matches app style */
     #seo-fallback {
-      max-width: 1152px; /* max-w-6xl */
+      max-width: 1152px;
+      /* max-w-6xl */
       margin: 0 auto;
       padding: 4rem 1rem;
       opacity: 1;
@@ -454,13 +456,44 @@
 
 
     // Removal/hiding after React loads
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        if (document.body) {
-          document.body.classList.add('react-loaded');
+    (function () {
+      var root = document.getElementById('root');
+      var body = document.body;
+
+      // Function to trigger the "loaded" state
+      function markAsLoaded() {
+        if (!body.classList.contains('react-loaded')) {
+          body.classList.add('react-loaded');
         }
-      }, 50); // Minimal delay to ensure React has painted
-    });
+      }
+
+      // 1. Observer: Detect when React injects content into #root (Instant)
+      if (root && window.MutationObserver) {
+        var observer = new MutationObserver(function (mutations) {
+          if (root.children.length > 0) {
+            markAsLoaded();
+            observer.disconnect();
+          }
+        });
+        observer.observe(root, { childList: true });
+      }
+
+      // 2. Fallback: window.load event
+      window.addEventListener('load', function () {
+        setTimeout(markAsLoaded, 50);
+      });
+
+      // 3. Fallback: Polling (for edge cases)
+      var pollCount = 0;
+      var pollInterval = setInterval(function () {
+        pollCount++;
+        if (root && root.children.length > 0) {
+          markAsLoaded();
+          clearInterval(pollInterval);
+        }
+        if (pollCount > 100) clearInterval(pollInterval); // Stop after 5s
+      }, 50);
+    })();
   </script>
 </head>
 
@@ -479,7 +512,8 @@
 
   <!-- Visible SEO Content - Always crawlable, perfectly aligned -->
   <main id="seo-fallback">
-    <h2 style="font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 1.5rem; line-height: 1.2; letter-spacing: -0.025em;">
+    <h2
+      style="font-size: 3rem; font-weight: 800; color: #0f172a; margin-bottom: 1.5rem; line-height: 1.2; letter-spacing: -0.025em;">
       Free Worksheets for Kids (K-5) | Math, Reading & More | Wizqo
     </h2>
     <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6; max-width: 42rem;">
