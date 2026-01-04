@@ -695,3 +695,97 @@ export function NumberRecognitionWorksheet({ docId, showAnswersForDoc, seed, var
         </WorksheetSectionWrapper>
     );
 }
+
+// --- Spot The Difference ---
+
+export function SpotDifferenceWorksheet({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const rng = makeRng(`${seed}-${docId}-${variant}`)
+
+    // Generate 4 puzzles
+    const puzzles = Array.from({ length: 4 }).map((_, i) => {
+        // Base scene items (simple emoji composition)
+        const sceneBase = [
+            { id: 1, icon: '🏠', x: 20, y: 30, size: 40 },
+            { id: 2, icon: '🌳', x: 70, y: 30, size: 50 },
+            { id: 3, icon: '☀️', x: 10, y: 10, size: 25 },
+            { id: 4, icon: '☁️', x: 60, y: 15, size: 30 },
+            { id: 5, icon: '🌷', x: 30, y: 70, size: 20 },
+            { id: 6, icon: '🍄', x: 80, y: 75, size: 15 },
+        ]
+
+        // Vary positions slightly per puzzle
+        const scene = sceneBase.map(item => ({
+            ...item,
+            x: item.x + (rng() * 10 - 5),
+            y: item.y + (rng() * 10 - 5)
+        }))
+
+        // Pick one item to change for the difference
+        const targetIndex = Math.floor(rng() * scene.length)
+        const diffType = rng() > 0.5 ? 'missing' : 'change'
+
+        return {
+            scene,
+            targetIndex,
+            diffType,
+            // If change, swap icon
+            altIcon: scene[targetIndex].icon === '☀️' ? '🌙' : '🐕' // Simple fallback swap
+        }
+    })
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Spot the Difference"
+            emoji="👀"
+            description="Find and circle the difference between the two pictures!"
+            problemCount={puzzles.length}
+        >
+            <div className="space-y-8">
+                {puzzles.map((p, i) => (
+                    <div key={i} className="flex gap-4 md:gap-8 items-center justify-center p-4 border-2 border-slate-100 rounded-2xl bg-slate-50">
+                        {/* Original */}
+                        <div className="relative w-64 h-48 bg-white border-2 border-slate-300 rounded-xl overflow-hidden shadow-sm">
+                            {p.scene.map((item, j) => (
+                                <div key={j} className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ left: `${item.x}%`, top: `${item.y}%`, fontSize: `${item.size}px` }}>
+                                    {item.icon}
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Modified */}
+                        <div className="relative w-64 h-48 bg-white border-2 border-slate-300 rounded-xl overflow-hidden shadow-sm">
+                            {p.scene.map((item, j) => {
+                                if (j === p.targetIndex) {
+                                    if (p.diffType === 'missing') return null
+                                    return (
+                                        <div key={j} className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ left: `${item.x}%`, top: `${item.y}%`, fontSize: `${item.size}px` }}>
+                                            {p.altIcon}
+                                        </div>
+                                    )
+                                }
+                                return (
+                                    <div key={j} className="absolute transform -translate-x-1/2 -translate-y-1/2" style={{ left: `${item.x}%`, top: `${item.y}%`, fontSize: `${item.size}px` }}>
+                                        {item.icon}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded">
+                    <h4 className="font-bold text-emerald-900 mb-2">Answer Key:</h4>
+                    <ul className="list-disc list-inside text-sm text-emerald-800">
+                        {puzzles.map((p, i) => (
+                            <li key={i}>Puzzle {i + 1}: The {p.scene[p.targetIndex].icon} became {p.diffType === 'missing' ? 'missing' : `a ${p.altIcon}`}</li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
