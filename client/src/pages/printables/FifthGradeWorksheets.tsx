@@ -2112,15 +2112,38 @@ export function Transformations5th({ seed, variant, showAnswersForDoc }: Specifi
                         </div>
                         <div className="flex justify-center py-6 bg-slate-50 rounded-2xl relative overflow-hidden h-40">
                             {/* Abstract representation of a Transformation */}
-                            <div className="absolute inset-0 grid grid-cols-8 grid-rows-4">
-                                {Array.from({ length: 32 }).map((_, j) => (
+                            <div className="absolute inset-0 grid grid-cols-10 grid-rows-6">
+                                {Array.from({ length: 60 }).map((_, j) => (
                                     <div key={j} className="border-[0.5px] border-slate-200"></div>
                                 ))}
                             </div>
-                            <div className="relative z-10 flex items-center gap-12">
-                                <div className="w-12 h-12 bg-violet-200 border-2 border-violet-400 rotate-12 flex items-center justify-center font-bold text-violet-700">A</div>
-                                <div className="text-2xl text-slate-300">→</div>
-                                <div className={`w-12 h-12 bg-violet-400 border-2 border-violet-600 flex items-center justify-center font-bold text-white ${p.type.includes('Rotation') ? 'rotate-90' : p.type.includes('Reflection') ? 'scale-x-[-1]' : 'rotate-12 translate-y-4'}`}>B</div>
+                            <div className="relative z-10 flex items-center justify-center gap-16 w-full h-full p-4">
+                                <div className="relative">
+                                    <div className="w-12 h-12 bg-indigo-100 border-2 border-indigo-400 rounded-lg flex items-center justify-center font-bold text-indigo-700 shadow-sm transition-transform duration-500">
+                                        A
+                                    </div>
+                                    <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-mono">ORIGINAL</div>
+                                </div>
+
+                                <div className="text-3xl text-slate-300 font-light flex flex-col items-center">
+                                    <span className="leading-none">→</span>
+                                    <div className="w-8 h-px bg-slate-200 mt-1"></div>
+                                </div>
+
+                                <div className="relative">
+                                    <div
+                                        className={`w-12 h-12 bg-indigo-500 border-2 border-indigo-700 rounded-lg flex items-center justify-center font-bold text-white shadow-md transition-all duration-500 ${p.type.includes('Rotation') ? 'rotate-90' :
+                                                p.type.includes('Reflection') ? 'scale-x-100 translate-x-2' :
+                                                    'translate-y-4 translate-x-4'
+                                            }`}
+                                    >
+                                        <span className={`${p.type.includes('Reflection') ? 'scale-x-[-1]' : ''}`}>B</span>
+                                    </div>
+                                    {p.type.includes('Reflection') && (
+                                        <div className="absolute top-0 bottom-0 -left-8 w-0.5 bg-dashed border-l border-indigo-300 opacity-50"></div>
+                                    )}
+                                    <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-indigo-400 font-mono font-bold tracking-tighter">TRANSFORMED</div>
+                                </div>
                             </div>
                         </div>
                         <div className="space-y-4">

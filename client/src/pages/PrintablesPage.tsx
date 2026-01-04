@@ -13572,10 +13572,29 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const currentDoc = activeDocs.find((d: string) => d === 'metric-units' || d === 'metric-conversion') || 'metric-units';
             const rng = makeRng(`${effectiveSeed}|v${variant}|doc=${currentDoc}`);
             function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-            const problems = Array.from({ length: 6 }, () => {
-              const meters = nextInt(1, 10);
-              return { meters, centimeters: meters * 100 };
-            });
+            const problems = (() => {
+              const items: { from: number, to: number, fromUnit: string, toUnit: string }[] = [];
+              const used = new Set<string>();
+              while (items.length < 8) {
+                const type = nextInt(0, 1);
+                let val, unitFrom, unitTo;
+                if (type === 0) {
+                  val = nextInt(1, 15);
+                  unitFrom = 'm';
+                  unitTo = 'cm';
+                } else {
+                  val = nextInt(1, 12);
+                  unitFrom = 'km';
+                  unitTo = 'm';
+                }
+                const key = `${val}${unitFrom}`;
+                if (!used.has(key)) {
+                  used.add(key);
+                  items.push({ from: val, to: unitFrom === 'm' ? val * 100 : val * 1000, fromUnit: unitFrom, toUnit: unitTo });
+                }
+              }
+              return items;
+            })();
             return (
               <WorksheetSectionWrapper
                 docId={currentDoc}
@@ -13627,24 +13646,30 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <div className="grid grid-cols-2 gap-4" style={{ pageBreakAfter: 'auto' }}>
                   {problems.map((p, i) => (
                     <div key={i} className="border-2 border-slate-300 rounded-lg p-4 bg-white break-inside-avoid relative">
-                      <div className="absolute top-2 right-2 text-xs font-mono text-slate-400">ID: {i + 800}</div>
-
                       <div className="flex flex-col items-center">
                         {/* Stylized Laser Measure */}
-                        <div className="w-full h-2 bg-slate-200 mb-4 relative rounded overflow-hidden">
-                          <div className="absolute left-0 top-0 bottom-0 bg-red-500 w-1/2 opacity-50"></div>
-                          <div className="absolute left-1/2 top-0 bottom-0 bg-green-500 w-1/2 opacity-50"></div>
-                          {/* Laser dot */}
-                          <div className="absolute top-1/2 left-3/4 w-2 h-2 bg-red-600 rounded-full transform -translate-y-1/2 shadow-[0_0_5px_rgba(220,38,38,1)]"></div>
+                        <div className="w-full h-3 bg-slate-100 mb-4 relative rounded-full border border-slate-200 shadow-inner overflow-hidden">
+                          <div className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-cyan-400/20 to-transparent w-full"></div>
+                          {/* Metric markers */}
+                          {Array.from({ length: 11 }).map((_, m) => (
+                            <div key={m} className={`absolute top-0 bottom-0 border-l border-slate-300/50`} style={{ left: `${m * 10}%` }}></div>
+                          ))}
+                          {/* Laser dot - dynamic based on value */}
+                          <div
+                            className="absolute top-1/2 w-3 h-3 bg-red-600 rounded-full transform -translate-y-1/2 -translate-x-1/2 shadow-[0_0_8px_rgba(220,38,38,0.8)] z-10"
+                            style={{ left: `${(p.from % 10) * 10}%` }}
+                          ></div>
                         </div>
 
-                        <div className="text-center mb-2 font-bold text-lg font-mono text-slate-800">
-                          {p.meters} m <span className="text-slate-400">=</span> ____ cm
+                        <div className="text-center mb-3 font-bold text-xl font-mono text-slate-800">
+                          {p.from} <span className="text-cyan-600">{p.fromUnit}</span> <span className="text-slate-400">=</span> ____ <span className="text-cyan-600">{p.toUnit}</span>
                         </div>
 
-                        <div className="w-full border-t border-slate-100 pt-2">
-                          <div className="text-xs text-slate-500 font-mono text-center">Enter Value:</div>
-                          <div className="h-8 bg-slate-50 border border-slate-300 rounded mt-1"></div>
+                        <div className="w-full border-t border-slate-100 pt-3">
+                          <div className="text-xs text-slate-500 font-mono text-center uppercase tracking-tighter mb-1">Conversion Log:</div>
+                          <div className="h-10 border-b-2 border-dotted border-slate-400 flex items-end justify-center pb-1 text-slate-400 font-mono italic">
+                            Result:
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -13655,9 +13680,18 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                 <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                   <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
                   <div className="space-y-2 text-xs">
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-4 h-4 border border-slate-400 rounded"></div>
+                      <div>I know that 1 m = 100 cm</div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-4 h-4 border border-slate-400 rounded"></div>
+                      <div>I know that 1 km = 1,000 m</div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-4 h-4 border border-slate-400 rounded"></div>
+                      <div>I can accurately multiply by 100 and 1,000</div>
+                    </div>
                   </div>
                 </div>
 
@@ -13667,7 +13701,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     <div className="grid grid-cols-2 gap-4 font-mono text-sm">
                       {problems.map((p, i) => (
                         <div key={i} className="border-b border-cyan-200 pb-2">
-                          <span className="font-bold">{p.meters} m</span>  {p.centimeters} cm
+                          <span className="font-bold">{p.from} {p.fromUnit}</span> = {p.to.toLocaleString()} {p.toUnit}
                         </div>
                       ))}
                     </div>
