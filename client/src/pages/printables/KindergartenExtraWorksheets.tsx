@@ -243,7 +243,7 @@ export function PatternWorksheet({ docId, showAnswersForDoc, seed, variant }: Sp
                                     <span key={j} className="text-4xl md:text-5xl">{item}</span>
                                 ))}
                                 <div className="w-16 h-16 md:w-20 md:h-20 border-4 border-dashed border-slate-300 rounded-xl flex items-center justify-center bg-white">
-                                    <span className="text-3xl font-bold text-slate-300">?</span>
+                                    <span className="text-3xl font-bold text-slate-300"></span>
                                 </div>
                             </div>
                         </div>
@@ -604,7 +604,7 @@ export function NumberRecognitionWorksheet({ docId, showAnswersForDoc, seed, var
                     <div className="flex flex-wrap justify-center gap-4 p-8 bg-slate-50 rounded-3xl border-2 border-slate-100">
                         {(data as any[]).map((item: any, i: number) => (
                             <div key={i} className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-4 flex items-center justify-center text-3xl font-black transition-all shadow-sm ${item.isMissing ? 'border-dashed border-slate-300 bg-white text-slate-200' : 'border-slate-200 bg-white text-slate-800'}`}>
-                                {item.isMissing ? '?' : item.num}
+                                {item.isMissing ? '' : item.num}
                             </div>
                         ))}
                     </div>
