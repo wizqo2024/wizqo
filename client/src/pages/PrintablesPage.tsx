@@ -143,6 +143,7 @@ import {
   FifthGradeWordProblems,
   WritingExpressions
 } from './printables/FifthGradeWorksheets'
+import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems } from './printables/ThirdGradeMathWorksheets'
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -10761,6 +10762,68 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {
           activeDocs.includes('rounding-nearest-10') && (
             <RoundingNearest10 docId='rounding-nearest-10' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+
+        {/* 3rd Grade Math Worksheets */}
+        {
+          activeDocs.includes('mult-word-problems') && (
+            <MultiplicationWordProblems docId='mult-word-problems' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('mult-by-10-100') && (
+            <MultiplicationBy10And100 docId='mult-by-10-100' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('mult-properties') && (
+            <MultiplicationProperties docId='mult-properties' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('fact-families-mult-div') && (
+            <MultiplicationFactFamilies docId='fact-families-mult-div' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('fractions-number-line') && (
+            <FractionsNumberLine docId='fractions-number-line' showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+        {
+          activeDocs.includes('fractions-whole') && (
+            <FractionsWholeNumbers docId='fractions-whole' showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+        {
+          activeDocs.includes('metric-units') && (
+            <MetricUnits docId='metric-units' showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+        {
+          activeDocs.includes('money-word-problems') && (
+            <MoneyWordProblems docId='money-word-problems' showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+        {
+          activeDocs.includes('equivalent-fractions') && (
+            <EquivFractions4th docId='equivalent-fractions' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('comparing-fractions') && (
+            <ComparingFractions4th docId='comparing-fractions' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('add-sub-fractions') && (
+            <AddSubFractions4th docId='add-sub-fractions' showAnswersForDoc={showAnswersForDoc} seed={effectiveSeed} variant={variant} />
+          )
+        }
+        {
+          activeDocs.includes('perimeter-area-word-problems') && (
+            <AreaPerimeter docId='perimeter-area-word-problems' showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
