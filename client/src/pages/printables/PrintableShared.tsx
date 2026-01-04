@@ -9,6 +9,16 @@ export function getWorksheetTheme(docId: string): {
     cornerAccent: string
     cornerAccent2: string
 } {
+    if (!docId) {
+        return {
+            background: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
+            border: 'border-slate-300',
+            text: 'text-slate-800',
+            cornerAccent: 'rgba(226, 232, 240, 0.3)',
+            cornerAccent2: 'rgba(241, 245, 249, 0.2)',
+        }
+    }
+
     // Math worksheets
     if (docId.includes('math') || docId.includes('number') || docId.includes('addition') || docId.includes('subtraction') ||
         docId.includes('place-value') || docId.includes('counting') || docId.includes('skip-count') || docId.includes('expanded') ||
