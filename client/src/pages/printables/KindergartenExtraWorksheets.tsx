@@ -1,17 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState, useMemo, useCallback, memo } from 'react';
 type ReactNode = React.ReactNode;
-import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared'; // Added PremiumWorksheetBanner import
-import { makeRng, shuffleArray, pick } from '@/utils/printableUtils';
+import { SpecificWorksheetProps } from '../../types/printable';
+import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared';
+import { makeRng, pick, shuffleArray } from '@/utils/printableUtils';
 import { useTranslation } from '@/context/TranslationContext';
-
-interface SpecificWorksheetProps {
-    key?: string;
-    docId: string;
-    activeDocs?: string[];
-    showAnswersForDoc: (docId: string, factory: () => ReactNode) => ReactNode;
-    seed: string;
-    variant: number;
-}
 
 // --- Comparison Worksheets (Preserved) ---
 
@@ -380,100 +372,299 @@ export function NumberRecognitionWorksheet({ docId, showAnswersForDoc, seed, var
 }
 
 
-// --- Spot The Difference (Premium Upgrade) ---
+// --- SVG Components for Premium Scenes ---
+
+const RocketSVG = ({ color = '#6366f1', size = 60 }: { color?: string, size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+        <path d="M50 15C35 35 35 65 35 75C35 80 40 85 50 85C60 85 65 80 65 75C65 65 65 35 50 15Z" fill={color} stroke="#1e293b" strokeWidth="3" />
+        <path d="M35 60C25 65 20 75 20 85H35" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+        <path d="M65 60C75 65 80 75 80 85H65" stroke="#1e293b" strokeWidth="3" strokeLinecap="round" />
+        <circle cx="50" cy="45" r="8" fill="white" stroke="#1e293b" strokeWidth="2" />
+        <path d="M45 85V95M55 85V95M50 85V98" stroke="#f59e0b" strokeWidth="4" strokeLinecap="round" />
+    </svg>
+);
+
+const PlanetSVG = ({ color = '#fbbf24', size = 50 }: { color?: string, size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="30" fill={color} stroke="#1e293b" strokeWidth="3" />
+        <path d="M15 55C15 55 25 75 85 45" stroke="#1e293b" strokeWidth="4" fill="none" strokeLinecap="round" />
+        <circle cx="40" cy="40" r="5" fill="black" opacity="0.1" />
+        <circle cx="60" cy="65" r="8" fill="black" opacity="0.1" />
+    </svg>
+);
+
+const TreeSVG = ({ color = '#10b981', size = 70 }: { color?: string, size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 100 100">
+        <rect x="45" y="60" width="10" height="30" fill="#78350f" stroke="#451a03" strokeWidth="2" />
+        <circle cx="50" cy="40" r="30" fill={color} stroke="#064e3b" strokeWidth="3" />
+        <circle cx="35" cy="55" r="20" fill={color} stroke="#064e3b" strokeWidth="3" />
+        <circle cx="65" cy="55" r="20" fill={color} stroke="#064e3b" strokeWidth="3" />
+    </svg>
+);
+
+const MushroomSVG = ({ color = '#f87171', size = 30 }: { color?: string, size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 100 100">
+        <path d="M30 80C30 70 40 60 50 60C60 60 70 70 70 80V90H30V80Z" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="2" />
+        <path d="M15 65C15 40 30 20 50 20C70 20 85 40 85 65H15Z" fill={color} stroke="#991b1b" strokeWidth="3" />
+        <circle cx="35" cy="40" r="6" fill="white" opacity="0.8" />
+        <circle cx="60" cy="35" r="8" fill="white" opacity="0.8" />
+        <circle cx="70" cy="50" r="5" fill="white" opacity="0.8" />
+    </svg>
+);
+
+const FishSVG = ({ color = '#3b82f6', size = 40 }: { color?: string, size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 100 100">
+        <path d="M10 50C10 30 40 20 60 40C70 40 90 20 90 50C90 80 70 60 60 60C40 80 10 70 10 50Z" fill={color} stroke="#1e3a8a" strokeWidth="3" />
+        <circle cx="30" cy="45" r="4" fill="black" />
+        <path d="M60 40L65 30M60 60L65 70" stroke="#1e3a8a" strokeWidth="2" />
+    </svg>
+);
+
+const OctopusSVG = ({ color = '#a855f7', size = 50 }: { color?: string, size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 100 100">
+        <path d="M30 40C30 25 40 15 50 15C60 15 70 25 70 40C70 55 60 65 50 65C40 65 30 55 30 40Z" fill={color} stroke="#581c87" strokeWidth="3" />
+        <path d="M35 60Q20 70 10 90M45 65Q40 80 35 95M55 65Q60 80 65 95M65 60Q85 70 95 90" stroke={color} strokeWidth="6" strokeLinecap="round" />
+        <circle cx="43" cy="35" r="4" fill="white" />
+        <circle cx="57" cy="35" r="4" fill="white" />
+    </svg>
+);
+
+const SPACE_SCENE = (rng: any) => ({
+    name: 'Space Adventure',
+    bg: 'bg-slate-900',
+    accent: 'text-indigo-400',
+    elements: [
+        { id: 'rocket', component: RocketSVG, x: 25, y: 35, size: 80, canDiff: ['color', 'move', 'rotate'] },
+        { id: 'planet1', component: PlanetSVG, x: 75, y: 25, size: 70, canDiff: ['color', 'missing'] },
+        { id: 'alien', icon: '👾', x: 80, y: 75, size: 45, canDiff: ['missing', 'move'] },
+        { id: 'star1', icon: '⭐', x: 15, y: 15, size: 25, canDiff: ['missing'] },
+        { id: 'star2', icon: '✨', x: 55, y: 20, size: 30, canDiff: ['missing'] },
+        { id: 'star3', icon: '🌟', x: 35, y: 85, size: 25, canDiff: ['missing'] },
+        { id: 'satellite', icon: '🛰️', x: 20, y: 70, size: 35, canDiff: ['missing', 'rotate'] },
+        { id: 'ufo', icon: '🛸', x: 65, y: 55, size: 50, canDiff: ['color', 'missing'] },
+        { id: 'comet', icon: '☄️', x: 85, y: 15, size: 40, canDiff: ['move', 'missing'] },
+        { id: 'moon', icon: '🌙', x: 45, y: 45, size: 35, canDiff: ['move', 'missing'] },
+    ]
+});
+
+const FOREST_SCENE = (rng: any) => ({
+    name: 'Magic Forest',
+    bg: 'bg-emerald-50',
+    accent: 'text-emerald-500',
+    elements: [
+        { id: 'tree1', component: TreeSVG, x: 20, y: 55, size: 90, canDiff: ['move', 'missing'] },
+        { id: 'tree2', component: TreeSVG, x: 70, y: 50, size: 100, canDiff: ['move', 'missing'] },
+        { id: 'mushroom1', component: MushroomSVG, x: 35, y: 85, size: 40, canDiff: ['color', 'missing'] },
+        { id: 'butterfly', icon: '🦋', x: 55, y: 25, size: 40, canDiff: ['move', 'color'] },
+        { id: 'bee', icon: '🐝', x: 25, y: 30, size: 30, canDiff: ['missing', 'move'] },
+        { id: 'flower1', icon: '🌸', x: 15, y: 90, size: 30, canDiff: ['missing', 'color'] },
+        { id: 'flower2', icon: '🌻', x: 85, y: 90, size: 40, canDiff: ['missing', 'color'] },
+        { id: 'rabbit', icon: '🐇', x: 65, y: 80, size: 35, canDiff: ['missing', 'move'] },
+        { id: 'bird', icon: '🐦', x: 75, y: 20, size: 30, canDiff: ['missing', 'move'] },
+        { id: 'rainbow', icon: '🌈', x: 40, y: 15, size: 60, canDiff: ['missing'] },
+    ]
+});
+
+const OCEAN_SCENE = (rng: any) => ({
+    name: 'Ocean Explorers',
+    bg: 'bg-sky-100',
+    accent: 'text-blue-500',
+    elements: [
+        { id: 'whale', component: FishSVG, x: 45, y: 45, size: 90, canDiff: ['move', 'color'] },
+        { id: 'fish1', component: FishSVG, x: 15, y: 25, size: 40, canDiff: ['missing', 'move'] },
+        { id: 'fish2', component: FishSVG, x: 80, y: 75, size: 45, canDiff: ['missing', 'move'] },
+        { id: 'shark', icon: '🦈', x: 75, y: 30, size: 70, canDiff: ['move', 'missing'] },
+        { id: 'crab', icon: '🦀', x: 25, y: 90, size: 35, canDiff: ['move', 'missing'] },
+        { id: 'octopus', component: OctopusSVG, x: 70, y: 85, size: 60, canDiff: ['color', 'missing'] },
+        { id: 'shell', icon: '🐚', x: 55, y: 95, size: 25, canDiff: ['missing', 'move'] },
+        { id: 'bubble1', icon: '🫧', x: 35, y: 20, size: 25, canDiff: ['missing'] },
+        { id: 'bubble2', icon: '🫧', x: 65, y: 65, size: 20, canDiff: ['missing'] },
+        { id: 'submarine', icon: '🚢', x: 20, y: 50, size: 65, canDiff: ['color', 'move'] },
+    ]
+});
+
+/**
+ * SceneRenderer draws the SVG-based interactive scene
+ */
+const SceneRenderer = memo(({ scene, differences = [] }: { scene: any, differences?: any[] }) => {
+    return (
+        <div className={`relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-md border-4 border-slate-700 ${scene.bg}`}>
+            {/* Background patterns based on theme */}
+            {scene.bg === 'bg-slate-900' && (
+                <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
+            )}
+            {scene.bg === 'bg-emerald-50' && (
+                <div className="absolute bottom-0 w-full h-1/4 bg-emerald-100/30" />
+            )}
+            {scene.bg === 'bg-sky-100' && (
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'20\' viewBox=\'0 0 100 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 13 50 13s16.36 2.347 25.96 5.937l1.768.661c.368.138.73.272 1.088.402H100V0H0v20h21.184z\' fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat-x', backgroundPosition: 'bottom' }} />
+            )}
+
+            {/* Render elements */}
+            {scene.elements.map((el: any) => {
+                const diff = differences.find(d => d.id === el.id);
+                if (diff?.type === 'missing') return null;
+
+                let style: any = {
+                    left: `${el.x}%`,
+                    top: `${el.y}%`,
+                    fontSize: `${el.size}px`,
+                    transform: 'translate(-50%, -50%)',
+                    transition: 'all 0.3s ease'
+                };
+
+                if (diff?.type === 'move') {
+                    style.left = `${el.x + 8}%`;
+                    style.top = `${el.y - 5}%`;
+                }
+                if (diff?.type === 'rotate') {
+                    style.transform = 'translate(-50%, -50%) rotate(45deg)';
+                }
+                if (diff?.type === 'color') {
+                    style.filter = 'hue-rotate(90deg) saturate(1.5)';
+                }
+
+                return (
+                    <div key={el.id} className="absolute flex items-center justify-center select-none" style={style}>
+                        {el.component ? <el.component size={el.size} /> : el.icon}
+                    </div>
+                );
+            })}
+
+            {/* Grid lines for "detective" feel - subtle */}
+            <div className="absolute inset-0 border-[20px] border-white/5 pointer-events-none" />
+        </div>
+    );
+});
 
 export function SpotDifferenceWorksheet({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
     const rng = makeRng(`${seed}-${docId}-${variant}`);
 
-    // Generate 2 puzzles
-    const puzzles = Array.from({ length: 2 }, (_, i) => {
-        // Difference logic
-        const diffType = rng() > 0.5 ? 'color' : 'missing';
-        const target = pick(['sun', 'cloud', 'flower'], rng)!;
-        return { diffType, target };
-    });
+    // Generate 2 scenes
+    const puzzles = useMemo(() => {
+        const themePool = [SPACE_SCENE, FOREST_SCENE, OCEAN_SCENE];
+        const pickedThemes = shuffleArray([...themePool], rng).slice(0, 2);
+
+        return pickedThemes.map((themeFactory, idx) => {
+            const scene = themeFactory(rng);
+            const possibleDiffs = scene.elements.filter(el => el.canDiff && el.canDiff.length > 0);
+            const chosenDiffs = shuffleArray([...possibleDiffs], rng).slice(0, 7).map(el => {
+                const type = pick(el.canDiff, rng);
+                return { id: el.id, type, label: el.id.replace(/\d+$/, '') };
+            });
+
+            return { scene, differences: chosenDiffs };
+        });
+    }, [seed, variant]);
 
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="Detective Camp"
+            title="Ultimate Detective Challenge"
             emoji="🔍"
-            description="Spot the difference between the two pictures!"
+            description="Find all 7 hidden differences in each pair of pictures. Look closely at colors, positions, and missing items!"
             problemCount={2}
+            learningObjectives={[
+                "Develop high-level visual discrimination",
+                "Improve sustained attention and focus",
+                "Pattern recognition and spatial awareness",
+                "Detail-oriented observation skills"
+            ]}
         >
             <PremiumWorksheetBanner
-                title="Detective Camp"
-                subtitle="Spot The Difference"
-                icons={{ bg1: "🏕️", bg2: "🔍", float1: "🌲", float2: "🐾" }}
+                title="Detective HQ"
+                subtitle="Spot The Difference: Expert Edition"
+                icons={{ bg1: "🕵️", bg2: "🕶️", float1: "🏮", float2: "🔦" }}
                 colors={{
-                    bg: "bg-gradient-to-br from-orange-50 to-amber-50",
-                    border: "border-orange-200",
+                    bg: "bg-gradient-to-br from-indigo-50 to-blue-50",
+                    border: "border-indigo-200",
                     pillBg: "bg-white/80",
-                    pillBorder: "border-orange-300",
-                    pillText: "text-orange-900",
-                    accent: "text-orange-400"
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-900",
+                    accent: "text-indigo-400"
                 }}
             />
 
-            <div className="space-y-12 mt-8">
-                {puzzles.map((p, idx) => (
-                    <div key={idx} className="break-inside-avoid">
-                        <div className="flex gap-2 mb-4 items-center">
-                            <span className="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold">{idx + 1}</span>
-                            <span className="font-bold text-slate-700">Find the difference!</span>
+            <div className="space-y-16 mt-8">
+                {puzzles.map((puzzle: any, idx: number) => (
+                    <div key={idx} className="break-inside-avoid flex flex-col gap-6">
+                        <div className="flex items-center justify-between border-b pb-2 border-slate-100">
+                            <div className="flex gap-2 items-center">
+                                <span className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-lg">#{idx + 1}</span>
+                                <div>
+                                    <h3 className="font-bold text-slate-800 text-lg">Case: {puzzle.scene.name}</h3>
+                                    <p className="text-xs text-slate-400 font-medium tracking-wide flex items-center gap-1 uppercase">
+                                        Difficulty: <span className="text-amber-500 font-black">★★★★★</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="hidden md:flex gap-2">
+                                {[1, 2, 3, 4, 5, 6, 7].map(n => (
+                                    <div key={n} className="w-8 h-8 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-300 font-bold text-xs">{n}</div>
+                                ))}
+                            </div>
                         </div>
 
-                        <div className="flex flex-col md:flex-row gap-6 justify-center">
-                            {/* Scene A (Original) */}
-                            <div className="relative w-64 h-48 border-4 border-slate-800 bg-sky-100 rounded-xl overflow-hidden shadow-lg">
-                                {/* Sun */}
-                                <svg className="absolute top-4 right-4 w-12 h-12 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>
-                                {/* Cloud */}
-                                <svg className="absolute top-6 left-6 w-16 h-10 text-white opacity-90" fill="currentColor" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" /></svg>
-                                {/* Hills */}
-                                <div className="absolute bottom-0 w-full h-20 bg-emerald-500 rounded-t-full scale-150 translate-y-4"></div>
-                                {/* Tree */}
-                                <div className="absolute bottom-8 left-10 w-4 h-12 bg-amber-700"></div>
-                                <div className="absolute bottom-16 left-6 w-12 h-12 bg-green-600 rounded-full"></div>
-                                {/* Flower */}
-                                <svg className="absolute bottom-4 right-12 w-6 h-6 text-pink-500" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
+                            <div className="flex flex-col gap-3">
+                                <div className="text-xs font-bold text-slate-400 uppercase tracking-widest text-center">Original Evidence</div>
+                                <SceneRenderer scene={puzzle.scene} />
                             </div>
 
-                            {/* Scene B (Modified) */}
-                            <div className="relative w-64 h-48 border-4 border-slate-800 bg-sky-100 rounded-xl overflow-hidden shadow-lg">
-                                {/* Sun - Color Diff */}
-                                <svg className={`absolute top-4 right-4 w-12 h-12 ${p.target === 'sun' ? 'text-orange-500' : 'text-yellow-400'}`} fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>
-
-                                {/* Cloud - Missing Diff */}
-                                {!(p.target === 'cloud' && p.diffType === 'missing') && (
-                                    <svg className="absolute top-6 left-6 w-16 h-10 text-white opacity-90" fill="currentColor" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" /></svg>
-                                )}
-
-                                {/* Hills */}
-                                <div className="absolute bottom-0 w-full h-20 bg-emerald-500 rounded-t-full scale-150 translate-y-4"></div>
-
-                                {/* Tree */}
-                                <div className="absolute bottom-8 left-10 w-4 h-12 bg-amber-700"></div>
-                                <div className="absolute bottom-16 left-6 w-12 h-12 bg-green-600 rounded-full"></div>
-
-                                {/* Flower - Missing/Color Diff */}
-                                {!(p.target === 'flower' && p.diffType === 'missing') && (
-                                    <svg className={`absolute bottom-4 right-12 w-6 h-6 ${p.target === 'flower' && p.diffType === 'color' ? 'text-purple-500' : 'text-pink-500'}`} fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>
-                                )}
+                            <div className="flex flex-col gap-3">
+                                <div className="text-xs font-bold text-indigo-400 uppercase tracking-widest text-center">Modified Scene (7 Diffs)</div>
+                                <SceneRenderer scene={puzzle.scene} differences={puzzle.differences} />
                             </div>
+
+                            {/* Connector icon for desktop */}
+                            <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-100 shadow-sm items-center justify-center text-xl z-10">
+                                🔍
+                            </div>
+                        </div>
+
+                        <div className="bg-slate-50 rounded-xl p-4 border border-dashed border-slate-200 text-center">
+                            <p className="text-sm text-slate-500 italic">
+                                Tip: Cross-compare elements like the {puzzle.scene.elements[0].id.replace(/\d+$/, '')} and {puzzle.scene.elements[1].id.replace(/\d+$/, '')}. Good luck, detective!
+                            </p>
                         </div>
                     </div>
                 ))}
             </div>
 
             {showAnswersForDoc(docId, () => (
-                <div className="mt-8 p-6 bg-emerald-50 border-2 border-emerald-200 rounded-xl">
-                    <h3 className="font-bold text-emerald-900 mb-2">Case Solved:</h3>
-                    <ul className="list-disc list-inside text-emerald-800">
-                        {puzzles.map((p, i) => (
-                            <li key={i}>Puzzle {i + 1}: The {p.target} is {p.diffType === 'missing' ? 'missing' : 'a different color'}.</li>
+                <div className="mt-12 p-8 bg-emerald-50 border-4 border-double border-emerald-200 rounded-3xl print:bg-white print:border-slate-200">
+                    <div className="flex items-center gap-3 mb-6">
+                        <span className="text-3xl">🏆</span>
+                        <div>
+                            <h3 className="font-black text-emerald-900 text-xl uppercase tracking-tight">Confidential: Answer Key</h3>
+                            <p className="text-emerald-700 text-sm opacity-80">Only for Lead Detectives</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {puzzles.map((puzzle: any, i: number) => (
+                            <div key={i} className="bg-white/50 p-4 rounded-xl border border-emerald-100">
+                                <h4 className="font-bold text-emerald-800 mb-3 flex items-center gap-2">
+                                    <span className="w-6 h-6 rounded-full bg-emerald-200 text-emerald-700 flex items-center justify-center text-xs">#{i + 1}</span>
+                                    {puzzle.scene.name}
+                                </h4>
+                                <div className="grid grid-cols-1 gap-2">
+                                    {puzzle.differences.map((d: any, di: number) => (
+                                        <div key={di} className="text-sm text-emerald-900 flex items-center gap-2 py-1 border-b border-emerald-50 last:border-0 capitalize">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                            <span className="font-bold">{d.label}:</span>
+                                            <span className="text-emerald-700">
+                                                {d.type === 'missing' ? 'is missing' :
+                                                    d.type === 'color' ? 'has a different color' :
+                                                        d.type === 'move' ? 'has moved positions' :
+                                                            'is rotated/flipped'}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             ))}
         </WorksheetSectionWrapper>
