@@ -342,12 +342,19 @@ const SHAPE_DATA: Record<string, { title: string, emoji: string, description: st
     'missing-shape': {
         title: 'Missing Shape',
         emoji: '❓',
-        description: 'Which circle is missing a piece? Draw it in!',
+        description: 'Look at the pattern. Which shape is missing? Draw it in the empty circle!',
         generator: (rng: any) => {
-            // Visual logic: 3 complete shapes, 1 incomplete
+            // A-B-A-B Pattern
+            const shapes = ['⭕', '🟥', '⭐', '🔺', '🔷', '❤️'];
+            const [s1, s2] = shuffleArray(shapes, rng).slice(0, 2);
             return {
-                type: 'visual-puzzle',
-                items: ['⭕', '🟥', '⭐', '🔺'].map((icon, i) => ({ icon, missing: i === 3 })) // Simple stub logic
+                type: 'pattern-puzzle',
+                items: [
+                    { icon: s1, missing: false },
+                    { icon: s2, missing: false },
+                    { icon: s1, missing: false },
+                    { icon: s2, missing: true } // Implicitly s2
+                ]
             }
         }
     },
@@ -526,13 +533,11 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
 
                 {docId === 'missing-shape' && (
                     <div className="col-span-1 md:col-span-2 space-y-8">
-                        {/* Display multiple puzzles if needed, but generator returns single object for now. Let's wrap in array or handle single obj */}
-                        <div className="flex flex-wrap justify-center gap-8 p-8 border-2 border-slate-200 rounded-3xl bg-slate-50">
+                        <div className="flex flex-wrap justify-center gap-8 p-12 border-2 border-slate-200 rounded-3xl bg-slate-50">
                             {(data as any).items.map((item: any, i: number) => (
                                 <div key={i} className={`relative flex flex-col items-center justify-center w-32 h-32 border-4 rounded-full bg-white shadow-sm transition-all
-                                    ${item.missing ? 'border-dashed border-slate-300 text-slate-300' : 'border-slate-200 text-slate-700'}`}>
-                                    <span className="text-6xl">{item.missing ? '?' : item.icon}</span>
-                                    {item.missing && <div className="absolute -bottom-8 text-sm font-bold text-slate-400 uppercase tracking-widest">Draw Here</div>}
+                                    ${item.missing ? 'border-dashed border-slate-300' : 'border-slate-200 text-slate-700'}`}>
+                                    <span className="text-6xl">{item.missing ? '' : item.icon}</span>
                                 </div>
                             ))}
                         </div>
