@@ -1,4 +1,5 @@
-import React from 'react'
+/** @jsxImportSource react */
+import * as React from 'react'
 import { useTranslation } from '@/context/TranslationContext'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
@@ -6,6 +7,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { getWorksheetSEOBySlug, getWorksheetSEO } from '@shared/worksheetSEO'
 import { trackWorksheetView, trackWorksheetDownload } from '@/utils/analytics'
 import ShadowMatchingWorksheetPage from './ShadowMatchingWorksheetPage'
+
 
 interface WorksheetPageProps {
   slug: string
@@ -51,29 +53,34 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
   // Get 'from' parameter from URL
   const fromParam = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('from') : null
 
-  // Get print URL (noindexed route) - include 'from' parameter for tracking and 'autoprint=1' to auto-open print dialog
-  const printUrl = `/print?doc=${seoData.docId}&from=${fromParam || slug}&autoprint=1`
 
-  // Get category page URL
-  const categoryUrl = seoData.category.includes('multiplication')
-    ? '/worksheets/multiplication-worksheets'
-    : seoData.category.includes('division')
-      ? '/worksheets/3rd-grade-math-worksheets'
-      : seoData.category.includes('fractions')
-        ? '/worksheets/3rd-grade-math-worksheets'
-        : seoData.grade.includes('Kindergarten')
-          ? '/worksheets/kindergarten-math-worksheets'
-          : seoData.grade.includes('1st Grade')
-            ? '/worksheets/1st-grade-math-worksheets'
-            : seoData.grade.includes('2nd Grade')
-              ? '/worksheets/2nd-grade-math-worksheets'
-              : seoData.grade.includes('3rd Grade')
-                ? '/worksheets/3rd-grade-math-worksheets'
-                : seoData.grade.includes('4th Grade')
-                  ? '/worksheets/4th-grade-math-worksheets'
-                  : seoData.grade.includes('5th Grade')
-                    ? '/worksheets/5th-grade-math-worksheets'
-                    : '/worksheets'
+  // Get category page URL (logic used for both breadcrumbs and 'from' parameter)
+  const categorySlug = seoData.category.includes('multiplication')
+    ? 'multiplication-worksheets'
+    : seoData.category.includes('handwriting')
+      ? 'handwriting-worksheet-maker'
+      : seoData.category.includes('reading')
+        ? 'reading-comprehension'
+        : seoData.grade.includes('5th Grade')
+          ? '5th-grade-math-worksheets'
+          : seoData.grade.includes('4th Grade')
+            ? '4th-grade-math-worksheets'
+            : seoData.grade.includes('3rd Grade')
+              ? '3rd-grade-math-worksheets'
+              : seoData.grade.includes('2nd Grade')
+                ? '2nd-grade-math-worksheets'
+                : seoData.grade.includes('1st Grade')
+                  ? '1st-grade-math-worksheets'
+                  : seoData.grade.includes('Kindergarten')
+                    ? 'kindergarten-math-worksheets'
+                    : null
+
+  const categoryUrl = categorySlug ? `/worksheets/${categorySlug}` : '/worksheets'
+
+
+  // Get print URL (noindexed route) - include 'from' parameter for tracking and 'autoprint=1' to auto-open print dialog
+  const printUrl = `/print?doc=${seoData.docId}&from=${fromParam || categorySlug || slug}&autoprint=1`
+
 
   const handlePrintClick = () => {
     trackWorksheetDownload(seoData.docId, seoData.h1, 'worksheet-page', seoData.grade[0])

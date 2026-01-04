@@ -11,7 +11,9 @@ import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import { PRINTABLE_BUNDLE_SECTIONS, getPrintableSectionForDoc } from '@/data/printableBundles'
 import { INTERACTIVE_CATEGORIES } from '@shared/interactive/interactiveWorksheets'
+import { getWorksheetSEOBySlug } from '@shared/worksheetSEO'
 import { formatNumber } from '@/utils/numbers'
+
 import { WorksheetFooter, ProblemBox, WorksheetHeader } from '@/components/worksheet'
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './printables/PrintableShared'
 // Local components defined below to avoid conflicts
@@ -2752,12 +2754,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               href={(() => {
                 try {
                   const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
-                  let from = (u.searchParams.get('from') || '').trim()
+                  const from = (u.searchParams.get('from') || '').trim()
                   const docId = (doc || '').trim()
 
-                  if (from === docId) {
-                    from = ''
-                  }
 
                   // HOTFIX: Mapping lost "from" params for specific Kindergarten worksheets
                   if (!from && ['big-small', 'heavy-light', 'long-short', 'same-different', 'more-less'].includes(docId)) {
@@ -2806,8 +2805,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     return '/worksheets/all'
                   }
 
+                  // Check if 'from' is a known SEO slug
+                  if (from) {
+                    const seo = getWorksheetSEOBySlug(from)
+                    if (seo) return `/worksheets/${seo.slug}`
+                  }
+
                   // Robust fallback: if 'from' looks like a full internal path, use it
-                  if (from && (from.startsWith('/') || from.includes('-worksheets'))) {
+                  if (from && (from.startsWith('/') || from.includes('-worksheets') || from.includes('-worksheet-') || from === 'reading-comprehension')) {
                     if (from.startsWith('/')) return from
                     return `/worksheets/${from}`
                   }
@@ -2893,7 +2898,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   if (from === 'all') {
                     return t('pages.printables.backToAllWorksheets')
                   }
-                  if (from && from.includes('grade')) {
+
+                  // Check if 'from' is a known SEO slug
+                  if (from) {
+                    const seo = getWorksheetSEOBySlug(from)
+                    if (seo) return `Back to ${seo.h1}`
+                  }
+
+                  if (from && (from.includes('grade') || from.includes('worksheets') || from.includes('comprehension'))) {
                     // Title-ize if we don't have a specific translation
                     return `Back to ${from.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}`
                   }
