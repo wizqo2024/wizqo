@@ -2356,7 +2356,7 @@ export function NumberLine200({ showAnswersForDoc, seed, variant }: SpecificWork
                                         <div className="w-0.5 h-4 bg-slate-400"></div>
                                         {isHidden ? (
                                             <div className="w-10 h-8 border-2 border-indigo-400 rounded bg-indigo-50 shadow-inner flex items-center justify-center font-bold text-indigo-600">
-                                                ?
+
                                             </div>
                                         ) : (
                                             <span className="text-sm font-bold text-slate-600 transform -rotate-45 origin-top-left translate-y-2">{val}</span>
