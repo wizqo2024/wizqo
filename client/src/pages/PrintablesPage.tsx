@@ -2798,6 +2798,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   if (from === 'fractions-to-decimals') {
                     return '/worksheets/fractions-to-decimals-worksheets'
                   }
+                  if (from === 'order-of-operations') {
+                    return '/worksheets/order-of-operations-worksheets'
+                  }
                   if (from === 'handwriting') {
                     return '/worksheets/handwriting-worksheet-maker'
                   }
@@ -2891,6 +2894,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                   }
                   if (from === 'fractions-to-decimals') {
                     return t('pages.printables.backToFractionsToDecimals')
+                  }
+                  if (from === 'order-of-operations') {
+                    return 'Back to Order of Operations'
                   }
                   if (from === 'handwriting') {
                     return t('pages.handwriting.title')

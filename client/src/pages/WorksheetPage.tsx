@@ -61,19 +61,21 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
       ? 'handwriting-worksheet-maker'
       : seoData.category.includes('reading')
         ? 'reading-comprehension'
-        : seoData.grade.includes('5th Grade')
-          ? '5th-grade-math-worksheets'
-          : seoData.grade.includes('4th Grade')
-            ? '4th-grade-math-worksheets'
-            : seoData.grade.includes('3rd Grade')
-              ? '3rd-grade-math-worksheets'
-              : seoData.grade.includes('2nd Grade')
-                ? '2nd-grade-math-worksheets'
-                : seoData.grade.includes('1st Grade')
-                  ? '1st-grade-math-worksheets'
-                  : seoData.grade.includes('Kindergarten')
-                    ? 'kindergarten-math-worksheets'
-                    : null
+        : seoData.category.includes('order-of-operations')
+          ? 'order-of-operations-worksheets'
+          : seoData.grade.includes('5th Grade')
+            ? '5th-grade-math-worksheets'
+            : seoData.grade.includes('4th Grade')
+              ? '4th-grade-math-worksheets'
+              : seoData.grade.includes('3rd Grade')
+                ? '3rd-grade-math-worksheets'
+                : seoData.grade.includes('2nd Grade')
+                  ? '2nd-grade-math-worksheets'
+                  : seoData.grade.includes('1st Grade')
+                    ? '1st-grade-math-worksheets'
+                    : seoData.grade.includes('Kindergarten')
+                      ? 'kindergarten-math-worksheets'
+                      : null
 
   const categoryUrl = categorySlug ? `/worksheets/${categorySlug}` : '/worksheets'
 
