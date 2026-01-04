@@ -374,6 +374,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
   // Use print URL for preview (not SEO URL) to show actual worksheet content
   const printUrl = getWorksheetPrintURL(docId, 'order-of-operations')
   const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
+  const [isLoaded, setIsLoaded] = React.useState(false)
 
   // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
   // Use language instead of t in dependencies to avoid re-renders when t function reference changes
@@ -402,16 +403,21 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
       {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
       <a
         href={href}
-        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
+        className="relative w-full bg-slate-50 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
         style={{
           height: '140px',
           aspectRatio: '2.5/1',
         }}
       >
+        {/* Placeholder/Loading State */}
+        <div className={`absolute inset-0 flex items-center justify-center bg-slate-50 transition-opacity duration-500 ${isLoaded ? 'opacity-0' : 'opacity-100'}`}>
+          <span className="text-2xl animate-pulse">📝</span>
+        </div>
+
         {/* Thumbnail content using iframe with preview mode */}
         <iframe
           src={previewUrl}
-          className="w-full h-full border-0"
+          className={`w-full h-full border-0 transition-opacity duration-700 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           style={{
             transform: 'scale(0.25)',
             transformOrigin: 'top left',
@@ -421,6 +427,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           }}
           title={`Preview of ${title}`}
           loading="lazy"
+          onLoad={() => setIsLoaded(true)}
         />
         {/* Gradient fade at bottom */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
@@ -440,7 +447,8 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault(); // Prevent navigation on download click
               if (customDownloadUrl) {
                 window.open(customDownloadUrl, '_blank')
                 return
