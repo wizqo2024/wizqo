@@ -72,7 +72,8 @@ import {
   LinesAndAngles,
   ClassifyingAngles,
   SymmetryTransformations,
-  AreaPerimeter
+  AreaPerimeter,
+  IdentifyPolygons
 } from './GeometryWorksheets'
 import {
   MassAndWeight,
@@ -10787,8 +10788,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           )
         }
         {
-          activeDocs.includes('fractions-number-line') && (
-            <FractionsNumberLine docId='fractions-number-line' showAnswersForDoc={showAnswersForDoc} />
+          (activeDocs.includes('fractions-number-line') || activeDocs.includes('fractions-on-number-line')) && (
+            <FractionsNumberLine docId={activeDocs.includes('fractions-on-number-line') ? 'fractions-on-number-line' : 'fractions-number-line'} showAnswersForDoc={showAnswersForDoc} />
           )
         }
         {
@@ -12415,8 +12416,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('lines-angles-4th') && (
-            <LinesAndAngles docId="lines-angles-4th" showAnswersForDoc={showAnswersForDoc} />
+          activeDocs.includes('identify-polygons') && (
+            <IdentifyPolygons docId="identify-polygons" showAnswersForDoc={showAnswersForDoc} />
+          )
+        }
+
+        {
+          (activeDocs.includes('lines-angles-4th') || activeDocs.includes('lines-rays-angles')) && (
+            <LinesAndAngles docId={activeDocs.includes('lines-rays-angles') ? 'lines-rays-angles' : 'lines-angles-4th'} showAnswersForDoc={showAnswersForDoc} />
           )
         }
 
@@ -12427,8 +12434,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
 
         {
-          activeDocs.includes('symmetry-transformations') && (
-            <SymmetryTransformations docId="symmetry-transformations" showAnswersForDoc={showAnswersForDoc} />
+          (activeDocs.includes('symmetry-transformations') || activeDocs.includes('symmetry')) && (
+            <SymmetryTransformations docId={activeDocs.includes('symmetry') ? 'symmetry' : 'symmetry-transformations'} showAnswersForDoc={showAnswersForDoc} />
           )
         }
 

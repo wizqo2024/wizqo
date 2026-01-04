@@ -638,3 +638,112 @@ export const AreaPerimeter: React.FC<{
         </WorksheetSectionWrapper>
     )
 }
+
+// ==========================================
+// 7. Identify Polygons
+// ==========================================
+
+export const IdentifyPolygons: React.FC<{
+    docId: string
+    showAnswersForDoc: ShowAnswersFn
+}> = ({ docId, showAnswersForDoc }) => {
+    const problems = React.useMemo(() => {
+        const seed = docId
+        const rng = makeRng(seed)
+        // 3=Triangle, 4=Quadrilateral, 5=Pentagon, 6=Hexagon, 7=Heptagon, 8=Octagon
+        const sidesList = [3, 4, 5, 6, 7, 8]
+
+        return Array.from({ length: 9 }).map((_, i) => {
+            const sides = pick(sidesList, rng)
+            const typeMap: Record<number, string> = {
+                3: 'Triangle', 4: 'Quadrilateral', 5: 'Pentagon',
+                6: 'Hexagon', 7: 'Heptagon', 8: 'Octagon'
+            }
+            return { id: i + 1, sides, type: typeMap[sides] }
+        })
+    }, [docId])
+
+    const renderPolygon = (sides: number) => {
+        const color = "stroke-amber-600 stroke-2 fill-amber-50"
+        const center = 50
+        const radius = 35
+
+        // Generate regular polygon points
+        const points = []
+        for (let i = 0; i < sides; i++) {
+            // Start at top (angle -90 degrees)
+            const angle = (i * 2 * Math.PI / sides) - (Math.PI / 2)
+            const x = center + radius * Math.cos(angle)
+            const y = center + radius * Math.sin(angle)
+            points.push(`${x},${y}`)
+        }
+
+        return <polygon points={points.join(' ')} className={color} />
+    }
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Naming Polygons"
+            description="Count the sides and name the polygon (Triangle, Pentagon, Hexagon, etc.)."
+            learningObjectives={["identify polygons by number of sides", "Use names: Pentagon, Hexagon, Octagon"]}
+            emoji="🔷"
+            problemCount={problems.length}
+            parentTeacherTips={["Count the sides carefully", "Penta = 5, Hexa = 6, Octa = 8", "All these are 'Regular Polygons' (equal sides)"]}
+        >
+            <GeometryLayout
+                title="Polygon Patrol"
+                subtitle="Shape Naming Mission"
+                emoji="🔷"
+                color="amber"
+                bannerIcons={{ bg1: "🛑", bg2: "⬡", float1: "5", float2: "8" }}
+                strategy={{
+                    title: "Polygon Names",
+                    steps: [
+                        { label: "3 Sides", text: "Triangle" },
+                        { label: "4 Sides", text: "Quadrilateral" },
+                        { label: "5 Sides", text: "Pentagon" },
+                        { label: "6 Sides", text: "Hexagon" },
+                        { label: "8 Sides", text: "Octagon" }
+                    ]
+                }}
+            >
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {problems.map((prob) => (
+                        <div key={prob.id} className="border-2 border-slate-200 rounded-xl p-4 break-inside-avoid bg-white relative">
+                            <div className="absolute top-2 left-2 bg-amber-100 text-amber-800 text-xs font-bold px-2 py-1 rounded">#{prob.id}</div>
+                            <div className="h-32 flex items-center justify-center my-2">
+                                <svg width="100" height="100" viewBox="0 0 100 100">
+                                    {renderPolygon(prob.sides)}
+                                </svg>
+                            </div>
+                            <div className="space-y-4">
+                                <div className="text-center">
+                                    <div className="text-xs font-bold text-slate-400 uppercase mb-1">Count Sides:</div>
+                                    <div className="inline-block border-2 border-slate-100 rounded px-4 py-1 font-mono text-slate-600 bg-slate-50">___ sides</div>
+                                </div>
+                                <div>
+                                    <div className="text-xs font-bold text-slate-400 uppercase mb-1 text-center">Name:</div>
+                                    <div className="h-8 border-b-2 border-slate-300 w-full mb-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                {showAnswersForDoc(docId, () => (
+                    <div className="mt-8 p-6 bg-amber-50 border-2 border-amber-200 rounded-xl break-before-page">
+                        <div className="font-bold text-amber-900 mb-4 text-xl">✅ Answer Key</div>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            {problems.map((p) => (
+                                <div key={p.id} className="bg-white p-3 rounded border border-amber-100">
+                                    <div className="font-bold text-amber-800">#{p.id}</div>
+                                    <div className="text-sm">{p.sides} sides: <span className="font-semibold">{p.type}</span></div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </GeometryLayout>
+        </WorksheetSectionWrapper>
+    )
+}
