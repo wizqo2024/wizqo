@@ -436,9 +436,7 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
                             {(data as any).categories.map((cat: any, i: number) => (
                                 <div key={i} className="border-4 border-dashed border-slate-300 rounded-3xl p-8 min-h-[250px] flex flex-col items-center gap-4 bg-white/50">
                                     <h3 className="text-2xl font-black text-slate-400 uppercase">{cat.name}</h3>
-                                    <div className="flex-1 flex items-center justify-center text-slate-200 italic text-sm text-center">
-                                        Drop icons here
-                                    </div>
+                                    <div className="flex-1 flex items-center justify-center text-slate-200 italic text-sm text-center" />
                                 </div>
                             ))}
                         </div>
@@ -573,9 +571,7 @@ export function NumberRecognitionWorksheet({ docId, showAnswersForDoc, seed, var
                         {(data as number[]).map((n: number, i: number) => (
                             <div key={i} className="border-2 border-slate-200 rounded-2xl p-8 bg-white flex flex-col items-center gap-4 break-inside-avoid shadow-sm group hover:border-emerald-300 transition-all">
                                 <span className="text-7xl font-black text-slate-800">{n}</span>
-                                <div className="w-20 h-10 border-2 border-dashed border-slate-200 rounded-lg flex items-center justify-center">
-                                    <span className="text-[10px] text-slate-300 font-bold uppercase">Trace It</span>
-                                </div>
+                                <div className="w-20 h-10 border-2 border-dashed border-slate-200 rounded-lg flex items-center justify-center" />
                             </div>
                         ))}
                     </div>
