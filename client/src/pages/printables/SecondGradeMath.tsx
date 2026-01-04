@@ -231,7 +231,7 @@ export function NumberPatterns200({ showAnswersForDoc, seed, variant }: Specific
                                             : 'bg-white border-purple-200 text-purple-900'}
                                     `}>
                                         {p.holes[idx] ? '' : num}
-                                        {p.holes[idx] && <span className="text-purple-100 text-3xl font-light">?</span>}
+                                        {p.holes[idx] && <span className="text-purple-100 text-3xl font-light"></span>}
                                     </div>
                                     {idx < p.sequence.length - 1 && (
                                         <div className="text-purple-300">➜</div>
@@ -490,7 +490,7 @@ export function MissingAddends({ showAnswersForDoc, seed, variant }: SpecificWor
                 icon="🧩"
                 steps={[
                     { label: "Idea", text: "If a PART is missing, SUBTRACT the other part from the Whole." },
-                    { label: "Example", text: "5 + ? = 12 (12 is Whole, 5 is Part)." },
+                    { label: "Example", text: "5 + ___ = 12 (12 is Whole, 5 is Part)." },
                     { label: "Solve", text: "12 - 5 = 7. The missing part is 7!" }
                 ]}
                 color="indigo"
