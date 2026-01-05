@@ -1155,7 +1155,7 @@ interface StrategySpotlightProps {
     className?: string;
 }
 
-export function StrategySpotlight({ title, icon, steps, color, className = "" }: StrategySpotlightProps) {
+export function StrategySpotlight({ title, icon, steps, description, color, className = "" }: StrategySpotlightProps) {
     // Map color name to Tailwind classes
     const colorMap: Record<string, { border: string, bg: string, text: string, iconBg: string }> = {
         purple: { border: 'border-purple-200', bg: 'bg-purple-50', text: 'text-purple-900', iconBg: 'bg-purple-100' },
