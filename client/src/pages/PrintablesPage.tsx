@@ -179,9 +179,10 @@ import { OnePagerWorksheet } from './printables/OnePagerWorksheet';
 import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems } from './printables/ThirdGradeMathWorksheets'
 import { FactorsMultiples, PrimeComposite } from './printables/FactorsWorksheets'
 import { GratitudeJar, MoodTracker, WeeklyGoals, Mandalas, FeelingsCheckin } from './printables/SocialEmotionalWorksheets'
-import { DotToDot1to20 } from './printables/KindergartenExtraWorksheets'
-import { HalloweenPack, WinterKindness } from './printables/HolidayWorksheets'
+import { DotToDot1to20, AnimalPack } from './printables/KindergartenExtraWorksheets'
+import { HalloweenPack, WinterKindness, SpringScavenger, SummerPack } from './printables/HolidayWorksheets'
 import { BrainBoost, CreativeChallenge } from './LogicWorksheets'
+import { RewardChart } from './printables/SocialEmotionalWorksheets'
 
 import {
   trackWorksheetDownload,
@@ -4377,7 +4378,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
 
         {/* Word Search Handler (Generic) */}
-        {activeDocs.some(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words'].includes(d)) && (
+        {activeDocs.some(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words', 'ws-world'].includes(d)) && (
           <WordSearch
             activeDocs={activeDocs}
             showAnswers={true}
@@ -4390,53 +4391,21 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           />
         )}
 
+
+        {/* --- New & Restored Worksheets --- */}
         {activeDocs.includes('reward-chart') && (
-          <WorksheetSectionWrapper
-            docId="reward-chart"
-            title="Weekly Reward / Sticker Chart"
-            emoji={String.fromCodePoint(0x1F3C6)}
-            description="Add a sticker or color a star each time you complete a task."
-            problemCount={1}
-            learningObjectives={[
-              'Track daily accomplishments',
-              'Build positive habits',
-              'Practice goal-setting'
-            ]}
-            parentTeacherTips={[
-              'Use stickers or colors to mark completion',
-              'Celebrate achievements together',
-              'Set small, achievable goals',
-              'Extension: Create your own reward system'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <svg viewBox="0 0 800 400" className="w-full h-auto bg-white border border-slate-300 rounded">
-              <g fill="none" stroke="#111827" strokeWidth="3.5">
-                <rect x="100" y="80" width="600" height="220" />
-                {Array.from({ length: 5 }).map((_, r) => (
-                  <line key={r} x1="100" y1={80 + (r + 1) * 44} x2="700" y2={80 + (r + 1) * 44} />
-                ))}
-                {Array.from({ length: 6 }).map((_, c) => (
-                  <line key={c} x1={100 + (c + 1) * 100} y1="80" x2={100 + (c + 1) * 100} y2="300" />
-                ))}
-              </g>
-              <text x="220" y="70" fontSize="16">Tue</text>
-              <text x="320" y="70" fontSize="16">Wed</text>
-              <text x="420" y="70" fontSize="16">Thu</text>
-              <text x="520" y="70" fontSize="16">Fri</text>
-              <text x="620" y="70" fontSize="16">Sat</text>
-              <text x="690" y="70" fontSize="16">Sun</text>
-            </svg>
-            {showAnswersForDoc('reward-chart', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  Add a sticker or color a star in each box when you complete a task. Track your progress throughout the week!
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
+          <RewardChart docId="reward-chart" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
+        {activeDocs.includes('spring-scavenger') && (
+          <SpringScavenger docId="spring-scavenger" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('summer-pack') && (
+          <SummerPack docId="summer-pack" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('animal-pack') && (
+          <AnimalPack docId="animal-pack" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+
 
         <ReadingComprehension
           docId="reading-mini-1"
@@ -4792,6 +4761,7 @@ function generateWordSearch(seed: string) {
     { name: 'Animals', words: ['LION', 'TIGER', 'BEAR', 'ZEBRA', 'WOLF', 'FOX'] },
     { name: 'Colors', words: ['RED', 'BLUE', 'GREEN', 'PINK', 'BLACK', 'WHITE'] },
     { name: 'School', words: ['BOOK', 'DESK', 'PEN', 'MATH', 'READ', 'WRITE'] },
+    { name: 'World', words: ['MAP', 'GLOBE', 'LAND', 'OCEAN', 'CITY', 'FLAG'] },
   ]
 
   const theme = pick(themes)

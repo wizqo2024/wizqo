@@ -116,6 +116,14 @@ function createTitle(docId: string): string {
     'fraction-mult-whole': 'Multiplying Fractions by Whole Numbers',
     'rounding-decimals': 'Rounding Decimals',
     'estimating-sums-differences': 'Estimating Sums and Differences',
+    'reward-chart': 'Weekly Reward / Sticker Chart',
+    'spring-scavenger': 'Spring Scavenger Hunt',
+    'summer-pack': 'Summer Fun Pack',
+    'animal-pack': 'Animal Activity Pack',
+    'stem-balloon-rocket': 'STEM: Balloon Rocket',
+    'stem-walking-water': 'STEM: Walking Water',
+    'arts-3-shape-creature': 'Arts: 3-Shape Creature',
+    'ws-world': 'Word Search: World Geography',
   }
 
   if (titleMap[docId]) {
