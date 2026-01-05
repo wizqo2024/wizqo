@@ -4805,18 +4805,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           )
         })()}
 
-        {activeDocs.some(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words', 'ws-world'].includes(d)) && (
-          <WordSearch
-            activeDocs={activeDocs}
-            showAnswers={true}
-            effectiveSeed={effectiveSeed}
-            variant={String(variant)}
-            packTime="free"
-            packAge="k2"
-            packSkill="brain"
-            showAnswersForDoc={showAnswersForDoc}
-          />
-        )}
+
 
 
 
