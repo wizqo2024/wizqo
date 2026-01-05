@@ -40,7 +40,7 @@ import {
     DividingFractions
 } from '../FractionWorksheets';
 import MathMazeWorksheets from '../../MathMazeWorksheets';
-import { MathWorksheets } from '../MathWorksheets';
+import { AdditionSubtraction0To10, PlaceValueHTO, Sub2Digit100, NumberTracing1To10, NumberTracing1To20 } from '../MathWorksheets';
 import { LogicWorksheets } from '../../LogicWorksheets';
 import { Symmetry } from '../Symmetry';
 import { LinePlots, BarGraphs, MeanMedianMode } from '../DataAnalysisWorksheets';
@@ -58,8 +58,7 @@ import {
     MassAndWeight,
     LiquidMeasurement,
     ElapsedTime,
-    CustomaryUnits,
-    MeasurementLength
+    CustomaryUnits
 } from '../MeasurementWorksheets';
 import {
     DecimalsPlaceValue,
@@ -90,7 +89,6 @@ import {
     Add2Digit100,
     MoreLessEqual10,
     TenFrames1To10,
-    Sub2Digit100,
     Add2DigitRegrouping,
     Sub2DigitRegrouping,
     EvenOdd100,
@@ -98,7 +96,8 @@ import {
     FractionsHalvesThirdsFourths,
     SkipCounting5To120,
     Time5Min,
-    MissingNumbers50
+    MissingNumbers50,
+    MeasurementLength
 } from '../SecondGradeMath';
 import {
     PowersOf10,
@@ -231,17 +230,63 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
                 )
             })()}
 
-            {/* Generic Math Worksheets (using MathWorksheets component wrapper) */}
-            {[
-                'addition-subtraction-0-10', 'number-tracing-1-10', 'number-tracing-1-20', 'place-value-hto',
-                'color-by-number', 'money-coins-bills', 'measurement-length', 'bar-graphs-data', 'add-2digit-100'
-            ].map(id => activeDocs.includes(id) && (
-                <MathWorksheets
-                    key={id}
-                    docId={id}
-                    commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans, language }}
+            {/* Specific Math Worksheets from MathWorksheets.tsx and SecondGradeMath.tsx */}
+            {activeDocs.includes('addition-subtraction-0-10') && (
+                <AdditionSubtraction0To10
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
                 />
-            ))}
+            )}
+            {activeDocs.includes('number-tracing-1-10') && (
+                <NumberTracing1To10
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
+            {activeDocs.includes('number-tracing-1-20') && (
+                <NumberTracing1To20
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
+            {activeDocs.includes('place-value-hto') && (
+                <PlaceValueHTO
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
+            {activeDocs.includes('money-coins-bills') && (
+                <MoneyCoinsBills
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
+            {activeDocs.includes('measurement-length') && (
+                <MeasurementLength
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
+            {activeDocs.includes('bar-graphs-data') && (
+                <BarGraphsData
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
+            {activeDocs.includes('add-2digit-100') && (
+                <Add2Digit100
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
 
             {/* Geometry */}
             <GeographyWorksheets docId="geo-continents-k2" commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans }} />
