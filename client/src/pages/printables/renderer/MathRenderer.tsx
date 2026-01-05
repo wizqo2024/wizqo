@@ -34,17 +34,17 @@ import {
     AddSubFractions4th,
     MixedImproperFractions,
     FractionBasicID,
-    AddSubFractionsUnlike,
-    MultiplyingFractions,
-    MultiplyingFractionsWhole,
-    DividingFractions
+    // AddSubFractionsUnlike,
+    // MultiplyingFractions,
+    // MultiplyingFractionsWhole,
+    // DividingFractions
 } from '../FractionWorksheets';
 import MathMazeWorksheets from '../../MathMazeWorksheets';
-import { AdditionSubtraction0To10, PlaceValueHTO, Sub2Digit100, NumberTracing1To10, NumberTracing1To20 } from '../MathWorksheets';
+import { AdditionSubtraction0To10, PlaceValueHTO, Sub2Digit100, NumberTracing1To10, NumberTracing1To20, MoreLessEqual10, TenFrames1To10, WordProblems100, Compare2Digit, EvenOdd100, Time5Min } from '../MathWorksheets';
 import { LogicWorksheets } from '../../LogicWorksheets';
 import { Symmetry } from '../Symmetry';
 import { LinePlots, BarGraphs, MeanMedianMode } from '../DataAnalysisWorksheets';
-import { GeometryWordProblems, MeasurementWordProblems, DecimalWordProblems, FractionWordProblems, WordProblems100, MultiStepWordProblems } from '../WordProblemWorksheets';
+import { GeometryWordProblems, MeasurementWordProblems, DecimalWordProblems, FractionWordProblems, MultiStepWordProblems } from '../WordProblemWorksheets';
 import {
     ClassifyingTriangles,
     ClassifyingQuadrilaterals,
@@ -59,7 +59,7 @@ import {
     LiquidMeasurement,
     ElapsedTime,
     CustomaryUnits
-} from '../MeasurementWorksheets';
+} from '../../MeasurementWorksheets';
 import {
     DecimalsPlaceValue,
     ComparingDecimals,
@@ -87,15 +87,10 @@ import {
     MoneyCoinsBills,
     BarGraphsData,
     Add2Digit100,
-    MoreLessEqual10,
-    TenFrames1To10,
     Add2DigitRegrouping,
     Sub2DigitRegrouping,
-    EvenOdd100,
-    Compare2Digit,
     FractionsHalvesThirdsFourths,
     SkipCounting5To120,
-    Time5Min,
     MissingNumbers50,
     MeasurementLength
 } from '../SecondGradeMath';
@@ -115,10 +110,10 @@ import {
     VolumeRectangularPrisms,
     AreaTrianglesParallelograms,
     ClassifyingShapes5th,
-    CoordinateGraphing,
+    // CoordinateGraphing,
     Nets3DShapes,
     Transformations5th,
-    LineGraphsAs5th,
+    // LineGraphsAs5th,
     MeanMedianModeRange, // Assuming this export exists or check file
     StemLeafPlots,
     Probability5th,
@@ -127,7 +122,7 @@ import {
 } from '../FifthGradeWorksheets';
 import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems as MoneyProblems3rd } from '../ThirdGradeMathWorksheets';
 import { FactorsMultiples, PrimeComposite } from '../FactorsWorksheets';
-import { GeographyWorksheets } from '../../GeographyWorksheets'; // Sometimes grouped with math or handled separately, but let's put it here for now or separate? Putting Geography in its own or here? Plan said math. Actually plan said "MathRenderer handles ... Geography, Measurement". Okay.
+import { GeographyWorksheets } from '../../GeographyWorksheets';
 
 // Props interface
 interface MathRendererProps {
@@ -302,16 +297,16 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             <IdentifyPolygons seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
 
             {/* Measurement */}
-            <MassAndWeight seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <LiquidMeasurement seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <ElapsedTime seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <CustomaryUnits seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
+            <MassAndWeight seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            <LiquidMeasurement seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            <ElapsedTime seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            <CustomaryUnits seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
 
             {/* Decimals */}
-            <DecimalsPlaceValue seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <ComparingDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <AddSubDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <FractionsToDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
+            <DecimalsPlaceValue seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            <ComparingDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            <AddSubDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            <FractionsToDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
 
             {/* Division */}
             <LongDivision1Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
