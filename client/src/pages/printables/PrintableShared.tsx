@@ -428,7 +428,7 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
         case 'shapes-colors-sort':
             return getTranslatedWorksheetTitle(docId, t, ' Shapes & Colors Sort (Cut & Glue)')
         case 'dot-to-dot-1-20':
-            return getTranslatedWorksheetTitle(docId, t, '120 Dot-to-Dot')
+            return getTranslatedWorksheetTitle(docId, t, 'Connect the Dots (1-20)')
         case 'tangram-animals':
             return getTranslatedWorksheetTitle(docId, t, 'Tangram Animals (Cutouts)')
         case 'spot-difference':
