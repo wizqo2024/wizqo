@@ -39,9 +39,9 @@ import {
     MultiplyingFractionsWhole,
     DividingFractions
 } from '../FractionWorksheets';
-import MathMazeWorksheets from '../MathMazeWorksheets';
+import MathMazeWorksheets from '../../MathMazeWorksheets';
 import { MathWorksheets } from '../MathWorksheets';
-import { LogicWorksheets } from '../LogicWorksheets';
+import { LogicWorksheets } from '../../LogicWorksheets';
 import { Symmetry } from '../Symmetry';
 import { LinePlots, BarGraphs, MeanMedianMode } from '../DataAnalysisWorksheets';
 import { GeometryWordProblems, MeasurementWordProblems, DecimalWordProblems, FractionWordProblems, WordProblems100, MultiStepWordProblems } from '../WordProblemWorksheets';
@@ -53,7 +53,7 @@ import {
     SymmetryTransformations,
     AreaPerimeter,
     IdentifyPolygons
-} from '../GeometryWorksheets';
+} from '../../GeometryWorksheets';
 import {
     MassAndWeight,
     LiquidMeasurement,
@@ -66,7 +66,7 @@ import {
     ComparingDecimals,
     AddSubDecimals,
     FractionsToDecimals
-} from '../DecimalWorksheets';
+} from '../../DecimalWorksheets';
 import {
     LongDivision1Digit,
     LongDivision2Digit,
@@ -128,7 +128,7 @@ import {
 } from '../FifthGradeWorksheets';
 import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems as MoneyProblems3rd } from '../ThirdGradeMathWorksheets';
 import { FactorsMultiples, PrimeComposite } from '../FactorsWorksheets';
-import { GeographyWorksheets } from '../GeographyWorksheets'; // Sometimes grouped with math or handled separately, but let's put it here for now or separate? Putting Geography in its own or here? Plan said math. Actually plan said "MathRenderer handles ... Geography, Measurement". Okay.
+import { GeographyWorksheets } from '../../GeographyWorksheets'; // Sometimes grouped with math or handled separately, but let's put it here for now or separate? Putting Geography in its own or here? Plan said math. Actually plan said "MathRenderer handles ... Geography, Measurement". Okay.
 
 // Props interface
 interface MathRendererProps {

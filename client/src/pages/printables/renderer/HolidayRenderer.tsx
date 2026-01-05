@@ -4,7 +4,7 @@ import { HalloweenPack, WinterKindness, SpringScavenger, SummerPack } from '../H
 import { WordSearch } from '@/pages/worksheets/WordSearch'; // Absolute import
 import { OnePagerWorksheet } from '../OnePagerWorksheet';
 import { RewardChart, GratitudeJar, MoodTracker, WeeklyGoals, Mandalas, FeelingsCheckin } from '../SocialEmotionalWorksheets';
-import { BrainBoost, CreativeChallenge } from '../LogicWorksheets';
+import { BrainBoost, CreativeChallenge } from '../../LogicWorksheets';
 import { AnimalPack } from '../KindergartenExtraWorksheets';
 
 import { makeRng } from '@/utils/printableUtils';
