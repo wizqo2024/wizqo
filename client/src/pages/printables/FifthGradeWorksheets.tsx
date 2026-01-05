@@ -3201,4 +3201,215 @@ export function AddSubFractionsUnlike({ seed, variant, showAnswersForDoc }: Spec
     );
 }
 
+/**
+ * Multiplying Fractions
+ */
+export function MultiplyingFractions({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'fraction-mult';
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+
+    const problems = Array.from({ length: 12 }, () => {
+        const n1 = nextInt(1, 5);
+        const d1 = nextInt(n1 + 1, 9);
+        const n2 = nextInt(1, 5);
+        const d2 = nextInt(n2 + 1, 9);
+
+        const num = n1 * n2;
+        const den = d1 * d2;
+        const common = gcd(num, den);
+
+        return {
+            f1: { n: n1, d: d1 },
+            f2: { n: n2, d: d2 },
+            ans: { n: num / common, d: den / common },
+            id: nextInt(100, 999)
+        };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Multiplying Fractions"
+            emoji="✖️"
+            description="Multiply numerators and denominators. Simplify your answer."
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Fraction Multiplier"
+                subtitle="Straight across! Top times top, bottom times bottom."
+                icons={{ bg1: '✖️', bg2: '🍰', float1: '✨', float2: '🚀' }}
+                colors={{ bg: 'bg-indigo-900', border: 'border-indigo-700', pillBg: 'bg-indigo-800', pillBorder: 'border-indigo-600', pillText: 'text-indigo-50', accent: 'text-indigo-400' }}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-6 bg-white flex items-center justify-center gap-4 text-2xl font-bold text-slate-700">
+                        <div className="flex flex-col items-center"><span className="border-b-2 border-slate-700 px-2">{p.f1.n}</span><span>{p.f1.d}</span></div>
+                        <span>×</span>
+                        <div className="flex flex-col items-center"><span className="border-b-2 border-slate-700 px-2">{p.f2.n}</span><span>{p.f2.d}</span></div>
+                        <span>=</span>
+                        <div className="w-20 h-16 border-2 border-dashed border-slate-300 rounded bg-slate-50"></div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 bg-indigo-50 border-2 border-indigo-200 rounded-xl print:bg-white text-sm font-mono">
+                    <h3 className="text-lg font-bold text-indigo-900 mb-4">Solutions</h3>
+                    <div className="grid grid-cols-3 gap-4">
+                        {problems.map((p, i) => (
+                            <div key={i} className="flex gap-2">
+                                <span className="font-bold">#{i + 1}:</span> {p.ans.n}/{p.ans.d}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+/**
+ * Multiplying Fractions by Whole Numbers
+ */
+export function MultiplyingFractionsWhole({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'fraction-mult-whole';
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+    const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+
+    const problems = Array.from({ length: 12 }, () => {
+        const whole = nextInt(2, 9);
+        const n = nextInt(1, 4);
+        const d = nextInt(n + 1, 9);
+
+        const num = whole * n;
+        const den = d;
+        const common = gcd(num, den);
+
+        return {
+            whole,
+            frac: { n, d },
+            ans: { n: num / common, d: den / common },
+            id: nextInt(100, 999)
+        };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Note: Convert whole number to fraction (e.g. 5 = 5/1) then multiply."
+            emoji="🔢"
+            description="Multiply whole numbers by fractions."
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Whole Number Wave"
+                subtitle="Put it over 1 and multiply! Simple as that."
+                icons={{ bg1: '1️⃣', bg2: '🌊', float1: '✖️', float2: '✨' }}
+                colors={{ bg: 'bg-blue-900', border: 'border-blue-700', pillBg: 'bg-blue-800', pillBorder: 'border-blue-600', pillText: 'text-blue-50', accent: 'text-blue-400' }}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-6 bg-white flex items-center justify-center gap-4 text-2xl font-bold text-slate-700">
+                        <span>{p.whole}</span>
+                        <span>×</span>
+                        <div className="flex flex-col items-center"><span className="border-b-2 border-slate-700 px-2">{p.frac.n}</span><span>{p.frac.d}</span></div>
+                        <span>=</span>
+                        <div className="w-20 h-16 border-2 border-dashed border-slate-300 rounded bg-slate-50"></div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl print:bg-white text-sm font-mono">
+                    <h3 className="text-lg font-bold text-blue-900 mb-4">Solutions</h3>
+                    <div className="grid grid-cols-3 gap-4">
+                        {problems.map((p, i) => (
+                            <div key={i} className="flex gap-2">
+                                <span className="font-bold">#{i + 1}:</span> {p.ans.n}/{p.ans.d}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+
+}
+
+/**
+ * Dividing Fractions
+ */
+export function DividingFractions({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'div-fractions';
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+    const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+
+    const problems = Array.from({ length: 12 }, () => {
+        const n1 = nextInt(1, 5);
+        const d1 = nextInt(n1 + 1, 9);
+        const n2 = nextInt(1, 5);
+        const d2 = nextInt(n2 + 1, 9);
+
+        // Keep Change Flip: n1/d1 * d2/n2
+        const num = n1 * d2;
+        const den = d1 * n2;
+        const common = gcd(num, den);
+
+        return {
+            f1: { n: n1, d: d1 },
+            f2: { n: n2, d: d2 },
+            ans: { n: num / common, d: den / common },
+            id: nextInt(100, 999)
+        };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Dividing Fractions"
+            emoji="➗"
+            description="Keep, Change, Flip! Divide fractions by multiplying by the reciprocal."
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="The Great Divide"
+                subtitle="Keep! Change! Flip! The secret code to division."
+                icons={{ bg1: '➗', bg2: '🤸', float1: '✨', float2: '🔄' }}
+                colors={{ bg: 'bg-emerald-900', border: 'border-emerald-700', pillBg: 'bg-emerald-800', pillBorder: 'border-emerald-600', pillText: 'text-emerald-50', accent: 'text-emerald-400' }}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-6 bg-white flex items-center justify-center gap-4 text-2xl font-bold text-slate-700">
+                        <div className="flex flex-col items-center"><span className="border-b-2 border-slate-700 px-2">{p.f1.n}</span><span>{p.f1.d}</span></div>
+                        <span>÷</span>
+                        <div className="flex flex-col items-center"><span className="border-b-2 border-slate-700 px-2">{p.f2.n}</span><span>{p.f2.d}</span></div>
+                        <span>=</span>
+                        <div className="w-20 h-16 border-2 border-dashed border-slate-300 rounded bg-slate-50"></div>
+                    </div>
+                ))}
+            </div>
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 bg-emerald-50 border-2 border-emerald-200 rounded-xl print:bg-white text-sm font-mono">
+                    <h3 className="text-lg font-bold text-emerald-900 mb-4">Solutions</h3>
+                    <div className="grid grid-cols-3 gap-4">
+                        {problems.map((p, i) => (
+                            <div key={i} className="flex gap-2">
+                                <span className="font-bold">#{i + 1}:</span> {p.ans.n}/{p.ans.d}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
 
