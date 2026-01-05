@@ -155,6 +155,7 @@ import {
   AddSubMixedNumbers,
   AddSubFractionsUnlike,
   MultiplyingFractions,
+  MultiplyingFractionsWhole,
   DividingFractions,
   MultiplyingDecimals,
   DividingDecimals,
@@ -607,6 +608,12 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, '🍰 Adding & Subtracting Fractions (Unlike)')
     case 'mixed-numbers-add-sub':
       return getTranslatedWorksheetTitle(docId, t, '🏔️ Mixed Numbers: Add & Subtract')
+    case 'fraction-mult':
+      return getTranslatedWorksheetTitle(docId, t, '✖️ Multiplying Fractions')
+    case 'fraction-mult-whole':
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Fractions × Whole Numbers')
+    case 'div-fractions':
+      return getTranslatedWorksheetTitle(docId, t, '➗ Dividing Fractions')
     case 'shapes-colors-sort':
       return getTranslatedWorksheetTitle(docId, t, ' Shapes & Colors Sort (Cut & Glue)')
     case 'dot-to-dot-1-20':
@@ -4348,6 +4355,15 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
         {activeDocs.includes('mixed-numbers-add-sub') && (
           <AddSubMixedNumbers docId="mixed-numbers-add-sub" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('fraction-mult') && (
+          <MultiplyingFractions docId="fraction-mult" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('fraction-mult-whole') && (
+          <MultiplyingFractionsWhole docId="fraction-mult-whole" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('div-fractions') && (
+          <DividingFractions docId="div-fractions" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
         {activeDocs.includes('letter-tracing-az') && (
           <LetterTracingAZ docId="letter-tracing-az" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
