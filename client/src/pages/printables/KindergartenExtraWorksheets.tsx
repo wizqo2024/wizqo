@@ -560,7 +560,7 @@ const NUMBER_DATA: Record<string, { title: string, emoji: string, type: 'find' |
     'number-order-1-20': { title: 'Number Order 1-20', emoji: '🔢', type: 'order', max: 20 },
     'number-matching-1-15': { title: 'Number Matching 1-15', emoji: '🔗', type: 'match', max: 15 },
     'number-tracing-1-10': { title: 'Number Tracing 1-10', emoji: '✏️', type: 'trace', max: 10 },
-    'number-identification-1-10': { title: 'Number Identification', emoji: '🆔', type: 'id', max: 10 },
+    'number-id-1-10': { title: 'Number Identification', emoji: '🆔', type: 'id', max: 10 },
 };
 
 const NUMBER_WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen'];
