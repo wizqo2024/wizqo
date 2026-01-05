@@ -4654,96 +4654,69 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           />
         )}
 
+        {/* --- Times Table Worksheets --- */}
+
         {/* Horizontal Times Tables */}
-        {activeDocs.some(d => ['mult-horizontal', 'mult-horizontal-1-5', 'mult-horizontal-6-12'].includes(d)) && (
+        {activeDocs.some(d => ['mult-horizontal', 'mult-horizontal-1-5', 'mult-horizontal-6-12', 'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12'].includes(d)) && (
           <TimesTableHorizontal
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
-            docId={activeDocs.find(d => d.startsWith('mult-horizontal')) || 'mult-horizontal'}
-            range={activeDocs.includes('mult-horizontal-1-5') ? [1, 5] : activeDocs.includes('mult-horizontal-6-12') ? [6, 12] : [1, 12]}
+            docId={activeDocs.find(d => d.startsWith('mult-horizontal') || d.startsWith('times-table-horizontal')) || 'times-table-horizontal-1-12'}
+            range={(activeDocs.includes('mult-horizontal-1-5') || activeDocs.includes('times-table-horizontal-1-5')) ? [1, 5] : (activeDocs.includes('mult-horizontal-6-12') || activeDocs.includes('times-table-horizontal-6-12')) ? [6, 12] : [1, 12]}
           />
         )}
 
         {/* Vertical Times Tables */}
-        {activeDocs.some(d => ['mult-vertical', 'mult-vertical-1-5', 'mult-vertical-6-12'].includes(d)) && (
+        {activeDocs.some(d => ['mult-vertical', 'mult-vertical-1-5', 'mult-vertical-6-12', 'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12'].includes(d)) && (
           <TimesTableVertical
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
-            docId={activeDocs.find(d => d.startsWith('mult-vertical')) || 'mult-vertical'}
-            range={activeDocs.includes('mult-vertical-1-5') ? [1, 5] : activeDocs.includes('mult-vertical-6-12') ? [6, 12] : [1, 12]}
-          />
-        )}
-
-        {/* Window Arrays (Box Method Intro) */}
-        {activeDocs.includes('mult-window-arrays') && (
-          <MultiplicationWindowArrays
-            seed={effectiveSeed}
-            variant={variant}
-            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-vertical') || d.startsWith('times-table-vertical')) || 'times-table-vertical-1-12'}
+            range={(activeDocs.includes('mult-vertical-1-5') || activeDocs.includes('times-table-vertical-1-5')) ? [1, 5] : (activeDocs.includes('mult-vertical-6-12') || activeDocs.includes('times-table-vertical-6-12')) ? [6, 12] : [1, 12]}
           />
         )}
 
         {/* Missing Factors */}
-        {activeDocs.some(d => ['mult-missing', 'mult-missing-1-5', 'mult-missing-6-12'].includes(d)) && (
+        {activeDocs.some(d => ['mult-missing', 'mult-missing-1-5', 'mult-missing-6-12', 'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed'].includes(d)) && (
           <TimesTableMissing
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
-            docId={activeDocs.find(d => d.startsWith('mult-missing')) || 'mult-missing'}
-            range={activeDocs.includes('mult-missing-1-5') ? [1, 5] : activeDocs.includes('mult-missing-6-12') ? [6, 12] : [1, 12]}
+            docId={activeDocs.find(d => d.startsWith('mult-missing') || d.startsWith('times-table-missing')) || 'times-table-missing-mixed'}
+            range={(activeDocs.includes('mult-missing-1-5') || activeDocs.includes('times-table-missing-1-5')) ? [1, 5] : (activeDocs.includes('mult-missing-6-12') || activeDocs.includes('times-table-missing-6-12')) ? [6, 12] : [1, 12]}
           />
         )}
 
-        {/* Multiplication Patterns */}
-        {activeDocs.includes('mult-patterns') && (
-          <MultiplicationPatterns
+        {/* Timed Tests */}
+        {activeDocs.some(d => ['mult-timed', 'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12'].includes(d)) && (
+          <MultiplicationTimed
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
           />
         )}
-
-        {/* Multiplication Strategies */}
-        {activeDocs.includes('mult-strategies') && (
-          <MultiplicationStrategies
-            seed={effectiveSeed}
-            variant={variant}
-            showAnswersForDoc={showAnswersForDoc}
-          />
-        )}
-
-        {/* Area Model */}
-        {(activeDocs.includes('area-model-mult') || activeDocs.includes('mult-area-model')) && (
-          <AreaModelMult
-            seed={effectiveSeed}
-            variant={variant}
-            showAnswersForDoc={showAnswersForDoc}
-          />
-        )}
-
-        {/* --- Times Table Worksheets --- */}
 
         {/* Blank Tables */}
-        {activeDocs.some(d => ['mult-blank', 'mult-blank-1-5', 'mult-blank-6-12', 'mult-blank-1-12'].includes(d)) && (
+        {activeDocs.some(d => ['mult-blank', 'mult-blank-1-5', 'mult-blank-6-12', 'mult-blank-1-12', 'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12'].includes(d)) && (
           <MultiplicationBlankTable
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
-            docId={activeDocs.find(d => d.startsWith('mult-blank')) || 'mult-blank-1-12'}
-            range={activeDocs.includes('mult-blank-1-5') ? [1, 5] : activeDocs.includes('mult-blank-6-12') ? [6, 12] : [1, 12]}
+            docId={activeDocs.find(d => d.startsWith('mult-blank') || d.startsWith('times-table-blank')) || 'times-table-blank-1-12'}
+            range={(activeDocs.includes('mult-blank-1-5') || activeDocs.includes('times-table-blank-1-5')) ? [1, 5] : (activeDocs.includes('mult-blank-6-12') || activeDocs.includes('times-table-blank-6-12')) ? [6, 12] : [1, 12]}
           />
         )}
 
         {/* Confidence Building */}
-        {activeDocs.some(d => ['mult-confidence', 'mult-confidence-1-5', 'mult-confidence-6-12'].includes(d)) && (
+        {activeDocs.some(d => ['mult-confidence', 'mult-confidence-1-5', 'mult-confidence-6-12', 'times-table-confidence-1-5', 'times-table-confidence-6-12'].includes(d)) && (
           <MultiplicationConfidence
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
-            docId={activeDocs.find(d => d.startsWith('mult-confidence')) || 'mult-confidence-1-12'}
-            range={activeDocs.includes('mult-confidence-1-5') ? [1, 5] : activeDocs.includes('mult-confidence-6-12') ? [6, 12] : [1, 12]}
+            docId={activeDocs.find(d => d.startsWith('mult-confidence') || d.startsWith('times-table-confidence')) || 'times-table-confidence-1-5'}
+            range={(activeDocs.includes('mult-confidence-1-5') || activeDocs.includes('times-table-confidence-1-5')) ? [1, 5] : (activeDocs.includes('mult-confidence-6-12') || activeDocs.includes('times-table-confidence-6-12')) ? [6, 12] : [1, 12]}
           />
         )}
 
@@ -4754,18 +4727,18 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
             docId={activeDocs.find(d => ['times-table-mixed-review', 'times-table-fluency-1-12'].includes(d) || d.startsWith('mult-fluency')) || 'times-table-fluency-1-12'}
-            range={activeDocs.includes('mult-fluency-1-5') ? [1, 5] : activeDocs.includes('mult-fluency-6-12') ? [6, 12] : [1, 12]}
+            range={(activeDocs.includes('mult-fluency-1-5') || activeDocs.includes('times-table-fluency-1-5')) ? [1, 5] : (activeDocs.includes('mult-fluency-6-12') || activeDocs.includes('times-table-fluency-6-12')) ? [6, 12] : [1, 12]}
           />
         )}
 
         {/* Color By Number */}
-        {activeDocs.some(d => ['mult-color-by-number', 'mult-color-by-number-1-5', 'mult-color-by-number-6-12'].includes(d)) && (
+        {activeDocs.some(d => ['mult-color-by-number', 'mult-color-by-number-1-5', 'mult-color-by-number-6-12', 'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12'].includes(d)) && (
           <MultiplicationColorByNumber
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
-            docId={activeDocs.find(d => d.startsWith('mult-color-by-number')) || 'mult-color-by-number-1-12'}
-            range={activeDocs.includes('mult-color-by-number-1-5') ? [1, 5] : activeDocs.includes('mult-color-by-number-6-12') ? [6, 12] : [1, 12]}
+            docId={activeDocs.find(d => d.startsWith('mult-color-by-number') || d.startsWith('times-table-color')) || 'times-table-color-1-12'}
+            range={(activeDocs.includes('mult-color-by-number-1-5') || activeDocs.includes('times-table-color-1-5')) ? [1, 5] : (activeDocs.includes('mult-color-by-number-6-12') || activeDocs.includes('times-table-color-6-12')) ? [6, 12] : [1, 12]}
           />
         )}
 
