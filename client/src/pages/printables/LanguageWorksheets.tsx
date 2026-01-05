@@ -381,15 +381,13 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
     const { t } = useTranslation()
     const docId = 'rhyming-words'
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
-    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+    const pick = <T,>(arr: T[]) => {
+        if (!arr || !Array.isArray(arr) || arr.length === 0) return undefined;
+        return arr[Math.floor(rng() * arr.length)];
+    }
 
     // Dataset of rhyming pairs/groups
     const rhymeGroups = [
-        { target: { word: 'cat', emoji: '🐱' }, rhymes: ['hat', 'bat', 'mat', 'rat'], nonRhymes: ['dog', 'cup', 'sun', 'pen'] },
-        { target: { word: 'dog', emoji: '🐶' }, rhymes: ['log', 'frog', 'hog', 'jog'], nonRhymes: ['cat', 'pig', 'cow', 'bee'] },
-        { target: { word: 'sun', emoji: '☀️' }, rhymes: ['run', 'fun', 'bun', 'nun'], nonRhymes: ['moon', 'sky', 'star', 'car'] },
-        { target: { word: 'pen', emoji: '🖊️' }, rhymes: ['hen', 'ten', 'den', 'men'], nonRhymes: ['pin', 'pan', 'pig', 'box'] },
-        { target: { word: 'box', emoji: '📦' }, rhymes: ['fox', 'ox', 'pox'], nonRhymes: ['bag', 'cat', 'six', 'bus'] },
         { id: 'cat', words: [{ text: 'cat', img: '🐱' }, { text: 'hat', img: '🎩' }, { text: 'bat', img: '🦇' }, { text: 'mat', img: '🧶' }, { text: 'rat', img: '🐀' }] },
         { id: 'dog', words: [{ text: 'dog', img: '🐶' }, { text: 'log', img: '🪵' }, { text: 'frog', img: '🐸' }, { text: 'hog', img: '🐗' }, { text: 'jog', img: '🏃' }] },
         { id: 'sun', words: [{ text: 'sun', img: '☀️' }, { text: 'run', img: '🏃‍♀️' }, { text: 'fun', img: '🎉' }, { text: 'bun', img: '🍞' }, { text: 'nun', img: '修女' }] },
@@ -400,7 +398,10 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
         { id: 'bug', words: [{ text: 'bug', img: '🐞' }, { text: 'rug', img: '🛋️' }, { text: 'hug', img: '🤗' }, { text: 'mug', img: '☕' }, { text: 'jug', img: '🏺' }] },
     ];
 
-    const problems = Array.from({ length: 4 }).map(() => {
+    interface RhymeWord { text: string, img: string }
+    interface RhymeProblem { target: RhymeWord; options: RhymeWord[]; answer: RhymeWord; id: string }
+
+    const problems = Array.from({ length: 4 }).map((_, idx) => {
         // Select a random target group
         const targetGroup = pick(rhymeGroups);
 
@@ -414,6 +415,7 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
         const otherRhymes = targetGroup.words.filter(w => w.text !== targetWord.text);
         // Fallback if no other rhymes (shouldn't happen with our data but safety first)
         const correctMatch = otherRhymes.length > 0 ? pick(otherRhymes) : targetWord;
+        if (!correctMatch) return null;
 
         // Distractors from OTHER groups
         const otherGroups = rhymeGroups.filter(g => g.id !== targetGroup.id);
@@ -431,11 +433,12 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
         const options = shuffleArray([correctMatch, ...distractors], rng);
 
         return {
+            id: `p-${idx}-${targetGroup.id}`,
             target: targetWord,
             options,
             answer: correctMatch
-        };
-    }).filter(Boolean); // Filter out any null problems if safety checks failed
+        } as RhymeProblem;
+    }).filter((p): p is RhymeProblem => p !== null);
 
     return (
         <WorksheetSectionWrapper
@@ -469,15 +472,15 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
                     <div key={p.id} className="bg-white border-2 border-pink-100 rounded-xl p-4 flex items-center justify-between gap-4 break-inside-avoid">
                         {/* Target */}
                         <div className="flex flex-col items-center bg-pink-50 p-2 rounded-lg border border-pink-200 w-24">
-                            <div className="text-4xl mb-1">{p.target.emoji}</div>
-                            <div className="font-bold text-lg text-slate-800 uppercase tracking-widest">{p.target.word}</div>
+                            <div className="text-4xl mb-1">{p.target.img}</div>
+                            <div className="font-bold text-lg text-slate-800 uppercase tracking-widest">{p.target.text}</div>
                         </div>
 
                         {/* Options */}
                         <div className="flex-1 grid grid-cols-3 gap-2">
                             {p.options.map((opt, idx) => (
                                 <div key={idx} className="aspect-square flex items-center justify-center border-2 border-slate-200 rounded-full text-slate-700 font-bold hover:bg-slate-50 cursor-pointer print:border-slate-300">
-                                    {opt}
+                                    {opt.text}
                                 </div>
                             ))}
                         </div>
@@ -494,8 +497,8 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
                     <div className="grid grid-cols-2 gap-4 text-sm">
                         {problems.map((p) => (
                             <div key={p.id} className="flex items-center gap-2">
-                                <span>{p.target.emoji} {p.target.word} rhymes with</span>
-                                <strong>{p.answer}</strong>
+                                <span>{p.target.img} {p.target.text} rhymes with</span>
+                                <strong>{p.answer.text}</strong>
                             </div>
                         ))}
                     </div>
