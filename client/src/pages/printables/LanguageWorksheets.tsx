@@ -390,12 +390,14 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
     const rhymeGroups = [
         { id: 'cat', words: [{ text: 'cat', img: '🐱' }, { text: 'hat', img: '🎩' }, { text: 'bat', img: '🦇' }, { text: 'mat', img: '🧶' }, { text: 'rat', img: '🐀' }] },
         { id: 'dog', words: [{ text: 'dog', img: '🐶' }, { text: 'log', img: '🪵' }, { text: 'frog', img: '🐸' }, { text: 'hog', img: '🐗' }, { text: 'jog', img: '🏃' }] },
-        { id: 'sun', words: [{ text: 'sun', img: '☀️' }, { text: 'run', img: '🏃‍♀️' }, { text: 'fun', img: '🎉' }, { text: 'bun', img: '🍞' }, { text: 'nun', img: '修女' }] },
+        { id: 'sun', words: [{ text: 'sun', img: '☀️' }, { text: 'run', img: '🏃‍♀️' }, { text: 'fun', img: '🎉' }, { text: 'bun', img: '🍞' }, { text: 'nun', img: '⛪' }] },
         { id: 'pen', words: [{ text: 'pen', img: '🖊️' }, { text: 'hen', img: '🐔' }, { text: 'ten', img: '🔟' }, { text: 'den', img: '🐻' }, { text: 'men', img: '👨‍👨‍👦' }] },
         { id: 'box', words: [{ text: 'box', img: '📦' }, { text: 'fox', img: '🦊' }, { text: 'ox', img: '🐂' }, { text: 'pox', img: '🦠' }] },
         { id: 'bed', words: [{ text: 'bed', img: '🛏️' }, { text: 'red', img: '🔴' }, { text: 'fed', img: '🍼' }, { text: 'wed', img: '💍' }, { text: 'sled', img: '🛷' }] },
-        { id: 'pig', words: [{ text: 'pig', img: '🐷' }, { text: 'wig', img: '💇‍♀️' }, { text: 'dig', img: '⛏️' }, { text: 'big', img: '🐘' }, { text: 'fig', img: ' अंजीर' }] },
+        { id: 'pig', words: [{ text: 'pig', img: '🐷' }, { text: 'wig', img: '💇‍♀️' }, { text: 'dig', img: '⛏️' }, { text: 'big', img: '🐘' }, { text: 'fig', img: '🍐' }] },
         { id: 'bug', words: [{ text: 'bug', img: '🐞' }, { text: 'rug', img: '🛋️' }, { text: 'hug', img: '🤗' }, { text: 'mug', img: '☕' }, { text: 'jug', img: '🏺' }] },
+        { id: 'all', words: [{ text: 'ball', img: '⚽' }, { text: 'wall', img: '🧱' }, { text: 'call', img: '📞' }, { text: 'tall', img: '🦒' }, { text: 'fall', img: '🍂' }] },
+        { id: 'ot', words: [{ text: 'hot', img: '🔥' }, { text: 'pot', img: '🍲' }, { text: 'dot', img: '⚫' }, { text: 'cot', img: '🛏️' }, { text: 'bot', img: '🤖' }] },
     ];
 
     interface RhymeWord { text: string, img: string }
@@ -479,8 +481,9 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
                         {/* Options */}
                         <div className="flex-1 grid grid-cols-3 gap-2">
                             {p.options.map((opt, idx) => (
-                                <div key={idx} className="aspect-square flex items-center justify-center border-2 border-slate-200 rounded-full text-slate-700 font-bold hover:bg-slate-50 cursor-pointer print:border-slate-300">
-                                    {opt.text}
+                                <div key={idx} className="aspect-square flex flex-col items-center justify-center border-2 border-slate-200 rounded-xl text-slate-700 font-bold hover:bg-slate-50 cursor-pointer print:border-slate-300 group">
+                                    <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">{opt.img}</div>
+                                    <div className="text-sm">{opt.text}</div>
                                 </div>
                             ))}
                         </div>
