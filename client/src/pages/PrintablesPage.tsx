@@ -4573,6 +4573,28 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
 
+        {activeDocs.some(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words', 'ws-world'].includes(d)) && (
+          <WordSearch
+            activeDocs={activeDocs}
+            showAnswers={true}
+            effectiveSeed={effectiveSeed}
+            variant={String(variant)}
+            packTime="free"
+            packAge="k2"
+            packSkill="brain"
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
+        {activeDocs.includes('animal-pack') && (
+          <AnimalPack
+            activeDocs={activeDocs}
+            showAnswersForDoc={showAnswersForDoc}
+            seed={effectiveSeed}
+            variant={String(variant)}
+          />
+        )}
+
         {activeDocs.includes('spelling') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=spelling`)
           const gradeLevel = (parseInt(effectiveSeed.slice(-1), 16) % 3) + 1 // Grades 1-3
