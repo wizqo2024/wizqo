@@ -4818,14 +4818,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           />
         )}
 
-        {activeDocs.includes('animal-pack') && (
-          <AnimalPack
-            activeDocs={activeDocs}
-            showAnswersForDoc={showAnswersForDoc}
-            seed={effectiveSeed}
-            variant={String(variant)}
-          />
-        )}
+
 
         {activeDocs.includes('spelling') && (() => {
           const rng = makeRng(`${effectiveSeed}|v${variant}|doc=spelling`)
