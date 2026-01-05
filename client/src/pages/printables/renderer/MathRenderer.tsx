@@ -205,6 +205,12 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
                 />
             )}
 
+            {activeDocs.includes('mult-patterns') && <MultiplicationPatterns seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-strategies') && <MultiplicationStrategies seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-fact-fluency') && <MultiplicationFactFluency seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-fact-families') && <MultiplicationFactFamilies seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+
             {/* Multi-Digit Multiplication (Vertical) */}
             {activeDocs.some(d => ['mult-2x1', 'mult-2x2', 'mult-3x1', 'mult-3x2', 'mult-2x1-digit', 'mult-2x2-digit', 'mult-3x1-digit', 'mult-3x2-digit'].includes(d)) && (() => {
                 const docId = activeDocs.find(d => d.startsWith('mult-')) || 'mult-2x1';
