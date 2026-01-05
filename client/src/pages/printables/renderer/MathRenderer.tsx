@@ -216,7 +216,6 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
                 const docId = activeDocs.find(d => d.startsWith('mult-')) || 'mult-2x1';
                 let top = 2, bottom = 1;
                 if (docId.includes('2x2')) { top = 2; bottom = 2; }
-                else if (docId.includes('3x1')) { top = 3; bottom = 1; }
                 else if (docId.includes('3x2')) { top = 3; bottom = 2; }
 
                 return (
@@ -230,6 +229,8 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
                     />
                 )
             })()}
+
+            {activeDocs.includes('mult-area-model') && <AreaModelMult seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Specific Math Worksheets from MathWorksheets.tsx and SecondGradeMath.tsx */}
             {activeDocs.includes('addition-subtraction-0-10') && (
