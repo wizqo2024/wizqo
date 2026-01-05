@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeRng } from '../utils/printableUtils';
+import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper } from './printables/PrintableShared';
 
 // Standard props expected by worksheet components
@@ -14,9 +14,11 @@ interface MathMazeWorksheetsProps {
 
 export const MathMazeWorksheets: React.FC<MathMazeWorksheetsProps> = ({ docId, seed: effectiveSeed, variant, showAnswersForDoc }) => {
     const { t } = useTranslation();
+    const tSafe = t || ((k: string) => k); // Safety fallback
+
     const getTrans = (key: string, fallback: string) => {
         const fullKey = key.includes('.') ? key : `worksheets.${docId}.${key}`;
-        const translated = t(fullKey);
+        const translated = tSafe(fullKey);
         return translated && translated !== fullKey && !translated.startsWith('worksheets.') ? translated : fallback;
     };
 

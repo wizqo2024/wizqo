@@ -4443,6 +4443,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {activeDocs.includes('draw-half') && (
           <DrawHalfWorksheet docId="draw-half" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
+        {activeDocs.includes('dot-to-dot-1-20') && (
+          <DotToDot1to20 docId="dot-to-dot-1-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('size-comparison') && (
+          <ComparisonWorksheet docId="size-comparison" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
         {activeDocs.includes('hidden-object') && (
           <HiddenObjectWorksheet docId="hidden-object" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
