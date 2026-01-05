@@ -72,6 +72,19 @@ const COMPARISON_DATA: Record<string, { title: string, emoji: string, prompt: st
             { a: { icon: '🐶🐶🐶', label: '3 Dogs' }, b: { icon: '🐶🐶🐶🐶', label: '4 Dogs' }, correct: 'b' },
             { a: { icon: '🍭🍭🍭🍭🍭🍭🍭', label: '7 Lollipops' }, b: { icon: '🍭🍭🍭🍭', label: '4 Lollipops' }, correct: 'a' },
         ]
+    },
+    'same-different': {
+        title: 'Same or Different?',
+        emoji: '🔄',
+        prompt: 'Are they the same? Circle matching pairs!',
+        pairs: [
+            { a: { icon: '🍎', label: 'Apple' }, b: { icon: '🍎', label: 'Apple' }, correct: 'a' },
+            { a: { icon: '🐱', label: 'Cat' }, b: { icon: '🐶', label: 'Dog' }, correct: 'b' },
+            { a: { icon: '🚗', label: 'Car' }, b: { icon: '🚗', label: 'Car' }, correct: 'a' },
+            { a: { icon: '⭐', label: 'Star' }, b: { icon: '🌙', label: 'Moon' }, correct: 'b' },
+            { a: { icon: '🎈', label: 'Balloon' }, b: { icon: '🎈', label: 'Balloon' }, correct: 'a' },
+            { a: { icon: '🍪', label: 'Cookie' }, b: { icon: '🍩', label: 'Donut' }, correct: 'b' },
+        ]
     }
 };
 
@@ -1707,7 +1720,7 @@ const COUNTING_DATA: Record<string, { title: string, emoji: string, max: number,
 
 export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
     const { t } = useTranslation();
-    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    const rng = makeRng(`${seed}-${docId}-${variant}`);
     const config = COUNTING_DATA[docId] || COUNTING_DATA['count-color-1-10'];
 
     const items = ['🍎', '🍌', '🥕', '🐶', '🐱', '⭐️', '🎈', '🚗', '🦋', '🌸', '🍪', '⚽️', '🧸', '🖍️', '📚'];
@@ -1753,7 +1766,7 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                 {problems.map((p) => (
                     <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
                         {/* Object Display */}
-                        <div className="flex flex-wrap justify-center content-center gap-1 mb-4 h-24 w-full">
+                        <div className="flex flex-wrap justify-center content-center gap-1 mb-4 min-h-[6rem] w-full">
                             {Array.from({ length: p.count }).map((_, idx) => (
                                 <span key={idx} className="text-2xl leading-none">{p.icon}</span>
                             ))}
