@@ -125,7 +125,11 @@ import {
   MultiplicationVertical,
   MultiplicationStrategies,
   AreaModelMult,
-  PartialProducts
+  PartialProducts,
+  MultiplicationConfidence,
+  MultiplicationFluency,
+  MultiplicationColorByNumber,
+  MultiplicationBlankTable
 } from './printables/MultiplicationWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
 import {
@@ -4716,6 +4720,52 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
+        {/* --- Times Table Worksheets --- */}
+
+        {/* Blank Tables */}
+        {activeDocs.some(d => ['mult-blank', 'mult-blank-1-5', 'mult-blank-6-12', 'mult-blank-1-12'].includes(d)) && (
+          <MultiplicationBlankTable
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-blank')) || 'mult-blank-1-12'}
+            range={activeDocs.includes('mult-blank-1-5') ? [1, 5] : activeDocs.includes('mult-blank-6-12') ? [6, 12] : [1, 12]}
+          />
+        )}
+
+        {/* Confidence Building */}
+        {activeDocs.some(d => ['mult-confidence', 'mult-confidence-1-5', 'mult-confidence-6-12'].includes(d)) && (
+          <MultiplicationConfidence
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-confidence')) || 'mult-confidence-1-12'}
+            range={activeDocs.includes('mult-confidence-1-5') ? [1, 5] : activeDocs.includes('mult-confidence-6-12') ? [6, 12] : [1, 12]}
+          />
+        )}
+
+        {/* Fluency & Mixed Review */}
+        {activeDocs.some(d => ['mult-fluency', 'mult-fluency-1-5', 'mult-fluency-6-12', 'times-table-mixed-review', 'times-table-fluency-1-12'].includes(d)) && (
+          <MultiplicationFluency
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => ['times-table-mixed-review', 'times-table-fluency-1-12'].includes(d) || d.startsWith('mult-fluency')) || 'times-table-fluency-1-12'}
+            range={activeDocs.includes('mult-fluency-1-5') ? [1, 5] : activeDocs.includes('mult-fluency-6-12') ? [6, 12] : [1, 12]}
+          />
+        )}
+
+        {/* Color By Number */}
+        {activeDocs.some(d => ['mult-color-by-number', 'mult-color-by-number-1-5', 'mult-color-by-number-6-12'].includes(d)) && (
+          <MultiplicationColorByNumber
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-color-by-number')) || 'mult-color-by-number-1-12'}
+            range={activeDocs.includes('mult-color-by-number-1-5') ? [1, 5] : activeDocs.includes('mult-color-by-number-6-12') ? [6, 12] : [1, 12]}
           />
         )}
 
