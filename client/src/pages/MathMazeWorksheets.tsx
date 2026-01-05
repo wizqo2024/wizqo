@@ -3,25 +3,28 @@ import { makeRng } from '../utils/printableUtils';
 import { WorksheetSectionWrapper } from './printables/PrintableShared';
 
 // Standard props expected by worksheet components
+import { useTranslation } from '@/context/TranslationContext';
+
 interface MathMazeWorksheetsProps {
     docId: string;
-    commonProps: {
-        activeDocs: string[];
-        showAnswers: boolean;
-        docTitle: string;
-        effectiveSeed: string;
-        variant: number;
-        showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode;
-        t: (key: string, fallback?: string) => string;
-        getTrans: (key: string, fallback?: string) => string;
-    };
+    seed: string;
+    variant: number;
+    showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode;
 }
 
-export const MathMazeWorksheets: React.FC<MathMazeWorksheetsProps> = ({ docId, commonProps }) => {
-    const { activeDocs, effectiveSeed, variant, showAnswersForDoc, getTrans } = commonProps;
+export const MathMazeWorksheets: React.FC<MathMazeWorksheetsProps> = ({ docId, seed: effectiveSeed, variant, showAnswersForDoc }) => {
+    const { t } = useTranslation();
+    const getTrans = (key: string, fallback: string) => {
+        const fullKey = key.includes('.') ? key : `worksheets.${docId}.${key}`;
+        const translated = t(fullKey);
+        return translated && translated !== fullKey && !translated.startsWith('worksheets.') ? translated : fallback;
+    };
 
-    // Only render if this doc is active
-    if (!activeDocs.includes('math-maze')) return null;
+    // activeDocs check is not needed if only rendered when active, but if we want to keep it safe we can just ignore it or remove it. 
+    // The previous code checked activeDocs from commonProps. Since we don't pass activeDocs, we assume if it's rendered, it's active.
+
+
+
 
     const mathMazeCells = React.useMemo(() => {
         const cells: string[] = [];

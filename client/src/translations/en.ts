@@ -277,6 +277,78 @@ export const en = {
         tip: 'The exponent tells you how many times to multiply the base.',
       },
     },
+    'dot-to-dot-1-20': {
+      title: 'Connect the Dots (1-20)',
+      description: 'Connect the numbers in order to reveal the picture!',
+    },
+    'math-maze': {
+      title: 'Math Maze Challenge',
+      description: 'Find your way from Start to Finish by solving math problems.',
+    },
+    'size-comparison': {
+      title: 'Size Comparison',
+      description: 'Compare objects by size: big vs small, long vs short.',
+    },
+    'shape-identification': {
+      title: 'Identify Shapes',
+      description: 'Name and identify common 2D shapes.',
+    },
+    'ten-frames-1-10': {
+      title: 'Ten Frames (1-10)',
+      description: 'Visualize numbers using ten frames.',
+    },
+    'number-tracing-1-20': {
+      title: 'Number Tracing (1-20)',
+      description: 'Practice writing numbers from 1 to 20.',
+    },
+    'number-bonds-10': {
+      title: 'Number Bonds to 10',
+      description: 'Find pairs of numbers that make 10.',
+    },
+    'count-write-30': {
+      title: 'Count and Write to 30',
+      description: 'Count objects and write the correct number up to 30.',
+    },
+    'missing-numbers-50': {
+      title: 'Missing Numbers (to 50)',
+      description: 'Fill in the missing numbers on the chart.',
+    },
+    'addition-subtraction-0-10': {
+      title: 'Addition & Subtraction (0-10)',
+      description: 'Basic mixed practice for adding and subtracting within 10.',
+    },
+    'picture-addition-10': {
+      title: 'Picture Addition',
+      description: 'Add groups of objects together to find the sum.',
+    },
+    'subtraction-stories': {
+      title: 'Subtraction Stories',
+      description: 'Read and solve simple subtraction word problems.',
+    },
+    'balance-equations-10': {
+      title: 'Balancing Equations',
+      description: 'Make both sides of the equation equal.',
+    },
+    'skip-count-2s': {
+      title: 'Skip Counting by 2s',
+      description: 'Practice counting by twos: 2, 4, 6, 8...',
+    },
+    'number-line-add': {
+      title: 'Number Line Addition',
+      description: 'Use a number line to help you add.',
+    },
+    'doubles-facts': {
+      title: 'Doubles Facts',
+      description: 'Practice adding doubles like 2+2, 5+5, etc.',
+    },
+    'more-less-equal-10': {
+      title: 'More, Less, or Equal?',
+      description: 'Compare numbers using <, >, or =.',
+    },
+    'counting-objects-20': {
+      title: 'Counting Objects (to 20)',
+      description: 'Count the items and write the total.',
+    },
     'reading-g1-lost-hat': {
       title: 'Passage — The Lost Hat (Grade 1)',
       description: 'Short passage with 4 comprehension questions. Read carefully and answer in full sentences.',

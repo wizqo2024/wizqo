@@ -66,7 +66,7 @@ export const EarlyLearnerRenderer: React.FC<EarlyLearnerRendererProps> = ({ acti
                 if (['count-color-1-10', 'how-many-1-15', 'count-match-1-20', 'count-circle-1-10', 'counting-objects-20'].includes(docId)) {
                     return <CountingWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
                 }
-                if (['heavy-light', 'long-short', 'big-small', 'more-less', 'same-different'].includes(docId)) {
+                if (['heavy-light', 'long-short', 'big-small', 'more-less', 'same-different', 'size-comparison'].includes(docId)) {
                     return <ComparisonWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
                 }
                 if (['ab-pattern', 'color-patterns', 'shape-patterns', 'what-comes-next', 'what-comes-next-shapes', 'pattern-complete'].includes(docId)) {
