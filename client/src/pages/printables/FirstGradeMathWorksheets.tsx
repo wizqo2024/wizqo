@@ -451,7 +451,7 @@ export function DoublesFacts({ docId, showAnswersForDoc, seed, variant }: Specif
 export function PictureAddition10({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
     const rng = makeRng(`${seed}-${docId}-${variant}`);
     const items = ['🧁', '🐱', '🦋', '⚽', '🍌'];
-    const problems = Array.from({ length: 5 }).map(() => {
+    const problems = Array.from({ length: 9 }).map(() => {
         const item = items[Math.floor(rng() * items.length)];
         const a = Math.floor(rng() * 5) + 1; // 1-5
         const b = Math.floor(rng() * 5) + 1; // 1-5
@@ -466,21 +466,21 @@ export function PictureAddition10({ docId, showAnswersForDoc, seed, variant }: S
             description="Count the pictures to find the sum."
             problemCount={problems.length}
         >
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {problems.map((p, i) => (
-                    <div key={i} className="flex flex-col md:flex-row items-center gap-4 p-4 border-2 border-slate-200 rounded-xl bg-white break-inside-avoid">
+                    <div key={i} className="flex flex-col sm:flex-row items-center gap-2 p-3 border-2 border-slate-200 rounded-xl bg-white break-inside-avoid">
                         {/* Group A */}
-                        <div className="flex gap-1 p-2 bg-blue-50 rounded-lg border border-blue-100">
-                            {Array.from({ length: p.a }).map((_, k) => <span key={k} className="text-2xl">{p.item}</span>)}
+                        <div className="flex gap-1 p-1 bg-blue-50 rounded-lg border border-blue-100 min-w-[60px] justify-center">
+                            {Array.from({ length: p.a }).map((_, k) => <span key={k} className="text-xl">{p.item}</span>)}
                         </div>
-                        <div className="text-2xl font-bold text-slate-400">+</div>
+                        <div className="text-xl font-bold text-slate-400">+</div>
                         {/* Group B */}
-                        <div className="flex gap-1 p-2 bg-blue-50 rounded-lg border border-blue-100">
-                            {Array.from({ length: p.b }).map((_, k) => <span key={k} className="text-2xl">{p.item}</span>)}
+                        <div className="flex gap-1 p-1 bg-blue-50 rounded-lg border border-blue-100 min-w-[60px] justify-center">
+                            {Array.from({ length: p.b }).map((_, k) => <span key={k} className="text-xl">{p.item}</span>)}
                         </div>
-                        <div className="text-2xl font-bold text-slate-400">=</div>
+                        <div className="text-xl font-bold text-slate-400">=</div>
                         {/* Answer */}
-                        <div className="w-16 h-12 border-2 border-slate-300 rounded bg-white shadow-inner flex items-center justify-center text-xl"></div>
+                        <div className="w-12 h-10 border-2 border-slate-300 rounded bg-white shadow-inner flex items-center justify-center text-lg"></div>
                     </div>
                 ))}
             </div>
@@ -491,4 +491,190 @@ export function PictureAddition10({ docId, showAnswersForDoc, seed, variant }: S
             ))}
         </WorksheetSectionWrapper>
     );
+}
+
+// ==========================================
+// More, Less, Equal (1-10)
+// ==========================================
+export function MoreLessEqual10({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const nextInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    // Generate pairs of numbers to compare
+    const problems = Array.from({ length: 8 }).map((_, i) => {
+        const a = nextInt(1, 10);
+        // Ensure some equal, some greater, some less
+        const r = rng();
+        let b;
+        if (r < 0.2) b = a; // 20% Equal
+        else b = nextInt(1, 10);
+        return { id: i + 1, a, b, answer: a > b ? '>' : a < b ? '<' : '=' };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'More, Less, or Equal?')}
+            emoji="⚖️"
+            description={t(`worksheets.${docId}.description`, 'Count the objects or look at the numbers. Write <, >, or = in the circle.')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Comparison Capers"
+                subtitle="More, Less, or Equal"
+                icons={{
+                    bg1: "⚖️",
+                    bg2: "🐊",
+                    float1: "<",
+                    float2: "="
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-cyan-50 to-teal-50",
+                    border: "border-cyan-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-cyan-300",
+                    pillText: "text-cyan-800",
+                    accent: "text-cyan-300"
+                }}
+            />
+
+            <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl mb-6 flex items-center justify-around text-center">
+                <div>
+                    <div className="text-2xl font-bold text-blue-800">&lt;</div>
+                    <div className="text-xs text-blue-600 uppercase font-bold">Less Than</div>
+                </div>
+                <div>
+                    <div className="text-2xl font-bold text-blue-800">=</div>
+                    <div className="text-xs text-blue-600 uppercase font-bold">Equal To</div>
+                </div>
+                <div>
+                    <div className="text-2xl font-bold text-blue-800">&gt;</div>
+                    <div className="text-xs text-blue-600 uppercase font-bold">Greater Than</div>
+                </div>
+                <div className="text-xs text-slate-500 italic max-w-[150px]">"The alligator eats the bigger number!" 🐊</div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6 md:gap-8">
+                {problems.map(p => (
+                    <div key={p.id} className="bg-white border-2 border-slate-200 rounded-xl p-4 flex items-center justify-between break-inside-avoid">
+                        {/* Left Side */}
+                        <div className="flex flex-col items-center gap-2 flex-1">
+                            <div className="flex flex-wrap gap-1 justify-center max-w-[100px]">
+                                {Array.from({ length: p.a }).map((_, j) => <div key={j} className="w-3 h-3 bg-cyan-400 rounded-full"></div>)}
+                            </div>
+                            <div className="text-3xl font-bold text-slate-700">{p.a}</div>
+                        </div>
+
+                        {/* Middle Circle */}
+                        <div className="w-12 h-12 rounded-full border-2 border-slate-300 bg-slate-50 flex items-center justify-center font-bold text-xl text-slate-400">
+                            ?
+                        </div>
+
+                        {/* Right Side */}
+                        <div className="flex flex-col items-center gap-2 flex-1">
+                            <div className="flex flex-wrap gap-1 justify-center max-w-[100px]">
+                                {Array.from({ length: p.b }).map((_, j) => <div key={j} className="w-3 h-3 bg-pink-400 rounded-full"></div>)}
+                            </div>
+                            <div className="text-3xl font-bold text-slate-700">{p.b}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">✅</span>
+                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-4 gap-4 text-sm font-mono text-emerald-800">
+                        {problems.map(p => (
+                            <div key={p.id}>
+                                {p.a} <strong>{p.answer}</strong> {p.b}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// Counting Objects (to 20)
+// ==========================================
+export function CountingObjects20({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const nextInt = (min: number, max: number) => Math.floor(rng() * (max - min + 1)) + min
+
+    const items = ['🍎', '🚗', '⭐', '🎈', '🐠', '🎲', '🍪', '🐶'];
+
+    const problems = Array.from({ length: 6 }).map((_, i) => {
+        const count = nextInt(5, 20); // 5 to 20 objects
+        const emoji = pick(items, rng);
+        return { id: i + 1, count, emoji };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Counting Objects')}
+            emoji="🔢"
+            description={t(`worksheets.${docId}.description`, 'Count the objects in each box and write the number.')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Counting Champion"
+                subtitle="Numbers to 20"
+                icons={{
+                    bg1: "🔢",
+                    bg2: "🧩",
+                    float1: "1, 2, 3...",
+                    float2: "#"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-yellow-50 to-orange-50",
+                    border: "border-yellow-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-yellow-300",
+                    pillText: "text-yellow-800",
+                    accent: "text-yellow-300"
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                {problems.map((p) => (
+                    <div key={p.id} className="bg-white border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center justify-between gap-4 break-inside-avoid">
+                        <div className="flex flex-wrap gap-2 justify-center min-h-[100px] content-center">
+                            {Array.from({ length: p.count }).map((_, k) => (
+                                <div key={k} className="text-2xl">{p.emoji}</div>
+                            ))}
+                        </div>
+                        <div className="flex items-center gap-3 w-full border-t border-slate-100 pt-3 justify-end">
+                            <span className="text-sm font-bold text-slate-500 uppercase">How many?</span>
+                            <div className="w-16 h-10 border-2 border-slate-300 bg-slate-50 rounded-lg shadow-inner"></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">✅</span>
+                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4 text-sm font-mono text-emerald-800">
+                        {problems.map(p => (
+                            <div key={p.id}>
+                                #{p.id}: {p.emoji} = <strong>{p.count}</strong>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
 }

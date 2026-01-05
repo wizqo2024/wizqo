@@ -34,7 +34,7 @@ import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/pr
 import { SpecificWorksheetProps } from '../types/printable';
 import { Sudoku } from '@/pages/worksheets/Sudoku'
 import { WordSearch } from '@/pages/worksheets/WordSearch'
-import { CVCWords, SightWordsPrePrimer, LetterTracingAZ } from './printables/LanguageWorksheets'
+import { CVCWords, SightWordsPrePrimer, LetterTracingAZ, RhymingWords } from './printables/LanguageWorksheets'
 import { ReadingComprehension } from './printables/ReadingWorksheets'
 import { MoreLessEqual10, TenFrames1To10, Sub2Digit100 } from './printables/MathWorksheets'
 import { Add2DigitRegrouping, Sub2DigitRegrouping, EvenOdd100, Compare2Digit, FractionsHalvesThirdsFourths, SkipCounting5To120, MissingNumbers50, Time5Min } from './printables/SecondGradeMath'
@@ -127,7 +127,7 @@ import {
   MazeFocusWorksheet,
   BookmarkTemplates
 } from './printables/KindergartenExtraWorksheets'
-import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10 } from './printables/FirstGradeMathWorksheets'
+import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10, MoreLessEqual10, CountingObjects20 } from './printables/FirstGradeMathWorksheets'
 import { SentenceBuilding } from './printables/LanguageWorksheets'
 import { FractionBasicID } from './printables/FractionWorksheets'
 import {
@@ -4303,6 +4303,33 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               </div>
             ))}
           </WorksheetSectionWrapper>
+        )}
+
+        {/* --- Missing Critical Worksheets Restoration --- */}
+        {/* Math: Regrouping */}
+        {activeDocs.includes('add-2digit-regrouping') && (
+          <Add2DigitRegrouping docId="add-2digit-regrouping" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('sub-2digit-regrouping') && (
+          <Sub2DigitRegrouping docId="sub-2digit-regrouping" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+
+        {/* Math: Fractions */}
+        {activeDocs.includes('fractions-halves-thirds-fourths') && (
+          <FractionsHalvesThirdsFourths docId="fractions-halves-thirds-fourths" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+
+        {/* Language: Rhyming */}
+        {activeDocs.includes('rhyming-words') && (
+          <RhymingWords docId="rhyming-words" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+
+        {/* Math: First Grade */}
+        {activeDocs.includes('more-less-equal-10') && (
+          <MoreLessEqual10 docId="more-less-equal-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('counting-objects-20') && (
+          <CountingObjects20 docId="counting-objects-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
 
 

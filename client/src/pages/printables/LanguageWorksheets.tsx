@@ -373,3 +373,106 @@ export function SentenceBuilding({ docId, showAnswersForDoc, seed, variant }: Sp
         </WorksheetSectionWrapper>
     )
 }
+
+// ==========================================
+// Rhyming Words
+// ==========================================
+export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation()
+    const docId = 'rhyming-words'
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`)
+    const pick = <T,>(arr: T[]) => arr[Math.floor(rng() * arr.length)]
+
+    // Dataset of rhyming pairs/groups
+    const rhymeGroups = [
+        { target: { word: 'cat', emoji: '🐱' }, rhymes: ['hat', 'bat', 'mat', 'rat'], nonRhymes: ['dog', 'cup', 'sun', 'pen'] },
+        { target: { word: 'dog', emoji: '🐶' }, rhymes: ['log', 'frog', 'hog', 'jog'], nonRhymes: ['cat', 'pig', 'cow', 'bee'] },
+        { target: { word: 'sun', emoji: '☀️' }, rhymes: ['run', 'fun', 'bun', 'nun'], nonRhymes: ['moon', 'sky', 'star', 'car'] },
+        { target: { word: 'pen', emoji: '🖊️' }, rhymes: ['hen', 'ten', 'den', 'men'], nonRhymes: ['pin', 'pan', 'pig', 'box'] },
+        { target: { word: 'box', emoji: '📦' }, rhymes: ['fox', 'ox', 'pox'], nonRhymes: ['bag', 'cat', 'six', 'bus'] },
+        { target: { word: 'bed', emoji: '🛏️' }, rhymes: ['red', 'fed', 'wed', 'sled'], nonRhymes: ['bad', 'rug', 'toy', 'lid'] },
+        { target: { word: 'pig', emoji: '🐷' }, rhymes: ['wig', 'dig', 'big', 'fig'], nonRhymes: ['pup', 'cat', 'peg', 'pen'] },
+        { target: { word: 'bug', emoji: '🐞' }, rhymes: ['rug', 'hug', 'mug', 'jug'], nonRhymes: ['bat', 'bag', 'ant', 'bus'] },
+    ];
+
+    // Select 4 problems
+    const problems = shuffleArray(rhymeGroups, rng).slice(0, 4).map((group, i) => {
+        // For each problem, pick 1 correct rhyme and 2 incorrect ones
+        const correct = pick(group.rhymes);
+        const incorrect = shuffleArray(group.nonRhymes, rng).slice(0, 2);
+        const options = shuffleArray([correct, ...incorrect], rng);
+        return {
+            id: i + 1,
+            target: group.target,
+            options,
+            answer: correct
+        }
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, 'Rhyme Time')}
+            emoji="🎵"
+            description={t(`worksheets.${docId}.description`, 'Circle the word that rhymes with the picture.')}
+            problemCount={problems.length}
+        >
+            <PremiumWorksheetBanner
+                title="Rhyme Time"
+                subtitle="Sounding Alike"
+                icons={{
+                    bg1: "🎵",
+                    bg2: "🎤",
+                    float1: "👂",
+                    float2: "🗣️"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-pink-50 to-rose-50",
+                    border: "border-pink-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-pink-300",
+                    pillText: "text-pink-800",
+                    accent: "text-pink-300"
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                {problems.map((p) => (
+                    <div key={p.id} className="bg-white border-2 border-pink-100 rounded-xl p-4 flex items-center justify-between gap-4 break-inside-avoid">
+                        {/* Target */}
+                        <div className="flex flex-col items-center bg-pink-50 p-2 rounded-lg border border-pink-200 w-24">
+                            <div className="text-4xl mb-1">{p.target.emoji}</div>
+                            <div className="font-bold text-lg text-slate-800 uppercase tracking-widest">{p.target.word}</div>
+                        </div>
+
+                        {/* Options */}
+                        <div className="flex-1 grid grid-cols-3 gap-2">
+                            {p.options.map((opt, idx) => (
+                                <div key={idx} className="aspect-square flex items-center justify-center border-2 border-slate-200 rounded-full text-slate-700 font-bold hover:bg-slate-50 cursor-pointer print:border-slate-300">
+                                    {opt}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">✅</span>
+                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                        {problems.map((p) => (
+                            <div key={p.id} className="flex items-center gap-2">
+                                <span>{p.target.emoji} {p.target.word} rhymes with</span>
+                                <strong>{p.answer}</strong>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    )
+}
