@@ -26,7 +26,7 @@ import {
     MultiplicationProperties,
     MultiplicationDecimals,
     PartialProducts,
-    AreaModelMult
+    AreaModelMult,
 } from '../MultiplicationWorksheets';
 import {
     EquivFractions4th,
@@ -333,7 +333,7 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             {/* Critical Math Restorations */}
             {activeDocs.includes('add-2digit-regrouping') && <Add2DigitRegrouping docId="add-2digit-regrouping" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('sub-2digit-regrouping') && <Sub2DigitRegrouping docId="sub-2digit-regrouping" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('fractions-halves-thirds-fourths') && <FractionsHalvesThirdsFourths docId="fractions-halves-thirds-fourths" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} showAnswers={true} />}
+            {activeDocs.includes('fractions-halves-thirds-fourths') && <FractionsHalvesThirdsFourths seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} showAnswers={true} />}
             {activeDocs.includes('more-less-equal-10') && <MoreLessEqual10 docId="more-less-equal-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('counting-objects-20') && <CountingObjects20 docId="counting-objects-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
