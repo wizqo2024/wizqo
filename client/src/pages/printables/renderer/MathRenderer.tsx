@@ -288,31 +288,31 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             <GeographyWorksheets docId="geo-compass-rose" commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans }} />
             <GeographyWorksheets docId="geo-landforms" commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans }} />
             <GeographyWorksheets docId="geo-latlong" commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans }} />
-            <ClassifyingTriangles seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <ClassifyingQuadrilaterals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <LinesAndAngles seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <ClassifyingAngles seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <SymmetryTransformations seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <AreaPerimeter seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <IdentifyPolygons seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
+            {activeDocs.includes('classifying-triangles') && <ClassifyingTriangles docId="classifying-triangles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('classifying-quadrilaterals') && <ClassifyingQuadrilaterals docId="classifying-quadrilaterals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('lines-and-angles') && <LinesAndAngles docId="lines-and-angles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('classifying-angles') && <ClassifyingAngles docId="classifying-angles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('symmetry-transformations') && <SymmetryTransformations docId="symmetry-transformations" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('area-perimeter') && <AreaPerimeter docId="area-perimeter" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('identify-polygons') && <IdentifyPolygons docId="identify-polygons" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Measurement */}
-            <MassAndWeight seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
-            <LiquidMeasurement seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
-            <ElapsedTime seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
-            <CustomaryUnits seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            {activeDocs.includes('mass-weight') && <MassAndWeight docId="mass-weight" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('liquid-measurement') && <LiquidMeasurement docId="liquid-measurement" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('elapsed-time') && <ElapsedTime docId="elapsed-time" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('customary-units') && <CustomaryUnits docId="customary-units" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Decimals */}
-            <DecimalsPlaceValue seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
-            <ComparingDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
-            <AddSubDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
-            <FractionsToDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            {activeDocs.includes('decimals-place-value') && <DecimalsPlaceValue docId="decimals-place-value" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('comparing-decimals') && <ComparingDecimals docId="comparing-decimals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('add-sub-decimals') && <AddSubDecimals docId="add-sub-decimals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-to-decimals') && <FractionsToDecimals docId="fractions-to-decimals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Division */}
-            <LongDivision1Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <LongDivision2Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <LongDivisionMultiDigit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
-            <DividingBy10And100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />
+            {activeDocs.includes('long-division-1-digit') && <LongDivision1Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('long-division-2-digit') && <LongDivision2Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('long-division-multi-digit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('dividing-by-10-100') && <DividingBy10And100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 5th Grade */}
             {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
@@ -326,7 +326,7 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             {/* Critical Math Restorations */}
             {activeDocs.includes('add-2digit-regrouping') && <Add2DigitRegrouping docId="add-2digit-regrouping" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('sub-2digit-regrouping') && <Sub2DigitRegrouping docId="sub-2digit-regrouping" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('fractions-halves-thirds-fourths') && <FractionsHalvesThirdsFourths docId="fractions-halves-thirds-fourths" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-halves-thirds-fourths') && <FractionsHalvesThirdsFourths docId="fractions-halves-thirds-fourths" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} showAnswers={true} />}
             {activeDocs.includes('more-less-equal-10') && <MoreLessEqual10 docId="more-less-equal-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('counting-objects-20') && <CountingObjects20 docId="counting-objects-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
