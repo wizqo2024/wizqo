@@ -107,11 +107,23 @@ import {
   LongDivision1Digit,
   LongDivision2Digit,
   LongDivisionMultiDigit,
-  DivisionFacts,
-  DivisionWithRemainders,
-  DivisionWordProblems,
   DividingBy10And100
 } from './printables/DivisionWorksheets'
+import {
+  MultiplicationFacts,
+  MultiplicationArrays2To5,
+  SkipCountingMultiplication,
+  MultiplicationArraysModels,
+  TimesTableHorizontal,
+  MultiplicationWindowArrays,
+  TimesTableVertical,
+  TimesTableMissing,
+  MultiplicationPatterns,
+  MultiplicationTimed,
+  MultiplicationWordProblems,
+  MultiplicationFactFamilies,
+  MultiplicationVertical
+} from './printables/MultiplicationWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
 import {
   ComparisonWorksheet,
