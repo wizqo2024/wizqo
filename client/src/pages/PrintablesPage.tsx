@@ -774,8 +774,6 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, ' More, Less, or Equal? (110)')
     case 'counting-objects-20':
       return getTranslatedWorksheetTitle(docId, t, ' Count the Objects (120)')
-    case 'sentence-building':
-      return getTranslatedWorksheetTitle(docId, t, ' Sentence Building')
     // Multiplication worksheets
     case 'mult-facts-1-5':
       if (t) {

@@ -3033,8 +3033,171 @@ export function WritingExpressions({ seed, variant, showAnswersForDoc }: Specifi
                     </div>
                 </div>
             ))}
-        </WorksheetSectionWrapper>
-    );
+
+/**
+            * Adding & Subtracting Fractions (Unlike Denominators)
+            */
+            export function AddSubFractionsUnlike({seed, variant, showAnswersForDoc}: SpecificWorksheetProps) {
+    const docId = 'add-sub-fractions-unlike';
+            const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+            function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    // Helper to compute GCD
+    const gcd = (a: number, b: number): number => b === 0 ? a : gcd(b, a % b);
+
+    // Helper to compute LCM
+    const lcm = (a: number, b: number): number => (a * b) / gcd(a, b);
+
+            const problems = Array.from({length: 8 }, () => {
+                let d1 = nextInt(2, 9);
+            let d2 = nextInt(2, 9);
+        while (d1 === d2 || (d1 % d2 !== 0 && d2 % d1 !== 0 && gcd(d1, d2) === 1 && d1 * d2 > 60)) {
+                d1 = nextInt(2, 10);
+            d2 = nextInt(2, 10);
+        }
+
+            if (d1 === d2) d2 = d1 + 1;
+
+            const n1 = nextInt(1, d1 - 1);
+            const n2 = nextInt(1, d2 - 1);
+
+        const isSum = rng() > 0.5;
+
+            const commonD = lcm(d1, d2);
+            const newN1 = n1 * (commonD / d1);
+            const newN2 = n2 * (commonD / d2);
+
+            let ansN = isSum ? newN1 + newN2 : newN1 - newN2;
+            let ansD = commonD;
+
+            if (!isSum && ansN < 0) {
+                ansN = Math.abs(ansN);
+        }
+
+            const common = gcd(ansN, ansD);
+            const finalN = ansN / common;
+            const finalD = ansD / common;
+
+            const f1 = {n: n1, d: d1, val: n1 / d1 };
+            const f2 = {n: n2, d: d2, val: n2 / d2 };
+
+            let p1 = f1;
+            let p2 = f2;
+
+            if (!isSum && f1.val < f2.val) {
+                p1 = f2;
+            p2 = f1;
+        }
+
+            return {
+                n1: p1.n, d1: p1.d,
+            n2: p2.n, d2: p2.d,
+            isSum,
+            ansN: finalN, ansD: finalD,
+            id: nextInt(100, 999)
+        };
+    });
+
+            return (
+            <WorksheetSectionWrapper
+                docId={docId}
+                title="Fractions: Unlike Denominators"
+                emoji="🍰"
+                description="Add or subtract fractions with different denominators. Find the common ground!"
+                problemCount={problems.length}
+                learningObjectives={[
+                    'Find common denominators',
+                    'Add fractions with unlike denominators',
+                    'Subtract fractions with unlike denominators',
+                    'Simplify fractions to lowest terms'
+                ]}
+                parentTeacherTips={[
+                    'Step 1: Find a common denominator (LCM).',
+                    'Step 2: Rename the fractions.',
+                    'Step 3: Add or subtract the numerators.',
+                    'Step 4: Simplify if possible!'
+                ]}
+            >
+                <PremiumWorksheetBanner
+                    title="Fraction Fusion"
+                    subtitle="Mixing slices to make whole new flavors!"
+                    icons={{
+                        bg1: '🥧',
+                        bg2: '🍰',
+                        float1: '½',
+                        float2: '🥣'
+                    }}
+                    colors={{
+                        bg: 'bg-orange-900',
+                        border: 'border-orange-700',
+                        pillBg: 'bg-orange-800',
+                        pillBorder: 'border-orange-600',
+                        pillText: 'text-orange-50',
+                        accent: 'text-orange-400'
+                    }}
+                />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    {problems.map((p, i) => (
+                        <div key={i} className="border-2 border-slate-200 rounded-2xl p-6 bg-white flex items-center justify-between gap-4 break-inside-avoid">
+                            <div className="flex items-center gap-3 text-2xl font-bold text-slate-700">
+                                <div className="flex flex-col items-center">
+                                    <span className="border-b-2 border-slate-700 w-full text-center px-2">{p.n1}</span>
+                                    <span>{p.d1}</span>
+                                </div>
+
+                                <span>{p.isSum ? '+' : '−'}</span>
+
+                                <div className="flex flex-col items-center">
+                                    <span className="border-b-2 border-slate-700 w-full text-center px-2">{p.n2}</span>
+                                    <span>{p.d2}</span>
+                                </div>
+
+                                <span>=</span>
+                            </div>
+
+                            <div className="flex flex-col items-center w-16 gap-1">
+                                <div className="w-12 h-10 border-2 border-slate-300 rounded bg-slate-50 shadow-inner"></div>
+                                <div className="w-12 h-1 bg-slate-400 rounded-full"></div>
+                                <div className="w-12 h-10 border-2 border-slate-300 rounded bg-slate-50 shadow-inner"></div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {showAnswersForDoc(docId, () => (
+                    <div className="mt-8 p-6 bg-orange-50 border-2 border-orange-200 rounded-xl print:bg-white text-sm font-mono">
+                        <h3 className="text-lg font-bold text-orange-900 mb-4">Chef's Recipe: Solutions</h3>
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                            {problems.map((p, i) => (
+                                <div key={i} className="flex flex-col items-center border p-2 rounded bg-white border-orange-100">
+                                    <span className="text-xs text-orange-400 mb-1">#{i + 1}</span>
+                                    <div className="flex items-center gap-2">
+                                        <div className="flex flex-col items-center leading-none text-xs text-slate-500">
+                                            <span className="border-b border-slate-400 pb-0.5">{p.n1}</span>
+                                            <span>{p.d1}</span>
+                                        </div>
+                                        <span>{p.isSum ? '+' : '-'}</span>
+                                        <div className="flex flex-col items-center leading-none text-xs text-slate-500">
+                                            <span className="border-b border-slate-400 pb-0.5">{p.n2}</span>
+                                            <span>{p.d2}</span>
+                                        </div>
+                                        <span>=</span>
+                                        <div className="flex flex-col items-center leading-tight font-bold text-orange-700">
+                                            <span className="border-b-2 border-orange-600 px-1">{p.ansN}</span>
+                                            <span>{p.ansD}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </WorksheetSectionWrapper>
+            );
 }
 
 
