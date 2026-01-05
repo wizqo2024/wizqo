@@ -127,7 +127,7 @@ import {
   MazeFocusWorksheet,
   BookmarkTemplates
 } from './printables/KindergartenExtraWorksheets'
-import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10, MoreLessEqual10, CountingObjects20 } from './printables/FirstGradeMathWorksheets'
+import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10, CountingObjects20 } from './printables/FirstGradeMathWorksheets'
 import { SentenceBuilding } from './printables/LanguageWorksheets'
 import { FractionBasicID } from './printables/FractionWorksheets'
 import {
@@ -173,6 +173,7 @@ import {
   FifthGradeWordProblems,
   WritingExpressions
 } from './printables/FifthGradeWorksheets'
+import { OnePagerWorksheet } from './printables/OnePagerWorksheet';
 import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems } from './printables/ThirdGradeMathWorksheets'
 import {
   trackWorksheetDownload,
@@ -4360,6 +4361,20 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
         {activeDocs.includes('bookmark-templates') && (
           <BookmarkTemplates docId="bookmark-templates" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+
+        {/* STEM & One-Pagers */}
+        {activeDocs.includes('stem-balloon-rocket') && (
+          <OnePagerWorksheet docId="stem-balloon-rocket" effectiveSeed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('stem-walking-water') && (
+          <OnePagerWorksheet docId="stem-walking-water" effectiveSeed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('arts-3-shape-creature') && (
+          <OnePagerWorksheet docId="arts-3-shape-creature" effectiveSeed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('reading-mini-1') && (
+          <ReadingComprehension docId="reading-mini-1" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
 
         {/* Word Search Handler (Generic) */}
