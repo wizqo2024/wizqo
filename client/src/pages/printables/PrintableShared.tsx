@@ -1149,7 +1149,8 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
 interface StrategySpotlightProps {
     title: string;
     icon: string;
-    steps: { label: string; text: string }[];
+    steps?: { label: string; text: string }[];
+    description?: string;
     color: string;
     className?: string;
 }
@@ -1185,7 +1186,12 @@ export function StrategySpotlight({ title, icon, steps, color, className = "" }:
                 </div>
 
                 <div className="space-y-4">
-                    {steps.map((step, idx) => (
+                    {description && (
+                        <div className="text-sm text-slate-700 leading-relaxed">
+                            {description}
+                        </div>
+                    )}
+                    {steps && steps.map((step, idx) => (
                         <div key={idx} className="flex items-start gap-3">
                             <div className={`w-6 h-6 rounded-full ${theme.bg.replace('50', '600')} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>
                                 {idx + 1}
