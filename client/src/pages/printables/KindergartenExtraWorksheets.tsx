@@ -284,10 +284,11 @@ export function PatternWorksheet({ docId, showAnswersForDoc, seed, variant }: Sp
 
 // --- Shape Worksheets (Premium Upgrade) ---
 
-const SHAPE_DATA: Record<string, { title: string, emoji: string, generator: (rng: any) => any }> = {
+const SHAPE_DATA: Record<string, { title: string, emoji: string, type?: 'identify' | 'draw' | 'sort' | 'color' | 'mixed', generator: (rng: any) => any }> = {
     'shape-identification': {
         title: 'Shape Identification',
         emoji: '🟢',
+        type: 'identify',
         generator: (rng: any) => [
             { name: 'Circle', icon: '⭕', sides: 0 },
             { name: 'Square', icon: '🟥', sides: 4 },
@@ -295,26 +296,76 @@ const SHAPE_DATA: Record<string, { title: string, emoji: string, generator: (rng
             { name: 'Star', icon: '⭐', sides: 10 }
         ]
     },
-    'missing-shape': { title: 'Missing Shape', emoji: '❓', generator: (rng) => [] },
-    'color-shapes': { title: 'Color Shapes', emoji: '🎨', generator: (rng) => [] },
-    'shape-sorting': { title: 'Shape Sorting', emoji: '📦', generator: (rng) => [] },
-    'color-recognition': { title: 'Color Recognition', emoji: '🌈', generator: (rng) => [] },
-    'draw-shape': { title: 'Draw Shapes', emoji: '✏️', generator: (rng) => [] }
+    'missing-shape': {
+        title: 'Missing Shape',
+        emoji: '❓',
+        type: 'draw',
+        generator: (rng) => {
+            const shapes = [{ name: 'Circle', icon: '⭕' }, { name: 'Square', icon: '🟥' }, { name: 'Triangle', icon: '🔺' }, { name: 'Diamond', icon: '💎' }];
+            return shuffleArray(shapes, rng).slice(0, 4);
+        }
+    },
+    'color-shapes': {
+        title: 'Color the Shapes',
+        emoji: '🎨',
+        type: 'color',
+        generator: (rng) => {
+            return [
+                { shape: 'Circle', color: 'Red', hex: '#ef4444', ring: 'border-red-500' },
+                { shape: 'Square', color: 'Blue', hex: '#3b82f6', ring: 'border-blue-500' },
+                { shape: 'Triangle', color: 'Yellow', hex: '#eab308', ring: 'border-yellow-500' }
+            ];
+        }
+    },
+    'shape-sorting': {
+        title: 'Shape Sorting',
+        emoji: '📦',
+        type: 'sort',
+        generator: (rng) => {
+            // 3 Sides vs 4 Sides
+            return {
+                categories: [{ name: '3 Sides', count: 3 }, { name: '4 Sides', count: 4 }],
+                items: shuffleArray([
+                    { icon: '🔺', cat: 0 }, { icon: '📐', cat: 0 }, { icon: '🍕', cat: 0 },
+                    { icon: '🟥', cat: 1 }, { icon: '🟦', cat: 1 }, { icon: '🖼️', cat: 1 }
+                ], rng)
+            };
+        }
+    },
+    'color-recognition': {
+        title: 'Color Recognition',
+        emoji: '🌈',
+        type: 'mixed',
+        generator: (rng) => [
+            { name: 'Apple', icon: '🍎', color: 'Red', hex: '#ef4444' },
+            { name: 'Sun', icon: '☀️', color: 'Yellow', hex: '#eab308' },
+            { name: 'Blueberry', icon: '🫐', color: 'Blue', hex: '#3b82f6' },
+            { name: 'Leaf', icon: '🌿', color: 'Green', hex: '#22c55e' }
+        ]
+    },
+    'draw-shape': {
+        title: 'Draw the Shape',
+        emoji: '✏️',
+        type: 'draw',
+        generator: (rng) => {
+            const shapes = [{ name: 'Circle', icon: '⭕' }, { name: 'Square', icon: '🟥' }, { name: 'Triangle', icon: '🔺' }, { name: 'Rectangle', icon: '▬' }];
+            return shuffleArray(shapes, rng).slice(0, 4);
+        }
+    }
 };
 
 export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
     const config = SHAPE_DATA[docId] || SHAPE_DATA['shape-identification'];
-    // Logic for specific variants is simplified here as we primarily want to demonstrate the visual upgrade structure. 
-
     const rng = makeRng(`${seed}-${docId}-${variant}`);
     const data = config.generator(rng);
+    const type = config.type || 'identify';
 
     return (
         <WorksheetSectionWrapper
             docId={docId}
             title={config.title}
             emoji={config.emoji}
-            description="Explore the world of shapes!"
+            description="Explore the world of shapes and colors!"
             problemCount={4}
         >
             <PremiumWorksheetBanner
@@ -331,28 +382,118 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
                 }}
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-                {/* Visual Cards */}
-                {(data as any[]).map((shape: any, i: number) => (
-                    <div key={i} className="bg-white border-2 border-slate-200 rounded-2xl p-6 flex flex-col items-center gap-4 shadow-sm hover:border-green-300 transition-colors">
-                        <div className="w-32 h-32 flex items-center justify-center bg-slate-50 rounded-full text-7xl">
-                            {shape.icon}
+            {/* Identify / Visual Cards */}
+            {type === 'identify' && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+                    {(data as any[]).map((shape: any, i: number) => (
+                        <div key={i} className="bg-white border-2 border-slate-200 rounded-2xl p-6 flex flex-col items-center gap-4 shadow-sm hover:border-green-300 transition-colors">
+                            <div className="w-32 h-32 flex items-center justify-center bg-slate-50 rounded-full text-7xl">
+                                {shape.icon}
+                            </div>
+                            <div className="w-full text-center">
+                                <h3 className="font-bold text-slate-800 text-xl mb-1">{shape.name}</h3>
+                                <div className="text-slate-400 text-sm font-medium uppercase tracking-widest">{shape.sides} Sides</div>
+                            </div>
+                            <div className="w-full h-12 border-2 border-dashed border-slate-300 rounded-xl flex items-center justify-center text-slate-300 text-sm">
+                                Trace Here
+                            </div>
                         </div>
-                        <div className="w-full text-center">
-                            <h3 className="font-bold text-slate-800 text-xl mb-1">{shape.name}</h3>
-                            <div className="text-slate-400 text-sm font-medium uppercase tracking-widest">{shape.sides} Sides</div>
+                    ))}
+                </div>
+            )}
+
+            {/* Draw / Trace */}
+            {type === 'draw' && (
+                <div className="grid grid-cols-2 gap-6 mt-8">
+                    {(data as any[]).map((shape: any, i: number) => (
+                        <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-4 flex flex-col gap-4">
+                            <div className="flex items-center gap-2 border-b pb-2">
+                                <span className="text-2xl">{shape.icon}</span>
+                                <span className="font-bold text-slate-700">{shape.name}</span>
+                            </div>
+                            <div className="flex-1 min-h-[150px] border-2 border-dashed border-slate-300 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 text-sm">
+                                Draw a {shape.name}
+                            </div>
                         </div>
-                        <div className="w-full h-12 border-2 border-dashed border-slate-300 rounded-xl flex items-center justify-center text-slate-300 text-sm">
-                            Trace Here
+                    ))}
+                </div>
+            )}
+
+            {/* Sort */}
+            {type === 'sort' && (
+                <div className="flex flex-col gap-8 mt-8">
+                    <div className="flex justify-around gap-8">
+                        {data.categories.map((cat: any, i: number) => (
+                            <div key={i} className="flex-1 min-h-[200px] border-4 border-slate-300 rounded-xl bg-slate-50 relative p-4">
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-white px-4 py-1 border-2 border-slate-300 rounded-full font-bold text-slate-700 whitespace-nowrap">
+                                    {cat.name}
+                                </div>
+                                <div className="w-full h-full flex items-center justify-center text-slate-300">Paste Here</div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="border-t-2 border-slate-300 pt-8 border-dashed">
+                        <div className="flex justify-center gap-4 text-slate-400 text-sm mb-4">✂️ Cut out these shapes:</div>
+                        <div className="flex justify-center gap-6 flex-wrap">
+                            {data.items.map((item: any, i: number) => (
+                                <div key={i} className="w-16 h-16 border-2 border-dashed border-slate-400 rounded-lg flex items-center justify-center text-4xl bg-white">
+                                    {item.icon}
+                                </div>
+                            ))}
                         </div>
                     </div>
-                ))}
-            </div>
+                </div>
+            )}
+
+            {/* Color Specific */}
+            {type === 'color' && (
+                <div className="mt-8">
+                    <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl mb-6 text-center text-blue-800 font-medium">
+                        Instructions: {data.map((d: any) => `Color ${d.shape}s ${d.color}`).join('. ')}.
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        {/* Generate a grid of varied shapes to color */}
+                        {Array.from({ length: 8 }).map((_, i) => {
+                            const item = data[i % data.length]; // Cycle through targets
+                            return (
+                                <div key={i} className={`aspect-square border-2 ${item.ring || 'border-slate-200'} rounded-xl flex items-center justify-center bg-white`}>
+                                    <div className="text-6xl text-slate-900 drop-shadow-sm opacity-20 filter grayscale">
+                                        {/* In real app use SVG, here simplified with emoji but emoji has fixed color...
+                                                Ideally we need SVG shapes to color. Using emojis for now but asking user to color OVER them or draw box.
+                                                Actually, let's use simple CSS/SVG shapes for coloring tasks.
+                                            */}
+                                        {item.shape === 'Circle' && <div className="w-16 h-16 rounded-full border-4 border-black" />}
+                                        {item.shape === 'Square' && <div className="w-16 h-16 border-4 border-black" />}
+                                        {item.shape === 'Triangle' && <div className="w-0 h-0 border-l-[32px] border-l-transparent border-r-[32px] border-r-transparent border-b-[64px] border-b-black" />}
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            )}
+
+            {/* Color Recognition (Mixed) */}
+            {type === 'mixed' && (
+                <div className="grid grid-cols-2 gap-6 mt-8">
+                    {(data as any[]).map((item: any, i: number) => (
+                        <div key={i} className="bg-white border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center gap-2">
+                            <div className="text-6xl grayscale opacity-50">{item.icon}</div>
+                            <div className="font-bold text-slate-800">{item.name}</div>
+                            <div className="mt-2 text-sm px-3 py-1 bg-slate-100 rounded-full border border-slate-200">
+                                Color it <span style={{ color: item.hex }} className="font-bold">{item.color}</span>
+                            </div>
+                            <div className="w-full h-8 mt-2 border border-slate-200 rounded bg-white" style={{ borderColor: item.hex }}></div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
 
             {/* Answer Key (Simple) */}
             {showAnswersForDoc(docId, () => (
                 <div className="mt-8 text-center text-slate-400 text-sm">
-                    Answer Key: Correctly identifying shapes is the goal!
+                    Answer Key: Correctly distinguishing shapes and colors is the goal!
                 </div>
             ))}
         </WorksheetSectionWrapper>
