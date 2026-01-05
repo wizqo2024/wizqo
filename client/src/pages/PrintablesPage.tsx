@@ -32,9 +32,21 @@ import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } fr
 // Local components defined below to avoid conflicts
 import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/printableUtils'
 import { SpecificWorksheetProps } from '../types/printable';
-import { Sudoku } from '@/pages/worksheets/Sudoku'
-import { WordSearch } from '@/pages/worksheets/WordSearch'
-import { CVCWords, SightWordsPrePrimer, LetterTracingAZ, RhymingWords } from './printables/LanguageWorksheets'
+
+import { MathRenderer } from './printables/renderer/MathRenderer';
+import { LanguageRenderer } from './printables/renderer/LanguageRenderer';
+import { EarlyLearnerRenderer } from './printables/renderer/EarlyLearnerRenderer';
+import { HolidayRenderer } from './printables/renderer/HolidayRenderer';
+
+import {
+  trackWorksheetDownload,
+  trackWorksheetView,
+  trackPrintDialog,
+  trackAnswerKeyToggle,
+  trackTimeOnPage,
+  trackScrollDepth,
+  trackUserFlow
+} from '@/utils/analytics'
 import { ReadingComprehension } from './printables/ReadingWorksheets'
 import { MoreLessEqual10, TenFrames1To10, Sub2Digit100 } from './printables/MathWorksheets'
 import { Add2DigitRegrouping, Sub2DigitRegrouping, EvenOdd100, Compare2Digit, FractionsHalvesThirdsFourths, SkipCounting5To120, MissingNumbers50, Time5Min } from './printables/SecondGradeMath'
@@ -3179,19 +3191,38 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             />
           )}
         </div>
-        {/* Geography Worksheets */}
-        <GeographyWorksheets
-          docId="geo-continents-k2"
-          commonProps={{
-            activeDocs,
-            showAnswers,
-            docTitle,
-            effectiveSeed,
-            variant,
-            showAnswersForDoc,
-            t,
-            getTrans
-          }}
+        <MathRenderer
+          activeDocs={activeDocs}
+          seed={effectiveSeed}
+          variant={variant}
+          showAnswersForDoc={showAnswersForDoc}
+          t={t}
+          getTrans={getTrans}
+          language={language}
+        />
+        <LanguageRenderer
+          activeDocs={activeDocs}
+          seed={effectiveSeed}
+          variant={variant}
+          showAnswersForDoc={showAnswersForDoc}
+          t={t}
+          getTrans={getTrans}
+        />
+        <EarlyLearnerRenderer
+          activeDocs={activeDocs}
+          seed={effectiveSeed}
+          variant={variant}
+          showAnswersForDoc={showAnswersForDoc}
+          t={t}
+          getTrans={getTrans}
+        />
+        <HolidayRenderer
+          activeDocs={activeDocs}
+          seed={effectiveSeed}
+          variant={variant}
+          showAnswersForDoc={showAnswersForDoc}
+          t={t}
+          getTrans={getTrans}
         />
         <GeographyWorksheets
           docId="geo-compass-rose"
