@@ -3030,10 +3030,8 @@ export function WritingExpressions({ seed, variant, showAnswersForDoc }: Specifi
                         </div>
                     ))}
                 </div>
-                </div>
-    ))
-}
-        </WorksheetSectionWrapper >
+            ))}
+        </WorksheetSectionWrapper>
     );
 }
 
