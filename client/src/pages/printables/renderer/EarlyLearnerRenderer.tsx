@@ -8,7 +8,14 @@ import {
     HiddenObjectWorksheet,
     MazeFocusWorksheet,
     BookmarkTemplates,
-    DotToDot1to20
+    DotToDot1to20,
+    CountingWorksheet,
+    ComparisonWorksheet,
+    PatternWorksheet,
+    ShapeWorksheet,
+    NumberRecognitionWorksheet,
+    AnimalPack,
+    ColoringWorksheet
 } from '../KindergartenExtraWorksheets';
 import { WorksheetSectionWrapper } from '../PrintableShared'; // For inline SVGs if we move them here eventually
 
@@ -50,6 +57,32 @@ export const EarlyLearnerRenderer: React.FC<EarlyLearnerRendererProps> = ({ acti
             {activeDocs.includes('dot-to-dot-1-20') && (
                 <DotToDot1to20 docId="dot-to-dot-1-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
             )}
+            {activeDocs.includes('animal-pack') && (
+                <AnimalPack docId="animal-pack" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+
+            {/* Structured Worksheet Groups */}
+            {activeDocs.map(docId => {
+                if (['count-color-1-10', 'how-many-1-15', 'count-match-1-20', 'count-circle-1-10', 'counting-objects-20'].includes(docId)) {
+                    return <CountingWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
+                }
+                if (['heavy-light', 'long-short', 'big-small', 'more-less'].includes(docId)) {
+                    return <ComparisonWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
+                }
+                if (['ab-pattern', 'color-patterns', 'shape-patterns', 'what-comes-next', 'what-comes-next-shapes', 'pattern-complete'].includes(docId)) {
+                    return <PatternWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
+                }
+                if (['shape-identification', 'missing-shape', 'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape'].includes(docId)) {
+                    return <ShapeWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
+                }
+                if (['find-number-1-10', 'number-order-1-20', 'number-matching-1-15', 'number-tracing-1-10', 'number-identification-1-10'].includes(docId)) {
+                    return <NumberRecognitionWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
+                }
+                if (docId.startsWith('coloring-pages-')) {
+                    return <ColoringWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
+                }
+                return null;
+            })}
         </>
     );
 };

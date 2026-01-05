@@ -305,7 +305,7 @@ const SHAPE_DATA: Record<string, { title: string, emoji: string, generator: (rng
 export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
     const config = SHAPE_DATA[docId] || SHAPE_DATA['shape-identification'];
     // Logic for specific variants is simplified here as we primarily want to demonstrate the visual upgrade structure. 
-    // In a full implementation, we'd port all logic blocks. For now, focused on shape-identification premium look.
+
     const rng = makeRng(`${seed}-${docId}-${variant}`);
     const data = config.generator(rng);
 
@@ -1365,3 +1365,111 @@ export function AnimalPack({ seed, variant, showAnswersForDoc }: SpecificWorkshe
 }
 
 
+// --- Counting Worksheets (New Implementation) ---
+
+const COUNTING_DATA: Record<string, { title: string, emoji: string, max: number, type: 'color' | 'write' | 'match' | 'circle' }> = {
+    'count-color-1-10': { title: 'Count & Color (1-10)', emoji: '🖍️', max: 10, type: 'color' },
+    'how-many-1-15': { title: 'How Many? (1-15)', emoji: '🔢', max: 15, type: 'write' },
+    'count-match-1-20': { title: 'Count & Match (1-20)', emoji: '🔗', max: 20, type: 'match' },
+    'count-circle-1-10': { title: 'Count & Circle (1-10)', emoji: '⭕', max: 10, type: 'circle' },
+    'counting-objects-20': { title: 'Counting Objects to 20', emoji: '🧸', max: 20, type: 'circle' },
+};
+
+export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const { t } = useTranslation();
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    const config = COUNTING_DATA[docId] || COUNTING_DATA['count-color-1-10'];
+
+    const items = ['🍎', '🍌', '🥕', '🐶', '🐱', '⭐️', '🎈', '🚗', '🦋', '🌸', '🍪', '⚽️', '🧸', '🖍️', '📚'];
+
+    // Generate problems
+    const problems = useMemo(() => {
+        return Array.from({ length: 9 }).map((_, i) => {
+            const count = Math.floor(rng() * config.max) + 1;
+            const icon = pick(items, rng) || '⭐️';
+
+            // For 'circle' type, generate options
+            let options: number[] = [];
+            if (config.type === 'circle') {
+                const dist1 = Math.max(1, count + Math.floor(rng() * 3) - 1);
+                const dist2 = Math.max(1, count + Math.floor(rng() * 5) - 2);
+                options = shuffleArray([...new Set([count, dist1, dist2])].slice(0, 3), rng).sort((a, b) => a - b);
+                // Ensure correct answer is in options if distinct failed
+                if (!options.includes(count)) {
+                    if (options.length < 3) options.push(count);
+                    else options[0] = count;
+                }
+                options.sort((a, b) => a - b);
+            }
+
+            return {
+                id: i,
+                count,
+                icon,
+                options
+            };
+        });
+    }, [config, rng]);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t(`worksheets.${docId}.title`, config.title)}
+            emoji={config.emoji}
+            description={t(`worksheets.${docId}.description`, `Practice counting numbers up to ${config.max}.`)}
+            problemCount={9}
+        >
+            <div className="grid grid-cols-3 gap-6">
+                {problems.map((p) => (
+                    <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
+                        {/* Object Display */}
+                        <div className="flex flex-wrap justify-center content-center gap-1 mb-4 h-24 w-full">
+                            {Array.from({ length: p.count }).map((_, idx) => (
+                                <span key={idx} className="text-2xl leading-none">{p.icon}</span>
+                            ))}
+                        </div>
+
+                        {/* Interaction Area based on Type */}
+                        {config.type === 'write' && (
+                            <div className="w-12 h-12 border-2 border-slate-300 rounded-md bg-slate-50 flex items-center justify-center">
+                            </div>
+                        )}
+
+                        {config.type === 'circle' && (
+                            <div className="flex gap-2 justify-center w-full">
+                                {p.options.map(opt => (
+                                    <div key={opt} className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center font-bold text-slate-600">
+                                        {opt}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {config.type === 'color' && (
+                            <div className="text-xs text-slate-500 font-medium border-t border-slate-100 pt-2 w-full text-center">
+                                Color {p.count}
+                            </div>
+                        )}
+
+                        {config.type === 'match' && (
+                            <div className="w-full text-center text-slate-400 text-xs mt-2">
+                                {p.count} <span className="inline-block transform rotate-90">➔</span>
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-4 border border-emerald-200 rounded-lg bg-emerald-50 text-sm text-emerald-800 break-inside-avoid">
+                    <strong>Answer Key:</strong>
+                    <div className="grid grid-cols-4 gap-2 mt-2">
+                        {problems.map((p, i) => (
+                            <div key={i}>#{i + 1}: {p.count}</div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
