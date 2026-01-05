@@ -4752,15 +4752,15 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
 
 
-        {/* Timed Drills */}
-        {activeDocs.some(d => d.startsWith('mult-drill')) && (
+        {/* Timed Tests */}
+        {activeDocs.some(d => ['mult-timed', 'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12'].includes(d)) && (
           <MultiplicationTimed
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
-            docId={activeDocs.find(d => d.startsWith('mult-drill')) || 'mult-drill-mixed'}
+            docId={activeDocs.find(d => ['times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12'].includes(d)) || 'times-table-timed-1-12'}
             count={60}
-            timeLimit="2 minutes"
+            timeLimit={(activeDocs.includes('times-table-timed-6-12') || activeDocs.includes('times-table-timed-1-12')) ? "5 minutes" : "3 minutes"}
           />
         )}
 

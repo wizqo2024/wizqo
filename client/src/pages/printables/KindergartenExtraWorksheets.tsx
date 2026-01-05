@@ -5,6 +5,19 @@ import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShar
 import { makeRng, pick, shuffleArray } from '@/utils/printableUtils';
 import { useTranslation } from '@/context/TranslationContext';
 
+// Helper for translations with fallback
+function useWorksheetTranslation(docId: string) {
+    const { t } = useTranslation();
+
+    const getTrans = (key: string, fallback: string) => {
+        const fullKey = key.includes('.') ? key : `worksheets.${docId}.${key}`;
+        const translated = t(fullKey);
+        return translated && translated !== fullKey && !translated.startsWith('worksheets.') ? translated : fallback;
+    };
+
+    return { t, getTrans };
+}
+
 // --- Comparison Worksheets (Preserved) ---
 
 const COMPARISON_DATA: Record<string, { title: string, emoji: string, prompt: string, pairs: Array<{ a: { icon: string, label: string }, b: { icon: string, label: string }, correct: 'a' | 'b' }> }> = {
