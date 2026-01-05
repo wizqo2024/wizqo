@@ -122,7 +122,10 @@ import {
   MultiplicationTimed,
   MultiplicationWordProblems,
   MultiplicationFactFamilies,
-  MultiplicationVertical
+  MultiplicationVertical,
+  MultiplicationStrategies,
+  AreaModelMult,
+  PartialProducts
 } from './printables/MultiplicationWorksheets'
 import { OrderOfOperations } from './printables/OrderOfOperations'
 import {
@@ -4690,13 +4693,34 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
 
         {/* Multiplication Patterns */}
-        {activeDocs.includes('mult-patterns') && (
-          <MultiplicationPatterns
+
+        {/* Multiplication Strategies */}
+        {activeDocs.includes('mult-strategies') && (
+          <MultiplicationStrategies
             seed={effectiveSeed}
             variant={variant}
             showAnswersForDoc={showAnswersForDoc}
           />
         )}
+
+        {/* Area Model */}
+        {activeDocs.includes('area-model-mult') && (
+          <AreaModelMult
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
+        {/* Partial Products */}
+        {activeDocs.includes('partial-products') && (
+          <PartialProducts
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
 
         {/* Timed Drills */}
         {activeDocs.some(d => d.startsWith('mult-drill')) && (
