@@ -3024,9 +3024,11 @@ export function WritingExpressions({ seed, variant, showAnswersForDoc }: Specifi
             {showAnswersForDoc(docId, () => (
                 <div className="mt-12 p-8 bg-indigo-50 border-2 border-indigo-200 rounded-3xl print:bg-white text-sm">
                     <h3 className="text-lg font-bold text-indigo-900 mb-6 uppercase">Architect's Key: Verified Scripts</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    </div>
-                        ))}
+                    {problems.map((p, i) => (
+                        <div key={i} className="bg-white p-3 rounded-xl border border-indigo-100 font-mono">
+                            <span className="text-indigo-400 mr-2">#{i + 1}</span> {p.ans}
+                        </div>
+                    ))}
                 </div>
                 </div>
     ))
