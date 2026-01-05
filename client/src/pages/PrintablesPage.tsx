@@ -518,8 +518,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'rounding-decimals',
   'estimating-sums-differences',
   'add-sub-mixed-numbers',
-  'multiplying-fractions',
-  'dividing-fractions',
+
   'multiplying-decimals',
   'dividing-decimals',
   'fractions-decimals-percents',
@@ -614,6 +613,14 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, '🔢 Fractions × Whole Numbers')
     case 'div-fractions':
       return getTranslatedWorksheetTitle(docId, t, '➗ Dividing Fractions')
+    case 'rounding-decimals':
+      return getTranslatedWorksheetTitle(docId, t, '🎯 Rounding Decimals')
+    case 'estimating-sums-differences':
+      return getTranslatedWorksheetTitle(docId, t, '🧮 Estimating Sums & Differences')
+    case 'factors-multiples':
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Factors & Multiples')
+    case 'prime-composite':
+      return getTranslatedWorksheetTitle(docId, t, '🔢 Prime & Composite Numbers')
     case 'shapes-colors-sort':
       return getTranslatedWorksheetTitle(docId, t, ' Shapes & Colors Sort (Cut & Glue)')
     case 'dot-to-dot-1-20':
