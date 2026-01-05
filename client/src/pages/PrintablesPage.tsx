@@ -159,7 +159,7 @@ import {
   BookmarkTemplates
 } from './printables/KindergartenExtraWorksheets'
 import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10, CountingObjects20 } from './printables/FirstGradeMathWorksheets'
-import { SentenceBuilding } from './printables/LanguageWorksheets'
+import { SentenceBuilding, RhymingWords, CVCWords, SightWordsPrePrimer, LetterTracingAZ } from './printables/LanguageWorksheets'
 import { FractionBasicID } from './printables/FractionWorksheets'
 import {
   ExpandedForm200,
@@ -3773,7 +3773,22 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           />
         )}
 
-        {activeDocs.includes('time-5min') && (
+        {activeDocs.includes('cvc-words') && (
+          <CVCWords docId="cvc-words" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('rhyming-words') && (
+          <RhymingWords docId="rhyming-words" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('sight-words-pre-primer') && (
+          <SightWordsPrePrimer docId="sight-words-pre-primer" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('letter-tracing-az') && (
+          <LetterTracingAZ docId="letter-tracing-az" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('sentence-building') && (
+          <SentenceBuilding docId="sentence-building" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('story-elements') && (
           <Time5Min
             showAnswersForDoc={showAnswersForDoc}
             seed={effectiveSeed}

@@ -72,7 +72,7 @@ export const EarlyLearnerRenderer: React.FC<EarlyLearnerRendererProps> = ({ acti
                 if (['ab-pattern', 'color-patterns', 'shape-patterns', 'what-comes-next', 'what-comes-next-shapes', 'pattern-complete'].includes(docId)) {
                     return <PatternWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
                 }
-                if (['shape-identification', 'missing-shape', 'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape'].includes(docId)) {
+                if (['shape-identification', 'missing-shape', 'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'shapes-colors-sort'].includes(docId)) {
                     return <ShapeWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />;
                 }
                 if (['find-number-1-10', 'number-order-1-20', 'number-matching-1-15', 'number-tracing-1-10', 'number-id-1-10'].includes(docId)) {

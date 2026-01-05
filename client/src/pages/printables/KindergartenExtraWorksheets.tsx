@@ -60,6 +60,19 @@ const COMPARISON_DATA: Record<string, { title: string, emoji: string, prompt: st
             { a: { icon: '🍓', label: 'Strawberry' }, b: { icon: '🎃', label: 'Pumpkin' }, correct: 'b' },
         ]
     },
+    'size-comparison': {
+        title: 'Size Comparison',
+        emoji: '📏',
+        prompt: 'Compare objects by size (Big vs Small, Long vs Short)',
+        pairs: [
+            { a: { icon: '🐘', label: 'Elephant' }, b: { icon: '🐜', label: 'Ant' }, correct: 'a' }, // Big
+            { a: { icon: '✏️', label: 'Pencil' }, b: { icon: '📏', label: 'Ruler' }, correct: 'b' }, // Long
+            { a: { icon: '🐁', label: 'Mouse' }, b: { icon: '🦁', label: 'Lion' }, correct: 'b' }, // Small vs Big
+            { a: { icon: '🏢', label: 'Building' }, b: { icon: '🏠', label: 'House' }, correct: 'a' }, // Big
+            { a: { icon: '🐛', label: 'Caterpillar' }, b: { icon: '🐍', label: 'Snake' }, correct: 'b' }, // Short vs Long
+            { a: { icon: '🚙', label: 'Car' }, b: { icon: '🚚', label: 'Truck' }, correct: 'b' }, // Small vs Big
+        ]
+    },
     'more-less': {
         title: 'More or Less?',
         emoji: '🔢',
@@ -368,6 +381,21 @@ const SHAPE_DATA: Record<string, { title: string, emoji: string, type?: 'identif
                 { shape: 'Square', color: 'Blue', hex: '#3b82f6', ring: 'border-blue-500' },
                 { shape: 'Triangle', color: 'Yellow', hex: '#eab308', ring: 'border-yellow-500' }
             ];
+        }
+    },
+    'shapes-colors-sort': {
+        title: 'Shapes & Colors Sort',
+        emoji: '✂️',
+        type: 'sort',
+        generator: (rng) => {
+            // Circles vs Squares
+            return {
+                categories: [{ name: 'Circles', count: 0 }, { name: 'Squares', count: 0 }],
+                items: shuffleArray([
+                    { icon: '🔴', cat: 0 }, { icon: '🔵', cat: 0 }, { icon: '🟢', cat: 0 },
+                    { icon: '🟥', cat: 1 }, { icon: '🟦', cat: 1 }, { icon: '🟧', cat: 1 }
+                ], rng)
+            };
         }
     },
     'shape-sorting': {
