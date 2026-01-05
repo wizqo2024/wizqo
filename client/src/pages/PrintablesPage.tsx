@@ -153,6 +153,7 @@ import {
   SolvingOneStepEquations,
   PatternsRules,
   AddSubMixedNumbers,
+  AddSubFractionsUnlike,
   MultiplyingFractions,
   DividingFractions,
   MultiplyingDecimals,
@@ -600,6 +601,12 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, ' Addition & Subtraction 010')
     case 'ten-frames-1-10':
       return getTranslatedWorksheetTitle(docId, t, ' Ten Frames 110')
+    case 'sentence-building':
+      return getTranslatedWorksheetTitle(docId, t, '📝 Sentence Scramble')
+    case 'add-sub-fractions-unlike':
+      return getTranslatedWorksheetTitle(docId, t, '🍰 Adding & Subtracting Fractions (Unlike)')
+    case 'mixed-numbers-add-sub':
+      return getTranslatedWorksheetTitle(docId, t, '🏔️ Mixed Numbers: Add & Subtract')
     case 'shapes-colors-sort':
       return getTranslatedWorksheetTitle(docId, t, ' Shapes & Colors Sort (Cut & Glue)')
     case 'dot-to-dot-1-20':
@@ -4329,8 +4336,20 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {activeDocs.includes('cvc-words') && (
           <CVCWords docId="cvc-words" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
+        {activeDocs.includes('sentence-building') && (
+          <SentenceBuilding docId="sentence-building" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
         {activeDocs.includes('sight-words-pre-primer') && (
           <SightWordsPrePrimer docId="sight-words-pre-primer" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('fractions-halves-thirds-fourths') && (
+          <FractionBasicID docId="fractions-halves-thirds-fourths" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('add-sub-fractions-unlike') && (
+          <AddSubFractionsUnlike docId="add-sub-fractions-unlike" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('mixed-numbers-add-sub') && (
+          <AddSubMixedNumbers docId="mixed-numbers-add-sub" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
         {activeDocs.includes('letter-tracing-az') && (
           <LetterTracingAZ docId="letter-tracing-az" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
