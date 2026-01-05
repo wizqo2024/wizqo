@@ -1282,10 +1282,7 @@ function resolveDocTitle(docId: string, context: { packTime: string; bundleCateg
       return getTranslatedWorksheetTitle(docId, t, 'Step-by-Step PEMDAS Guide')
     case 'powers-of-10':
       return getTranslatedWorksheetTitle(docId, t, ' Powers of 10')
-    case 'rounding-decimals':
-      return getTranslatedWorksheetTitle(docId, t, ' Rounding Decimals')
-    case 'estimating-sums-differences':
-      return getTranslatedWorksheetTitle(docId, t, ' Estimating Sums & Differences')
+
     case 'add-sub-mixed-numbers':
       return getTranslatedWorksheetTitle(docId, t, ' Adding & Subtracting Mixed Numbers')
     case 'multiplying-fractions':

@@ -97,7 +97,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
   const categoryUrl = categorySlug ? `/worksheets/${categorySlug}` : '/worksheets'
 
 
-  const categoryUrl = categorySlug ? `/worksheets/${categorySlug}` : '/worksheets'
+
 
 
   // Get print URL (noindexed route) - include 'from' parameter for tracking and 'autoprint=1' to auto-open print dialog
