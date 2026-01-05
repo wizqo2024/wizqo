@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 import React from 'react'
 type ReactNode = React.ReactNode
 import { useTranslation } from '@/context/TranslationContext'
