@@ -1,7 +1,7 @@
 import React from 'react'
 type ReactNode = React.ReactNode
 import { useTranslation } from '@/context/TranslationContext'
-import { WorksheetSectionWrapper } from './PrintableShared'
+import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared'
 import { makeRng, shuffleArray } from '@/utils/printableUtils'
 
 interface SpecificWorksheetProps {
