@@ -7,4 +7,5 @@ export interface SpecificWorksheetProps {
     showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode;
     docId: string;
     activeDocs?: string[];
+    key?: string | number;
 }
