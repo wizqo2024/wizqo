@@ -4285,50 +4285,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           </WorksheetSectionWrapper>
         )}
 
-        {activeDocs.includes('feelings-checkin') && (
-          <WorksheetSectionWrapper
-            docId="feelings-checkin"
-            title="Feelings Check-In Meter"
-            emoji={String.fromCodePoint(0x1F600)}
-            description="Point to or color how you feel today."
-            problemCount={1}
-            learningObjectives={[
-              'Identify and express feelings',
-              'Understand emotional states',
-              'Practice self-awareness'
-            ]}
-            parentTeacherTips={[
-              'Help children identify their feelings',
-              'All feelings are valid',
-              'Use this as a conversation starter',
-              'Extension: Talk about what makes you feel each way'
-            ]}
-          >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 animate-gradient-x mb-2" />
-            <svg viewBox="0 0 800 300" className="w-full h-auto bg-white border border-slate-300 rounded">
-              <defs>
-                <linearGradient id="mood" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#22c55e" />
-                  <stop offset="50%" stopColor="#f59e0b" />
-                  <stop offset="100%" stopColor="#ef4444" />
-                </linearGradient>
-              </defs>
-              <rect x="100" y="120" width="600" height="40" fill="url(#mood)" rx="8" />
-              <circle cx="400" cy="140" r="56" fill="none" stroke="#111827" strokeWidth="4" />
-              <text x="90" y="190" fontSize="16">Calm</text>
-              <text x="380" y="190" fontSize="16">Okay</text>
-              <text x="680" y="190" fontSize="16">Upset</text>
-            </svg>
-            {showAnswersForDoc('feelings-checkin', () => (
-              <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                <div className="text-sm text-emerald-800">
-                  There's no right or wrong answer! Point to or color where you feel on the meter. All feelings are valid and important to express.
-                </div>
-              </div>
-            ))}
-          </WorksheetSectionWrapper>
-        )}
+
 
         {/* --- Missing Wire-ups --- */}
         {activeDocs.includes('div-facts-1-12') && (
