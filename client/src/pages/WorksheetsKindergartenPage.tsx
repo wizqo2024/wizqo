@@ -268,7 +268,9 @@ export default function WorksheetsKindergartenPage() {
 
                 return (
                   <div key={section}>
-                    <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
+                    <div className="mb-6 flex items-center gap-3 border-l-4 border-purple-500 pl-4 py-1">
+                      <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">{label}</h2>
+                    </div>
                     <div className="grid sm:grid-cols-2 gap-6">
                       {worksheets.map((ws) => (
                         <WorksheetThumbnailCard
@@ -434,69 +436,71 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
   }
 
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
-        </div>
+    <article className="group relative flex flex-col gap-4 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-purple-100">
+      <div className="flex-1">
+        <h3 className="text-lg font-bold text-slate-900 tracking-tight leading-tight group-hover:text-purple-700 transition-colors">
+          {title}
+        </h3>
+        <p className="mt-2 text-sm text-slate-600 leading-relaxed font-medium">
+          {description}
+        </p>
       </div>
 
-      <p className="text-sm text-slate-600 leading-relaxed">{description}</p>
-
-      {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
+      {/* Worksheet Thumbnail Preview - Clickable */}
       <a
         href={href}
         onClick={handleClick}
-        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
+        className="relative block w-full overflow-hidden rounded-2xl bg-white shadow-inner ring-1 ring-slate-200/50 transition-all hover:ring-purple-300"
         style={{
-          height: '140px',
-          aspectRatio: '2.5/1',
+          height: '160px',
         }}
       >
         {/* Thumbnail content using iframe with preview mode */}
-        <iframe
-          src={previewUrl}
-          className="w-full h-full border-0"
-          style={{
-            transform: 'scale(0.25)',
-            transformOrigin: 'top left',
-            width: '400%',
-            height: '400%',
-            pointerEvents: 'none',
-          }}
-          title={t('pages.grades.kindergarten.previewOf') + ' ' + title}
-          aria-label={`Preview thumbnail of ${title} worksheet`}
-          loading="lazy"
-        />
-        {/* Gradient fade at bottom */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
-        {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-none">
+        <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
+          <iframe
+            src={previewUrl}
+            className="w-full h-full border-0"
+            style={{
+              transform: 'scale(0.25)',
+              transformOrigin: 'top left',
+              width: '400%',
+              height: '400%',
+              pointerEvents: 'none',
+            }}
+            title={t('pages.grades.kindergarten.previewOf') + ' ' + title}
+            aria-label={`Preview of ${title}`}
+            loading="lazy"
+            tabIndex={-1}
+          />
+        </div>
+
+        {/* Gradient overlays for premium feel */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-purple-900/5 pointer-events-none" />
+
+        {/* Hover Action Badge */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="rounded-full bg-white/90 px-4 py-2 font-bold text-purple-700 shadow-lg backdrop-blur-sm transform scale-95 transition-transform duration-300 group-hover:scale-100">
             {t('pages.grades.kindergarten.clickToView')}
           </div>
         </div>
-        {/* Corner fold effect */}
-        <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
       </a>
 
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              if (customDownloadUrl) {
-                window.open(customDownloadUrl, '_blank');
-                return;
-              }
-              const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
-              window.open(printUrl, '_blank')
-            }}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            aria-label={`${t('pages.grades.kindergarten.downloadButton')} ${title}`}
-          >
-            ⬇️ {t('pages.grades.kindergarten.downloadButton')}
-          </button>
-        </div>
+      <div className="flex items-center justify-between pt-2">
+        <button
+          onClick={() => {
+            if (customDownloadUrl) {
+              window.open(customDownloadUrl, '_blank');
+              return;
+            }
+            const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
+            window.open(printUrl, '_blank')
+          }}
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-purple-50 px-4 py-2.5 text-sm font-bold text-purple-700 transition-all hover:bg-purple-600 hover:text-white hover:shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 active:scale-95"
+          aria-label={`${t('pages.grades.kindergarten.downloadButton')} ${title}`}
+        >
+          <span className="text-lg leading-none">⬇️</span> {t('pages.grades.kindergarten.downloadButton')}
+        </button>
       </div>
     </article>
   )
