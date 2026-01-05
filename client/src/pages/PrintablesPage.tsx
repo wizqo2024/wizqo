@@ -119,30 +119,10 @@ import {
   LongDivision1Digit,
   LongDivision2Digit,
   LongDivisionMultiDigit,
-  DividingBy10And100
+  DividingBy10And100,
+  DivisionFacts
 } from './printables/DivisionWorksheets'
-import {
-  MultiplicationFacts,
-  MultiplicationArrays2To5,
-  SkipCountingMultiplication,
-  MultiplicationArraysModels,
-  TimesTableHorizontal,
-  MultiplicationWindowArrays,
-  TimesTableVertical,
-  TimesTableMissing,
-  MultiplicationPatterns,
-  MultiplicationTimed,
-  MultiplicationWordProblems,
-  MultiplicationFactFamilies,
-  MultiplicationVertical,
-  MultiplicationStrategies,
-  AreaModelMult,
-  PartialProducts,
-  MultiplicationConfidence,
-  MultiplicationFluency,
-  MultiplicationColorByNumber,
-  MultiplicationBlankTable
-} from './printables/MultiplicationWorksheets'
+
 import { OrderOfOperations } from './printables/OrderOfOperations'
 import {
   ComparisonWorksheet,
@@ -158,7 +138,9 @@ import {
   MazeFocusWorksheet,
   BookmarkTemplates
 } from './printables/KindergartenExtraWorksheets'
-import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10, CountingObjects20 } from './printables/FirstGradeMathWorksheets'
+import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10, CountingObjects20, MoreLessEqual10 } from './printables/FirstGradeMathWorksheets'
+import { TenFrames1To10, AdditionSubtraction0To10, NumberTracing1To20 } from './printables/MathWorksheets'
+import MathMazeWorksheets from './MathMazeWorksheets'
 import { SentenceBuilding, RhymingWords, CVCWords, SightWordsPrePrimer, LetterTracingAZ } from './printables/LanguageWorksheets'
 import { FractionBasicID } from './printables/FractionWorksheets'
 import {
@@ -4406,7 +4388,52 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
 
 
-        {/* Creative & Brain Worksheets */}
+        {/* --- 1st Grade Worksheets Restoration --- */}
+        {activeDocs.includes('ten-frames-1-10') && (
+          <TenFrames1To10 docId="ten-frames-1-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('number-tracing-1-20') && (
+          <NumberTracing1To20 showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('number-bonds-10') && (
+          <NumberBonds10 docId="number-bonds-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('count-write-30') && (
+          <CountWrite30 docId="count-write-30" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('missing-numbers-50') && (
+          <MissingNumbers50FirstGrade docId="missing-numbers-50" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('addition-subtraction-0-10') && (
+          <AdditionSubtraction0To10 showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('math-maze') && (
+          <MathMazeWorksheets docId="math-maze" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('picture-addition-10') && (
+          <PictureAddition10 docId="picture-addition-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('subtraction-stories') && (
+          <SubtractionStories docId="subtraction-stories" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('balance-equations-10') && (
+          <BalanceEquations docId="balance-equations-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('skip-count-2s') && (
+          <SkipCountingWorksheet docId="skip-count-2s" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('number-line-add') && (
+          <NumberLineAddition docId="number-line-add" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('doubles-facts') && (
+          <DoublesFacts docId="doubles-facts" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('more-less-equal-10') && (
+          <MoreLessEqual10 docId="more-less-equal-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('counting-objects-20') && (
+          <CountingObjects20 docId="counting-objects-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
         {activeDocs.includes('color-by-number') && (
           <ColorByNumberWorksheet docId="color-by-number" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
