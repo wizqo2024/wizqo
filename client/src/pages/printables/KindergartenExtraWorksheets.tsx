@@ -1290,4 +1290,65 @@ export function DotToDot1to20({ seed, variant, showAnswersForDoc }: SpecificWork
     );
 }
 
+export function AnimalPack({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'animal-pack';
+    const { getTrans } = useWorksheetTranslation(docId);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Animal Activity Pack')}
+            emoji="🦁"
+            description={getTrans('description', 'Learn about animals through tracing, matching, and coloring.')}
+            problemCount={4}
+            learningObjectives={['Animal recognition', 'Writing skills', 'Visual discrimination']}
+        >
+            <PremiumWorksheetBanner
+                title="Zoo Adventures"
+                subtitle="Learning Pack"
+                icons={{ bg1: "🦁", bg2: "🦓", float1: "🦒", float2: "🐘" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-green-50 to-emerald-50",
+                    border: "border-green-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-green-300",
+                    pillText: "text-green-900",
+                    accent: "text-emerald-600"
+                }}
+            />
+
+            {/* Tracing Section */}
+            <div className="mt-8 mb-8 p-6 bg-white rounded-xl border border-slate-200">
+                <h3 className="font-bold text-slate-700 mb-4">Trace the animal names:</h3>
+                <div className="grid grid-cols-2 gap-8">
+                    {['LION', 'ZEBRA', 'BEAR', 'FROG'].map(animal => (
+                        <div key={animal} className="flex flex-col gap-2">
+                            <div className="h-16 border-b border-dashed border-slate-300 relative flex items-end pb-2">
+                                <span className="font-mono text-4xl text-slate-200 tracking-[0.2em]">{animal}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Matching Section Placeholder */}
+            <div className="p-6 bg-green-50 rounded-xl border border-green-200">
+                <h3 className="font-bold text-green-800 mb-4">Draw a line to match:</h3>
+                <div className="flex justify-between px-8">
+                    <div className="flex flex-col gap-8">
+                        <div className="p-2 bg-white rounded shadow-sm">🐶</div>
+                        <div className="p-2 bg-white rounded shadow-sm">🐱</div>
+                        <div className="p-2 bg-white rounded shadow-sm">🐦</div>
+                    </div>
+                    <div className="flex flex-col gap-8">
+                        <div className="p-2 bg-white rounded shadow-sm">Bird</div>
+                        <div className="p-2 bg-white rounded shadow-sm">Dog</div>
+                        <div className="p-2 bg-white rounded shadow-sm">Cat</div>
+                    </div>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
+
 
