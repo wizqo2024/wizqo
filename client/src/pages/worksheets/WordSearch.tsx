@@ -102,6 +102,9 @@ function buildWords(theme: string, age: string): string[] {
     if (theme === 'space') {
         return ['GALAXY', 'COMET', 'ORBIT', 'PLANET', 'STAR', 'MOON', 'ROCKET', 'NEBULA', 'MARS', 'VENUS', 'ALIEN', 'ASTRO']
     }
+    if (theme === 'geography') {
+        return ['WORLD', 'MAP', 'OCEAN', 'ASIA', 'EUROPE', 'AFRICA', 'CHINA', 'BRAZIL', 'EGYPT', 'JAPAN', 'FRANCE', 'ITALY']
+    }
     // animals (default)
     return ['TIGER', 'LION', 'ZEBRA', 'PANDA', 'BEAR', 'WOLF', 'FOX', 'EAGLE', 'SHARK', 'WHALE', 'SNAKE', 'HAWK']
 }
@@ -129,7 +132,7 @@ export function WordSearch({
     const { t } = useTranslation()
 
     // Check if any word search variant is active
-    const activeDetails = activeDocs.find(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words'].includes(d));
+    const activeDetails = activeDocs.find(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words', 'ws-world'].includes(d));
     if (!activeDetails) return null;
 
     const wsSize = 10; // Increased size for premium feel
@@ -140,7 +143,8 @@ export function WordSearch({
     let theme = 'animals';
     if (activeDetails === 'ws-space') theme = 'space';
     else if (activeDetails === 'ws-sight-words' || packSkill === 'reading') theme = 'sight';
-    else if (activeDetails === 'word-search') theme = pick(['animals', 'space', 'sight'], rng)!;
+    else if (activeDetails === 'ws-world') theme = 'geography';
+    else if (activeDetails === 'word-search') theme = pick(['animals', 'space', 'sight', 'geography'], rng)!;
 
     // Override if packSkill implies a specific theme
     if (packSkill === 'stem' && theme !== 'space') theme = 'space';

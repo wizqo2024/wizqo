@@ -1407,7 +1407,8 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
     );
 }
 
-export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId, range = [1, 12], count, timeLimit }: SpecificWorksheetProps & { docId: string, range?: [number, number], count: number, timeLimit: string }) {
+export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId: propDocId, range = [1, 12], count, timeLimit }: SpecificWorksheetProps & { docId?: string, range?: [number, number], count: number, timeLimit: string }) {
+    const docId = propDocId || 'times-table-timed-1-12';
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
