@@ -275,9 +275,9 @@ export function getWorksheetTheme(docId: string): {
 // Professional header component for print worksheets - matching Interactive Worksheets Generator
 
 
-const ANSWERABLE_BASE_DOC_IDS = [
-  'coloring',
+'coloring',
   'design-monster',
+  'rhyming-words',
   'science-match',
   'spelling',
   'logic-grid',

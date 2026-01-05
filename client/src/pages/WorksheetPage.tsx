@@ -95,8 +95,12 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
   const categoryUrl = categorySlug ? `/worksheets/${categorySlug}` : '/worksheets'
 
 
+  // Initialize showAnswers state
+  const [showAnswers, setShowAnswers] = useState(false)
+
   // Get print URL (noindexed route) - include 'from' parameter for tracking and 'autoprint=1' to auto-open print dialog
-  const printUrl = `/print?doc=${seoData.docId}&from=${fromParam || categorySlug || slug}&autoprint=1`
+  const basePrintUrl = `/print?doc=${seoData.docId}&from=${fromParam || categorySlug || slug}&autoprint=1`
+  const printUrl = showAnswers ? `${basePrintUrl}&showAnswers=1` : basePrintUrl
 
 
   const handlePrintClick = () => {
@@ -170,7 +174,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             </div>
 
             {/* Print/Download Button */}
-            <div className="flex gap-4 justify-center print:hidden">
+            <div className="flex flex-col items-center gap-4 print:hidden">
               <button
                 onClick={handlePrintClick}
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors shadow-md hover:shadow-lg"
@@ -178,6 +182,20 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
               >
                 📄 Print or Download PDF
               </button>
+
+              {/* Show Answer Toggle */}
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={showAnswers}
+                    onChange={(e) => setShowAnswers(e.target.checked)}
+                  />
+                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                </div>
+                <span className="text-sm font-medium text-slate-700">Show Answer Key</span>
+              </label>
             </div>
             <p className="text-sm text-slate-500 text-center mt-2 print:hidden">
               Click the button above to open the printable worksheet in a new window
