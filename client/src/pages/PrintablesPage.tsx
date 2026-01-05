@@ -4693,6 +4693,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
 
         {/* Multiplication Patterns */}
+        {activeDocs.includes('mult-patterns') && (
+          <MultiplicationPatterns
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
 
         {/* Multiplication Strategies */}
         {activeDocs.includes('mult-strategies') && (
@@ -4704,7 +4711,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         )}
 
         {/* Area Model */}
-        {activeDocs.includes('area-model-mult') && (
+        {(activeDocs.includes('area-model-mult') || activeDocs.includes('mult-area-model')) && (
           <AreaModelMult
             seed={effectiveSeed}
             variant={variant}
