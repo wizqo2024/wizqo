@@ -297,3 +297,78 @@ export function Mandalas({ seed, variant, showAnswersForDoc }: SpecificWorksheet
         </WorksheetSectionWrapper>
     );
 }
+
+export function FeelingsCheckin({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'feelings-checkin';
+    const { getTrans } = useWorksheetTranslation(docId);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Feelings Check-In')}
+            emoji="🌡️"
+            description={getTrans('description', 'How are you feeling right now? Rate your mood.')}
+            problemCount={1}
+            learningObjectives={[
+                'Identify current emotional state',
+                'Communicate feelings effectively',
+                'Practice self-awareness'
+            ]}
+        >
+            <PremiumWorksheetBanner
+                title="Mood Meter"
+                subtitle="Emotional Intelligence"
+                icons={{ bg1: "🌡️", bg2: "💭", float1: "😊", float2: "😢" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-yellow-50 to-orange-50",
+                    border: "border-yellow-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-yellow-300",
+                    pillText: "text-yellow-900",
+                    accent: "text-yellow-600"
+                }}
+            />
+
+            <div className="flex flex-col items-center gap-8 mt-8">
+                <div className="w-full max-w-2xl bg-white p-8 rounded-xl border-2 border-yellow-200 shadow-sm relative">
+                    <h3 className="text-center font-bold text-slate-700 mb-6 text-xl">How I Feel Today</h3>
+
+                    {/* Meter Gauge Graphic */}
+                    <div className="w-full h-12 bg-gradient-to-r from-red-400 via-yellow-400 to-green-400 rounded-full relative mb-4">
+                        <div className="absolute top-1/2 left-0 w-full flex justify-between px-4 -translate-y-1/2 text-white font-bold text-shadow">
+                            <span>Low Energy</span>
+                            <span>Okay</span>
+                            <span>High Energy</span>
+                        </div>
+                    </div>
+
+                    {/* Selection Areas */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { emoji: '🤩', label: 'Excited' },
+                            { emoji: '😊', label: 'Happy' },
+                            { emoji: '😐', label: 'Okay' },
+                            { emoji: '😔', label: 'Sad' },
+                            { emoji: '😠', label: 'Angry' },
+                            { emoji: '😴', label: 'Tired' },
+                            { emoji: '😨', label: 'Scared' },
+                            { emoji: '🤢', label: 'Sick' }
+                        ].map((feel, i) => (
+                            <div key={i} className="flex flex-col items-center gap-2 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
+                                <span className="text-4xl">{feel.emoji}</span>
+                                <span className="font-bold text-slate-600">{feel.label}</span>
+                                <div className="w-6 h-6 rounded-full border-2 border-slate-300 mt-2"></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="w-full max-w-2xl bg-orange-50 p-6 rounded-xl border border-orange-200">
+                    <h3 className="font-bold text-orange-800 mb-2">Why do I feel this way?</h3>
+                    <div className="w-full h-32 border-b-2 border-orange-200 border-dashed bg-white/50 rounded p-4"></div>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
+

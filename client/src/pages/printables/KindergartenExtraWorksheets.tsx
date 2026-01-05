@@ -1242,3 +1242,52 @@ export function MazeFocusWorksheet({ docId, seed }: SpecificWorksheetProps) {
     )
 }
 
+export function DotToDot1to20({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'dot-to-dot-1-20';
+    const { t } = useTranslation();
+
+    // Simple mock dot-to-dot points (star shape)
+    const points = [
+        { x: 50, y: 10, l: 1 }, { x: 60, y: 40, l: 2 }, { x: 90, y: 40, l: 3 }, { x: 65, y: 60, l: 4 },
+        { x: 75, y: 90, l: 5 }, { x: 50, y: 70, l: 6 }, { x: 25, y: 90, l: 7 }, { x: 35, y: 60, l: 8 },
+        { x: 10, y: 40, l: 9 }, { x: 40, y: 40, l: 10 }
+    ];
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={t('worksheets.dot-to-dot-1-20.title') || 'Connect the Dots (1-20)'}
+            emoji="✏️"
+            description="Connect the numbers in order to reveal the picture!"
+            problemCount={1}
+            learningObjectives={['Count from 1 to 20', 'Motor control', 'Number sequencing']}
+        >
+            <PremiumWorksheetBanner
+                title="Dot-to-Dot Discovery"
+                subtitle="Connect & Create"
+                icons={{ bg1: "✏️", bg2: "🌟", float1: "1️⃣", float2: "2️⃣" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-indigo-50 to-blue-50",
+                    border: "border-indigo-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-900",
+                    accent: "text-indigo-400"
+                }}
+            />
+
+            <div className="bg-white p-8 rounded-xl border-2 border-indigo-100 shadow-sm mt-8 flex justify-center break-inside-avoid">
+                <svg viewBox="0 0 100 100" className="w-full max-w-md border border-slate-100 rounded bg-slate-50/50">
+                    {points.map((p, i) => (
+                        <g key={i}>
+                            <circle cx={p.x} cy={p.y} r="1.5" fill="#333" />
+                            <text x={p.x + 2} y={p.y} fontSize="4" fill="#666">{p.l}</text>
+                        </g>
+                    ))}
+                </svg>
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
+
+

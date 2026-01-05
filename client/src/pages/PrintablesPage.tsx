@@ -178,7 +178,10 @@ import {
 import { OnePagerWorksheet } from './printables/OnePagerWorksheet';
 import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems } from './printables/ThirdGradeMathWorksheets'
 import { FactorsMultiples, PrimeComposite } from './printables/FactorsWorksheets'
-import { GratitudeJar, MoodTracker, WeeklyGoals, Mandalas } from './printables/SocialEmotionalWorksheets'
+import { GratitudeJar, MoodTracker, WeeklyGoals, Mandalas, FeelingsCheckin } from './printables/SocialEmotionalWorksheets'
+import { DotToDot1to20 } from './printables/KindergartenExtraWorksheets'
+import { HalloweenPack, WinterKindness } from './printables/HolidayWorksheets'
+import { BrainBoost, CreativeChallenge } from './LogicWorksheets'
 
 import {
   trackWorksheetDownload,
@@ -4349,6 +4352,25 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {activeDocs.includes('mandalas') && (
           <Mandalas docId="mandalas" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
+        {activeDocs.includes('feelings-checkin') && (
+          <FeelingsCheckin docId="feelings-checkin" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('dot-to-dot-1-20') && (
+          <DotToDot1to20 docId="dot-to-dot-1-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('halloween-pack') && (
+          <HalloweenPack docId="halloween-pack" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('winter-kindness') && (
+          <WinterKindness docId="winter-kindness" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('brain-boost') && (
+          <BrainBoost docId="brain-boost" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('creative-challenge') && (
+          <CreativeChallenge docId="creative-challenge" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+
 
         {/* --- Missing Critical Worksheets Restoration --- */}
         {/* Math: Regrouping */}
