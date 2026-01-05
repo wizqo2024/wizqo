@@ -4342,6 +4342,47 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           <CountingObjects20 docId="counting-objects-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
 
+        {/* Math: Second Grade */}
+        {activeDocs.includes('expanded-form-200') && (
+          <ExpandedForm200 docId="expanded-form-200" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('number-patterns-200') && (
+          <NumberPatterns200 docId="number-patterns-200" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('rounding-nearest-10') && (
+          <RoundingNearest10 docId="rounding-nearest-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('add-three-numbers') && (
+          <AddThreeNumbers docId="add-three-numbers" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('missing-addends') && (
+          <MissingAddends docId="missing-addends" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('fact-families-20') && (
+          <FactFamilies20 docId="fact-families-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('mental-math-20') && (
+          <MentalMath20 docId="mental-math-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('doubles-near-doubles') && (
+          <DoublesNearDoubles docId="doubles-near-doubles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('number-line-200') && (
+          <NumberLine200 docId="number-line-200" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('money-coins-bills') && (
+          <MoneyCoinsBills docId="money-coins-bills" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('measurement-length') && (
+          <MeasurementLength docId="measurement-length" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('bar-graphs-data') && (
+          <BarGraphsData docId="bar-graphs-data" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('add-2digit-100') && (
+          <Add2Digit100 docId="add-2digit-100" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+
 
         {/* Creative & Brain Worksheets */}
         {activeDocs.includes('color-by-number') && (
