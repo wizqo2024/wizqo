@@ -23,6 +23,8 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
   const { t, isRTL } = useTranslation()
   const [seoData, setSeoData] = useState<any>(null)
   const [notFound, setNotFound] = useState(false)
+  // Initialize showAnswers state - MUST be before any conditional returns
+  const [showAnswers, setShowAnswers] = useState(false)
 
   React.useEffect(() => {
     const data = getWorksheetSEOBySlug(slug)
@@ -95,8 +97,8 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
   const categoryUrl = categorySlug ? `/worksheets/${categorySlug}` : '/worksheets'
 
 
-  // Initialize showAnswers state
-  const [showAnswers, setShowAnswers] = useState(false)
+  const categoryUrl = categorySlug ? `/worksheets/${categorySlug}` : '/worksheets'
+
 
   // Get print URL (noindexed route) - include 'from' parameter for tracking and 'autoprint=1' to auto-open print dialog
   const basePrintUrl = `/print?doc=${seoData.docId}&from=${fromParam || categorySlug || slug}&autoprint=1`
