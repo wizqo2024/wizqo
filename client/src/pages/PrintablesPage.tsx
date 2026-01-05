@@ -4585,6 +4585,172 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
 
+        {/* --- Multiplication Worksheets --- */}
+
+        {/* Basic Facts 0-12 */}
+        {activeDocs.includes('mult-facts-0-12') && (
+          <MultiplicationFacts
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId="mult-facts-0-12"
+            range={[0, 12]}
+          />
+        )}
+
+        {/* Basic Facts 1-5 */}
+        {activeDocs.includes('mult-facts-1-5') && (
+          <MultiplicationFacts
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId="mult-facts-1-5"
+            range={[1, 5]}
+          />
+        )}
+
+        {/* Basic Facts 6-12 */}
+        {activeDocs.includes('mult-facts-6-12') && (
+          <MultiplicationFacts
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId="mult-facts-6-12"
+            range={[6, 12]}
+          />
+        )}
+
+        {/* Arrays 2-5 */}
+        {activeDocs.includes('mult-arrays-2-5') && (
+          <MultiplicationArrays2To5
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
+        {/* Arrays Models */}
+        {(activeDocs.includes('mult-arrays') || activeDocs.includes('mult-arrays-models')) && (
+          <MultiplicationArraysModels
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
+        {/* Skip Counting to Multiply */}
+        {activeDocs.includes('skip-count-mult') && (
+          <SkipCountingMultiplication
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
+        {/* Horizontal Times Tables */}
+        {activeDocs.some(d => ['mult-horizontal', 'mult-horizontal-1-5', 'mult-horizontal-6-12'].includes(d)) && (
+          <TimesTableHorizontal
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-horizontal')) || 'mult-horizontal'}
+            range={activeDocs.includes('mult-horizontal-1-5') ? [1, 5] : activeDocs.includes('mult-horizontal-6-12') ? [6, 12] : [1, 12]}
+          />
+        )}
+
+        {/* Vertical Times Tables */}
+        {activeDocs.some(d => ['mult-vertical', 'mult-vertical-1-5', 'mult-vertical-6-12'].includes(d)) && (
+          <TimesTableVertical
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-vertical')) || 'mult-vertical'}
+            range={activeDocs.includes('mult-vertical-1-5') ? [1, 5] : activeDocs.includes('mult-vertical-6-12') ? [6, 12] : [1, 12]}
+          />
+        )}
+
+        {/* Window Arrays (Box Method Intro) */}
+        {activeDocs.includes('mult-window-arrays') && (
+          <MultiplicationWindowArrays
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
+        {/* Missing Factors */}
+        {activeDocs.some(d => ['mult-missing', 'mult-missing-1-5', 'mult-missing-6-12'].includes(d)) && (
+          <TimesTableMissing
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-missing')) || 'mult-missing'}
+            range={activeDocs.includes('mult-missing-1-5') ? [1, 5] : activeDocs.includes('mult-missing-6-12') ? [6, 12] : [1, 12]}
+          />
+        )}
+
+        {/* Multiplication Patterns */}
+        {activeDocs.includes('mult-patterns') && (
+          <MultiplicationPatterns
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+          />
+        )}
+
+        {/* Timed Drills */}
+        {activeDocs.some(d => d.startsWith('mult-drill')) && (
+          <MultiplicationTimed
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-drill')) || 'mult-drill-mixed'}
+            count={60}
+            timeLimit="2 minutes"
+          />
+        )}
+
+        {/* Word Problems */}
+        {activeDocs.some(d => d.startsWith('mult-word-problems') || d === 'mult-multi-step-word' || d === 'mult-complex-word') && (
+          <MultiplicationWordProblems
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => d.startsWith('mult-word-problems') || d.startsWith('mult-multi') || d.startsWith('mult-complex')) || 'mult-word-problems'}
+            difficulty={activeDocs.includes('mult-multi-step-word') ? 'multi-step' : activeDocs.includes('mult-complex-word') ? 'complex' : 'basic'}
+          />
+        )}
+
+        {/* Fact Families */}
+        {activeDocs.some(d => ['mult-fact-families', 'mult-fact-fluency', 'mult-mixed-review'].includes(d)) && (
+          <MultiplicationFactFamilies
+            seed={effectiveSeed}
+            variant={variant}
+            showAnswersForDoc={showAnswersForDoc}
+            docId={activeDocs.find(d => ['mult-fact-families', 'mult-fact-fluency', 'mult-mixed-review'].includes(d)) || 'mult-fact-families'}
+          />
+        )}
+
+        {/* Multi-Digit Multiplication (Vertical) */}
+        {activeDocs.some(d => ['mult-2x1', 'mult-2x2', 'mult-3x1', 'mult-3x2', 'mult-2x1-digit', 'mult-2x2-digit', 'mult-3x1-digit', 'mult-3x2-digit'].includes(d)) && (() => {
+          const docId = activeDocs.find(d => d.startsWith('mult-')) || 'mult-2x1';
+          let top = 2, bottom = 1;
+          if (docId.includes('2x2')) { top = 2; bottom = 2; }
+          else if (docId.includes('3x1')) { top = 3; bottom = 1; }
+          else if (docId.includes('3x2')) { top = 3; bottom = 2; }
+
+          return (
+            <MultiplicationVertical
+              seed={effectiveSeed}
+              variant={variant}
+              showAnswersForDoc={showAnswersForDoc}
+              docId={docId}
+              digitsTop={top}
+              digitsBottom={bottom}
+            />
+          )
+        })()}
+
         {activeDocs.some(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words', 'ws-world'].includes(d)) && (
           <WordSearch
             activeDocs={activeDocs}
