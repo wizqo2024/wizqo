@@ -368,74 +368,75 @@ export function FeelingsCheckin({ seed, variant, showAnswersForDoc }: SpecificWo
                     <div className="w-full h-32 border-b-2 border-orange-200 border-dashed bg-white/50 rounded p-4"></div>
                 </div>
             </div>
-            );
+        </WorksheetSectionWrapper>
+    );
 }
 
-            export function RewardChart({seed, variant, showAnswersForDoc}: SpecificWorksheetProps) {
+export function RewardChart({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = 'reward-chart';
-            const {getTrans} = useWorksheetTranslation(docId);
+    const { getTrans } = useWorksheetTranslation(docId);
 
-            return (
-            <WorksheetSectionWrapper
-                docId={docId}
-                title={getTrans('title', 'Weekly Reward / Sticker Chart')}
-                emoji="🏆"
-                description={getTrans('description', 'Add a sticker or color a star each time you complete a task.')}
-                problemCount={1}
-                learningObjectives={[
-                    'Track daily accomplishments',
-                    'Build positive habits',
-                    'Practice goal-setting'
-                ]}
-            >
-                <PremiumWorksheetBanner
-                    title="Super Star Tracker"
-                    subtitle="Weekly Goals"
-                    icons={{ bg1: "⭐", bg2: "🏆", float1: "🌟", float2: "✨" }}
-                    colors={{
-                        bg: "bg-gradient-to-br from-indigo-50 to-purple-50",
-                        border: "border-indigo-200",
-                        pillBg: "bg-white/90",
-                        pillBorder: "border-indigo-300",
-                        pillText: "text-indigo-900",
-                        accent: "text-indigo-600"
-                    }}
-                />
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Weekly Reward / Sticker Chart')}
+            emoji="🏆"
+            description={getTrans('description', 'Add a sticker or color a star each time you complete a task.')}
+            problemCount={1}
+            learningObjectives={[
+                'Track daily accomplishments',
+                'Build positive habits',
+                'Practice goal-setting'
+            ]}
+        >
+            <PremiumWorksheetBanner
+                title="Super Star Tracker"
+                subtitle="Weekly Goals"
+                icons={{ bg1: "⭐", bg2: "🏆", float1: "🌟", float2: "✨" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-indigo-50 to-purple-50",
+                    border: "border-indigo-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-900",
+                    accent: "text-indigo-600"
+                }}
+            />
 
-                <div className="mt-8 flex flex-col gap-6 items-center">
-                    <div className="w-full bg-white rounded-xl border-2 border-slate-200 overflow-hidden shadow-sm">
-                        {/* Header Row */}
-                        <div className="grid grid-cols-8 bg-indigo-50 border-b-2 border-indigo-100">
-                            <div className="col-span-2 p-4 font-bold text-indigo-900 flex items-center justify-center">Task / Goal</div>
-                            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-                                <div key={day} className="p-2 text-center text-sm font-bold text-indigo-800 border-l border-indigo-100 flex items-center justify-center">
-                                    {day}
-                                </div>
-                            ))}
-                        </div>
-                        {/* Rows */}
-                        {[1, 2, 3, 4, 5].map((row) => (
-                            <div key={row} className="grid grid-cols-8 border-b border-slate-100 min-h-[60px]">
-                                <div className="col-span-2 p-2 border-r border-slate-100 relative">
-                                    <div className="absolute top-2 left-2 text-slate-300 text-xs font-bold w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center">
-                                        {row}
-                                    </div>
-                                </div>
-                                {Array.from({ length: 7 }).map((_, i) => (
-                                    <div key={i} className="border-r border-slate-100 last:border-0 p-1 flex items-center justify-center">
-                                        <div className="w-8 h-8 rounded-full border border-slate-100 bg-slate-50 opacity-50"></div>
-                                    </div>
-                                ))}
+            <div className="mt-8 flex flex-col gap-6 items-center">
+                <div className="w-full bg-white rounded-xl border-2 border-slate-200 overflow-hidden shadow-sm">
+                    {/* Header Row */}
+                    <div className="grid grid-cols-8 bg-indigo-50 border-b-2 border-indigo-100">
+                        <div className="col-span-2 p-4 font-bold text-indigo-900 flex items-center justify-center">Task / Goal</div>
+                        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
+                            <div key={day} className="p-2 text-center text-sm font-bold text-indigo-800 border-l border-indigo-100 flex items-center justify-center">
+                                {day}
                             </div>
                         ))}
                     </div>
-
-                    <div className="w-full p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200 border-dashed text-center">
-                        <span className="font-bold text-yellow-800 mr-2">Reward when complete:</span>
-                        <span className="border-b-2 border-black/20 w-48 inline-block"></span>
-                    </div>
+                    {/* Rows */}
+                    {[1, 2, 3, 4, 5].map((row) => (
+                        <div key={row} className="grid grid-cols-8 border-b border-slate-100 min-h-[60px]">
+                            <div className="col-span-2 p-2 border-r border-slate-100 relative">
+                                <div className="absolute top-2 left-2 text-slate-300 text-xs font-bold w-6 h-6 rounded-full border border-slate-200 flex items-center justify-center">
+                                    {row}
+                                </div>
+                            </div>
+                            {Array.from({ length: 7 }).map((_, i) => (
+                                <div key={i} className="border-r border-slate-100 last:border-0 p-1 flex items-center justify-center">
+                                    <div className="w-8 h-8 rounded-full border border-slate-100 bg-slate-50 opacity-50"></div>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </div>
-            </WorksheetSectionWrapper>
-            );
+
+                <div className="w-full p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200 border-dashed text-center">
+                    <span className="font-bold text-yellow-800 mr-2">Reward when complete:</span>
+                    <span className="border-b-2 border-black/20 w-48 inline-block"></span>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    );
 }
 
