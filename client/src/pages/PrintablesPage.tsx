@@ -4323,6 +4323,15 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         {activeDocs.includes('rhyming-words') && (
           <RhymingWords docId="rhyming-words" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
+        {activeDocs.includes('cvc-words') && (
+          <CVCWords docId="cvc-words" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('sight-words-pre-primer') && (
+          <SightWordsPrePrimer docId="sight-words-pre-primer" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('letter-tracing-az') && (
+          <LetterTracingAZ docId="letter-tracing-az" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
 
         {/* Math: First Grade */}
         {activeDocs.includes('more-less-equal-10') && (

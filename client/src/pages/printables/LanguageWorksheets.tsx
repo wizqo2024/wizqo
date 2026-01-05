@@ -390,24 +390,52 @@ export function RhymingWords({ showAnswersForDoc, seed, variant }: SpecificWorks
         { target: { word: 'sun', emoji: '☀️' }, rhymes: ['run', 'fun', 'bun', 'nun'], nonRhymes: ['moon', 'sky', 'star', 'car'] },
         { target: { word: 'pen', emoji: '🖊️' }, rhymes: ['hen', 'ten', 'den', 'men'], nonRhymes: ['pin', 'pan', 'pig', 'box'] },
         { target: { word: 'box', emoji: '📦' }, rhymes: ['fox', 'ox', 'pox'], nonRhymes: ['bag', 'cat', 'six', 'bus'] },
-        { target: { word: 'bed', emoji: '🛏️' }, rhymes: ['red', 'fed', 'wed', 'sled'], nonRhymes: ['bad', 'rug', 'toy', 'lid'] },
-        { target: { word: 'pig', emoji: '🐷' }, rhymes: ['wig', 'dig', 'big', 'fig'], nonRhymes: ['pup', 'cat', 'peg', 'pen'] },
-        { target: { word: 'bug', emoji: '🐞' }, rhymes: ['rug', 'hug', 'mug', 'jug'], nonRhymes: ['bat', 'bag', 'ant', 'bus'] },
+        { id: 'cat', words: [{ text: 'cat', img: '🐱' }, { text: 'hat', img: '🎩' }, { text: 'bat', img: '🦇' }, { text: 'mat', img: '🧶' }, { text: 'rat', img: '🐀' }] },
+        { id: 'dog', words: [{ text: 'dog', img: '🐶' }, { text: 'log', img: '🪵' }, { text: 'frog', img: '🐸' }, { text: 'hog', img: '🐗' }, { text: 'jog', img: '🏃' }] },
+        { id: 'sun', words: [{ text: 'sun', img: '☀️' }, { text: 'run', img: '🏃‍♀️' }, { text: 'fun', img: '🎉' }, { text: 'bun', img: '🍞' }, { text: 'nun', img: '修女' }] },
+        { id: 'pen', words: [{ text: 'pen', img: '🖊️' }, { text: 'hen', img: '🐔' }, { text: 'ten', img: '🔟' }, { text: 'den', img: '🐻' }, { text: 'men', img: '👨‍👨‍👦' }] },
+        { id: 'box', words: [{ text: 'box', img: '📦' }, { text: 'fox', img: '🦊' }, { text: 'ox', img: '🐂' }, { text: 'pox', img: '🦠' }] },
+        { id: 'bed', words: [{ text: 'bed', img: '🛏️' }, { text: 'red', img: '🔴' }, { text: 'fed', img: '🍼' }, { text: 'wed', img: '💍' }, { text: 'sled', img: '🛷' }] },
+        { id: 'pig', words: [{ text: 'pig', img: '🐷' }, { text: 'wig', img: '💇‍♀️' }, { text: 'dig', img: '⛏️' }, { text: 'big', img: '🐘' }, { text: 'fig', img: ' अंजीर' }] },
+        { id: 'bug', words: [{ text: 'bug', img: '🐞' }, { text: 'rug', img: '🛋️' }, { text: 'hug', img: '🤗' }, { text: 'mug', img: '☕' }, { text: 'jug', img: '🏺' }] },
     ];
 
-    // Select 4 problems
-    const problems = shuffleArray(rhymeGroups, rng).slice(0, 4).map((group, i) => {
-        // For each problem, pick 1 correct rhyme and 2 incorrect ones
-        const correct = pick(group.rhymes);
-        const incorrect = shuffleArray(group.nonRhymes, rng).slice(0, 2);
-        const options = shuffleArray([correct, ...incorrect], rng);
-        return {
-            id: i + 1,
-            target: group.target,
-            options,
-            answer: correct
+    const problems = Array.from({ length: 4 }).map(() => {
+        // Select a random target group
+        const targetGroup = pick(rhymeGroups);
+
+        // Safety check - if rng fails or empty groups
+        if (!targetGroup) return null;
+
+        const targetWord = pick(targetGroup.words);
+        if (!targetWord) return null;
+
+        // Correct answer is another word from the SAME group (excluding target if possible, but for small groups might be same? No, filter it)
+        const otherRhymes = targetGroup.words.filter(w => w.text !== targetWord.text);
+        // Fallback if no other rhymes (shouldn't happen with our data but safety first)
+        const correctMatch = otherRhymes.length > 0 ? pick(otherRhymes) : targetWord;
+
+        // Distractors from OTHER groups
+        const otherGroups = rhymeGroups.filter(g => g.id !== targetGroup.id);
+        const distractors: { text: string, img: string }[] = [];
+
+        // Pick 2 distractors
+        for (let i = 0; i < 2; i++) {
+            const randomGroup = pick(otherGroups);
+            if (randomGroup) { // Check if randomGroup exists
+                const w = pick(randomGroup.words);
+                if (w) distractors.push(w);
+            }
         }
-    });
+
+        const options = shuffleArray([correctMatch, ...distractors], rng);
+
+        return {
+            target: targetWord,
+            options,
+            answer: correctMatch
+        };
+    }).filter(Boolean); // Filter out any null problems if safety checks failed
 
     return (
         <WorksheetSectionWrapper
