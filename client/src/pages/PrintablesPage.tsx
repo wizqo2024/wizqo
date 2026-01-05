@@ -177,6 +177,9 @@ import {
 } from './printables/FifthGradeWorksheets'
 import { OnePagerWorksheet } from './printables/OnePagerWorksheet';
 import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems } from './printables/ThirdGradeMathWorksheets'
+import { FactorsMultiples, PrimeComposite } from './printables/FactorsWorksheets'
+import { GratitudeJar, MoodTracker, WeeklyGoals, Mandalas } from './printables/SocialEmotionalWorksheets'
+
 import {
   trackWorksheetDownload,
   trackWorksheetView,
@@ -4325,6 +4328,29 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               </div>
             ))}
           </WorksheetSectionWrapper>
+        )}
+
+        {/* --- Missing Wire-ups --- */}
+        {activeDocs.includes('div-facts-1-12') && (
+          <DivisionFacts docId="div-facts-1-12" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('factors-multiples') && (
+          <FactorsMultiples docId="factors-multiples" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('prime-composite') && (
+          <PrimeComposite docId="prime-composite" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('gratitude-jar') && (
+          <GratitudeJar docId="gratitude-jar" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('mood-tracker') && (
+          <MoodTracker docId="mood-tracker" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('weekly-goals') && (
+          <WeeklyGoals docId="weekly-goals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+        )}
+        {activeDocs.includes('mandalas') && (
+          <Mandalas docId="mandalas" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
         )}
 
         {/* --- Missing Critical Worksheets Restoration --- */}
