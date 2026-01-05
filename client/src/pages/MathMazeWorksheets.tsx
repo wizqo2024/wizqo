@@ -1,9 +1,17 @@
 import React from 'react';
-import { makeRng } from '@/utils/printableUtils';
+// Use relative import for robust resolution
+import { makeRng as importedMakeRng } from '../utils/printableUtils';
 import { WorksheetSectionWrapper } from './printables/PrintableShared';
 
 // Standard props expected by worksheet components
 import { useTranslation } from '@/context/TranslationContext';
+
+// Safety: ensure makeRng is a function (PREVENTS CRASH if import fails)
+const makeRng = typeof importedMakeRng === 'function' ? importedMakeRng : (seed: any) => {
+    console.warn('MathMaze: makeRng import failed, using fallback Math.random');
+    return () => Math.random();
+};
+
 
 interface MathMazeWorksheetsProps {
     docId: string;
