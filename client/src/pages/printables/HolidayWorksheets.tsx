@@ -163,3 +163,109 @@ export function WinterKindness({ seed, variant, showAnswersForDoc }: SpecificWor
         </WorksheetSectionWrapper>
     );
 }
+
+export function SpringScavenger({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'spring-scavenger';
+    const { getTrans } = useWorksheetTranslation(docId);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Spring Scavenger Hunt')}
+            emoji="🌸"
+            description={getTrans('description', 'Go outside and find these signs of spring!')}
+            problemCount={10}
+            learningObjectives={['Observation skills', 'Nature appreciation', 'Text-to-world connection']}
+        >
+            <PremiumWorksheetBanner
+                title="Spring Explorer"
+                subtitle="Nature Walk"
+                icons={{ bg1: "🌸", bg2: "🦋", float1: "🌱", float2: "☀️" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-green-50 to-pink-50",
+                    border: "border-green-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-green-300",
+                    pillText: "text-green-900",
+                    accent: "text-pink-600"
+                }}
+            />
+
+            <div className="grid grid-cols-2 gap-4 mt-8">
+                {[
+                    { icon: '🌷', text: 'A colorful flower' },
+                    { icon: '🦋', text: 'A flying bug' },
+                    { icon: '🌱', text: 'A green sprout' },
+                    { icon: '🐦', text: 'A bird singing' },
+                    { icon: '☁️', text: 'A fluffy cloud' },
+                    { icon: '🪨', text: 'A smooth stone' },
+                    { icon: '🍂', text: 'A dry leaf' },
+                    { icon: '🐝', text: 'A busy bee' },
+                    { icon: '💧', text: 'A puddle' },
+                    { icon: '🐜', text: 'Tiny ants' },
+                ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 p-4 border border-slate-200 rounded-xl hover:bg-green-50/50 transition-colors">
+                        <div className="w-8 h-8 rounded-full border-2 border-slate-300 bg-white flex-shrink-0"></div>
+                        <span className="text-2xl">{item.icon}</span>
+                        <span className="font-bold text-slate-700">{item.text}</span>
+                    </div>
+                ))}
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
+
+export function SummerPack({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = 'summer-pack';
+    const { getTrans } = useWorksheetTranslation(docId);
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans('title', 'Summer Fun Pack')}
+            emoji="☀️"
+            description={getTrans('description', 'Puzzles and activities for sunny days.')}
+            problemCount={5}
+            learningObjectives={['Critical thinking', 'Vocabulary', 'Creative writing']}
+        >
+            <PremiumWorksheetBanner
+                title="Summer Vacation"
+                subtitle="Activity Pack"
+                icons={{ bg1: "☀️", bg2: "🏖️", float1: "🍦", float2: "🕶️" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-yellow-100 to-orange-50",
+                    border: "border-yellow-300",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-yellow-400",
+                    pillText: "text-orange-900",
+                    accent: "text-orange-600"
+                }}
+            />
+
+            <div className="space-y-8 mt-8">
+                {/* 1. Word Scramble */}
+                <div className="bg-white p-6 rounded-xl border-2 border-yellow-200">
+                    <h3 className="font-bold text-orange-800 text-lg mb-4">🌻 Summer Word Scramble</h3>
+                    <div className="grid grid-cols-2 gap-6">
+                        {['BEACH', 'OCEA', 'SWIM', 'SAND'].map((word, i) => (
+                            <div key={i} className="flex gap-4 items-center">
+                                <span className="font-mono bg-yellow-50 px-2 py-1 rounded border border-yellow-100">
+                                    {word.split('').sort(() => Math.random() - 0.5).join('')}
+                                </span>
+                                <div className="border-b-2 border-slate-300 w-full"></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* 2. Drawing Prompt */}
+                <div className="bg-white p-6 rounded-xl border-2 border-blue-200">
+                    <h3 className="font-bold text-blue-800 text-lg mb-4">🍦 Design Your Dream Ice Cream</h3>
+                    <div className="w-full h-48 border-2 border-dashed border-blue-200 rounded-lg flex items-center justify-center text-blue-200">
+                        Draw here
+                    </div>
+                </div>
+            </div>
+        </WorksheetSectionWrapper>
+    );
+}
