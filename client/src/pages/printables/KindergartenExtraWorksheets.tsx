@@ -189,8 +189,31 @@ const PATTERN_TYPES: Record<string, { title: string, emoji: string, description:
             return { sequence: [e1, e2, e1, e2, e1, e2], options: [e1, e2], answer: e1 };
         }
     },
-    'what-comes-next-shapes': { title: 'What Comes Next?', emoji: '❓', description: 'Draw the shape that comes next!', generator: (rng) => ({ sequence: ['🟥', '🟦', '🟢', '🟥', '🟦'], options: ['🟥', '🟦', '🟢'], answer: '🟢' }) },
-    'pattern-complete': { title: 'Complete the Pattern', emoji: '🧩', description: 'Fill missing parts!', generator: (rng) => ({ sequence: ['🍎', '🍌', '🍎', '🍌', '🍎'], options: ['🍎', '🍌'], answer: '🍌' }) }
+    'what-comes-next-shapes': {
+        title: 'What Comes Next?',
+        emoji: '❓',
+        description: 'Draw the shape that comes next!',
+        generator: (rng: any) => {
+            const shapes = ['🟥', '🟦', '🟢', '⭐', '🔺', '🔷'];
+            const s1 = shapes[Math.floor(rng() * shapes.length)];
+            let s2 = shapes[Math.floor(rng() * shapes.length)];
+            while (s2 === s1) s2 = shapes[Math.floor(rng() * shapes.length)];
+            return { sequence: [s1, s2, s1, s2, s1], options: [s1, s2], answer: s2 };
+        }
+    },
+    'pattern-complete': {
+        title: 'Complete the Pattern',
+        emoji: '🧩',
+        description: 'Fill in the missing part!',
+        generator: (rng: any) => {
+            const items = ['🍎', '🍌', '🍇', '🍊', '🥝'];
+            const i1 = items[Math.floor(rng() * items.length)];
+            let i2 = items[Math.floor(rng() * items.length)];
+            while (i2 === i1) i2 = items[Math.floor(rng() * items.length)];
+            // AAB pattern: A A B A A B
+            return { sequence: [i1, i1, i2, i1, i1, i2], missingIndex: 2, options: [i1, i2], answer: i2 };
+        }
+    }
 };
 
 export function PatternWorksheet({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
@@ -235,23 +258,40 @@ export function PatternWorksheet({ docId, showAnswersForDoc, seed, variant }: Sp
                             </div>
 
                             {/* Carriages */}
-                            {p.sequence.map((item, j) => (
-                                <div key={j} className="relative w-16 h-14 bg-white border-2 border-indigo-200 rounded-lg flex items-center justify-center shadow-sm shrink-0">
-                                    <span className="text-3xl">{item}</span>
-                                    {/* Wheels */}
-                                    <div className="absolute -bottom-2 left-2 w-4 h-4 bg-slate-700 rounded-full"></div>
-                                    <div className="absolute -bottom-2 right-2 w-4 h-4 bg-slate-700 rounded-full"></div>
-                                    {/* Connector */}
-                                    <div className="absolute top-1/2 -right-3 w-3 h-1 bg-slate-400"></div>
-                                </div>
-                            ))}
+                            {p.sequence.map((item: any, j: number) => {
+                                const isMissing = p.missingIndex !== undefined ? j === p.missingIndex : j === p.sequence.length; // If undefined, assume next is missing (handled by Mystery Carriage but let's unify)
+                                // Actually, for 'next' pattern, p.sequence is the VISIBLE part.
+                                // For 'complete', p.sequence INCLUDES the missing part but we need to hide it?
+                                // Let's simplify: generator returns sequence. If missingIndex is defined, that index is hidden. If not, we append a mystery box.
 
-                            {/* Mystery Carriage */}
-                            <div className="relative w-16 h-14 bg-indigo-50 border-2 border-dashed border-indigo-300 rounded-lg flex items-center justify-center shrink-0">
-                                <span className="text-2xl opacity-50">?</span>
-                                <div className="absolute -bottom-2 left-2 w-4 h-4 bg-slate-300 rounded-full"></div>
-                                <div className="absolute -bottom-2 right-2 w-4 h-4 bg-slate-300 rounded-full"></div>
-                            </div>
+                                if (p.missingIndex !== undefined && j === p.missingIndex) {
+                                    return (
+                                        <div key={j} className="relative w-16 h-14 bg-indigo-50 border-2 border-dashed border-indigo-300 rounded-lg flex items-center justify-center shrink-0">
+                                            <span className="text-2xl opacity-50">?</span>
+                                            <div className="absolute -bottom-2 left-2 w-4 h-4 bg-slate-300 rounded-full"></div>
+                                            <div className="absolute -bottom-2 right-2 w-4 h-4 bg-slate-300 rounded-full"></div>
+                                            <div className="absolute top-1/2 -right-3 w-3 h-1 bg-slate-400"></div>
+                                        </div>
+                                    );
+                                }
+                                return (
+                                    <div key={j} className="relative w-16 h-14 bg-white border-2 border-indigo-200 rounded-lg flex items-center justify-center shadow-sm shrink-0">
+                                        <span className="text-3xl">{item}</span>
+                                        <div className="absolute -bottom-2 left-2 w-4 h-4 bg-slate-700 rounded-full"></div>
+                                        <div className="absolute -bottom-2 right-2 w-4 h-4 bg-slate-700 rounded-full"></div>
+                                        <div className="absolute top-1/2 -right-3 w-3 h-1 bg-slate-400"></div>
+                                    </div>
+                                );
+                            })}
+
+                            {/* Mystery Carriage (Next) */}
+                            {p.missingIndex === undefined && (
+                                <div className="relative w-16 h-14 bg-indigo-50 border-2 border-dashed border-indigo-300 rounded-lg flex items-center justify-center shrink-0">
+                                    <span className="text-2xl opacity-50">?</span>
+                                    <div className="absolute -bottom-2 left-2 w-4 h-4 bg-slate-300 rounded-full"></div>
+                                    <div className="absolute -bottom-2 right-2 w-4 h-4 bg-slate-300 rounded-full"></div>
+                                </div>
+                            )}
                         </div>
 
                         {/* Options */}
@@ -500,27 +540,176 @@ export function ShapeWorksheet({ docId, showAnswersForDoc, seed, variant }: Spec
     );
 }
 
-// --- Number Recognition (Preserved) ---
+// --- Number Recognition (Enhanced) ---
+
+const NUMBER_DATA: Record<string, { title: string, emoji: string, type: 'find' | 'order' | 'match' | 'trace' | 'id', max: number }> = {
+    'find-number-1-10': { title: 'Find the Number (1-10)', emoji: '🔍', type: 'find', max: 10 },
+    'number-order-1-20': { title: 'Number Order 1-20', emoji: '🔢', type: 'order', max: 20 },
+    'number-matching-1-15': { title: 'Number Matching 1-15', emoji: '🔗', type: 'match', max: 15 },
+    'number-tracing-1-10': { title: 'Number Tracing 1-10', emoji: '✏️', type: 'trace', max: 10 },
+    'number-identification-1-10': { title: 'Number Identification', emoji: '🆔', type: 'id', max: 10 },
+};
+
+const NUMBER_WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen'];
 
 export function NumberRecognitionWorksheet({ docId, showAnswersForDoc, seed, variant }: SpecificWorksheetProps) {
+    const config = NUMBER_DATA[docId] || NUMBER_DATA['find-number-1-10'];
     const rng = makeRng(`${seed}-${docId}-${variant}`);
-    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Simple preservation
+
+    // Generate data based on type
+    const data = useMemo(() => {
+        if (config.type === 'find') {
+            const target = Math.floor(rng() * config.max) + 1;
+            const grid = Array.from({ length: 20 }).map(() => (rng() > 0.7 ? target : Math.floor(rng() * config.max) + 1));
+            // Ensure at least 3 instances of target
+            let count = grid.filter(n => n === target).length;
+            while (count < 3) { grid[Math.floor(rng() * 20)] = target; count++; }
+            return { target, grid };
+        }
+        if (config.type === 'order') {
+            // Sequence of 5 numbers with 2 blanks
+            const start = Math.floor(rng() * (config.max - 5)) + 1;
+            const sequence = Array.from({ length: 5 }, (_, i) => ({ val: start + i, missing: rng() > 0.5 }));
+            // Ensure at least 1 missing, at most 3
+            if (sequence.every(s => !s.missing)) sequence[2].missing = true;
+            return { sequence };
+        }
+        if (config.type === 'match') {
+            const nums = shuffleArray(Array.from({ length: config.max }, (_, i) => i + 1), rng).slice(0, 5);
+            return { pairs: nums.map((n: number) => ({ num: n, word: NUMBER_WORDS[n] })) };
+        }
+        if (config.type === 'trace') {
+            return { numbers: Array.from({ length: 5 }, (_, i) => Math.floor(rng() * config.max) + 1) };
+        }
+        if (config.type === 'id') {
+            // Mix numbers and letters
+            const chars = ['A', 'B', 'C', 'X', 'Y', 'Z', 'M', 'P', '1', '2', '3', '4', '5'];
+            return {
+                grid: Array.from({ length: 15 }, () => {
+                    return rng() > 0.5 ? (Math.floor(rng() * 9) + 1).toString() : chars[Math.floor(rng() * chars.length)];
+                })
+            };
+        }
+        return {};
+    }, [config, rng]);
 
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="Number Fun"
-            emoji="1️⃣"
-            description="Learn your numbers!"
-            problemCount={10}
+            title={config.title}
+            emoji={config.emoji}
+            description="Master your numbers with these fun activities!"
+            problemCount={5}
         >
-            <div className="grid grid-cols-5 gap-4">
-                {numbers.map(n => (
-                    <div key={n} className="aspect-square border-2 border-slate-200 rounded-xl flex items-center justify-center text-4xl font-bold bg-white shadow-sm">
-                        {n}
+            <PremiumWorksheetBanner
+                title="Number Fun"
+                subtitle="Math Adventures"
+                icons={{ bg1: "1️⃣", bg2: "💯", float1: "#", float2: "🔢" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-indigo-50 to-blue-50",
+                    border: "border-indigo-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-900",
+                    accent: "text-indigo-400"
+                }}
+            />
+
+            <div className="mt-8 break-inside-avoid">
+                {/* Find Mode */}
+                {config.type === 'find' && (
+                    <div className="flex flex-col items-center">
+                        <div className="text-xl font-bold bg-yellow-100 px-6 py-2 rounded-full border border-yellow-200 mb-6 text-yellow-800 shadow-sm">
+                            Find all the <span className="text-3xl mx-2 font-black">{data.target}</span>s!
+                        </div>
+                        <div className="grid grid-cols-5 gap-4">
+                            {(data.grid as number[]).map((n, i) => (
+                                <div key={i} className="w-16 h-16 rounded-full border-2 border-slate-100 flex items-center justify-center text-3xl font-bold hover:bg-yellow-50 hover:border-yellow-200 cursor-pointer text-slate-700">
+                                    {n}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                ))}
+                )}
+
+                {/* Order Mode */}
+                {config.type === 'order' && (
+                    <div className="flex flex-col gap-8 items-center">
+                        <div className="flex gap-2">
+                            {(data.sequence as any[]).map((item, i) => (
+                                <div key={i} className={`w-14 h-14 md:w-20 md:h-20 rounded-xl border-2 flex items-center justify-center text-3xl font-bold shadow-sm ${item.missing ? 'border-dashed border-slate-300 bg-slate-50 text-transparent' : 'border-indigo-200 bg-white text-indigo-700'}`}>
+                                    {item.missing ? '?' : item.val}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="flex gap-4 p-4 border-t-2 border-dashed border-slate-200">
+                            <span className="text-slate-400 text-sm font-medium self-center">Cut & Paste:</span>
+                            {(data.sequence as any[]).filter((s: any) => s.missing).map((item: any, i: number) => (
+                                <div key={i} className="w-14 h-14 rounded-lg border-2 border-dashed border-slate-400 bg-white flex items-center justify-center text-2xl font-bold text-slate-800">
+                                    {item.val}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Match Mode */}
+                {config.type === 'match' && (
+                    <div className="flex justify-between max-w-lg mx-auto w-full relative">
+                        <div className="flex flex-col gap-6">
+                            {(data.pairs as any[]).map((p: any, i: number) => (
+                                <div key={i} className="px-6 py-3 bg-white border-2 border-slate-200 rounded-lg font-bold text-slate-700 text-center shadow-sm">
+                                    {p.word}
+                                </div>
+                            ))}
+                        </div>
+                        {/* SVG Lines placeholder area */}
+                        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10">
+                            <svg className="w-full h-full"><line x1="20%" y1="10%" x2="80%" y2="90%" stroke="black" strokeWidth="2" strokeDasharray="5,5" /></svg>
+                        </div>
+                        <div className="flex flex-col gap-6">
+                            {shuffleArray([...(data.pairs as any[])], rng).map((p: any, i: number) => (
+                                <div key={i} className="w-16 h-[52px] bg-indigo-50 border-2 border-indigo-200 rounded-lg flex items-center justify-center font-bold text-indigo-800 text-2xl shadow-sm">
+                                    {p.num}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Trace Mode */}
+                {config.type === 'trace' && (
+                    <div className="flex flex-wrap justify-center gap-8">
+                        {(data.numbers as number[]).map((n, i) => (
+                            <div key={i} className="w-32 h-32 border-2 border-slate-100 rounded-2xl flex items-center justify-center">
+                                <span className="text-9xl font-outline-2 text-transparent bg-clip-text bg-slate-100" style={{ WebkitTextStroke: '2px #cbd5e1' }}>
+                                    {n}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* ID Mode */}
+                {config.type === 'id' && (
+                    <div className="text-center">
+                        <p className="mb-4 text-slate-500 font-medium">Circle all the numbers!</p>
+                        <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
+                            {(data.grid as string[]).map((char, i) => (
+                                <div key={i} className="w-12 h-12 rounded-full border border-slate-200 bg-white flex items-center justify-center text-2xl font-serif text-slate-600">
+                                    {char}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-4 bg-emerald-50 rounded-lg border border-emerald-100 text-center text-emerald-800 text-sm">
+                    Answer Key: Great job learning numbers!
+                </div>
+            ))}
         </WorksheetSectionWrapper>
     );
 }
