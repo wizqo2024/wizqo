@@ -1984,40 +1984,67 @@ export function SkipCounting5To120({ showAnswersForDoc, seed, variant }: Specifi
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="Skip Counting by 5s and 10s (to 120)"
-            emoji={String.fromCodePoint(0x1F430)}
-            description="Fill in the missing numbers."
+            title="Skip Counting Explorer"
+            emoji="🚀"
+            description="Skip count by 5s and 10s up to 120. Fill in the missing numbers!"
             problemCount={seq5.filter((_, i) => isBlank5(i)).length + seq10.filter((_, i) => isBlank10(i)).length}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-fuchsia-400 to-amber-400 animate-gradient-x mb-2" />
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Count by 5s:</strong> 5, 10, ___, 20, 25</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>Step 1:</strong> Look at the pattern: 5, 10, ___, 20, 25</div>
-                        <div><strong>Step 2:</strong> Each number is 5 more than the previous: 5 + 5 = 10, 10 + 5 = 15</div>
-                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> 15</div>
+            <PremiumWorksheetBanner
+                title="Pattern Hopper"
+                subtitle="Skipping by 5s and 10s"
+                icons={{ bg1: "🐸", bg2: "🔢", float1: "5️⃣", float2: "🔟" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-fuchsia-50 to-purple-50",
+                    border: "border-fuchsia-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-fuchsia-300",
+                    pillText: "text-fuchsia-800",
+                    accent: "text-fuchsia-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="Counting Patterns"
+                icon="💡"
+                steps={[
+                    { label: "5s Rule", text: "Numbers end in 5, then 0, then 5, then 0... (5, 10, 15, 20)" },
+                    { label: "10s Rule", text: "Numbers always end in 0! (10, 20, 30...)" },
+                    { label: "Check", text: "Say the pattern out loud to hear if it sounds right." }
+                ]}
+                color="fuchsia"
+            />
+            <div className="space-y-8 mt-6">
+                <div className="bg-white p-6 rounded-xl border border-fuchsia-100 shadow-sm print:shadow-none">
+                    <div className="font-bold text-fuchsia-900 mb-4 text-lg flex items-center gap-2">
+                        <span className="p-1 bg-fuchsia-100 rounded text-xl">5️⃣</span> Count by 5s to 120
                     </div>
-                </div>
-            </div>
-            <div className="space-y-6 text-sm break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                <div>
-                    <div className="font-semibold text-slate-800 mb-2">Count by 5s to 120</div>
-                    <div className="grid grid-cols-12 gap-1">
+                    <div className="grid grid-cols-6 sm:grid-cols-6 md:grid-cols-8 gap-3">
                         {seq5.map((n, i) => (
-                            <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white break-inside-avoid">
-                                {isBlank5(i) ? <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 align-middle" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
+                            <div key={i} className={`
+                                h-12 flex items-center justify-center rounded-lg border-2 text-lg font-mono
+                                ${isBlank5(i)
+                                    ? 'bg-white border-dashed border-fuchsia-300 text-transparent'
+                                    : 'bg-fuchsia-50 border-fuchsia-100 text-fuchsia-900 font-bold'}
+                            `}>
+                                {isBlank5(i) ? '' : n}
                             </div>
                         ))}
                     </div>
                 </div>
-                <div>
-                    <div className="font-semibold text-slate-800 mb-2">Count by 10s to 120</div>
-                    <div className="grid grid-cols-12 gap-1">
+
+                <div className="bg-white p-6 rounded-xl border border-purple-100 shadow-sm print:shadow-none">
+                    <div className="font-bold text-purple-900 mb-4 text-lg flex items-center gap-2">
+                        <span className="p-1 bg-purple-100 rounded text-xl">🔟</span> Count by 10s to 120
+                    </div>
+                    <div className="grid grid-cols-6 sm:grid-cols-6 md:grid-cols-8 gap-3">
                         {seq10.map((n, i) => (
-                            <div key={i} className="h-12 border border-slate-300 rounded flex items-center justify-center bg-white break-inside-avoid">
-                                {isBlank10(i) ? <span className="inline-block w-20 h-10 border-b-[3px] border-slate-600 align-middle" /> : <span className="font-mono text-base text-slate-900">{n}</span>}
+                            <div key={i} className={`
+                                h-12 flex items-center justify-center rounded-lg border-2 text-lg font-mono
+                                ${isBlank10(i)
+                                    ? 'bg-white border-dashed border-purple-300 text-transparent'
+                                    : 'bg-purple-50 border-purple-100 text-purple-900 font-bold'}
+                            `}>
+                                {isBlank10(i) ? '' : n}
                             </div>
                         ))}
                     </div>

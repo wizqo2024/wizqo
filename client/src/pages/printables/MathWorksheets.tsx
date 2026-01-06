@@ -1,7 +1,7 @@
 import React from 'react'
 import type { ReactNode } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
-import { WorksheetSectionWrapper, WorkedExampleContent } from './PrintableShared'
+import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight, WorkedExampleContent } from './PrintableShared'
 import { makeRng, shuffleArray } from '@/utils/printableUtils'
 
 interface SpecificWorksheetProps {
@@ -1012,7 +1012,7 @@ export function Compare2Digit({ seed, variant, showAnswersForDoc }: SpecificWork
     // RNG and generation logic
     const rng = makeRng(`${seed}| v${variant}| doc=${doc} `);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-    const pairs: Array<[number, number]> = Array.from({ length: 10 }).map(() => {
+    const pairs: Array<[number, number]> = Array.from({ length: 12 }).map(() => {
         const a = nextInt(10, 99); const b = nextInt(10, 99); return [a, b];
     });
 
@@ -1020,8 +1020,8 @@ export function Compare2Digit({ seed, variant, showAnswersForDoc }: SpecificWork
         <WorksheetSectionWrapper
             docId={docId}
             title={t(`worksheets.${docId}.title`, 'Compare 2-Digit Numbers')}
-            emoji={String.fromCodePoint(0x2696)}
-            description={t(`worksheets.${docId}.description`, 'Write one comparison symbol in each blank: > (greater than), < (less than), or = (equal to). Tip: Compare tens first. If tens are equal, compare ones.')}
+            emoji="⚖️"
+            description={t(`worksheets.${docId}.description`, 'Write > (greater than), < (less than), or = (equal to) - compare tens first!.')}
             problemCount={pairs.length}
             learningObjectives={[
                 'Compare 2-digit numbers using >, <, and =',
@@ -1031,74 +1031,63 @@ export function Compare2Digit({ seed, variant, showAnswersForDoc }: SpecificWork
             parentTeacherTips={[
                 'Compare the tens place first - that\'s usually enough!',
                 'If tens are equal, then compare the ones place',
-                'Use > for greater than, < for less than, = for equal',
+                'The alligator mouth always eats the bigger number',
                 'Extension: Compare 3-digit numbers'
             ]}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-indigo-400 to-sky-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">{String.fromCodePoint(0x1F4A1)}</div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>{t('common.problem', 'Problem:')}</strong> Compare 58 and 41</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>{t('common.step1', 'Step 1:')}</strong> Compare tens: 5 tens vs 4 tens</div>
-                        <div><strong>{t('common.step2', 'Step 2:')}</strong> 5 &gt; 4, so 58 &gt; 41</div>
-                        <div className="font-semibold text-blue-900"><strong>{t('common.answer', 'Answer:')}</strong> 58 &gt; 41</div>
-                        <div className="text-xs text-blue-700 mt-1">Tip: Double check your steps!</div>
-                    </div>
-                </div>
-            </div>
+            <PremiumWorksheetBanner
+                title="Number Compare"
+                subtitle="Greater or Less Than?"
+                icons={{ bg1: "⚖️", bg2: "🔢", float1: ">", float2: "<" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-indigo-50 to-blue-50",
+                    border: "border-indigo-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-indigo-300",
+                    pillText: "text-indigo-800",
+                    accent: "text-indigo-300"
+                }}
+            />
 
-            <div className="grid grid-cols-2 gap-3 text-xl font-mono break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <StrategySpotlight
+                title="Alligator Rules"
+                icon="🐊"
+                steps={[
+                    { label: "Step 1", text: "Look at the TENS place first. Which is bigger?" },
+                    { label: "Step 2", text: "If TENS are the same, look at the ONES." },
+                    { label: "Remember", text: "The alligator mouth opens to the BIGGER number! (55 < 88)" }
+                ]}
+                color="indigo"
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                 {pairs.map(([a, b], i) => (
-                    <div key={i} className="border border-slate-300 rounded p-3 bg-white w-full flex items-center justify-between break-inside-avoid">
-                        <span>{a}</span>
-                        <span className="mx-2 inline-block w-16 h-10 border-b-[3px] border-slate-600 align-middle" aria-label="comparison symbol box" />
-                        <span>{b}</span>
+                    <div key={i} className="flex items-center justify-between p-6 bg-indigo-50/50 rounded-xl border border-indigo-100 shadow-sm print:bg-white print:border-slate-300 break-inside-avoid relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-2 opacity-10 text-9xl leading-none font-bold text-indigo-200 pointer-events-none -mr-4 -mt-4">?</div>
+                        <div className="text-4xl font-bold text-slate-700 w-12 text-center">{a}</div>
+                        <div className="w-20 h-20 rounded-full border-4 border-dashed border-indigo-300 bg-white shadow-inner flex items-center justify-center text-3xl font-bold text-indigo-600">
+                        </div>
+                        <div className="text-4xl font-bold text-slate-700 w-12 text-center">{b}</div>
                     </div>
                 ))}
             </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Compare: 67 ___ 76 (which symbol goes in the blank?)</div>
-                    <div>2. Find two numbers where the tens are equal but ones are different</div>
-                    <div>3. Create your own comparison problem</div>
-                </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can compare 2-digit numbers correctly</div>
-                    <div>{String.fromCodePoint(0x270F)}</div>
-                    <div>{String.fromCharCode(0x2610)} I can use &gt;, &lt;, and = symbols correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                    <strong>{t('common.myScore', 'My score:')}</strong> ___ / {pairs.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{t('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-            </div>
+
             {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="space-y-2">
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">✅</span>
+                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-lg">
                         {pairs.map(([a, b], i) => {
                             const symbol = a > b ? '>' : a < b ? '<' : '=';
-                            const aTens = Math.floor(a / 10);
-                            const bTens = Math.floor(b / 10);
-                            const explanation = aTens !== bTens
-                                ? `${aTens} tens ${symbol === '>' ? '>' : '<'} ${bTens} tens`
-                                : `${a} and ${b} have the same tens, so compare ones: ${a % 10} ${symbol} ${b % 10} `;
                             return (
-                                <div key={i} className="text-sm text-emerald-800">
-                                    {i + 1}. {a} <strong>{symbol}</strong> {b} ({explanation})
+                                <div key={i} className="text-center bg-white border border-emerald-100 rounded p-2 text-emerald-800 flex items-center justify-center gap-3">
+                                    <span className="font-semibold text-slate-600">{a}</span>
+                                    <span className="font-bold text-emerald-600 text-2xl bg-emerald-50 w-8 h-8 rounded flex items-center justify-center">{symbol}</span>
+                                    <span className="font-semibold text-slate-600">{b}</span>
                                 </div>
-                            );
+                            )
                         })}
                     </div>
                 </div>
@@ -1201,109 +1190,107 @@ export function EvenOdd100({ seed, variant, showAnswersForDoc }: SpecificWorkshe
 export function Time5Min({ showAnswersForDoc }: SpecificWorksheetProps) {
     const { t } = useTranslation()
     const docId = 'time-5min'
+    // A bit more variety in times
     const times = ['3:25', '9:40', '12:05', '6:30', '1:55', '10:10', '7:45', '2:20'];
 
     return (
         <WorksheetSectionWrapper
             docId={docId}
             title={t(`worksheets.${docId}.title`, 'Tell Time to 5 Minutes')}
-            emoji={String.fromCodePoint(0x1F552)}
-            description={t(`worksheets.${docId}.description`, 'Draw the clock hands to show each time.')}
+            emoji="⌚"
+            description={t(`worksheets.${docId}.description`, 'Read the time and draw the hands on the clock.')}
             problemCount={times.length}
             learningObjectives={[
                 'Read time to the nearest 5 minutes',
                 'Draw hour and minute hands on analog clocks',
-                'Understand the relationship between hours and minutes',
-                'Practice telling time in real-world contexts'
+                'Understand relationship between hours and minutes'
             ]}
             parentTeacherTips={[
                 'The hour hand moves slowly between numbers',
-                'The minute hand moves quickly: each number is 5 minutes',
-                'When the minute hand is on 1, it\'s 5 minutes past',
-                'When the minute hand is on 6, it\'s 30 minutes (half past)',
-                'Practice with a real clock or clock manipulative',
-                'Extension: Try telling time to the exact minute'
+                'The minute hand counts by 5s (1 = 5, 2 = 10, etc.)',
+                'Extension: What time will it be in 1 hour?'
             ]}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-sky-400 to-indigo-400 animate-gradient-x mb-2" />
-            {/* Worked Example */}
-            <div className="mb-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-blue-900 mb-3 text-sm">How to Tell Time</div>
-                <div className="space-y-2 text-sm">
-                    <div className="font-semibold text-base"><strong>Time:</strong> 3:25</div>
-                    <div className="pl-4 border-l-2 border-blue-300 space-y-1">
-                        <div><strong>Step 1:</strong> Hour hand: Point between 3 and 4 (because it's 3:25, past 3:00)</div>
-                        <div><strong>Step 2:</strong> Minute hand: Count by 5s to 25 (5, 10, 15, 20, 25). Point to the 5.</div>
-                        <div className="font-semibold text-blue-900"><strong>Answer:</strong> Hour hand between 3 and 4, minute hand on 5</div>
-                        <div className="text-xs text-blue-700 mt-1">Tip: The hour hand is past the 3!</div>
-                    </div>
-                </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
-                {times.map((t, i) => (
-                    <div key={i} className="break-inside-avoid">
-                        <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border border-slate-300 rounded">
-                            <circle cx="100" cy="100" r="80" fill="none" stroke="#111827" strokeWidth="3" />
-                            {/* hour marks */}
-                            {Array.from({ length: 12 }).map((_, k) => { const a = (k / 12) * Math.PI * 2; const x1 = 100 + Math.cos(a) * 70; const y1 = 100 + Math.sin(a) * 70; const x2 = 100 + Math.cos(a) * 80; const y2 = 100 + Math.sin(a) * 80; return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#111827" /> })}
-                            <text x="100" y="180" textAnchor="middle" fontSize="16" fill="#111827">{t}</text>
-                            {/* student draws hands */}
+            <PremiumWorksheetBanner
+                title="Time Teller"
+                subtitle="Minutes and Hours"
+                icons={{ bg1: "⌚", bg2: "🕰️", float1: "⏱️", float2: "⌛" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-sky-50 to-blue-50",
+                    border: "border-sky-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-sky-300",
+                    pillText: "text-sky-800",
+                    accent: "text-sky-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="Drawing Clock Hands"
+                icon="🕰️"
+                steps={[
+                    { label: "Short Hand", text: "The Hour Hand is SHORT. Draw it pointing near the hour number." },
+                    { label: "Long Hand", text: "The Minute Hand is LONG. Count by 5s to find the minute number." },
+                    { label: "Tip", text: "1 = 5 min, 2 = 10 min, ... 6 = 30 min (Half Past)" }
+                ]}
+                color="sky"
+            />
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+                {times.map((time, i) => (
+                    <div key={i} className="flex flex-col items-center p-4 bg-sky-50/50 rounded-xl border border-sky-100 print:bg-white print:border-slate-300 break-inside-avoid">
+                        <div className="mb-3 px-4 py-1 bg-sky-100 rounded-full text-xl font-bold text-sky-900 shadow-sm print:bg-slate-100 print:text-black border border-sky-200">
+                            {time}
+                        </div>
+                        <svg viewBox="0 0 200 200" className="w-full h-auto max-w-[180px] bg-white rounded-full border-4 border-slate-700 shadow-sm">
+                            {/* Clock Face */}
+                            <circle cx="100" cy="100" r="2" fill="#1e293b" />
+                            {Array.from({ length: 60 }).map((_, k) => {
+                                const isHour = k % 5 === 0;
+                                const len = isHour ? 15 : 6;
+                                const width = isHour ? 3 : 1;
+                                const color = isHour ? "#334155" : "#cbd5e1";
+                                const a = (k / 60) * Math.PI * 2 - Math.PI / 2;
+                                const x1 = 100 + Math.cos(a) * (90 - len);
+                                const y1 = 100 + Math.sin(a) * (90 - len);
+                                const x2 = 100 + Math.cos(a) * 90;
+                                const y2 = 100 + Math.sin(a) * 90;
+                                return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke={color} strokeWidth={width} strokeLinecap="round" />
+                            })}
+                            {/* Numbers */}
+                            {Array.from({ length: 12 }).map((_, k) => {
+                                const n = k + 1;
+                                const angle = (n * 30 - 90) * (Math.PI / 180);
+                                const r = 68;
+                                const x = 100 + r * Math.cos(angle);
+                                const y = 100 + r * Math.sin(angle);
+                                return (
+                                    <text key={k} x={x} y={y} fontSize="16" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle" dominantBaseline="central" fill="#334155">
+                                        {n}
+                                    </text>
+                                )
+                            })}
+                            <circle cx="100" cy="100" r="4" fill="#ef4444" />
                         </svg>
                     </div>
                 ))}
             </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-0 p-4 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'always', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 text-sm">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 text-sm text-purple-800">
-                    <div>1. Draw a clock showing 4:45. What is another way to say this time? (quarter to ___)</div>
-                    <div>2. Draw a clock showing 11:30. What is another way to say this time? (half past ___)</div>
-                    <div>3. If it's 2:15 now, what time will it be in 30 minutes? Draw it!</div>
-                </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 text-sm">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                    <div>{String.fromCharCode(0x2610)} I can read time to 5 minutes</div>
-                    <div>{String.fromCharCode(0x2610)} I can draw the hour hand correctly</div>
-                    <div>{String.fromCharCode(0x2610)} I can draw the minute hand correctly</div>
-                </div>
-                <div className="mt-3 text-xs">
-                    <strong>{t('common.myScore', 'My score:')}</strong> ___ / {times.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{t('common.whatWasHardest', 'What was hardest?')}</strong> _________________________
-                </div>
-            </div>
-            {showAnswersForDoc(docId, () => {
-                const parseTime = (timeStr: string) => {
-                    const [h, m] = timeStr.split(':').map(Number);
-                    return { hour: h, minute: m };
-                };
-                return (
-                    <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                        <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                        <div className="space-y-3">
-                            {times.map((t, i) => {
-                                const { hour, minute } = parseTime(t);
-                                return (
-                                    <div key={i} className="text-sm text-emerald-800">
-                                        <div className="font-semibold">{i + 1}. {t}:</div>
-                                        <div className="pl-4">
-                                            <div>Hour hand: Between {hour % 12} and {(hour % 12) + 1} (closer to {hour % 12} since it's {minute} minutes past)</div>
-                                            <div>Minute hand: On {Math.floor(minute / 5)} (which is {minute} minutes past the hour)</div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                        <div className="text-xs text-emerald-700 mt-3">
-                            Remember: The hour hand moves slowly between numbers. The minute hand moves quickly - each number represents 5 minutes!
-                        </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-xl print:border-black print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-2xl">✅</span>
+                        <h3 className="font-bold text-emerald-900">Answer Key</h3>
                     </div>
-                );
-            })}
+                    <div className="grid grid-cols-4 gap-4 text-sm">
+                        {times.map((t, i) => (
+                            <div key={i} className="text-center bg-white border border-emerald-100 rounded p-2 text-emerald-800 font-bold">
+                                {t}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
         </WorksheetSectionWrapper>
     )
 }
