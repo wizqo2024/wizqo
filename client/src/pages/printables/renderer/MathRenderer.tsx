@@ -357,9 +357,30 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             {activeDocs.includes('time-5-min') && <Time5Min seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* First Grade Restoration */}
-            {activeDocs.includes('number-line-addition') && <NumberLineAddition docId="number-line-addition" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('skip-counting') && <SkipCountingWorksheet docId="skip-counting" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('balance-equations') && <BalanceEquations docId="balance-equations" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('number-line-addition') || activeDocs.includes('number-line-add')) && (
+                <NumberLineAddition
+                    docId={activeDocs.includes('number-line-add') ? 'number-line-add' : 'number-line-addition'}
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
+            {(activeDocs.includes('skip-counting') || activeDocs.includes('skip-count-2s')) && (
+                <SkipCountingWorksheet
+                    docId={activeDocs.includes('skip-count-2s') ? 'skip-count-2s' : 'skip-counting'}
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
+            {(activeDocs.includes('balance-equations') || activeDocs.includes('balance-equations-10')) && (
+                <BalanceEquations
+                    docId={activeDocs.includes('balance-equations-10') ? 'balance-equations-10' : 'balance-equations'}
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                />
+            )}
             {activeDocs.includes('subtraction-stories') && <SubtractionStories docId="subtraction-stories" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('number-bonds-10') && <NumberBonds10 docId="number-bonds-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('count-write-30') && <CountWrite30 docId="count-write-30" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
