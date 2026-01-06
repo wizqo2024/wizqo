@@ -1,5 +1,8 @@
 import React, { type ReactNode, type CSSProperties } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
+import { Download, Loader2 } from 'lucide-react'
 
 // Helper function to get theme for regular worksheets based on docId
 export function getWorksheetTheme(docId: string): {
@@ -267,6 +270,8 @@ export function WorksheetSectionWrapper({
 }) {
     const { t, isRTL, language } = useTranslation()
     const theme = getWorksheetTheme(docId)
+    const sectionRef = React.useRef<HTMLElement>(null)
+    const [isGeneratingPdf, setIsGeneratingPdf] = React.useState(false)
 
     // Try to get translated title/description if available
     const translatedTitle = React.useMemo(() => {
@@ -304,73 +309,134 @@ export function WorksheetSectionWrapper({
         })
     }, [t, docId, parentTeacherTips, language])
 
+    const handleDownloadPDF = async () => {
+        if (!sectionRef.current || isGeneratingPdf) return
+
+        setIsGeneratingPdf(true)
+
+        try {
+            // Wait for re-render/styles
+            await new Promise(resolve => setTimeout(resolve, 100))
+
+            const canvas = await html2canvas(sectionRef.current, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                ignoreElements: (element) => {
+                    return element.hasAttribute('data-html2canvas-ignore')
+                }
+            })
+
+            const imgData = canvas.toDataURL('image/png')
+            const pdf = new jsPDF('p', 'mm', 'a4')
+            const imgProps = pdf.getImageProperties(imgData)
+
+            const imgRatio = imgProps.width / imgProps.height
+            const pdfWidth = pdf.internal.pageSize.getWidth()
+            const pdfHeight = pdf.internal.pageSize.getHeight()
+
+            let w = pdfWidth
+            let h = w / imgRatio
+
+            if (h > pdfHeight) {
+                h = pdfHeight
+                w = h * imgRatio
+            }
+
+            const x = (pdfWidth - w) / 2
+            const y = 0
+
+            pdf.addImage(imgData, 'PNG', x, y, w, h)
+            pdf.save(`${docId}.pdf`)
+        } catch (error) {
+            console.error('PDF generation failed:', error)
+            alert('Could not generate PDF. Please use the Print button instead.')
+        } finally {
+            setIsGeneratingPdf(false)
+        }
+    }
+
     return (
-        <section
-            className={`mb-10 break-inside-auto rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section`}
-            dir={isRTL ? 'rtl' : 'ltr'}
-            style={{
-                pageBreakInside: 'auto',
-                breakInside: 'auto',
-                WebkitRegionBreakInside: 'auto',
-                pageBreakBefore: 'auto',
-                breakBefore: 'auto',
-                marginTop: 0,
-                marginBottom: 0
-            } as React.CSSProperties}
-        >
-            {/* Decorative corner accent */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
-            <div
-                className="relative z-10 print:p-0"
+        <div className="relative group w-full">
+            <div className="absolute top-2 right-2 z-20 print:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-200" data-html2canvas-ignore="true">
+                <button
+                    onClick={handleDownloadPDF}
+                    disabled={isGeneratingPdf}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-indigo-600 border border-indigo-200 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-sm disabled:opacity-50 text-xs"
+                    title="Download PDF"
+                >
+                    {isGeneratingPdf ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
+                    {isGeneratingPdf ? 'Generating...' : 'PDF'}
+                </button>
+            </div>
+            <section
+                ref={sectionRef}
+                className={`mb-10 break-inside-auto rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section`}
+                dir={isRTL ? 'rtl' : 'ltr'}
                 style={{
                     pageBreakInside: 'auto',
                     breakInside: 'auto',
-                    paddingTop: 0,
-                    marginTop: 0
+                    WebkitRegionBreakInside: 'auto',
+                    pageBreakBefore: 'auto',
+                    breakBefore: 'auto',
+                    marginTop: 0,
+                    marginBottom: 0
                 } as React.CSSProperties}
             >
-                {!hideDefaultHeader && <LocalWorksheetHeader problemCount={problemCount} />}
-                <h2
-                    className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent }} />
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none print:hidden" style={{ backgroundColor: theme.cornerAccent2 }} />
+                <div
+                    className="relative z-10 print:p-0"
                     style={{
-                        pageBreakAfter: 'avoid',
-                        breakAfter: 'avoid',
-                        pageBreakInside: 'avoid',
-                        breakInside: 'avoid',
-                        marginTop: 0,
-                        paddingTop: 0
+                        pageBreakInside: 'auto',
+                        breakInside: 'auto',
+                        paddingTop: 0,
+                        marginTop: 0
                     } as React.CSSProperties}
                 >
-                    {emoji && <span className="text-4xl">{emoji}</span>}
-                    <span>{translatedTitle}</span>
-                </h2>
-                {translatedDescription && (
-                    <p
-                        className={`text-sm ${theme.text} opacity-70 mb-4`}
+                    {!hideDefaultHeader && <LocalWorksheetHeader problemCount={problemCount} />}
+                    <h2
+                        className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
                         style={{
                             pageBreakAfter: 'avoid',
                             breakAfter: 'avoid',
-                            marginTop: '0.25rem'
+                            pageBreakInside: 'avoid',
+                            breakInside: 'avoid',
+                            marginTop: 0,
+                            paddingTop: 0
                         } as React.CSSProperties}
                     >
-                        {translatedDescription}
-                    </p>
-                )}
+                        {emoji && <span className="text-4xl">{emoji}</span>}
+                        <span>{translatedTitle}</span>
+                    </h2>
+                    {translatedDescription && (
+                        <p
+                            className={`text-sm ${theme.text} opacity-70 mb-4`}
+                            style={{
+                                pageBreakAfter: 'avoid',
+                                breakAfter: 'avoid',
+                                marginTop: '0.25rem'
+                            } as React.CSSProperties}
+                        >
+                            {translatedDescription}
+                        </p>
+                    )}
 
-                <div className="print:mt-0" style={{ marginTop: 0, paddingTop: 0, pageBreakBefore: 'auto' } as React.CSSProperties}>
-                    {children}
-                </div>
-                {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}
-                {translatedTips && (
-                    <div style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                        <ParentTeacherTips tips={translatedTips} />
+                    <div className="print:mt-0" style={{ marginTop: 0, paddingTop: 0, pageBreakBefore: 'auto' } as React.CSSProperties}>
+                        {children}
                     </div>
-                )}
-                {/* Footer - Always rendered last, after ParentTeacherTips */}
-                {footer}
-            </div>
-        </section>
+                    {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}
+                    {translatedTips && (
+                        <div style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
+                            <ParentTeacherTips tips={translatedTips} />
+                        </div>
+                    )}
+                    {/* Footer - Always rendered last, after ParentTeacherTips */}
+                    {footer}
+                </div>
+            </section>
+        </div>
     )
 }
 
