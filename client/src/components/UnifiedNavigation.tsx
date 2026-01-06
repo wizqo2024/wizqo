@@ -103,49 +103,58 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
           {/* Left side - Logo and main nav */}
           <div className="flex items-center space-x-8">
             {/* Logo */}
-            <a href="/" className="flex items-center space-x-3 cursor-pointer">
-              <WizqoLogo width={40} height={23} className="hover:opacity-80 transition-opacity" />
-              <span className="text-xl font-bold text-slate-800">Wizqo</span>
+            <a href="/" className="flex items-center space-x-3 cursor-pointer group/logo">
+              <WizqoLogo width={40} height={23} className="group-hover/logo:scale-110 transition-transform duration-300" />
+              <span className="text-2xl font-bold tracking-tight text-slate-800 font-['Comic_Neue',_cursive] group-hover/logo:text-purple-600 transition-colors duration-300">Wizqo</span>
             </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
-              <a href="/" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
-                <svg className="w-5 h-5" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                  <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z" />
-                  <path fill="#C5E5FE" d="M239.334 242.697H34.684a2.5 2.5 0 1 1 0-5h202.149V90.847a2.5 2.5 0 1 1 5 0v149.351a2.498 2.498 0 0 1-2.499 2.499zm-214.65 0h-8.018a2.5 2.5 0 1 1 0-5h8.018a2.5 2.5 0 1 1 0 5z" />
-                  <circle fill="#FEB69F" cx="72.566" cy="149.895" r="21.155" />
-                  <path fill="#13BF6D" d="M103.978 229.923H41.153v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z" />
-                  <path fill="#76FFBB" d="M94.978 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z" />
-                  <circle fill="#FEB69F" cx="128" cy="168.724" r="16.178" />
-                  <path fill="#8B72E9" d="M152.022 229.923h-48.044v-20.999c0-13.267 10.755-24.022 24.022-24.022 13.267 0 24.022 10.755 24.022 24.022v20.999z" />
-                  <path fill="#B8A4FF" d="M143.022 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.6a2.5 2.5 0 1 1 5 0v2.6a2.5 2.5 0 0 1-2.5 2.5zm-2.51-15A12.483 12.483 0 0 0 128 196.402a2.5 2.5 0 1 1 0-5c9.445 0 17.136 7.39 17.508 16.824a2.5 2.5 0 1 1-4.996.197z" />
-                  <circle fill="#FEB69F" cx="183.435" cy="149.895" r="21.155" />
-                  <path fill="#EDC21D" d="M214.847 229.923h-62.825v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z" />
-                  <path fill="#F8E5B0" d="M205.847 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z" />
-                  <path fill="#FC5D3D" d="m167.248 86.573-35.713 35.713a5 5 0 0 1-7.071 0L88.753 86.575c-7.226-7.226-7.224-18.941.002-26.165l.003-.003c7.225-7.222 18.936-7.221 26.16.003l9.546 9.546a5 5 0 0 0 7.07.001l9.553-9.55c7.225-7.222 18.936-7.221 26.16.002 7.225 7.226 7.225 18.939.001 26.164z" />
-                </svg>
+              <a href="/" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+                <div className={currentPage === 'home' || currentPage === 'landing' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
+                  <svg className="w-5 h-5" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z" />
+                    <path fill="#C5E5FE" d="M239.334 242.697H34.684a2.5 2.5 0 1 1 0-5h202.149V90.847a2.5 2.5 0 1 1 5 0v149.351a2.498 2.498 0 0 1-2.499 2.499zm-214.65 0h-8.018a2.5 2.5 0 1 1 0-5h8.018a2.5 2.5 0 1 1 0 5z" />
+                    <circle fill="#FEB69F" cx="72.566" cy="149.895" r="21.155" />
+                    <path fill="#13BF6D" d="M103.978 229.923H41.153v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z" />
+                    <path fill="#76FFBB" d="M94.978 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z" />
+                    <circle fill="#FEB69F" cx="128" cy="168.724" r="16.178" />
+                    <path fill="#8B72E9" d="M152.022 229.923h-48.044v-20.999c0-13.267 10.755-24.022 24.022-24.022 13.267 0 24.022 10.755 24.022 24.022v20.999z" />
+                    <path fill="#B8A4FF" d="M143.022 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.6a2.5 2.5 0 1 1 5 0v2.6a2.5 2.5 0 0 1-2.5 2.5zm-2.51-15A12.483 12.483 0 0 0 128 196.402a2.5 2.5 0 1 1 0-5c9.445 0 17.136 7.39 17.508 16.824a2.5 2.5 0 1 1-4.996.197z" />
+                    <circle fill="#FEB69F" cx="183.435" cy="149.895" r="21.155" />
+                    <path fill="#EDC21D" d="M214.847 229.923h-62.825v-27.46c0-17.349 14.064-31.413 31.413-31.413s31.413 14.064 31.413 31.413v27.46z" />
+                    <path fill="#F8E5B0" d="M205.847 223.423a2.5 2.5 0 0 1-2.5-2.5v-2.671a2.5 2.5 0 1 1 5 0v2.671a2.5 2.5 0 0 1-2.5 2.5zm0-12.671a2.5 2.5 0 0 1-2.5-2.5v-5.789c0-10.98-8.933-19.913-19.913-19.913a2.5 2.5 0 1 1 0-5c13.737 0 24.913 11.176 24.913 24.913v5.789a2.5 2.5 0 0 1-2.5 2.5z" />
+                    <path fill="#FC5D3D" d="m167.248 86.573-35.713 35.713a5 5 0 0 1-7.071 0L88.753 86.575c-7.226-7.226-7.224-18.941.002-26.165l.003-.003c7.225-7.222 18.936-7.221 26.16.003l9.546 9.546a5 5 0 0 0 7.07.001l9.553-9.55c7.225-7.222 18.936-7.221 26.16.002 7.225 7.226 7.225 18.939.001 26.164z" />
+                  </svg>
+                </div>
                 <span className="font-medium">{t('navigation.home')}</span>
               </a>
 
-              <a href="/blog" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'blog' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                </svg>
+              <a href="/blog" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'blog' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+                <div className={currentPage === 'blog' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                  </svg>
+                </div>
                 <span className="font-medium">{t('navigation.blog')}</span>
               </a>
 
               <div className="relative">
                 <div className="flex items-center">
-                  <a href="/worksheets/all" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors whitespace-nowrap ${(() => {
+                  <a href="/worksheets/all" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] whitespace-nowrap ${(() => {
                     // Show active on /worksheets/all or interactive-worksheets-generator
                     const pathname = window.location.pathname;
                     return pathname === '/worksheets/all' || currentPage === 'interactive-worksheets-generator' ||
                       getIsWorksheetsPageActive();
                   })() ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showWorksheetsMenu}>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
+                    <div className={(() => {
+                      const pathname = window.location.pathname;
+                      return pathname === '/worksheets/all' || currentPage === 'interactive-worksheets-generator' || getIsWorksheetsPageActive();
+                    })() ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      </svg>
+                    </div>
                     <span className="font-medium whitespace-nowrap">{t('navigation.worksheets')}</span>
                   </a>
                   <button
@@ -171,7 +180,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   onMouseLeave={() => { worksheetsMenuCloseTimer.current = window.setTimeout(() => setShowWorksheetsMenu(false), 200) as unknown as number; }}
                 >
                   {/* caret */}
-                  <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
+                  <div className="absolute -top-1.5 left-10 h-3 w-3 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
                   <div className="grid gap-0 min-w-[320px] md:grid-cols-3 w-full md:gap-0">
                     {/* First Column: Free Worksheet PDFs */}
                     <div className="-mx-1">
@@ -351,17 +360,21 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 </div>
               </div>
 
-              <a href="/generate" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
+              <a href="/generate" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+                <div className={currentPage === 'generate' || currentPage === 'plan' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
                 <span className="font-medium">{t('navigation.learn')}</span>
               </a>
 
               <div className="relative">
                 <div className="flex items-center">
-                  <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
-                    <Puzzle className="w-4 h-4" />
+                  <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
+                    <div className={currentPage === 'kids' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
+                      <Puzzle className="w-4 h-4" />
+                    </div>
                     <span className="font-medium">{t('navigation.kidsHub')}</span>
                   </a>
                   <button
@@ -387,7 +400,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   onMouseLeave={() => { kidsMenuCloseTimer.current = window.setTimeout(() => setShowKidsMenu(false), 200) as unknown as number; }}
                 >
                   {/* caret */}
-                  <div className="absolute -top-2 left-10 h-4 w-4 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
+                  <div className="absolute -top-1.5 left-10 h-3 w-3 bg-white rotate-45 border-l border-t border-slate-200" aria-hidden />
                   <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_2.8fr] md:max-w-[850px]">
                     <div>
                       <div className="px-2 py-1 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent border-b border-orange-100 pb-1.5">{t('navigation.kidsGames')}</div>
