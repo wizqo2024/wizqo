@@ -459,6 +459,20 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('long-division-multidigit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('order-of-operations-pemdas') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="order-of-operations-pemdas" />}
 
+            {/* Order of Operations (PEMDAS) - New Mappings */}
+            {activeDocs.includes('pemdas-basic') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-basic" />}
+            {activeDocs.includes('pemdas-parentheses') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-parentheses" />}
+            {activeDocs.includes('pemdas-practice') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-practice" />}
+            {activeDocs.includes('pemdas-exponents') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-exponents" />}
+            {activeDocs.includes('pemdas-multistep') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-multistep" />}
+            {activeDocs.includes('pemdas-word-problems') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-word-problems" />}
+            {activeDocs.includes('pemdas-advanced') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-advanced" />}
+            {activeDocs.includes('pemdas-complex') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-complex" />}
+            {activeDocs.includes('pemdas-rules') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-rules" />}
+            {activeDocs.includes('pemdas-mixed-review') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-mixed-review" />}
+            {activeDocs.includes('pemdas-fluency') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-fluency" />}
+            {activeDocs.includes('pemdas-step-by-step') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-step-by-step" />}
+
             {/* 5th Grade Geometry & Algebra */}
             {activeDocs.includes('volume-rectangular-prisms') && <VolumeRectangularPrisms seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('area-triangles-parallelograms') && <AreaTrianglesParallelograms seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
