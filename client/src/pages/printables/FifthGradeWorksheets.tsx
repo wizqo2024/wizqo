@@ -2986,8 +2986,8 @@ export function AddSubFractionsUnlike({ seed, variant, showAnswersForDoc }: Spec
 /**
  * Multiplying Fractions
  */
-export function MultiplyingFractions({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
-    const docId = 'fraction-mult';
+export function MultiplyingFractions({ seed, variant, showAnswersForDoc, docId: propDocId }: SpecificWorksheetProps) {
+    const docId = propDocId || 'fraction-mult';
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
 
     function nextInt(min: number, max: number) {
@@ -3127,8 +3127,8 @@ export function MultiplyingFractionsWhole({ seed, variant, showAnswersForDoc }: 
 /**
  * Dividing Fractions
  */
-export function DividingFractions({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
-    const docId = 'div-fractions';
+export function DividingFractions({ seed, variant, showAnswersForDoc, docId: propDocId }: SpecificWorksheetProps) {
+    const docId = propDocId || 'div-fractions';
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
 
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
@@ -3185,6 +3185,211 @@ export function DividingFractions({ seed, variant, showAnswersForDoc }: Specific
                         {problems.map((p, i) => (
                             <div key={i} className="flex gap-2">
                                 <span className="font-bold">#{i + 1}:</span> {p.ans.n}/{p.ans.d}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+
+/**
+ * Long Division (Multi-Digit)
+ */
+export function LongDivisionMultidigit({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const { t } = useTranslation();
+    const docId = 'long-division-multidigit';
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    const problems = Array.from({ length: 6 }, () => {
+        const divisor = nextInt(12, 99);
+        const quotient = nextInt(20, 250);
+        const dividend = divisor * quotient;
+
+        // Sometimes add a remainder
+        const remainder = rng() > 0.7 ? nextInt(1, divisor - 1) : 0;
+        const totalDividend = dividend + remainder;
+
+        return {
+            dividend: totalDividend,
+            divisor,
+            quotient,
+            remainder,
+            id: nextInt(100, 999)
+        };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Long Division: The Big Divide"
+            emoji="➗"
+            description="Master long division with multi-digit divisors and quotients."
+            problemCount={problems.length}
+            learningObjectives={[
+                'Divide multi-digit numbers by 2-digit divisors',
+                'Interpret remainders in division',
+                'Check division using multiplication'
+            ]}
+            parentTeacherTips={[
+                'DMSB: Divide, Multiply, Subtract, Bring down.',
+                'Estimate how many times the divisor fits into the first part of the dividend.',
+                'Keep columns aligned carefully!'
+            ]}
+        >
+            <PremiumWorksheetBanner
+                title="Division Dojo"
+                subtitle="Divide and Conquer! Step by step to the solution."
+                icons={{
+                    bg1: '🥋',
+                    bg2: '➗',
+                    float1: '✨',
+                    float2: '🧧'
+                }}
+                colors={{
+                    bg: 'bg-red-900',
+                    border: 'border-red-700',
+                    pillBg: 'bg-red-800',
+                    pillBorder: 'border-red-600',
+                    pillText: 'text-red-50',
+                    accent: 'text-red-400'
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10">
+                {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-3xl p-8 bg-white flex justify-center items-center shadow-sm min-h-[200px]">
+                        <div className="text-3xl font-mono text-slate-800 flex items-start">
+                            <span className="mr-3 pt-1">{p.divisor}</span>
+                            <div className="flex flex-col">
+                                <span className="border-b-2 border-slate-800 border-l-2 pl-3 pr-2 pb-1">{p.dividend}</span>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-12 p-8 bg-red-50 border-2 border-red-200 rounded-3xl print:bg-white text-sm">
+                    <h3 className="text-lg font-bold text-red-900 mb-6 uppercase">Dojo Master's Key</h3>
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 font-mono text-lg">
+                        {problems.map((p, i) => (
+                            <div key={i} className="border-b border-red-100 pb-2">
+                                <span className="text-slate-500 text-xs mr-2">#{i + 1}</span>
+                                <span className="font-bold text-red-700">
+                                    {p.quotient} {p.remainder > 0 ? `R${p.remainder}` : ''}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}
+
+/**
+ * Order of Operations (PEMDAS)
+ */
+export function OrderOfOperations({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const { t } = useTranslation();
+    const docId = 'order-of-operations-pemdas';
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+
+    function nextInt(min: number, max: number) {
+        return Math.floor(rng() * (max - min + 1)) + min;
+    }
+
+    const problems = Array.from({ length: 8 }, () => {
+        // Generate expressions like a + b * c or (a + b) * c
+        const a = nextInt(2, 9);
+        const b = nextInt(2, 9);
+        const c = nextInt(2, 5);
+
+        const type = nextInt(0, 3);
+        let expr = '', ans = 0;
+
+        if (type === 0) {
+            // a + b * c
+            expr = `${a} + ${b} × ${c}`;
+            ans = a + (b * c);
+        } else if (type === 1) {
+            // (a + b) * c
+            expr = `(${a} + ${b}) × ${c}`;
+            ans = (a + b) * c;
+        } else if (type === 2) {
+            // a * b - c
+            expr = `${a} × ${b} - ${c}`;
+            ans = (a * b) - c;
+        } else {
+            // a * (b + c)
+            expr = `${a} × (${b} + ${c})`;
+            ans = a * (b + c);
+        }
+
+        return { expr, ans, id: nextInt(100, 999) };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Order of Operations: PEMDAS Power"
+            emoji="⚡"
+            description="Evaluate numerical expressions according to the order of operations."
+            problemCount={problems.length}
+            learningObjectives={[
+                'Apply the order of operations (PEMDAS)',
+                'Evaluate expressions with parentheses',
+                'Perform multi-step calculations correctly'
+            ]}
+            parentTeacherTips={[
+                'PEMDAS: Parentheses, Exponents, Multiply/Divide (L to R), Add/Subtract (L to R).',
+                'Multiply before you add!',
+                'Work from the inside out.'
+            ]}
+        >
+            <PremiumWorksheetBanner
+                title="Operation Overload"
+                subtitle="Follow the rules! One wrong step and the circuit breaks."
+                icons={{
+                    bg1: '⚡',
+                    bg2: '🔋',
+                    float1: '🔌',
+                    float2: '⚙️'
+                }}
+                colors={{
+                    bg: 'bg-yellow-900',
+                    border: 'border-yellow-700',
+                    pillBg: 'bg-yellow-800',
+                    pillBorder: 'border-yellow-600',
+                    pillText: 'text-yellow-50',
+                    accent: 'text-yellow-400'
+                }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                {problems.map((p, i) => (
+                    <div key={i} className="border-2 border-slate-200 rounded-2xl p-6 bg-white flex items-center justify-between shadow-sm">
+                        <span className="text-2xl font-mono font-bold text-slate-800">{p.expr}</span>
+                        <div className="w-20 h-10 border-b-2 border-slate-300"></div>
+                    </div>
+                ))}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-12 p-8 bg-yellow-50 border-2 border-yellow-200 rounded-3xl print:bg-white text-sm">
+                    <h3 className="text-lg font-bold text-yellow-900 mb-6 uppercase">Circuit Key</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono text-lg">
+                        {problems.map((p, i) => (
+                            <div key={i} className="border-b border-yellow-100 pb-2 flex justify-between">
+                                <span className="text-slate-500 text-xs">#{i + 1}</span>
+                                <span className="font-bold text-yellow-700">{p.ans}</span>
                             </div>
                         ))}
                     </div>

@@ -451,14 +451,21 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('comparing-ordering-fractions-decimals') && <ComparingOrderingFractionsDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('adding-decimals-challenge') && <AddingDecimalsChallenge seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('add-sub-mixed-numbers') || activeDocs.includes('mixed-numbers-add-sub')) && <AddSubMixedNumbers seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {(activeDocs.includes('fraction-mult') || activeDocs.includes('fraction-mult-whole')) && <MultiplyingFractionsWhole seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {(activeDocs.includes('div-fractions') || activeDocs.includes('fraction-div')) && <DividingFractions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('fraction-mult') || activeDocs.includes('fraction-mult-whole') || activeDocs.includes('multiplying-fractions')) && <MultiplyingFractionsWhole seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('multiplying-fractions') && <MultiplyingFractions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="multiplying-fractions" />}
+            {(activeDocs.includes('div-fractions') || activeDocs.includes('fraction-div') || activeDocs.includes('dividing-fractions')) && <DividingFractions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId={activeDocs.includes('dividing-fractions') ? "dividing-fractions" : undefined} />}
+
+            {/* 5th Grade Operations */}
+            {activeDocs.includes('long-division-multidigit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('order-of-operations-pemdas') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="order-of-operations-pemdas" />}
 
             {/* 5th Grade Geometry & Algebra */}
             {activeDocs.includes('volume-rectangular-prisms') && <VolumeRectangularPrisms seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('area-triangles-parallelograms') && <AreaTrianglesParallelograms seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('classifying-shapes') && <ClassifyingShapes5th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('coordinate-graphing') && <CoordinateGraphing seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('nets-3d-shapes') && <Nets3DShapes seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('transformations-5th') && <Transformations5th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('patterns-rules') && <PatternsRules seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('solving-one-step-equations') || activeDocs.includes('writing-expressions')) && <SolvingOneStepEquations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('evaluating-expressions') && <EvaluatingExpressions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
