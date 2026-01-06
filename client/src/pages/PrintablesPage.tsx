@@ -449,7 +449,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   // CRITICAL: Never trigger autoprint if preview=1 (used in iframes on category pages)
   // Only calculate autoPrint if we're on the /print route AND not in preview mode - prevents popup on category pages
   const autoPrint = !isPreview && isPrintRoute && ((params.get('autoprint') || '').toLowerCase() === '1' || (params.get('autoprint') || '').toLowerCase() === 'true')
-  const autoDownload = (params.get('download') || '').toLowerCase() === '1' || (params.get('download') || '').toLowerCase() === 'true'
+  const autoDownload = !isPreview && isPrintRoute && ((params.get('download') || '').toLowerCase() === '1' || (params.get('download') || '').toLowerCase() === 'true')
   const packTime = params.get('time') || '5'
   const packAge = params.get('age') || 'k2'
   const packSkill = params.get('skill') || 'mixed'
@@ -1573,6 +1573,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       previousUrlRef.current = currentUrl
     }
   }, [urlSearch, doc])
+
+  // CRITICAL: We only render worksheet content if we're on the /print route OR if a propDocId was passed (slug-based route)
+  // If we're neither, then we don't render anything to avoid polluting other pages
+  if (!isPrintRoute && !propDocId) {
+    return null
+  }
+
   return (
     <div className="min-h-screen bg-white" data-worksheet-content="true" data-doc={doc || primaryDoc || ''}>
       <style>{`
