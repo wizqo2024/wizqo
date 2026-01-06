@@ -6,6 +6,7 @@ import { OnePagerWorksheet } from '../OnePagerWorksheet';
 import { RewardChart, GratitudeJar, MoodTracker, WeeklyGoals, Mandalas, FeelingsCheckin } from '../SocialEmotionalWorksheets';
 import { BrainBoost, CreativeChallenge } from '../../LogicWorksheets';
 import { AnimalPack } from '../KindergartenExtraWorksheets';
+import { Sudoku } from '@/pages/worksheets/Sudoku';
 
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper } from '../PrintableShared'; // Needed for ScienceMatch
@@ -125,11 +126,25 @@ export const HolidayRenderer: React.FC<HolidayRendererProps> = ({ activeDocs, se
                     activeDocs={activeDocs}
                     showAnswers={true}
                     effectiveSeed={effectiveSeed}
-                    variant={String(variant)}
+                    variant={variant}
                     packTime="free"
                     packAge="k2"
                     packSkill="brain"
                     showAnswersForDoc={showAnswersForDoc}
+                    docId={activeDocs.find(d => ['word-search', 'ws-animals', 'ws-space', 'ws-sight-words', 'ws-world'].includes(d)) || 'word-search'}
+                    seed={effectiveSeed}
+                />
+            )}
+
+            {(activeDocs.includes('sudoku4') || activeDocs.includes('sudoku6')) && (
+                <Sudoku
+                    activeDocs={activeDocs}
+                    showAnswers={true}
+                    effectiveSeed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                    docId={activeDocs.find(d => d.startsWith('sudoku')) || 'sudoku4'}
+                    seed={effectiveSeed}
                 />
             )}
         </>

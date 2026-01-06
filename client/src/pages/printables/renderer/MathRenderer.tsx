@@ -348,6 +348,34 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             {activeDocs.includes('doubles-near-doubles') && <DoublesNearDoubles docId="doubles-near-doubles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('number-line-200') && <NumberLine200 docId="number-line-200" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
+            {/* Additional Math Restoration */}
+            {activeDocs.includes('place-value-hto') && <PlaceValueHTO seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('sub-2digit-100') && <Sub2Digit100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('word-problems-100') && <WordProblems100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('compare-2-digit') && <Compare2Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('even-odd-100') && <EvenOdd100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('time-5-min') && <Time5Min seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* First Grade Restoration */}
+            {activeDocs.includes('number-line-addition') && <NumberLineAddition docId="number-line-addition" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('skip-counting') && <SkipCountingWorksheet docId="skip-counting" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('balance-equations') && <BalanceEquations docId="balance-equations" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('subtraction-stories') && <SubtractionStories docId="subtraction-stories" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('number-bonds-10') && <NumberBonds10 docId="number-bonds-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('count-write-30') && <CountWrite30 docId="count-write-30" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('missing-numbers-50') && <MissingNumbers50FirstGrade docId="missing-numbers-50" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('doubles-facts') && <DoublesFacts docId="doubles-facts" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('picture-addition-10') && <PictureAddition10 docId="picture-addition-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('ten-frames-1-10') && <TenFrames1To10 docId="ten-frames-1-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* Higher Grade Content */}
+            {activeDocs.includes('div-facts-1-12') && <DivisionFacts docId="div-facts-1-12" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('factors-multiples') && <FactorsMultiples docId="factors-multiples" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('prime-composite') && <PrimeComposite docId="prime-composite" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('math-maze') && <MathMazeWorksheets key="math-maze" docId="math-maze" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('logic-grid') && <LogicWorksheets docId="logic-grid" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('logic-maze') && <LogicWorksheets docId="logic-maze" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+
         </>
     );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { CVCWords, SightWordsPrePrimer, LetterTracingAZ, RhymingWords, SentenceBuilding } from '../LanguageWorksheets';
+import { GrammarDetective } from '../GrammarWorksheets';
 import { ReadingComprehension } from '../ReadingWorksheets';
 import { WorksheetSectionWrapper } from '../PrintableShared'; // Required for inline renderers if any
 
@@ -158,6 +159,9 @@ export const LanguageRenderer: React.FC<LanguageRendererProps> = ({ activeDocs, 
             )}
             {activeDocs.includes('letter-tracing-az') && (
                 <LetterTracingAZ docId="letter-tracing-az" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+            {activeDocs.includes('grammar-detective') && (
+                <GrammarDetective docId="grammar-detective" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
             )}
         </>
     );
