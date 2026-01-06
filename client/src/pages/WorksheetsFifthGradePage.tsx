@@ -461,9 +461,9 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
               window.open(printUrl, '_blank')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            aria-label={`${t('pages.fifthGrade.download')} ${title}`}
+            aria-label={`${t('pages.fifthGrade.downloadButton')} ${title}`}
           >
-            {t('pages.fifthGrade.download')}
+            {t('pages.fifthGrade.downloadButton')}
           </button>
         </div>
       </div>

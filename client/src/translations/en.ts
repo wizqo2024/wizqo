@@ -1625,7 +1625,7 @@ export const en = {
       subtitle: 'Advanced & Comprehensive',
       description: 'Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics.',
       badge: 'Grade 5',
-      download: 'Download',
+      downloadButton: 'Download',
       previewOf: 'Preview of',
       clickToView: 'Click to view',
       whatsInside: 'What\'s Inside?',
