@@ -113,15 +113,18 @@ import {
     VolumeRectangularPrisms,
     AreaTrianglesParallelograms,
     ClassifyingShapes5th,
-    // CoordinateGraphing,
+    CoordinateGraphing,
     Nets3DShapes,
     Transformations5th,
-    // LineGraphsAs5th,
-    MeanMedianModeRange, // Assuming this export exists or check file
+    LineGraphs,
+    MeanMedianModeRange,
     StemLeafPlots,
     Probability5th,
     FifthGradeWordProblems,
-    WritingExpressions
+    WritingExpressions,
+    MultiplyingFractions,
+    MultiplyingFractionsWhole,
+    DividingFractions
 } from '../FifthGradeWorksheets';
 import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems as MoneyProblems3rd } from '../ThirdGradeMathWorksheets';
 import { FactorsMultiples, PrimeComposite } from '../FactorsWorksheets';
@@ -442,6 +445,41 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
 
 
             {/* 5th Grade */}
+            {activeDocs.includes('multiplying-decimals') && <MultiplyingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('dividing-decimals') && <DividingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-decimals-percents') && <FractionsDecimalsPercents seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('comparing-ordering-fractions-decimals') && <ComparingOrderingFractionsDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('adding-decimals-challenge') && <AddingDecimalsChallenge seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('add-sub-mixed-numbers') || activeDocs.includes('mixed-numbers-add-sub')) && <AddSubMixedNumbers seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('fraction-mult') || activeDocs.includes('fraction-mult-whole')) && <MultiplyingFractionsWhole seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('div-fractions') || activeDocs.includes('fraction-div')) && <DividingFractions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 5th Grade Geometry & Algebra */}
+            {activeDocs.includes('volume-rectangular-prisms') && <VolumeRectangularPrisms seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('area-triangles-parallelograms') && <AreaTrianglesParallelograms seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('classifying-shapes') && <ClassifyingShapes5th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('coordinate-graphing') && <CoordinateGraphing seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('patterns-rules') && <PatternsRules seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('solving-one-step-equations') || activeDocs.includes('writing-expressions')) && <SolvingOneStepEquations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('evaluating-expressions') && <EvaluatingExpressions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 5th Grade Data Analysis */}
+            {activeDocs.includes('mean-median-mode-range') && <MeanMedianModeRange seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mean-median-mode-range" />}
+            {activeDocs.includes('line-graphs') && <LineGraphs seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="line-graphs" />}
+            {activeDocs.includes('stem-leaf-plots') && <StemLeafPlots seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="stem-leaf-plots" />}
+            {activeDocs.includes('probability') && <Probability5th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="probability" />}
+
+            {/* 5th Grade Word Problems */}
+            {activeDocs.includes('percent-word-problems') && <FifthGradeWordProblems docId="percent-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('ratio-proportion-word-problems') && <FifthGradeWordProblems docId="ratio-proportion-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('multi-step-word-5th')) && <FifthGradeWordProblems docId="multi-step-word-5th" showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('fraction-word-problems-5th')) && <FifthGradeWordProblems docId="fraction-word-problems-5th" showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('decimal-word-problems-5th')) && <FifthGradeWordProblems docId="decimal-word-problems-5th" showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 5th Grade Operations */}
+            {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('rounding-decimals') && <RoundingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('estimating-sums-differences') && <EstimatingSumsDifferences seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('rounding-decimals') && <RoundingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('estimating-sums-differences') && <EstimatingSumsDifferences seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
