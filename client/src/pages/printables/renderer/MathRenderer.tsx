@@ -405,7 +405,40 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {/* 3rd Grade Measurement & Data */}
             {(activeDocs.includes('time-to-minute') || activeDocs.includes('time-to-the-minute')) && <Time5Min seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('elapsed-time-word-problems') && <MeasurementWordProblems docId="elapsed-time-word-problems" showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('multi-step-word-problems') && <MultiStepWordProblems docId="multi-step-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('multi-step-word-problems') || activeDocs.includes('multi-step-word-5th') || activeDocs.includes('multi-step-word-4th')) && <MultiStepWordProblems docId="multi-step-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 4th & 5th Grade Data Analysis */}
+            {activeDocs.includes('line-plots') && <LinePlots docId="line-plots" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('bar-graphs-pictographs') || activeDocs.includes('bar-graphs-data')) && <BarGraphs docId="bar-graphs-pictographs" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('mean-median-mode') || activeDocs.includes('mean-median-mode-range')) && <MeanMedianMode docId="mean-median-mode" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 4th Grade Geometry & Measurement */}
+            {activeDocs.includes('lines-angles-4th') && <LinesAndAngles docId="lines-angles-4th" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('area-perimeter-4th') && <AreaPerimeter docId="area-perimeter-4th" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('customary-conversion') && <CustomaryUnits docId="customary-conversion" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('metric-conversion') && <MetricUnits docId="metric-conversion" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('elapsed-time-4th') && <ElapsedTime docId="elapsed-time-4th" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('liquid-measurement-4th') && <LiquidMeasurement docId="liquid-measurement-4th" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mass-weight-4th') && <MassAndWeight docId="mass-weight-4th" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 4th Grade Fractions & Decimals */}
+            {activeDocs.includes('mixed-improper-fractions') && <MixedImproperFractions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('fractions-to-decimals') || activeDocs.includes('fractions-to-decimals-basic-tenths') || activeDocs.includes('fractions-to-decimals-division')) && <FractionsToDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 4th Grade Word Problems */}
+            {(activeDocs.includes('fraction-word-problems') || activeDocs.includes('fraction-word-problems-5th')) && <FractionWordProblems docId="fraction-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('decimal-word-problems') || activeDocs.includes('decimal-word-problems-5th')) && <DecimalWordProblems docId="decimal-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('measurement-word-problems') || activeDocs.includes('measurement-word-problems-5th')) && <MeasurementWordProblems docId="measurement-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('geometry-word-problems') && <GeometryWordProblems docId="geometry-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 4th Grade Multiplication & Division */}
+            {(activeDocs.includes('mult-2x1-digit') || activeDocs.includes('mult-2x1')) && <MultiplicationVertical docId="mult-2x1-digit" digitsTop={2} digitsBottom={1} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('mult-2x2-digit') || activeDocs.includes('mult-2x2')) && <MultiplicationVertical docId="mult-2x2-digit" digitsTop={2} digitsBottom={2} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('area-model-mult') || activeDocs.includes('mult-area-model')) && <AreaModelMult seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('partial-products') && <PartialProducts seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('long-division-1digit') || activeDocs.includes('long-division-1-digit')) && <LongDivision1Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('long-division-2digit') || activeDocs.includes('long-division-2-digit')) && <LongDivision2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
 
 
             {/* 5th Grade */}
