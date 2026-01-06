@@ -209,7 +209,50 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             {activeDocs.includes('mult-strategies') && <MultiplicationStrategies seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('mult-fact-fluency') && <MultiplicationFactFluency seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('mult-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('times-table-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('mult-fact-families') && <MultiplicationFactFamilies seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {activeDocs.includes('times-table-fluency-1-12') && (
+                <MultiplicationFactFluency seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+
+            {activeDocs.some(d => d.startsWith('times-table-blank-')) && (
+                <MultiplicationBlankTable
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                    docId={activeDocs.find(d => d.startsWith('times-table-blank-')) || 'times-table-blank-1-12'}
+                    range={
+                        activeDocs.some(d => d.includes('-1-5')) ? [1, 5] :
+                            activeDocs.some(d => d.includes('-6-12')) ? [6, 12] : [1, 12]
+                    }
+                />
+            )}
+
+            {activeDocs.some(d => d.startsWith('times-table-color-')) && (
+                <MultiplicationColorByNumber
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                    docId={activeDocs.find(d => d.startsWith('times-table-color-')) || 'times-table-color-1-12'}
+                    range={
+                        activeDocs.some(d => d.includes('-1-5')) ? [1, 5] :
+                            activeDocs.some(d => d.includes('-6-12')) ? [6, 12] : [1, 12]
+                    }
+                />
+            )}
+
+            {activeDocs.some(d => d.startsWith('times-table-confidence-')) && (
+                <MultiplicationConfidence
+                    seed={effectiveSeed}
+                    variant={variant}
+                    showAnswersForDoc={showAnswersForDoc}
+                    docId={activeDocs.find(d => d.startsWith('times-table-confidence-')) || 'times-table-confidence-1-5'}
+                    range={
+                        activeDocs.some(d => d.includes('-6-12')) ? [6, 12] : [1, 5]
+                    }
+                />
+            )}
 
             {/* Multiplication Word Problems */}
             {activeDocs.includes('mult-word-problems') && (

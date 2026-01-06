@@ -19,6 +19,7 @@ import React, {
   ComponentType,
   MouseEvent
 } from 'react'
+import { removeLocaleFromPath } from '@/utils/locale';
 import { useTranslation } from '@/context/TranslationContext'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
@@ -144,7 +145,15 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'mult-facts-6-12',
   'mult-arrays-models',
   'mult-multi-step-word',
-  'mult-fact-families',
+  'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12',
+  'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12',
+  'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed',
+  'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12',
+  'times-table-mixed-review', 'times-table-fluency-1-12',
+  'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
+  'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
+  'times-table-confidence-1-5', 'times-table-confidence-6-12',
+  'mult-horizontal', 'mult-vertical', 'mult-missing', 'mult-timed',
   'mult-2x1',
   'mult-2x2',
   'mult-area-model',
@@ -392,8 +401,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   // This prevents autoprint from triggering on category pages
   const [isPrintRoute, setIsPrintRoute] = useState(() => {
     if (typeof window === 'undefined') return false
-    const pathname = window.location.pathname
-    return pathname === '/print' || pathname.startsWith('/print?')
+    const purePath = removeLocaleFromPath(window.location.pathname).replace(/\/$/, '')
+    return purePath === '/print'
   })
 
   // Update route check when location changes

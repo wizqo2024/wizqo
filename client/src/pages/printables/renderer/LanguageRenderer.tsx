@@ -4,6 +4,7 @@ import { CVCWords, SightWordsPrePrimer, LetterTracingAZ, RhymingWords, SentenceB
 import { GrammarDetective } from '../GrammarWorksheets';
 import { ReadingComprehension } from '../ReadingWorksheets';
 import { WorksheetSectionWrapper } from '../PrintableShared'; // Required for inline renderers if any
+import InteractiveReadingWorksheetPage from '../../InteractiveReadingWorksheetPage';
 
 import { makeRng, shuffleArray } from '@/utils/printableUtils';
 
@@ -162,6 +163,9 @@ export const LanguageRenderer: React.FC<LanguageRendererProps> = ({ activeDocs, 
             )}
             {activeDocs.includes('grammar-detective') && (
                 <GrammarDetective docId="grammar-detective" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+            {activeDocs.includes('reading-discovery-interactive') && (
+                <InteractiveReadingWorksheetPage />
             )}
         </>
     );

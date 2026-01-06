@@ -17,7 +17,9 @@ import {
     AnimalPack,
     ColoringWorksheet
 } from '../KindergartenExtraWorksheets';
-import { WorksheetSectionWrapper } from '../PrintableShared'; // For inline SVGs if we move them here eventually
+import { WorksheetSectionWrapper } from '../PrintableShared';
+import ShadowMatchingWorksheetPage from '../../ShadowMatchingWorksheetPage';
+import MatchFeelingWorksheetPage from '../../MatchFeelingWorksheetPage';
 
 // Props interface section
 interface EarlyLearnerRendererProps {
@@ -59,6 +61,14 @@ export const EarlyLearnerRenderer: React.FC<EarlyLearnerRendererProps> = ({ acti
             )}
             {activeDocs.includes('animal-pack') && (
                 <AnimalPack docId="animal-pack" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+
+            {activeDocs.includes('match-object-to-shadow') && (
+                <ShadowMatchingWorksheetPage />
+            )}
+
+            {activeDocs.includes('match-the-feeling') && (
+                <MatchFeelingWorksheetPage />
             )}
 
             {activeDocs.includes('directed-drawing-animals') && (
