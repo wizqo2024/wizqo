@@ -37,7 +37,6 @@ function generateLogicPuzzle(seed: string) {
     return { names, colors, pets, clues: shuffle(clues), solution }
 }
 
-
 export const LogicWorksheets = ({ docId, seed, variant, showAnswersForDoc, activeDocs = [] }: SpecificWorksheetProps) => {
     const { getTrans } = useWorksheetTranslation(docId);
 
@@ -74,21 +73,43 @@ export const LogicWorksheets = ({ docId, seed, variant, showAnswersForDoc, activ
                 </ul>
 
                 {/* Solving Grid */}
-                <div className="overflow-x-auto">
-                    <table className="border-collapse w-full max-w-2xl text-sm border border-slate-300">
+                <div className="overflow-x-auto pb-8 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
+                    <table className="border-collapse mt-20 ml-24 text-sm">
                         <thead>
                             <tr>
-                                <th className="p-2 bg-slate-100 border border-slate-300"></th>
-                                {data.colors.map(c => <th key={c} className="p-2 bg-slate-50 border border-slate-300 rotate-45 h-24 align-bottom"><div><span className="block w-24 -ml-8">{c}</span></div></th>)}
-                                {data.pets.map(p => <th key={p} className="p-2 bg-slate-50 border border-slate-300 rotate-45 h-24 align-bottom"><div><span className="block w-24 -ml-8">{p}</span></div></th>)}
+                                <th className="p-3 bg-slate-100 border-2 border-slate-200 rounded-tl-lg"></th>
+                                {data.colors.map((c, i) => (
+                                    <th key={c} className="relative p-0 border-2 border-slate-200 bg-slate-50 w-12 h-12">
+                                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[-100%] rotate-[-45deg] origin-bottom-left whitespace-nowrap pb-2 pl-2 font-bold text-slate-600">
+                                            {c}
+                                        </div>
+                                    </th>
+                                ))}
+                                {data.pets.map((p, i) => (
+                                    <th key={p} className="relative p-0 border-2 border-slate-200 bg-slate-50 w-12 h-12">
+                                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[-100%] rotate-[-45deg] origin-bottom-left whitespace-nowrap pb-2 pl-2 font-bold text-slate-600">
+                                            {p}
+                                        </div>
+                                    </th>
+                                ))}
                             </tr>
                         </thead>
                         <tbody>
-                            {data.names.map(n => (
+                            {data.names.map((n, idx) => (
                                 <tr key={n}>
-                                    <th className="p-2 bg-slate-50 border border-slate-300 text-left font-bold">{n}</th>
-                                    {data.colors.map(c => <td key={c} className="p-2 border border-slate-300 w-10 text-center text-slate-300 hover:bg-slate-50">.</td>)}
-                                    {data.pets.map(p => <td key={p} className="p-2 border border-slate-300 w-10 text-center text-slate-300 hover:bg-slate-50">.</td>)}
+                                    <th className={`p-3 border-2 border-slate-200 text-left font-bold text-slate-700 bg-slate-50 ${idx === data.names.length - 1 ? 'rounded-bl-lg' : ''}`}>
+                                        {n}
+                                    </th>
+                                    {data.colors.map(c => (
+                                        <td key={c} className="p-0 border-2 border-slate-200 w-12 h-12 text-center text-slate-200 hover:bg-slate-50 cursor-default">
+                                            <div className="flex items-center justify-center w-full h-full text-xs opacity-20 hover:opacity-100 transition-opacity">.</div>
+                                        </td>
+                                    ))}
+                                    {data.pets.map(p => (
+                                        <td key={p} className="p-0 border-2 border-slate-200 w-12 h-12 text-center text-slate-200 hover:bg-slate-50 cursor-default">
+                                            <div className="flex items-center justify-center w-full h-full text-xs opacity-20 hover:opacity-100 transition-opacity">.</div>
+                                        </td>
+                                    ))}
                                 </tr>
                             ))}
                         </tbody>
