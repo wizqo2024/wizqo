@@ -457,7 +457,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
 
             {/* 5th Grade Operations */}
             {activeDocs.includes('long-division-multidigit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('order-of-operations-pemdas') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="order-of-operations-pemdas" />}
+            {(activeDocs.includes('order-of-operations') || activeDocs.includes('order-of-operations-pemdas')) && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="order-of-operations" />}
 
             {/* Order of Operations (PEMDAS) - New Mappings */}
             {activeDocs.includes('pemdas-basic') && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="pemdas-basic" />}
