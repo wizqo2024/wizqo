@@ -164,19 +164,21 @@ export default function AllWorksheetsPage() {
         keywords="worksheet categories, browse worksheets, all worksheet types, worksheet directory, worksheets by grade, worksheets by subject, complete worksheet list, free worksheet categories, math worksheets by grade, reading worksheets, handwriting worksheets"
         canonicalUrl="https://wizqo.com/worksheets/all"
       />
-      
+
       {/* Breadcrumb Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-          { "@type": "ListItem", position: 2, name: "All Worksheets", item: "https://wizqo.com/worksheets/all" }
-        ]
-      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+            { "@type": "ListItem", position: 2, name: "All Worksheets", item: "https://wizqo.com/worksheets/all" }
+          ]
+        })
+      }} />
 
       <UnifiedNavigation />
-      
+
       <main>
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -209,7 +211,7 @@ export default function AllWorksheetsPage() {
 
         {/* Categories Grid */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          
+
           {/* Math by Grade */}
           <section className="mb-16">
             <div className="flex items-center gap-3 mb-8">
@@ -330,14 +332,12 @@ function CategoryCard({ category }: { category: CategoryCard }) {
           {category.badge}
         </span>
       )}
-      
-      {/* Icon & Title */}
-      <div className="flex items-start gap-4 mb-3">
-        <div className={`w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center rounded-xl group-hover:scale-110 transition-transform duration-300 ${getIconBgClass(category.iconType)}`}>
-          <CategoryIcon iconType={category.iconType} />
-        </div>
+
+      {/* Thumbnail & Title */}
+      <div className="flex items-start gap-5 mb-4">
+        <WorksheetThumbnail iconType={category.iconType} />
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
             {category.title}
           </h3>
         </div>
@@ -370,7 +370,74 @@ function CategoryCard({ category }: { category: CategoryCard }) {
   )
 }
 
-// Get background gradient class for icon container
+// Micro-Preview Thumbnail Component
+function WorksheetThumbnail({ iconType }: { iconType: string }) {
+  const isMath = iconType.includes('grade') || ['multiplication', 'times-table', 'fractions', 'operations'].includes(iconType)
+
+  return (
+    <div className="relative w-16 h-20 sm:w-20 sm:h-24 flex-shrink-0 group-hover:scale-105 transition-transform duration-500">
+      {/* Background Sheets (Stacked Effect) */}
+      <div className="absolute inset-0 bg-white rounded-md border border-slate-200 translate-x-2 translate-y-2 shadow-sm"></div>
+      <div className="absolute inset-0 bg-white rounded-md border border-slate-200 translate-x-1 translate-y-1 shadow-sm"></div>
+
+      {/* Top Sheet */}
+      <div className={`absolute inset-0 rounded-md border-2 border-slate-200 bg-white shadow-md overflow-hidden flex flex-col p-1.5 sm:p-2 ${getThumbBorderClass(iconType)}`}>
+        {/* Header Area */}
+        <div className="w-full h-1 bg-slate-100 rounded-full mb-1 sm:mb-2"></div>
+
+        {/* Content Area (Mini Mockup) */}
+        <div className="flex-1 flex flex-col gap-1 sm:gap-1.5 opacity-60">
+          {isMath ? (
+            // Math Grid Pattern
+            <div className="grid grid-cols-2 gap-1 h-full">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="border border-slate-100 rounded bg-slate-50 flex items-center justify-center">
+                  <CategoryIcon iconType={iconType} /> {/* Tiny icon as a watermark */}
+                </div>
+              ))}
+            </div>
+          ) : (
+            // Reading/Language Lines Pattern
+            <div className="flex flex-col gap-1.5 py-1">
+              <div className="w-full h-0.5 bg-slate-100"></div>
+              <div className="w-3/4 h-0.5 bg-slate-100"></div>
+              <div className="w-full h-0.5 bg-slate-100"></div>
+              <div className="w-1/2 h-0.5 bg-slate-100"></div>
+              <div className="flex items-center justify-center mt-2">
+                <CategoryIcon iconType={iconType} />
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Bottom Footer Accent */}
+        <div className={`w-1/2 h-1 rounded-full mt-auto ${getThumbAccentClass(iconType)} opacity-40`}></div>
+      </div>
+    </div>
+  )
+}
+
+function getThumbBorderClass(iconType: string): string {
+  if (iconType.includes('kindergarten')) return 'border-pink-200'
+  if (iconType.includes('first')) return 'border-blue-200'
+  if (iconType.includes('second')) return 'border-green-200'
+  if (iconType.includes('third')) return 'border-yellow-200'
+  if (iconType.includes('fourth')) return 'border-purple-200'
+  if (iconType.includes('fifth')) return 'border-orange-200'
+  return 'border-indigo-200'
+}
+
+function getThumbAccentClass(iconType: string): string {
+  if (iconType.includes('kindergarten')) return 'bg-pink-500'
+  if (iconType.includes('first')) return 'bg-blue-500'
+  if (iconType.includes('second')) return 'bg-green-500'
+  if (iconType.includes('third')) return 'bg-yellow-500'
+  if (iconType.includes('fourth')) return 'bg-purple-500'
+  if (iconType.includes('fifth')) return 'bg-orange-500'
+  return 'bg-indigo-500'
+}
+
+// Keep icon helper for usage inside thumbnails or elsewhere
 function getIconBgClass(iconType: string): string {
   switch (iconType) {
     case 'kindergarten':
@@ -410,10 +477,10 @@ function getIconBgClass(iconType: string): string {
   }
 }
 
-// Category Icon Component
+// Category Icon Component - Simplified for thumb usage
 function CategoryIcon({ iconType }: { iconType: string }) {
-  const iconClass = "w-6 h-6 sm:w-7 sm:h-7"
-  
+  const iconClass = "w-3 h-3 sm:w-4 sm:h-4"
+
   const getIconColor = (iconType: string): string => {
     switch (iconType) {
       case 'kindergarten': return 'text-pink-600'
@@ -446,31 +513,31 @@ function CategoryIcon({ iconType }: { iconType: string }) {
     case 'first-grade':
       return (
         <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 5v14M5 12h14" />
         </svg>
       )
     case 'second-grade':
       return (
         <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 17h18M3 12h4m3 0h4m3 0h4M3 7h18" />
         </svg>
       )
     case 'third-grade':
       return (
         <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21.21 15.89A10 10 0 118 2.83M22 12A10 10 0 0012 2v10z" />
         </svg>
       )
     case 'fourth-grade':
       return (
         <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2L2 22h20L12 2zM12 8l-5 10h10l-5-10z" />
         </svg>
       )
     case 'fifth-grade':
       return (
         <svg className={`${iconClass} ${getIconColor(iconType)}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4h16v16H4V4z M8 8h.01M12 8h.01M16 8h.01M8 13h.01M12 13h.01M16 13h.01M8 18h.01M12 18h.01M16 18h.01" />
         </svg>
       )
     case 'multiplication':
