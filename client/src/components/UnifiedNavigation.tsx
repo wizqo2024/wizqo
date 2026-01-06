@@ -132,8 +132,13 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
               <a href="/blog" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'blog' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <div className={currentPage === 'blog' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="4" width="18" height="16" rx="2" fill="#FEF3C7" />
+                    <rect x="5" y="6" width="14" height="2" rx="1" fill="#FDE68A" />
+                    <rect x="5" y="10" width="10" height="1" rx="0.5" fill="#F59E0B" />
+                    <rect x="5" y="12" width="14" height="1" rx="0.5" fill="#F59E0B" />
+                    <rect x="5" y="14" width="14" height="1" rx="0.5" fill="#F59E0B" />
+                    <path d="M16 10H19V15H16V10Z" fill="#FBBF24" />
                   </svg>
                 </div>
                 <span className="font-medium">{t('navigation.blog')}</span>
@@ -151,8 +156,12 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       const pathname = window.location.pathname;
                       return pathname === '/worksheets/all' || currentPage === 'interactive-worksheets-generator' || getIsWorksheetsPageActive();
                     })() ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6C4 4.89543 4.89543 4 6 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6Z" fill="#E0F2FE" />
+                        <path d="M6 8H18" stroke="#7DD3FC" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M6 12H18" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M6 16H13" stroke="#0EA5E9" strokeWidth="2" strokeLinecap="round" />
+                        <rect x="15" y="14" width="4" height="5" rx="1" fill="#0EA5E9" opacity="0.4" />
                       </svg>
                     </div>
                     <span className="font-medium whitespace-nowrap">{t('navigation.worksheets')}</span>
@@ -362,8 +371,12 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
               <a href="/generate" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <div className={currentPage === 'generate' || currentPage === 'plan' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L4 7V17L12 22L20 17V7L12 2Z" fill="#ECFDF5" />
+                    <path d="M12 2L4 7L12 12L20 7L12 2Z" fill="#D1FAE5" />
+                    <path d="M4 7V17L12 22L12 12L4 7Z" fill="#A7F3D0" />
+                    <path d="M20 7V17L12 22L12 12L20 7Z" fill="#6EE7B7" />
+                    <path d="M12 15L15 11M12 15L9 11M12 15V8" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
                 <span className="font-medium">{t('navigation.learn')}</span>
@@ -373,7 +386,17 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <div className="flex items-center">
                   <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
                     <div className={currentPage === 'kids' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
-                      <Puzzle className="w-4 h-4" />
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.5 13H15V9.5C15 8.11929 13.8807 7 12.5 7H11.5C10.1193 7 9 8.11929 9 9.5V13H5.5C4.11929 13 3 14.1193 3 15.5V16.5C3 17.8807 4.11929 19 5.5 19H18.5C19.8807 19 21 17.8807 21 16.5V15.5C21 14.1193 19.8807 13 18.5 13Z" fill="#F5H1FF" opacity="0.2" />
+                        <path d="M11 11H13V13H11V11Z" fill="#D8B4FE" />
+                        <path d="M11 15H13V17H11V15Z" fill="#D8B4FE" />
+                        <path d="M7 11H9V13H7V11Z" fill="#D8B4FE" />
+                        <path d="M7 15H9V17H7V15Z" fill="#D8B4FE" />
+                        <path d="M15 11H17V13H15V11Z" fill="#D8B4FE" />
+                        <path d="M15 15H17V17H15V15Z" fill="#D8B4FE" />
+                        <path d="M10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5V7H10V5Z" fill="#A855F7" />
+                        <rect x="4" y="9" width="16" height="10" rx="2" fill="#C084FC" />
+                      </svg>
                     </div>
                     <span className="font-medium">{t('navigation.kidsHub')}</span>
                   </a>
