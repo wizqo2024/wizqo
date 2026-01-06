@@ -411,9 +411,10 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('place-value-hto') && <PlaceValueHTO seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('sub-2digit-100') && <Sub2Digit100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('word-problems-100') && <WordProblems100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('compare-2-digit') && <Compare2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('compare-2-digit') || activeDocs.includes('compare-2digit')) && <Compare2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('even-odd-100') && <EvenOdd100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('time-5-min') && <Time5Min seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('time-5-min') || activeDocs.includes('time-5min')) && <Time5Min seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('skip-count-5-10-120') || activeDocs.includes('skip-counting-by-5s-and-10s-to-120')) && <SkipCounting5To120 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* First Grade Restoration */}
             {(activeDocs.includes('number-line-addition') || activeDocs.includes('number-line-add')) && (
