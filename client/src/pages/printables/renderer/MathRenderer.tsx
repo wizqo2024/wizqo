@@ -71,7 +71,9 @@ import {
     LongDivision2Digit,
     LongDivisionMultiDigit,
     DividingBy10And100,
-    DivisionFacts
+    DivisionFacts,
+    DivisionWithRemainders,
+    DivisionWordProblems
 } from '../DivisionWorksheets';
 import { OrderOfOperations } from '../OrderOfOperations';
 import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10, CountingObjects20 } from '../FirstGradeMathWorksheets';
@@ -378,7 +380,30 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('long-division-1-digit') && <LongDivision1Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('long-division-2-digit') && <LongDivision2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('long-division-multi-digit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('dividing-by-10-100') && <DividingBy10And100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('long-division-multi-digit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('dividing-by-10-100') || activeDocs.includes('div-by-10-100')) && <DividingBy10And100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 3rd Grade Math Restoration */}
+            {activeDocs.includes('metric-units') && <MetricUnits docId="metric-units" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('money-word-problems') && <MoneyProblems3rd docId="money-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-number-line') && <FractionsNumberLine docId="fractions-number-line" showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-whole') && <FractionsWholeNumbers docId="fractions-whole" showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 3rd Grade Multiplication & Division */}
+            {activeDocs.includes('mult-properties') && <MultiplicationProperties seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-by-10-100') && <MultiplicationBy10And100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('div-with-remainders') && <DivisionWithRemainders seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('div-word-problems') && <DivisionWordProblems seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fact-families-mult-div') && <MultiplicationFactFamilies docId="fact-families-mult-div" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 3rd Grade Fractions Extras */}
+            {(activeDocs.includes('comparing-fractions') || activeDocs.includes('comparing-fractions-4th')) && <ComparingFractions4th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('equivalent-fractions') || activeDocs.includes('equivalent-fractions-4th')) && <EquivFractions4th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('add-sub-fractions') || activeDocs.includes('add-sub-fractions-4th')) && <AddSubFractions4th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
+            {/* 3rd Grade Measurement & Data */}
+            {(activeDocs.includes('time-to-minute') || activeDocs.includes('time-to-the-minute')) && <Time5Min seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
 
             {/* 5th Grade */}
             {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
