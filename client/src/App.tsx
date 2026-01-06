@@ -620,6 +620,23 @@ export default function App() {
                     // If routeSubKey exists but no worksheet found, show 404
                     return <NotFoundPage />;
                   }
+
+                  // Specific routes that should NOT be handled by the generic PrintablesPage
+                  if (routeSubKey === '2nd-grade-math-worksheets') {
+                    const canonical = addLocaleToPath('/worksheets/2nd-grade-math-worksheets', currentLocale);
+                    return (
+                      <>
+                        <SEOMetaTags
+                          title="2nd Grade Math Worksheets – Free Printable PDF"
+                          description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF instantly."
+                          keywords="2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2, addition worksheets second grade, subtraction worksheets grade 2, place value worksheets, counting worksheets grade 2"
+                          canonicalUrl={`https://wizqo.com${canonical}`}
+                        />
+                        <WorksheetsSecondGradePage />
+                      </>
+                    );
+                  }
+
                   // Existing category page routes
                   if (routeSubKey === 'multiplication-worksheets') {
                     const canonical = addLocaleToPath('/worksheets/multiplication-worksheets', currentLocale);

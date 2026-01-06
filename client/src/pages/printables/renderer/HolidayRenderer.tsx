@@ -15,13 +15,13 @@ import { WorksheetSectionWrapper } from '../PrintableShared'; // Needed for Scie
 interface HolidayRendererProps {
     activeDocs: string[];
     seed: string;
-    variant: string;
+    variant: number;
     showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode;
-    t: any;
-    getTrans: any;
+    t: (key: string) => string;
+    getTrans: (key: string, fallback: string) => string;
 }
 
-export const HolidayRenderer: React.FC<HolidayRendererProps> = ({ activeDocs, seed: effectiveSeed, variant, showAnswersForDoc, t, getTrans }) => {
+export const HolidayRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAnswersForDoc, t, getTrans }: HolidayRendererProps) => {
     return (
         <>
             {activeDocs.includes('science-match') && (() => {

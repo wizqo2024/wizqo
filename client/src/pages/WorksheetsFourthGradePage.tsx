@@ -142,7 +142,8 @@ export default function WorksheetsFourthGradePage() {
           "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "4th Grade Math Worksheets", item: canonical }
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+            { "@type": "ListItem", position: 3, name: "4th Grade Math Worksheets", item: canonical }
           ]
         } as const;
         const webPageLd = {

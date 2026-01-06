@@ -142,7 +142,7 @@ export default function WorksheetsFirstGradePage() {
           "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/2nd-grade-math-worksheets" },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
             { "@type": "ListItem", position: 3, name: "1st Grade Math Worksheets", item: "https://wizqo.com/worksheets/1st-grade-math-worksheets" }
           ]
         } as const;

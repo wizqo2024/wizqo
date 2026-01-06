@@ -139,7 +139,7 @@ export default function TimesTableMultiplicationWorksheetsPage() {
           "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/interactive-worksheets-generator" },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
             { "@type": "ListItem", position: 3, name: "Times Table Multiplication Worksheets", item: "https://wizqo.com/worksheets/times-table-multiplication-worksheets" }
           ]
         } as const;

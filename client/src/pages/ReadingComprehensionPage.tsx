@@ -390,7 +390,7 @@ export default function ReadingComprehensionPage() {
           "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/2nd-grade-math-worksheets" },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
             { "@type": "ListItem", position: 3, name: "Reading Comprehension", item: "https://wizqo.com/worksheets/reading-comprehension" }
           ]
         } as const;

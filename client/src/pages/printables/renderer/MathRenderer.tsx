@@ -70,7 +70,8 @@ import {
     LongDivision1Digit,
     LongDivision2Digit,
     LongDivisionMultiDigit,
-    DividingBy10And100
+    DividingBy10And100,
+    DivisionFacts
 } from '../DivisionWorksheets';
 import { OrderOfOperations } from '../OrderOfOperations';
 import { NumberLineAddition, SkipCountingWorksheet, BalanceEquations, SubtractionStories, NumberBonds10, CountWrite30, MissingNumbers50 as MissingNumbers50FirstGrade, DoublesFacts, PictureAddition10, CountingObjects20 } from '../FirstGradeMathWorksheets';
@@ -128,149 +129,150 @@ import { GeographyWorksheets } from '../../GeographyWorksheets';
 interface MathRendererProps {
     activeDocs: string[];
     seed: string;
-    variant: string;
+    variant: number;
     showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode;
-    t: any;
-    getTrans: any;
+    t: (key: string) => string;
+    getTrans: (key: string, fallback: string) => string;
     language?: string;
 }
 
-export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: effectiveSeed, variant, showAnswersForDoc, t, getTrans, language = 'en' }) => {
+export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAnswersForDoc, t, getTrans, language = 'en' }: MathRendererProps) => {
+    const numVariant = variant;
     return (
         <>
             {/* Multiplication Section */}
             {/* Basic Facts 0-12 */}
             {activeDocs.includes('mult-facts-0-12') && (
-                <MultiplicationFacts seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-facts-0-12" range={[0, 12]} />
+                <MultiplicationFacts seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mult-facts-0-12" range={[0, 12]} />
             )}
             {activeDocs.includes('mult-facts-1-5') && (
-                <MultiplicationFacts seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-facts-1-5" range={[1, 5]} />
+                <MultiplicationFacts seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mult-facts-1-5" range={[1, 5]} />
             )}
             {activeDocs.includes('mult-facts-6-12') && (
-                <MultiplicationFacts seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-facts-6-12" range={[6, 12]} />
+                <MultiplicationFacts seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mult-facts-6-12" range={[6, 12]} />
             )}
 
             {/* Arrays */}
             {activeDocs.includes('mult-arrays-2-5') && (
-                <MultiplicationArrays2To5 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <MultiplicationArrays2To5 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {(activeDocs.includes('mult-arrays') || activeDocs.includes('mult-arrays-models')) && (
-                <MultiplicationArraysModels seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <MultiplicationArraysModels seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('mult-window-arrays') && (
-                <MultiplicationWindowArrays seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <MultiplicationWindowArrays seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
 
             {/* Skip Counting Mult */}
             {activeDocs.includes('skip-count-mult') && (
-                <SkipCountingMultiplication seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <SkipCountingMultiplication seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
 
             {/* Times Tables */}
-            {activeDocs.some(d => ['mult-horizontal', 'mult-horizontal-1-5', 'mult-horizontal-6-12', 'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12'].includes(d)) && (
+            {activeDocs.some((d: string) => ['mult-horizontal', 'mult-horizontal-1-5', 'mult-horizontal-6-12', 'times-table-horizontal-1-5', 'times-table-horizontal-6-12', 'times-table-horizontal-1-12'].includes(d)) && (
                 <TimesTableHorizontal
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
-                    docId={activeDocs.find(d => d.startsWith('mult-horizontal') || d.startsWith('times-table-horizontal')) || 'times-table-horizontal-1-12'}
+                    docId={activeDocs.find((d: string) => d.startsWith('mult-horizontal') || d.startsWith('times-table-horizontal')) || 'times-table-horizontal-1-12'}
                     range={(activeDocs.includes('mult-horizontal-1-5') || activeDocs.includes('times-table-horizontal-1-5')) ? [1, 5] : (activeDocs.includes('mult-horizontal-6-12') || activeDocs.includes('times-table-horizontal-6-12')) ? [6, 12] : [1, 12]}
                 />
             )}
-            {activeDocs.some(d => ['mult-vertical', 'mult-vertical-1-5', 'mult-vertical-6-12', 'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12'].includes(d)) && (
+            {activeDocs.some((d: string) => ['mult-vertical', 'mult-vertical-1-5', 'mult-vertical-6-12', 'times-table-vertical-1-5', 'times-table-vertical-6-12', 'times-table-vertical-1-12'].includes(d)) && (
                 <TimesTableVertical
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
-                    docId={activeDocs.find(d => d.startsWith('mult-vertical') || d.startsWith('times-table-vertical')) || 'times-table-vertical-1-12'}
+                    docId={activeDocs.find((d: string) => d.startsWith('mult-vertical') || d.startsWith('times-table-vertical')) || 'times-table-vertical-1-12'}
                     range={(activeDocs.includes('mult-vertical-1-5') || activeDocs.includes('times-table-vertical-1-5')) ? [1, 5] : (activeDocs.includes('mult-vertical-6-12') || activeDocs.includes('times-table-vertical-6-12')) ? [6, 12] : [1, 12]}
                 />
             )}
-            {activeDocs.some(d => ['mult-missing', 'mult-missing-1-5', 'mult-missing-6-12', 'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed'].includes(d)) && (
+            {activeDocs.some((d: string) => ['mult-missing', 'mult-missing-1-5', 'mult-missing-6-12', 'times-table-missing-1-5', 'times-table-missing-6-12', 'times-table-missing-mixed'].includes(d)) && (
                 <TimesTableMissing
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
-                    docId={activeDocs.find(d => d.startsWith('mult-missing') || d.startsWith('times-table-missing')) || 'times-table-missing-mixed'}
+                    docId={activeDocs.find((d: string) => d.startsWith('mult-missing') || d.startsWith('times-table-missing')) || 'times-table-missing-mixed'}
                     range={(activeDocs.includes('mult-missing-1-5') || activeDocs.includes('times-table-missing-1-5')) ? [1, 5] : (activeDocs.includes('mult-missing-6-12') || activeDocs.includes('times-table-missing-6-12')) ? [6, 12] : [1, 12]}
                 />
             )}
-            {activeDocs.some(d => ['mult-timed', 'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12'].includes(d)) && (
+            {activeDocs.some((d: string) => ['mult-timed', 'times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12'].includes(d)) && (
                 <MultiplicationTimed
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
-                    docId={activeDocs.find(d => ['times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12'].includes(d)) || 'times-table-timed-1-12'}
+                    docId={activeDocs.find((d: string) => ['times-table-timed-1-5', 'times-table-timed-6-12', 'times-table-timed-1-12'].includes(d)) || 'times-table-timed-1-12'}
                     count={60}
                     timeLimit={(activeDocs.includes('times-table-timed-6-12') || activeDocs.includes('times-table-timed-1-12')) ? "5 minutes" : "3 minutes"}
                 />
             )}
 
-            {activeDocs.includes('mult-patterns') && <MultiplicationPatterns seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('mult-strategies') && <MultiplicationStrategies seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('mult-fact-fluency') && <MultiplicationFactFluency seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('mult-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('times-table-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('mult-fact-families') && <MultiplicationFactFamilies seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-patterns') && <MultiplicationPatterns seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-strategies') && <MultiplicationStrategies seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-fact-fluency') && <MultiplicationFactFluency seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('times-table-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-fact-families') && <MultiplicationFactFamilies docId="mult-fact-families" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {activeDocs.includes('times-table-fluency-1-12') && (
-                <MultiplicationFactFluency seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <MultiplicationFactFluency seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
 
-            {activeDocs.some(d => d.startsWith('times-table-blank-')) && (
+            {activeDocs.some((d: string) => d.startsWith('times-table-blank-')) && (
                 <MultiplicationBlankTable
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
-                    docId={activeDocs.find(d => d.startsWith('times-table-blank-')) || 'times-table-blank-1-12'}
+                    docId={activeDocs.find((d: string) => d.startsWith('times-table-blank-')) || 'times-table-blank-1-12'}
                     range={
-                        activeDocs.some(d => d.includes('-1-5')) ? [1, 5] :
-                            activeDocs.some(d => d.includes('-6-12')) ? [6, 12] : [1, 12]
+                        activeDocs.some((d: string) => d.includes('-1-5')) ? [1, 5] :
+                            activeDocs.some((d: string) => d.includes('-6-12')) ? [6, 12] : [1, 12]
                     }
                 />
             )}
 
-            {activeDocs.some(d => d.startsWith('times-table-color-')) && (
+            {activeDocs.some((d: string) => d.startsWith('times-table-color-')) && (
                 <MultiplicationColorByNumber
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
-                    docId={activeDocs.find(d => d.startsWith('times-table-color-')) || 'times-table-color-1-12'}
+                    docId={activeDocs.find((d: string) => d.startsWith('times-table-color-')) || 'times-table-color-1-12'}
                     range={
-                        activeDocs.some(d => d.includes('-1-5')) ? [1, 5] :
-                            activeDocs.some(d => d.includes('-6-12')) ? [6, 12] : [1, 12]
+                        activeDocs.some((d: string) => d.includes('-1-5')) ? [1, 5] :
+                            activeDocs.some((d: string) => d.includes('-6-12')) ? [6, 12] : [1, 12]
                     }
                 />
             )}
 
-            {activeDocs.some(d => d.startsWith('times-table-confidence-')) && (
+            {activeDocs.some((d: string) => d.startsWith('times-table-confidence-')) && (
                 <MultiplicationConfidence
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
-                    docId={activeDocs.find(d => d.startsWith('times-table-confidence-')) || 'times-table-confidence-1-5'}
+                    docId={activeDocs.find((d: string) => d.startsWith('times-table-confidence-')) || 'times-table-confidence-1-5'}
                     range={
-                        activeDocs.some(d => d.includes('-6-12')) ? [6, 12] : [1, 5]
+                        activeDocs.some((d: string) => d.includes('-6-12')) ? [6, 12] : [1, 5]
                     }
                 />
             )}
 
             {/* Multiplication Word Problems */}
             {activeDocs.includes('mult-word-problems') && (
-                <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-word-problems" difficulty="basic" />
+                <MultiplicationWordProblems seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mult-word-problems" difficulty="basic" />
             )}
             {activeDocs.includes('mult-word-problems-2-3') && (
-                <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-word-problems-2-3" difficulty="basic" />
+                <MultiplicationWordProblems seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mult-word-problems-2-3" difficulty="basic" />
             )}
             {activeDocs.includes('mult-multi-step-word') && (
-                <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-multi-step-word" difficulty="multi-step" />
+                <MultiplicationWordProblems seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mult-multi-step-word" difficulty="multi-step" />
             )}
             {activeDocs.includes('mult-complex-word') && (
-                <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-complex-word" difficulty="complex" />
+                <MultiplicationWordProblems seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mult-complex-word" difficulty="complex" />
             )}
 
             {/* Multi-Digit Multiplication (Vertical) */}
-            {activeDocs.some(d => ['mult-2x1', 'mult-2x2', 'mult-3x1', 'mult-3x2', 'mult-2x1-digit', 'mult-2x2-digit', 'mult-3x1-digit', 'mult-3x2-digit'].includes(d)) && (() => {
-                const docId = activeDocs.find(d => d.startsWith('mult-')) || 'mult-2x1';
+            {activeDocs.some((d: string) => ['mult-2x1', 'mult-2x2', 'mult-3x1', 'mult-3x2', 'mult-2x1-digit', 'mult-2x2-digit', 'mult-3x1-digit', 'mult-3x2-digit'].includes(d)) && (() => {
+                const docId = activeDocs.find((d: string) => d.startsWith('mult-')) || 'mult-2x1';
                 let top = 2, bottom = 1;
                 if (docId.includes('2x2')) { top = 2; bottom = 2; }
                 else if (docId.includes('3x2')) { top = 3; bottom = 2; }
@@ -278,7 +280,7 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
                 return (
                     <MultiplicationVertical
                         seed={effectiveSeed}
-                        variant={variant}
+                        variant={numVariant}
                         showAnswersForDoc={showAnswersForDoc}
                         docId={docId}
                         digitsTop={top}
@@ -287,62 +289,62 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
                 )
             })()}
 
-            {activeDocs.includes('mult-area-model') && <AreaModelMult seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-area-model') && <AreaModelMult seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Specific Math Worksheets from MathWorksheets.tsx and SecondGradeMath.tsx */}
             {activeDocs.includes('addition-subtraction-0-10') && (
                 <AdditionSubtraction0To10
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
             {activeDocs.includes('number-tracing-1-10') && (
                 <NumberTracing1To10
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
             {activeDocs.includes('number-tracing-1-20') && (
                 <NumberTracing1To20
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
             {activeDocs.includes('place-value-hto') && (
                 <PlaceValueHTO
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
             {activeDocs.includes('money-coins-bills') && (
                 <MoneyCoinsBills
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
             {activeDocs.includes('measurement-length') && (
                 <MeasurementLength
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
             {activeDocs.includes('bar-graphs-data') && (
                 <BarGraphsData
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
             {activeDocs.includes('add-2digit-100') && (
                 <Add2Digit100
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
@@ -352,73 +354,73 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             <GeographyWorksheets docId="geo-compass-rose" commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans }} />
             <GeographyWorksheets docId="geo-landforms" commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans }} />
             <GeographyWorksheets docId="geo-latlong" commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans }} />
-            {activeDocs.includes('classifying-triangles') && <ClassifyingTriangles docId="classifying-triangles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('classifying-quadrilaterals') && <ClassifyingQuadrilaterals docId="classifying-quadrilaterals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('lines-and-angles') && <LinesAndAngles docId="lines-and-angles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('classifying-angles') && <ClassifyingAngles docId="classifying-angles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('symmetry-transformations') && <SymmetryTransformations docId="symmetry-transformations" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('area-perimeter') && <AreaPerimeter docId="area-perimeter" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('identify-polygons') && <IdentifyPolygons docId="identify-polygons" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('classifying-triangles') && <ClassifyingTriangles docId="classifying-triangles" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('classifying-quadrilaterals') && <ClassifyingQuadrilaterals docId="classifying-quadrilaterals" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('lines-and-angles') && <LinesAndAngles docId="lines-and-angles" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('classifying-angles') && <ClassifyingAngles docId="classifying-angles" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('symmetry-transformations') && <SymmetryTransformations docId="symmetry-transformations" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('area-perimeter') && <AreaPerimeter docId="area-perimeter" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('identify-polygons') && <IdentifyPolygons docId="identify-polygons" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Measurement */}
-            {activeDocs.includes('mass-weight') && <MassAndWeight docId="mass-weight" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('liquid-measurement') && <LiquidMeasurement docId="liquid-measurement" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('elapsed-time') && <ElapsedTime docId="elapsed-time" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('customary-units') && <CustomaryUnits docId="customary-units" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mass-weight') && <MassAndWeight docId="mass-weight" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('liquid-measurement') && <LiquidMeasurement docId="liquid-measurement" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('elapsed-time') && <ElapsedTime docId="elapsed-time" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('customary-units') && <CustomaryUnits docId="customary-units" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Decimals */}
-            {activeDocs.includes('decimals-place-value') && <DecimalsPlaceValue docId="decimals-place-value" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('comparing-decimals') && <ComparingDecimals docId="comparing-decimals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('add-sub-decimals') && <AddSubDecimals docId="add-sub-decimals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('fractions-to-decimals') && <FractionsToDecimals docId="fractions-to-decimals" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('decimals-place-value') && <DecimalsPlaceValue docId="decimals-place-value" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('comparing-decimals') && <ComparingDecimals docId="comparing-decimals" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('add-sub-decimals') && <AddSubDecimals docId="add-sub-decimals" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-to-decimals') && <FractionsToDecimals docId="fractions-to-decimals" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Division */}
-            {activeDocs.includes('long-division-1-digit') && <LongDivision1Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('long-division-2-digit') && <LongDivision2Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('long-division-multi-digit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('dividing-by-10-100') && <DividingBy10And100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('long-division-1-digit') && <LongDivision1Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('long-division-2-digit') && <LongDivision2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('long-division-multi-digit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('dividing-by-10-100') && <DividingBy10And100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 5th Grade */}
-            {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('rounding-decimals') && <RoundingDecimals seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('estimating-sums-differences') && <EstimatingSumsDifferences seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('evaluating-expressions') && <EvaluatingExpressions seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('writing-expressions') && <WritingExpressions seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('solving-one-step-equations') && <SolvingOneStepEquations seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('patterns-rules') && <PatternsRules seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('rounding-decimals') && <RoundingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('estimating-sums-differences') && <EstimatingSumsDifferences seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('evaluating-expressions') && <EvaluatingExpressions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('writing-expressions') && <WritingExpressions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('solving-one-step-equations') && <SolvingOneStepEquations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('patterns-rules') && <PatternsRules seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Critical Math Restorations */}
-            {activeDocs.includes('add-2digit-regrouping') && <Add2DigitRegrouping docId="add-2digit-regrouping" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('sub-2digit-regrouping') && <Sub2DigitRegrouping docId="sub-2digit-regrouping" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('fractions-halves-thirds-fourths') && <FractionsHalvesThirdsFourths seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} showAnswers={true} />}
-            {activeDocs.includes('more-less-equal-10') && <MoreLessEqual10 docId="more-less-equal-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('counting-objects-20') && <CountingObjects20 docId="counting-objects-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('add-2digit-regrouping') && <Add2DigitRegrouping docId="add-2digit-regrouping" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('sub-2digit-regrouping') && <Sub2DigitRegrouping docId="sub-2digit-regrouping" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-halves-thirds-fourths') && <FractionsHalvesThirdsFourths seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} showAnswers={true} />}
+            {activeDocs.includes('more-less-equal-10') && <MoreLessEqual10 docId="more-less-equal-10" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('counting-objects-20') && <CountingObjects20 docId="counting-objects-20" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 2nd Grade Extras */}
-            {activeDocs.includes('expanded-form-200') && <ExpandedForm200 docId="expanded-form-200" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('number-patterns-200') && <NumberPatterns200 docId="number-patterns-200" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('rounding-nearest-10') && <RoundingNearest10 docId="rounding-nearest-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('add-three-numbers') && <AddThreeNumbers docId="add-three-numbers" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('missing-addends') && <MissingAddends docId="missing-addends" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('fact-families-20') && <FactFamilies20 docId="fact-families-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('mental-math-20') && <MentalMath20 docId="mental-math-20" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('doubles-near-doubles') && <DoublesNearDoubles docId="doubles-near-doubles" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('number-line-200') && <NumberLine200 docId="number-line-200" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('expanded-form-200') && <ExpandedForm200 docId="expanded-form-200" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('number-patterns-200') && <NumberPatterns200 docId="number-patterns-200" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('rounding-nearest-10') && <RoundingNearest10 docId="rounding-nearest-10" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('add-three-numbers') && <AddThreeNumbers docId="add-three-numbers" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('missing-addends') && <MissingAddends docId="missing-addends" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fact-families-20') && <FactFamilies20 docId="fact-families-20" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mental-math-20') && <MentalMath20 docId="mental-math-20" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('doubles-near-doubles') && <DoublesNearDoubles docId="doubles-near-doubles" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('number-line-200') && <NumberLine200 docId="number-line-200" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Additional Math Restoration */}
-            {activeDocs.includes('place-value-hto') && <PlaceValueHTO seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('sub-2digit-100') && <Sub2Digit100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('word-problems-100') && <WordProblems100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('compare-2-digit') && <Compare2Digit seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('even-odd-100') && <EvenOdd100 seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('time-5-min') && <Time5Min seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('place-value-hto') && <PlaceValueHTO seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('sub-2digit-100') && <Sub2Digit100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('word-problems-100') && <WordProblems100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('compare-2-digit') && <Compare2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('even-odd-100') && <EvenOdd100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('time-5-min') && <Time5Min seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* First Grade Restoration */}
             {(activeDocs.includes('number-line-addition') || activeDocs.includes('number-line-add')) && (
                 <NumberLineAddition
                     docId={activeDocs.includes('number-line-add') ? 'number-line-add' : 'number-line-addition'}
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
@@ -426,7 +428,7 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
                 <SkipCountingWorksheet
                     docId={activeDocs.includes('skip-count-2s') ? 'skip-count-2s' : 'skip-counting'}
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
@@ -434,25 +436,25 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
                 <BalanceEquations
                     docId={activeDocs.includes('balance-equations-10') ? 'balance-equations-10' : 'balance-equations'}
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                     showAnswersForDoc={showAnswersForDoc}
                 />
             )}
-            {activeDocs.includes('subtraction-stories') && <SubtractionStories docId="subtraction-stories" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('number-bonds-10') && <NumberBonds10 docId="number-bonds-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('count-write-30') && <CountWrite30 docId="count-write-30" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('missing-numbers-50') && <MissingNumbers50FirstGrade docId="missing-numbers-50" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('doubles-facts') && <DoublesFacts docId="doubles-facts" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('picture-addition-10') && <PictureAddition10 docId="picture-addition-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('ten-frames-1-10') && <TenFrames1To10 docId="ten-frames-1-10" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('subtraction-stories') && <SubtractionStories docId="subtraction-stories" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('number-bonds-10') && <NumberBonds10 docId="number-bonds-10" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('count-write-30') && <CountWrite30 docId="count-write-30" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('missing-numbers-50') && <MissingNumbers50FirstGrade docId="missing-numbers-50" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('doubles-facts') && <DoublesFacts docId="doubles-facts" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('picture-addition-10') && <PictureAddition10 docId="picture-addition-10" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('ten-frames-1-10') && <TenFrames1To10 docId="ten-frames-1-10" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Higher Grade Content */}
-            {activeDocs.includes('div-facts-1-12') && <DivisionFacts docId="div-facts-1-12" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('factors-multiples') && <FactorsMultiples docId="factors-multiples" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('prime-composite') && <PrimeComposite docId="prime-composite" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('math-maze') && <MathMazeWorksheets key="math-maze" docId="math-maze" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('logic-grid') && <LogicWorksheets docId="logic-grid" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('logic-maze') && <LogicWorksheets docId="logic-maze" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('div-facts-1-12') && <DivisionFacts seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('factors-multiples') && <FactorsMultiples docId="factors-multiples" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('prime-composite') && <PrimeComposite docId="prime-composite" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('math-maze') && <MathMazeWorksheets key="math-maze" docId="math-maze" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('logic-grid') && <LogicWorksheets docId="logic-grid" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('logic-maze') && <LogicWorksheets docId="logic-maze" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
         </>
     );

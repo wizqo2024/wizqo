@@ -12,13 +12,14 @@ import { makeRng, shuffleArray } from '@/utils/printableUtils';
 interface LanguageRendererProps {
     activeDocs: string[];
     seed: string;
-    variant: string;
+    variant: number;
     showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode;
-    t: any;
-    getTrans: any;
+    t: (key: string) => string;
+    getTrans: (key: string, fallback: string) => string;
 }
 
-export const LanguageRenderer: React.FC<LanguageRendererProps> = ({ activeDocs, seed: effectiveSeed, variant, showAnswersForDoc, t, getTrans }) => {
+export const LanguageRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAnswersForDoc, t, getTrans }: LanguageRendererProps) => {
+    const numVariant = variant;
     return (
         <>
             {activeDocs.includes('spelling') && (() => {
@@ -141,28 +142,28 @@ export const LanguageRenderer: React.FC<LanguageRendererProps> = ({ activeDocs, 
                     activeDocs={activeDocs}
                     showAnswersForDoc={showAnswersForDoc}
                     seed={effectiveSeed}
-                    variant={variant}
+                    variant={numVariant}
                 />
             ))}
 
             {/* Language / Literacy Worksheets */}
             {activeDocs.includes('rhyming-words') && (
-                <RhymingWords docId="rhyming-words" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <RhymingWords docId="rhyming-words" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('cvc-words') && (
-                <CVCWords docId="cvc-words" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <CVCWords docId="cvc-words" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('sentence-building') && (
-                <SentenceBuilding docId="sentence-building" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <SentenceBuilding docId="sentence-building" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('sight-words-pre-primer') && (
-                <SightWordsPrePrimer docId="sight-words-pre-primer" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <SightWordsPrePrimer docId="sight-words-pre-primer" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('letter-tracing-az') && (
-                <LetterTracingAZ docId="letter-tracing-az" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <LetterTracingAZ docId="letter-tracing-az" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('grammar-detective') && (
-                <GrammarDetective docId="grammar-detective" seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />
+                <GrammarDetective docId="grammar-detective" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('reading-discovery-interactive') && (
                 <InteractiveReadingWorksheetPage />

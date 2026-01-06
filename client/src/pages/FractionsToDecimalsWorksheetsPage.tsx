@@ -114,7 +114,7 @@ export default function FractionsToDecimalsWorksheetsPage() {
           "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/interactive-worksheets-generator" },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
             { "@type": "ListItem", position: 3, name: "Fractions to Decimals Worksheets", item: "https://wizqo.com/worksheets/fractions-to-decimals-worksheets" }
           ]
         } as const;
