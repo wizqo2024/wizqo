@@ -211,6 +211,20 @@ export const MathRenderer: React.FC<MathRendererProps> = ({ activeDocs, seed: ef
             {activeDocs.includes('mult-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('mult-fact-families') && <MultiplicationFactFamilies seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} />}
 
+            {/* Multiplication Word Problems */}
+            {activeDocs.includes('mult-word-problems') && (
+                <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-word-problems" difficulty="basic" />
+            )}
+            {activeDocs.includes('mult-word-problems-2-3') && (
+                <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-word-problems-2-3" difficulty="basic" />
+            )}
+            {activeDocs.includes('mult-multi-step-word') && (
+                <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-multi-step-word" difficulty="multi-step" />
+            )}
+            {activeDocs.includes('mult-complex-word') && (
+                <MultiplicationWordProblems seed={effectiveSeed} variant={variant} showAnswersForDoc={showAnswersForDoc} docId="mult-complex-word" difficulty="complex" />
+            )}
+
             {/* Multi-Digit Multiplication (Vertical) */}
             {activeDocs.some(d => ['mult-2x1', 'mult-2x2', 'mult-3x1', 'mult-3x2', 'mult-2x1-digit', 'mult-2x2-digit', 'mult-3x1-digit', 'mult-3x2-digit'].includes(d)) && (() => {
                 const docId = activeDocs.find(d => d.startsWith('mult-')) || 'mult-2x1';
