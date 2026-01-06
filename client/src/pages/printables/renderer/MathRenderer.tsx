@@ -124,7 +124,8 @@ import {
     WritingExpressions,
     MultiplyingFractions,
     MultiplyingFractionsWhole,
-    DividingFractions
+    DividingFractions,
+    AddSubFractionsUnlike
 } from '../FifthGradeWorksheets';
 import { FractionsNumberLine, FractionsWholeNumbers, MetricUnits, MoneyWordProblems as MoneyProblems3rd } from '../ThirdGradeMathWorksheets';
 import { FactorsMultiples, PrimeComposite } from '../FactorsWorksheets';
@@ -454,6 +455,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {(activeDocs.includes('fraction-mult') || activeDocs.includes('fraction-mult-whole') || activeDocs.includes('multiplying-fractions')) && <MultiplyingFractionsWhole seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('multiplying-fractions') && <MultiplyingFractions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="multiplying-fractions" />}
             {(activeDocs.includes('div-fractions') || activeDocs.includes('fraction-div') || activeDocs.includes('dividing-fractions')) && <DividingFractions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId={activeDocs.includes('dividing-fractions') ? "dividing-fractions" : undefined} />}
+            {activeDocs.includes('add-sub-fractions-unlike') && <AddSubFractionsUnlike seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 5th Grade Operations */}
             {activeDocs.includes('long-division-multidigit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
@@ -491,11 +493,11 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('probability') && <Probability5th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="probability" />}
 
             {/* 5th Grade Word Problems */}
-            {activeDocs.includes('percent-word-problems') && <FifthGradeWordProblems docId="percent-word-problems" showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('ratio-proportion-word-problems') && <FifthGradeWordProblems docId="ratio-proportion-word-problems" showAnswersForDoc={showAnswersForDoc} />}
-            {(activeDocs.includes('multi-step-word-5th')) && <FifthGradeWordProblems docId="multi-step-word-5th" showAnswersForDoc={showAnswersForDoc} />}
-            {(activeDocs.includes('fraction-word-problems-5th')) && <FifthGradeWordProblems docId="fraction-word-problems-5th" showAnswersForDoc={showAnswersForDoc} />}
-            {(activeDocs.includes('decimal-word-problems-5th')) && <FifthGradeWordProblems docId="decimal-word-problems-5th" showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('percent-word-problems') && <FifthGradeWordProblems docId="percent-word-problems" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('ratio-proportion-word-problems') && <FifthGradeWordProblems docId="ratio-proportion-word-problems" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('multi-step-word-5th')) && <FifthGradeWordProblems docId="multi-step-word-5th" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('fraction-word-problems-5th')) && <FifthGradeWordProblems docId="fraction-word-problems-5th" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('decimal-word-problems-5th')) && <FifthGradeWordProblems docId="decimal-word-problems-5th" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 5th Grade Operations */}
             {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}

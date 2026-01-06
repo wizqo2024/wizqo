@@ -679,7 +679,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                 if (['find-number-1-10', 'number-order-1-20', 'number-matching-1-15', 'number-tracing-1-10', 'number-id-1-10'].includes(docId)) {
                     return <NumberRecognitionWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />;
                 }
-                if (docId.startsWith('coloring-pages-')) {
+                if (docId.startsWith('coloring')) {
                     return <ColoringWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />;
                 }
                 return null;
