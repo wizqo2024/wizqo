@@ -408,7 +408,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('number-line-200') && <NumberLine200 docId="number-line-200" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Additional Math Restoration */}
-            {activeDocs.includes('place-value-hto') && <PlaceValueHTO seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
             {activeDocs.includes('sub-2digit-100') && <Sub2Digit100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('word-problems-100') && <WordProblems100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('compare-2-digit') || activeDocs.includes('compare-2digit')) && <Compare2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}

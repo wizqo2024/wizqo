@@ -370,192 +370,163 @@ export function PlaceValueHTO({ showAnswersForDoc, seed, variant }: SpecificWork
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title={t(`worksheets.${docId}.title`, 'Place Value  Tens and Ones (to 99)')}
+            title={t(`worksheets.${docId}.title`, 'Place Value: Tens and Ones')}
             emoji={String.fromCodePoint(0x1F518)}
-            description={t(`worksheets.${docId}.description`, 'Write how many tens and ones in each number. Then write the complete number in expanded form in the blank spaces.')}
+            description={t(`worksheets.${docId}.description`, 'Count the groups of ten and single ones. Write the number in standard and expanded form.')}
             problemCount={nums.length}
-            learningObjectives={(() => {
-                const obj = t(`worksheets.${docId}.learningObjectives`)
-                if (Array.isArray(obj) && obj.length > 0 && typeof obj[0] === 'string') return obj as unknown as string[]
-                return [
-                    'Understand place value: tens and ones',
-                    'Break numbers into tens and ones',
-                    'Write numbers in expanded form'
-                ]
-            })()}
-            parentTeacherTips={(() => {
-                const tips = t(`worksheets.${docId}.parentTeacherTips`)
-                if (Array.isArray(tips) && tips.length > 0 && typeof tips[0] === 'string') return tips as unknown as string[]
-                return [
-                    'The tens place tells how many groups of 10',
-                    'The ones place tells how many extra ones',
-                    'Expanded form shows the value of each place',
-                    'Example: 47 = 4 tens + 7 ones = 40 + 7',
-                    'Extension: Try with 3-digit numbers (hundreds, tens, ones)'
-                ]
-            })()}
+            learningObjectives={[
+                'Understand place value: tens and ones',
+                'Break numbers into tens and ones (decomposition)',
+                'Write numbers in expanded form (e.g., 40 + 7)',
+                'Connect concrete models (blocks) to abstract numbers'
+            ]}
+            parentTeacherTips={[
+                'The "tens place" tells how many full groups of 10 there are.',
+                'The "ones place" tells how many extra singles are left.',
+                'Expanded form just stretches the number out: 47 becomes 40 + 7.',
+                'Practice counting by 10s for the rods, then switch to counting by 1s for the cubes.'
+            ]}
         >
-            <div className="print:hidden h-1 w-16 rounded-full bg-gradient-to-r from-violet-400 to-pink-400 animate-gradient-x mb-2" />
+            <PremiumWorksheetBanner
+                title="Place Value Party"
+                subtitle="Tens and Ones"
+                icons={{ bg1: "🧊", bg2: "🔟", float1: "🔢", float2: "#️⃣" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-violet-50 to-fuchsia-50",
+                    border: "border-violet-200",
+                    pillBg: "bg-white/80",
+                    pillBorder: "border-violet-300",
+                    pillText: "text-violet-800",
+                    accent: "text-violet-300"
+                }}
+            />
+
+            <StrategySpotlight
+                title="Counting Tens & Ones"
+                icon="💡"
+                steps={[
+                    { label: "Step 1", text: "Count the groups of 10 (Long Rods). Write that digit in the Tens place." },
+                    { label: "Step 2", text: "Count the extra singles (Small Cubes). Write that digit in the Ones place." },
+                    { label: "Step 3", text: "Put them together! 3 tens + 2 ones = 32" }
+                ]}
+                color="violet"
+            />
+
             {/* Worked Example */}
-            <div className="mb-6 print:mb-1 p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 border-2 border-violet-200 rounded-lg print:border print:bg-white">
-                <div className="font-semibold text-violet-900 mb-3 print:mb-0.5 text-sm print:text-[9px] flex items-center gap-2 print:gap-1">
-                    <span className="text-2xl print:text-sm">{String.fromCodePoint(0x279C)}</span>
-                    <span>{t(`worksheets.${docId}.example.title`, 'Example - Let\'s solve this together:')}</span>
+            <div className="mb-8 print:mb-4 p-6 print:p-2 bg-white rounded-2xl border-2 border-violet-100 shadow-sm print:shadow-none break-inside-avoid">
+                <div className="flex items-center gap-3 mb-4 border-b border-violet-100 pb-3">
+                    <span className="text-2xl">{String.fromCodePoint(0x2B50)}</span>
+                    <h3 className="text-lg font-bold text-violet-900">Example: Let's solve one together!</h3>
                 </div>
-                <div className="space-y-3 print:space-y-0.5 text-sm print:text-[8px]">
-                    <div className="font-semibold text-base print:text-[9px] text-violet-900"><strong>{t(`worksheets.${docId}.example.number`, 'Number:')}</strong> <span className="text-3xl print:text-lg text-violet-700 ml-2">47</span></div>
-                    {/* Visual base-10 blocks with proper spacing */}
-                    <div className="bg-white p-4 print:p-1 rounded-lg border-2 border-violet-300">
-                        <div className="flex flex-wrap items-center gap-4 print:gap-1">
-                            {/* Tens blocks with label */}
-                            <div className="flex flex-col items-center gap-2 print:gap-0.5">
-                                <svg viewBox="0 0 240 80" className="w-auto h-20 print:h-8" preserveAspectRatio="xMidYMid meet">
-                                    {Array.from({ length: 4 }).map((_, j) => (
-                                        <rect key={j} x={15 + j * 55} y="15" width="45" height="65" rx="4" fill="#22c55e" stroke="#16a34a" strokeWidth="2.5" />
+
+                <div className="flex flex-col md:flex-row items-center gap-8 justify-center">
+                    {/* Visual Model */}
+                    <div className="bg-violet-50 p-6 rounded-xl border border-violet-100 flex items-center gap-6">
+                        <div className="flex items-end gap-1">
+                            {/* 4 Tens */}
+                            {Array.from({ length: 4 }).map((_, i) => (
+                                <div key={i} className="w-4 h-24 bg-gradient-to-br from-green-400 to-green-500 rounded-sm border border-green-600 shadow-sm flex flex-col justify-between py-0.5">
+                                    {Array.from({ length: 10 }).map((_, j) => (
+                                        <div key={j} className="border-t border-green-400/30 h-full w-full"></div>
                                     ))}
-                                </svg>
-                                <div className="text-sm print:text-[8px] font-bold text-green-700 whitespace-nowrap">{t(`worksheets.${docId}.example.tensLabel`, '4 tens = 40')}</div>
-                            </div>
-                            {/* Ones blocks with label */}
-                            <div className="flex flex-col items-center gap-2 print:gap-0.5">
-                                <svg viewBox="0 0 250 50" className="w-auto h-16 print:h-6" preserveAspectRatio="xMidYMid meet">
-                                    {Array.from({ length: 7 }).map((_, j) => (
-                                        <rect key={j} x={15 + j * 35} y="10" width="25" height="25" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="2" />
-                                    ))}
-                                </svg>
-                                <div className="text-sm print:text-[8px] font-bold text-blue-700 whitespace-nowrap">{t(`worksheets.${docId}.example.onesLabel`, '7 ones = 7')}</div>
-                            </div>
-                            {/* Expanded form label */}
-                            <div className="flex items-center">
-                                <div className="text-base print:text-[9px] font-bold text-violet-700 whitespace-nowrap">{t(`worksheets.${docId}.example.expandedLabel`, '47 = 40 + 7')}</div>
-                            </div>
+                                </div>
+                            ))}
+                            <div className="text-sm font-bold text-green-600 mb-[-20px] ml-1 absolute transform translate-y-6">4 Tens</div>
                         </div>
+
+                        <div className="w-px h-24 bg-violet-200 mx-2"></div>
+
+                        <div className="flex flex-wrap content-end gap-1 w-20">
+                            {/* 7 Ones */}
+                            {Array.from({ length: 7 }).map((_, i) => (
+                                <div key={i} className="w-4 h-4 bg-gradient-to-br from-blue-400 to-blue-500 rounded-sm border border-blue-600 shadow-sm"></div>
+                            ))}
+                        </div>
+                        <div className="text-sm font-bold text-blue-600 mb-[-20px] ml-auto absolute transform translate-x-28 translate-y-6">7 Ones</div>
                     </div>
-                    <div className="pl-4 print:pl-1 border-l-2 border-violet-300 space-y-1 print:space-y-0">
-                        <div className="print:text-[8px] print:leading-[1.1]"><strong>{t(`worksheets.${docId}.example.step1`, 'Step 1: Find tens:')}</strong> <span className="text-violet-700 font-bold">{t(`worksheets.${docId}.example.step1Text`, '47 has 4 tens (40)')}</span></div>
-                        <div className="print:text-[8px] print:leading-[1.1]"><strong>{t(`worksheets.${docId}.example.step2`, 'Step 2: Find ones:')}</strong> <span className="text-violet-700 font-bold">{t(`worksheets.${docId}.example.step2Text`, '47 has 7 ones')}</span></div>
-                        <div className="print:text-[8px] print:leading-[1.1]"><strong>{t(`worksheets.${docId}.example.step3`, 'Step 3: Expanded form:')}</strong> <span className="text-violet-700 font-bold text-lg print:text-[9px]">{t(`worksheets.${docId}.example.step3Text`, '40 + 7')}</span></div>
-                        <div className="font-semibold text-violet-900 mt-2 print:mt-0 print:text-[8px] print:leading-[1.1]"><strong>{t(`worksheets.${docId}.example.answer`, 'Answer:')}</strong> <span className="text-violet-700">{t(`worksheets.${docId}.example.answerText`, 'Tens: 4, Ones: 7, Expanded: 40 + 7')}</span></div>
-                        <div className="text-xs print:text-[7px] text-violet-700 mt-2 print:mt-0 flex items-center gap-1 print:leading-[1.1]">
-                            <span>{String.fromCodePoint(0x279C)}</span>
-                            <span>{t(`worksheets.${docId}.example.tip`, 'Tip: The tens digit tells you how many groups of 10, the ones digit tells you how many extra ones!')}</span>
+
+                    {/* Explanation */}
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-4 text-lg">
+                            <span className="font-bold text-violet-900 w-24">Standard:</span>
+                            <span className="text-3xl font-black text-violet-600 bg-white px-4 py-1 rounded border border-violet-100 shadow-inner">47</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-lg">
+                            <span className="font-bold text-violet-900 w-24">Expanded:</span>
+                            <div className="flex items-center gap-2 font-mono text-xl text-slate-600">
+                                <span className="text-green-600 font-bold">40</span>
+                                <span>+</span>
+                                <span className="text-blue-600 font-bold">7</span>
+                                <span>=</span>
+                                <span>47</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* Visual legend */}
-            <div className="mb-4 print:mb-0.5 flex flex-wrap items-center gap-4 print:gap-1 text-sm print:text-[8px] bg-violet-50 p-3 print:p-1 rounded-lg border border-violet-200">
-                <div className="flex items-center gap-2 print:gap-1">
-                    <svg viewBox="0 0 25 50" className="h-12 print:h-4 w-auto flex-shrink-0">
-                        <rect x="10" y="10" width="15" height="30" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
-                    </svg>
-                    <span className="text-green-700 font-bold whitespace-nowrap">{t(`worksheets.${docId}.legend.tenLabel`, '= 1 Ten (10)')}</span>
-                </div>
-                <div className="flex items-center gap-2 print:gap-1">
-                    <svg viewBox="0 0 60 30" className="h-8 print:h-3 w-auto flex-shrink-0">
-                        {Array.from({ length: 3 }).map((_, i) => (
-                            <rect key={i} x={10 + i * 18} y="10" width="12" height="12" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
-                        ))}
-                    </svg>
-                    <span className="text-blue-700 font-bold whitespace-nowrap">{t(`worksheets.${docId}.legend.oneLabel`, '= 1 One')}</span>
-                </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 print:gap-1 break-inside-auto" style={{ pageBreakAfter: 'auto' }}>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 print:block print:columns-2 print:gap-4 break-inside-auto">
                 {nums.map((n, i) => {
                     const tens = Math.floor(n / 10);
                     const ones = n % 10;
                     return (
-                        <div key={i} className="border-2 border-violet-200 rounded-lg p-4 print:p-1.5 bg-gradient-to-br from-violet-50 to-pink-50 break-inside-avoid">
-                            <div className="text-violet-900 font-semibold mb-3 print:mb-0.5 text-lg print:text-sm">{t(`worksheets.${docId}.labels.number`, 'Number:')} <span className="text-2xl print:text-lg">{n}</span></div>
-                            {/* Visual base-10 blocks */}
-                            <div className="mb-4 print:mb-1 bg-white p-3 print:p-1 rounded border border-violet-300">
-                                <div className="flex flex-col items-center gap-2">
-                                    <svg viewBox="0 0 280 70" className="w-full h-auto max-h-16" preserveAspectRatio="xMidYMid meet">
-                                        {/* Tens rods */}
-                                        {Array.from({ length: Math.min(tens, 5) }).map((_, j) => (
-                                            <rect key={j} x={5 + j * 38} y="5" width="35" height="55" rx="3" fill="#22c55e" stroke="#16a34a" strokeWidth="2" />
-                                        ))}
-                                        {/* Ones cubes */}
-                                        {Array.from({ length: Math.min(ones, 8) }).map((_, j) => (
-                                            <rect key={j} x={5 + j * 28} y="65" width="20" height="20" rx="2" fill="#60a5fa" stroke="#2563eb" strokeWidth="1.5" />
-                                        ))}
-                                    </svg>
-                                    {tens > 5 && (
-                                        <div className="text-xs font-semibold text-green-700 whitespace-nowrap">
-                                            {t('worksheets.place-value-hto.labels.more', '+{count} more').replace('{count}', String(tens - 5))}
-                                        </div>
-                                    )}
+                        <div key={i} className="break-inside-avoid bg-white p-5 rounded-2xl border-2 border-slate-200 shadow-sm mb-6 print:mb-4">
+                            {/* Number Visual */}
+                            <div className="mb-4 flex items-end justify-center gap-6 h-32 px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                                {/* Tens */}
+                                <div className="flex items-end gap-1 h-full">
+                                    {Array.from({ length: Math.min(tens, 9) }).map((_, j) => (
+                                        <div key={j} className="w-3 h-full max-h-24 bg-green-400 rounded-sm border border-green-600 flex flex-col justify-between"></div>
+                                    ))}
+                                </div>
+                                {/* Ones */}
+                                <div className="flex flex-wrap content-end gap-1 w-16 mb-0.5">
+                                    {Array.from({ length: ones }).map((_, j) => (
+                                        <div key={j} className="w-3 h-3 bg-blue-400 rounded-sm border border-blue-600"></div>
+                                    ))}
                                 </div>
                             </div>
-                            <div className="grid grid-cols-3 gap-3 print:gap-1.5 text-sm print:text-xs">
-                                <div className="border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white">
-                                    <div className="text-xs print:text-[10px] text-violet-600 mb-1.5 print:mb-0.5">{t(`worksheets.${docId}.labels.tens`, 'Tens:')}</div>
-                                    <div className="text-violet-900 font-mono text-base print:text-sm">______</div>
+
+                            {/* Input Fields */}
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
+                                    <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Tens</span>
+                                    <div className="h-8 w-12 border-b-2 border-slate-300"></div>
+                                    <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Ones</span>
+                                    <div className="h-8 w-12 border-b-2 border-slate-300"></div>
                                 </div>
-                                <div className="border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white">
-                                    <div className="text-xs print:text-[10px] text-violet-600 mb-1.5 print:mb-0.5">{t(`worksheets.${docId}.labels.ones`, 'Ones:')}</div>
-                                    <div className="text-violet-900 font-mono text-base print:text-sm">______</div>
-                                </div>
-                                <div className="border-2 border-violet-300 rounded p-2.5 print:p-1.5 bg-white">
-                                    <div className="text-xs print:text-[10px] text-violet-600 mb-1.5 print:mb-0.5">{t(`worksheets.${docId}.labels.expanded`, 'Expanded:')}</div>
-                                    <div className="text-violet-900 font-mono text-xs print:text-[10px] leading-tight">___ + ___</div>
+
+                                <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
+                                    <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Expanded</span>
+                                    <div className="flex-1 flex items-center justify-end gap-2 font-mono text-lg text-slate-400">
+                                        <span className="border-b-2 border-d-slate-300 w-10 h-8 inline-block"></span>
+                                        <span>+</span>
+                                        <span className="border-b-2 border-slate-300 w-10 h-8 inline-block"></span>
+                                        <span>=</span>
+                                        <div className="w-12 h-10 border-2 border-violet-300 rounded bg-white box-content"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     );
                 })}
             </div>
-            {/* Extension/Challenge Problems */}
-            <div className="mt-6 print:mt-2 p-4 print:p-2 bg-purple-50 border-2 border-purple-200 rounded print:bg-white print:border" style={{ pageBreakBefore: 'auto', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-purple-900 mb-3 print:mb-1 text-sm print:text-xs">{String.fromCodePoint(0x1F680)}</div>
-                <div className="space-y-2 print:space-y-1 text-sm print:text-xs text-purple-800">
-                    {(() => {
-                        const items = t(`worksheets.${docId}.challenge.items`)
-                        const fallbackItems = [
-                            'Write 56 in expanded form: ___ + ___',
-                            'What number has 8 tens and 3 ones? ___',
-                            'Can you write a 3-digit number in expanded form? (hundreds, tens, ones)',
-                        ]
-                        const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.challenge.items` ? items : fallbackItems
-                        return (itemsArray as unknown as string[]).map((item, i) => (
-                            <div key={i}>{i + 1}. {item}</div>
-                        ))
-                    })()}
-                </div>
-            </div>
-            {/* Self-Assessment */}
-            <div className="print:block hidden print:mt-0 mt-6 p-4 print:p-2 border-2 border-slate-300 rounded" style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
-                <div className="font-semibold text-slate-800 mb-3 print:mb-1 text-sm print:text-xs">{String.fromCodePoint(0x270F)}</div>
-                <div className="space-y-2 text-xs">
-                    {(() => {
-                        const items = t(`worksheets.${docId}.selfAssessment.items`)
-                        const fallbackItems = [
-                            'I understand tens and ones',
-                            'I can break numbers into tens and ones',
-                            'I can write numbers in expanded form',
-                        ]
-                        const itemsArray = Array.isArray(items) && items.length > 0 && typeof items[0] === 'string' && items[0] !== `worksheets.${docId}.selfAssessment.items` ? items : fallbackItems
-                        return (itemsArray as unknown as string[]).map((item, i) => (
-                            <div key={i}>{String.fromCodePoint(0x279C)}</div>
-                        ))
-                    })()}
-                </div>
-                <div className="mt-3 text-xs">
-                    <strong>{t(`worksheets.${docId}.selfAssessment.score`, 'My score:')}</strong> ___ / {nums.length}
-                </div>
-                <div className="mt-2 text-xs">
-                    <strong>{t(`worksheets.${docId}.selfAssessment.hardest`, 'What was hardest?')}</strong> _________________________
-                </div>
-            </div>
+
             {showAnswersForDoc(docId, () => (
-                <div className="mt-6 p-4 border-2 border-emerald-300 bg-emerald-50 rounded print:border print:bg-white print:page-break-before-always">
-                    <div className="font-bold text-emerald-900 mb-3 text-base">{String.fromCodePoint(0x2705)}</div>
-                    <div className="space-y-2">
+                <div className="mt-8 p-6 border-2 border-emerald-500 bg-emerald-50 rounded-2xl print:bg-white break-inside-avoid">
+                    <div className="flex items-center gap-3 mb-4 border-b border-emerald-200 pb-2">
+                        <span className="text-2xl">{String.fromCodePoint(0x2705)}</span>
+                        <h3 className="text-lg font-bold text-emerald-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {nums.map((n, i) => {
-                            const tens = Math.floor(n / 10); const ones = n % 10;
+                            const tens = Math.floor(n / 10);
+                            const ones = n % 10;
                             return (
-                                <div key={i} className="text-sm text-emerald-800">
-                                    {i + 1}. {n}: {t(`worksheets.${docId}.answerKey.tensLabel`, 'Tens')} <strong>{tens}</strong>, {t(`worksheets.${docId}.answerKey.onesLabel`, 'Ones')} <strong>{ones}</strong>, {t(`worksheets.${docId}.answerKey.expandedLabel`, 'Expanded')} <strong>{tens * 10} + {ones}</strong>
+                                <div key={i} className="text-emerald-900 p-2 bg-white rounded border border-emerald-100 text-sm">
+                                    <span className="font-bold text-emerald-600 mr-2">#{i + 1}</span>
+                                    {tens} tens, {ones} ones
+                                    <div className="font-mono mt-1 text-slate-600">{tens * 10} + {ones} = <strong>{n}</strong></div>
                                 </div>
                             )
                         })}
