@@ -358,10 +358,10 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             <GeographyWorksheets docId="geo-latlong" commonProps={{ activeDocs, showAnswers: true, docTitle: "", effectiveSeed, variant, showAnswersForDoc, t, getTrans }} />
             {activeDocs.includes('classifying-triangles') && <ClassifyingTriangles docId="classifying-triangles" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('classifying-quadrilaterals') && <ClassifyingQuadrilaterals docId="classifying-quadrilaterals" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('lines-and-angles') && <LinesAndAngles docId="lines-and-angles" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('lines-and-angles') || activeDocs.includes('lines-rays-angles')) && <LinesAndAngles docId="lines-and-angles" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('classifying-angles') && <ClassifyingAngles docId="classifying-angles" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('symmetry-transformations') && <SymmetryTransformations docId="symmetry-transformations" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('area-perimeter') && <AreaPerimeter docId="area-perimeter" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('symmetry-transformations') || activeDocs.includes('symmetry')) && <SymmetryTransformations docId="symmetry-transformations" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('area-perimeter') || activeDocs.includes('area-rectangles') || activeDocs.includes('perimeter-shapes') || activeDocs.includes('perimeter-area-word-problems')) && <AreaPerimeter docId="area-perimeter" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('identify-polygons') && <IdentifyPolygons docId="identify-polygons" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Measurement */}
@@ -402,7 +402,10 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {(activeDocs.includes('add-sub-fractions') || activeDocs.includes('add-sub-fractions-4th')) && <AddSubFractions4th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 3rd Grade Measurement & Data */}
+            {/* 3rd Grade Measurement & Data */}
             {(activeDocs.includes('time-to-minute') || activeDocs.includes('time-to-the-minute')) && <Time5Min seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('elapsed-time-word-problems') && <MeasurementWordProblems docId="elapsed-time-word-problems" showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('multi-step-word-problems') && <MultiStepWordProblems docId="multi-step-word-problems" showAnswersForDoc={showAnswersForDoc} />}
 
 
             {/* 5th Grade */}
