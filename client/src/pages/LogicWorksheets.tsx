@@ -37,27 +37,13 @@ function generateLogicPuzzle(seed: string) {
     return { names, colors, pets, clues: shuffle(clues), solution }
 }
 
-interface LogicWorksheetsProps {
-    docId: string;
-    commonProps: {
-        activeDocs: string[];
-        showAnswers: boolean;
-        docTitle: string;
-        effectiveSeed: string;
-        variant: number;
-        showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode;
-        t: (key: string, fallback?: string) => string;
-        getTrans: (key: string, fallback?: string) => string;
-        language: string;
-    };
-}
 
-export const LogicWorksheets: React.FC<LogicWorksheetsProps> = ({ docId, commonProps }) => {
-    const { activeDocs, effectiveSeed, variant, showAnswersForDoc, getTrans } = commonProps;
+export const LogicWorksheets = ({ docId, seed, variant, showAnswersForDoc, activeDocs = [] }: SpecificWorksheetProps) => {
+    const { getTrans } = useWorksheetTranslation(docId);
 
-    if (!activeDocs.includes('logic-grid')) return null;
+    if (activeDocs.length > 0 && !activeDocs.includes(docId)) return null;
 
-    const data = generateLogicPuzzle(`${effectiveSeed}|${docId}`)
+    const data = generateLogicPuzzle(`${seed}|${docId}`)
 
     return (
         <WorksheetSectionWrapper
