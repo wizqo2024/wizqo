@@ -336,12 +336,7 @@ export default function WorksheetsSecondGradePage() {
                   <div className="mt-6 flex items-center gap-3">
                     <button
                       onClick={() => {
-                        // Ensure autoprint=1 is in the URL
-                        let printUrl = previewItem.href
-                        if (!printUrl.includes('autoprint=1')) {
-                          printUrl = printUrl + (printUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
-                        }
-                        window.open(printUrl, '_blank')
+                        window.open(previewItem.href, '_blank')
                       }}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-white text-sm font-medium shadow-sm"
                       aria-label={`Download ${previewItem.title} as PDF`}
@@ -350,12 +345,7 @@ export default function WorksheetsSecondGradePage() {
                     </button>
                     <button
                       onClick={() => {
-                        // Ensure autoprint=1 is in the URL
-                        let printUrl = previewItem.href
-                        if (!printUrl.includes('autoprint=1')) {
-                          printUrl = printUrl + (printUrl.includes('?') ? '&autoprint=1' : '?autoprint=1')
-                        }
-                        window.open(printUrl, '_blank')
+                        window.open(previewItem.href, '_blank')
                       }}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 text-slate-700 text-sm font-medium shadow-sm"
                       aria-label={`Print ${previewItem.title}`}
@@ -376,6 +366,7 @@ export default function WorksheetsSecondGradePage() {
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors'
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors'
+
 function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
   const { t } = useTranslation();
   return (
@@ -385,14 +376,8 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="mt-3 flex items-center gap-2">
         <button
           onClick={() => {
-            // Extract docId from href if it's a print URL, otherwise use href as-is
             let printUrl = href
-            if (href.includes('/print?doc=')) {
-              // Ensure autoprint=1 is in the URL
-              if (!href.includes('autoprint=1')) {
-                printUrl = href + (href.includes('?') ? '&autoprint=1' : '?autoprint=1')
-              }
-            } else {
+            if (!href.includes('/print?doc=')) {
               // If it's not a print URL, try to construct one
               const match = href.match(/doc=([^&]+)/)
               if (match) {

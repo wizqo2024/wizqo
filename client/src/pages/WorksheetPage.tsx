@@ -100,8 +100,8 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
 
 
 
-  // Get print URL (noindexed route) - include 'from' parameter for tracking and 'autoprint=1' to auto-open print dialog
-  const basePrintUrl = `/print?doc=${seoData.docId}&from=${fromParam || categorySlug || slug}&autoprint=1`
+  // Get print URL (noindexed route) - include 'from' parameter for tracking
+  const basePrintUrl = `/print?doc=${seoData.docId}&from=${fromParam || categorySlug || slug}`
   const printUrl = showAnswers ? `${basePrintUrl}&showAnswers=1` : basePrintUrl
 
 

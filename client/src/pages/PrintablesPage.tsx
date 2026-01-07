@@ -1308,9 +1308,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       }
 
       // Skip if autoprint is not set or download is handling it
+      // DISABLED: User requested to stop automatic print layout popup
+      /* 
       if (!hasAutoprint || hasAutoDownload) {
         return
       }
+      */
+      return;
 
       // Check if we're in an iframe and parent is not on /print route
       const isInIframe = window.self !== window.top

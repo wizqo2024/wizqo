@@ -82,7 +82,7 @@ function saveFavorites(favorites: FavoriteWorksheet[]) {
   if (typeof window === 'undefined') return
   try {
     localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites))
-  } catch {}
+  } catch { }
 }
 
 function loadCustomization(): CustomizationData {
@@ -99,53 +99,53 @@ function saveCustomization(data: CustomizationData) {
   if (typeof window === 'undefined') return
   try {
     localStorage.setItem(CUSTOMIZATION_STORAGE_KEY, JSON.stringify(data))
-  } catch {}
+  } catch { }
 }
 
 // Search helper function
 function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boolean {
   if (!searchQuery.trim()) return true
   const query = searchQuery.toLowerCase().trim()
-  
+
   // Search in title
   if (item.title.toLowerCase().includes(query)) return true
-  
+
   // Search in description
   if (item.description.toLowerCase().includes(query)) return true
-  
+
   // Search in category label (e.g., "Math", "Reading") - exact and partial match
   const categoryLabelLower = item.categoryLabel.toLowerCase()
   if (categoryLabelLower === query || categoryLabelLower.includes(query) || query.includes(categoryLabelLower)) return true
-  
+
   // Search in category ID (e.g., "math", "reading", "science") - exact and partial match
   const categoryIdLower = item.categoryId.toLowerCase()
   if (categoryIdLower === query || categoryIdLower.includes(query) || query.includes(categoryIdLower)) return true
-  
+
   // Also check all categories from INTERACTIVE_CATEGORIES for direct matches
   for (const category of INTERACTIVE_CATEGORIES) {
     const categoryIdLower = category.id.toLowerCase()
     const categoryLabelLower = category.label.toLowerCase()
     // Check if query matches category ID or label (exact or partial)
-    if (query === categoryIdLower || 
-        query === categoryLabelLower ||
-        query.includes(categoryIdLower) || 
-        categoryIdLower.includes(query) ||
-        query.includes(categoryLabelLower) || 
-        categoryLabelLower.includes(query)) {
+    if (query === categoryIdLower ||
+      query === categoryLabelLower ||
+      query.includes(categoryIdLower) ||
+      categoryIdLower.includes(query) ||
+      query.includes(categoryLabelLower) ||
+      categoryLabelLower.includes(query)) {
       // Check if this item belongs to this category
-      if (item.categoryId.toLowerCase() === categoryIdLower || 
-          item.categoryLabel.toLowerCase() === categoryLabelLower) {
+      if (item.categoryId.toLowerCase() === categoryIdLower ||
+        item.categoryLabel.toLowerCase() === categoryLabelLower) {
         return true
       }
     }
   }
-  
+
   // Search in grade label (e.g., "Preschool", "K–1", "2nd–3rd", or "Preschool / K–1 / G2")
   // Normalize dashes (en dash – and hyphen -) for consistent matching
   const gradeLabelLower = item.gradeLabel.toLowerCase().replace(/[–—]/g, '-')
   const normalizedQuery = query.replace(/[–—]/g, '-')
   if (gradeLabelLower.includes(normalizedQuery) || normalizedQuery.includes(gradeLabelLower)) return true
-  
+
   // Map grade search terms to grade labels
   // gradeLabel can be like "Preschool / K–1 / G2", so we need to check each part
   const gradeSearchMap: Record<string, string[]> = {
@@ -179,7 +179,7 @@ function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boo
     'eighth': ['6th-8th'],
     '6th-8th': ['6th-8th'],
   }
-  
+
   // Check if query matches any grade search term
   for (const [searchTerm, gradeLabels] of Object.entries(gradeSearchMap)) {
     if (normalizedQuery.includes(searchTerm) || searchTerm.includes(normalizedQuery)) {
@@ -189,24 +189,24 @@ function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boo
       }
     }
   }
-  
+
   // Also check against INTERACTIVE_GRADE_OPTIONS directly
   for (const gradeOption of INTERACTIVE_GRADE_OPTIONS) {
     // Normalize grade option label (replace en dash with hyphen)
     const gradeLabelLowerOption = gradeOption.label.toLowerCase().replace(/[–—]/g, '-')
     const gradeIdLower = gradeOption.id.toLowerCase()
     // Check if query matches grade option label or ID
-    if (normalizedQuery.includes(gradeLabelLowerOption) || 
-        gradeLabelLowerOption.includes(normalizedQuery) ||
-        normalizedQuery.includes(gradeIdLower) ||
-        gradeIdLower.includes(normalizedQuery)) {
+    if (normalizedQuery.includes(gradeLabelLowerOption) ||
+      gradeLabelLowerOption.includes(normalizedQuery) ||
+      normalizedQuery.includes(gradeIdLower) ||
+      gradeIdLower.includes(normalizedQuery)) {
       // Check if item's gradeLabel contains this grade
       if (gradeLabelLower.includes(gradeLabelLowerOption)) {
         return true
       }
     }
   }
-  
+
   // Search in category name variations
   const categoryVariations: Record<string, string[]> = {
     'math': ['mathematics', 'arithmetic', 'numbers', 'calculation'],
@@ -220,21 +220,21 @@ function matchesSearch(item: InteractiveWorksheetItem, searchQuery: string): boo
     'critical thinking': ['logic', 'puzzle', 'problem solving', 'reasoning'],
     'social emotional': ['sel', 'emotions', 'feelings', 'mindfulness', 'empathy'],
   }
-  
+
   // Check if query matches any category variation
   for (const [categoryId, variations] of Object.entries(categoryVariations)) {
     // Check if query matches any variation
     if (variations.some(v => query.includes(v) || v.includes(query))) {
-      if (item.categoryId.toLowerCase().includes(categoryId.toLowerCase()) || 
-          item.categoryLabel.toLowerCase().includes(categoryId.toLowerCase())) {
+      if (item.categoryId.toLowerCase().includes(categoryId.toLowerCase()) ||
+        item.categoryLabel.toLowerCase().includes(categoryId.toLowerCase())) {
         return true
       }
     }
   }
-  
+
   // Search in focus tags
   if (item.focus.some((tag) => tag.toLowerCase().includes(query))) return true
-  
+
   return false
 }
 
@@ -244,9 +244,9 @@ function parseInitialFilters(): FiltersState {
   try {
     const params = new URLSearchParams(window.location.search)
     const gradeParam = params.get('grade') as GradeBand | null
-      const validGrade = INTERACTIVE_GRADE_OPTIONS.some((g) => g.id === gradeParam) ? gradeParam! : DEFAULT_GRADE
+    const validGrade = INTERACTIVE_GRADE_OPTIONS.some((g) => g.id === gradeParam) ? gradeParam! : DEFAULT_GRADE
     const categoriesParam = params.get('categories')
-      let selectedCategories: string[] = []
+    let selectedCategories: string[] = []
     if (categoriesParam) {
       // Parse and normalize categories from URL
       const rawCategories = categoriesParam.split(',').map((c) => c.trim()).filter(Boolean)
@@ -254,7 +254,7 @@ function parseInitialFilters(): FiltersState {
     }
     // If no valid categories found in URL, use defaults
     if (selectedCategories.length === 0) {
-        selectedCategories = DEFAULT_NORMALIZED_CATEGORIES.slice()
+      selectedCategories = DEFAULT_NORMALIZED_CATEGORIES.slice()
     }
     // Always start with variant 1 for SEO - variant is internal only, not in URL
     const variant = 1
@@ -262,7 +262,7 @@ function parseInitialFilters(): FiltersState {
     const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
     return {
       grade: validGrade,
-        categories: selectedCategories.slice(),
+      categories: selectedCategories.slice(),
       variant,
       _timestamp: Date.now(), // Initialize with timestamp
       _generateTimestamp: generateTimestamp // Generate unique timestamp for initial load
@@ -289,8 +289,8 @@ function updateUrl(filters: FiltersState) {
   const queryString = params.toString()
   // Check if we're on the multiplication worksheets page - keep that path
   const currentPath = window.location.pathname
-  const basePath = currentPath.includes('/worksheets/multiplication-worksheets') 
-    ? '/worksheets/multiplication-worksheets' 
+  const basePath = currentPath.includes('/worksheets/multiplication-worksheets')
+    ? '/worksheets/multiplication-worksheets'
     : '/interactive-worksheets-generator'
   const newUrl = queryString ? `${basePath}?${queryString}` : basePath
   window.history.replaceState({}, '', newUrl)
@@ -309,11 +309,10 @@ function GradeToggle({
     <button
       type="button"
       onClick={onSelect}
-      className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors border ${
-        active
+      className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors border ${active
           ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
           : 'text-slate-600 border-slate-200 hover:border-purple-300 hover:text-purple-700'
-      }`}
+        }`}
     >
       {label}
     </button>
@@ -335,11 +334,10 @@ function CategoryToggle({
     <button
       type="button"
       onClick={onToggle}
-      className={`flex items-center gap-2 w-full rounded-xl border px-3 py-2 text-left transition-colors ${
-        active
+      className={`flex items-center gap-2 w-full rounded-xl border px-3 py-2 text-left transition-colors ${active
           ? 'border-purple-500 bg-purple-50 text-purple-700'
           : 'border-slate-200 hover:border-purple-300 hover:bg-purple-50/60 text-slate-600'
-      }`}
+        }`}
     >
       <span className="text-lg">{icon}</span>
       <span className="font-medium">{label}</span>
@@ -347,9 +345,9 @@ function CategoryToggle({
   )
 }
 
-function WorksheetPreviewCard({ 
-  item, 
-  onToggleFavorite, 
+function WorksheetPreviewCard({
+  item,
+  onToggleFavorite,
   isFavorite,
   onPreview,
   onDownload,
@@ -357,7 +355,7 @@ function WorksheetPreviewCard({
   pack,
   filters,
   t,
-}: { 
+}: {
   item: InteractiveWorksheetItem
   onToggleFavorite: (item: InteractiveWorksheetItem) => void
   isFavorite: boolean
@@ -381,11 +379,10 @@ function WorksheetPreviewCard({
           </span>
           <button
             onClick={() => onToggleFavorite(item)}
-            className={`p-2 rounded-full transition-colors ${
-              isFavorite 
-                ? 'text-yellow-500 hover:text-yellow-600' 
+            className={`p-2 rounded-full transition-colors ${isFavorite
+                ? 'text-yellow-500 hover:text-yellow-600'
                 : 'text-slate-400 hover:text-yellow-500'
-            }`}
+              }`}
             aria-label={isFavorite ? t('pages.interactive.removeFromFavorites') : t('pages.interactive.addToFavorites')}
             title={isFavorite ? t('pages.interactive.removeFromFavorites') : t('pages.interactive.addToFavorites')}
           >
@@ -395,22 +392,22 @@ function WorksheetPreviewCard({
           </button>
         </div>
       </div>
-      
+
       <p className="text-sm text-slate-600 leading-relaxed">{t(`interactive.${item.docId}.description`) || item.description}</p>
-      
+
       {/* Worksheet Thumbnail Preview */}
       {pack && pack.seed ? (
-        <div 
+        <div
           className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
           onClick={() => onPreview(item)}
-          style={{ 
+          style={{
             height: '140px',
             aspectRatio: '2.5/1',
           }}
         >
           {/* Thumbnail content container */}
           <div className="absolute inset-0 p-3 overflow-hidden">
-            <div 
+            <div
               className="bg-white rounded shadow-sm"
               style={{
                 transform: 'scale(0.25)',
@@ -447,7 +444,7 @@ function WorksheetPreviewCard({
           <p className="text-xs text-slate-400">{t('pages.interactive.previewAfterGeneration')}</p>
         </div>
       )}
-      
+
       {item.focus.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {item.focus.map((tag) => (
@@ -611,7 +608,7 @@ function useFaqSchema(t: (key: string) => string) {
         if (faq) document.head.removeChild(faq)
         const howTo = document.getElementById('interactive-worksheets-howto-schema')
         if (howTo) document.head.removeChild(howTo)
-      } catch {}
+      } catch { }
     }
   }, [t])
 }
@@ -626,7 +623,7 @@ export function InteractiveWorksheetsPage() {
   const abortControllerRef = React.useRef<AbortController | null>(null)
   const lastDocKeyRef = React.useRef<string | null>(null)
   const duplicateAttemptsRef = React.useRef<number>(0)
-  
+
   // New feature states
   const [searchQuery, setSearchQuery] = React.useState('')
   const [favorites, setFavorites] = React.useState<FavoriteWorksheet[]>(() => loadFavorites())
@@ -645,23 +642,23 @@ export function InteractiveWorksheetsPage() {
     if (!query.trim()) return []
     const queryLower = query.toLowerCase().trim()
     const matchedCategories: string[] = []
-    
+
     // Check all categories from INTERACTIVE_CATEGORIES
     for (const category of INTERACTIVE_CATEGORIES) {
       const categoryIdLower = category.id.toLowerCase()
       const categoryLabelLower = category.label.toLowerCase()
-      
+
       // Check if query matches category ID or label (exact or partial)
-      if (queryLower === categoryIdLower || 
-          queryLower === categoryLabelLower ||
-          queryLower.includes(categoryIdLower) || 
-          categoryIdLower.includes(queryLower) ||
-          queryLower.includes(categoryLabelLower) || 
-          categoryLabelLower.includes(queryLower)) {
+      if (queryLower === categoryIdLower ||
+        queryLower === categoryLabelLower ||
+        queryLower.includes(categoryIdLower) ||
+        categoryIdLower.includes(queryLower) ||
+        queryLower.includes(categoryLabelLower) ||
+        categoryLabelLower.includes(queryLower)) {
         matchedCategories.push(category.id)
       }
     }
-    
+
     return matchedCategories
   }, [])
 
@@ -671,89 +668,89 @@ export function InteractiveWorksheetsPage() {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort()
     }
-    
+
     // Create new abort controller for this request
     const abortController = new AbortController()
     abortControllerRef.current = abortController
-      
-      try {
-        setLoading(true)
-        setError(null)
 
-        const params = new URLSearchParams()
-        params.set('date', todayIso)
-        params.set('grade', currentFilters.grade)
+    try {
+      setLoading(true)
+      setError(null)
 
-        // Get effective categories (selected + searched)
-        const searchCategories = getCategoriesFromSearch(searchQuery)
-        const categoriesToSend = [...new Set([...currentFilters.categories, ...searchCategories])]
-        const finalCategories = categoriesToSend.length > 0 ? categoriesToSend : DEFAULT_NORMALIZED_CATEGORIES
-        params.set('categories', finalCategories.join(','))
-        params.set('variant', String(currentFilters.variant))
+      const params = new URLSearchParams()
+      params.set('date', todayIso)
+      params.set('grade', currentFilters.grade)
 
-        const timestamp = currentFilters._generateTimestamp || (Date.now() + Math.floor(Math.random() * 1000))
-        params.set('timestamp', String(timestamp))
-        params.set('_t', String(Date.now()))
+      // Get effective categories (selected + searched)
+      const searchCategories = getCategoriesFromSearch(searchQuery)
+      const categoriesToSend = [...new Set([...currentFilters.categories, ...searchCategories])]
+      const finalCategories = categoriesToSend.length > 0 ? categoriesToSend : DEFAULT_NORMALIZED_CATEGORIES
+      params.set('categories', finalCategories.join(','))
+      params.set('variant', String(currentFilters.variant))
 
-        const apiUrl = `/api/interactive-worksheets?${params.toString()}`
-        const resp = await fetch(apiUrl, {
-          cache: 'no-store',
-          signal: abortController.signal,
-          headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            Pragma: 'no-cache',
-          },
-        })
+      const timestamp = currentFilters._generateTimestamp || (Date.now() + Math.floor(Math.random() * 1000))
+      params.set('timestamp', String(timestamp))
+      params.set('_t', String(Date.now()))
 
-        if (!resp.ok) {
-          const errorText = await resp.text()
-          throw new Error(`Failed to generate worksheets: ${resp.status} ${errorText}`)
+      const apiUrl = `/api/interactive-worksheets?${params.toString()}`
+      const resp = await fetch(apiUrl, {
+        cache: 'no-store',
+        signal: abortController.signal,
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          Pragma: 'no-cache',
+        },
+      })
+
+      if (!resp.ok) {
+        const errorText = await resp.text()
+        throw new Error(`Failed to generate worksheets: ${resp.status} ${errorText}`)
+      }
+
+      const json = await resp.json()
+      if (json?.data) {
+        const items: InteractiveWorksheetItem[] = Array.isArray(json.data?.items)
+          ? json.data.items
+          : []
+        const docKey =
+          items.length > 0
+            ? items
+              .map((item) => item.docId)
+              .slice()
+              .sort()
+              .join('|')
+            : ''
+
+        if (
+          docKey &&
+          docKey === lastDocKeyRef.current &&
+          duplicateAttemptsRef.current < MAX_DUPLICATE_ATTEMPTS
+        ) {
+          duplicateAttemptsRef.current += 1
+          setFilters((prev) => {
+            const nextVariant = prev.variant + 1
+            const nextGenerateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
+            return {
+              ...prev,
+              variant: nextVariant,
+              _timestamp: Date.now(),
+              _generateTimestamp: nextGenerateTimestamp,
+            }
+          })
+          return
         }
 
-        const json = await resp.json()
-        if (json?.data) {
-          const items: InteractiveWorksheetItem[] = Array.isArray(json.data?.items)
-            ? json.data.items
-            : []
-          const docKey =
-            items.length > 0
-              ? items
-                  .map((item) => item.docId)
-                  .slice()
-                  .sort()
-                  .join('|')
-              : ''
+        duplicateAttemptsRef.current = 0
+        lastDocKeyRef.current = docKey || null
+        setPack(json.data)
 
-          if (
-            docKey &&
-            docKey === lastDocKeyRef.current &&
-            duplicateAttemptsRef.current < MAX_DUPLICATE_ATTEMPTS
-          ) {
-            duplicateAttemptsRef.current += 1
-            setFilters((prev) => {
-              const nextVariant = prev.variant + 1
-              const nextGenerateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
-              return {
-                ...prev,
-                variant: nextVariant,
-                _timestamp: Date.now(),
-                _generateTimestamp: nextGenerateTimestamp,
-              }
-            })
-            return
-          }
-
-          duplicateAttemptsRef.current = 0
-          lastDocKeyRef.current = docKey || null
-          setPack(json.data)
-          
-          // Track worksheet generation (doesn't affect SEO)
-          // Track worksheet generation with enhanced analytics
-          const worksheetCount = items.length || 0
-          trackWorksheetGeneration(currentFilters.grade, finalCategories, worksheetCount)
-        } else {
-          throw new Error('Invalid response format from server')
-        }
+        // Track worksheet generation (doesn't affect SEO)
+        // Track worksheet generation with enhanced analytics
+        const worksheetCount = items.length || 0
+        trackWorksheetGeneration(currentFilters.grade, finalCategories, worksheetCount)
+      } else {
+        throw new Error('Invalid response format from server')
+      }
     } catch (err: any) {
       // Don't set error if request was aborted (user changed filters)
       if (err.name === 'AbortError') {
@@ -813,9 +810,9 @@ export function InteractiveWorksheetsPage() {
       if (nextCategories.length === 0) nextCategories = [id]
       // Reset variant to 1 when categories change and generate new unique timestamp
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
-      return { 
-        ...prev, 
-        categories: normalizeCategoryIds(nextCategories), 
+      return {
+        ...prev,
+        categories: normalizeCategoryIds(nextCategories),
         variant: 1,
         _timestamp: Date.now(), // Force React to detect change
         _generateTimestamp: generateTimestamp // Generate unique timestamp for new selection
@@ -823,20 +820,20 @@ export function InteractiveWorksheetsPage() {
     })
   }
 
-    const resetCategories = React.useCallback(() => {
-      resetDuplicateTracking()
-      setFilters((prev) => {
-        if (prev.categories.join(',') === DEFAULT_CATEGORIES_KEY) return prev
-        const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
-        return {
-          ...prev,
-          categories: DEFAULT_NORMALIZED_CATEGORIES.slice(),
-          variant: 1,
-          _timestamp: Date.now(),
-          _generateTimestamp: generateTimestamp,
-        }
-      })
-    }, [resetDuplicateTracking])
+  const resetCategories = React.useCallback(() => {
+    resetDuplicateTracking()
+    setFilters((prev) => {
+      if (prev.categories.join(',') === DEFAULT_CATEGORIES_KEY) return prev
+      const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
+      return {
+        ...prev,
+        categories: DEFAULT_NORMALIZED_CATEGORIES.slice(),
+        variant: 1,
+        _timestamp: Date.now(),
+        _generateTimestamp: generateTimestamp,
+      }
+    })
+  }, [resetDuplicateTracking])
 
   const setGrade = (grade: GradeBand) => {
     resetDuplicateTracking()
@@ -844,9 +841,9 @@ export function InteractiveWorksheetsPage() {
     setFilters((prev) => {
       // Generate unique timestamp when grade changes for unique content
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
-      return { 
-        ...prev, 
-        grade, 
+      return {
+        ...prev,
+        grade,
         variant: 1,
         _timestamp: Date.now(), // Force React to detect change
         _generateTimestamp: generateTimestamp // Generate unique timestamp for new selection
@@ -857,7 +854,7 @@ export function InteractiveWorksheetsPage() {
   // Social sharing handler
   const handleShare = React.useCallback((platform: 'facebook' | 'twitter' | 'pinterest' | 'copy') => {
     if (typeof window === 'undefined') return
-    
+
     const url = window.location.href
     const title = t('pages.interactive.shareTitle')
     const text = t('pages.interactive.shareText')
@@ -936,9 +933,9 @@ export function InteractiveWorksheetsPage() {
       const randomOffset = Math.floor(Math.random() * 1000000) // Larger random range
       const variantOffset = newVariant * 1000000 // Variant contributes significantly
       const generateTimestamp = now + randomOffset + variantOffset
-      
-      return { 
-        ...prev, 
+
+      return {
+        ...prev,
         variant: newVariant,
         _timestamp: now, // Force React to detect change
         _generateTimestamp: generateTimestamp // Unique timestamp for seed generation - ensures unlimited unique sets
@@ -954,8 +951,8 @@ export function InteractiveWorksheetsPage() {
       // Use Date.now() + small random component for guaranteed uniqueness
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
       // Force state update by creating new object with timestamp
-      return { 
-        ...prev, 
+      return {
+        ...prev,
         variant: newVariant,
         _timestamp: Date.now(), // Force React to detect change
         _generateTimestamp: generateTimestamp // Unique timestamp for seed generation
@@ -1049,8 +1046,6 @@ export function InteractiveWorksheetsPage() {
     if (customization.studentNames.length > 0) {
       url.searchParams.set('students', customization.studentNames.join(','))
     }
-    // Add autoprint for download buttons
-    url.searchParams.set('autoprint', '1')
     return url.toString()
   }, [pack, customization, language])
 
@@ -1095,31 +1090,31 @@ export function InteractiveWorksheetsPage() {
       console.error('No print URL available for worksheet:', item.docId)
       return
     }
-    
+
     // Build URL with download=1 parameter (no autoprint to avoid print dialog)
     const url = new URL(baseUrl, window.location.origin)
     url.searchParams.set('download', '1')
     url.searchParams.delete('autoprint') // Ensure autoprint doesn't interfere
-    
+
     // Track the download attempt
     const worksheet = pack?.items.find(w => w.docId === item.docId)
     if (worksheet) {
       trackWorksheetDownload(item.docId, worksheet.title, 'interactive-worksheets-generator', filters.grade)
     }
-    
+
     // Use hidden iframe to trigger PDF download without opening new tab
     // The PrintablesPage will detect download=1 and generate PDF automatically
     const iframe = document.createElement('iframe')
     iframe.style.cssText = 'position:absolute;width:0;height:0;border:none;visibility:hidden;'
     iframe.setAttribute('aria-hidden', 'true')
     iframe.setAttribute('tabindex', '-1')
-    
+
     // Add iframe to body
     document.body.appendChild(iframe)
-    
+
     // Set src after iframe is in DOM to ensure it loads properly
     iframe.src = url.toString()
-    
+
     // Clean up iframe after sufficient time for PDF generation and download
     // The PDF download will happen automatically when PrintablesPage detects download=1
     setTimeout(() => {
@@ -1157,7 +1152,7 @@ export function InteractiveWorksheetsPage() {
                   ✨ {t('pages.interactive.hero.badge')}
                 </span>
                 <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                  <Shuffle 
+                  <Shuffle
                     text={t('pages.interactive.title')}
                     tag="span"
                     className="block"
@@ -1220,7 +1215,7 @@ export function InteractiveWorksheetsPage() {
                             title={t('pages.interactive.shareOnFacebook')}
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                             </svg>
                           </button>
                           <button
@@ -1230,7 +1225,7 @@ export function InteractiveWorksheetsPage() {
                             title={t('pages.interactive.shareOnTwitter')}
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                             </svg>
                           </button>
                           <button
@@ -1240,7 +1235,7 @@ export function InteractiveWorksheetsPage() {
                             title={t('pages.interactive.shareOnPinterest')}
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.487.535 6.624 0 11.99-5.367 11.99-11.988C23.97 5.39 18.565.026 11.985.026L12.017 0z"/>
+                              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.487.535 6.624 0 11.99-5.367 11.99-11.988C23.97 5.39 18.565.026 11.985.026L12.017 0z" />
                             </svg>
                           </button>
                           <button
@@ -1358,7 +1353,7 @@ export function InteractiveWorksheetsPage() {
                 {loading ? t('pages.interactive.generating') : t('pages.interactive.worksheetsReady').replace('{{count}}', String(searchQuery ? filteredItems.length : pack?.items.length || 0))}
               </span>
             </div>
-            
+
             {/* Search Bar */}
             {pack && pack.items.length > 0 && (
               <div className="flex justify-end">
@@ -1415,8 +1410,8 @@ export function InteractiveWorksheetsPage() {
                   <>
                     <div className="grid gap-5 md:grid-cols-2">
                       {filteredItems.map((item) => (
-                        <WorksheetPreviewCard 
-                          key={item.docId} 
+                        <WorksheetPreviewCard
+                          key={item.docId}
                           item={item}
                           onToggleFavorite={toggleFavorite}
                           isFavorite={isFavorite(item.docId)}
@@ -1543,21 +1538,21 @@ export function InteractiveWorksheetsPage() {
         </section>
       </main>
       <Footer />
-      
+
       {/* Preview Side Panel */}
       {previewItem && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 transition-opacity"
             onClick={() => setPreviewItem(null)}
           />
-          
+
           {/* Side Panel */}
           <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex h-full flex-col">
               {/* Header */}
-                <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
+              <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-slate-900">{t(`interactive.${previewItem.docId}.title`) || previewItem.title}</h2>
                   <p className="text-sm text-slate-600 mt-1">
@@ -1574,7 +1569,7 @@ export function InteractiveWorksheetsPage() {
                   </svg>
                 </button>
               </div>
-              
+
               {/* Scrollable Content */}
               <div className="flex-1 overflow-y-auto bg-slate-50">
                 <div className="mx-auto max-w-3xl px-6 py-8">
@@ -1589,7 +1584,7 @@ export function InteractiveWorksheetsPage() {
                       />
                     )}
                   </div>
-                  
+
                   {/* Info Footer */}
                   <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
                     <p className="font-semibold mb-2">📄 {t('pages.interactive.printPreview')}</p>
@@ -1686,7 +1681,7 @@ export function InteractiveWorksheetsPage() {
           <DialogHeader>
             <DialogTitle>{t('pages.interactive.favorites.title')}</DialogTitle>
             <DialogDescription>
-              {favorites.length === 0 
+              {favorites.length === 0
                 ? t('pages.interactive.favorites.emptyDescription')
                 : t('pages.interactive.favorites.hasFavorites').replace('{{count}}', String(favorites.length)).replace('{{plural}}', favorites.length === 1 ? '' : 's')}
             </DialogDescription>

@@ -20,11 +20,7 @@ export function getWorksheetURL(docId: string, fallbackFrom?: string): string {
   return `/print?doc=${docId}&from=${from}`
 }
 
-/**
- * Get print URL for a worksheet (for actual printing)
- * Includes autoprint=1 to automatically open print dialog
- */
 export function getWorksheetPrintURL(docId: string, from?: string): string {
   const fromParam = from || 'worksheets'
-  return `/print?doc=${docId}&from=${fromParam}&autoprint=1`
+  return `/print?doc=${docId}&from=${fromParam}`
 }
