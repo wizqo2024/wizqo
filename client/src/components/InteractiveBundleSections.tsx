@@ -8103,16 +8103,16 @@ function InteractiveWorksheetSection({
       ref={sectionRef}
       className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden group`}
     >
-      {/* Download Button (Hover) */}
-      <div className="absolute top-2 right-2 z-20 print:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-200" data-html2canvas-ignore="true">
+      {/* Download Button (Always Visible) */}
+      <div className="absolute top-2 right-2 z-20 print:hidden" data-html2canvas-ignore="true">
         <button
           onClick={handleDownloadPDF}
           disabled={isGeneratingPdf}
-          className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-indigo-600 border border-indigo-200 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-sm disabled:opacity-50 text-xs"
+          className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 text-white border border-indigo-700 rounded-lg font-semibold hover:bg-indigo-700 transition-colors shadow-sm disabled:opacity-50 text-xs"
           title="Download PDF"
         >
           {isGeneratingPdf ? (
-            <div className="h-3.5 w-3.5 border-2 border-indigo-600/30 border-t-indigo-600 rounded-full animate-spin" />
+            <div className="h-3.5 w-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
           ) : (
             <Download size={14} />
           )}

@@ -372,8 +372,8 @@ function WorksheetPreviewCard({
 }) {
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3 relative group">
-      {/* Hover Download Button */}
-      <div className="absolute top-3 right-12 z-20 print:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+      {/* Hover Download Button - Now Always Visible */}
+      <div className="absolute top-3 right-12 z-20 print:hidden">
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -385,7 +385,7 @@ function WorksheetPreviewCard({
               if (url) window.open(url, '_blank');
             }
           }}
-          className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-indigo-600 border border-indigo-100 rounded-lg font-bold hover:bg-indigo-50 transition-colors shadow-md text-[10px] uppercase tracking-wider"
+          className="flex items-center gap-2 px-3 py-1.5 bg-purple-600 text-white border border-purple-700 rounded-lg font-bold hover:bg-purple-700 transition-colors shadow-md text-[10px] uppercase tracking-wider"
           title="Download PDF"
         >
           <Download size={12} />
