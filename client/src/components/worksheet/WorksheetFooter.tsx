@@ -8,7 +8,7 @@
  * <WorksheetFooter enabled={true} currentPage={1} totalPages={2} />
  */
 
-import { WizqoLogo } from './WizqoLogo'
+import { WizqoLogo } from '../WizqoLogo'
 
 interface WorksheetFooterProps {
   enabled?: boolean
