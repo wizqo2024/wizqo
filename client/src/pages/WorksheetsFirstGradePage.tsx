@@ -7,6 +7,7 @@ import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
+import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 
 // Categories will be defined inside component to use translation
 
@@ -361,15 +362,15 @@ export default function WorksheetsFirstGradePage() {
 
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
-                    <button
+                    <PDFDownloadButton
                       onClick={() => {
                         window.open(previewItem.href, '_blank')
                       }}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
-                      aria-label={`Download ${previewItem.title} as PDF`}
-                    >
-                      Download
-                    </button>
+                      isGenerating={false}
+                      disableDefaultPositioning={true}
+                      label="Download"
+                      className="px-4 py-2"
+                    />
                     <button
                       onClick={() => {
                         window.open(previewItem.href, '_blank')
@@ -400,15 +401,15 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="text-base font-semibold text-slate-900">{title}</div>
       <p className="text-slate-600 text-sm mt-1">{description}</p>
       <div className="mt-3 flex items-center gap-2">
-        <button
+        <PDFDownloadButton
           onClick={() => {
             window.open(href, '_blank')
           }}
-          className={BUTTON_CLASS}
-          aria-label={`${t('pages.firstGrade.downloadPDF')} ${title}`}
-        >
-          {t('pages.firstGrade.downloadPDF')}
-        </button>
+          isGenerating={false}
+          disableDefaultPositioning={true}
+          label={t('pages.firstGrade.downloadPDF')}
+          className="px-4 py-2"
+        />
       </div>
     </div>
   )
@@ -482,7 +483,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <button
+          <PDFDownloadButton
             onClick={() => {
               if (customDownloadUrl) {
                 window.open(customDownloadUrl, '_blank');
@@ -491,11 +492,11 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
               const printUrl = getWorksheetPrintURL(docId, '1st-grade')
               window.open(printUrl, '_blank')
             }}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            aria-label={`${t('pages.firstGrade.download')} ${title}`}
-          >
-            ⬇️ {t('pages.firstGrade.download')}
-          </button>
+            isGenerating={false}
+            disableDefaultPositioning={true}
+            label={t('pages.firstGrade.download')}
+            className="px-3 py-1.5"
+          />
         </div>
       </div>
     </article>

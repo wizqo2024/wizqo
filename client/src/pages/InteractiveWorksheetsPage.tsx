@@ -25,6 +25,7 @@ import type {
   InteractiveWorksheetPack,
 } from '@shared/interactive/generator'
 import { getDocMeta } from '@shared/interactive/interactiveWorksheets'
+import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 
 const DEFAULT_SELECTED_CATEGORIES = ['math']
 const DEFAULT_GRADE: GradeBand = 'preK'
@@ -471,7 +472,7 @@ function WorksheetPreviewCard({
           {(() => {
             const downloadUrl = pack?.printUrl ? onDownload(item.docId) : null
             return downloadUrl ? (
-              <button
+              <PDFDownloadButton
                 onClick={() => {
                   if (onDownloadDirect) {
                     onDownloadDirect(item)
@@ -479,10 +480,11 @@ function WorksheetPreviewCard({
                     window.open(downloadUrl, '_blank')
                   }
                 }}
-                className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-              >
-                Download
-              </button>
+                isGenerating={false}
+                disableDefaultPositioning={true}
+                label="Download"
+                className="px-3 py-1.5"
+              />
             ) : null
           })()}
         </div>

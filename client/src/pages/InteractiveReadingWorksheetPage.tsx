@@ -1,9 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { WorksheetHeader } from '../components/worksheet/WorksheetHeader';
+import { PDFDownloadButton } from '../components/common/PDFDownloadButton';
 import { useTranslation } from '../context/TranslationContext';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Download, Printer, RefreshCw, ArrowLeft, Loader2, Eye, EyeOff } from 'lucide-react';
+import { Printer, RefreshCw, ArrowLeft, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { SEOMetaTags } from '../components/SEOMetaTags';
 
 const stories = [
@@ -221,14 +222,12 @@ export default function InteractiveReadingWorksheetPage() {
                             Print Worksheet
                         </button>
 
-                        <button
+                        <PDFDownloadButton
                             onClick={handleDownloadPDF}
-                            disabled={isGenerating}
-                            className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 border-2 border-slate-200 rounded-lg font-semibold hover:bg-slate-50 transition-colors shadow-sm disabled:opacity-50"
-                        >
-                            {isGenerating ? <Loader2 size={20} className="animate-spin text-violet-600" /> : <Download size={20} />}
-                            {isGenerating ? 'Generating PDF...' : 'Download PDF'}
-                        </button>
+                            isGenerating={isGenerating}
+                            disableDefaultPositioning={true}
+                            className="px-6 py-3 text-base"
+                        />
                     </div>
                 </div>
             )}

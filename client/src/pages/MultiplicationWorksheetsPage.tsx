@@ -7,6 +7,7 @@ import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackPackGeneration, trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
+import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 
 interface WorksheetItem {
   title: string
@@ -334,7 +335,7 @@ export default function MultiplicationWorksheetsPage() {
 
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
-                    <button
+                    <PDFDownloadButton
                       onClick={() => {
                         const newWindow = window.open(previewItem.href, '_blank')
                         if (newWindow) {
@@ -342,11 +343,11 @@ export default function MultiplicationWorksheetsPage() {
                           }, 500)
                         }
                       }}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-white text-sm font-medium shadow-sm"
-                      aria-label={`Download ${previewItem.title} as PDF`}
-                    >
-                      Download
-                    </button>
+                      isGenerating={false}
+                      disableDefaultPositioning={true}
+                      label="Download"
+                      className="px-4 py-2"
+                    />
                   </div>
                 </div>
               </div>
@@ -432,7 +433,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <span>Answer key included</span>
         </div>
         <div className="flex items-center gap-2">
-          <button
+          <PDFDownloadButton
             onClick={() => {
               if (customDownloadUrl) {
                 window.open(customDownloadUrl, '_blank')
@@ -441,11 +442,11 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
               const printUrl = getWorksheetPrintURL(docId, 'multiplication')
               window.open(printUrl, '_blank')
             }}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-            aria-label={`Download ${title} worksheet as PDF`}
-          >
-            Download
-          </button>
+            isGenerating={false}
+            disableDefaultPositioning={true}
+            label="Download"
+            className="px-3 py-1.5"
+          />
         </div>
       </div>
     </article>

@@ -7,6 +7,7 @@ import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackPackGeneration, trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
+import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 
 // TIMES_TABLE_CATEGORIES will be created inside component to use translations
 
@@ -361,7 +362,7 @@ export default function TimesTableMultiplicationWorksheetsPage() {
 
                   {/* Action Buttons */}
                   <div className="mt-6 flex items-center gap-3">
-                    <button
+                    <PDFDownloadButton
                       onClick={() => {
                         const newWindow = window.open(previewItem.href, '_blank')
                         if (newWindow) {
@@ -369,10 +370,11 @@ export default function TimesTableMultiplicationWorksheetsPage() {
                           }, 500)
                         }
                       }}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium shadow-sm"
-                    >
-                      Download
-                    </button>
+                      isGenerating={false}
+                      disableDefaultPositioning={true}
+                      label="Download"
+                      className="px-4 py-2"
+                    />
                   </div>
                 </div>
               </div>
@@ -454,7 +456,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <span>{t('pages.timesTable.answerKeyIncluded')}</span>
         </div>
         <div className="flex items-center gap-2">
-          <button
+          <PDFDownloadButton
             onClick={() => {
               if (customDownloadUrl) {
                 window.open(customDownloadUrl, '_blank')
@@ -463,10 +465,11 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
               const printUrl = getWorksheetPrintURL(docId, 'times-table')
               window.open(printUrl, '_blank')
             }}
-            className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
-          >
-            {t('pages.printables.download')}
-          </button>
+            isGenerating={false}
+            disableDefaultPositioning={true}
+            label={t('pages.printables.download')}
+            className="px-3 py-1.5"
+          />
         </div>
       </div>
     </article>

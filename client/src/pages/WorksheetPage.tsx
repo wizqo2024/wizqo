@@ -1,4 +1,4 @@
-/** @jsxImportSource react */
+// No change needed, just checking imports.
 import * as React from 'react'
 const { useEffect, useState, useMemo, useCallback } = React
 import { useTranslation } from '@/context/TranslationContext'
@@ -8,6 +8,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { getWorksheetSEOBySlug, getWorksheetSEO } from '@shared/worksheetSEO'
 import { trackWorksheetView, trackWorksheetDownload } from '@/utils/analytics'
 import ShadowMatchingWorksheetPage from './ShadowMatchingWorksheetPage'
+import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 
 
 interface WorksheetPageProps {
@@ -177,13 +178,13 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
 
             {/* Print/Download Button */}
             <div className="flex flex-col items-center gap-4 print:hidden">
-              <button
+              <PDFDownloadButton
                 onClick={handlePrintClick}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors shadow-md hover:shadow-lg"
-                aria-label={`Print or download ${seoData.h1} as PDF`}
-              >
-                📄 PDF Download
-              </button>
+                isGenerating={false}
+                disableDefaultPositioning={true}
+                className="px-6 py-3 text-base shadow-md hover:shadow-lg"
+                label="PDF Download"
+              />
 
               {/* Show Answer Toggle */}
               <label className="flex items-center gap-2 cursor-pointer select-none">

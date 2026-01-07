@@ -1,9 +1,9 @@
 import React from 'react'
 import type { ReactNode } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
-import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
-import { Download, Loader2 } from 'lucide-react'
+import jsPDF from 'jspdf'
+import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 
 // Helper function to get theme for regular worksheets based on docId
 export function getWorksheetTheme(docId: string): {
@@ -277,17 +277,10 @@ export function WorksheetSectionWrapper({
     return (
         <div className="relative group w-full">
             {/* Download Button (Always Visible) */}
-            <div className="absolute top-2 right-2 z-20 print:hidden" data-html2canvas-ignore="true">
-                <button
-                    onClick={handleDownloadPDF}
-                    disabled={isGeneratingPdf}
-                    className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 text-white border border-indigo-700 rounded-lg font-semibold hover:bg-indigo-700 transition-colors shadow-sm disabled:opacity-50 text-xs"
-                    title="Download PDF"
-                >
-                    {isGeneratingPdf ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
-                    {isGeneratingPdf ? 'Generating...' : 'PDF Download'}
-                </button>
-            </div>
+            <PDFDownloadButton
+                onClick={handleDownloadPDF}
+                isGenerating={isGeneratingPdf}
+            />
             <section
                 ref={sectionRef}
                 className={`mb-10 break-inside-auto rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section`}
