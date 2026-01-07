@@ -476,7 +476,7 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
         case 'beginning-sounds-az':
             return getTranslatedWorksheetTitle(docId, t, ' Beginning Sounds (AZ)')
         case 'kindergarten-counting-1-10':
-            return getTranslatedWorksheetTitle(docId, t, ' Counting 110')
+            return getTranslatedWorksheetTitle(docId, t, ' Counting 1-10')
         case 'kindergarten-number-recognition':
             return getTranslatedWorksheetTitle(docId, t, ' Number Recognition')
         case 'kindergarten-shapes':
@@ -488,9 +488,9 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
         case 'kindergarten-counting-visual':
             return getTranslatedWorksheetTitle(docId, t, ' Counting with Cute Characters')
         case 'addition-subtraction-0-10':
-            return getTranslatedWorksheetTitle(docId, t, ' Addition & Subtraction 010')
+            return getTranslatedWorksheetTitle(docId, t, ' Addition & Subtraction 0-10')
         case 'ten-frames-1-10':
-            return getTranslatedWorksheetTitle(docId, t, ' Ten Frames 110')
+            return getTranslatedWorksheetTitle(docId, t, ' Ten Frames 1-10')
         case 'shapes-colors-sort':
             return getTranslatedWorksheetTitle(docId, t, ' Shapes & Colors Sort (Cut & Glue)')
         case 'dot-to-dot-1-20':
@@ -655,9 +655,9 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
         case 'letter-tracing-az':
             return getTranslatedWorksheetTitle(docId, t, ' Letter Tracing AZ')
         case 'more-less-equal-10':
-            return getTranslatedWorksheetTitle(docId, t, ' More, Less, or Equal? (110)')
+            return getTranslatedWorksheetTitle(docId, t, ' More, Less, or Equal? (1-10)')
         case 'counting-objects-20':
-            return getTranslatedWorksheetTitle(docId, t, ' Count the Objects (120)')
+            return getTranslatedWorksheetTitle(docId, t, ' Count the Objects (1-20)')
         case 'sentence-building':
             return getTranslatedWorksheetTitle(docId, t, ' Sentence Building')
         // Multiplication worksheets
@@ -934,13 +934,13 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
                     return translated
                 }
             }
-            return ' Count & Circle 110'
+            return ' Count & Circle (1-10)'
         case 'count-match-1-20':
-            return getTranslatedWorksheetTitle(docId, t, ' Count & Match 120')
+            return getTranslatedWorksheetTitle(docId, t, ' Count & Match (1-20)')
         case 'how-many-1-15':
-            return getTranslatedWorksheetTitle(docId, t, ' How Many? (115)')
+            return getTranslatedWorksheetTitle(docId, t, ' How Many? (1-15)')
         case 'count-color-1-10':
-            return getTranslatedWorksheetTitle(docId, t, ' Count & Color (110)')
+            return getTranslatedWorksheetTitle(docId, t, ' Count & Color (1-10)')
         case 'number-id-1-10':
             // Use translation if available, otherwise fallback to English
             if (context.t) {
@@ -949,13 +949,13 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
                     return ` ${translated}`
                 }
             }
-            return ' Number Identification 110'
+            return ' Number Identification 1-10'
         case 'number-matching-1-15':
-            return getTranslatedWorksheetTitle(docId, t, ' Number Matching 115')
+            return getTranslatedWorksheetTitle(docId, t, ' Number Matching 1-15')
         case 'number-order-1-20':
-            return getTranslatedWorksheetTitle(docId, t, ' Number Order 120')
+            return getTranslatedWorksheetTitle(docId, t, ' Number Order 1-20')
         case 'find-number-1-10':
-            return getTranslatedWorksheetTitle(docId, t, ' Find the Number (110)')
+            return getTranslatedWorksheetTitle(docId, t, ' Find the Number (1-10)')
         case 'shape-identification':
             return getTranslatedWorksheetTitle(docId, t, ' Shape Identification')
         case 'color-shapes':
@@ -994,7 +994,7 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
             return getTranslatedWorksheetTitle(docId, t, ' Path Tracing')
         // 3rd Grade worksheets
         case 'mult-facts-0-12':
-            return getTranslatedWorksheetTitle(docId, t, ' Multiplication Facts 012')
+            return getTranslatedWorksheetTitle(docId, t, ' Multiplication Facts 0-12')
         case 'mult-arrays':
             return getTranslatedWorksheetTitle(docId, t, ' Multiplication Arrays')
         case 'mult-word-problems':
@@ -1004,7 +1004,7 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
         case 'mult-properties':
             return getTranslatedWorksheetTitle(docId, t, ' Properties of Multiplication')
         case 'div-facts-1-12':
-            return getTranslatedWorksheetTitle(docId, t, ' Division Facts 112')
+            return getTranslatedWorksheetTitle(docId, t, ' Division Facts 1-12')
         case 'div-with-remainders':
             return getTranslatedWorksheetTitle(docId, t, ' Division with Remainders')
         case 'div-word-problems':

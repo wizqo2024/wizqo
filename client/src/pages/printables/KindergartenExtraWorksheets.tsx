@@ -169,7 +169,7 @@ export function ComparisonWorksheet({ docId, showAnswersForDoc, seed, variant }:
 
 // --- Pattern Worksheets (Premium Upgrade) ---
 
-const PATTERN_TYPES: Record<string, { title: string, emoji: string, description: string, generator: (rng: any) => { sequence: string[], options: string[], answer: string } }> = {
+const PATTERN_TYPES: Record<string, { title: string, emoji: string, description: string, generator: (rng: any) => { sequence: string[], options: string[], answer: string, missingIndex?: number } }> = {
     'ab-pattern': {
         title: 'AB Patterns',
         emoji: '🚂',
@@ -1736,7 +1736,66 @@ export function AnimalPack({ seed, variant, showAnswersForDoc }: SpecificWorkshe
 }
 
 
+// --- Colorable Icon for Counting Worksheets ---
+const ColorableIcon = ({ icon, size = 32 }: { icon: string, size?: number }) => {
+    // Return an SVG outline for specific emojis if type is 'color'
+    const outlineIcons: Record<string, React.ReactNode> = {
+        '🍎': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M50 20 C60 10 90 20 90 50 C90 80 50 95 50 95 C50 95 10 80 10 50 C10 20 40 10 50 20Z" />
+                <path d="M50 20 C50 15 55 10 60 10" />
+            </svg>
+        ),
+        '⭐️': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M50 5 L63 38 L95 38 L69 57 L79 90 L50 70 L21 90 L31 57 L5 38 L37 38 Z" />
+            </svg>
+        ),
+        '🌸': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M50 50 M50 30 A20 20 0 1 1 70 50 A20 20 0 1 1 50 70 A20 20 0 1 1 30 50 A20 20 0 1 1 50 30" />
+                <circle cx="50" cy="50" r="8" />
+            </svg>
+        ),
+        '🦋': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M50 30 Q30 10 10 30 Q10 50 30 60 Q30 90 50 80 Q70 90 70 60 Q90 50 90 30 Q70 10 50 30" />
+                <line x1="50" y1="20" x2="50" y2="80" />
+            </svg>
+        ),
+        '🎈': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+                <ellipse cx="50" cy="40" rx="30" ry="35" />
+                <path d="M50 75 L45 80 L55 80 Z" />
+                <path d="M50 80 Q45 90 50 100" />
+            </svg>
+        ),
+        '🍪': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="50" cy="50" r="40" />
+                <circle cx="35" cy="35" r="4" fill="currentColor" />
+                <circle cx="65" cy="45" r="4" fill="currentColor" />
+                <circle cx="45" cy="65" r="4" fill="currentColor" />
+                <circle cx="55" cy="30" r="4" fill="currentColor" />
+            </svg>
+        ),
+        '🧸': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="50" cy="55" r="30" />
+                <circle cx="30" cy="30" r="12" />
+                <circle cx="70" cy="30" r="12" />
+                <circle cx="50" cy="55" r="8" />
+                <circle cx="42" cy="48" r="3" fill="currentColor" />
+                <circle cx="58" cy="48" r="3" fill="currentColor" />
+            </svg>
+        )
+    };
+
+    return outlineIcons[icon] || <span className="text-3xl grayscale opacity-40">{icon}</span>;
+}
+
 // --- Counting Worksheets (New Implementation) ---
+
 
 const COUNTING_DATA: Record<string, { title: string, emoji: string, max: number, type: 'color' | 'write' | 'match' | 'circle' }> = {
     'count-color-1-10': { title: 'Count & Color (1-10)', emoji: '🖍️', max: 10, type: 'color' },
@@ -1794,10 +1853,18 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                 {problems.map((p) => (
                     <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
                         {/* Object Display */}
-                        <div className="flex flex-wrap justify-center content-center gap-1 mb-4 min-h-[6rem] w-full">
-                            {Array.from({ length: p.count }).map((_, idx) => (
-                                <span key={idx} className="text-2xl leading-none">{p.icon}</span>
-                            ))}
+                        <div className="mb-4 w-full h-24 flex items-center justify-center">
+                            <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 justify-items-center items-center`}>
+                                {Array.from({ length: config.type === 'color' ? config.max : p.count }).map((_, idx) => (
+                                    <div key={idx} className="flex items-center justify-center">
+                                        {config.type === 'color' ? (
+                                            <ColorableIcon icon={p.icon} size={28} />
+                                        ) : (
+                                            <span className="text-2xl leading-none">{p.icon}</span>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Interaction Area based on Type */}

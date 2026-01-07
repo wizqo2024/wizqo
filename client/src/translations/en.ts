@@ -489,6 +489,22 @@ export const en = {
         note: '💡 Remember: Count each object once, and the last number you say is the total. Then circle that number!',
       },
     },
+    'count-color-1-10': {
+      title: 'Count & Color 1–10',
+      description: 'Count the objects and color them in. Practice numbers 1–10.',
+      learningObjectives: [
+        'Count objects accurately up to 10',
+        'Develop fine motor skills through coloring',
+        'Build number recognition',
+        'Understand quantity and cardinality',
+      ],
+      parentTeacherTips: [
+        'Encourage students to count before they start coloring',
+        'Use different colors for different groups of objects',
+        'Practice one-to-one correspondence while counting',
+        'Extension: Count objects around the room that match the numbers',
+      ],
+    },
     'mult-2x1': {
       title: 'Multi-Digit Multiplication (2×1)',
       description: 'Multiply 2-digit numbers by 1-digit numbers. Show regrouping if needed.',
