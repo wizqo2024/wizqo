@@ -40,6 +40,7 @@ import {
 // Local components defined below to avoid conflicts
 import { makeRng, pick, pickNUnique, shuffleArray, buildWords } from '@/utils/printableUtils'
 import { SpecificWorksheetProps } from '../types/printable';
+import { generateWorksheetPDF } from '@/utils/pdfGenerator';
 
 import { MathRenderer } from './printables/renderer/MathRenderer';
 import { LanguageRenderer } from './printables/renderer/LanguageRenderer';
@@ -649,588 +650,34 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [doc])
 
-  // PDF download function - completely rewritten from scratch to match Ctrl+P exactly
+  // PDF download function - refactored to use unified utility
   const downloadPDF = useCallback(async () => {
-    // Variables for cleanup in finally block
-    let contentElement: HTMLElement | null = null
-    let printStyleTag: HTMLStyleElement | null = null
-    let originalBodyStyle: any = null
-    let originalContentStyle: any = null
-    const originalStyles = new Map<HTMLElement, { [key: string]: string }>()
-
     try {
       setIsDownloadingPDF(true)
 
-      // Import jsPDF and html2canvas dynamically
-      const [{ default: jsPDF }, html2canvas] = await Promise.all([
-        import('jspdf'),
-        import('html2canvas').then(m => m.default || m)
-      ])
-
       // Wait for content to render
-      // If showAnswers is true, wait a bit longer for answers to render
       if (showAnswers) {
         await new Promise(resolve => setTimeout(resolve, 1500))
       } else {
         await new Promise(resolve => setTimeout(resolve, 500))
       }
 
-      // Find the worksheet content container
-      contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
       if (!contentElement) {
         throw new Error('Could not find worksheet content. Please refresh the page and try again.')
       }
 
-      // Store original styles for restoration
-      // (already initialized above)
-
-      // Apply print styles by creating a style tag with ALL print CSS from index.css
-      // CRITICAL: html2canvas doesn't respect @media print, so we must apply ALL print styles as regular styles
-      printStyleTag = document.createElement('style')
-      printStyleTag.id = 'pdf-export-print-styles'
-      printStyleTag.textContent = `
-        /* ============================================================================
-         * EXACT MATCH: All print styles from index.css @media print
-         * Applied as regular styles for html2canvas compatibility
-         * ============================================================================ */
-        
-        /* Base backgrounds - match index.css exactly */
-        html, body, #root, [data-worksheet-content="true"] {
-          background-color: white !important;
-          background: white !important;
-          color: black !important;
-        }
-        
-        /* Override dark backgrounds */
-        [class*="bg-black"],
-        [class*="bg-slate-900"],
-        [class*="bg-gray-900"],
-        [class*="bg-zinc-900"],
-        [class*="bg-neutral-900"],
-        [class*="bg-stone-900"],
-        [class*="dark"],
-        .bg-black,
-        .bg-slate-900,
-        .bg-gray-900 {
-          background-color: white !important;
-          background: white !important;
-          color: black !important;
-        }
-        
-        /* Worksheet content backgrounds */
-        [data-worksheet-content="true"],
-        [data-worksheet-content="true"] section,
-        [data-worksheet-content="true"] div,
-        .worksheet-section {
-          background-color: white !important;
-          background: white !important;
-        }
-        
-        /* Body and HTML - match index.css exactly */
-        body, html {
-          margin: 0 !important;
-          padding: 0 !important;
-        }
-        
-        /* Fix blank first page - remove min-height constraints */
-        [data-worksheet-content="true"],
-        .min-h-screen {
-          min-height: auto !important;
-          height: auto !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          background-color: white !important;
-        }
-        
-        [data-worksheet-content="true"] {
-          position: relative !important;
-          width: 794px !important;
-          max-width: 794px !important;
-          margin: 0 auto !important;
-          padding: 0 !important;
-          background: white !important;
-        }
-        
-        /* CRITICAL: Inner div - match print styles with colorful border and emoji stars */
-        [data-worksheet-content="true"] > div:first-child,
-        [data-worksheet-content="true"] .max-w-4xl {
-          position: relative !important;
-          border-radius: 12px !important;
-          border: 4px solid transparent !important;
-          border-image: linear-gradient(
-            135deg,
-            #f472b6 0%,
-            #a78bfa 20%,
-            #60a5fa 40%,
-            #34d399 60%,
-            #fbbf24 80%,
-            #fb7185 100%
-          ) 1 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-          color-adjust: exact !important;
-          padding: 40px 24px 80px 24px;
-          margin: 0.5in !important;
-          padding-top: 40px; 
-          padding-bottom: 80px; /* Space for bottom branding */
-        }
-        }
-        
-        /* Footer branding - absolute inside content */
-        [data-worksheet-content="true"] .wizqo-footer-print {
-          position: absolute !important;
-          bottom: 25px !important;
-          left: 50% !important;
-          transform: translateX(-50%) !important;
-          z-index: 100 !important;
-          display: flex !important;
-          flex-direction: column !important;
-          align-items: center !important;
-          gap: 5px !important;
-          width: 100% !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-        }
-
-        [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-          font-size: 13px !important;
-          font-weight: 700 !important;
-          color: #4845D2 !important;
-          white-space: nowrap !important;
-          letter-spacing: 0.3px !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-        }
-        
-        /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
-        [data-worksheet-content="true"] > div:first-child::before,
-        [data-worksheet-content="true"] > div.max-w-4xl::before,
-        .max-w-4xl.mx-auto::before,
-        [data-worksheet-content="true"] .max-w-4xl::before {
-          content: '' !important;
-          position: absolute !important;
-          top: -8px !important;
-          left: -8px !important;
-          right: -8px !important;
-          bottom: -8px !important;
-          background-image: 
-            /* Stars pattern */
-            repeating-linear-gradient(0deg, transparent, transparent 20px, #fbbf24 20px, #fbbf24 21px),
-            repeating-linear-gradient(90deg, transparent, transparent 20px, #f472b6 20px, #f472b6 21px),
-            repeating-linear-gradient(45deg, transparent, transparent 15px, #60a5fa 15px, #60a5fa 16px),
-            repeating-linear-gradient(135deg, transparent, transparent 15px, #34d399 15px, #34d399 16px),
-            /* Base gradient */
-            linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) !important;
-          background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%, 100% 100% !important;
-          background-position: top, right, bottom, left, center !important;
-          background-repeat: repeat-x, repeat-y, repeat-x, repeat-y, no-repeat !important;
-          border-radius: 14px !important;
-          z-index: -1 !important;
-          opacity: 0.3 !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-        }
-        
-        /* Decorative emoji stars at top - applied to ALL worksheets */
-        [data-worksheet-content="true"] > div:first-child::after,
-        [data-worksheet-content="true"] > div.max-w-4xl::after,
-        .max-w-4xl.mx-auto::after,
-        [data-worksheet-content="true"] .max-w-4xl::after {
-          content: '   ' !important;
-          position: absolute !important;
-          top: 0px !important;
-          left: 50% !important;
-          transform: translateX(-50%) translateY(-50%) !important;
-          font-size: 18px !important;
-          letter-spacing: 10px !important;
-          z-index: 10 !important;
-          background: white !important;
-          padding: 4px 12px !important;
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-          color: #f472b6 !important;
-          display: block !important;
-          white-space: nowrap !important;
-        }
-        
-        /* Ensure all divs inside worksheet content have white background */
-        [data-worksheet-content="true"] > div:first-child > * {
-          background-color: white !important;
-          background: white !important;
-        }
-        
-        /* Remove top margin/padding from first page content */
-        [data-worksheet-content="true"] > *:first-child,
-        [data-worksheet-content="true"] > section:first-child,
-        .worksheet-section:first-child {
-          margin-top: 0.25rem !important;
-          padding-top: 0.25rem !important;
-          background-color: white !important;
-        }
-        
-        /* Fix blank first page - ensure first element starts at top */
-        [data-worksheet-content="true"] > *:first-child,
-        [data-worksheet-content="true"] > section:first-child {
-          page-break-before: auto !important;
-        }
-        
-        /* Remove all top margins from first section */
-        section.worksheet-section:first-child,
-        .worksheet-section:first-child {
-          margin-top: 0 !important;
-          padding-top: 0 !important;
-          background-color: transparent !important;
-        }
-
-        /* Ensure CHILDREN of the section can also break */
-        .worksheet-section > div,
-        .worksheet-section > div > div {
-          break-inside: auto !important;
-          page-break-inside: auto !important;
-        }
-
-        /* Preserve content borders within worksheets */
-        section[class*="break-inside-avoid"] div[class*="border"],
-        section[class*="break-inside-avoid"] div[class*="rounded"] {
-          border: 1px solid #cbd5e1 !important;
-          border-radius: 4px !important;
-        }
-        
-        /* Hide print:hidden elements */
-        [class*="print:hidden"] {
-          display: none !important;
-          visibility: hidden !important;
-        }
-        
-        /* Show print:block elements */
-        [class*="print:block"] {
-          display: block !important;
-        }
-        
-        /* Hide URLs in print */
-        a[href]::after { content: none !important; }
-        a { text-decoration: none !important; }
-        
-        /* Remove box shadows */
-        * {
-          box-shadow: none !important;
-        }
-        
-        /* Typography - match index.css */
-        p { 
-          line-height: 1.5 !important; 
-          margin: 0.5rem 0 !important;
-        }
-        
-        div, span { 
-          line-height: 1.4 !important; 
-        }
-        
-        h1, h2, h3 { 
-          page-break-after: avoid !important; 
-          margin-bottom: 0.75rem !important;
-          margin-top: 1rem !important;
-          line-height: 1.3 !important;
-        }
-        
-        /* First section headings should be more compact */
-        .worksheet-section:first-of-type h1,
-        .worksheet-section:first-of-type h2,
-        .worksheet-section:first-of-type h3 {
-          margin-top: 0.25rem !important;
-          margin-bottom: 0.375rem !important;
-        }
-        
-        /* Keep headings with following content */
-        h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
-          page-break-before: avoid !important;
-          break-before: avoid !important;
-        }
-        
-        /* Prevent breaks in images and visual elements */
-        img, svg, picture, canvas, video {
-          page-break-inside: avoid !important;
-          break-inside: avoid !important;
-          page-break-after: avoid !important;
-          break-after: avoid !important;
-          max-height: 100vh !important;
-        }
-        
-        /* Problem Box Component */
-        .problem-box {
-          page-break-inside: avoid !important;
-          break-inside: avoid !important;
-          background-color: white !important;
-          margin-bottom: 20px !important;
-        }
-        
-        .problem-box-default {
-          border: 1px solid #d5d5d5 !important;
-          border-radius: 10px !important;
-          padding: 16px !important;
-        }
-        
-        .problem-box-highlight {
-          border: 1px solid #b3d9ff !important;
-          border-radius: 10px !important;
-          padding: 16px !important;
-          background-color: #eaf4ff !important;
-        }
-        
-        .problem-box-minimal {
-          border: 1px solid #e2e8f0 !important;
-          border-radius: 8px !important;
-          padding: 12px !important;
-          background-color: transparent !important;
-        }
-      `
-      document.head.appendChild(printStyleTag)
-
-      // Hide print:hidden elements
-      const printHiddenElements = document.querySelectorAll('[class*="print:hidden"]')
-      printHiddenElements.forEach((el) => {
-        const htmlEl = el as HTMLElement
-        originalStyles.set(htmlEl, { display: htmlEl.style.display, visibility: htmlEl.style.visibility })
-        htmlEl.style.display = 'none'
-        htmlEl.style.visibility = 'hidden'
-      })
-
-      // Show print:block elements
-      const printBlockElements = document.querySelectorAll('[class*="print:block"]')
-      printBlockElements.forEach((el) => {
-        const htmlEl = el as HTMLElement
-        const computedStyle = window.getComputedStyle(htmlEl)
-        if (computedStyle.display === 'none') {
-          originalStyles.set(htmlEl, { display: htmlEl.style.display })
-          htmlEl.style.display = 'block'
-        }
-      })
-
-      // Set body to print dimensions
-      originalBodyStyle = {
-        width: document.body.style.width,
-        maxWidth: document.body.style.maxWidth,
-        margin: document.body.style.margin,
-        padding: document.body.style.padding,
-        background: document.body.style.background
-      }
-
-      document.body.style.width = '794px'
-      document.body.style.maxWidth = '794px'
-      document.body.style.margin = '0 auto'
-      document.body.style.padding = '0'
-      document.body.style.background = 'white'
-
-      // Set content element to print dimensions
-      originalContentStyle = {
-        width: contentElement.style.width,
-        maxWidth: contentElement.style.maxWidth,
-        margin: contentElement.style.margin,
-        padding: contentElement.style.padding,
-        background: contentElement.style.background
-      }
-
-      contentElement.style.width = '794px'
-      contentElement.style.maxWidth = '794px'
-      contentElement.style.margin = '0 auto'
-      contentElement.style.padding = '0'
-      contentElement.style.background = 'white'
-
-      // Set inner div to match print layout EXACTLY - with colorful border and emoji stars
-      // CRITICAL: Print styles show colorful border, padding 20px 24px, and emoji stars - match Ctrl+P exactly
-      // Target the ACTUAL worksheet container, not the branding header
-      const innerDiv = contentElement.querySelector(':scope > .max-w-4xl') as HTMLElement
-      if (innerDiv) {
-        originalStyles.set(innerDiv, {
-          margin: innerDiv.style.margin,
-          marginTop: innerDiv.style.marginTop,
-          width: innerDiv.style.width,
-          maxWidth: innerDiv.style.maxWidth,
-          padding: innerDiv.style.padding,
-          position: innerDiv.style.position,
-          overflow: innerDiv.style.overflow,
-          backgroundColor: innerDiv.style.backgroundColor,
-          background: innerDiv.style.background,
-          boxSizing: innerDiv.style.boxSizing,
-          borderRadius: innerDiv.style.borderRadius,
-          border: innerDiv.style.border,
-          borderImage: innerDiv.style.borderImage,
-          webkitPrintColorAdjust: innerDiv.style.webkitPrintColorAdjust,
-          printColorAdjust: innerDiv.style.printColorAdjust,
-          colorAdjust: (innerDiv.style as any).colorAdjust
-        })
-        // Match print styles with colorful border and padding
-        innerDiv.style.position = 'relative'
-        innerDiv.style.borderRadius = '12px'
-        innerDiv.style.border = '4px solid transparent'
-        innerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
-        innerDiv.style.borderImageSlice = '1'
-        const innerStyle = innerDiv.style as any
-        innerStyle.webkitPrintColorAdjust = 'exact'
-        innerStyle.printColorAdjust = 'exact'
-        innerStyle.colorAdjust = 'exact'
-        innerDiv.style.padding = '100px 24px 80px 24px'
-        innerDiv.style.margin = '0.5in'
-        innerDiv.style.backgroundColor = 'white'
-        innerDiv.style.background = 'white'
-      }
-
-      // NUCLEAR FIX: Injected in onclone for maximum reliability
-      const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 74 43"><g transform="translate(0, 1)"><path d="M0.45 20.81C0.45 9.76 9.41 0.81 20.45 0.81H46.7C57.75 0.81 66.7 9.76 66.7 20.81V40.81H20.45C9.41 40.81 0.45 31.86 0.45 20.81Z" fill="#4845D2"/><path d="M46.7 8.31H20.45C13.55 8.31 7.95 13.91 7.95 20.81C7.95 27.71 13.55 33.31 20.45 33.31H46.7C53.61 33.31 59.2 27.71 59.2 20.81C59.2 13.91 53.61 8.31 46.7 8.31Z" fill="#A5B4FC"/><path d="M20.45 27.06C23.9 27.06 26.7 24.26 26.7 20.81C26.7 17.36 23.9 14.56 20.45 14.56C17 14.56 14.2 17.36 14.2 20.81C14.2 24.26 17 27.06 20.45 27.06Z" fill="black"/><path d="M17.95 19.56C18.64 19.56 19.2 19 19.2 18.31C19.2 17.62 18.64 17.06 17.95 17.06C17.26 17.06 16.7 17.62 16.7 18.31C16.7 19 17.26 19.56 17.95 19.56Z" fill="white"/><path d="M47.95 27.06C51.4 27.06 54.2 24.26 54.2 20.81C54.2 17.36 51.4 14.56 47.95 14.56C44.5 14.56 41.7 17.36 41.7 20.81C41.7 24.26 44.5 27.06 47.95 27.06Z" fill="black"/><path d="M45.45 19.56C46.14 19.56 46.7 19 46.7 18.31C46.7 17.62 46.14 17.06 45.45 17.06C44.76 17.06 44.2 17.62 44.2 18.31C44.2 19 44.76 19.56 45.45 19.56Z" fill="white"/></g></svg>`;
-
-      // Capture with html2canvas - ensure colors are captured correctly
-      const canvas = await html2canvas(contentElement, {
-        scale: 3.0,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-        allowTaint: true,
-        scrollX: 0,
-        scrollY: 0,
-        windowWidth: 794,
-        windowHeight: contentElement.scrollHeight,
-        onclone: (clonedDoc: Document) => {
-          // Force white background on the capture body
-          if (clonedDoc.body) {
-            clonedDoc.body.style.setProperty('background', 'white', 'important');
-            clonedDoc.body.style.setProperty('width', '793px', 'important');
-          }
-
-          const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
-          if (clonedContentElement) {
-            clonedContentElement.style.setProperty('background', 'white', 'important');
-            clonedContentElement.style.setProperty('padding', '0', 'important');
-
-            const clonedInnerDiv = clonedContentElement.querySelector('.max-w-4xl') as HTMLElement
-            if (clonedInnerDiv) {
-              // Ensure relative positioning for injected branding
-              clonedInnerDiv.style.setProperty('position', 'relative', 'important');
-              clonedInnerDiv.style.setProperty('display', 'block', 'important');
-              clonedInnerDiv.style.setProperty('background', 'white', 'important');
-              clonedInnerDiv.style.setProperty('border-radius', '12px', 'important');
-              clonedInnerDiv.style.setProperty('border', '4px solid transparent', 'important');
-              clonedInnerDiv.style.setProperty('border-image', 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1', 'important');
-              clonedInnerDiv.style.setProperty('border-image-slice', '1', 'important');
-              clonedInnerDiv.style.setProperty('margin', '0.4in auto', 'important');
-
-              // Adjust padding to remove space for the top header, but keep 40px for the border area
-              clonedInnerDiv.style.setProperty('padding', '40px 32px 80px 32px', 'important');
-
-              // Branding Logo Data
-              const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgMSkiPjxwYXRoIGQ9Ik0wLjQ1IDIwLjgxQzAuNDUgOS43NiA5LjQxIDAuODEgMjAuNDUgMC44MUg0Ni43QzU3Ljc1IDAuODEgNjYuNyA5Ljc2IDY2LjcgMjAuODFWNDAuODFIMjAuNDVDOS40MSA0MC44MSAwLjQ1IDMxLjg2IDAuNDUgMjAuODFaIiBmaWxsPSIjNDg0NUQyIi8+PHBhdGggZD0iTTQ2LjcgOC4zMUgyMC40NUMxMy41NSA4LjMxIDcuOTUgMTMuOTEgNy45NSAyMC44MUM3Ljk1IDI3LjcxIDEzLjU1IDMzLjMxIDIwLjQ1IDMzLjMxSDQ2LjdDNTMuNjEgMzMuMzEgNTkuMiAyNy43MSA1OS4yIDIwLjgxQzU5LjIgMTMuOTEgNTMuNjEgOC4zMSA0Ni43IDguMzFaIiBmaWxsPSIjQTVCNEZDIi8+PHBhdGggZD0iTTIwLjQ1IDI3LjA2QzIzLjkgMjcuMDYgMjYuNyAyNC4yNiAyNi43IDIwLjgxQzI2LjcgMTcuMzYgMjMuOSAxNC41NiAyMC40NSAxNC41NkMxNyAxNC41NiAxNC4yIDE3LjM2IDE0LjIgMjAuODFDMTQuMiAyNC4yNiAxNyAyNy4wNiAyMC40NSAyNy4wNloiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTE3Ljk1IDE5LjU2QzE4LjY0IDE5LjU2IDE5LjIgMTkgMTkuMiAxOC4zMUMxOS4yIDE3LjYyIDE4LjY0IDE3LjA2IDE3Ljk1IDE3LjA2QzE3LjI2IDE3LjA2IDE2LjcgMTcuNjIgMTYuNyAxOC4zMUMxNi43IDE5IDE3LjI2IDE5LjU2IDE3Ljk1IDE5LjU2WiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNDcuOTUgMjcuMDZDNTEuNCAyNy4wNiA1NC4yIDI0LjI2IDU0LjIgMjAuODFDNTQuMiAxNy4zNiA1MS40IDE0LjU2IDQ3Ljk1IDE0LjU2QzQ0LjUgMTQuNTYgNDEuNyAxNy4zNiA0MS43IDIwLjgxQzQxLjcgMjQuMjYgNDQuNSAyNy4wNiA0Ny45NSAyNy4wNloiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTQ1LjQ1IDE5LjU2QzQ2LjE0IDE5LjU2IDQ2LjcgMTkgNDYuNyAxOC4zMUM0Ni43IDE3LjYyIDQ2LjE0IDE3LjA2IDQ1LjQ1IDE3LjA2QzQ0Ljc2IDE3LjA2IDQ0LjIgMTcuNjIgNDQuMiAxOC4zMUM0NC4yIDE5IDQ0Ljc2IDE5LjU2IDQ1LjQ1IDE5LjU2WiIgZmlsbD0id2hpdGUiLz48L2c+PC9zdmc+`;
-
-
-
-              // Inject Branding Footer directly into cloned DOM
-              const footer = clonedDoc.createElement('div');
-              footer.style.cssText = 'position: absolute !important; bottom: 25px !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 9999 !important; width: 100% !important; height: 50px !important;';
-              footer.innerHTML = `
-                <div style="display: flex !important; align-items: center !important; gap: 8px !important; justify-content: center !important;">
-                  <img src="${logoBase64}" style="width: 42px !important; height: 24px !important; opacity: 0.8 !important;" />
-                  <span style="font-size: 12pt !important; font-weight: 700 !important; color: #4845D2 !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
-                </div>
-                <div style="font-size: 10pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: system-ui, -apple-system, sans-serif !important;">
-                  Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
-                </div>
-              `;
-              clonedInnerDiv.appendChild(footer);
-            }
-          }
-
-          // Process utility classes
-          const allElements = clonedDoc.querySelectorAll('*')
-          allElements.forEach((el) => {
-            const htmlEl = el as HTMLElement
-            const classList = Array.from(htmlEl.classList)
-            if (classList.some(cls => cls.includes('print-customization-header'))) {
-              htmlEl.style.setProperty('display', 'block', 'important')
-            }
-            if (classList.some(cls => cls.includes('print:block'))) {
-              htmlEl.style.setProperty('display', 'block', 'important')
-            }
-            if (classList.some(cls => cls.includes('print:hidden'))) {
-              htmlEl.style.setProperty('display', 'none', 'important')
-            }
-          })
-        }
-      })
-
-      // Standard cleanup: Remove the injected elements after capture
-      const headerToCleanup = document.getElementById('wizqo-header-inject');
-      const footerToCleanup = document.getElementById('wizqo-footer-inject');
-      if (headerToCleanup) headerToCleanup.remove();
-      if (footerToCleanup) footerToCleanup.remove();
-
-      // Validate canvas
-      if (!canvas || canvas.width === 0 || canvas.height === 0) {
-        throw new Error('Failed to capture content. Please try again.')
-      }
-
-      // Create PDF - A4 size (210mm x 297mm)
-      const pageWidthMm = 210 // A4 width in mm
-      const pageHeightMm = 297 // A4 height in mm
-      const pdf = new jsPDF('p', 'mm', 'a4')
-
-      // Calculate image dimensions
-      const imgWidth = pageWidthMm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width
-
-      // Convert canvas to image
-      const imgData = canvas.toDataURL('image/jpeg', 0.95)
-
-      if (imgHeight <= pageHeightMm) {
-        // Single page
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
-      } else {
-        // Multiple pages - split canvas into pages
-        const pixelsPerMm = canvas.width / imgWidth
-        const pageHeightPx = pageHeightMm * pixelsPerMm
-        let currentY = 0
-
-        while (currentY < canvas.height) {
-          const pageHeightActual = Math.min(pageHeightPx, canvas.height - currentY)
-
-          // Create a canvas for this page
-          const pageCanvas = document.createElement('canvas')
-          pageCanvas.width = canvas.width
-          pageCanvas.height = pageHeightActual
-          const pageCtx = pageCanvas.getContext('2d')
-
-          if (pageCtx) {
-            // Fill white background
-            pageCtx.fillStyle = '#ffffff'
-            pageCtx.fillRect(0, 0, pageCanvas.width, pageCanvas.height)
-
-            // Draw portion of original canvas
-            pageCtx.drawImage(
-              canvas,
-              0, currentY,
-              canvas.width, pageHeightActual,
-              0, 0,
-              pageCanvas.width, pageCanvas.height
-            )
-
-            const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.95)
-            const pageImgHeight = (pageHeightActual * imgWidth) / canvas.width
-
-            pdf.addImage(pageImgData, 'JPEG', 0, 0, imgWidth, pageImgHeight)
-
-            currentY += pageHeightActual
-            if (currentY < canvas.height) {
-              pdf.addPage()
-            }
-          } else {
-            break
-          }
-        }
-      }
-
-      // Generate filename and download
       const filename = docTitle
         ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
         : `worksheet_${doc || 'download'}.pdf`
 
-      pdf.save(filename)
+      // Use the unified utility for high-quality, paginated PDF
+      await generateWorksheetPDF(contentElement, {
+        filename,
+        scale: 3.0,
+        showAnswers,
+        docTitle
+      })
 
       // Track download
       if (doc && primaryDoc) {
@@ -1244,36 +691,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       const errorMessage = error instanceof Error ? error.message : String(error)
       alert(`PDF download failed: ${errorMessage}\n\nPlease try using the Print button and select "Save as PDF" instead.`)
     } finally {
-      // CRITICAL CLEANUP: Move all restoration here to ensure UI is never left broken
-      if (originalBodyStyle) {
-        document.body.style.width = originalBodyStyle.width
-        document.body.style.maxWidth = originalBodyStyle.maxWidth
-        document.body.style.margin = originalBodyStyle.margin
-        document.body.style.padding = originalBodyStyle.padding
-        document.body.style.background = originalBodyStyle.background
-      }
-
-      if (contentElement && originalContentStyle) {
-        contentElement.style.width = originalContentStyle.width
-        contentElement.style.maxWidth = originalContentStyle.maxWidth
-        contentElement.style.margin = originalContentStyle.margin
-        contentElement.style.padding = originalContentStyle.padding
-        contentElement.style.background = originalContentStyle.background
-      }
-
-      originalStyles.forEach((styles: { [key: string]: string }, element: HTMLElement) => {
-        Object.entries(styles).forEach(([prop, value]) => {
-          (element.style as any)[prop] = value
-        })
-      })
-
-      if (printStyleTag && printStyleTag.parentNode) {
-        printStyleTag.remove()
-      }
-
       setIsDownloadingPDF(false)
     }
-  }, [doc, primaryDoc, docTitle, params, showAnswers])
+  }, [doc, docTitle, primaryDoc, params, showAnswers])
+
+
 
 
 
@@ -1358,7 +780,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       // Use a timestamp to allow re-printing if user navigates away and comes back
       const lastPrintTime = sessionStorage.getItem(printKey)
       if (lastPrintTime) {
-        const timeSinceLastPrint = now - parseInt(lastPrintTime, 10)
+        const timeSinceLastPrint = now - parseInt(lastPrintTime || '0', 10)
         if (timeSinceLastPrint < PRINT_COOLDOWN) {
           return // Too soon since last print attempt
         }
@@ -1370,7 +792,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       if (scheduledUrl === currentUrl) {
         const scheduledTime = sessionStorage.getItem(printKey)
         if (scheduledTime) {
-          const timeSinceScheduled = now - parseInt(scheduledTime, 10)
+          const timeSinceScheduled = now - parseInt(scheduledTime || '0', 10)
           if (timeSinceScheduled < PRINT_COOLDOWN) {
             return // Too soon since last scheduled print for this URL
           }
@@ -1835,13 +1257,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.print(); }}
+                  onClick={(e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); window.print(); }}
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium shadow-sm transition-colors"
                 >
                   <span>{String.fromCodePoint(0x1F5A8)}</span> Print
                 </button>
                 <button
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     e.preventDefault(); e.stopPropagation();
                     if (isDownloadingPNG) return;
 

@@ -1,8 +1,7 @@
 import React, { type ReactNode, type CSSProperties } from 'react'
 import { useTranslation } from '@/context/TranslationContext'
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
 import { Download, Loader2 } from 'lucide-react'
+import { generateWorksheetPDF } from '@/utils/pdfGenerator'
 
 // Helper function to get theme for regular worksheets based on docId
 export function getWorksheetTheme(docId: string): {
@@ -318,69 +317,15 @@ export function WorksheetSectionWrapper({
             // Wait for re-render/styles
             await new Promise(resolve => setTimeout(resolve, 100))
 
-            const canvas = await html2canvas(sectionRef.current, {
-                scale: 3,
-                useCORS: true,
-                backgroundColor: '#ffffff',
-                ignoreElements: (element) => {
-                    return element.hasAttribute('data-html2canvas-ignore')
-                },
-                onclone: (clonedDoc: Document) => {
-                    // Find the section in the cloned document
-                    const clonedSection = clonedDoc.querySelector('.worksheet-section') as HTMLElement
-                    if (clonedSection) {
-                        // Ensure relative positioning for absolute branding
-                        clonedSection.style.setProperty('position', 'relative', 'important');
-                        clonedSection.style.setProperty('display', 'block', 'important');
-                        clonedSection.style.setProperty('background', 'white', 'important');
-                        clonedSection.style.setProperty('border-radius', '12px', 'important');
+            const filename = docId ? `${docId}.pdf` : 'worksheet.pdf'
 
-                        // Adjust padding to remove space for the top header, but keep 40px for the border area
-                        clonedSection.style.setProperty('padding', '40px 32px 80px 32px', 'important');
-
-                        // Branding Logo Data
-                        const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgMSkiPjxwYXRoIGQ9Ik0wLjQ1IDIwLjgxQzAuNDUgOS43NiA5LjQxIDAuODEgMjAuNDUgMC44MUg0Ni43QzU3Ljc1IDAuODEgNjYuNyA5Ljc2IDY2LjcgMjAuODFWNDAuODFIMjAuNDVDOS40MSA0MC44MSAwLjQ1IDMxLjg2IDAuNDUgMjAuODFaIiBmaWxsPSIjNDg0NUQyIi8+PHBhdGggZD0iTTQ2LjcgOC4zMUgyMC40NUMxMy41NSA4LjMxIDcuOTUgMTMuOTEgNy45NSAyMC44MUM3Ljk1IDI3LjcxIDEzLjU1IDMzLjMxIDIwLjQ1IDMzLjMxSDQ2LjdDNTMuNjEgMzMuMzEgNTkuMiAyNy43MSA1OS4yIDIwLjgxQzU5LjIgMTMuOTEgNTMuNjEgOC4zMSA0Ni43IDguMzFaIiBmaWxsPSIjQTVCNEZDIi8+PHBhdGggZD0iTTIwLjQ1IDI3LjA2QzIzLjkgMjcuMDYgMjYuNyAyNC4yNiAyNi43IDIwLjgxQzI2LjcgMTcuMzYgMjMuOSAxNC41NiAyMC40NSAxNC41NkMxNyAxNC41NiAxNC4yIDE3LjM2IDE0LjIgMjAuODFDMTQuMiAyNC4yNiAxNyAyNy4wNiAyMC40NSAyNy4wNloiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTE3Ljk1IDE5LjU2QzE4LjY0IDE5LjU2IDE5LjIgMTkgMTkuMiAxOC4zMUMxOS4yIDE3LjYyIDE4LjY0IDE3LjA2IDE3Ljk1IDE3LjA2QzE3LjI2IDE3LjA2IDE2LjcgMTcuNjIgMTYuNyAxOC4zMUMxNi43IDE5IDE3LjI2IDE5LjU2IDE3Ljk1IDE5LjU2WiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNDcuOTUgMjcuMDZDNTEuNCAyNy4wNiA1NC4yIDI0LjI2IDU0LjIgMjAuODFDNTQuMiAxNy4zNiA1MS40IDE0LjU2IDQ3Ljk1IDE0LjU2QzQ0LjUgMTQuNTYgNDEuNyAxNy4zNiA0MS43IDIwLjgxQzQxLjcgMjQuMjYgNDQuNSAyNy4wNiA0Ny45NSAyNy4wNloiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTQ1LjQ1IDE5LjU2QzQ2LjE0IDE5LjU2IDQ2LjcgMTkgNDYuNyAxOC4zMUM0Ni43IDE3LjYyIDQ2LjE0IDE3LjA2IDQ1LjQ1IDE3LjA2QzQ0Ljc2IDE3LjA2IDQ0LjIgMTcuNjIgNDQuMiAxOC4zMUM0NC4yIDE5IDQ0Ljc2IDE5LjU2IDQ1LjQ1IDE5LjU2WiIgZmlsbD0id2hpdGUiLz48L2c+PC9zdmc+`;
-
-
-
-                        // Inject Branding Footer
-                        const footer = clonedDoc.createElement('div');
-                        footer.style.cssText = 'position: absolute !important; bottom: 25px !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 9999 !important; width: 100% !important; height: 50px !important;';
-                        footer.innerHTML = `
-                            <div style="display: flex !important; align-items: center !important; gap: 8px !important; justify-content: center !important;">
-                                <img src="${logoBase64}" style="width: 42px !important; height: 24px !important; opacity: 0.8 !important;" />
-                                <span style="font-size: 12pt !important; font-weight: 700 !important; color: #4845D2 !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
-                            </div>
-                            <div style="font-size: 10pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: system-ui, -apple-system, sans-serif !important;">
-                                Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
-                            </div>
-                        `;
-                        clonedSection.appendChild(footer);
-                    }
-                }
+            // Use the unified utility for high-quality, paginated PDF
+            await generateWorksheetPDF(sectionRef.current, {
+                filename,
+                scale: 3.0,
+                showAnswers: false // Individual handouts typically don't show answers in the hover PDF
             })
 
-            const imgData = canvas.toDataURL('image/png')
-            const pdf = new jsPDF('p', 'mm', 'a4')
-            const imgProps = pdf.getImageProperties(imgData)
-
-            const imgRatio = imgProps.width / imgProps.height
-            const pdfWidth = pdf.internal.pageSize.getWidth()
-            const pdfHeight = pdf.internal.pageSize.getHeight()
-
-            let w = pdfWidth
-            let h = w / imgRatio
-
-            if (h > pdfHeight) {
-                h = pdfHeight
-                w = h * imgRatio
-            }
-
-            const x = (pdfWidth - w) / 2
-            const y = 0
-
-            pdf.addImage(imgData, 'PNG', x, y, w, h)
-            pdf.save(`${docId}.pdf`)
         } catch (error) {
             console.error('PDF generation failed:', error)
             alert('Could not generate PDF. Please use the Print button instead.')
@@ -1242,6 +1187,8 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
             return getTranslatedWorksheetTitle(docId, t, ' Probability')
         case 'adding-decimals-challenge':
             return getTranslatedWorksheetTitle(docId, t, ' Adding Decimals Challenge')
+        default:
+            return docId
     }
 }
 

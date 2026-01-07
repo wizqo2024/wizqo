@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
 import Shuffle from '@/components/Shuffle'
+import { Download } from 'lucide-react'
 import { trackWorksheetGeneration, trackCategoryFilter, trackGradeSelection, trackWorksheetDownload } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import {
@@ -370,7 +371,27 @@ function WorksheetPreviewCard({
   key?: string
 }) {
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
+    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3 relative group">
+      {/* Hover Download Button */}
+      <div className="absolute top-3 right-12 z-20 print:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (onDownloadDirect) {
+              onDownloadDirect(item);
+            } else {
+              const url = onDownload(item.docId);
+              if (url) window.open(url, '_blank');
+            }
+          }}
+          className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-indigo-600 border border-indigo-100 rounded-lg font-bold hover:bg-indigo-50 transition-colors shadow-md text-[10px] uppercase tracking-wider"
+          title="Download PDF"
+        >
+          <Download size={12} />
+          <span>PDF Download</span>
+        </button>
+      </div>
       <div className="flex items-center justify-between gap-3">
         <div className="flex-1">
           <p className="text-xs uppercase tracking-wide text-slate-500 font-semibold">{t(`categories.${item.categoryId}`) || item.categoryLabel}</p>

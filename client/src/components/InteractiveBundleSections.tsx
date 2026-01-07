@@ -8,8 +8,8 @@ import {
 import { useTranslation } from '@/context/TranslationContext'
 import { getTranslation, translations, interactiveTranslations } from '@/translations'
 import { formatNumber, formatNumberRange } from '@/utils/numbers'
-import { jsPDF } from 'jspdf'
 import { Download } from 'lucide-react'
+import { generateWorksheetPDF } from '@/utils/pdfGenerator'
 
 // Explicitly import interactive translations to prevent tree-shaking
 // This ensures the translations are included in the bundle
@@ -33,23 +33,26 @@ if (false) {
     'interactive-sel-character',
   ]
   for (const key of selKeys) {
-    void interactiveTranslations.en?.[key]
-    void interactiveTranslations.es?.[key]
-    void interactiveTranslations.ar?.[key]
+    const enTrans = interactiveTranslations.en as any
+    const esTrans = interactiveTranslations.es as any
+    const arTrans = interactiveTranslations.ar as any
+    void enTrans?.[key]
+    void esTrans?.[key]
+    void arTrans?.[key]
     // Also reference nested keys for friendship
     if (key === 'interactive-sel-friendship') {
-      void interactiveTranslations.en?.[key]?.title
-      void interactiveTranslations.en?.[key]?.situation
-      void interactiveTranslations.en?.[key]?.whatCanYouDo
-      void interactiveTranslations.en?.[key]?.scenarios?.newStudent
-      void interactiveTranslations.en?.[key]?.scenarios?.friendSad
-      void interactiveTranslations.en?.[key]?.scenarios?.someoneNeedsHelp
-      void interactiveTranslations.ar?.[key]?.title
-      void interactiveTranslations.ar?.[key]?.situation
-      void interactiveTranslations.ar?.[key]?.whatCanYouDo
-      void interactiveTranslations.ar?.[key]?.scenarios?.newStudent
-      void interactiveTranslations.ar?.[key]?.scenarios?.friendSad
-      void interactiveTranslations.ar?.[key]?.scenarios?.someoneNeedsHelp
+      void enTrans?.[key]?.title
+      void enTrans?.[key]?.situation
+      void enTrans?.[key]?.whatCanYouDo
+      void enTrans?.[key]?.scenarios?.newStudent
+      void enTrans?.[key]?.scenarios?.friendSad
+      void enTrans?.[key]?.scenarios?.someoneNeedsHelp
+      void arTrans?.[key]?.title
+      void arTrans?.[key]?.situation
+      void arTrans?.[key]?.whatCanYouDo
+      void arTrans?.[key]?.scenarios?.newStudent
+      void arTrans?.[key]?.scenarios?.friendSad
+      void arTrans?.[key]?.scenarios?.someoneNeedsHelp
     }
   }
 }
@@ -70,12 +73,14 @@ type RenderContext = {
   category: InteractiveCategory
   seed: string
   variant: number
-  t: (key: string) => string
+  t: (key: string, defaultValue?: string) => string
   language: 'en' | 'es' | 'ar'
   formatNum: (num: number | string) => string
   formatRange: (start: number | string, end: number | string) => string
   showAnswers?: boolean
   isPrintMode?: boolean
+  isGeneratingPdf?: boolean
+  setIsGeneratingPdf?: (val: boolean) => void
 }
 
 type Renderer = (ctx: RenderContext) => React.ReactNode
@@ -766,7 +771,7 @@ function buildReadingStoryMap(seed: string, docId: string, variant: number): Rea
 }
 
 const renderers: Record<string, Renderer> = {
-  'interactive-math-rhythm': ({ doc, category, seed, variant }) => {
+  'interactive-math-rhythm': ({ t, seed, doc, variant }) => {
     const sequences = buildMathRhythm(seed, doc.id, variant)
     return (
       <div className="space-y-3">
@@ -2001,7 +2006,7 @@ const renderers: Record<string, Renderer> = {
     const selectedKeys = pickMany(rng, promptKeys, 3)
     const drawingPrompts = selectedKeys.map(key => ({
       prompt: t(`worksheets.artSketch.prompts.${key}.prompt`),
-      emoji: emojis[key],
+      emoji: (emojis as any)[key],
       hint: t(`worksheets.artSketch.prompts.${key}.hint`),
     }))
     return (
@@ -3310,7 +3315,7 @@ const renderers: Record<string, Renderer> = {
           {selectedStrategies.map((strategyKey, idx) => (
             <div key={idx} className="rounded-xl border border-purple-200 bg-purple-50 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xl">{emojis[strategyKey]}</span>
+                <span className="text-xl">{(emojis as any)[strategyKey]}</span>
                 <p className="text-sm font-semibold text-purple-700">{t(`interactive.interactive-sel-regulation.strategies.${strategyKey}.name`)}</p>
               </div>
               <p className="text-xs text-purple-600 mb-2">{t(`interactive.interactive-sel-regulation.strategies.${strategyKey}.steps`)}</p>
@@ -3445,7 +3450,7 @@ const renderers: Record<string, Renderer> = {
     const traits = selectedKeys.map(key => ({
       name: t(`worksheets.selCharacter.traits.${key}.name`),
       description: t(`worksheets.selCharacter.traits.${key}.description`),
-      emoji: emojis[key],
+      emoji: (emojis as any)[key],
     }))
     return (
       <div className="space-y-4">
@@ -5170,7 +5175,7 @@ const renderers: Record<string, Renderer> = {
     )
   },
   'interactive-art-color-by-number': (ctx) => {
-    const { seed, doc, variant, t, language, isPrintMode } = ctx
+    const { seed, doc, variant, t, language, isPrintMode, isGeneratingPdf, setIsGeneratingPdf } = ctx
     const rng = makeRng(`${seed}|${doc.id}|${variant}`)
     const colorCodes = [
       { num: 1, color: t('common.colors.red'), emoji: '🔴', bgColor: 'bg-red-500' },
@@ -5317,150 +5322,25 @@ const renderers: Record<string, Renderer> = {
     }
 
     const handleDownloadPDF = async () => {
+      const container = document.getElementById(`color-by-number-container-${seed}-${variant}`)
+      if (!container || isGeneratingPdf) return
+
+      setIsGeneratingPdf?.(true)
       try {
-        const elementId = `color-by-number-svg-${seed}-${variant}`
-        const svgElement = document.getElementById(elementId)?.querySelector('svg')
-        if (!svgElement) return
-
-        const cloned = svgElement.cloneNode(true) as SVGSVGElement
-        cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
-        const data = new XMLSerializer().serializeToString(cloned)
-
-        const canvas = document.createElement('canvas')
-        const ctx = canvas.getContext('2d')
-        const img = new Image()
-
-        const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' })
-        const url = URL.createObjectURL(blob)
-
-        img.onload = () => {
-          const scale = 4 // High resolution for print
-          const baseSize = 300
-          canvas.width = baseSize * scale
-          canvas.height = baseSize * scale
-
-          if (ctx) {
-            ctx.fillStyle = '#ffffff'
-            ctx.fillRect(0, 0, canvas.width, canvas.height)
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-
-            const pngData = canvas.toDataURL('image/png')
-
-            // PDF Setup
-            const pdf = new jsPDF({
-              orientation: 'portrait',
-              unit: 'pt',
-              format: 'a4'
-            })
-
-            const pageWidth = pdf.internal.pageSize.getWidth()
-            const pageHeight = pdf.internal.pageSize.getHeight()
-            const margin = 40
-            const workAreaWidth = pageWidth - (margin * 2)
-
-            // Add Border
-            pdf.setDrawColor(249, 168, 212) // pink-300
-            pdf.setLineWidth(3)
-            pdf.rect(margin, margin, workAreaWidth, pageHeight - (margin * 2), 'S')
-
-            let cursorY = margin + 40
-
-            // Title
-            pdf.setFontSize(24)
-            pdf.setTextColor(157, 23, 77) // pink-800
-            // Center title manually
-            const title = t('interactive.interactive-art-color-by-number.colorThePicture')
-            const titleLines = pdf.splitTextToSize(title, workAreaWidth - 40)
-            pdf.text(titleLines, pageWidth / 2, cursorY, { align: 'center' })
-            cursorY += (titleLines.length * 28) + 10
-
-            // Instructions
-            pdf.setFontSize(12)
-            pdf.setTextColor(0, 0, 0)
-            const instructions = t('interactive.interactive-art-color-by-number.colorEachSection')
-            const instLines = pdf.splitTextToSize(instructions, workAreaWidth - 40)
-            pdf.text(instLines, pageWidth / 2, cursorY, { align: 'center' })
-            cursorY += (instLines.length * 16) + 30
-
-            // Image
-            // Calculate max available height for image (leaving space for key)
-            // Key height approx 250pt (taller cards)
-            const maxImgHeight = pageHeight - cursorY - 300
-            let imgWidth = 400
-            let imgHeight = 400
-
-            if (imgHeight > maxImgHeight) {
-              const ratio = imgWidth / imgHeight
-              imgHeight = maxImgHeight
-              imgWidth = imgHeight * ratio
-            }
-
-            // Center image
-            const x = (pageWidth - imgWidth) / 2
-            pdf.addImage(pngData, 'PNG', x, cursorY, imgWidth, imgHeight)
-            cursorY += imgHeight + 40
-
-            // Key Section
-            pdf.setFontSize(16)
-            pdf.setTextColor(157, 23, 77) // pink-800
-            pdf.text(t('interactive.interactive-art-color-by-number.colorKey'), pageWidth / 2, cursorY, { align: 'center' })
-            cursorY += 30
-
-            // Key Grid
-            const cols = 2
-            const colWidth = (workAreaWidth - 40) / cols
-            const rowHeight = 70 // Taller for cards
-
-            pdf.setFontSize(14)
-            pdf.setTextColor(157, 23, 77) // pink-800
-
-            const startX = margin + 20
-
-            activeCodes.forEach((code, i) => {
-              const col = i % cols
-              const row = Math.floor(i / cols)
-              const itemX = startX + (col * colWidth)
-              const itemY = cursorY + (row * rowHeight)
-
-              // Card Background
-              pdf.setDrawColor(249, 168, 212) // pink-300
-              pdf.setFillColor(255, 241, 242) // pink-50
-              pdf.roundedRect(itemX, itemY, colWidth - 20, 60, 10, 10, 'FD')
-
-              // Color Circle
-              const colorMap: Record<string, string> = {
-                'bg-red-500': '#ef4444',
-                'bg-blue-500': '#3b82f6',
-                'bg-green-500': '#22c55e',
-                'bg-yellow-400': '#facc15',
-                'bg-purple-500': '#a855f7',
-                'bg-orange-500': '#f97316',
-                'bg-pink-500': '#ec4899',
-              }
-              const hexColor = colorMap[code.bgColor] || '#e5e7eb'
-
-              pdf.setFillColor(hexColor)
-              pdf.setDrawColor(200, 200, 200) // subtle border for circle
-              pdf.circle(itemX + 25, itemY + 30, 15, 'FD')
-
-              // Text: "1 = Red" (No Emoji)
-              pdf.setTextColor(0, 0, 0)
-              pdf.setFontSize(16)
-              pdf.text(`${code.num} = ${code.color}`, itemX + 55, itemY + 36)
-            })
-
-            pdf.save(`color-by-number-${variant}.pdf`)
-          }
-          URL.revokeObjectURL(url)
-        }
-        img.src = url
+        await generateWorksheetPDF(`color-by-number-container-${seed}-${variant}`, {
+          filename: `color-by-number-${variant}.pdf`,
+          scale: 3.0,
+          showAnswers: false
+        })
       } catch (err) {
         console.error('PDF Download failed', err)
+      } finally {
+        setIsGeneratingPdf?.(false)
       }
     }
 
     return (
-      <div className="space-y-4">
+      <div id={`color-by-number-container-${seed}-${variant}`} className="space-y-4">
         <div className="flex justify-between items-center">
           <p className="text-base font-semibold text-pink-800">{t('interactive.interactive-art-color-by-number.colorThePicture')}</p>
           {!isPrintMode && (
@@ -7991,6 +7871,7 @@ function InteractiveWorksheetSection({
   className?: string
   studentNames?: string[]
   isPrintMode?: boolean
+  key?: string | number
 }) {
   const { t: tFromContext, language } = useTranslation()
   const doc = getDocMeta(docId)
@@ -8002,13 +7883,13 @@ function InteractiveWorksheetSection({
 
   // Debug: Log language value
   React.useEffect(() => {
-    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    if (typeof window !== 'undefined' && (import.meta as any).env?.DEV) {
       console.log('[InteractiveWorksheetSection] Language:', language, 'docId:', docId)
     }
   }, [language, docId])
 
   // Force re-render when language changes by using language in state
-  const [, forceUpdate] = React.useReducer(x => x + 1, 0)
+  const [, forceUpdate] = React.useReducer((x: number) => x + 1, 0)
   React.useEffect(() => {
     forceUpdate()
   }, [language])
@@ -8030,10 +7911,10 @@ function InteractiveWorksheetSection({
           const keys = key.split('.')
           if (keys.length >= 2) {
             // Try interactiveTranslations export first
-            if (interactiveTranslations && interactiveTranslations[language]) {
+            if (interactiveTranslations && (interactiveTranslations as any)[language]) {
               const interactiveKey = keys[1]
-              if (interactiveKey && interactiveKey in interactiveTranslations[language]) {
-                let value: any = (interactiveTranslations[language] as any)[interactiveKey]
+              if (interactiveKey && interactiveKey in (interactiveTranslations as any)[language]) {
+                let value: any = ((interactiveTranslations as any)[language] as any)[interactiveKey]
                 // Navigate through remaining keys
                 for (let j = 2; j < keys.length; j++) {
                   if (value === null || value === undefined) break
@@ -8059,10 +7940,10 @@ function InteractiveWorksheetSection({
               }
             }
             // Fallback: try translations[language].interactive
-            if (translations[language] && translations[language].interactive) {
+            if ((translations as any)[language] && (translations as any)[language].interactive) {
               const interactiveKey = keys[1]
-              if (interactiveKey && interactiveKey in translations[language].interactive) {
-                let value: any = (translations[language].interactive as any)[interactiveKey]
+              if (interactiveKey && interactiveKey in (translations as any)[language].interactive) {
+                let value: any = ((translations as any)[language].interactive as any)[interactiveKey]
                 // Navigate through remaining keys
                 for (let j = 2; j < keys.length; j++) {
                   if (value === null || value === undefined) break
@@ -8093,7 +7974,7 @@ function InteractiveWorksheetSection({
         // Priority 1: Use getTranslation with current language (most reliable)
         const directResult = getTranslation(language, key)
         // Debug: Log translation attempts for important keys
-        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development' &&
+        if (typeof window !== 'undefined' && (import.meta as any).env?.DEV &&
           (key.includes('countObjectsAndWriteNumber') || key.includes('countThe') || key.includes('numberLabel'))) {
           console.log(`[InteractiveBundleSections] Translation attempt: key=${key}, language=${language}, result=${directResult}, isKey=${directResult === key}`)
         }
@@ -8120,9 +8001,9 @@ function InteractiveWorksheetSection({
                 contextResult,
                 languageValue: language,
                 keyPath: key,
-                hasInteractiveTranslations: !!interactiveTranslations?.[language],
-                hasTranslationsInteractive: !!translations[language]?.interactive,
-                interactiveKeys: interactiveTranslations?.[language] ? Object.keys(interactiveTranslations[language]).slice(0, 10) : 'N/A'
+                hasInteractiveTranslations: !!(interactiveTranslations as any)?.[language],
+                hasTranslationsInteractive: !!(translations as any)[language]?.interactive,
+                interactiveKeys: (interactiveTranslations as any)?.[language] ? Object.keys((interactiveTranslations as any)[language]).slice(0, 10) : 'N/A'
               })
             }
           }
@@ -8169,6 +8050,35 @@ function InteractiveWorksheetSection({
     }
   }, [language, tFromContext])
 
+  const sectionRef = React.useRef<HTMLElement>(null)
+  const [isGeneratingPdf, setIsGeneratingPdf] = React.useState(false)
+
+  const handleDownloadPDF = async () => {
+    if (!sectionRef.current || isGeneratingPdf) return
+
+    setIsGeneratingPdf(true)
+
+    try {
+      // Wait for re-render/styles
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      const filename = docId ? `${docId}.pdf` : 'worksheet.pdf'
+
+      // Use the unified utility for high-quality, paginated PDF
+      await generateWorksheetPDF(sectionRef.current, {
+        filename,
+        scale: 3.0,
+        showAnswers: false // Interactive worksheets handle answers themselves usually
+      })
+
+    } catch (error) {
+      console.error('PDF generation failed:', error)
+      alert('Could not generate PDF. Please use the Print button instead.')
+    } finally {
+      setIsGeneratingPdf(false)
+    }
+  }
+
   if (!renderer) {
     const sections = getWorksheetSections(docId)
     return (
@@ -8189,7 +8099,27 @@ function InteractiveWorksheetSection({
   }
 
   return (
-    <section className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden`}>
+    <section
+      ref={sectionRef}
+      className={`mb-10 break-inside-avoid rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white shadow-lg relative overflow-hidden group`}
+    >
+      {/* Download Button (Hover) */}
+      <div className="absolute top-2 right-2 z-20 print:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-200" data-html2canvas-ignore="true">
+        <button
+          onClick={handleDownloadPDF}
+          disabled={isGeneratingPdf}
+          className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-indigo-600 border border-indigo-200 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-sm disabled:opacity-50 text-xs"
+          title="Download PDF"
+        >
+          {isGeneratingPdf ? (
+            <div className="h-3.5 w-3.5 border-2 border-indigo-600/30 border-t-indigo-600 rounded-full animate-spin" />
+          ) : (
+            <Download size={14} />
+          )}
+          <span>PDF Download</span>
+        </button>
+      </div>
+
       {/* Decorative corner accent */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br rounded-bl-full pointer-events-none" style={{ backgroundColor: cornerColors.topRight }} />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr rounded-tr-full pointer-events-none" style={{ backgroundColor: cornerColors.bottomLeft }} />
@@ -8221,7 +8151,20 @@ function InteractiveWorksheetSection({
 
 
       <div className="relative z-10">
-        {renderer({ doc, category, seed, variant, t, language, formatNum, formatRange, showAnswers, isPrintMode })}
+        {renderer({
+          doc,
+          category,
+          seed,
+          variant,
+          t,
+          language,
+          formatNum,
+          formatRange,
+          showAnswers,
+          isPrintMode,
+          isGeneratingPdf,
+          setIsGeneratingPdf
+        })}
       </div>
 
       {/* Challenge Section */}
