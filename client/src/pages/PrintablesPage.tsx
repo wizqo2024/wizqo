@@ -1098,45 +1098,51 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         windowWidth: 794,
         windowHeight: contentElement.scrollHeight,
         onclone: (clonedDoc: Document) => {
-          // Apply print styles to cloned inner div - FORCED with setProperty important
+          // SUPER-NUCLEAR FIX: Inject branding directly into the capture root in the clone
           const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedContentElement) {
+            // Ensure capture root is relative for absolute positioning of branding
+            clonedContentElement.style.setProperty('position', 'relative', 'important');
             clonedContentElement.style.setProperty('padding', '0', 'important');
             clonedContentElement.style.setProperty('background', 'white', 'important');
 
-            const clonedInnerDiv = clonedContentElement.querySelector(':scope > .max-w-4xl') as HTMLElement
+            // Inject Branding Header
+            const header = clonedDoc.createElement('div');
+            header.style.cssText = 'position: absolute !important; top: 0.25in !important; left: 0.5in !important; display: flex !important; align-items: center !important; gap: 12px !important; z-index: 1000 !important; pointer-events: none !important;';
+            header.innerHTML = `
+              <div style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">${logoSvg}</div>
+              <div style="font-family: system-ui, -apple-system, sans-serif !important; font-size: 18pt !important; font-weight: 800 !important; color: #4845D2 !important; white-space: nowrap !important; letter-spacing: 0.5px !important;">www.wizqo.com</div>
+            `;
+            clonedContentElement.appendChild(header);
+
+            // Inject Branding Footer
+            const footer = clonedDoc.createElement('div');
+            footer.style.cssText = 'position: absolute !important; bottom: 0.15in !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 1000 !important; width: 100% !important; pointer-events: none !important;';
+            footer.innerHTML = `
+              <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+                <div style="width: 24px; height: 24px; opacity: 0.8;">${logoSvg.replace('width="45" height="45"', 'width="24" height="24"')}</div>
+                <span style="font-size: 12pt; font-weight: 700; color: #4845D2; font-family: system-ui, sans-serif;">www.wizqo.com</span>
+              </div>
+              <div style="font-size: 10pt; color: #64748b; opacity: 0.8; font-family: system-ui, sans-serif;">
+                Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
+              </div>
+            `;
+            clonedContentElement.appendChild(footer);
+
+            // Ensure the main worksheet content has enough space and margin
+            const clonedInnerDiv = clonedContentElement.querySelector('.max-w-4xl') as HTMLElement
             if (clonedInnerDiv) {
               clonedInnerDiv.style.setProperty('position', 'relative', 'important');
-              clonedInnerDiv.style.setProperty('padding', '100px 24px 80px 24px', 'important');
-              clonedInnerDiv.style.setProperty('margin', '0.5in', 'important');
+              clonedInnerDiv.style.setProperty('margin-top', '1.0in', 'important'); // Safe space for header
+              clonedInnerDiv.style.setProperty('margin-bottom', '0.6in', 'important'); // Safe space for footer
+              clonedInnerDiv.style.setProperty('margin-left', 'auto', 'important');
+              clonedInnerDiv.style.setProperty('margin-right', 'auto', 'important');
+              clonedInnerDiv.style.setProperty('padding', '20px 24px 24px 24px', 'important');
               clonedInnerDiv.style.setProperty('background-color', 'white', 'important');
               clonedInnerDiv.style.setProperty('border-radius', '12px', 'important');
               clonedInnerDiv.style.setProperty('border', '4px solid transparent', 'important');
               clonedInnerDiv.style.setProperty('border-image', 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1', 'important');
               clonedInnerDiv.style.setProperty('border-image-slice', '1', 'important');
-
-              // Inject Branding Header directly into cloned DOM
-              const header = clonedDoc.createElement('div');
-              header.style.cssText = 'position: absolute !important; top: 25px !important; left: 24px !important; display: flex !important; align-items: center !important; gap: 12px !important; z-index: 1000 !important;';
-              header.innerHTML = `
-                <div style="width: 45px; height: 45px;">${logoSvg}</div>
-                <span style="font-size: 16pt; font-weight: 700; color: #4845D2; white-space: nowrap; font-family: system-ui, sans-serif;">www.wizqo.com</span>
-              `;
-              clonedInnerDiv.appendChild(header);
-
-              // Inject Branding Footer directly into cloned DOM
-              const footer = clonedDoc.createElement('div');
-              footer.style.cssText = 'position: absolute !important; bottom: 25px !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 1000 !important; width: 100% !important;';
-              footer.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
-                  <div style="width: 24px; height: 24px; opacity: 0.8;">${logoSvg.replace('width="45" height="45"', 'width="24" height="24"')}</div>
-                  <span style="font-size: 11pt; font-weight: 600; color: #4845D2; font-family: system-ui, sans-serif;">www.wizqo.com</span>
-                </div>
-                <div style="font-size: 9pt; color: #64748b; opacity: 0.7; font-family: system-ui, sans-serif;">
-                  Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
-                </div>
-              `;
-              clonedInnerDiv.appendChild(footer);
             }
           }
 
@@ -1817,22 +1823,6 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         }
       `}</style>
       <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
-        {/* Logo and domain for all worksheets - Internal Absolute Branding */}
-        <div className="hidden print:flex wizqo-logo-print">
-          <img src="/logo.svg" alt="Wizqo Logo" style={{ width: '45px', height: '45px' }} />
-          <span className="domain-text">www.wizqo.com</span>
-        </div>
-
-        {/* Footer branding for all worksheets - Internal Absolute Footer */}
-        <div className="hidden print:flex wizqo-footer-print">
-          <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="Wizqo Logo" style={{ width: '24px', height: '24px', opacity: 0.7 }} />
-            <span style={{ color: '#4845D2', fontWeight: 600 }}>www.wizqo.com</span>
-          </div>
-          <div style={{ fontSize: '9pt', opacity: 0.6 }}>
-            Copyright © {new Date().getFullYear()} Wizqo. All rights reserved.
-          </div>
-        </div>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>
