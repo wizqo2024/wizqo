@@ -106,7 +106,7 @@ export async function generateWorksheetPDF(
             // If section is taller than one page, but within a reasonable threshold (e.g. 25% overflow),
             // we scale it down to fit on a single page to avoid awkward cuts.
             // This preserves the "one worksheet per page" intent for most content.
-            const fitToPageThreshold = 1.25
+            const fitToPageThreshold = 1.5
 
             if (imgHeight <= pageHeightMm) {
                 // Fits naturally
