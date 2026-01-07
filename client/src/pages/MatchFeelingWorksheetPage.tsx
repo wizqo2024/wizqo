@@ -323,7 +323,7 @@ export default function MatchFeelingWorksheetPage() {
                         footer.style.cssText = 'position: absolute !important; bottom: 25px !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 9999 !important; width: 100% !important; height: 50px !important;';
                         footer.innerHTML = `
                             <div style="display: flex !important; align-items: center !important; gap: 8px !important; justify-content: center !important;">
-                                <img src="${logoBase64}" style="width: 24px !important; height: 24px !important; opacity: 0.8 !important;" />
+                                <img src="${logoBase64}" style="width: 42px !important; height: 24px !important; opacity: 0.8 !important;" />
                                 <span style="font-size: 12pt !important; font-weight: 700 !important; color: #4845D2 !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
                             </div>
                             <div style="font-size: 10pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: system-ui, -apple-system, sans-serif !important;">
