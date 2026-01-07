@@ -1090,7 +1090,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       const canvas = await html2canvas(contentElement, {
         scale: 2.0,
         useCORS: true,
-        logging: true,
+        logging: false,
         backgroundColor: '#ffffff',
         allowTaint: true,
         scrollX: 0,
@@ -1098,51 +1098,57 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         windowWidth: 794,
         windowHeight: contentElement.scrollHeight,
         onclone: (clonedDoc: Document) => {
-          // SUPER-NUCLEAR FIX: Inject branding directly into the capture root in the clone
+          // Force white background on the capture body
+          if (clonedDoc.body) {
+            clonedDoc.body.style.setProperty('background', 'white', 'important');
+            clonedDoc.body.style.setProperty('width', '793px', 'important');
+          }
+
           const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedContentElement) {
-            // Ensure capture root is relative for absolute positioning of branding
-            clonedContentElement.style.setProperty('position', 'relative', 'important');
-            clonedContentElement.style.setProperty('padding', '0', 'important');
             clonedContentElement.style.setProperty('background', 'white', 'important');
+            clonedContentElement.style.setProperty('padding', '0', 'important');
 
-            // Inject Branding Header
-            const header = clonedDoc.createElement('div');
-            header.style.cssText = 'position: absolute !important; top: 0.25in !important; left: 0.5in !important; display: flex !important; align-items: center !important; gap: 12px !important; z-index: 1000 !important; pointer-events: none !important;';
-            header.innerHTML = `
-              <div style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">${logoSvg}</div>
-              <div style="font-family: system-ui, -apple-system, sans-serif !important; font-size: 18pt !important; font-weight: 800 !important; color: #4845D2 !important; white-space: nowrap !important; letter-spacing: 0.5px !important;">www.wizqo.com</div>
-            `;
-            clonedContentElement.appendChild(header);
-
-            // Inject Branding Footer
-            const footer = clonedDoc.createElement('div');
-            footer.style.cssText = 'position: absolute !important; bottom: 0.15in !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 1000 !important; width: 100% !important; pointer-events: none !important;';
-            footer.innerHTML = `
-              <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
-                <div style="width: 24px; height: 24px; opacity: 0.8;">${logoSvg.replace('width="45" height="45"', 'width="24" height="24"')}</div>
-                <span style="font-size: 12pt; font-weight: 700; color: #4845D2; font-family: system-ui, sans-serif;">www.wizqo.com</span>
-              </div>
-              <div style="font-size: 10pt; color: #64748b; opacity: 0.8; font-family: system-ui, sans-serif;">
-                Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
-              </div>
-            `;
-            clonedContentElement.appendChild(footer);
-
-            // Ensure the main worksheet content has enough space and margin
             const clonedInnerDiv = clonedContentElement.querySelector('.max-w-4xl') as HTMLElement
             if (clonedInnerDiv) {
+              // Ensure relative positioning for injected branding
               clonedInnerDiv.style.setProperty('position', 'relative', 'important');
-              clonedInnerDiv.style.setProperty('margin-top', '1.0in', 'important'); // Safe space for header
-              clonedInnerDiv.style.setProperty('margin-bottom', '0.6in', 'important'); // Safe space for footer
-              clonedInnerDiv.style.setProperty('margin-left', 'auto', 'important');
-              clonedInnerDiv.style.setProperty('margin-right', 'auto', 'important');
-              clonedInnerDiv.style.setProperty('padding', '20px 24px 24px 24px', 'important');
-              clonedInnerDiv.style.setProperty('background-color', 'white', 'important');
+              clonedInnerDiv.style.setProperty('display', 'block', 'important');
+              clonedInnerDiv.style.setProperty('background', 'white', 'important');
               clonedInnerDiv.style.setProperty('border-radius', '12px', 'important');
               clonedInnerDiv.style.setProperty('border', '4px solid transparent', 'important');
               clonedInnerDiv.style.setProperty('border-image', 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1', 'important');
               clonedInnerDiv.style.setProperty('border-image-slice', '1', 'important');
+              clonedInnerDiv.style.setProperty('margin', '0.4in auto', 'important');
+
+              // CRITICAL: Set large padding to make space for branding INSIDE the frame
+              clonedInnerDiv.style.setProperty('padding', '100px 32px 80px 32px', 'important');
+
+              // Branding Logo Data
+              const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDEpIj48cGF0aCBkPSJNMCAyMEMwIDkgOSAwIDIwIDBoMjZDOTQwIDQwIDkgNDAgMjB2MjBIMjBDOSA0MCAzMSAwIDIweiIgZmlsbD0iIzQ4NDVEMiIvPjxwYXRoIGQ9Ik00NyA4SDIwQzEzIDggOCA0NCA4IDIxQzggMjggMTMgMzMgMjAgMzNoMjZDNTQtMzMgNTkgMjggNTkgMjFTNTQgOCA0NyA4eiIgZmlsbD0iI0E1QjRGQyIvPjxwYXRoIGQ9Ik0yMCAyN2MzIDAgNiAzIDYtNnMzLTYtNi02cy02IDMtNiA2czMgNiA2IDZ6IiBmaWxsPSJibGFjayIvPjxwYXRoIGQ9Ik0xOCAyMGMxIDAgMi0xIDItMXMtMS0xLTItMXMtMiAxLTIgMXMxIDIgMiAweiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNTcgMjdjMyAwIDYtMyA2LTZzLTMtNi02LTZzLTYgMy02IDZzMyA2IDYgNnoiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTU1IDIwYzEgMCAyLTEgMi0xcy0xLTEtMi0xcy0yIDEtMiAxczEgMiAyIDB6IiBmaWxsPSJ3aGl0ZSIvPjwvZz48L3N2Zz4=`;
+
+              // Inject Branding Header directly into cloned DOM
+              const header = clonedDoc.createElement('div');
+              header.style.cssText = 'position: absolute !important; top: 25px !important; left: 32px !important; display: flex !important; align-items: center !important; gap: 12px !important; z-index: 9999 !important; height: 50px !important;';
+              header.innerHTML = `
+                <img src="${logoBase64}" style="width: 45px !important; height: 45px !important; display: block !important;" />
+                <span style="font-size: 18pt !important; font-weight: 800 !important; color: #4845D2 !important; white-space: nowrap !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
+              `;
+              clonedInnerDiv.appendChild(header);
+
+              // Inject Branding Footer directly into cloned DOM
+              const footer = clonedDoc.createElement('div');
+              footer.style.cssText = 'position: absolute !important; bottom: 25px !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 9999 !important; width: 100% !important; height: 50px !important;';
+              footer.innerHTML = `
+                <div style="display: flex !important; align-items: center !important; gap: 8px !important; justify-content: center !important;">
+                  <img src="${logoBase64}" style="width: 24px !important; height: 24px !important; opacity: 0.8 !important;" />
+                  <span style="font-size: 12pt !important; font-weight: 700 !important; color: #4845D2 !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
+                </div>
+                <div style="font-size: 10pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: system-ui, -apple-system, sans-serif !important;">
+                  Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
+                </div>
+              `;
+              clonedInnerDiv.appendChild(footer);
             }
           }
 
@@ -1778,48 +1784,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           .wizqo-footer-print.force-show {
             display: flex !important;
           }
-          /* Layout fixes for kindergarten-counting-visual worksheet only */
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] * {
-            box-sizing: border-box !important;
-            overflow: visible !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] img,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] svg,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .emoji,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .icon {
-            max-width: 100% !important;
-            height: auto !important;
-            object-fit: contain !important;
-            overflow: visible !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .flex,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] [class*="flex"] {
-            flex-wrap: wrap !important;
-            align-items: flex-start !important;
-            overflow: visible !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="h-"],
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="min-h-"],
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[class*="max-h-"],
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] *[style*="height"] {
-            height: auto !important;
-            min-height: auto !important;
-            max-height: none !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .border-4,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .border-2,
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] [class*="border"] {
-            overflow: visible !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .max-w-4xl {
-            padding: 0 !important;
-            margin: 0.95in 0.5in 0.5in 0.5in !important;
-            page-break-inside: avoid !important;
-          }
-          [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] .break-inside-avoid {
-            page-break-inside: avoid !important;
-            overflow: visible !important;
-          }
+          /* End of layout fixes */
         }
       `}</style>
       <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>

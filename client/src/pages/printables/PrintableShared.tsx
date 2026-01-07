@@ -460,9 +460,9 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
         case 'bundle':
             return bundleCategory ? `${bundleCategory} ${t ? t('pages.printables.printableBundle') : 'Printable Bundle'}` : (t ? t('pages.printables.printableBundle') : 'Printable Bundle')
         case 'ten-frames-1-20':
-            return getTranslatedWorksheetTitle(docId, t, ' Ten Frames 120')
+            return getTranslatedWorksheetTitle(docId, t, ' Ten Frames 1-20')
         case 'number-tracing-1-20':
-            return getTranslatedWorksheetTitle(docId, t, ' Number Tracing 120')
+            return getTranslatedWorksheetTitle(docId, t, ' Number Tracing 1-20')
         case 'stem-balloon-rocket':
             return getTranslatedWorksheetTitle(docId, t, ' Balloon Rocket (STEM)')
         case 'stem-walking-water':
@@ -470,7 +470,7 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
         case 'arts-3-shape-creature':
             return getTranslatedWorksheetTitle(docId, t, ' Draw From 3 Shapes (Arts)')
         case 'number-tracing-1-10':
-            return getTranslatedWorksheetTitle(docId, t, ' Number Tracing 110')
+            return getTranslatedWorksheetTitle(docId, t, ' Number Tracing 1-10')
         case 'uppercase-lowercase-match':
             return getTranslatedWorksheetTitle(docId, t, 'AaZz Upper/Lower Letter Match')
         case 'beginning-sounds-az':
