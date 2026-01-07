@@ -117,7 +117,7 @@ export default function ShadowMatchingWorksheetPage() {
         try {
             // Temporarily show loading or disable button if needed
             const canvas = await html2canvas(printRef.current, {
-                scale: 2, // Retain high quality
+                scale: 3, // Retain high quality
                 useCORS: true,
                 backgroundColor: '#ffffff',
                 onclone: (clonedDoc: Document) => {
@@ -134,7 +134,7 @@ export default function ShadowMatchingWorksheetPage() {
                         targetElement.style.setProperty('padding-bottom', '80px', 'important');
 
                         // Branding Logo Data
-                        const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDEpIj48cGF0aCBkPSJNMCAyMEMwIDkgOSAwIDIwIDBoMjZDOTQwIDQwIDkgNDAgMjB2MjBIMjBDOSA0MCAzMSAwIDIweiIgZmlsbD0iIzQ4NDVEMiIvPjxwYXRoIGQ9Ik00NyA4SDIwQzEzIDggOCA0NCA4IDIxQzggMjggMTMgMzMgMjAgMzNoMjZDNTQtMzMgNTkgMjggNTkgMjFTNTQgOCA0NyA4eiIgZmlsbD0iI0E1QjRGQyIvPjxwYXRoIGQ9Ik0yMCAyN2MzIDAgNiAzIDYtNnMzLTYtNi02cy02IDMtNiA2czMgNiA2IDZ6IiBmaWxsPSJibGFjayIvPjxwYXRoIGQ9Ik0xOCAyMGMxIDAgMi0xIDItMXMtMS0xLTItMXMtMiAxLTIgMXMxIDIgMiAweiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNTcgMjdjMyAwIDYtMyA2LTZzLTMtNi02LTZzLTYgMy02IDZzMyA2IDYgNnoiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTU1IDIwYzEgMCAyLTEgMi0xcy0xLTEtMi0xcy0yIDEtMiAxczEgMiAyIDB6IiBmaWxsPSJ3aGl0ZSIvPjwvZz48L3N2Zz4=`;
+                        const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgMSkiPjxwYXRoIGQ9Ik0wLjQ1IDIwLjgxQzAuNDUgOS43NiA5LjQxIDAuODEgMjAuNDUgMC44MUg0Ni43QzU3Ljc1IDAuODEgNjYuNyA5Ljc2IDY2LjcgMjAuODFWNDAuODFIMjAuNDVDOS40MSA0MC44MSAwLjQ1IDMxLjg2IDAuNDUgMjAuODFaIiBmaWxsPSIjNDg0NUQyIi8+PHBhdGggZD0iTTQ2LjcgOC4zMUgyMC40NUMxMy41NSA4LjMxIDcuOTUgMTMuOTEgNy45NSAyMC44MUM3Ljk1IDI3LjcxIDEzLjU1IDMzLjMxIDIwLjQ1IDMzLjMxSDQ2LjdDNTMuNjEgMzMuMzEgNTkuMiAyNy43MSA1OS4yIDIwLjgxQzU5LjIgMTMuOTEgNTMuNjEgOC4zMSA0Ni43IDguMzFaIiBmaWxsPSIjQTVCNEZDIi8+PHBhdGggZD0iTTIwLjQ1IDI3LjA2QzIzLjkgMjcuMDYgMjYuNyAyNC4yNiAyNi43IDIwLjgxQzI2LjcgMTcuMzYgMjMuOSAxNC41NiAyMC40NSAxNC41NkMxNyAxNC41NiAxNC4yIDE3LjM2IDE0LjIgMjAuODFDMTQuMiAyNC4yNiAxNyAyNy4wNiAyMC40NSAyNy4wNloiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTE3Ljk1IDE5LjU2QzE4LjY0IDE5LjU2IDE5LjIgMTkgMTkuMiAxOC4zMUMxOS4yIDE3LjYyIDE4LjY0IDE3LjA2IDE3Ljk1IDE3LjA2QzE3LjI2IDE3LjA2IDE2LjcgMTcuNjIgMTYuNyAxOC4zMUMxNi43IDE5IDE3LjI2IDE5LjU2IDE3Ljk1IDE5LjU2WiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNDcuOTUgMjcuMDZDNTEuNCAyNy4wNiA1NC4yIDI0LjI2IDU0LjIgMjAuODFDNTQuMiAxNy4zNiA1MS40IDE0LjU2IDQ3Ljk1IDE0LjU2QzQ0LjUgMTQuNTYgNDEuNyAxNy4zNiA0MS43IDIwLjgxQzQxLjcgMjQuMjYgNDQuNSAyNy4wNiA0Ny45NSAyNy4wNloiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTQ1LjQ1IDE5LjU2QzQ2LjE0IDE5LjU2IDQ2LjcgMTkgNDYuNyAxOC4zMUM0Ni43IDE3LjYyIDQ2LjE0IDE3LjA2IDQ1LjQ1IDE3LjA2QzQ0Ljc2IDE3LjA2IDQ0LjIgMTcuNjIgNDQuMiAxOC4zMUM0NC4yIDE5IDQ0Ljc2IDE5LjU2IDQ1LjQ1IDE5LjU2WiIgZmlsbD0id2hpdGUiLz48L2c+PC9zdmc+`;
 
 
 
