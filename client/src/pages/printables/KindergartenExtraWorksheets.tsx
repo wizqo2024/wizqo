@@ -1741,57 +1741,77 @@ const ColorableIcon = ({ icon, size = 32 }: { icon: string, size?: number }) => 
     // Return an SVG outline for specific emojis if type is 'color'
     const outlineIcons: Record<string, React.ReactNode> = {
         '🍎': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M50 20 C60 10 90 20 90 50 C90 80 50 95 50 95 C50 95 10 80 10 50 C10 20 40 10 50 20Z" />
-                <path d="M50 20 C50 15 55 10 60 10" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M50 25 C60 15 90 25 90 55 C90 85 50 95 50 95 C50 95 10 85 10 55 C10 25 40 15 50 25Z" />
+                <path d="M50 25 L50 15" />
+                <path d="M50 15 Q60 5 70 15" />
             </svg>
         ),
         '⭐️': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M50 5 L63 38 L95 38 L69 57 L79 90 L50 70 L21 90 L31 57 L5 38 L37 38 Z" />
             </svg>
         ),
         '🌸': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M50 50 M50 30 A20 20 0 1 1 70 50 A20 20 0 1 1 50 70 A20 20 0 1 1 30 50 A20 20 0 1 1 50 30" />
-                <circle cx="50" cy="50" r="8" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M50 30 Q60 10 70 30 T90 50 T70 70 T50 90 T30 70 T10 50 T30 30 T50 30" />
+                <circle cx="50" cy="50" r="10" />
             </svg>
         ),
         '🦋': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M50 30 Q30 10 10 30 Q10 50 30 60 Q30 90 50 80 Q70 90 70 60 Q90 50 90 30 Q70 10 50 30" />
-                <line x1="50" y1="20" x2="50" y2="80" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M50 40 Q30 15 15 40 Q15 60 40 65 Q40 90 50 85 Q60 90 60 65 Q85 60 85 40 Q70 15 50 40" />
+                <path d="M50 30 L50 80" />
             </svg>
         ),
         '🎈': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-                <ellipse cx="50" cy="40" rx="30" ry="35" />
-                <path d="M50 75 L45 80 L55 80 Z" />
-                <path d="M50 80 Q45 90 50 100" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <ellipse cx="50" cy="40" rx="30" ry="38" />
+                <path d="M50 78 L45 83 L55 83 Z" />
+                <path d="M50 83 Q45 90 50 100" />
             </svg>
         ),
         '🍪': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="50" cy="50" r="40" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <circle cx="50" cy="50" r="42" />
                 <circle cx="35" cy="35" r="4" fill="currentColor" />
                 <circle cx="65" cy="45" r="4" fill="currentColor" />
                 <circle cx="45" cy="65" r="4" fill="currentColor" />
-                <circle cx="55" cy="30" r="4" fill="currentColor" />
+                <circle cx="55" cy="70" r="4" fill="currentColor" />
+                <circle cx="50" cy="30" r="4" fill="currentColor" />
             </svg>
         ),
         '🧸': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="50" cy="55" r="30" />
-                <circle cx="30" cy="30" r="12" />
-                <circle cx="70" cy="30" r="12" />
-                <circle cx="50" cy="55" r="8" />
-                <circle cx="42" cy="48" r="3" fill="currentColor" />
-                <circle cx="58" cy="48" r="3" fill="currentColor" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <circle cx="50" cy="60" r="32" />
+                <circle cx="28" cy="32" r="14" />
+                <circle cx="72" cy="32" r="14" />
+                <circle cx="50" cy="65" r="10" />
+                <circle cx="40" cy="52" r="3.5" fill="currentColor" />
+                <circle cx="60" cy="52" r="3.5" fill="currentColor" />
+            </svg>
+        ),
+        '🚗': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M10 70 L90 70 L85 50 L65 50 L55 30 L25 30 L15 50 L10 50 Z" />
+                <circle cx="25" cy="70" r="8" />
+                <circle cx="75" cy="70" r="8" />
+            </svg>
+        ),
+        '⚽️': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <circle cx="50" cy="50" r="42" />
+                <path d="M50 30 L65 40 L60 55 L40 55 L35 40 Z" fill="currentColor" opacity="0.1" />
+                <line x1="50" y1="30" x2="50" y2="8" />
+                <line x1="65" y1="40" x2="85" y2="35" />
+                <line x1="60" y1="55" x2="80" y2="75" />
+                <line x1="40" y1="55" x2="20" y2="75" />
+                <line x1="35" y1="40" x2="15" y2="35" />
             </svg>
         )
     };
 
-    return outlineIcons[icon] || <span className="text-3xl grayscale opacity-40">{icon}</span>;
+    return outlineIcons[icon] || <span style={{ fontSize: `${size * 0.8}px` }} className="grayscale opacity-40">{icon}</span>;
 }
 
 // --- Counting Worksheets (New Implementation) ---
@@ -1810,7 +1830,7 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
     const rng = makeRng(`${seed}-${docId}-${variant}`);
     const config = COUNTING_DATA[docId] || COUNTING_DATA['count-color-1-10'];
 
-    const items = ['🍎', '🍌', '🥕', '🐶', '🐱', '⭐️', '🎈', '🚗', '🦋', '🌸', '🍪', '⚽️', '🧸', '🖍️', '📚'];
+    const items = ['🍎', '⭐️', '🌸', '🦋', '🎈', '🍪', '🧸', '🚗', '⚽️'];
 
     // Generate problems
     const problems = useMemo(() => {
@@ -1854,12 +1874,12 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                 {problems.map((p) => (
                     <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
                         {/* Object Display */}
-                        <div className={`mb-4 w-full ${config.type === 'color' ? 'h-40' : 'h-24'} flex items-center justify-center`}>
-                            <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 justify-items-center items-center`}>
+                        <div className={`mb-4 w-full ${config.type === 'color' ? 'h-40' : 'h-24'} flex items-center justify-center p-2`}>
+                            <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-4 justify-items-center items-center`}>
                                 {Array.from({ length: config.type === 'color' ? config.max : p.count }).map((_, idx) => (
-                                    <div key={idx} className="flex items-center justify-center">
+                                    <div key={idx} className="flex items-center justify-center w-10 h-10">
                                         {config.type === 'color' ? (
-                                            <ColorableIcon icon={p.icon} size={48} />
+                                            <ColorableIcon icon={p.icon} size={36} />
                                         ) : (
                                             <span className="text-2xl leading-none">{p.icon}</span>
                                         )}
