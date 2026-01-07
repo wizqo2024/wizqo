@@ -740,7 +740,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           width: 794px !important;
           max-width: 794px !important;
           margin: 0 auto !important;
-          padding: 1.0in 0 0.5in 0 !important; /* Safe padding for branding */
+          padding: 0 !important;
           background: white !important;
         }
         
@@ -763,21 +763,39 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           print-color-adjust: exact !important;
           color-adjust: exact !important;
           padding: 20px 24px 24px 24px !important;
-          margin: 0 0.5in 0.5in 0.5in !important; /* No top margin, padding on parent handles it */
+          margin: 0.5in !important;
+          padding-top: 100px !important; /* Space for absolute header branding */
+          padding-bottom: 80px !important; /* Space for bottom branding */
         }
 
-        /* Logo and domain for all worksheets - applied during capture */
+        /* Logo and domain for all worksheets - absolute inside content */
         [data-worksheet-content="true"] .wizqo-logo-print {
           position: absolute !important;
-          top: 0.35in !important; /* Safely within top padding */
-          left: 0.5in !important;
+          top: 25px !important;
+          left: 24px !important;
           z-index: 100 !important;
           display: flex !important;
           flex-direction: row !important;
           align-items: center !important;
-          gap: 10px !important;
+          gap: 12px !important;
           background: transparent !important;
           padding: 0 !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        
+        /* Footer branding - absolute inside content */
+        [data-worksheet-content="true"] .wizqo-footer-print {
+          position: absolute !important;
+          bottom: 25px !important;
+          left: 50% !important;
+          transform: translateX(-50%) !important;
+          z-index: 100 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          gap: 5px !important;
+          width: 100% !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
         }
@@ -1023,7 +1041,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       contentElement.style.width = '794px'
       contentElement.style.maxWidth = '794px'
       contentElement.style.margin = '0 auto'
-      contentElement.style.padding = '1.0in 0 0.5in 0'
+      contentElement.style.padding = '0'
       contentElement.style.background = 'white'
 
       // Set inner div to match print layout EXACTLY - with colorful border and emoji stars
@@ -1059,8 +1077,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         innerStyle.webkitPrintColorAdjust = 'exact'
         innerStyle.printColorAdjust = 'exact'
         innerStyle.colorAdjust = 'exact'
-        innerDiv.style.padding = '20px 24px 24px 24px'
-        innerDiv.style.margin = '0 0.5in 0.5in 0.5in'
+        innerDiv.style.padding = '100px 24px 80px 24px'
+        innerDiv.style.margin = '0.5in'
         innerDiv.style.backgroundColor = 'white'
         innerDiv.style.background = 'white'
       }
@@ -1112,8 +1130,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
               clonedInnerDiv.style.printColorAdjust = 'exact'
                 ; (clonedInnerDiv.style as any).colorAdjust = 'exact'
-              clonedInnerDiv.style.padding = '20px 24px 24px 24px'
-              clonedInnerDiv.style.margin = '0 0.5in 0.5in 0.5in'
+              clonedInnerDiv.style.padding = '100px 24px 80px 24px'
+              clonedInnerDiv.style.margin = '0.5in'
               clonedInnerDiv.style.backgroundColor = 'white'
               clonedInnerDiv.style.background = 'white'
             }
@@ -1129,7 +1147,6 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           }
 
           // Process print: utility classes
-          const allElements = clonedDoc.querySelectorAll('*')
           allElements.forEach((el) => {
             const htmlEl = el as HTMLElement
             const classList = Array.from(htmlEl.classList)
@@ -1137,11 +1154,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             if (classList.some(cls => cls.includes('wizqo-logo-print'))) {
               htmlEl.style.setProperty('display', 'flex', 'important')
             }
+            if (classList.some(cls => cls.includes('wizqo-footer-print'))) {
+              htmlEl.style.setProperty('display', 'flex', 'important')
+            }
             if (classList.some(cls => cls.includes('print-customization-header'))) {
               htmlEl.style.setProperty('display', 'block', 'important')
             }
             if (classList.some(cls => cls.includes('worksheet-footer-optional'))) {
-              htmlEl.style.setProperty('display', 'block', 'important')
+              htmlEl.style.setProperty('display', 'none', 'important')
             }
             if (classList.some(cls => cls.includes('print:block'))) {
               htmlEl.style.display = 'block'
@@ -1736,16 +1756,29 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             print-color-adjust: exact !important;
           }
           [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-            font-size: 13px !important;
+            font-size: 14px !important;
             font-weight: 700 !important;
             color: #4845D2 !important;
             white-space: nowrap !important;
-            letter-spacing: 0.3px !important;
+            letter-spacing: 0.5px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
+          [data-worksheet-content="true"] .wizqo-footer-print {
+            position: absolute !important;
+            bottom: 25px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 4px !important;
+            color: #64748b !important;
+            font-size: 10pt !important;
+          }
           /* Branding specific styles for capture */
-          .wizqo-logo-print.force-show {
+          .wizqo-logo-print.force-show,
+          .wizqo-footer-print.force-show {
             display: flex !important;
           }
           /* Layout fixes for kindergarten-counting-visual worksheet only */
@@ -1792,25 +1825,23 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           }
         }
       `}</style>
-      {/* Print layout optimized - updated 2026-01-07 */}
-      {/* Logo and domain for all worksheets - fixed position outside max-w-4xl */}
-      <div className="hidden print:flex wizqo-logo-print" style={{
-        display: 'none',
-        alignItems: 'center',
-        gap: '10px',
-        paddingLeft: '0.5in',
-        paddingTop: '0.35in',
-        paddingBottom: '0.2in'
-      }}>
-        <WizqoLogo className="w-12 h-auto" />
-        <span className="domain-text" style={{
-          fontSize: '13px',
-          fontWeight: '700',
-          color: '#4845D2'
-        }}>www.wizqo.com</span>
-      </div>
-
       <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
+        {/* Logo and domain for all worksheets - Internal Absolute Branding */}
+        <div className="hidden print:flex wizqo-logo-print">
+          <img src="/logo.svg" alt="Wizqo Logo" style={{ width: '45px', height: '45px' }} />
+          <span className="domain-text">www.wizqo.com</span>
+        </div>
+
+        {/* Footer branding for all worksheets - Internal Absolute Footer */}
+        <div className="hidden print:flex wizqo-footer-print">
+          <div className="flex items-center gap-2">
+            <img src="/logo.svg" alt="Wizqo Logo" style={{ width: '24px', height: '24px', opacity: 0.7 }} />
+            <span style={{ color: '#4845D2', fontWeight: 600 }}>www.wizqo.com</span>
+          </div>
+          <div style={{ fontSize: '9pt', opacity: 0.6 }}>
+            Copyright © {new Date().getFullYear()} Wizqo. All rights reserved.
+          </div>
+        </div>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>
