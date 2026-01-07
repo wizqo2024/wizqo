@@ -762,10 +762,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color-adjust: exact !important;
-          padding: 20px 24px 24px 24px !important;
+          padding: 20px 24px 24px 24px;
           margin: 0.5in !important;
-          padding-top: 100px !important; /* Space for absolute header branding */
-          padding-bottom: 80px !important; /* Space for bottom branding */
+          padding-top: 100px; /* Space for absolute header branding */
+          padding-bottom: 80px; /* Space for bottom branding */
         }
 
         /* Logo and domain for all worksheets - absolute inside content */
@@ -1284,157 +1284,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
     }
   }, [doc, primaryDoc, docTitle, params, showAnswers])
 
-  // OLD PDF download function - kept for reference but not used
-  // This was causing blank pages, so we now use browser print dialog instead
-  const downloadPDF_OLD = useCallback(async () => {
-    let wrapperElement: HTMLElement | null = null
-    let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
 
-    try {
-      setIsDownloadingPDF(true)
-
-      // Import jsPDF and html2canvas dynamically
-      const [{ default: jsPDF }, html2canvas] = await Promise.all([
-        import('jspdf'),
-        import('html2canvas').then(m => m.default || m)
-      ])
-
-      // If showAnswers is true, wait a bit longer for answers to render
-      if (showAnswers) {
-        await new Promise(resolve => setTimeout(resolve, 1500))
-      }
-
-      // Wait for content to be fully rendered
-      await new Promise(resolve => setTimeout(resolve, 500))
-
-      // Find the worksheet content container
-      const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
-      if (!contentElement) {
-        throw new Error('Could not find worksheet content. Please refresh the page and try again.')
-      }
-
-      // Apply print styles temporarily
-      const printStyleTag = document.createElement('style')
-      printStyleTag.id = 'pdf-export-print-styles'
-      printStyleTag.textContent = `
-        /* Apply print styles */
-        [data-worksheet-content="true"] {
-          width: 794px !important;
-          max-width: 794px !important;
-        }
-      `
-      document.head.appendChild(printStyleTag)
-
-      // Capture with html2canvas
-      const canvas = await html2canvas(contentElement, {
-        scale: 2.0,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-        allowTaint: false
-      })
-
-      // Remove print styles
-      printStyleTag.remove()
-
-      // Create PDF
-      const pdf = new jsPDF('p', 'mm', 'a4')
-      const imgData = canvas.toDataURL('image/jpeg', 0.95)
-      const imgWidth = 210 // A4 width in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width
-
-      pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
-
-      // Generate filename and download
-      const filename = docTitle
-        ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
-        : `worksheet_${doc || 'download'}.pdf`
-
-      pdf.save(filename)
-
-    } catch (error) {
-      console.error('PDF download failed:', error)
-      alert('PDF download failed. Please try using the Print button instead.')
-    } finally {
-      setIsDownloadingPDF(false)
-    }
-  }, [doc, docTitle, showAnswers])
-
-  // OLD PDF download function - kept for reference but not used
-  // This was causing blank pages, so we now use browser print dialog instead
-  const downloadPDF_OLD2 = useCallback(async () => {
-    let wrapperElement: HTMLElement | null = null
-    let wrapperOriginalStyle: { width: string; maxWidth: string; margin: string; padding: string } | null = null
-
-    try {
-      setIsDownloadingPDF(true)
-
-      // Import jsPDF and html2canvas dynamically
-      const [{ default: jsPDF }, html2canvas] = await Promise.all([
-        import('jspdf'),
-        import('html2canvas').then(m => m.default || m)
-      ])
-
-      // If showAnswers is true, wait a bit longer for answers to render
-      if (showAnswers) {
-        await new Promise(resolve => setTimeout(resolve, 1500))
-      }
-
-      // Wait for content to be fully rendered
-      await new Promise(resolve => setTimeout(resolve, 500))
-
-      // Find the worksheet content container
-      const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
-      if (!contentElement) {
-        throw new Error('Could not find worksheet content. Please refresh the page and try again.')
-      }
-
-      // Apply print styles temporarily
-      const printStyleTag = document.createElement('style')
-      printStyleTag.id = 'pdf-export-print-styles'
-      printStyleTag.textContent = `
-        /* Apply print styles */
-        [data-worksheet-content="true"] {
-          width: 794px !important;
-          max-width: 794px !important;
-        }
-      `
-      document.head.appendChild(printStyleTag)
-
-      // Capture with html2canvas
-      const canvas = await html2canvas(contentElement, {
-        scale: 2.0,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-        allowTaint: false
-      })
-
-      // Remove print styles
-      printStyleTag.remove()
-
-      // Create PDF
-      const pdf = new jsPDF('p', 'mm', 'a4')
-      const imgData = canvas.toDataURL('image/jpeg', 0.95)
-      const imgWidth = 210 // A4 width in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width
-
-      pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
-
-      // Generate filename and download
-      const filename = docTitle
-        ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`
-        : `worksheet_${doc || 'download'}.pdf`
-
-      pdf.save(filename)
-
-    } catch (error) {
-      console.error('PDF download failed:', error)
-      alert('PDF download failed. Please try using the Print button instead.')
-    } finally {
-      setIsDownloadingPDF(false)
-    }
-  }, [doc, docTitle, showAnswers])
 
   // Auto-download PDF when download=1 parameter is present
   useEffect(() => {

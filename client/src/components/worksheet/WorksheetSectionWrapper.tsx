@@ -209,6 +209,46 @@ export function WorksheetSectionWrapper({
                 backgroundColor: '#ffffff',
                 ignoreElements: (element) => {
                     return element.hasAttribute('data-html2canvas-ignore')
+                },
+                onclone: (clonedDoc: Document) => {
+                    // Find the section in the cloned document
+                    const clonedSection = clonedDoc.querySelector('.worksheet-section') as HTMLElement
+                    if (clonedSection) {
+                        // Ensure relative positioning for absolute branding
+                        clonedSection.style.setProperty('position', 'relative', 'important');
+                        clonedSection.style.setProperty('display', 'block', 'important');
+                        clonedSection.style.setProperty('background', 'white', 'important');
+                        clonedSection.style.setProperty('border-radius', '12px', 'important');
+
+                        // Set large padding to make space for branding
+                        clonedSection.style.setProperty('padding', '100px 32px 80px 32px', 'important');
+
+                        // Branding Logo Data
+                        const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDEpIj48cGF0aCBkPSJNMCAyMEMwIDkgOSAwIDIwIDBoMjZDOTQwIDQwIDkgNDAgMjB2MjBIMjBDOSA0MCAzMSAwIDIweiIgZmlsbD0iIzQ4NDVEMiIvPjxwYXRoIGQ9Ik00NyA4SDIwQzEzIDggOCA0NCA4IDIxQzggMjggMTMgMzMgMjAgMzNoMjZDNTQtMzMgNTkgMjggNTkgMjFTNTQgOCA0NyA4eiIgZmlsbD0iI0E1QjRGQyIvPjxwYXRoIGQ9Ik0yMCAyN2MzIDAgNiAzIDYtNnMzLTYtNi02cy02IDMtNiA2czMgNiA2IDZ6IiBmaWxsPSJibGFjayIvPjxwYXRoIGQ9Ik0xOCAyMGMxIDAgMi0xIDItMXMtMS0xLTItMXMtMiAxLTIgMXMxIDIgMiAweiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNTcgMjdjMyAwIDYtMyA2LTZzLTMtNi02LTZzLTYgMy02IDZzMyA2IDYgNnoiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTU1IDIwYzEgMCAyLTEgMi0xcy0xLTEtMi0xcy0yIDEtMiAxczEgMiAyIDB6IiBmaWxsPSJ3aGl0ZSIvPjwvZz48L3N2Zz4=`;
+
+                        // Inject Branding Header
+                        const header = clonedDoc.createElement('div');
+                        header.style.cssText = 'position: absolute !important; top: 25px !important; left: 32px !important; display: flex !important; align-items: center !important; gap: 12px !important; z-index: 9999 !important; height: 50px !important;';
+                        header.innerHTML = `
+                            <img src="${logoBase64}" style="width: 45px !important; height: 45px !important; display: block !important;" />
+                            <span style="font-size: 18pt !important; font-weight: 800 !important; color: #4845D2 !important; white-space: nowrap !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
+                        `;
+                        clonedSection.appendChild(header);
+
+                        // Inject Branding Footer
+                        const footer = clonedDoc.createElement('div');
+                        footer.style.cssText = 'position: absolute !important; bottom: 25px !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 9999 !important; width: 100% !important; height: 50px !important;';
+                        footer.innerHTML = `
+                            <div style="display: flex !important; align-items: center !important; gap: 8px !important; justify-content: center !important;">
+                                <img src="${logoBase64}" style="width: 24px !important; height: 24px !important; opacity: 0.8 !important;" />
+                                <span style="font-size: 12pt !important; font-weight: 700 !important; color: #4845D2 !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
+                            </div>
+                            <div style="font-size: 10pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: system-ui, -apple-system, sans-serif !important;">
+                                Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
+                            </div>
+                        `;
+                        clonedSection.appendChild(footer);
+                    }
                 }
             })
 
