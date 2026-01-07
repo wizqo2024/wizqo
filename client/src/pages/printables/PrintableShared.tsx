@@ -366,7 +366,7 @@ export function WorksheetSectionWrapper({
                     title="Download PDF"
                 >
                     {isGeneratingPdf ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
-                    {isGeneratingPdf ? 'Generating...' : 'PDF'}
+                    {isGeneratingPdf ? 'Generating...' : 'PDF Download'}
                 </button>
             </div>
             <section
