@@ -1028,7 +1028,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
       // Set inner div to match print layout EXACTLY - with colorful border and emoji stars
       // CRITICAL: Print styles show colorful border, padding 20px 24px, and emoji stars - match Ctrl+P exactly
-      const innerDiv = contentElement.querySelector(':scope > div:first-child') as HTMLElement
+      // Target the ACTUAL worksheet container, not the branding header
+      const innerDiv = contentElement.querySelector(':scope > .max-w-4xl') as HTMLElement
       if (innerDiv) {
         originalStyles.set(innerDiv, {
           margin: innerDiv.style.margin,
@@ -1099,7 +1100,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           // Apply print styles to cloned inner div - with colorful border and emoji stars
           const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedContentElement) {
-            const clonedInnerDiv = clonedContentElement.querySelector(':scope > div:first-child') as HTMLElement
+            // Target the ACTUAL worksheet container, not the branding header
+            const clonedInnerDiv = clonedContentElement.querySelector(':scope > .max-w-4xl') as HTMLElement
             if (clonedInnerDiv) {
               // Match print styles with colorful border, padding, and emoji stars
               clonedInnerDiv.style.position = 'relative'
@@ -1133,13 +1135,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const classList = Array.from(htmlEl.classList)
 
             if (classList.some(cls => cls.includes('wizqo-logo-print'))) {
-              htmlEl.style.display = 'flex'
+              htmlEl.style.setProperty('display', 'flex', 'important')
             }
             if (classList.some(cls => cls.includes('print-customization-header'))) {
-              htmlEl.style.display = 'block'
+              htmlEl.style.setProperty('display', 'block', 'important')
             }
             if (classList.some(cls => cls.includes('worksheet-footer-optional'))) {
-              htmlEl.style.display = 'block'
+              htmlEl.style.setProperty('display', 'block', 'important')
             }
             if (classList.some(cls => cls.includes('print:block'))) {
               htmlEl.style.display = 'block'
