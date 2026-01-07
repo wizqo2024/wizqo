@@ -25,7 +25,7 @@ export async function generateWorksheetPDF(
     }
     const {
         filename = 'worksheet.pdf',
-        scale = 3,
+        scale = 4, // Increased from 3 to 4 for better quality
         docTitle = ''
     } = options
 
@@ -44,7 +44,12 @@ export async function generateWorksheetPDF(
             sections = [container]
         }
 
-        const pdf = new jsPDF('p', 'mm', 'a4')
+        const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4',
+            compress: true // Enable compression for the PDF file
+        })
         const pageWidthMm = 210
         const pageHeightMm = 297
 
@@ -58,8 +63,10 @@ export async function generateWorksheetPDF(
             const canvas = await html2canvas(section, {
                 scale: scale,
                 useCORS: true,
+                allowTaint: true,
                 backgroundColor: '#ffffff',
                 logging: false,
+                imageTimeout: 30000, // Increase timeout for complex rendering
                 onclone: (clonedDoc: Document) => {
                     // Adjust cloned section styles for better PDF look
                     const clonedSection = clonedDoc.querySelector('.worksheet-section') || clonedDoc.body.firstChild as HTMLElement
@@ -68,6 +75,9 @@ export async function generateWorksheetPDF(
                         clonedSection.style.setProperty('border-radius', '12px', 'important')
                         clonedSection.style.setProperty('position', 'relative', 'important')
                         clonedSection.style.setProperty('background', 'white', 'important')
+                        // Improve text/image rendering in the clone
+                        clonedSection.style.setProperty('image-rendering', 'auto', 'important')
+                        clonedSection.style.setProperty('-webkit-font-smoothing', 'antialiased', 'important')
 
                         // Inject Footer
                         const footer = clonedDoc.createElement('div')
@@ -86,20 +96,21 @@ export async function generateWorksheetPDF(
                 }
             })
 
-            const imgData = canvas.toDataURL('image/jpeg', 0.95)
+            // Use PNG for lossless quality
+            const imgData = canvas.toDataURL('image/png')
             const imgWidth = pageWidthMm
             const imgHeight = (canvas.height * imgWidth) / canvas.width
 
             // If section is taller than one page, we might still have to split it, 
             // but at least we split by section first.
             if (imgHeight <= pageHeightMm) {
-                pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight)
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST')
             } else {
                 // Fallback split for extra long sections (rare but possible)
                 const totalPages = Math.ceil(imgHeight / pageHeightMm)
                 for (let j = 0; j < totalPages; j++) {
                     const yPos = -(j * pageHeightMm)
-                    pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight)
+                    pdf.addImage(imgData, 'PNG', 0, yPos, imgWidth, imgHeight, undefined, 'FAST')
                     if (j < totalPages - 1) pdf.addPage()
                 }
             }
