@@ -1132,6 +1132,15 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const htmlEl = el as HTMLElement
             const classList = Array.from(htmlEl.classList)
 
+            if (classList.some(cls => cls.includes('wizqo-logo-print'))) {
+              htmlEl.style.display = 'flex'
+            }
+            if (classList.some(cls => cls.includes('print-customization-header'))) {
+              htmlEl.style.display = 'block'
+            }
+            if (classList.some(cls => cls.includes('worksheet-footer-optional'))) {
+              htmlEl.style.display = 'block'
+            }
             if (classList.some(cls => cls.includes('print:block'))) {
               htmlEl.style.display = 'block'
             }
@@ -1705,16 +1714,15 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             margin: 1.0in !important;
           }
           [data-worksheet-content="true"] .wizqo-logo-print {
-            position: absolute !important;
-            top: 0.35in !important;
-            left: 0.5in !important;
+            display: none !important; /* Managed by JS during capture */
+            position: relative !important;
+            width: 100% !important;
             z-index: 100 !important;
-            display: flex !important;
             flex-direction: row !important;
             align-items: center !important;
             gap: 10px !important;
             background: transparent !important;
-            padding: 0 !important;
+            padding: 0.35in 0.5in 0.2in 0.5in !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
@@ -1733,6 +1741,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             letter-spacing: 0.3px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
+          }
+          /* Branding specific styles for capture */
+          .wizqo-logo-print.force-show {
+            display: flex !important;
           }
           /* Layout fixes for kindergarten-counting-visual worksheet only */
           [data-worksheet-content="true"][data-doc="kindergarten-counting-visual"] * {
@@ -1778,13 +1790,25 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           }
         }
       `}</style>
-      {/* Print layout optimized - updated 2025-01-11 */}
+      {/* Print layout optimized - updated 2026-01-07 */}
+      {/* Logo and domain for all worksheets - fixed position outside max-w-4xl */}
+      <div className="hidden print:flex wizqo-logo-print" style={{
+        display: 'none',
+        alignItems: 'center',
+        gap: '10px',
+        paddingLeft: '0.5in',
+        paddingTop: '0.35in',
+        paddingBottom: '0.2in'
+      }}>
+        <WizqoLogo className="w-12 h-auto" />
+        <span className="domain-text" style={{
+          fontSize: '13px',
+          fontWeight: '700',
+          color: '#4845D2'
+        }}>www.wizqo.com</span>
+      </div>
+
       <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
-        {/* Logo and domain for all worksheets */}
-        <div className="hidden print:block wizqo-logo-print">
-          <WizqoLogo className="w-12 h-auto" />
-          <span className="domain-text">www.wizqo.com</span>
-        </div>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>
