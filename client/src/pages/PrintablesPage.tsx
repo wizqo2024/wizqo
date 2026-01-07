@@ -1268,8 +1268,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   useEffect(() => {
     if (!autoDownload) return
     // Defer a bit to let the view render fully
-    const t = setTimeout(() => {
-      downloadPDF()
+    const t = setTimeout(async () => {
+      await downloadPDF()
+      // If was opened in a new tab for auto-download, close it after done
+      const isInIframe = window.self !== window.top
+      if (!isInIframe) {
+        window.close()
+      }
     }, 1200)
     return () => clearTimeout(t)
   }, [autoDownload, downloadPDF])

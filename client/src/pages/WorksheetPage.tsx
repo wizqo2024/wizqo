@@ -101,7 +101,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
 
 
   // Get print URL (noindexed route) - include 'from' parameter for tracking
-  const basePrintUrl = `/print?doc=${seoData.docId}&from=${fromParam || categorySlug || slug}`
+  const basePrintUrl = `/print?doc=${seoData.docId}&from=${fromParam || categorySlug || slug}&download=1`
   const printUrl = showAnswers ? `${basePrintUrl}&showAnswers=1` : basePrintUrl
 
 

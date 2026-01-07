@@ -22,5 +22,5 @@ export function getWorksheetURL(docId: string, fallbackFrom?: string): string {
 
 export function getWorksheetPrintURL(docId: string, from?: string): string {
   const fromParam = from || 'worksheets'
-  return `/print?doc=${docId}&from=${fromParam}`
+  return `/print?doc=${docId}&from=${fromParam}&download=1`
 }

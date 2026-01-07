@@ -38,7 +38,7 @@ export default function ReadingComprehensionPage() {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
-    setSelectedCategories((prev) => {
+    setSelectedCategories((prev: Set<string>) => {
       const next = new Set(prev)
       const isSelecting = !next.has(categoryId)
       if (isSelecting) {
@@ -330,15 +330,15 @@ export default function ReadingComprehensionPage() {
     // Reverse the array to show newly added worksheets (at the bottom of the list) first
     const newestFirst = [...allWorksheets].reverse()
     if (selectedCategories.size === 0) return newestFirst
-    return newestFirst.filter((ws) =>
-      ws.categories.some((cat) => selectedCategories.has(cat))
+    return newestFirst.filter((ws: WorksheetItem) =>
+      ws.categories.some((cat: string) => selectedCategories.has(cat))
     )
   }, [selectedCategories, allWorksheets])
 
   // Group filtered worksheets by grade
   const groupedWorksheets = useMemo(() => {
     const groups: Record<string, WorksheetItem[]> = {}
-    filteredWorksheets.forEach((ws) => {
+    filteredWorksheets.forEach((ws: WorksheetItem) => {
       const grade = ws.grade || 'Other'
       if (!groups[grade]) groups[grade] = []
       groups[grade].push(ws)
@@ -365,7 +365,7 @@ export default function ReadingComprehensionPage() {
         @media print {
           @page { margin: 0; }
           html, body { margin: 0 !important; padding: 0 !important; }
-          .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
+        .print-name-date { position: fixed; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; color: #334155; font-size: 12px; z-index: 9999; pointer-events: none; }
           .print-name-date .label { margin-right: 6px; }
           .print-name-date .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
         }
@@ -510,7 +510,7 @@ export default function ReadingComprehensionPage() {
                     <h2 className="text-xl font-bold text-slate-900">{gradeInfo.title}</h2>
                     <p className="text-slate-700 text-sm mt-1">{gradeInfo.description}</p>
                     <div className="mt-4 grid md:grid-cols-2 gap-4">
-                      {worksheets.map((ws) => {
+                      {(worksheets as WorksheetItem[]).map((ws: WorksheetItem) => {
                         // Use WorksheetThumbnailCard for all items
                         if (ws.docId) {
                           return (
@@ -633,6 +633,7 @@ export default function ReadingComprehensionPage() {
                       src={previewItem.customPreviewUrl || previewItem.href}
                       className="w-full h-full min-h-[600px] border-0"
                       title={previewItem.title}
+                      loading="lazy"
                     />
                   </div>
 
@@ -670,7 +671,7 @@ export default function ReadingComprehensionPage() {
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4';
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
-function ItemCard({ title, description, href }: { title: string; description: string; href: string }) {
+function ItemCard({ title, description, href }: { title: string; description: string; href: string; key?: string }) {
   const { t } = useTranslation();
   return (
     <div className={CARD_CLASS}>
@@ -804,9 +805,9 @@ function BuildPackReadingInline() {
             try {
               const tSel = document.getElementById('rcp-time') as HTMLSelectElement | null;
               const gSel = document.getElementById('rcp-grade') as HTMLSelectElement | null;
-              const t = (tSel?.value || '5').trim();
-              const g = (gSel?.value || 'g1').trim();
-              const url = `/print?doc=pack&time=${encodeURIComponent(t)}&age=${encodeURIComponent(g)}&skill=reading&from=reading-comprehension`;
+              const tValue = (tSel?.value || '5').trim();
+              const gValue = (gSel?.value || 'g1').trim();
+              const url = `/print?doc=pack&time=${encodeURIComponent(tValue)}&age=${encodeURIComponent(gValue)}&skill=reading&from=reading-comprehension&download=1`;
               window.location.href = url;
             } catch { }
           }}

@@ -304,14 +304,15 @@ function GradeToggle({
   active: boolean
   label: string
   onSelect: () => void
+  key?: string
 }) {
   return (
     <button
       type="button"
       onClick={onSelect}
       className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors border ${active
-          ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
-          : 'text-slate-600 border-slate-200 hover:border-purple-300 hover:text-purple-700'
+        ? 'bg-purple-600 text-white border-purple-600 shadow-sm'
+        : 'text-slate-600 border-slate-200 hover:border-purple-300 hover:text-purple-700'
         }`}
     >
       {label}
@@ -329,14 +330,15 @@ function CategoryToggle({
   icon: string
   label: string
   onToggle: () => void
+  key?: string
 }) {
   return (
     <button
       type="button"
       onClick={onToggle}
       className={`flex items-center gap-2 w-full rounded-xl border px-3 py-2 text-left transition-colors ${active
-          ? 'border-purple-500 bg-purple-50 text-purple-700'
-          : 'border-slate-200 hover:border-purple-300 hover:bg-purple-50/60 text-slate-600'
+        ? 'border-purple-500 bg-purple-50 text-purple-700'
+        : 'border-slate-200 hover:border-purple-300 hover:bg-purple-50/60 text-slate-600'
         }`}
     >
       <span className="text-lg">{icon}</span>
@@ -365,6 +367,7 @@ function WorksheetPreviewCard({
   pack: InteractiveWorksheetPack | null
   filters: FiltersState
   t: (key: string) => string
+  key?: string
 }) {
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
@@ -380,8 +383,8 @@ function WorksheetPreviewCard({
           <button
             onClick={() => onToggleFavorite(item)}
             className={`p-2 rounded-full transition-colors ${isFavorite
-                ? 'text-yellow-500 hover:text-yellow-600'
-                : 'text-slate-400 hover:text-yellow-500'
+              ? 'text-yellow-500 hover:text-yellow-600'
+              : 'text-slate-400 hover:text-yellow-500'
               }`}
             aria-label={isFavorite ? t('pages.interactive.removeFromFavorites') : t('pages.interactive.addToFavorites')}
             title={isFavorite ? t('pages.interactive.removeFromFavorites') : t('pages.interactive.addToFavorites')}
@@ -447,7 +450,7 @@ function WorksheetPreviewCard({
 
       {item.focus.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {item.focus.map((tag) => (
+          {item.focus.map((tag: string) => (
             <span
               key={tag}
               className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600"
@@ -459,19 +462,19 @@ function WorksheetPreviewCard({
       )}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 text-xs text-slate-500">
-          <span>{item.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}</span>
+          <span>{item.gradeLabel.split(' / ').map((g: string) => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find((opt: any) => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}</span>
           <span>{t('pages.interactive.answerKeyIncluded')}</span>
         </div>
         <div className="flex items-center gap-2">
           {(() => {
-            const printUrl = pack?.printUrl ? onDownload(item.docId) : null
-            return printUrl ? (
+            const downloadUrl = pack?.printUrl ? onDownload(item.docId) : null
+            return downloadUrl ? (
               <button
                 onClick={() => {
-                  const newWindow = window.open(printUrl, '_blank')
-                  if (newWindow) {
-                    setTimeout(() => {
-                    }, 500)
+                  if (onDownloadDirect) {
+                    onDownloadDirect(item)
+                  } else {
+                    window.open(downloadUrl, '_blank')
                   }
                 }}
                 className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
@@ -683,7 +686,7 @@ export function InteractiveWorksheetsPage() {
 
       // Get effective categories (selected + searched)
       const searchCategories = getCategoriesFromSearch(searchQuery)
-      const categoriesToSend = [...new Set([...currentFilters.categories, ...searchCategories])]
+      const categoriesToSend = Array.from(new Set([...currentFilters.categories, ...searchCategories]))
       const finalCategories = categoriesToSend.length > 0 ? categoriesToSend : DEFAULT_NORMALIZED_CATEGORIES
       params.set('categories', finalCategories.join(','))
       params.set('variant', String(currentFilters.variant))
@@ -727,7 +730,7 @@ export function InteractiveWorksheetsPage() {
           duplicateAttemptsRef.current < MAX_DUPLICATE_ATTEMPTS
         ) {
           duplicateAttemptsRef.current += 1
-          setFilters((prev) => {
+          setFilters((prev: FiltersState) => {
             const nextVariant = prev.variant + 1
             const nextGenerateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
             return {
@@ -772,7 +775,7 @@ export function InteractiveWorksheetsPage() {
     const handlePopState = () => {
       const newFilters = parseInitialFilters()
       // Only update if filters actually changed to avoid infinite loops
-      setFilters((prev) => {
+      setFilters((prev: FiltersState) => {
         if (
           prev.grade !== newFilters.grade ||
           prev.categories.join(',') !== newFilters.categories.join(',')
@@ -797,11 +800,11 @@ export function InteractiveWorksheetsPage() {
 
   const toggleCategory = (id: string) => {
     resetDuplicateTracking()
-    setFilters((prev) => {
+    setFilters((prev: FiltersState) => {
       const exists = prev.categories.includes(id)
       let nextCategories: string[]
       if (exists) {
-        nextCategories = prev.categories.filter((c) => c !== id)
+        nextCategories = prev.categories.filter((c: string) => c !== id)
         trackCategoryFilter(id, 'deselect', 'interactive-worksheets-generator')
       } else {
         nextCategories = normalizeCategoryIds([...prev.categories, id])
@@ -822,7 +825,7 @@ export function InteractiveWorksheetsPage() {
 
   const resetCategories = React.useCallback(() => {
     resetDuplicateTracking()
-    setFilters((prev) => {
+    setFilters((prev: FiltersState) => {
       if (prev.categories.join(',') === DEFAULT_CATEGORIES_KEY) return prev
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
       return {
@@ -838,7 +841,7 @@ export function InteractiveWorksheetsPage() {
   const setGrade = (grade: GradeBand) => {
     resetDuplicateTracking()
     trackGradeSelection(grade, 'interactive-worksheets-generator')
-    setFilters((prev) => {
+    setFilters((prev: FiltersState) => {
       // Generate unique timestamp when grade changes for unique content
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
       return {
@@ -925,7 +928,7 @@ export function InteractiveWorksheetsPage() {
   // Generate new unique pack with current filters (increment variant for unlimited unique generations)
   const generateTodayPack = React.useCallback(() => {
     resetDuplicateTracking()
-    setFilters((prev) => {
+    setFilters((prev: FiltersState) => {
       const newVariant = prev.variant + 1
       // Use high-precision timestamp + random component + variant for guaranteed uniqueness
       // This ensures every click generates a completely unique set
@@ -946,7 +949,7 @@ export function InteractiveWorksheetsPage() {
   // Regenerate with next variant for unique pack (for different groups/tubs)
   const regenerate = React.useCallback(() => {
     resetDuplicateTracking()
-    setFilters((prev) => {
+    setFilters((prev: FiltersState) => {
       const newVariant = prev.variant + 1
       // Use Date.now() + small random component for guaranteed uniqueness
       const generateTimestamp = Date.now() + Math.floor(Math.random() * 1000)
@@ -964,11 +967,11 @@ export function InteractiveWorksheetsPage() {
 
   // Favorites handlers
   const toggleFavorite = React.useCallback((item: InteractiveWorksheetItem) => {
-    setFavorites((prev) => {
-      const exists = prev.some((fav) => fav.docId === item.docId)
+    setFavorites((prev: FavoriteWorksheet[]) => {
+      const exists = prev.some((fav: FavoriteWorksheet) => fav.docId === item.docId)
       let next: FavoriteWorksheet[]
       if (exists) {
-        next = prev.filter((fav) => fav.docId !== item.docId)
+        next = prev.filter((fav: FavoriteWorksheet) => fav.docId !== item.docId)
       } else {
         next = [
           ...prev,
@@ -993,7 +996,7 @@ export function InteractiveWorksheetsPage() {
 
   // Customization handlers
   const handleCustomizationChange = React.useCallback((field: keyof CustomizationData, value: string | string[]) => {
-    setCustomization((prev) => {
+    setCustomization((prev: CustomizationData) => {
       const next = { ...prev, [field]: value }
       saveCustomization(next)
       return next
@@ -1046,6 +1049,8 @@ export function InteractiveWorksheetsPage() {
     if (customization.studentNames.length > 0) {
       url.searchParams.set('students', customization.studentNames.join(','))
     }
+    // Add download=1 for bulk download
+    url.searchParams.set('download', '1')
     return url.toString()
   }, [pack, customization, language])
 
@@ -1064,21 +1069,16 @@ export function InteractiveWorksheetsPage() {
     if (customization.studentNames.length > 0) {
       url.searchParams.set('students', customization.studentNames.join(','))
     }
-    // Track worksheet download
-    const worksheet = pack.items.find(item => item.docId === docId)
-    if (worksheet) {
-      trackWorksheetDownload(docId, worksheet.title, 'interactive-worksheets-generator', filters.grade)
-    }
     return url.toString()
-  }, [pack, customization, filters.grade, language])
+  }, [pack, customization, language])
 
-  // Generate download URL for a single worksheet (without autoprint - user can choose to download or print)
+  // Generate download URL for a single worksheet (with download=1)
   const getSingleWorksheetDownloadUrl = React.useCallback((docId: string) => {
     const url = getSingleWorksheetPrintUrl(docId)
     if (!url) return ''
     const urlObj = new URL(url, window.location.origin)
-    // Remove autoprint so user can choose to download or print
-    urlObj.searchParams.delete('autoprint')
+    // Add download=1 for automatic PDF generation
+    urlObj.searchParams.set('download', '1')
     return urlObj.toString()
   }, [getSingleWorksheetPrintUrl])
 
@@ -1307,7 +1307,7 @@ export function InteractiveWorksheetsPage() {
             <div>
               <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">1. {t('pages.interactive.pickGradeBand')}</h3>
               <div className="mt-3 flex flex-wrap gap-2">
-                {INTERACTIVE_GRADE_OPTIONS.map((opt) => (
+                {INTERACTIVE_GRADE_OPTIONS.map((opt: any) => (
                   <GradeToggle
                     key={opt.id}
                     label={t(`grades.${opt.id}`)}
@@ -1409,7 +1409,7 @@ export function InteractiveWorksheetsPage() {
                 ) : (
                   <>
                     <div className="grid gap-5 md:grid-cols-2">
-                      {filteredItems.map((item) => (
+                      {filteredItems.map((item: InteractiveWorksheetItem) => (
                         <WorksheetPreviewCard
                           key={item.docId}
                           item={item}
@@ -1556,7 +1556,7 @@ export function InteractiveWorksheetsPage() {
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold text-slate-900">{t(`interactive.${previewItem.docId}.title`) || previewItem.title}</h2>
                   <p className="text-sm text-slate-600 mt-1">
-                    {t(`interactive.${previewItem.docId}.description`) || previewItem.description} • {t(`categories.${previewItem.categoryId}`) || previewItem.categoryLabel} • {previewItem.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}
+                    {t(`interactive.${previewItem.docId}.description`) || previewItem.description} • {t(`categories.${previewItem.categoryId}`) || previewItem.categoryLabel} • {previewItem.gradeLabel.split(' / ').map((g: string) => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find((opt: any) => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}
                   </p>
                 </div>
                 <button
@@ -1612,7 +1612,7 @@ export function InteractiveWorksheetsPage() {
               <input
                 type="text"
                 value={customization.teacherName}
-                onChange={(e) => handleCustomizationChange('teacherName', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCustomizationChange('teacherName', e.target.value)}
                 placeholder={t('pages.interactive.customization.teacherNamePlaceholder')}
                 className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
               />
@@ -1622,7 +1622,7 @@ export function InteractiveWorksheetsPage() {
               <input
                 type="text"
                 value={customization.className}
-                onChange={(e) => handleCustomizationChange('className', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCustomizationChange('className', e.target.value)}
                 placeholder={t('pages.interactive.customization.classNamePlaceholder')}
                 className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
               />
@@ -1641,12 +1641,12 @@ export function InteractiveWorksheetsPage() {
                 <p className="text-sm text-slate-500 italic">{t('pages.interactive.noStudentsAdded')}</p>
               ) : (
                 <div className="space-y-2">
-                  {customization.studentNames.map((name, index) => (
+                  {customization.studentNames.map((name: string, index: number) => (
                     <div key={index} className="flex items-center gap-2">
                       <input
                         type="text"
                         value={name}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                           const updated = [...customization.studentNames]
                           updated[index] = e.target.value
                           handleCustomizationChange('studentNames', updated)
@@ -1705,9 +1705,9 @@ export function InteractiveWorksheetsPage() {
                   }}>
                     <h3 className="font-semibold text-slate-900">{fav.title}</h3>
                     <div className="flex items-center gap-3 mt-1 text-sm text-slate-600">
-                      <span>{t(`categories.${INTERACTIVE_CATEGORIES.find(c => c.label === fav.categoryLabel)?.id || ''}`) || fav.categoryLabel}</span>
+                      <span>{t(`categories.${INTERACTIVE_CATEGORIES.find((c: any) => c.label === fav.categoryLabel)?.id || ''}`) || fav.categoryLabel}</span>
                       <span>•</span>
-                      <span>{fav.gradeLabel.split(' / ').map(g => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find(opt => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}</span>
+                      <span>{fav.gradeLabel.split(' / ').map((g: string) => t(`grades.${INTERACTIVE_GRADE_OPTIONS.find((opt: any) => opt.label === g.trim())?.id || g.trim()}`) || g.trim()).join(' / ')}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -1724,8 +1724,8 @@ export function InteractiveWorksheetsPage() {
                       onClick={(e) => {
                         e.stopPropagation()
                         // Remove favorite directly by docId without needing pack
-                        setFavorites((prev) => {
-                          const next = prev.filter((f) => f.docId !== fav.docId)
+                        setFavorites((prev: FavoriteWorksheet[]) => {
+                          const next = prev.filter((f: FavoriteWorksheet) => f.docId !== fav.docId)
                           saveFavorites(next)
                           return next
                         })
