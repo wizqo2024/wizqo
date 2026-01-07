@@ -276,11 +276,12 @@ export function WorksheetSectionWrapper({
 
     return (
         <div className="relative group w-full">
-            <div className="absolute top-2 right-2 z-20 print:hidden opacity-0 group-hover:opacity-100 transition-opacity duration-200" data-html2canvas-ignore="true">
+            {/* Download Button (Always Visible) */}
+            <div className="absolute top-2 right-2 z-20 print:hidden" data-html2canvas-ignore="true">
                 <button
                     onClick={handleDownloadPDF}
                     disabled={isGeneratingPdf}
-                    className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm text-indigo-600 border border-indigo-200 rounded-lg font-semibold hover:bg-indigo-50 transition-colors shadow-sm disabled:opacity-50 text-xs"
+                    className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 text-white border border-indigo-700 rounded-lg font-semibold hover:bg-indigo-700 transition-colors shadow-sm disabled:opacity-50 text-xs"
                     title="Download PDF"
                 >
                     {isGeneratingPdf ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
