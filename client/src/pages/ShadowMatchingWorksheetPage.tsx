@@ -130,20 +130,13 @@ export default function ShadowMatchingWorksheetPage() {
                     if (target) {
                         const targetElement = target as HTMLElement;
                         targetElement.style.setProperty('position', 'relative', 'important');
-                        targetElement.style.setProperty('padding-top', '100px', 'important');
+                        targetElement.style.setProperty('padding-top', '40px', 'important');
                         targetElement.style.setProperty('padding-bottom', '80px', 'important');
 
                         // Branding Logo Data
                         const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDEpIj48cGF0aCBkPSJNMCAyMEMwIDkgOSAwIDIwIDBoMjZDOTQwIDQwIDkgNDAgMjB2MjBIMjBDOSA0MCAzMSAwIDIweiIgZmlsbD0iIzQ4NDVEMiIvPjxwYXRoIGQ9Ik00NyA4SDIwQzEzIDggOCA0NCA4IDIxQzggMjggMTMgMzMgMjAgMzNoMjZDNTQtMzMgNTkgMjggNTkgMjFTNTQgOCA0NyA4eiIgZmlsbD0iI0E1QjRGQyIvPjxwYXRoIGQ9Ik0yMCAyN2MzIDAgNiAzIDYtNnMzLTYtNi02cy02IDMtNiA2czMgNiA2IDZ6IiBmaWxsPSJibGFjayIvPjxwYXRoIGQ9Ik0xOCAyMGMxIDAgMi0xIDItMXMtMS0xLTItMXMtMiAxLTIgMXMxIDIgMiAweiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNTcgMjdjMyAwIDYtMyA2LTZzLTMtNi02LTZzLTYgMy02IDZzMyA2IDYgNnoiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTU1IDIwYzEgMCAyLTEgMi0xcy0xLTEtMi0xcy0yIDEtMiAxczEgMiAyIDB6IiBmaWxsPSJ3aGl0ZSIvPjwvZz48L3N2Zz4=`;
 
-                        // Inject Branding Header
-                        const header = clonedDoc.createElement('div');
-                        header.style.cssText = 'position: absolute !important; top: 25px !important; left: 32px !important; display: flex !important; align-items: center !important; gap: 12px !important; z-index: 9999 !important; height: 50px !important;';
-                        header.innerHTML = `
-                            <img src="${logoBase64}" style="width: 45px !important; height: 45px !important; display: block !important;" />
-                            <span style="font-size: 18pt !important; font-weight: 800 !important; color: #4845D2 !important; white-space: nowrap !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
-                        `;
-                        targetElement.appendChild(header);
+
 
                         // Inject Branding Footer
                         const footer = clonedDoc.createElement('div');
