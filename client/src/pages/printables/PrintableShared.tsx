@@ -588,9 +588,9 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
         case 'number-bonds-10':
             return getTranslatedWorksheetTitle(docId, t, ' Number Bonds to 10')
         case 'count-write-30':
-            return getTranslatedWorksheetTitle(docId, t, ' Count & Write 130')
+            return getTranslatedWorksheetTitle(docId, t, ' Count & Write 1-30')
         case 'missing-numbers-50':
-            return getTranslatedWorksheetTitle(docId, t, ' Missing Numbers 150')
+            return getTranslatedWorksheetTitle(docId, t, ' Missing Numbers 1-50')
         case 'picture-addition-10':
             return getTranslatedWorksheetTitle(docId, t, ' Picture Addition to 10')
         case 'subtraction-stories':

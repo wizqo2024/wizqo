@@ -182,7 +182,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors shadow-md hover:shadow-lg"
                 aria-label={`Print or download ${seoData.h1} as PDF`}
               >
-                📄 Print or Download PDF
+                📄 PDF Download
               </button>
 
               {/* Show Answer Toggle */}
