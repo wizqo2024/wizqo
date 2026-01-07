@@ -702,6 +702,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
   // Auto-download PDF when download=1 parameter is present
   useEffect(() => {
     if (!autoDownload) return
+
+    // Only allow auto-download if we are in an iframe (headless/background download)
+    // This prevents unwanted downloads when user visits the page directly
+    const isInIframe = window.self !== window.top
+    if (!isInIframe) return
+
     // Defer a bit to let the view render fully
     const t = setTimeout(async () => {
       await downloadPDF()
