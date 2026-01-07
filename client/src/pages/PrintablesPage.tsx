@@ -700,22 +700,19 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
   // Auto-download PDF when download=1 parameter is present
-  // DISABLED: User requested to stop automatic download trigger
-  /*
   useEffect(() => {
     if (!autoDownload) return
     // Defer a bit to let the view render fully
     const t = setTimeout(async () => {
       await downloadPDF()
       // If was opened in a new tab for auto-download, close it after done
-      const isInIframe = window.self !== window.top
-      if (!isInIframe) {
-        window.close()
-      }
+      // const isInIframe = window.self !== window.top
+      // if (!isInIframe) {
+      //   window.close()
+      // }
     }, 1200)
     return () => clearTimeout(t)
   }, [autoDownload, downloadPDF])
-  */
 
   // Track if print has already been called to prevent multiple popups
   // Use a more robust approach with sessionStorage and ref to persist across re-renders
