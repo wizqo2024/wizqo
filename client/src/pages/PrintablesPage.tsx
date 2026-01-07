@@ -763,7 +763,33 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           print-color-adjust: exact !important;
           color-adjust: exact !important;
           padding: 20px 24px 24px 24px !important;
-          margin: 0.5in !important;
+          margin: 1.0in !important;
+        }
+
+        /* Logo and domain for all worksheets - applied during capture */
+        [data-worksheet-content="true"] .wizqo-logo-print {
+          position: absolute !important;
+          top: -70px !important;
+          left: 0px !important;
+          z-index: 20 !important;
+          display: flex !important;
+          flex-direction: row !important;
+          align-items: center !important;
+          gap: 10px !important;
+          background: transparent !important;
+          padding: 0 !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
+          font-size: 13px !important;
+          font-weight: 700 !important;
+          color: #4845D2 !important;
+          white-space: nowrap !important;
+          letter-spacing: 0.3px !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
         }
         
         /* Decorative emoji-style border using CSS patterns - applied to ALL worksheets */
@@ -1033,7 +1059,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         innerStyle.printColorAdjust = 'exact'
         innerStyle.colorAdjust = 'exact'
         innerDiv.style.padding = '20px 24px 24px 24px'
-        innerDiv.style.margin = '0.5in'
+        innerDiv.style.margin = '1.0in'
         innerDiv.style.backgroundColor = 'white'
         innerDiv.style.background = 'white'
       }
@@ -1085,7 +1111,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               clonedInnerDiv.style.printColorAdjust = 'exact'
                 ; (clonedInnerDiv.style as any).colorAdjust = 'exact'
               clonedInnerDiv.style.padding = '20px 24px 24px 24px'
-              clonedInnerDiv.style.margin = '0.5in'
+              clonedInnerDiv.style.margin = '1.0in'
               clonedInnerDiv.style.backgroundColor = 'white'
               clonedInnerDiv.style.background = 'white'
             }
@@ -1676,12 +1702,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
             padding: 20px 24px 24px 24px !important;
-            margin: 0.95in 0.5in 0.5in 0.5in !important;
+            margin: 1.0in !important;
           }
-          /* Logo and domain for all worksheets - positioned above border */
           [data-worksheet-content="true"] .wizqo-logo-print {
             position: absolute !important;
-            top: -55px !important;
+            top: -70px !important;
             left: 0px !important;
             z-index: 20 !important;
             display: flex !important;
