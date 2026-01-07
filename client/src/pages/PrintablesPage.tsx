@@ -1147,14 +1147,17 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           }
 
           // Process print: utility classes
+          const allElements = clonedDoc.querySelectorAll('*')
           allElements.forEach((el) => {
             const htmlEl = el as HTMLElement
             const classList = Array.from(htmlEl.classList)
 
             if (classList.some(cls => cls.includes('wizqo-logo-print'))) {
+              htmlEl.classList.add('force-show')
               htmlEl.style.setProperty('display', 'flex', 'important')
             }
             if (classList.some(cls => cls.includes('wizqo-footer-print'))) {
+              htmlEl.classList.add('force-show')
               htmlEl.style.setProperty('display', 'flex', 'important')
             }
             if (classList.some(cls => cls.includes('print-customization-header'))) {
@@ -1164,10 +1167,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               htmlEl.style.setProperty('display', 'none', 'important')
             }
             if (classList.some(cls => cls.includes('print:block'))) {
-              htmlEl.style.display = 'block'
+              htmlEl.style.setProperty('display', 'block', 'important')
             }
             if (classList.some(cls => cls.includes('print:hidden'))) {
-              htmlEl.style.display = 'none'
+              htmlEl.style.setProperty('display', 'none', 'important')
             }
           })
         }
