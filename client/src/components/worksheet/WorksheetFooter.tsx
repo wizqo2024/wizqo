@@ -8,7 +8,7 @@
  * <WorksheetFooter enabled={true} currentPage={1} totalPages={2} />
  */
 
-import React from 'react'
+import { WizqoLogo } from './WizqoLogo'
 
 interface WorksheetFooterProps {
   enabled?: boolean
@@ -18,7 +18,7 @@ interface WorksheetFooterProps {
   className?: string
 }
 
-export function WorksheetFooter({ 
+export function WorksheetFooter({
   enabled = false,
   currentPage,
   totalPages,
@@ -28,7 +28,7 @@ export function WorksheetFooter({
   if (!enabled) return null
 
   return (
-    <div 
+    <div
       className={`worksheet-footer-optional mt-8 print:mt-6 ${className}`}
       style={{
         borderTop: '1px solid #e2e8f0',
@@ -42,28 +42,32 @@ export function WorksheetFooter({
         breakBefore: 'auto'
       }}
     >
-      <div style={{ marginBottom: '4px' }}>
-        <a 
-          href="https://www.wizqo.com" 
-          style={{ 
-            color: '#666', 
-            textDecoration: 'none',
-            borderBottom: 'none'
-          }}
-        >
-          www.wizqo.com
-        </a>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <WizqoLogo className="w-8 h-auto opacity-70" />
+          <a
+            href="https://www.wizqo.com"
+            style={{
+              color: '#4845D2',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: '11pt'
+            }}
+          >
+            www.wizqo.com
+          </a>
+        </div>
+        {showCopyright && (
+          <div style={{ fontSize: '9pt', color: '#94a3b8' }}>
+            Copyright © {new Date().getFullYear()} Wizqo. All rights reserved.
+          </div>
+        )}
+        {currentPage && totalPages && totalPages > 1 && (
+          <div style={{ fontSize: '9pt', color: '#94a3b8' }}>
+            Page {currentPage} of {totalPages}
+          </div>
+        )}
       </div>
-      {showCopyright && (
-        <div style={{ marginBottom: '4px', fontSize: '9pt' }}>
-          Copyright © {new Date().getFullYear()} Wizqo. All rights reserved.
-        </div>
-      )}
-      {currentPage && totalPages && totalPages > 1 && (
-        <div style={{ fontSize: '9pt' }}>
-          Page {currentPage} of {totalPages}
-        </div>
-      )}
     </div>
   )
 }

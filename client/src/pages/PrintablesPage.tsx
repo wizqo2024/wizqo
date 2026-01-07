@@ -1681,16 +1681,15 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           /* Logo and domain for all worksheets - positioned above border */
           [data-worksheet-content="true"] .wizqo-logo-print {
             position: absolute !important;
-            top: -65px !important;
+            top: -55px !important;
             left: 0px !important;
             z-index: 20 !important;
             display: flex !important;
             flex-direction: row !important;
             align-items: center !important;
-            gap: 8px !important;
-            background: white !important;
-            padding: 4px 8px !important;
-            border-radius: 4px !important;
+            gap: 10px !important;
+            background: transparent !important;
+            padding: 0 !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
@@ -1702,11 +1701,11 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             print-color-adjust: exact !important;
           }
           [data-worksheet-content="true"] .wizqo-logo-print .domain-text {
-            font-size: 11px !important;
-            font-weight: 600 !important;
+            font-size: 13px !important;
+            font-weight: 700 !important;
             color: #4845D2 !important;
             white-space: nowrap !important;
-            letter-spacing: 0.5px !important;
+            letter-spacing: 0.3px !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
@@ -1758,7 +1757,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Logo and domain for all worksheets */}
         <div className="hidden print:block wizqo-logo-print">
-          <img src="/logo.svg" alt="Wizqo Logo" />
+          <WizqoLogo className="w-12 h-auto" />
           <span className="domain-text">www.wizqo.com</span>
         </div>
         {/* Customization header (print view - appears once at top) */}
@@ -2206,7 +2205,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
 
 
-        <WorksheetFooter />
+        <WorksheetFooter enabled={true} showCopyright={true} />
       </div>
     </div>
   )
