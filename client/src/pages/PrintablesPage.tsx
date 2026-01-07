@@ -651,6 +651,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
   // PDF download function - completely rewritten from scratch to match Ctrl+P exactly
   const downloadPDF = useCallback(async () => {
+    // Variables for cleanup in finally block
+    let contentElement: HTMLElement | null = null
+    let printStyleTag: HTMLStyleElement | null = null
+    let originalBodyStyle: any = null
+    let originalContentStyle: any = null
+    const originalStyles = new Map<HTMLElement, { [key: string]: string }>()
+
     try {
       setIsDownloadingPDF(true)
 
@@ -669,17 +676,17 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       }
 
       // Find the worksheet content container
-      const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
+      contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
       if (!contentElement) {
         throw new Error('Could not find worksheet content. Please refresh the page and try again.')
       }
 
       // Store original styles for restoration
-      const originalStyles = new Map<HTMLElement, { [key: string]: string }>()
+      // (already initialized above)
 
       // Apply print styles by creating a style tag with ALL print CSS from index.css
       // CRITICAL: html2canvas doesn't respect @media print, so we must apply ALL print styles as regular styles
-      const printStyleTag = document.createElement('style')
+      printStyleTag = document.createElement('style')
       printStyleTag.id = 'pdf-export-print-styles'
       printStyleTag.textContent = `
         /* ============================================================================
@@ -1000,7 +1007,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       })
 
       // Set body to print dimensions
-      const originalBodyStyle = {
+      originalBodyStyle = {
         width: document.body.style.width,
         maxWidth: document.body.style.maxWidth,
         margin: document.body.style.margin,
@@ -1015,7 +1022,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       document.body.style.background = 'white'
 
       // Set content element to print dimensions
-      const originalContentStyle = {
+      originalContentStyle = {
         width: contentElement.style.width,
         maxWidth: contentElement.style.maxWidth,
         margin: contentElement.style.margin,
@@ -1154,27 +1161,6 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       if (headerToCleanup) headerToCleanup.remove();
       if (footerToCleanup) footerToCleanup.remove();
 
-      // Restore original styles
-      document.body.style.width = originalBodyStyle.width
-      document.body.style.maxWidth = originalBodyStyle.maxWidth
-      document.body.style.margin = originalBodyStyle.margin
-      document.body.style.padding = originalBodyStyle.padding
-      document.body.style.background = originalBodyStyle.background
-
-      contentElement.style.width = originalContentStyle.width
-      contentElement.style.maxWidth = originalContentStyle.maxWidth
-      contentElement.style.margin = originalContentStyle.margin
-      contentElement.style.padding = originalContentStyle.padding
-      contentElement.style.background = originalContentStyle.background
-
-      originalStyles.forEach((styles, element) => {
-        Object.entries(styles).forEach(([prop, value]) => {
-          (element.style as any)[prop] = value
-        })
-      })
-
-      printStyleTag.remove()
-
       // Validate canvas
       if (!canvas || canvas.width === 0 || canvas.height === 0) {
         throw new Error('Failed to capture content. Please try again.')
@@ -1258,6 +1244,33 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       const errorMessage = error instanceof Error ? error.message : String(error)
       alert(`PDF download failed: ${errorMessage}\n\nPlease try using the Print button and select "Save as PDF" instead.`)
     } finally {
+      // CRITICAL CLEANUP: Move all restoration here to ensure UI is never left broken
+      if (originalBodyStyle) {
+        document.body.style.width = originalBodyStyle.width
+        document.body.style.maxWidth = originalBodyStyle.maxWidth
+        document.body.style.margin = originalBodyStyle.margin
+        document.body.style.padding = originalBodyStyle.padding
+        document.body.style.background = originalBodyStyle.background
+      }
+
+      if (contentElement && originalContentStyle) {
+        contentElement.style.width = originalContentStyle.width
+        contentElement.style.maxWidth = originalContentStyle.maxWidth
+        contentElement.style.margin = originalContentStyle.margin
+        contentElement.style.padding = originalContentStyle.padding
+        contentElement.style.background = originalContentStyle.background
+      }
+
+      originalStyles.forEach((styles: { [key: string]: string }, element: HTMLElement) => {
+        Object.entries(styles).forEach(([prop, value]) => {
+          (element.style as any)[prop] = value
+        })
+      })
+
+      if (printStyleTag && printStyleTag.parentNode) {
+        printStyleTag.remove()
+      }
+
       setIsDownloadingPDF(false)
     }
   }, [doc, primaryDoc, docTitle, params, showAnswers])
@@ -1639,377 +1652,305 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             </div>
           </div>
         )}
-        {/* Doc-specific back link and download button */}
-        {!isPreview && (
-          <div className="mb-4 print:hidden flex justify-between items-center" data-html2canvas-ignore="true">
-            <a
-              href={(() => {
-                try {
-                  const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
-                  const from = (u.searchParams.get('from') || '').trim()
-                  const docId = (doc || '').trim()
-
-
-                  // HOTFIX: Mapping lost "from" params for specific Kindergarten worksheets
-                  if (!from && ['big-small', 'heavy-light', 'long-short', 'same-different', 'more-less'].includes(docId)) {
-                    return '/worksheets/kindergarten-math-worksheets'
-                  }
-
-                  // If coming from interactive worksheets generator, go back there
-                  if (from === 'interactive') {
-                    return '/interactive-worksheets-generator'
-                  }
-                  // If coming from grade pages, go back to the appropriate grade page
-                  if (from === 'kindergarten') {
-                    return '/worksheets/kindergarten-math-worksheets'
-                  }
-                  if (from === '1st-grade') {
-                    return '/worksheets/1st-grade-math-worksheets'
-                  }
-                  if (from === '2nd-grade') {
-                    return '/worksheets/2nd-grade-math-worksheets'
-                  }
-                  if (from === '3rd-grade') {
-                    return '/worksheets/3rd-grade-math-worksheets'
-                  }
-                  if (from === '4th-grade') {
-                    return '/worksheets/4th-grade-math-worksheets'
-                  }
-                  if (from === '5th-grade') {
-                    return '/worksheets/5th-grade-math-worksheets'
-                  }
-                  if (from === 'reading-comprehension') {
-                    return '/worksheets/reading-comprehension'
-                  }
-                  if (from === 'multiplication') {
-                    return '/worksheets/multiplication-worksheets'
-                  }
-                  if (from === 'times-table') {
-                    return '/worksheets/times-table-multiplication-worksheets'
-                  }
-                  if (from === 'fractions-to-decimals') {
-                    return '/worksheets/fractions-to-decimals-worksheets'
-                  }
-                  if (from === 'order-of-operations') {
-                    return '/worksheets/order-of-operations-worksheets'
-                  }
-                  if (from === 'handwriting') {
-                    return '/worksheets/handwriting-worksheet-maker'
-                  }
-                  if (from === 'geometry-worksheets' || from === 'geometry') {
-                    return '/printables/geometry-worksheets'
-                  }
-                  if (from === 'geography-worksheets' || from === 'geography') {
-                    return '/printables/geography-worksheets'
-                  }
-                  if (from === 'measurement-worksheets' || from === 'measurement') {
-                    return '/printables/measurement-worksheets'
-                  }
-                  if (from === 'logic-worksheets' || from === 'logic') {
-                    return '/printables/logic-worksheets'
-                  }
-                  if (from === 'decimal-worksheets' || from === 'decimal') {
-                    return '/printables/decimal-worksheets'
-                  }
-                  if (from === 'math-maze-worksheets' || from === 'math-maze') {
-                    return '/printables/math-maze-worksheets'
-                  }
-                  if (from === 'data-analysis-worksheets') {
-                    return '/printables/data-analysis-worksheets'
-                  }
-                  if (from === 'word-problem-worksheets') {
-                    return '/printables/word-problem-worksheets'
-                  }
-                  if (from === 'science-worksheets') {
-                    return '/printables/science-worksheets'
-                  }
-                  if (from === 'all') {
-                    return '/worksheets/all'
-                  }
-
-                  // Check if 'from' is a known SEO slug
-                  if (from) {
-                    const seo = getWorksheetSEOBySlug(from)
-                    if (seo) return `/worksheets/${seo.slug}`
-                  }
-
-                  // Robust fallback: if 'from' looks like a full internal path, use it
-                  if (from && (from.startsWith('/') || from.includes('-worksheets') || from.includes('-worksheet-') || from === 'reading-comprehension')) {
-                    if (from.startsWith('/')) return from
-                    return `/worksheets/${from}`
-                  }
-                  // Determine category anchor by doc or bundle selection
-                  const cat = (() => {
-                    if (docId === 'bundle') {
-                      if (bundleCategoryParam) return bundleCategoryParam
-                      if (primaryDoc) {
-                        return getPrintableSectionForDoc(primaryDoc) || (primaryDoc.startsWith('coloring') ? 'Coloring' : primaryDoc.startsWith('geo-') ? 'Geography' : '')
-                      }
-                      return 'Worksheets'
-                    }
-                    if (!docId) return ''
-                    const found = getPrintableSectionForDoc(docId)
-                    if (found) return found
-
-                    // Improved fallback logic
-                    if (docId.startsWith('coloring')) return 'Coloring'
-                    if (docId.startsWith('geo-')) return 'Geography'
-                    return 'Worksheets'
-                  })()
-                  const hash = cat ? `#${encodeURIComponent(cat)}` : ''
-                  return `/printables${hash}`
-                } catch {
-                  return '/printables'
-                }
-              })()}
-              onClick={(e: MouseEvent) => {
-                // If coming from within the site (internal referrer) AND we have history, use history.back()
-                // Checking history.length > 1 is critical: if opened in new tab, referrer exists but back() does nothing.
-                if (typeof window !== 'undefined' &&
-                  document.referrer &&
-                  document.referrer.includes(window.location.host) &&
-                  window.history.length > 1) {
-                  e.preventDefault()
-                  window.history.back()
-                }
-              }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-sm"
-              aria-label={t('pages.printables.backPrintablePage')}
-            >
-              <span>{String.fromCodePoint(0x2B05)}</span>
-              <span>{(() => {
-                try {
-                  const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
-                  const from = u.searchParams.get('from')
-                  if (from === 'interactive') {
-                    return t('pages.printables.backToInteractive')
-                  }
-                  if (from === 'kindergarten') {
-                    return t('pages.printables.backToKindergarten')
-                  }
-                  if (from === '1st-grade') {
-                    return t('pages.printables.backToFirstGrade')
-                  }
-                  if (from === '2nd-grade') {
-                    return t('pages.printables.backToSecondGrade')
-                  }
-                  if (from === '3rd-grade') {
-                    return t('pages.printables.backToThirdGrade')
-                  }
-                  if (from === '4th-grade') {
-                    return t('pages.printables.backToFourthGrade')
-                  }
-                  if (from === '5th-grade') {
-                    return t('pages.printables.backToFifthGrade')
-                  }
-                  if (from === 'reading-comprehension') {
-                    return t('pages.printables.backToReadingComprehension')
-                  }
-                  if (from === 'multiplication') {
-                    return t('pages.printables.backToMultiplication')
-                  }
-                  if (from === 'times-table') {
-                    return t('pages.printables.backToTimesTable')
-                  }
-                  if (from === 'fractions-to-decimals') {
-                    return t('pages.printables.backToFractionsToDecimals')
-                  }
-                  if (from === 'order-of-operations') {
-                    return 'Back to Order of Operations'
-                  }
-                  if (from === 'handwriting') {
-                    return t('pages.handwriting.title')
-                  }
-                  if (from === 'geometry-worksheets' || from === 'geometry') {
-                    return 'Back to Geometry Worksheets'
-                  }
-                  if (from === 'geography-worksheets' || from === 'geography') {
-                    return 'Back to Geography Worksheets'
-                  }
-                  if (from === 'measurement-worksheets' || from === 'measurement') {
-                    return 'Back to Measurement Worksheets'
-                  }
-                  if (from === 'logic-worksheets' || from === 'logic') {
-                    return 'Back to Logic Worksheets'
-                  }
-                  if (from === 'decimal-worksheets' || from === 'decimal') {
-                    return 'Back to Decimals Worksheets'
-                  }
-                  if (from === 'math-maze-worksheets' || from === 'math-maze') {
-                    return 'Back to Math Maze Worksheets'
-                  }
-                  if (from === 'data-analysis-worksheets') {
-                    return 'Back to Data Analysis Worksheets'
-                  }
-                  if (from === 'word-problem-worksheets') {
-                    return 'Back to Word Problem Worksheets'
-                  }
-                  if (from === 'science-worksheets') {
-                    return 'Back to Science Worksheets'
-                  }
-                  if (from === 'all') {
-                    return t('pages.printables.backToAllWorksheets')
-                  }
-
-                  // Check if 'from' is a known SEO slug
-                  if (from) {
-                    const seo = getWorksheetSEOBySlug(from)
-                    if (seo) return `Back to ${seo.h1}`
-                  }
-
-                  if (from && (from.includes('grade') || from.includes('worksheets') || from.includes('comprehension'))) {
-                    // Title-ize if we don't have a specific translation
-                    return `Back to ${from.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}`
-                  }
-                  return t('pages.printables.backPrintablePage')
-                } catch {
-                  return t('pages.printables.backPrintablePage')
-                }
-              })()}</span>
-            </a>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={(e: MouseEvent) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  try {
-                    window.print()
-                  } catch (error: unknown) {
-                    // Fallback: open print dialog using a different method
-                    setTimeout(() => {
-                      try {
-                        window.print()
-                      } catch (err: unknown) {
-                        console.error('Print failed:', err)
-                        // Last resort: show message to user
-                        alert('Please use your browser\'s print function (Ctrl+P or Cmd+P)')
-                      }
-                    }, 100)
-                  }
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden"
-              >
-                <span>{String.fromCodePoint(0x1F5A8)}</span> Print
-              </button>
-              <button
-                onClick={(e: MouseEvent) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  if (isDownloadingPNG) return
-
-                  setIsDownloadingPNG(true)
-                  const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement
-                  if (!contentElement) {
-                    setIsDownloadingPNG(false)
-                    return
-                  }
-
-                  // Small timeout to allow UI to update
-                  setTimeout(() => {
-                    import('html2canvas').then(m => m.default || m).then(html2canvas => {
-                      html2canvas(contentElement, {
-                        scale: 2.0,
-                        useCORS: true,
-                        logging: false,
-                        backgroundColor: '#ffffff',
-                        allowTaint: false,
-                        ignoreElements: (element: Element) => {
-                          // Explicitly ignore elements with data-html2canvas-ignore
-                          if (element.hasAttribute('data-html2canvas-ignore')) return true
-                          // Ignore elements that are hidden in print
-                          if (element.classList.contains('print:hidden')) return true
-                          return false
-                        },
-                        onclone: (clonedDoc: Document) => {
-                          // Double safety: find any print:hidden elements in the clone and remove them
-                          const printHidden = clonedDoc.querySelectorAll('.print\\:hidden')
-                          printHidden.forEach((el: Element) => {
-                            if (el.parentNode) el.parentNode.removeChild(el)
-                          })
-                          // Also remove the specific button container if strictly needed
-                          const ignoreEls = clonedDoc.querySelectorAll('[data-html2canvas-ignore="true"]')
-                          ignoreEls.forEach((el: Element) => {
-                            if (el.parentNode) el.parentNode.removeChild(el)
-                          })
-                        }
-                      }).then((canvas: HTMLCanvasElement) => {
-                        const imgData = canvas.toDataURL('image/png')
-                        const link = document.createElement('a')
-                        link.download = docTitle
-                          ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`
-                          : `worksheet_${doc || 'download'}.png`
-                        link.href = imgData
-                        link.click()
-                        setIsDownloadingPNG(false)
-                      }).catch((error: unknown) => {
-                        console.error('PNG capture failed:', error)
-                        setIsDownloadingPNG(false)
-                      })
-                    }).catch((error: unknown) => {
-                      console.error('Failed to load html2canvas:', error)
-                      setIsDownloadingPNG(false)
-                    })
-                  }, 50)
-                }}
-                disabled={isDownloadingPNG}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 print:hidden ${isDownloadingPNG ? 'opacity-75 cursor-not-allowed' : ''}`}
-              >
-                {isDownloadingPNG ? (
-                  <>
-                    <svg className="animate-spin h-4 w-4 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12 a 8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291 a 7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span>Generating...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>{String.fromCodePoint(0x2B07)}</span>
-                    <span>Download Worksheet</span>
-                  </>
-                )}
-              </button>
+        {(teacherName || className || studentNames.length > 0) && !isPreview && (
+          <div className="hidden print:block print-customization-header" aria-hidden>
+            <div className="flex flex-wrap gap-x-3 items-center">
+              {teacherName && <span><strong>Teacher:</strong> {teacherName}</span>}
+              {className && teacherName && <span className="text-slate-400">{String.fromCodePoint(0x270F)}</span>}
+              {className && <span><strong>Class:</strong> {className}</span>}
+              {studentNames.length > 0 && (teacherName || className) && <span className="text-slate-400">{String.fromCodePoint(0x270F)}</span>}
+              {studentNames.length > 0 && (
+                <span><strong>Students:</strong> {studentNames.join(', ')}</span>
+              )}
             </div>
           </div>
         )}
         {!isPreview && (
-          <header className="relative mb-6 flex items-center justify-between border-b border-slate-200 pb-3 print:hidden">
-            {/* Header Title */}
-            <div>
-              <h1 className="text-2xl font-extrabold text-slate-900">{docTitle}</h1>
-              <p className="text-slate-600 mt-2 print:mt-1 text-sm">{t('pages.printables.printInstructions')}</p>
-            </div>
-            <div className="flex items-center gap-3">
+          <header className="relative mb-6 flex flex-col gap-4 border-b border-slate-200 pb-4 print:hidden" data-html2canvas-ignore="true">
+            {/* Top Row: Back Link and Action Buttons */}
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <a
-                href={pinHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden print:hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-sm"
-                title={t('pages.printables.pinThisPrintable')}
-                aria-label={t('pages.printables.pinThisPrintableAria')}
+                href={(() => {
+                  try {
+                    const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
+                    const from = (u.searchParams.get('from') || '').trim()
+                    const docId = (doc || '').trim()
+
+                    // HOTFIX: Mapping lost "from" params for specific Kindergarten worksheets
+                    if (!from && ['big-small', 'heavy-light', 'long-short', 'same-different', 'more-less'].includes(docId)) {
+                      return '/worksheets/kindergarten-math-worksheets'
+                    }
+
+                    // If coming from interactive worksheets generator, go back there
+                    if (from === 'interactive') {
+                      return '/interactive-worksheets-generator'
+                    }
+                    // If coming from grade pages, go back to the appropriate grade page
+                    if (from === 'kindergarten') {
+                      return '/worksheets/kindergarten-math-worksheets'
+                    }
+                    if (from === '1st-grade') {
+                      return '/worksheets/1st-grade-math-worksheets'
+                    }
+                    if (from === '2nd-grade') {
+                      return '/worksheets/2nd-grade-math-worksheets'
+                    }
+                    if (from === '3rd-grade') {
+                      return '/worksheets/3rd-grade-math-worksheets'
+                    }
+                    if (from === '4th-grade') {
+                      return '/worksheets/4th-grade-math-worksheets'
+                    }
+                    if (from === '5th-grade') {
+                      return '/worksheets/5th-grade-math-worksheets'
+                    }
+                    if (from === 'reading-comprehension') {
+                      return '/worksheets/reading-comprehension'
+                    }
+                    if (from === 'multiplication') {
+                      return '/worksheets/multiplication-worksheets'
+                    }
+                    if (from === 'times-table') {
+                      return '/worksheets/times-table-multiplication-worksheets'
+                    }
+                    if (from === 'fractions-to-decimals') {
+                      return '/worksheets/fractions-to-decimals-worksheets'
+                    }
+                    if (from === 'order-of-operations') {
+                      return '/worksheets/order-of-operations-worksheets'
+                    }
+                    if (from === 'handwriting') {
+                      return '/worksheets/handwriting-worksheet-maker'
+                    }
+                    if (from === 'geometry-worksheets' || from === 'geometry') {
+                      return '/printables/geometry-worksheets'
+                    }
+                    if (from === 'geography-worksheets' || from === 'geography') {
+                      return '/printables/geography-worksheets'
+                    }
+                    if (from === 'measurement-worksheets' || from === 'measurement') {
+                      return '/printables/measurement-worksheets'
+                    }
+                    if (from === 'logic-worksheets' || from === 'logic') {
+                      return '/printables/logic-worksheets'
+                    }
+                    if (from === 'decimal-worksheets' || from === 'decimal') {
+                      return '/printables/decimal-worksheets'
+                    }
+                    if (from === 'math-maze-worksheets' || from === 'math-maze') {
+                      return '/printables/math-maze-worksheets'
+                    }
+                    if (from === 'data-analysis-worksheets') {
+                      return '/printables/data-analysis-worksheets'
+                    }
+                    if (from === 'word-problem-worksheets') {
+                      return '/printables/word-problem-worksheets'
+                    }
+                    if (from === 'science-worksheets') {
+                      return '/printables/science-worksheets'
+                    }
+                    if (from === 'all') {
+                      return '/worksheets/all'
+                    }
+
+                    // Check if 'from' is a known SEO slug
+                    if (from) {
+                      const seo = getWorksheetSEOBySlug(from)
+                      if (seo) return `/worksheets/${seo.slug}`
+                    }
+
+                    // Robust fallback: if 'from' looks like a full internal path, use it
+                    if (from && (from.startsWith('/') || from.includes('-worksheets') || from.includes('-worksheet-') || from === 'reading-comprehension')) {
+                      if (from.startsWith('/')) return from
+                      return `/worksheets/${from}`
+                    }
+                    // Determine category anchor by doc or bundle selection
+                    const cat = (() => {
+                      if (docId === 'bundle') {
+                        if (bundleCategoryParam) return bundleCategoryParam
+                        if (primaryDoc) {
+                          return getPrintableSectionForDoc(primaryDoc) || (primaryDoc.startsWith('coloring') ? 'Coloring' : primaryDoc.startsWith('geo-') ? 'Geography' : '')
+                        }
+                        return 'Worksheets'
+                      }
+                      if (!docId) return ''
+                      const found = getPrintableSectionForDoc(docId)
+                      if (found) return found
+
+                      // Improved fallback logic
+                      if (docId.startsWith('coloring')) return 'Coloring'
+                      if (docId.startsWith('geo-')) return 'Geography'
+                      return 'Worksheets'
+                    })()
+                    const hash = cat ? `#${encodeURIComponent(cat)}` : ''
+                    return `/printables${hash}`
+                  } catch {
+                    return '/printables'
+                  }
+                })()}
+                onClick={(e: MouseEvent) => {
+                  if (typeof window !== 'undefined' &&
+                    document.referrer &&
+                    document.referrer.includes(window.location.host) &&
+                    window.history.length > 1) {
+                    e.preventDefault()
+                    window.history.back()
+                  }
+                }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-medium"
+                aria-label={t('pages.printables.backPrintablePage')}
               >
-                <span>{String.fromCodePoint(0x279C)}</span>
-                <span>{t('pages.printables.pinThis')}</span>
+                <span>{String.fromCodePoint(0x2B05)}</span>
+                <span>{(() => {
+                  try {
+                    const u = new URL(typeof window !== 'undefined' ? window.location.href : 'https://wizqo.com/print')
+                    const from = u.searchParams.get('from')
+                    if (from === 'interactive') return t('pages.printables.backToInteractive')
+                    if (from === 'kindergarten') return t('pages.printables.backToKindergarten')
+                    if (from === '1st-grade') return t('pages.printables.backToFirstGrade')
+                    if (from === '2nd-grade') return t('pages.printables.backToSecondGrade')
+                    if (from === '3rd-grade') return t('pages.printables.backToThirdGrade')
+                    if (from === '4th-grade') return t('pages.printables.backToFourthGrade')
+                    if (from === '5th-grade') return t('pages.printables.backToFifthGrade')
+                    if (from === 'reading-comprehension') return t('pages.printables.backToReadingComprehension')
+                    if (from === 'multiplication') return t('pages.printables.backToMultiplication')
+                    if (from === 'times-table') return t('pages.printables.backToTimesTable')
+                    if (from === 'fractions-to-decimals') return t('pages.printables.backToFractionsToDecimals')
+                    if (from === 'order-of-operations') return 'Back to Order of Operations'
+                    if (from === 'handwriting') return t('pages.handwriting.title')
+                    if (from === 'geometry') return 'Back to Geometry'
+                    if (from === 'geography') return 'Back to Geography'
+                    if (from === 'all') return t('pages.printables.backToAllWorksheets')
+
+                    if (from) {
+                      const seo = getWorksheetSEOBySlug(from)
+                      if (seo) return `Back to ${seo.h1}`
+                    }
+                    return t('pages.printables.backPrintablePage')
+                  } catch {
+                    return t('pages.printables.backPrintablePage')
+                  }
+                })()}</span>
               </a>
 
-              {shouldShowAnswerToggle && (
-                <div className="print:hidden">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); if (isDownloadingPDF) return; downloadPDF(); }}
+                  disabled={isDownloadingPDF}
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-indigo-600 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1 ${isDownloadingPDF ? 'opacity-75 cursor-not-allowed' : ''}`}
+                >
+                  {isDownloadingPDF ? (
+                    <svg className="animate-spin h-3.5 w-3.5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12 a 8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291 a 7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : <span>{String.fromCodePoint(0x1F4E5)}</span>}
+                  <span>Download PDF</span>
+                </button>
+                <button
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.print(); }}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium shadow-sm"
+                >
+                  <span>{String.fromCodePoint(0x1F5A8)}</span> Print
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault(); e.stopPropagation();
+                    if (isDownloadingPNG) return;
+
+                    setIsDownloadingPNG(true);
+                    const contentElement = document.querySelector('[data-worksheet-content="true"]') as HTMLElement;
+                    if (!contentElement) {
+                      setIsDownloadingPNG(false);
+                      return;
+                    }
+
+                    // Small timeout to allow UI to update
+                    setTimeout(() => {
+                      import('html2canvas').then(m => m.default || m).then(html2canvas => {
+                        html2canvas(contentElement, {
+                          scale: 2.0,
+                          useCORS: true,
+                          logging: false,
+                          backgroundColor: '#ffffff',
+                          allowTaint: false,
+                          ignoreElements: (element: Element) => {
+                            if (element.hasAttribute('data-html2canvas-ignore')) return true;
+                            if (element.classList.contains('print:hidden')) return true;
+                            return false;
+                          },
+                          onclone: (clonedDoc: Document) => {
+                            const printHidden = clonedDoc.querySelectorAll('.print\\:hidden');
+                            printHidden.forEach((el: Element) => {
+                              if (el.parentNode) el.parentNode.removeChild(el);
+                            });
+                            const ignoreEls = clonedDoc.querySelectorAll('[data-html2canvas-ignore="true"]');
+                            ignoreEls.forEach((el: Element) => {
+                              if (el.parentNode) el.parentNode.removeChild(el);
+                            });
+                          }
+                        }).then((canvas: HTMLCanvasElement) => {
+                          const imgData = canvas.toDataURL('image/png');
+                          const link = document.createElement('a');
+                          link.download = docTitle
+                            ? `${docTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`
+                            : `worksheet_${doc || 'download'}.png`;
+                          link.href = imgData;
+                          link.click();
+                          setIsDownloadingPNG(false);
+                        }).catch((error: unknown) => {
+                          console.error('PNG capture failed:', error);
+                          setIsDownloadingPNG(false);
+                        });
+                      }).catch((error: unknown) => {
+                        console.error('Failed to load html2canvas:', error);
+                        setIsDownloadingPNG(false);
+                      });
+                    }, 50);
+                  }}
+                  disabled={isDownloadingPNG}
+                  className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium shadow-sm transition-colors"
+                >
+                  {isDownloadingPNG ? (
+                    <svg className="animate-spin h-3.5 w-3.5 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12 a 8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291 a 7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : <span>{String.fromCodePoint(0x2B07)}</span>}
+                  <span>Download PNG</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom Row: Title and Secondary Actions */}
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight">{docTitle}</h1>
+                <p className="text-slate-600 mt-1 text-xs sm:text-sm">{t('pages.printables.printInstructions')}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href={pinHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-medium"
+                  title={t('pages.printables.pinThisPrintable')}
+                >
+                  <span>{String.fromCodePoint(0x279C)}</span>
+                  <span>{t('pages.printables.pinThis')}</span>
+                </a>
+
+                {shouldShowAnswerToggle && (
                   <button
-                    onClick={(e: MouseEvent) => {
-                      const newValue = !showAnswers
-                      setShowAnswers(newValue)
-                      trackAnswerKeyToggle(primaryDoc, newValue ? 'show' : 'hide')
-                    }}
-                    aria-pressed={showAnswers}
-                    className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-1 ${showAnswers ? 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700' : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'}`}
-                    title={t('pages.printables.toggleAnswerKey')}
+                    onClick={() => { const val = !showAnswers; setShowAnswers(val); trackAnswerKeyToggle(primaryDoc, val ? 'show' : 'hide'); }}
+                    className={`inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs font-bold shadow-sm ${showAnswers ? 'bg-emerald-700 text-white border-emerald-700' : 'bg-emerald-600 text-white border-emerald-600'}`}
                   >
                     {showAnswers ? t('pages.printables.hideAnswers') : t('pages.printables.showAnswers')}
                   </button>
+                )}
+                <div className="hidden sm:block">
+                  <WizqoLogo className="w-16 h-auto opacity-80" />
                 </div>
-              )}
-              <div className="print:block">
-                <WizqoLogo className="w-20 h-auto opacity-80" />
               </div>
             </div>
           </header>
