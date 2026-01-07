@@ -1814,7 +1814,8 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
 
     // Generate problems
     const problems = useMemo(() => {
-        return Array.from({ length: 9 }).map((_, i) => {
+        const count = config.type === 'color' ? 6 : 9;
+        return Array.from({ length: count }).map((_, i) => {
             const count = Math.floor(rng() * config.max) + 1;
             const icon = pick(items, rng) || '⭐️';
 
@@ -1847,18 +1848,18 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
             title={t(`worksheets.${docId}.title`, config.title)}
             emoji={config.emoji}
             description={t(`worksheets.${docId}.description`, `Practice counting numbers up to ${config.max}.`)}
-            problemCount={9}
+            problemCount={config.type === 'color' ? 6 : 9}
         >
-            <div className="grid grid-cols-3 gap-6">
+            <div className={`grid ${config.type === 'color' ? 'grid-cols-2' : 'grid-cols-3'} gap-6`}>
                 {problems.map((p) => (
                     <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
                         {/* Object Display */}
-                        <div className="mb-4 w-full h-24 flex items-center justify-center">
+                        <div className={`mb-4 w-full ${config.type === 'color' ? 'h-40' : 'h-24'} flex items-center justify-center`}>
                             <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 justify-items-center items-center`}>
                                 {Array.from({ length: config.type === 'color' ? config.max : p.count }).map((_, idx) => (
                                     <div key={idx} className="flex items-center justify-center">
                                         {config.type === 'color' ? (
-                                            <ColorableIcon icon={p.icon} size={28} />
+                                            <ColorableIcon icon={p.icon} size={48} />
                                         ) : (
                                             <span className="text-2xl leading-none">{p.icon}</span>
                                         )}
