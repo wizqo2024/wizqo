@@ -735,12 +735,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           background-color: white !important;
         }
         
-        /* CRITICAL: Main content container - match index.css @media print exactly */
         [data-worksheet-content="true"] {
+          position: relative !important;
           width: 794px !important;
           max-width: 794px !important;
           margin: 0 auto !important;
-          padding: 0 !important;
+          padding: 1.0in 0 0.5in 0 !important; /* Safe padding for branding */
           background: white !important;
         }
         
@@ -763,15 +763,15 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           print-color-adjust: exact !important;
           color-adjust: exact !important;
           padding: 20px 24px 24px 24px !important;
-          margin: 1.0in !important;
+          margin: 0 0.5in 0.5in 0.5in !important; /* No top margin, padding on parent handles it */
         }
 
         /* Logo and domain for all worksheets - applied during capture */
         [data-worksheet-content="true"] .wizqo-logo-print {
           position: absolute !important;
-          top: -70px !important;
-          left: 0px !important;
-          z-index: 20 !important;
+          top: 0.35in !important; /* Safely within top padding */
+          left: 0.5in !important;
+          z-index: 100 !important;
           display: flex !important;
           flex-direction: row !important;
           align-items: center !important;
@@ -1023,7 +1023,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       contentElement.style.width = '794px'
       contentElement.style.maxWidth = '794px'
       contentElement.style.margin = '0 auto'
-      contentElement.style.padding = '0'
+      contentElement.style.padding = '1.0in 0 0.5in 0'
       contentElement.style.background = 'white'
 
       // Set inner div to match print layout EXACTLY - with colorful border and emoji stars
@@ -1059,7 +1059,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         innerStyle.printColorAdjust = 'exact'
         innerStyle.colorAdjust = 'exact'
         innerDiv.style.padding = '20px 24px 24px 24px'
-        innerDiv.style.margin = '1.0in'
+        innerDiv.style.margin = '0 0.5in 0.5in 0.5in'
         innerDiv.style.backgroundColor = 'white'
         innerDiv.style.background = 'white'
       }
@@ -1111,7 +1111,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
               clonedInnerDiv.style.printColorAdjust = 'exact'
                 ; (clonedInnerDiv.style as any).colorAdjust = 'exact'
               clonedInnerDiv.style.padding = '20px 24px 24px 24px'
-              clonedInnerDiv.style.margin = '1.0in'
+              clonedInnerDiv.style.margin = '0 0.5in 0.5in 0.5in'
               clonedInnerDiv.style.backgroundColor = 'white'
               clonedInnerDiv.style.background = 'white'
             }
@@ -1630,7 +1630,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             width: 794px !important;
             max-width: 794px !important;
             margin: 0 !important; 
-            padding: 0 !important; 
+            padding: 1.0in 0 0.5in 0 !important; 
             font-size: 11pt !important;
             line-height: 1.3 !important;
           }
@@ -1706,9 +1706,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           }
           [data-worksheet-content="true"] .wizqo-logo-print {
             position: absolute !important;
-            top: -70px !important;
-            left: 0px !important;
-            z-index: 20 !important;
+            top: 0.35in !important;
+            left: 0.5in !important;
+            z-index: 100 !important;
             display: flex !important;
             flex-direction: row !important;
             align-items: center !important;
