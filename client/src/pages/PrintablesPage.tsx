@@ -1083,21 +1083,78 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         innerDiv.style.background = 'white'
       }
 
-      // Wait for styles to apply - ensure colorful border, emoji stars, and all print styles are rendered
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // 10. NUCLEAR FIX: Inject branding directly into the DOM before capture
+      // This bypasses React reconciliation and external asset loading issues.
+      const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDEpIj48cGF0aCBkPSJNMCAyMEMwIDkgOSAwIDIwIDBoMjZDOTQwIDQwIDkgNDAgMjB2MjBIMjBDOSA0MCAzMSAwIDIweiIgZmlsbD0iIzQ4NDVEMiIvPjxwYXRoIGQ9Ik00NyA4SDIwQzEzIDggOCA0NCA4IDIxQzggMjggMTMgMzMgMjAgMzNoMjZDNTQtMzMgNTkgMjggNTkgMjFTNTQgOCA0NyA4eiIgZmlsbD0iI0E1QjRGQyIvPjxwYXRoIGQ9Ik0yMCAyN2MzIDAgNiAzIDYtNnMzLTYtNi02cy02IDMtNiA2czMgNiA2IDZ6IiBmaWxsPSJibGFjayIvPjxwYXRoIGQ9Ik0xOCAyMGMxIDAgMi0xIDItMXMtMS0xLTItMXMtMiAxLTIgMXMxIDIgMiAweiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNTcgMjdjMyAwIDYtMyA2LTZzLTMtNi02LTZzLTYgMy02IDZzMyA2IDYgNnoiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTU1IDIwYzEgMCAyLTEgMi0xcy0xLTEtMi0xcy0yIDEtMiAxczEgMiAyIDB6IiBmaWxsPSJ3aGl0ZSIvPjwvZz48L3N2Zz4=`;
+
+      // Header branding
+      const headerBranding = document.createElement('div');
+      headerBranding.id = 'wizqo-header-inject';
+      headerBranding.style.cssText = `
+        position: absolute !important;
+        top: 25px !important;
+        left: 24px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        z-index: 9999 !important;
+        pointer-events: none !important;
+        background: transparent !important;
+      `;
+      headerBranding.innerHTML = `
+        <img src="${logoBase64}" style="width: 45px !important; height: 45px !important; display: block !important;" />
+        <span style="font-size: 14pt !important; font-weight: 700 !important; color: #4845D2 !important; white-space: nowrap !important; letter-spacing: 0.5px !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
+      `;
+      innerDiv.appendChild(headerBranding);
+
+      // Footer branding
+      const footerBranding = document.createElement('div');
+      footerBranding.id = 'wizqo-footer-inject';
+      footerBranding.style.cssText = `
+        position: absolute !important;
+        bottom: 25px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 4px !important;
+        z-index: 9999 !important;
+        pointer-events: none !important;
+        width: 100% !important;
+        text-align: center !important;
+      `;
+      footerBranding.innerHTML = `
+        <div style="display: flex !important; align-items: center !important; gap: 8px !important; justify-content: center !important;">
+          <img src="${logoBase64}" style="width: 20px !important; height: 20px !important; opacity: 0.8 !important;" />
+          <span style="font-size: 11pt !important; font-weight: 600 !important; color: #4845D2 !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
+        </div>
+        <div style="font-size: 9pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: system-ui, -apple-system, sans-serif !important;">
+          Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
+        </div>
+      `;
+      innerDiv.appendChild(footerBranding);
+
+      // Wait a moment for the DOM to settle
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       // Capture with html2canvas - ensure colors are captured correctly
       const canvas = await html2canvas(contentElement, {
         scale: 2.0,
         useCORS: true,
-        logging: false,
+        logging: true, // Enabled for debugging
         backgroundColor: '#ffffff',
-        allowTaint: false,
+        allowTaint: true,
         scrollX: 0,
         scrollY: 0,
         windowWidth: 794,
         windowHeight: contentElement.scrollHeight,
         onclone: (clonedDoc: Document) => {
+          // Additional safety: ensure the injected elements are visible in the clone
+          const clonedHeader = clonedDoc.getElementById('wizqo-header-inject');
+          const clonedFooter = clonedDoc.getElementById('wizqo-footer-inject');
+          if (clonedHeader) clonedHeader.style.display = 'flex';
+          if (clonedFooter) clonedFooter.style.display = 'flex';
           // Remove style tags
           clonedDoc.querySelectorAll('style').forEach(tag => {
             if (tag.id !== 'pdf-export-print-styles') {
@@ -1152,19 +1209,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             const htmlEl = el as HTMLElement
             const classList = Array.from(htmlEl.classList)
 
-            if (classList.some(cls => cls.includes('wizqo-logo-print'))) {
-              htmlEl.classList.add('force-show')
-              htmlEl.style.setProperty('display', 'flex', 'important')
-            }
-            if (classList.some(cls => cls.includes('wizqo-footer-print'))) {
-              htmlEl.classList.add('force-show')
-              htmlEl.style.setProperty('display', 'flex', 'important')
-            }
             if (classList.some(cls => cls.includes('print-customization-header'))) {
               htmlEl.style.setProperty('display', 'block', 'important')
-            }
-            if (classList.some(cls => cls.includes('worksheet-footer-optional'))) {
-              htmlEl.style.setProperty('display', 'none', 'important')
             }
             if (classList.some(cls => cls.includes('print:block'))) {
               htmlEl.style.setProperty('display', 'block', 'important')
@@ -1175,6 +1221,12 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           })
         }
       })
+
+      // Standard cleanup: Remove the injected elements after capture
+      const headerToCleanup = document.getElementById('wizqo-header-inject');
+      const footerToCleanup = document.getElementById('wizqo-footer-inject');
+      if (headerToCleanup) headerToCleanup.remove();
+      if (footerToCleanup) footerToCleanup.remove();
 
       // Restore original styles
       document.body.style.width = originalBodyStyle.width
