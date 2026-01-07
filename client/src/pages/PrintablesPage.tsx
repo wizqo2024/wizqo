@@ -1083,66 +1083,14 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         innerDiv.style.background = 'white'
       }
 
-      // 10. NUCLEAR FIX: Inject branding directly into the DOM before capture
-      // This bypasses React reconciliation and external asset loading issues.
-      const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDEpIj48cGF0aCBkPSJNMCAyMEMwIDkgOSAwIDIwIDBoMjZDOTQwIDQwIDkgNDAgMjB2MjBIMjBDOSA0MCAzMSAwIDIweiIgZmlsbD0iIzQ4NDVEMiIvPjxwYXRoIGQ9Ik00NyA4SDIwQzEzIDggOCA0NCA4IDIxQzggMjggMTMgMzMgMjAgMzNoMjZDNTQtMzMgNTkgMjggNTkgMjFTNTQgOCA0NyA4eiIgZmlsbD0iI0E1QjRGQyIvPjxwYXRoIGQ9Ik0yMCAyN2MzIDAgNiAzIDYtNnMzLTYtNi02cy02IDMtNiA2czMgNiA2IDZ6IiBmaWxsPSJibGFjayIvPjxwYXRoIGQ9Ik0xOCAyMGMxIDAgMi0xIDItMXMtMS0xLTItMXMtMiAxLTIgMXMxIDIgMiAweiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNNTcgMjdjMyAwIDYtMyA2LTZzLTMtNi02LTZzLTYgMy02IDZzMyA2IDYgNnoiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTU1IDIwYzEgMCAyLTEgMi0xcy0xLTEtMi0xcy0yIDEtMiAxczEgMiAyIDB6IiBmaWxsPSJ3aGl0ZSIvPjwvZz48L3N2Zz4=`;
-
-      // Header branding
-      const headerBranding = document.createElement('div');
-      headerBranding.id = 'wizqo-header-inject';
-      headerBranding.style.cssText = `
-        position: absolute !important;
-        top: 25px !important;
-        left: 24px !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-        z-index: 9999 !important;
-        pointer-events: none !important;
-        background: transparent !important;
-      `;
-      headerBranding.innerHTML = `
-        <img src="${logoBase64}" style="width: 45px !important; height: 45px !important; display: block !important;" />
-        <span style="font-size: 14pt !important; font-weight: 700 !important; color: #4845D2 !important; white-space: nowrap !important; letter-spacing: 0.5px !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
-      `;
-      innerDiv.appendChild(headerBranding);
-
-      // Footer branding
-      const footerBranding = document.createElement('div');
-      footerBranding.id = 'wizqo-footer-inject';
-      footerBranding.style.cssText = `
-        position: absolute !important;
-        bottom: 25px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 4px !important;
-        z-index: 9999 !important;
-        pointer-events: none !important;
-        width: 100% !important;
-        text-align: center !important;
-      `;
-      footerBranding.innerHTML = `
-        <div style="display: flex !important; align-items: center !important; gap: 8px !important; justify-content: center !important;">
-          <img src="${logoBase64}" style="width: 20px !important; height: 20px !important; opacity: 0.8 !important;" />
-          <span style="font-size: 11pt !important; font-weight: 600 !important; color: #4845D2 !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
-        </div>
-        <div style="font-size: 9pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: system-ui, -apple-system, sans-serif !important;">
-          Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
-        </div>
-      `;
-      innerDiv.appendChild(footerBranding);
-
-      // Wait a moment for the DOM to settle
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // NUCLEAR FIX: Injected in onclone for maximum reliability
+      const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 74 43" width="45" height="45"><g transform="translate(0, 1)"><path d="M0.45 20.81C0.45 9.76 9.41 0.81 20.45 0.81H46.7C57.75 0.81 66.7 9.76 66.7 20.81V40.81H20.45C9.41 40.81 0.45 31.86 0.45 20.81Z" fill="#4845D2"/><path d="M46.7 8.31H20.45C13.55 8.31 7.95 13.91 7.95 20.81C7.95 27.71 13.55 33.31 20.45 33.31H46.7C53.61 33.31 59.2 27.71 59.2 20.81C59.2 13.91 53.61 8.31 46.7 8.31Z" fill="#A5B4FC"/><path d="M20.45 27.06C23.9 27.06 26.7 24.26 26.7 20.81C26.7 17.36 23.9 14.56 20.45 14.56C17 14.56 14.2 17.36 14.2 20.81C14.2 24.26 17 27.06 20.45 27.06Z" fill="black"/><path d="M17.95 19.56C18.64 19.56 19.2 19 19.2 18.31C19.2 17.62 18.64 17.06 17.95 17.06C17.26 17.06 16.7 17.62 16.7 18.31C16.7 19 17.26 19.56 17.95 19.56Z" fill="white"/><path d="M47.95 27.06C51.4 27.06 54.2 24.26 54.2 20.81C54.2 17.36 51.4 14.56 47.95 14.56C44.5 14.56 41.7 17.36 41.7 20.81C41.7 24.26 44.5 27.06 47.95 27.06Z" fill="black"/><path d="M45.45 19.56C46.14 19.56 46.7 19 46.7 18.31C46.7 17.62 46.14 17.06 45.45 17.06C44.76 17.06 44.2 17.62 44.2 18.31C44.2 19 44.76 19.56 45.45 19.56Z" fill="white"/></g></svg>`;
 
       // Capture with html2canvas - ensure colors are captured correctly
       const canvas = await html2canvas(contentElement, {
         scale: 2.0,
         useCORS: true,
-        logging: true, // Enabled for debugging
+        logging: true,
         backgroundColor: '#ffffff',
         allowTaint: true,
         scrollX: 0,
@@ -1150,65 +1098,53 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
         windowWidth: 794,
         windowHeight: contentElement.scrollHeight,
         onclone: (clonedDoc: Document) => {
-          // Additional safety: ensure the injected elements are visible in the clone
-          const clonedHeader = clonedDoc.getElementById('wizqo-header-inject');
-          const clonedFooter = clonedDoc.getElementById('wizqo-footer-inject');
-          if (clonedHeader) clonedHeader.style.display = 'flex';
-          if (clonedFooter) clonedFooter.style.display = 'flex';
-          // Remove style tags
-          clonedDoc.querySelectorAll('style').forEach(tag => {
-            if (tag.id !== 'pdf-export-print-styles') {
-              tag.remove()
-            }
-          })
-
-          // Apply print styles to cloned document
-          const clonedBody = clonedDoc.body
-          if (clonedBody) {
-            clonedBody.style.width = '794px'
-            clonedBody.style.maxWidth = '794px'
-            clonedBody.style.margin = '0'
-            clonedBody.style.padding = '0'
-            clonedBody.style.background = 'white'
-          }
-
-          // Apply print styles to cloned inner div - with colorful border and emoji stars
+          // Apply print styles to cloned inner div - FORCED with setProperty important
           const clonedContentElement = clonedDoc.querySelector('[data-worksheet-content="true"]') as HTMLElement
           if (clonedContentElement) {
-            // Target the ACTUAL worksheet container, not the branding header
+            clonedContentElement.style.setProperty('padding', '0', 'important');
+            clonedContentElement.style.setProperty('background', 'white', 'important');
+
             const clonedInnerDiv = clonedContentElement.querySelector(':scope > .max-w-4xl') as HTMLElement
             if (clonedInnerDiv) {
-              // Match print styles with colorful border, padding, and emoji stars
-              clonedInnerDiv.style.position = 'relative'
-              clonedInnerDiv.style.borderRadius = '12px'
-              clonedInnerDiv.style.border = '4px solid transparent'
-              clonedInnerDiv.style.borderImage = 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1'
-              clonedInnerDiv.style.borderImageSlice = '1'
-              clonedInnerDiv.style.webkitPrintColorAdjust = 'exact'
-              clonedInnerDiv.style.printColorAdjust = 'exact'
-                ; (clonedInnerDiv.style as any).colorAdjust = 'exact'
-              clonedInnerDiv.style.padding = '100px 24px 80px 24px'
-              clonedInnerDiv.style.margin = '0.5in'
-              clonedInnerDiv.style.backgroundColor = 'white'
-              clonedInnerDiv.style.background = 'white'
+              clonedInnerDiv.style.setProperty('position', 'relative', 'important');
+              clonedInnerDiv.style.setProperty('padding', '100px 24px 80px 24px', 'important');
+              clonedInnerDiv.style.setProperty('margin', '0.5in', 'important');
+              clonedInnerDiv.style.setProperty('background-color', 'white', 'important');
+              clonedInnerDiv.style.setProperty('border-radius', '12px', 'important');
+              clonedInnerDiv.style.setProperty('border', '4px solid transparent', 'important');
+              clonedInnerDiv.style.setProperty('border-image', 'linear-gradient(135deg, #f472b6 0%, #a78bfa 20%, #60a5fa 40%, #34d399 60%, #fbbf24 80%, #fb7185 100%) 1', 'important');
+              clonedInnerDiv.style.setProperty('border-image-slice', '1', 'important');
+
+              // Inject Branding Header directly into cloned DOM
+              const header = clonedDoc.createElement('div');
+              header.style.cssText = 'position: absolute !important; top: 25px !important; left: 24px !important; display: flex !important; align-items: center !important; gap: 12px !important; z-index: 1000 !important;';
+              header.innerHTML = `
+                <div style="width: 45px; height: 45px;">${logoSvg}</div>
+                <span style="font-size: 16pt; font-weight: 700; color: #4845D2; white-space: nowrap; font-family: system-ui, sans-serif;">www.wizqo.com</span>
+              `;
+              clonedInnerDiv.appendChild(header);
+
+              // Inject Branding Footer directly into cloned DOM
+              const footer = clonedDoc.createElement('div');
+              footer.style.cssText = 'position: absolute !important; bottom: 25px !important; left: 0 !important; right: 0 !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 4px !important; z-index: 1000 !important; width: 100% !important;';
+              footer.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 8px; justify-content: center;">
+                  <div style="width: 24px; height: 24px; opacity: 0.8;">${logoSvg.replace('width="45" height="45"', 'width="24" height="24"')}</div>
+                  <span style="font-size: 11pt; font-weight: 600; color: #4845D2; font-family: system-ui, sans-serif;">www.wizqo.com</span>
+                </div>
+                <div style="font-size: 9pt; color: #64748b; opacity: 0.7; font-family: system-ui, sans-serif;">
+                  Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
+                </div>
+              `;
+              clonedInnerDiv.appendChild(footer);
             }
           }
 
-          // Ensure print styles are in cloned document
-          const clonedStyleTag = clonedDoc.getElementById('pdf-export-print-styles')
-          if (!clonedStyleTag) {
-            const styleTag = clonedDoc.createElement('style')
-            styleTag.id = 'pdf-export-print-styles'
-            styleTag.textContent = printStyleTag.textContent
-            clonedDoc.head.appendChild(styleTag)
-          }
-
-          // Process print: utility classes
+          // Process utility classes
           const allElements = clonedDoc.querySelectorAll('*')
           allElements.forEach((el) => {
             const htmlEl = el as HTMLElement
             const classList = Array.from(htmlEl.classList)
-
             if (classList.some(cls => cls.includes('print-customization-header'))) {
               htmlEl.style.setProperty('display', 'block', 'important')
             }
@@ -1787,7 +1723,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
-            padding: 20px 24px 24px 24px !important;
+            padding: 20px 24px 24px 24px; /* Removed !important to allow JS override */
             margin: 1.0in !important;
           }
           [data-worksheet-content="true"] .wizqo-logo-print {
