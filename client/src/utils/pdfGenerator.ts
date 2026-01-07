@@ -103,8 +103,22 @@ export async function generateWorksheetPDF(
 
             // If section is taller than one page, we might still have to split it, 
             // but at least we split by section first.
+            // If section is taller than one page, but within a reasonable threshold (e.g. 25% overflow),
+            // we scale it down to fit on a single page to avoid awkward cuts.
+            // This preserves the "one worksheet per page" intent for most content.
+            const fitToPageThreshold = 1.25
+
             if (imgHeight <= pageHeightMm) {
+                // Fits naturally
                 pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST')
+            } else if (imgHeight <= pageHeightMm * fitToPageThreshold) {
+                // Fits with scaling
+                const scaleFactor = pageHeightMm / imgHeight
+                const finalWidth = imgWidth * scaleFactor
+                const finalHeight = pageHeightMm
+                const xPos = (pageWidthMm - finalWidth) / 2 // Center horizontally
+
+                pdf.addImage(imgData, 'PNG', xPos, 0, finalWidth, finalHeight, undefined, 'FAST')
             } else {
                 // Fallback split for extra long sections (rare but possible)
                 const totalPages = Math.ceil(imgHeight / pageHeightMm)
