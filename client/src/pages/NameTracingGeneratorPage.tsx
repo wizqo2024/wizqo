@@ -98,6 +98,47 @@ export default function NameTracingGeneratorPage() {
     return [childName.trim() || t('pages.nameTracing.yourName')];
   }, [batchMode, multipleNames, childName, batchLayout, t]);
 
+  // Load Codystar font as base64 for PDF embedding
+  const [codystarFontBase64, setCodystarFontBase64] = React.useState<string>('');
+
+  React.useEffect(() => {
+    const fetchFont = async () => {
+      try {
+        // Fetch CSS first
+        const cssResponse = await fetch('https://fonts.googleapis.com/css2?family=Codystar&display=swap');
+        const cssText = await cssResponse.text();
+
+        // Extract WOFF2 URL
+        const match = cssText.match(/src:\s*url\(([^)]+)\)/);
+        if (match && match[1]) {
+          const fontUrl = match[1];
+          const fontResponse = await fetch(fontUrl);
+          const blob = await fontResponse.blob();
+
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const result = reader.result as string;
+            setCodystarFontBase64(result);
+          };
+          reader.readAsDataURL(blob);
+        }
+      } catch (error) {
+        console.error('Failed to load Codystar font for PDF embedding', error);
+      }
+    };
+
+    fetchFont();
+  }, []);
+
+  // Helper to embed font in SVG string
+  const embedFontInSVG = React.useCallback((svgContent: string) => {
+    if (!codystarFontBase64) return svgContent;
+    // Check if it's the dotted font style, otherwise we don't strictly need to embed this large string
+    // But for simplicity/safety we can just do it if codystarFontBase64 is present
+    const styleBlock = `<defs><style>@font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}'); }</style></defs>`;
+    return svgContent.replace(/<svg[^>]*>/, (match) => `${match}${styleBlock}`);
+  }, [codystarFontBase64]);
+
   // Format names for display
   const formattedNames = React.useMemo(() => {
     const formatted = previewNames.map((name, index) => {
@@ -416,7 +457,8 @@ export default function NameTracingGeneratorPage() {
         names.forEach((name, index) => {
           setTimeout(() => {
             try {
-              const svgString = generateFn(name);
+              const svgStringRaw = generateFn(name);
+              const svgString = embedFontInSVG(svgStringRaw);
               const parser = new DOMParser();
               const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
               const svgElement = svgDoc.documentElement as SVGSVGElement;
@@ -478,7 +520,8 @@ export default function NameTracingGeneratorPage() {
       }
       const cloned = svgElement.cloneNode(true) as SVGSVGElement;
       cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      const data = new XMLSerializer().serializeToString(cloned);
+      let data = new XMLSerializer().serializeToString(cloned);
+      data = embedFontInSVG(data);
       const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const image = new Image();
@@ -619,7 +662,7 @@ export default function NameTracingGeneratorPage() {
 
           if (batchLayout === 'one-per-page') {
             const name = names[currentNameIndex];
-            const svgString = generateFn(name);
+            const svgString = embedFontInSVG(generateFn(name));
             const pngData = await svgToPngDataUrl(svgString, scale);
             doc.addImage(pngData, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
             currentNameIndex++;
@@ -627,7 +670,7 @@ export default function NameTracingGeneratorPage() {
             for (let i = 0; i < 2; i++) {
               if (currentNameIndex >= names.length) break;
               const name = names[currentNameIndex];
-              const svgString = generateFn(name);
+              const svgString = embedFontInSVG(generateFn(name));
               const pngData = await svgToPngDataUrl(svgString, scale);
               // Top or Bottom
               const yPos = i * (pageHeight / 2);
@@ -639,7 +682,7 @@ export default function NameTracingGeneratorPage() {
             for (let i = 0; i < 4; i++) {
               if (currentNameIndex >= names.length) break;
               const name = names[currentNameIndex];
-              const svgString = generateFn(name);
+              const svgString = embedFontInSVG(generateFn(name));
               const pngData = await svgToPngDataUrl(svgString, scale);
               // Grid 2x2
               const col = i % 2;
@@ -661,7 +704,8 @@ export default function NameTracingGeneratorPage() {
         const svg = container?.querySelector('svg');
         if (!svg) throw new Error('SVG not found');
 
-        const svgString = new XMLSerializer().serializeToString(svg);
+        let svgString = new XMLSerializer().serializeToString(svg);
+        svgString = embedFontInSVG(svgString);
         const pngData = await svgToPngDataUrl(svgString, scale);
 
         doc.addImage(pngData, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
