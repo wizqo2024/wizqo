@@ -1833,9 +1833,9 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
     const items = ['🍎', '⭐️', '🌸', '🦋', '🎈', '🍪', '🧸', '🚗', '⚽️'];
 
     // Generate problems
-    const problems = useMemo(() => {
-        const count = config.type === 'color' ? 6 : 9;
-        return Array.from({ length: count }).map((_, i) => {
+    const { problems, shuffledNumbers } = useMemo(() => {
+        const problemCount = config.type === 'match' ? 6 : config.type === 'color' ? 6 : 9;
+        const probs = Array.from({ length: problemCount }).map((_, i) => {
             const count = Math.floor(rng() * config.max) + 1;
             const icon = pick(items, rng) || '⭐️';
 
@@ -1860,6 +1860,11 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                 options
             };
         });
+
+        // For matching, we need a shuffled list of the counts
+        const shuffled = config.type === 'match' ? shuffleArray(probs.map(p => p.count), rng) : [];
+
+        return { problems: probs, shuffledNumbers: shuffled };
     }, [config, rng]);
 
     return (
@@ -1868,7 +1873,7 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
             title={t(`worksheets.${docId}.title`, config.title)}
             emoji={config.emoji}
             description={t(`worksheets.${docId}.description`, `Practice counting numbers up to ${config.max}.`)}
-            problemCount={config.type === 'color' ? 6 : 9}
+            problemCount={config.type === 'match' || config.type === 'color' ? 6 : 9}
         >
             <PremiumWorksheetBanner
                 title={config.title}
@@ -1884,54 +1889,84 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                 }}
             />
 
-            <div className={`grid ${config.type === 'color' ? 'grid-cols-2' : 'grid-cols-3'} gap-6 mt-8`}>
-                {problems.map((p) => (
-                    <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
-                        {/* Object Display */}
-                        <div className={`mb-4 w-full ${config.type === 'color' ? 'min-h-[10rem]' : 'min-h-[6rem]'} flex items-center justify-center p-2`}>
-                            <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} ${p.count > 10 ? 'gap-2' : 'gap-4'} justify-items-center items-center`}>
-                                {Array.from({ length: config.type === 'color' ? config.max : p.count }).map((_, idx) => (
-                                    <div key={idx} className={`flex items-center justify-center ${p.count > 12 ? 'w-8 h-8' : 'w-10 h-10'}`}>
-                                        {config.type === 'color' ? (
-                                            <ColorableIcon icon={p.icon} size={36} />
-                                        ) : (
-                                            <span className={`${p.count > 12 ? 'text-xl' : 'text-2xl'} leading-none`}>{p.icon}</span>
-                                        )}
-                                    </div>
-                                ))}
+            {/* Match Layout */}
+            {config.type === 'match' ? (
+                <div className="flex justify-between gap-12 mt-8 max-w-2xl mx-auto">
+                    {/* Left Column: Groups */}
+                    <div className="flex-1 flex flex-col gap-6">
+                        {problems.map((p) => (
+                            <div key={p.id} className="relative border-2 border-slate-200 rounded-xl p-3 bg-white shadow-sm h-32 flex items-center justify-center break-inside-avoid">
+                                <div className={`grid ${p.count > 12 ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 justify-items-center items-center`}>
+                                    {Array.from({ length: p.count }).map((_, idx) => (
+                                        <div key={idx} className={`flex items-center justify-center ${p.count > 12 ? 'w-6 h-6' : 'w-8 h-8'}`}>
+                                            <span className={`${p.count > 12 ? 'text-lg' : 'text-xl'} leading-none`}>{p.icon}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                {/* Connection Dot */}
+                                <div className="absolute top-1/2 -right-1.5 w-3 h-3 bg-slate-300 rounded-full border border-white transform -translate-y-1/2 z-10 print:bg-slate-200"></div>
                             </div>
-                        </div>
-
-                        {/* Interaction Area based on Type */}
-                        {config.type === 'write' && (
-                            <div className="w-12 h-12 border-2 border-slate-300 rounded-md bg-slate-50 flex items-center justify-center">
-                            </div>
-                        )}
-
-                        {config.type === 'circle' && (
-                            <div className="flex gap-2 justify-center w-full">
-                                {p.options.map(opt => (
-                                    <div key={opt} className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center font-bold text-slate-600">
-                                        {opt}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {config.type === 'color' && (
-                            <div className="text-xs text-slate-500 font-medium border-t border-slate-100 pt-2 w-full text-center">
-                                Color {p.count}
-                            </div>
-                        )}
-
-                        {config.type === 'match' && (
-                            <div className="w-full text-center text-slate-400 text-xs mt-2">
-                                {p.count} <span className="inline-block transform rotate-90">➔</span>
-                            </div>
-                        )}
+                        ))}
                     </div>
-                ))}
-            </div>
+
+                    {/* Right Column: Shuffled Numbers */}
+                    <div className="w-24 flex flex-col gap-6 justify-between py-2">
+                        {shuffledNumbers.map((num, idx) => (
+                            <div key={idx} className="relative h-32 flex items-center justify-end">
+                                {/* Connection Dot */}
+                                <div className="absolute top-1/2 -left-1.5 w-3 h-3 bg-slate-300 rounded-full border border-white transform -translate-y-1/2 z-10 print:bg-slate-200"></div>
+                                <div className="w-16 h-16 rounded-2xl border-2 border-indigo-100 bg-indigo-50/50 flex items-center justify-center text-2xl font-black text-indigo-700 shadow-sm">
+                                    {num}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                /* Grid Layout for other types */
+                <div className={`grid ${config.type === 'color' ? 'grid-cols-2' : 'grid-cols-3'} gap-6 mt-8`}>
+                    {problems.map((p) => (
+                        <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
+                            {/* Object Display */}
+                            <div className={`mb-4 w-full ${config.type === 'color' ? 'min-h-[10rem]' : 'min-h-[6rem]'} flex items-center justify-center p-2`}>
+                                <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} ${p.count > 10 ? 'gap-2' : 'gap-4'} justify-items-center items-center`}>
+                                    {Array.from({ length: config.type === 'color' ? config.max : p.count }).map((_, idx) => (
+                                        <div key={idx} className={`flex items-center justify-center ${p.count > 12 ? 'w-8 h-8' : 'w-10 h-10'}`}>
+                                            {config.type === 'color' ? (
+                                                <ColorableIcon icon={p.icon} size={36} />
+                                            ) : (
+                                                <span className={`${p.count > 12 ? 'text-xl' : 'text-2xl'} leading-none`}>{p.icon}</span>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Interaction Area based on Type */}
+                            {config.type === 'write' && (
+                                <div className="w-12 h-12 border-2 border-slate-300 rounded-md bg-slate-50 flex items-center justify-center">
+                                </div>
+                            )}
+
+                            {config.type === 'circle' && (
+                                <div className="flex gap-2 justify-center w-full">
+                                    {p.options.map(opt => (
+                                        <div key={opt} className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center font-bold text-slate-600">
+                                            {opt}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {config.type === 'color' && (
+                                <div className="text-xs text-slate-500 font-medium border-t border-slate-100 pt-2 w-full text-center">
+                                    Color {p.count}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            )}
 
             {showAnswersForDoc(docId, () => (
                 <div className="mt-8 p-4 border border-emerald-200 rounded-lg bg-emerald-50 text-sm text-emerald-800 break-inside-avoid">
