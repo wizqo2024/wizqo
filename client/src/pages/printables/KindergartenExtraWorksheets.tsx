@@ -704,10 +704,6 @@ export function NumberRecognitionWorksheet({ docId, showAnswersForDoc, seed, var
                                 </div>
                             ))}
                         </div>
-                        {/* SVG Lines placeholder area */}
-                        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-10">
-                            <svg className="w-full h-full"><line x1="20%" y1="10%" x2="80%" y2="90%" stroke="black" strokeWidth="2" strokeDasharray="5,5" /></svg>
-                        </div>
                         <div className="flex flex-col gap-6">
                             {shuffleArray([...(data.pairs as any[])], rng).map((p: any, i: number) => (
                                 <div key={i} className="w-16 h-[52px] bg-indigo-50 border-2 border-indigo-200 rounded-lg flex items-center justify-center font-bold text-indigo-800 text-2xl shadow-sm">
@@ -1909,8 +1905,6 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                                         </div>
                                     ))}
                                 </div>
-                                {/* Connection Dot */}
-                                <div className="absolute top-1/2 -right-1.5 w-3 h-3 bg-slate-300 rounded-full border border-white transform -translate-y-1/2 z-10 print:bg-slate-200"></div>
                             </div>
                         ))}
                     </div>
@@ -1919,8 +1913,6 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                     <div className="w-24 flex flex-col gap-6 justify-between py-2">
                         {shuffledNumbers.map((num, idx) => (
                             <div key={idx} className="relative h-32 flex items-center justify-end">
-                                {/* Connection Dot */}
-                                <div className="absolute top-1/2 -left-1.5 w-3 h-3 bg-slate-300 rounded-full border border-white transform -translate-y-1/2 z-10 print:bg-slate-200"></div>
                                 <div className="w-16 h-16 rounded-2xl border-2 border-indigo-100 bg-indigo-50/50 flex items-center justify-center text-2xl font-black text-indigo-700 shadow-sm">
                                     {num}
                                 </div>
