@@ -1303,24 +1303,24 @@ export default function NameTracingGeneratorPage() {
 
 
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                   <Button
                     onClick={handlePrint}
-                    className="rounded-2xl h-11 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600"
+                    className="flex-1 rounded-2xl h-11 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 whitespace-nowrap"
                   >
                     <Printer className="w-4 h-4 mr-2" /> {t('pages.nameTracing.printWorksheet')}
                   </Button>
                   <Button
                     variant="outline"
                     onClick={handleDownloadPDF}
-                    className="rounded-2xl h-11 border-purple-200 text-purple-700 hover:bg-purple-50"
+                    className="flex-1 rounded-2xl h-11 border-purple-200 text-purple-700 hover:bg-purple-50 whitespace-nowrap"
                   >
                     <FileText className="w-4 h-4 mr-2" /> {t('pages.nameTracing.downloadPDF')}
                   </Button>
                   <Button
                     variant="outline"
                     onClick={handleDownloadPNG}
-                    className="rounded-2xl h-11"
+                    className="flex-1 rounded-2xl h-11 whitespace-nowrap"
                   >
                     <Download className="w-4 h-4 mr-2" /> {t('pages.nameTracing.downloadPNG')}
                   </Button>
