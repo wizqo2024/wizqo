@@ -782,10 +782,7 @@ export function getWorksheetSEO(docId: string): WorksheetSEO | undefined {
  * Get SEO data for a worksheet by slug
  */
 export function getWorksheetSEOBySlug(slug: string): WorksheetSEO | undefined {
-  if (!slug) return undefined
-  // Normalize slug to handle en-dashes or other special characters that might come from external links
-  const normalizedSlug = slug.replace(/[\u2013\u2014]/g, '-').toLowerCase()
-  return Object.values(WORKSHEET_SEO_MAP).find(seo => seo.slug === normalizedSlug)
+  return Object.values(WORKSHEET_SEO_MAP).find(seo => seo.slug === slug)
 }
 
 /**
