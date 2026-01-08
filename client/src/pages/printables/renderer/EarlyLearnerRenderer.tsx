@@ -664,7 +664,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
 
             {/* Structured Worksheet Groups */}
             {activeDocs.map(docId => {
-                if (['count-color-1-10', 'how-many-1-15', 'count-match-1-20', 'count-circle-1-10', 'counting-objects-20'].includes(docId)) {
+                if (['count-color-1-10', 'how-many-1-15', 'count-match-1-20', 'count-circle-1-10'].includes(docId)) {
                     return <CountingWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />;
                 }
                 if (['heavy-light', 'long-short', 'big-small', 'more-less', 'same-different', 'size-comparison'].includes(docId)) {
@@ -676,7 +676,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                 if (['shape-identification', 'missing-shape', 'color-shapes', 'shape-sorting', 'color-recognition', 'draw-shape', 'shapes-colors-sort'].includes(docId)) {
                     return <ShapeWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />;
                 }
-                if (['find-number-1-10', 'number-order-1-20', 'number-matching-1-15', 'number-tracing-1-10', 'number-id-1-10'].includes(docId)) {
+                if (['find-number-1-10', 'number-order-1-20', 'number-matching-1-15', 'number-id-1-10'].includes(docId)) {
                     return <NumberRecognitionWorksheet key={docId} docId={docId} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />;
                 }
                 if (docId.startsWith('coloring')) {

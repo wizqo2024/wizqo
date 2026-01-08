@@ -201,6 +201,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'counting-objects-20',
   'number-id-1-10',
   'number-tracing-1-10',
+  'number-tracing-1-20',
   'number-matching-1-15',
   'number-order-1-20',
   'find-number-1-10',
