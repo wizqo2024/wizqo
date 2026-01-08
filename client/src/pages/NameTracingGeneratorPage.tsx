@@ -108,8 +108,8 @@ export default function NameTracingGeneratorPage() {
         const cssResponse = await fetch('https://fonts.googleapis.com/css2?family=Codystar&display=swap');
         const cssText = await cssResponse.text();
 
-        // Extract WOFF2 URL
-        const match = cssText.match(/src:\s*url\(([^)]+)\)/);
+        // Extract WOFF2 URL - handle quotes if present
+        const match = cssText.match(/src:\s*url\(['"]?([^'"]+)['"]?\)/);
         if (match && match[1]) {
           const fontUrl = match[1];
           const fontResponse = await fetch(fontUrl);
@@ -212,237 +212,149 @@ export default function NameTracingGeneratorPage() {
   // Use a ref to store the generateSVGForName function so it can be accessed by callbacks defined earlier
   const generateSVGForNameRef = React.useRef<((name: string) => string) | null>(null);
 
-  const handlePrint = React.useCallback(() => {
+  const handlePrint = React.useCallback(async () => {
     try {
+      const generateFn = generateSVGForNameRef.current;
+      if (!generateFn) {
+        toast({ title: t('pages.nameTracing.error'), description: t('pages.nameTracing.svgNotReady'), variant: 'destructive' });
+        return;
+      }
+
+      toast({
+        title: t('pages.nameTracing.preparingPrint'),
+        description: t('pages.nameTracing.preparingPrintDesc'),
+      });
+
+      // Get names
+      let names: string[] = [];
       if (batchMode === 'single') {
-        // Single name mode - use existing logic
-        const container = document.getElementById('name-tracing-sheet');
-        if (!container) {
-          toast({
-            title: t('pages.nameTracing.error'),
-            description: t('pages.nameTracing.worksheetNotFound'),
-            variant: 'destructive',
-          });
-          return;
-        }
-        const svg = container.querySelector('svg');
-        if (!svg) {
-          toast({
-            title: 'Error',
-            description: 'SVG not found. Please refresh the page.',
-            variant: 'destructive',
-          });
-          return;
-        }
-
-        // Get paper size in inches
-        const paperSizes = {
-          'us-letter': { width: 8.5, height: 11 },
-          'a4': { width: 8.27, height: 11.69 },
-          'legal': { width: 8.5, height: 14 },
-        };
-        const size = paperSizes[paperSize];
-        const width = printOrientation === 'landscape' ? size.height : size.width;
-        const height = printOrientation === 'landscape' ? size.width : size.height;
-
-        const fontFaceStyle = codystarFontBase64
-          ? `@font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}'); font-weight: 300 400; font-style: normal; }`
-          : '';
-
-        const html = `<!doctype html><html><head><meta charset="utf-8" />
-<title>Name Tracing Worksheet</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Codystar:wght@300;400&family=Patrick+Hand&family=Comic+Neue:wght@300;400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Handlee&display=swap" rel="stylesheet" />
-<style>
-  ${fontFaceStyle}
-  @page { size: ${width}in ${height}in; margin: 0; }
-  html, body { margin: 0; padding: 0; width: ${width}in; height: ${height}in; background: #fff; }
-  #frame { position: relative; width: ${width}in; height: ${height}in; overflow: hidden; }
-  svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-</style>
-</head><body><div id="frame">${svg.outerHTML}</div></body></html>`;
-
-        const iframe = document.createElement('iframe');
-        iframe.style.position = 'fixed';
-        iframe.style.width = '0';
-        iframe.style.height = '0';
-        iframe.style.border = '0';
-        document.body.appendChild(iframe);
-        const doc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (!doc) return;
-        doc.open();
-        doc.write(html);
-        doc.close();
-
-        const finish = async () => {
-          try {
-            if (iframe.contentWindow) {
-              await iframe.contentWindow.document.fonts.ready;
-            }
-            iframe.contentWindow?.focus();
-            iframe.contentWindow?.print();
-            toast({
-              title: t('pages.nameTracing.printReady'),
-              description: t('pages.nameTracing.printReadyDesc'),
-            });
-          } catch (error) {
-            console.error('Print failed', error);
-            toast({
-              title: t('pages.nameTracing.printFailed'),
-              description: t('pages.nameTracing.printFailedDesc'),
-              variant: 'destructive',
-            });
-          }
-          setTimeout(() => {
-            try {
-              document.body.removeChild(iframe);
-            } catch { }
-          }, 600);
-        };
-
-        // Give it a small delay even if readyState is complete, to allow fonts promise to settle
-        if (iframe.contentWindow?.document.readyState === 'complete') {
-          setTimeout(finish, 100);
-        } else {
-          iframe.onload = () => setTimeout(finish, 100);
-        }
+        names = [childName];
       } else {
-        // Batch mode
-        const names = multipleNames
+        names = multipleNames
           .split('\n')
           .map(n => n.trim())
           .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
-          .slice(0, 50); // Limit to 50 names
+          .slice(0, 50);
+      }
 
-        if (names.length === 0) {
-          toast({
-            title: t('pages.nameTracing.noNames'),
-            description: t('pages.nameTracing.noNamesDesc'),
-            variant: 'destructive',
-          });
-          return;
+      if (names.length === 0) {
+        toast({ title: t('pages.nameTracing.noNames'), description: t('pages.nameTracing.noNamesDesc'), variant: 'destructive' });
+        return;
+      }
+
+      // Paper dims
+      const paperSizes = {
+        'us-letter': { width: 8.5, height: 11 },
+        'a4': { width: 8.27, height: 11.69 },
+        'legal': { width: 8.5, height: 14 },
+      };
+      const size = paperSizes[paperSize];
+      const width = printOrientation === 'landscape' ? size.height : size.width;
+      const height = printOrientation === 'landscape' ? size.width : size.height;
+
+      // Generate HTML with IMAGES (Visual Fidelity)
+      let htmlContent = '';
+
+      const scale = 2.5; // High res for print
+
+      // Helper to process name to png
+      const nameToPng = async (n: string) => {
+        const rawSvg = generateFn(n);
+        const svgWithFont = embedFontInSVG(rawSvg);
+        return await svgToPngDataUrl(svgWithFont, scale);
+      };
+
+      if (batchLayout === 'one-per-page' || batchMode === 'single') {
+        for (const name of names) {
+          const pngUrl = await nameToPng(name);
+          htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
+            <img src="${pngUrl}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;" />
+          </div>`;
         }
+      } else if (batchLayout === 'two-per-page') {
+        for (let i = 0; i < names.length; i += 2) {
+          const name1 = names[i];
+          const name2 = names[i + 1];
+          const png1 = await nameToPng(name1);
+          const png2 = name2 ? await nameToPng(name2) : null;
 
-        const generateFn = generateSVGForNameRef.current;
-        if (!generateFn) {
-          toast({
-            title: t('pages.nameTracing.error'),
-            description: t('pages.nameTracing.svgNotReady'),
-            variant: 'destructive',
-          });
-          return;
-        }
-
-        const paperSizes = {
-          'us-letter': { width: 8.5, height: 11 },
-          'a4': { width: 8.27, height: 11.69 },
-          'legal': { width: 8.5, height: 14 },
-        };
-        const size = paperSizes[paperSize];
-        const width = printOrientation === 'landscape' ? size.height : size.width;
-        const height = printOrientation === 'landscape' ? size.width : size.height;
-
-        let htmlContent = '';
-        if (batchLayout === 'one-per-page') {
-          // One name per page
-          names.forEach((name) => {
-            const svg = generateFn(name);
-            htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;"><div style="position: absolute; inset: 0; width: 100%; height: 100%;">${svg}</div></div>`;
-          });
-        } else if (batchLayout === 'two-per-page') {
-          // Two names per page
-          for (let i = 0; i < names.length; i += 2) {
-            const name1 = names[i];
-            const name2 = names[i + 1];
-            const svg1 = generateFn(name1);
-            const svg2 = name2 ? generateFn(name2) : '';
-            htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
-              <div style="position: absolute; top: 0; left: 0; width: 100%; height: 50%;">${svg1}</div>
-              ${svg2 ? `<div style="position: absolute; top: 50%; left: 0; width: 100%; height: 50%;">${svg2}</div>` : ''}
+          htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: 0; left: 0; width: 100%; height: 50%;">
+                <img src="${png1}" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>
+              ${png2 ? `<div style="position: absolute; top: 50%; left: 0; width: 100%; height: 50%;">
+                <img src="${png2}" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>` : ''}
             </div>`;
-          }
-        } else {
-          // Four names per page
-          for (let i = 0; i < names.length; i += 4) {
-            const name1 = names[i];
-            const name2 = names[i + 1];
-            const name3 = names[i + 2];
-            const name4 = names[i + 3];
-            const svg1 = generateFn(name1);
-            const svg2 = name2 ? generateFn(name2) : '';
-            const svg3 = name3 ? generateFn(name3) : '';
-            const svg4 = name4 ? generateFn(name4) : '';
-            htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
-              <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%;">${svg1}</div>
-              ${svg2 ? `<div style="position: absolute; top: 0; left: 50%; width: 50%; height: 50%;">${svg2}</div>` : ''}
-              ${svg3 ? `<div style="position: absolute; top: 50%; left: 0; width: 50%; height: 50%;">${svg3}</div>` : ''}
-              ${svg4 ? `<div style="position: absolute; top: 50%; left: 50%; width: 50%; height: 50%;">${svg4}</div>` : ''}
-            </div>`;
-          }
         }
+      } else {
+        // four-per-page
+        for (let i = 0; i < names.length; i += 4) {
+          const chunk = names.slice(i, i + 4);
+          const pngs = await Promise.all(chunk.map(n => nameToPng(n)));
 
-        const fontFaceStyle = codystarFontBase64
-          ? `@font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}'); font-weight: 300 400; font-style: normal; }`
-          : '';
+          htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%;">
+                <img src="${pngs[0]}" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>
+              ${pngs[1] ? `<div style="position: absolute; top: 0; left: 50%; width: 50%; height: 50%;">
+                <img src="${pngs[1]}" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>` : ''}
+              ${pngs[2] ? `<div style="position: absolute; top: 50%; left: 0; width: 50%; height: 50%;">
+                <img src="${pngs[2]}" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>` : ''}
+              ${pngs[3] ? `<div style="position: absolute; top: 50%; left: 50%; width: 50%; height: 50%;">
+                 <img src="${pngs[3]}" style="width: 100%; height: 100%; object-fit: contain;" />
+              </div>` : ''}
+            </div>`;
+        }
+      }
 
-        const html = `<!doctype html><html><head><meta charset="utf-8" />
-<title>Name Tracing Worksheets - ${names.length} names</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Codystar:wght@300;400&family=Patrick+Hand&family=Comic+Neue:wght@300;400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Handlee&display=swap" rel="stylesheet" />
+      const html = `<!doctype html><html><head><meta charset="utf-8" />
+<title>Name Tracing Worksheets</title>
 <style>
-  ${fontFaceStyle}
   @page { size: ${width}in ${height}in; margin: 0; }
   html, body { margin: 0; padding: 0; background: #fff; }
   body { width: ${width}in; }
+  img { display: block; } 
 </style>
 </head><body>${htmlContent}</body></html>`;
 
-        const iframe = document.createElement('iframe');
-        iframe.style.position = 'fixed';
-        iframe.style.width = '0';
-        iframe.style.height = '0';
-        iframe.style.border = '0';
-        document.body.appendChild(iframe);
-        const doc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (!doc) return;
-        doc.open();
-        doc.write(html);
-        doc.close();
+      const iframe = document.createElement('iframe');
+      iframe.style.position = 'fixed';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      document.body.appendChild(iframe);
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (!doc) return;
+      doc.open();
+      doc.write(html);
+      doc.close();
 
-        const finish = async () => {
-          try {
-            if (iframe.contentWindow) {
-              await iframe.contentWindow.document.fonts.ready;
-            }
-            iframe.contentWindow?.focus();
-            iframe.contentWindow?.print();
-            toast({
-              title: t('pages.nameTracing.printReady'),
-              description: t('pages.nameTracing.printReadyBatch').replace('{{count}}', String(names.length)).replace('{{nameCount}}', names.length === 1 ? '' : 's'),
-            });
-          } catch (error) {
-            console.error('Print failed', error);
-            toast({
-              title: t('pages.nameTracing.printFailed'),
-              description: t('pages.nameTracing.printFailedDesc'),
-              variant: 'destructive',
-            });
-          }
-          setTimeout(() => {
-            try {
-              document.body.removeChild(iframe);
-            } catch { }
-          }, 600);
-        };
-
-        if (iframe.contentWindow?.document.readyState === 'complete') {
-          setTimeout(finish, 100);
-        } else {
-          iframe.onload = () => setTimeout(finish, 100);
+      const finish = () => {
+        try {
+          iframe.contentWindow?.focus();
+          iframe.contentWindow?.print();
+        } catch (error) {
+          console.error('Print failed', error);
+          toast({
+            title: t('pages.nameTracing.printFailed'),
+            description: t('pages.nameTracing.printFailedDesc'),
+            variant: 'destructive',
+          });
         }
+        setTimeout(() => {
+          try { document.body.removeChild(iframe); } catch { }
+        }, 1000); // Give it time
+      };
+
+      if (iframe.contentWindow?.document.readyState === 'complete') {
+        setTimeout(finish, 500); // Wait for images to render
+      } else {
+        iframe.onload = () => setTimeout(finish, 500);
       }
+
     } catch (error) {
       console.error('Unable to print name tracing sheet', error);
       toast({
@@ -451,7 +363,7 @@ export default function NameTracingGeneratorPage() {
         variant: 'destructive',
       });
     }
-  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, toast, t, codystarFontBase64]);
+  }, [batchMode, multipleNames, childName, batchLayout, paperSize, printOrientation, toast, t, embedFontInSVG, svgToPngDataUrl]);
 
   const handleDownloadPNG = React.useCallback(() => {
     try {
