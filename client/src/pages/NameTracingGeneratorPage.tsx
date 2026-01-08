@@ -52,6 +52,9 @@ export default function NameTracingGeneratorPage() {
   const [showGuideDots, setShowGuideDots] = React.useState<boolean>(true);
   const [patternStyle, setPatternStyle] = React.useState<PatternStyle>('traceAndWrite');
   const [rowCount, setRowCount] = React.useState<number>(4);
+  const [isPrinting, setIsPrinting] = React.useState<boolean>(false);
+  const [printNames, setPrintNames] = React.useState<string[]>([]);
+
 
   const svgRef = React.useRef<SVGSVGElement | null>(null);
 
@@ -258,7 +261,11 @@ export default function NameTracingGeneratorPage() {
     try {
       const generateFn = generateSVGForNameRef.current;
       if (!generateFn) {
-        toast({ title: t('pages.nameTracing.error'), description: t('pages.nameTracing.svgNotReady'), variant: 'destructive' });
+        toast({
+          title: t('pages.nameTracing.error'),
+          description: t('pages.nameTracing.svgNotReady'),
+          variant: 'destructive',
+        });
         return;
       }
 
@@ -267,7 +274,7 @@ export default function NameTracingGeneratorPage() {
         description: t('pages.nameTracing.preparingPrintDesc'),
       });
 
-      // Get names
+      // Get names for printing
       let names: string[] = [];
       if (batchMode === 'single') {
         names = [childName];
@@ -276,108 +283,28 @@ export default function NameTracingGeneratorPage() {
           .split('\n')
           .map(n => n.trim())
           .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
-          .slice(0, 50);
+          .slice(0, 50); // Limit to 50 names
       }
 
       if (names.length === 0) {
-        toast({ title: t('pages.nameTracing.noNames'), description: t('pages.nameTracing.noNamesDesc'), variant: 'destructive' });
+        toast({
+          title: t('pages.nameTracing.noNames'),
+          description: t('pages.nameTracing.noNamesDesc'),
+          variant: 'destructive',
+        });
         return;
       }
 
-      // Paper dims
-      const paperSizes = {
-        'us-letter': { width: 8.5, height: 11 },
-        'a4': { width: 8.27, height: 11.69 },
-        'legal': { width: 8.5, height: 14 },
-      };
-      const size = paperSizes[paperSize];
-      const width = printOrientation === 'landscape' ? size.height : size.width;
-      const height = printOrientation === 'landscape' ? size.width : size.height;
+      // 1. Set printing state
+      setPrintNames(names);
+      setIsPrinting(true);
 
-      // Generate HTML with IMAGES (Visual Fidelity)
-      let htmlContent = '';
-
-      const scale = 2.5; // High res for print
-
-      // Helper to process name to png
-      const nameToPng = async (n: string) => {
-        const rawSvg = generateFn(n);
-        const svgWithFont = embedFontInSVG(rawSvg);
-        return await svgToPngDataUrl(svgWithFont, scale);
-      };
-
-      if (batchLayout === 'one-per-page' || batchMode === 'single') {
-        for (const name of names) {
-          const pngUrl = await nameToPng(name);
-          htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
-            <img src="${pngUrl}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;" />
-          </div>`;
-        }
-      } else if (batchLayout === 'two-per-page') {
-        for (let i = 0; i < names.length; i += 2) {
-          const name1 = names[i];
-          const name2 = names[i + 1];
-          const png1 = await nameToPng(name1);
-          const png2 = name2 ? await nameToPng(name2) : null;
-
-          htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
-              <div style="position: absolute; top: 0; left: 0; width: 100%; height: 50%;">
-                <img src="${png1}" style="width: 100%; height: 100%; object-fit: contain;" />
-              </div>
-              ${png2 ? `<div style="position: absolute; top: 50%; left: 0; width: 100%; height: 50%;">
-                <img src="${png2}" style="width: 100%; height: 100%; object-fit: contain;" />
-              </div>` : ''}
-            </div>`;
-        }
-      } else {
-        // four-per-page
-        for (let i = 0; i < names.length; i += 4) {
-          const chunk = names.slice(i, i + 4);
-          const pngs = await Promise.all(chunk.map(n => nameToPng(n)));
-
-          htmlContent += `<div style="page-break-after: always; width: ${width}in; height: ${height}in; position: relative; overflow: hidden;">
-              <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%;">
-                <img src="${pngs[0]}" style="width: 100%; height: 100%; object-fit: contain;" />
-              </div>
-              ${pngs[1] ? `<div style="position: absolute; top: 0; left: 50%; width: 50%; height: 50%;">
-                <img src="${pngs[1]}" style="width: 100%; height: 100%; object-fit: contain;" />
-              </div>` : ''}
-              ${pngs[2] ? `<div style="position: absolute; top: 50%; left: 0; width: 50%; height: 50%;">
-                <img src="${pngs[2]}" style="width: 100%; height: 100%; object-fit: contain;" />
-              </div>` : ''}
-              ${pngs[3] ? `<div style="position: absolute; top: 50%; left: 50%; width: 50%; height: 50%;">
-                 <img src="${pngs[3]}" style="width: 100%; height: 100%; object-fit: contain;" />
-              </div>` : ''}
-            </div>`;
-        }
-      }
-
-      const html = `<!doctype html><html><head><meta charset="utf-8" />
-<title>Name Tracing Worksheets</title>
-<style>
-  @page { size: ${width}in ${height}in; margin: 0; }
-  html, body { margin: 0; padding: 0; background: #fff; }
-  body { width: ${width}in; }
-  img { display: block; } 
-</style>
-</head><body>${htmlContent}</body></html>`;
-
-      const iframe = document.createElement('iframe');
-      iframe.style.position = 'fixed';
-      iframe.style.width = '0';
-      iframe.style.height = '0';
-      iframe.style.border = '0';
-      document.body.appendChild(iframe);
-      const doc = iframe.contentDocument || iframe.contentWindow?.document;
-      if (!doc) return;
-      doc.open();
-      doc.write(html);
-      doc.close();
-
-      const finish = () => {
+      // 2. Wait for fonts and React render
+      // We give it a small delay for the DOM to be populated
+      setTimeout(async () => {
         try {
-          iframe.contentWindow?.focus();
-          iframe.contentWindow?.print();
+          await document.fonts.ready;
+          window.print();
         } catch (error) {
           console.error('Print failed', error);
           toast({
@@ -385,17 +312,12 @@ export default function NameTracingGeneratorPage() {
             description: t('pages.nameTracing.printFailedDesc'),
             variant: 'destructive',
           });
+        } finally {
+          // 3. Reset state after printing started
+          // Small delay to ensure the print dialog is fully independent of the DOM state
+          setTimeout(() => setIsPrinting(false), 500);
         }
-        setTimeout(() => {
-          try { document.body.removeChild(iframe); } catch { }
-        }, 1000); // Give it time
-      };
-
-      if (iframe.contentWindow?.document.readyState === 'complete') {
-        setTimeout(finish, 500); // Wait for images to render
-      } else {
-        iframe.onload = () => setTimeout(finish, 500);
-      }
+      }, 500);
 
     } catch (error) {
       console.error('Unable to print name tracing sheet', error);
@@ -404,8 +326,9 @@ export default function NameTracingGeneratorPage() {
         description: t('pages.nameTracing.printError'),
         variant: 'destructive',
       });
+      setIsPrinting(false);
     }
-  }, [batchMode, multipleNames, childName, batchLayout, paperSize, printOrientation, toast, t, embedFontInSVG, svgToPngDataUrl]);
+  }, [batchMode, multipleNames, childName, t, toast]);
 
   const handleDownloadPNG = React.useCallback(() => {
     try {
@@ -918,7 +841,7 @@ export default function NameTracingGeneratorPage() {
   }, [generateSVGForName]);
 
   return (
-    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className={`min-h-screen bg-slate-50 ${isPrinting ? 'no-print' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
         title="Create Name Tracing Worksheets | Free Generator & Printable PDF"
         description="Use our free name tracing generator to create custom name tracing worksheets instantly. Editable, printable PDFs perfect for preschool handwriting practice."
@@ -1719,6 +1642,82 @@ export default function NameTracingGeneratorPage() {
       </main>
 
       <Footer />
-    </div >
+
+      {/* Print-only container */}
+      {isPrinting && (
+        <div className="print-only" style={{ background: '#fff' }}>
+          <style dangerouslySetInnerHTML={{
+            __html: `
+            @media screen {
+              .print-only { display: none !important; }
+            }
+            @media print {
+              .no-print { display: none !important; }
+              .print-only { display: block !important; }
+              @page { 
+                size: ${paperSize === 'us-letter' ? '8.5in 11in' : paperSize === 'a4' ? '210mm 297mm' : '8.5in 14in'}; 
+                margin: 0; 
+              }
+              html, body { 
+                margin: 0 !important; 
+                padding: 0 !important; 
+                height: auto !important;
+                background: #fff !important;
+              }
+              .print-page {
+                width: ${pageWidth}px;
+                height: ${pageHeight}px;
+                page-break-after: always;
+                position: relative;
+                overflow: hidden;
+                margin: 0 auto;
+              }
+              svg { width: 100%; height: 100%; }
+            }
+          `}} />
+
+          {batchLayout === 'one-per-page' || batchMode === 'single' ? (
+            printNames.map((name, i) => (
+              <div key={i} className="print-page">
+                <div dangerouslySetInnerHTML={{ __html: generateSVGForName(name) }} />
+              </div>
+            ))
+          ) : batchLayout === 'two-per-page' ? (
+            (() => {
+              const pages = [];
+              for (let i = 0; i < printNames.length; i += 2) {
+                const name1 = printNames[i];
+                const name2 = printNames[i + 1];
+                pages.push(
+                  <div key={i} className="print-page">
+                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name1) }} />
+                    {name2 && <div style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name2) }} />}
+                  </div>
+                );
+              }
+              return pages;
+            })()
+          ) : (
+            // four-per-page
+            (() => {
+              const pages = [];
+              for (let i = 0; i < printNames.length; i += 4) {
+                const chunk = printNames.slice(i, i + 4);
+                pages.push(
+                  <div key={i} className="print-page">
+                    <div style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[0]) }} />
+                    {chunk[1] && <div style={{ position: 'absolute', top: 0, left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[1]) }} />}
+                    {chunk[2] && <div style={{ position: 'absolute', top: '50%', left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[2]) }} />}
+                    {chunk[3] && <div style={{ position: 'absolute', top: '50%', left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[3]) }} />}
+                  </div>
+                );
+              }
+              return pages;
+            })()
+          )}
+        </div>
+      )}
+    </div>
   );
 }
+
