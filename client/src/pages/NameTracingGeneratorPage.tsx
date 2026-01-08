@@ -67,8 +67,8 @@ export default function NameTracingGeneratorPage() {
       const normalized = multipleNames.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
       const rawNames = normalized.split('\n');
       const names = rawNames
-        .map(n => n.trim())
-        .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH);
+        .map((n: string) => n.trim())
+        .filter((n: string) => n.length > 0 && n.length <= MAX_NAME_LENGTH);
 
       // Debug logging
       if (process.env.NODE_ENV === 'development') {
@@ -156,58 +156,7 @@ export default function NameTracingGeneratorPage() {
 
 
 
-  // Format names for display
-  const formattedNames = React.useMemo(() => {
-    const formatted = previewNames.map((name, index) => {
-      const trimmed = name.trim();
-      if (!trimmed) return t('pages.nameTracing.yourName');
-      let result: string;
-      switch (letterCase) {
-        case 'title':
-          result = trimmed
-            .split(/\s+/)
-            .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-            .join(' ');
-          break;
-        case 'upper':
-          result = trimmed.toUpperCase();
-          break;
-        case 'lower':
-          result = trimmed.toLowerCase();
-          break;
-        default:
-          result = trimmed;
-      }
-      return result;
-    });
-    // Debug logging (remove in production if needed)
-    if (process.env.NODE_ENV === 'development') {
-      console.log('previewNames:', previewNames);
-      console.log('formattedNames:', formatted);
-    }
-    return formatted;
-  }, [previewNames, letterCase, t]);
-
-  // For backward compatibility, keep formattedName as first name
-  const formattedName = formattedNames[0] || t('pages.nameTracing.yourName');
-
-  const practicingRows = React.useMemo(() => {
-    const sequence = patternStyle === 'traceOnly'
-      ? ['trace']
-      : ['trace', 'trace', 'blank'];
-    const rows: Array<'trace' | 'blank'> = [];
-    for (let i = 0; rows.length < rowCount; i += 1) {
-      rows.push(sequence[i % sequence.length] as 'trace' | 'blank');
-    }
-    return rows;
-  }, [patternStyle, rowCount]);
-
-  const safeFileName = React.useMemo(
-    () => formattedName.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase() || 'name-tracing',
-    [formattedName]
-  );
-
-  // Helper function to format a name based on letter case
+  // 1. Basic formatting and file name helpers
   const formatName = React.useCallback((name: string, caseType: LetterCase) => {
     const trimmed = name.trim();
     if (!trimmed) return t('pages.nameTracing.yourName');
@@ -226,8 +175,249 @@ export default function NameTracingGeneratorPage() {
     }
   }, [t]);
 
-  // Use a ref to store the generateSVGForName function so it can be accessed by callbacks defined earlier
+  // Format names for display
+  const formattedNames = React.useMemo(() => {
+    const formatted = previewNames.map((name: string) => {
+      return formatName(name, letterCase);
+    });
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+      console.log('previewNames:', previewNames);
+      console.log('formattedNames:', formatted);
+    }
+    return formatted;
+  }, [previewNames, letterCase, formatName]);
+
+  const formattedName = formattedNames[0] || t('pages.nameTracing.yourName');
+
+  const safeFileName = React.useMemo(
+    () => formattedName.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase() || 'name-tracing',
+    [formattedName]
+  );
+
+  const practicingRows = React.useMemo(() => {
+    const sequence = patternStyle === 'traceOnly'
+      ? ['trace']
+      : ['trace', 'trace', 'blank'];
+    const rows: Array<'trace' | 'blank'> = [];
+    for (let i = 0; rows.length < rowCount; i += 1) {
+      rows.push(sequence[i % sequence.length] as 'trace' | 'blank');
+    }
+    return rows;
+  }, [patternStyle, rowCount]);
+
+  // 2. Layout and style calculations
+  const pageDimensions = React.useMemo(() => {
+    let width = 850; // US Letter portrait default
+    let height = 1100;
+    if (paperSize === 'a4') {
+      width = 794; height = 1123;
+    } else if (paperSize === 'legal') {
+      width = 850; height = 1400;
+    }
+    if (printOrientation === 'landscape') {
+      [width, height] = [height, width];
+    }
+    return { width, height };
+  }, [paperSize, printOrientation]);
+
+  const pageWidth = pageDimensions.width;
+  const pageHeight = pageDimensions.height;
+
+  const margin = React.useMemo(() => {
+    switch (marginSize) {
+      case 'none': return 0;
+      case 'small': return 40;
+      case 'medium': return 60;
+      case 'large': return 80;
+      default: return 40;
+    }
+  }, [marginSize]);
+
+  const baselineOffset = lineStyle === 'primary' ? 96 : 88;
+  const rowGap = lineStyle === 'primary' ? 170 : 150;
+  const maxRows = Math.min(rowCount, Math.max(3, Math.floor((pageHeight - margin * 2) / rowGap)));
+  const rowsForPreview = practicingRows.slice(0, maxRows);
+
+  const baseFontConfig = React.useMemo(() => {
+    switch (fontStyle) {
+      case 'bubble':
+        return {
+          fontFamily: "'Comic Neue', 'Patrick Hand', 'Arial Rounded MT Bold', 'Segoe UI', sans-serif",
+          fontWeight: 800, letterSpacing: 6, fill: '#1d4ed8', stroke: '#1d4ed8', strokeWidth: 6, dashArray: undefined,
+        };
+      case 'script':
+        return {
+          fontFamily: "'Dancing Script', 'Pacifico', 'Brush Script MT', cursive",
+          fontWeight: 600, letterSpacing: 4, fill: '#1f2937', stroke: undefined, strokeWidth: 0, dashArray: undefined,
+        };
+      case 'classic':
+        return {
+          fontFamily: "'Patrick Hand', 'Handlee', 'Comic Neue', 'Segoe UI', sans-serif",
+          fontWeight: 600, letterSpacing: 3, fill: '#0f172a', stroke: undefined, strokeWidth: 0, dashArray: undefined,
+        };
+      default: // dotted
+        return {
+          fontFamily: "'Codystar', sans-serif",
+          fontWeight: 400, letterSpacing: 4, fill: '#94a3b8', stroke: undefined, strokeWidth: 0, dashArray: undefined,
+        };
+    }
+  }, [fontStyle]);
+
+  const sizeMultiplier = fontSizeMode === 'large' ? 1 : fontSizeMode === 'medium' ? 0.85 : 0.7;
+  const baseFontSize = (fontStyle === 'script' ? 100 : 110) * sizeMultiplier;
+
+  const fittedFontConfigs = React.useMemo(() => {
+    return formattedNames.map((displayName: string) => {
+      const startX = margin + 40;
+      const endX = pageWidth - margin + 20;
+      const usableWidth = endX - startX;
+      const maxWidth = Math.max(140, usableWidth - 80);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const dominantRowType = practicingRows.find((row: string) => row === 'trace') ? 'trace' : 'blank';
+      const isTraceRow = dominantRowType === 'trace';
+      const weight = baseFontConfig.fontWeight || 600;
+      if (ctx) {
+        ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`;
+      }
+      const measuredWidth = ctx ? ctx.measureText(displayName).width : displayName.length * baseFontSize * 0.6;
+      const charCount = Math.max(0, Array.from(displayName).length - 1);
+      const baseSpacing = baseFontConfig.letterSpacing || 0;
+      const totalWidth = measuredWidth + charCount * baseSpacing;
+      const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
+      const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
+      const baseMin = isTraceRow ? traceMinBase : blankMinBase;
+      const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
+      let fittedSize = baseFontSize;
+      if (totalWidth > maxWidth && totalWidth > 0) {
+        const ratio = maxWidth / totalWidth;
+        fittedSize = Math.max(Math.round(baseFontSize * ratio), minFontSize);
+      }
+      const scale = fittedSize / baseFontSize;
+      const fittedSpacing = baseSpacing * scale;
+      const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
+      const fittedDashArray = baseFontConfig.dashArray
+        ? `0 ${Math.max(12, Math.round(26 * scale))}`
+        : undefined;
+
+      return {
+        ...baseFontConfig,
+        fontSize: fittedSize,
+        letterSpacing: fittedSpacing,
+        strokeWidth: fittedStrokeWidth,
+        dashArray: fittedDashArray,
+        dominantRowType,
+      } as typeof baseFontConfig & { fontSize: number; dominantRowType: 'trace' | 'blank'; };
+    });
+  }, [baseFontConfig, baseFontSize, formattedNames, fontStyle, sizeMultiplier, practicingRows, margin, pageWidth]);
+
+  const fittedFontConfig = fittedFontConfigs[0] || baseFontConfig;
+
+  // 3. Helper function to generate SVG for a given name
+  const generateSVGForName = React.useCallback((name: string): string => {
+    const formatted = formatName(name, letterCase);
+    const rows = (() => {
+      const sequence = patternStyle === 'traceOnly' ? ['trace'] : ['trace', 'trace', 'blank'];
+      const r: Array<'trace' | 'blank'> = [];
+      for (let i = 0; r.length < rowCount; i += 1) {
+        r.push(sequence[i % sequence.length] as 'trace' | 'blank');
+      }
+      return r;
+    })();
+
+    // Calculate font config for this name
+    const startX = margin + 40;
+    const endX = pageWidth - margin + 20;
+    const usableWidth = endX - startX;
+    const maxWidth = Math.max(140, usableWidth - 80);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const dominantRowType = rows.find((row: string) => row === 'trace') ? 'trace' : 'blank';
+    const isTraceRow = dominantRowType === 'trace';
+    const weight = baseFontConfig.fontWeight || 600;
+    if (ctx) { ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`; }
+    const measuredWidth = ctx ? ctx.measureText(formatted).width : formatted.length * baseFontSize * 0.6;
+    const charCount = Math.max(0, Array.from(formatted).length - 1);
+    const baseSpacing = baseFontConfig.letterSpacing || 0;
+    const totalWidth = measuredWidth + charCount * baseSpacing;
+    const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
+    const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
+    const baseMin = isTraceRow ? traceMinBase : blankMinBase;
+    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
+    let fittedSize = baseFontSize;
+    if (totalWidth > maxWidth && totalWidth > 0) {
+      const ratio = maxWidth / totalWidth;
+      fittedSize = Math.max(Math.round(baseFontSize * ratio), minFontSize);
+    }
+    const scale = fittedSize / baseFontSize;
+    const fittedSpacing = baseSpacing * scale;
+    const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
+    const fittedDashArray = baseFontConfig.dashArray ? `0 ${Math.max(12, Math.round(26 * scale))}` : undefined;
+
+    const fitted = {
+      ...baseFontConfig,
+      fontSize: fittedSize,
+      letterSpacing: fittedSpacing,
+      strokeWidth: fittedStrokeWidth,
+      dashArray: fittedDashArray,
+    };
+
+    const baselineOffset = lineStyle === 'primary' ? 96 : 88;
+    const rowGap = lineStyle === 'primary' ? 170 : 150;
+    const maxRows = Math.min(rowCount, Math.max(3, Math.floor((pageHeight - margin * 2) / rowGap)));
+    const rowsForSVG = rows.slice(0, maxRows);
+
+    // Generate SVG content
+    let svgContent = `<rect x="0" y="0" width="${pageWidth}" height="${pageHeight}" fill="#ffffff" rx="36" />`;
+    svgContent += `<rect x="${margin - 24}" y="${margin - 24}" width="${pageWidth - (margin - 24) * 2}" height="${pageHeight - (margin - 24) * 2}" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="28" />`;
+
+    rowsForSVG.forEach((rowType, index) => {
+      const baselineY = margin + 120 + index * rowGap;
+      const currentStartX = margin + 40;
+      const currentEndX = pageWidth - margin + 20;
+      const topLine = baselineY - baselineOffset;
+      const midLine = baselineY - baselineOffset / 2;
+      const showPrimary = lineStyle === 'primary';
+
+      if (showPrimary) {
+        svgContent += `<line x1="${currentStartX}" y1="${topLine}" x2="${currentEndX}" y2="${topLine}" stroke="#cbd5f5" stroke-width="3" stroke-dasharray="10 14" />`;
+        svgContent += `<line x1="${currentStartX}" y1="${midLine}" x2="${currentEndX}" y2="${midLine}" stroke="#dbeafe" stroke-width="2.5" stroke-dasharray="14 14" />`;
+      }
+      svgContent += `<line x1="${currentStartX}" y1="${baselineY}" x2="${currentEndX}" y2="${baselineY}" stroke="#94a3b8" stroke-width="4" />`;
+
+      if (rowType === 'blank') {
+        svgContent += `<line x1="${currentStartX}" y1="${baselineY + 26}" x2="${currentEndX}" y2="${baselineY + 26}" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="14 16" />`;
+      } else {
+        if (showGuideDots) {
+          svgContent += `<circle cx="${currentStartX - 16}" cy="${baselineY - baselineOffset / 3}" r="8" fill="#34d399" />`;
+        }
+        if (fontStyle === 'dotted') {
+          svgContent += `<text x="${currentStartX}" y="${baselineY - 8}" font-family="${fitted.fontFamily}" font-size="${fitted.fontSize}" font-weight="${fitted.fontWeight}" fill="${fitted.fill}" style="letter-spacing: ${fitted.letterSpacing}px">${formatted}</text>`;
+        }
+        svgContent += `<text x="${currentStartX}" y="${baselineY - 8}" font-family="${fitted.fontFamily}" font-size="${fitted.fontSize}" font-weight="${fitted.fontWeight}" fill="${fontStyle === 'dotted' ? 'none' : fitted.fill}" stroke="${fitted.stroke || 'none'}" stroke-width="${fitted.strokeWidth || 0}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${fitted.dashArray || 'none'}" style="letter-spacing: ${fitted.letterSpacing}px">${formatted}</text>`;
+      }
+    });
+
+    svgContent += `<text x="${margin}" y="${pageHeight - margin + 10}" font-size="18" font-family="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif" fill="#94a3b8">${t('pages.nameTracing.traceSlowly')}</text>`;
+    return `<svg viewBox="0 0 ${pageWidth} ${pageHeight}" xmlns="http://www.w3.org/2000/svg">${svgContent}</svg>`;
+  }, [formatName, letterCase, patternStyle, rowCount, margin, pageWidth, pageHeight, baseFontConfig, baseFontSize, sizeMultiplier, lineStyle, showGuideDots, fontStyle, t]);
+
   const generateSVGForNameRef = React.useRef<((name: string) => string) | null>(null);
+
+  // Update ref whenever generateSVGForName changes
+  React.useEffect(() => {
+    generateSVGForNameRef.current = generateSVGForName;
+  }, [generateSVGForName]);
+
+  const handleNameInput = (value: string) => {
+    if (value.length > MAX_NAME_LENGTH) {
+      setChildName(value.slice(0, MAX_NAME_LENGTH));
+      return;
+    }
+    const cleaned = value.replace(/[^A-Za-zÀ-ÿ' -]/g, '');
+    setChildName(cleaned);
+  };
 
   // Helper to convert SVG to PNG Data URL
   const svgToPngDataUrl = React.useCallback(async (svgString: string, scale: number = 2.5): Promise<string> => {
@@ -235,9 +425,9 @@ export default function NameTracingGeneratorPage() {
       try {
         const parser = new DOMParser();
         const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
-        const svgElement = svgDoc.documentElement as SVGSVGElement;
+        const svgElement = svgDoc.documentElement as unknown as SVGSVGElement;
 
-        const cloned = svgElement.cloneNode(true) as SVGSVGElement;
+        const cloned = svgElement.cloneNode(true) as unknown as SVGSVGElement;
         cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         const data = new XMLSerializer().serializeToString(cloned);
         const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
@@ -299,8 +489,8 @@ export default function NameTracingGeneratorPage() {
       } else {
         names = multipleNames
           .split('\n')
-          .map(n => n.trim())
-          .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
+          .map((n: string) => n.trim())
+          .filter((n: string) => n.length > 0 && n.length <= MAX_NAME_LENGTH)
           .slice(0, 50); // Limit to 50 names
       }
 
@@ -353,8 +543,8 @@ export default function NameTracingGeneratorPage() {
       if (batchMode === 'batch') {
         const names = multipleNames
           .split('\n')
-          .map(n => n.trim())
-          .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
+          .map((n: string) => n.trim())
+          .filter((n: string) => n.length > 0 && n.length <= MAX_NAME_LENGTH)
           .slice(0, 50);
 
         if (names.length === 0) {
@@ -382,16 +572,16 @@ export default function NameTracingGeneratorPage() {
         }
 
         // Download each name as a separate PNG
-        names.forEach((name, index) => {
+        names.forEach((name: string, index: number) => {
           setTimeout(() => {
             try {
               const svgStringRaw = generateFn(name);
               const svgString = embedFontInSVG(svgStringRaw);
               const parser = new DOMParser();
               const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
-              const svgElement = svgDoc.documentElement as SVGSVGElement;
+              const svgElement = svgDoc.documentElement as unknown as SVGSVGElement;
 
-              const cloned = svgElement.cloneNode(true) as SVGSVGElement;
+              const cloned = svgElement.cloneNode(true) as unknown as SVGSVGElement;
               cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
               const data = new XMLSerializer().serializeToString(cloned);
               const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
@@ -524,8 +714,8 @@ export default function NameTracingGeneratorPage() {
       const names = batchMode === 'batch'
         ? multipleNames
           .split('\n')
-          .map(n => n.trim())
-          .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
+          .map((n: string) => n.trim())
+          .filter((n: string) => n.length > 0 && n.length <= MAX_NAME_LENGTH)
           .slice(0, 100)
         : [childName];
 
@@ -611,249 +801,7 @@ export default function NameTracingGeneratorPage() {
     }
   }, [batchMode, childName, multipleNames, batchLayout, paperSize, printOrientation, marginSize, fontStyle, lineStyle, showGuideDots, rowCount, letterCase, sizeMultiplier, formatName, safeFileName, toast, t]);
 
-  const handleNameInput = (value: string) => {
-    if (value.length > MAX_NAME_LENGTH) {
-      setChildName(value.slice(0, MAX_NAME_LENGTH));
-      return;
-    }
-    const cleaned = value.replace(/[^A-Za-zÀ-ÿ' -]/g, '');
-    setChildName(cleaned);
-  };
 
-  // Calculate page dimensions based on paper size and orientation
-  const pageDimensions = React.useMemo(() => {
-    let width = 850; // US Letter portrait default
-    let height = 1100;
-
-    if (paperSize === 'a4') {
-      width = 794; // A4 width at 96 DPI
-      height = 1123; // A4 height at 96 DPI
-    } else if (paperSize === 'legal') {
-      width = 850;
-      height = 1400; // Legal height
-    }
-
-    if (printOrientation === 'landscape') {
-      [width, height] = [height, width];
-    }
-
-    return { width, height };
-  }, [paperSize, printOrientation]);
-
-  const pageWidth = pageDimensions.width;
-  const pageHeight = pageDimensions.height;
-
-  const margin = React.useMemo(() => {
-    switch (marginSize) {
-      case 'none': return 0;
-      case 'small': return 40;
-      case 'medium': return 60;
-      case 'large': return 80;
-      default: return 40;
-    }
-  }, [marginSize]);
-  const baselineOffset = lineStyle === 'primary' ? 96 : 88;
-  const rowGap = lineStyle === 'primary' ? 170 : 150;
-  const maxRows = Math.min(rowCount, Math.max(3, Math.floor((pageHeight - margin * 2) / rowGap)));
-  const rowsForPreview = practicingRows.slice(0, maxRows);
-
-  const baseFontConfig = React.useMemo(() => {
-    switch (fontStyle) {
-      case 'bubble':
-        return {
-          fontFamily: "'Comic Neue', 'Patrick Hand', 'Arial Rounded MT Bold', 'Segoe UI', sans-serif",
-          fontWeight: 800,
-          letterSpacing: 6,
-          fill: '#1d4ed8',
-          stroke: '#1d4ed8',
-          strokeWidth: 6,
-          dashArray: undefined,
-        };
-      case 'script':
-        return {
-          fontFamily: "'Dancing Script', 'Pacifico', 'Brush Script MT', cursive",
-          fontWeight: 600,
-          letterSpacing: 4,
-          fill: '#1f2937',
-          stroke: undefined,
-          strokeWidth: 0,
-          dashArray: undefined,
-        };
-      case 'classic':
-        return {
-          fontFamily: "'Patrick Hand', 'Handlee', 'Comic Neue', 'Segoe UI', sans-serif",
-          fontWeight: 600,
-          letterSpacing: 3,
-          fill: '#0f172a',
-          stroke: undefined,
-          strokeWidth: 0,
-          dashArray: undefined,
-        };
-      default: // dotted
-        return {
-          fontFamily: "'Codystar', sans-serif",
-          fontWeight: 400,
-          letterSpacing: 4,
-          fill: '#94a3b8',
-          stroke: undefined,
-          strokeWidth: 0,
-          dashArray: undefined,
-        };
-    }
-  }, [fontStyle]);
-
-  const sizeMultiplier = fontSizeMode === 'large' ? 1 : fontSizeMode === 'medium' ? 0.85 : 0.7;
-  const baseFontSize = (fontStyle === 'script' ? 100 : 110) * sizeMultiplier;
-
-  // Calculate font config for each name in preview
-  const fittedFontConfigs = React.useMemo(() => {
-    return formattedNames.map(displayName => {
-      const startX = margin + 40;
-      const endX = pageWidth - margin + 20;
-      const usableWidth = endX - startX;
-      const maxWidth = Math.max(140, usableWidth - 80);
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const dominantRowType = practicingRows.find((row) => row === 'trace') ? 'trace' : 'blank';
-      const isTraceRow = dominantRowType === 'trace';
-      const weight = baseFontConfig.fontWeight || 600;
-      if (ctx) {
-        ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`;
-      }
-      const measuredWidth = ctx ? ctx.measureText(displayName).width : displayName.length * baseFontSize * 0.6;
-      const charCount = Math.max(0, Array.from(displayName).length - 1);
-      const baseSpacing = baseFontConfig.letterSpacing || 0;
-      const totalWidth = measuredWidth + charCount * baseSpacing;
-      const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
-      const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
-      const baseMin = isTraceRow ? traceMinBase : blankMinBase;
-      const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
-      let fittedSize = baseFontSize;
-      if (totalWidth > maxWidth && totalWidth > 0) {
-        const ratio = maxWidth / totalWidth;
-        fittedSize = Math.max(Math.round(baseFontSize * ratio), minFontSize);
-      }
-      const scale = fittedSize / baseFontSize;
-      const fittedSpacing = baseSpacing * scale;
-      const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
-      const fittedDashArray = baseFontConfig.dashArray
-        ? `0 ${Math.max(12, Math.round(26 * scale))}`
-        : undefined;
-
-      return {
-        ...baseFontConfig,
-        fontSize: fittedSize,
-        letterSpacing: fittedSpacing,
-        strokeWidth: fittedStrokeWidth,
-        dashArray: fittedDashArray,
-        dominantRowType,
-      } as typeof baseFontConfig & { fontSize: number; dominantRowType: 'trace' | 'blank'; };
-    });
-  }, [baseFontConfig, baseFontSize, formattedNames, fontStyle, sizeMultiplier, practicingRows, margin, pageWidth]);
-
-  // For backward compatibility
-  const fittedFontConfig = fittedFontConfigs[0] || baseFontConfig;
-
-  // Helper function to generate SVG for a given name (defined here after all dependencies)
-  const generateSVGForName = React.useCallback((name: string): string => {
-    const formatted = formatName(name, letterCase);
-    const practicingRows = (() => {
-      const sequence = patternStyle === 'traceOnly'
-        ? ['trace']
-        : ['trace', 'trace', 'blank'];
-      const rows: Array<'trace' | 'blank'> = [];
-      for (let i = 0; rows.length < rowCount; i += 1) {
-        rows.push(sequence[i % sequence.length] as 'trace' | 'blank');
-      }
-      return rows;
-    })();
-
-    // Calculate font config for this name
-    const startX = margin + 40;
-    const endX = pageWidth - margin + 20;
-    const usableWidth = endX - startX;
-    const maxWidth = Math.max(140, usableWidth - 80);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const dominantRowType = practicingRows.find((row) => row === 'trace') ? 'trace' : 'blank';
-    const isTraceRow = dominantRowType === 'trace';
-    const weight = baseFontConfig.fontWeight || 600;
-    if (ctx) {
-      ctx.font = `${weight} ${baseFontSize}px ${baseFontConfig.fontFamily}`;
-    }
-    const measuredWidth = ctx ? ctx.measureText(formatted).width : formatted.length * baseFontSize * 0.6;
-    const charCount = Math.max(0, Array.from(formatted).length - 1);
-    const baseSpacing = baseFontConfig.letterSpacing || 0;
-    const totalWidth = measuredWidth + charCount * baseSpacing;
-    const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
-    const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
-    const baseMin = isTraceRow ? traceMinBase : blankMinBase;
-    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
-    let fittedSize = baseFontSize;
-    if (totalWidth > maxWidth && totalWidth > 0) {
-      const ratio = maxWidth / totalWidth;
-      fittedSize = Math.max(Math.round(baseFontSize * ratio), minFontSize);
-    }
-    const scale = fittedSize / baseFontSize;
-    const fittedSpacing = baseSpacing * scale;
-    const fittedStrokeWidth = baseFontConfig.strokeWidth ? Math.max(2, baseFontConfig.strokeWidth * scale) : undefined;
-    const fittedDashArray = baseFontConfig.dashArray
-      ? `0 ${Math.max(12, Math.round(26 * scale))}`
-      : undefined;
-
-    const fittedFontConfig = {
-      ...baseFontConfig,
-      fontSize: fittedSize,
-      letterSpacing: fittedSpacing,
-      strokeWidth: fittedStrokeWidth,
-      dashArray: fittedDashArray,
-    };
-
-    const baselineOffset = lineStyle === 'primary' ? 96 : 88;
-    const rowGap = lineStyle === 'primary' ? 170 : 150;
-    const maxRows = Math.min(rowCount, Math.max(3, Math.floor((pageHeight - margin * 2) / rowGap)));
-    const rowsForSVG = practicingRows.slice(0, maxRows);
-
-    // Generate SVG content
-    let svgContent = `<rect x="0" y="0" width="${pageWidth}" height="${pageHeight}" fill="#ffffff" rx="36" />`;
-    svgContent += `<rect x="${margin - 24}" y="${margin - 24}" width="${pageWidth - (margin - 24) * 2}" height="${pageHeight - (margin - 24) * 2}" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="28" />`;
-
-    rowsForSVG.forEach((rowType, index) => {
-      const baselineY = margin + 120 + index * rowGap;
-      const startX = margin + 40;
-      const endX = pageWidth - margin + 20;
-      const topLine = baselineY - baselineOffset;
-      const midLine = baselineY - baselineOffset / 2;
-      const showPrimary = lineStyle === 'primary';
-
-      if (showPrimary) {
-        svgContent += `<line x1="${startX}" y1="${topLine}" x2="${endX}" y2="${topLine}" stroke="#cbd5f5" stroke-width="3" stroke-dasharray="10 14" />`;
-        svgContent += `<line x1="${startX}" y1="${midLine}" x2="${endX}" y2="${midLine}" stroke="#dbeafe" stroke-width="2.5" stroke-dasharray="14 14" />`;
-      }
-      svgContent += `<line x1="${startX}" y1="${baselineY}" x2="${endX}" y2="${baselineY}" stroke="#94a3b8" stroke-width="4" />`;
-
-      if (rowType === 'blank') {
-        svgContent += `<line x1="${startX}" y1="${baselineY + 26}" x2="${endX}" y2="${baselineY + 26}" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="14 16" />`;
-      } else {
-        if (showGuideDots) {
-          svgContent += `<circle cx="${startX - 16}" cy="${baselineY - baselineOffset / 3}" r="8" fill="#34d399" />`;
-        }
-        if (fontStyle === 'dotted') {
-          svgContent += `<text x="${startX}" y="${baselineY - 8}" font-family="${fittedFontConfig.fontFamily}" font-size="${fittedFontConfig.fontSize}" font-weight="${fittedFontConfig.fontWeight}" fill="${fittedFontConfig.fill}" style="letter-spacing: ${fittedFontConfig.letterSpacing}px">${formatted}</text>`;
-        }
-        svgContent += `<text x="${startX}" y="${baselineY - 8}" font-family="${fittedFontConfig.fontFamily}" font-size="${fittedFontConfig.fontSize}" font-weight="${fittedFontConfig.fontWeight}" fill="${fontStyle === 'dotted' ? 'none' : fittedFontConfig.fill}" stroke="${fittedFontConfig.stroke || 'none'}" stroke-width="${fittedFontConfig.strokeWidth || 0}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${fittedFontConfig.dashArray || 'none'}" style="letter-spacing: ${fittedFontConfig.letterSpacing}px">${formatted}</text>`;
-      }
-    });
-
-    svgContent += `<text x="${margin}" y="${pageHeight - margin + 10}" font-size="18" font-family="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif" fill="#94a3b8">${t('pages.nameTracing.traceSlowly')}</text>`;
-
-    return `<svg viewBox="0 0 ${pageWidth} ${pageHeight}" xmlns="http://www.w3.org/2000/svg">${svgContent}</svg>`;
-  }, [formatName, letterCase, patternStyle, rowCount, margin, pageWidth, pageHeight, baseFontConfig, baseFontSize, sizeMultiplier, fontStyle, lineStyle, showGuideDots, t]);
-
-  // Store the function in ref so it can be accessed by callbacks
-  React.useEffect(() => {
-    generateSVGForNameRef.current = generateSVGForName;
-  }, [generateSVGForName]);
 
   return (
     <>
@@ -923,7 +871,7 @@ export default function NameTracingGeneratorPage() {
                       <Input
                         id="child-name"
                         value={childName}
-                        onChange={(event) => handleNameInput(event.target.value)}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleNameInput(event.target.value)}
                         placeholder={t('pages.nameTracing.typeAName')}
                         className="mt-2 h-11 rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-base"
                         maxLength={MAX_NAME_LENGTH}
@@ -940,7 +888,7 @@ export default function NameTracingGeneratorPage() {
                       <Textarea
                         id="multiple-names"
                         value={multipleNames}
-                        onChange={(e) => setMultipleNames(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setMultipleNames(e.target.value)}
                         placeholder={t('pages.nameTracing.namesPlaceholder')}
                         className="mt-2 min-h-[120px] rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-sm font-mono"
                       />
@@ -950,7 +898,7 @@ export default function NameTracingGeneratorPage() {
                       {multipleNames && (
                         <p className="mt-1 text-xs text-purple-600 font-medium">
                           {(() => {
-                            const count = multipleNames.split('\n').filter(n => n.trim().length > 0).length;
+                            const count = multipleNames.split('\n').filter((n: string) => n.trim().length > 0).length;
                             return `${count} ${count === 1 ? t('pages.nameTracing.nameEntered') : t('pages.nameTracing.namesEntered')}`;
                           })()}
                         </p>
@@ -1035,7 +983,7 @@ export default function NameTracingGeneratorPage() {
                           <div className="relative">
                             <select
                               value={paperSize}
-                              onChange={(e) => setPaperSize(e.target.value as PaperSize)}
+                              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPaperSize(e.target.value as PaperSize)}
                               className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
                             >
                               <option value="us-letter">{t('pages.nameTracing.paperSizes.usLetter')}</option>
@@ -1076,7 +1024,7 @@ export default function NameTracingGeneratorPage() {
                     <ToggleGroup
                       type="single"
                       value={letterCase}
-                      onValueChange={(value) => value && setLetterCase(value as LetterCase)}
+                      onValueChange={(value: string) => value && setLetterCase(value as LetterCase)}
                       className="grid grid-cols-2 gap-2"
                     >
                       <ToggleGroupItem value="title" aria-label={t('pages.nameTracing.titleCase')} className="rounded-xl">
@@ -1103,7 +1051,7 @@ export default function NameTracingGeneratorPage() {
                     <ToggleGroup
                       type="single"
                       value={fontStyle}
-                      onValueChange={(value) => value && setFontStyle(value as FontStyle)}
+                      onValueChange={(value: string) => value && setFontStyle(value as FontStyle)}
                       className="grid grid-cols-2 gap-2"
                     >
                       <ToggleGroupItem value="dotted" className="rounded-xl">
@@ -1130,7 +1078,7 @@ export default function NameTracingGeneratorPage() {
                     <ToggleGroup
                       type="single"
                       value={fontSizeMode}
-                      onValueChange={(value) => value && setFontSizeMode(value as FontSizeMode)}
+                      onValueChange={(value: string) => value && setFontSizeMode(value as FontSizeMode)}
                       className="grid grid-cols-3 gap-2"
                     >
                       <ToggleGroupItem value="small" className="rounded-xl" aria-label={t('pages.nameTracing.small')}>
@@ -1308,7 +1256,7 @@ export default function NameTracingGeneratorPage() {
                             className="w-full h-auto"
                           >
                             <defs>
-                              {formattedNames.map((_, nameIndex) => {
+                              {(formattedNames as string[]).map((_: string, nameIndex: number) => {
                                 const totalNames = formattedNames.length;
                                 let worksheetWidth = pageWidth - margin * 2;
                                 let worksheetHeight = pageHeight - margin * 2;
@@ -1338,15 +1286,9 @@ export default function NameTracingGeneratorPage() {
                               strokeWidth={2}
                               rx={28}
                             />
-                            {formattedNames.map((name, nameIndex) => {
+                            {(formattedNames as string[]).map((name: string, nameIndex: number) => {
                               // Use the name from the map parameter directly - it's already the correct value
                               if (!name) return null;
-
-                              // Debug logging
-                              if (process.env.NODE_ENV === 'development') {
-                                console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
-                                console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
-                              }
 
                               const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
                               // Calculate position based on layout
@@ -1396,10 +1338,11 @@ export default function NameTracingGeneratorPage() {
                               return (
                                 <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#worksheet-clip-${nameIndex})`}>
                                   {/* Debug: Visual border for worksheet area (remove in production) */}
-                                  {process.env.NODE_ENV === 'development' && (
+                                  {/* @ts-ignore */}
+                                  {typeof process !== 'undefined' && process.env.NODE_ENV === 'development' && (
                                     <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} fill="none" stroke="red" strokeWidth={2} strokeDasharray="5,5" opacity={0.3} />
                                   )}
-                                  {adjustedRows.map((rowType, rowIndex) => {
+                                  {adjustedRows.map((rowType: 'trace' | 'blank', rowIndex: number) => {
                                     const baselineY = 120 + rowIndex * adjustedRowGap;
                                     const startX = 40;
                                     const endX = Math.min(worksheetWidth - 20, startX + worksheetWidth - 60);
@@ -1430,7 +1373,7 @@ export default function NameTracingGeneratorPage() {
                                                 y={baselineY - 8}
                                                 fontFamily={nameConfig.fontFamily}
                                                 fontSize={nameConfig.fontSize}
-                                                fontWeight={nameConfig.fontWeight}
+                                                fontWeight={nameConfig.fontWeight as any}
                                                 fill={nameConfig.fill}
                                                 style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
                                               >
@@ -1492,7 +1435,7 @@ export default function NameTracingGeneratorPage() {
                               rx={28}
                             />
 
-                            {rowsForPreview.map((rowType, index) => {
+                            {rowsForPreview.map((rowType: 'trace' | 'blank', index: number) => {
                               const baselineY = margin + 120 + index * rowGap;
                               const startX = margin + 40;
                               const endX = pageWidth - margin + 20;
@@ -1535,7 +1478,7 @@ export default function NameTracingGeneratorPage() {
                                           y={baselineY - 8}
                                           fontFamily={fittedFontConfig.fontFamily}
                                           fontSize={fittedFontConfig.fontSize}
-                                          fontWeight={fittedFontConfig.fontWeight}
+                                          fontWeight={fittedFontConfig.fontWeight as any}
                                           fill={fittedFontConfig.fill}
                                           style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
                                         >
@@ -1695,7 +1638,7 @@ export default function NameTracingGeneratorPage() {
         `}} />
 
           {batchLayout === 'one-per-page' || batchMode === 'single' ? (
-            printNames.map((name, i) => (
+            printNames.map((name: string, i: number) => (
               <div key={i} className="print-page">
                 <div dangerouslySetInnerHTML={{ __html: generateSVGForName(name) }} />
               </div>
