@@ -761,7 +761,16 @@ export default function NameTracingGeneratorPage() {
           strokeWidth: 0,
           dashArray: undefined,
         };
-      default: // dotted\n        return {\n          fontFamily: "'Codystar', sans-serif",\n          fontWeight: 400,\n          letterSpacing: 4,\n          fill: '#94a3b8',\n          stroke: undefined,\n          strokeWidth: 0,\n          dashArray: undefined,\n        };
+      default: // dotted
+        return {
+          fontFamily: "'Codystar', sans-serif",
+          fontWeight: 400,
+          letterSpacing: 4,
+          fill: '#94a3b8',
+          stroke: undefined,
+          strokeWidth: 0,
+          dashArray: undefined,
+        };
     }
   }, [fontStyle]);
 
