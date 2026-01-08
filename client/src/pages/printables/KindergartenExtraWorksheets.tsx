@@ -1870,18 +1870,32 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
             description={t(`worksheets.${docId}.description`, `Practice counting numbers up to ${config.max}.`)}
             problemCount={config.type === 'color' ? 6 : 9}
         >
-            <div className={`grid ${config.type === 'color' ? 'grid-cols-2' : 'grid-cols-3'} gap-6`}>
+            <PremiumWorksheetBanner
+                title={config.title}
+                subtitle="Counting Adventures"
+                icons={{ bg1: "🍎", bg2: "🎡", float1: "🧸", float2: "🧩" }}
+                colors={{
+                    bg: "bg-gradient-to-br from-amber-50 to-orange-50",
+                    border: "border-amber-200",
+                    pillBg: "bg-white/90",
+                    pillBorder: "border-amber-300",
+                    pillText: "text-amber-900",
+                    accent: "text-amber-400"
+                }}
+            />
+
+            <div className={`grid ${config.type === 'color' ? 'grid-cols-2' : 'grid-cols-3'} gap-6 mt-8`}>
                 {problems.map((p) => (
                     <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
                         {/* Object Display */}
-                        <div className={`mb-4 w-full ${config.type === 'color' ? 'h-40' : 'h-24'} flex items-center justify-center p-2`}>
-                            <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-4 justify-items-center items-center`}>
+                        <div className={`mb-4 w-full ${config.type === 'color' ? 'min-h-[10rem]' : 'min-h-[6rem]'} flex items-center justify-center p-2`}>
+                            <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} ${p.count > 10 ? 'gap-2' : 'gap-4'} justify-items-center items-center`}>
                                 {Array.from({ length: config.type === 'color' ? config.max : p.count }).map((_, idx) => (
-                                    <div key={idx} className="flex items-center justify-center w-10 h-10">
+                                    <div key={idx} className={`flex items-center justify-center ${p.count > 12 ? 'w-8 h-8' : 'w-10 h-10'}`}>
                                         {config.type === 'color' ? (
                                             <ColorableIcon icon={p.icon} size={36} />
                                         ) : (
-                                            <span className="text-2xl leading-none">{p.icon}</span>
+                                            <span className={`${p.count > 12 ? 'text-xl' : 'text-2xl'} leading-none`}>{p.icon}</span>
                                         )}
                                     </div>
                                 ))}
