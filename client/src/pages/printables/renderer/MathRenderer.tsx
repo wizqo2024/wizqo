@@ -458,6 +458,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('multiplying-decimals') && <MultiplyingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('dividing-decimals') && <DividingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('fractions-decimals-percents') && <FractionsDecimalsPercents seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-decimals-percents-advanced') && <FractionsDecimalsPercents docId="fractions-decimals-percents-advanced" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('comparing-ordering-fractions-decimals') && <ComparingOrderingFractionsDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('adding-decimals-challenge') && <AddingDecimalsChallenge seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('add-sub-mixed-numbers') || activeDocs.includes('mixed-numbers-add-sub')) && <AddSubMixedNumbers seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
