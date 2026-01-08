@@ -245,12 +245,17 @@ export default function NameTracingGeneratorPage() {
         const width = printOrientation === 'landscape' ? size.height : size.width;
         const height = printOrientation === 'landscape' ? size.width : size.height;
 
+        const fontFaceStyle = codystarFontBase64
+          ? `@font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}'); font-weight: 300 400; font-style: normal; }`
+          : '';
+
         const html = `<!doctype html><html><head><meta charset="utf-8" />
 <title>Name Tracing Worksheet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Codystar:wght@300;400&family=Patrick+Hand&family=Comic+Neue:wght@300;400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Handlee&display=swap" rel="stylesheet" />
 <style>
+  ${fontFaceStyle}
   @page { size: ${width}in ${height}in; margin: 0; }
   html, body { margin: 0; padding: 0; width: ${width}in; height: ${height}in; background: #fff; }
   #frame { position: relative; width: ${width}in; height: ${height}in; overflow: hidden; }
@@ -269,8 +274,12 @@ export default function NameTracingGeneratorPage() {
         doc.open();
         doc.write(html);
         doc.close();
-        const finish = () => {
+
+        const finish = async () => {
           try {
+            if (iframe.contentWindow) {
+              await iframe.contentWindow.document.fonts.ready;
+            }
             iframe.contentWindow?.focus();
             iframe.contentWindow?.print();
             toast({
@@ -291,8 +300,13 @@ export default function NameTracingGeneratorPage() {
             } catch { }
           }, 600);
         };
-        if (iframe.contentWindow?.document.readyState === 'complete') finish();
-        else iframe.onload = finish;
+
+        // Give it a small delay even if readyState is complete, to allow fonts promise to settle
+        if (iframe.contentWindow?.document.readyState === 'complete') {
+          setTimeout(finish, 100);
+        } else {
+          iframe.onload = () => setTimeout(finish, 100);
+        }
       } else {
         // Batch mode
         const names = multipleNames
@@ -368,12 +382,17 @@ export default function NameTracingGeneratorPage() {
           }
         }
 
+        const fontFaceStyle = codystarFontBase64
+          ? `@font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}'); font-weight: 300 400; font-style: normal; }`
+          : '';
+
         const html = `<!doctype html><html><head><meta charset="utf-8" />
 <title>Name Tracing Worksheets - ${names.length} names</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Codystar:wght@300;400&family=Patrick+Hand&family=Comic+Neue:wght@300;400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Handlee&display=swap" rel="stylesheet" />
 <style>
+  ${fontFaceStyle}
   @page { size: ${width}in ${height}in; margin: 0; }
   html, body { margin: 0; padding: 0; background: #fff; }
   body { width: ${width}in; }
@@ -391,8 +410,12 @@ export default function NameTracingGeneratorPage() {
         doc.open();
         doc.write(html);
         doc.close();
-        const finish = () => {
+
+        const finish = async () => {
           try {
+            if (iframe.contentWindow) {
+              await iframe.contentWindow.document.fonts.ready;
+            }
             iframe.contentWindow?.focus();
             iframe.contentWindow?.print();
             toast({
@@ -413,8 +436,12 @@ export default function NameTracingGeneratorPage() {
             } catch { }
           }, 600);
         };
-        if (iframe.contentWindow?.document.readyState === 'complete') finish();
-        else iframe.onload = finish;
+
+        if (iframe.contentWindow?.document.readyState === 'complete') {
+          setTimeout(finish, 100);
+        } else {
+          iframe.onload = () => setTimeout(finish, 100);
+        }
       }
     } catch (error) {
       console.error('Unable to print name tracing sheet', error);
@@ -424,7 +451,7 @@ export default function NameTracingGeneratorPage() {
         variant: 'destructive',
       });
     }
-  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, toast, t]);
+  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, toast, t, codystarFontBase64]);
 
   const handleDownloadPNG = React.useCallback(() => {
     try {
