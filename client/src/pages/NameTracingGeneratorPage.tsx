@@ -12,6 +12,8 @@ import { Download, FileText, Printer, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
+import { CODYSTAR_TTF_BASE64 } from '@/lib/fonts';
+import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
 
 type LetterCase = 'original' | 'title' | 'upper' | 'lower';
 type FontStyle = 'classic' | 'dotted' | 'bubble' | 'script';
@@ -512,92 +514,87 @@ export default function NameTracingGeneratorPage() {
         hotfixes: ['px_scaling'],
       });
 
+      // Embed the Codystar TTF font natively
+      doc.addFileToVFS('Codystar-Regular.ttf', CODYSTAR_TTF_BASE64);
+      doc.addFont('Codystar-Regular.ttf', 'Codystar', 'normal');
+
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
 
-      // Helper to generate SVG string for a name
-      const generateFn = generateSVGForNameRef.current;
-
-      const scale = 2.0; // Good balance of quality and size for PDF
-
-      if (batchMode === 'batch') {
-        const names = multipleNames
+      const names = batchMode === 'batch'
+        ? multipleNames
           .split('\n')
           .map(n => n.trim())
           .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
-          .slice(0, 100); // Limit slightly higher for PDF
+          .slice(0, 100)
+        : [childName];
 
-        if (names.length === 0) {
-          toast({ title: t('pages.nameTracing.noNames'), description: t('pages.nameTracing.noNamesDesc'), variant: 'destructive' });
-          return;
-        }
-
-        if (!generateFn) {
-          toast({ title: t('pages.nameTracing.error'), description: t('pages.nameTracing.svgNotReady'), variant: 'destructive' });
-          return;
-        }
-
-        // We process names in chunks to avoid blocking UI too much, but for simplicity here we obey await
-        // Generate all SVGs then images
-
-        let currentNameIndex = 0;
-
-        while (currentNameIndex < names.length) {
-          if (currentNameIndex > 0) doc.addPage();
-
-          if (batchLayout === 'one-per-page') {
-            const name = names[currentNameIndex];
-            const svgString = embedFontInSVG(generateFn(name));
-            const pngData = await svgToPngDataUrl(svgString, scale);
-            doc.addImage(pngData, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
-            currentNameIndex++;
-          } else if (batchLayout === 'two-per-page') {
-            for (let i = 0; i < 2; i++) {
-              if (currentNameIndex >= names.length) break;
-              const name = names[currentNameIndex];
-              const svgString = embedFontInSVG(generateFn(name));
-              const pngData = await svgToPngDataUrl(svgString, scale);
-              // Top or Bottom
-              const yPos = i * (pageHeight / 2);
-              doc.addImage(pngData, 'PNG', 0, yPos, pageWidth, pageHeight / 2, undefined, 'FAST');
-              currentNameIndex++;
-            }
-          } else {
-            // four-per-page
-            for (let i = 0; i < 4; i++) {
-              if (currentNameIndex >= names.length) break;
-              const name = names[currentNameIndex];
-              const svgString = embedFontInSVG(generateFn(name));
-              const pngData = await svgToPngDataUrl(svgString, scale);
-              // Grid 2x2
-              const col = i % 2;
-              const row = Math.floor(i / 2);
-              const xPos = col * (pageWidth / 2);
-              const yPos = row * (pageHeight / 2);
-              doc.addImage(pngData, 'PNG', xPos, yPos, pageWidth / 2, pageHeight / 2, undefined, 'FAST');
-              currentNameIndex++;
-            }
-          }
-        }
-
-        const safeFilename = names.length > 1 ? 'name-tracing-batch.pdf' : 'name-tracing-worksheet.pdf';
-        doc.save(safeFilename);
-
-      } else {
-        // Single Mode - use generateFn for consistency
-        if (!generateFn) {
-          toast({ title: t('pages.nameTracing.error'), description: t('pages.nameTracing.svgNotReady'), variant: 'destructive' });
-          return;
-        }
-
-        const rawSvg = generateFn(childName);
-        const svgString = embedFontInSVG(rawSvg);
-        const pngData = await svgToPngDataUrl(svgString, scale);
-
-        doc.addImage(pngData, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
-        doc.save(`${safeFileName}.pdf`);
+      if (names.length === 0) {
+        toast({ title: t('pages.nameTracing.noNames'), description: t('pages.nameTracing.noNamesDesc'), variant: 'destructive' });
+        return;
       }
 
+      // Configuration for drawWorksheetOnPDF
+      const commonConfig = {
+        pageWidth,
+        pageHeight,
+        margin: marginSize === 'none' ? 0 : marginSize === 'small' ? 20 : marginSize === 'medium' ? 40 : 60,
+        fontStyle,
+        lineStyle,
+        patternStyle,
+        showGuideDots,
+        rowCount,
+        letterCase,
+        sizeMultiplier,
+        baseFontSize: 64, // Default baseline for generator
+      };
+
+      let currentNameIndex = 0;
+
+      while (currentNameIndex < names.length) {
+        if (currentNameIndex > 0) doc.addPage();
+
+        if (batchLayout === 'one-per-page' || batchMode === 'single') {
+          const name = names[currentNameIndex];
+          drawWorksheetOnPDF(doc, name, commonConfig, formatName);
+          currentNameIndex++;
+        } else if (batchLayout === 'two-per-page') {
+          for (let i = 0; i < 2; i++) {
+            if (currentNameIndex >= names.length) break;
+            const name = names[currentNameIndex];
+            const yOffset = i * (pageHeight / 2);
+            drawWorksheetOnPDF(doc, name, {
+              ...commonConfig,
+              pageHeight: pageHeight / 2,
+              yOffset,
+              scale: 0.95, // Slight scale down to fit two
+            }, formatName);
+            currentNameIndex++;
+          }
+        } else {
+          // four-per-page
+          for (let i = 0; i < 4; i++) {
+            if (currentNameIndex >= names.length) break;
+            const name = names[currentNameIndex];
+            const col = i % 2;
+            const row = Math.floor(i / 2);
+            const xOffset = col * (pageWidth / 2);
+            const yOffset = row * (pageHeight / 2);
+            drawWorksheetOnPDF(doc, name, {
+              ...commonConfig,
+              pageWidth: pageWidth / 2,
+              pageHeight: pageHeight / 2,
+              xOffset,
+              yOffset,
+              scale: 0.48, // Scale down to fit four on one page (approx 0.5 - margins)
+            }, formatName);
+            currentNameIndex++;
+          }
+        }
+      }
+
+      const safeFilename = names.length > 1 ? 'name-tracing-batch.pdf' : `${safeFileName}.pdf`;
+      doc.save(safeFilename);
 
       toast({
         title: t('pages.nameTracing.downloadComplete'),
@@ -612,7 +609,7 @@ export default function NameTracingGeneratorPage() {
         variant: 'destructive',
       });
     }
-  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, t, safeFileName, svgToPngDataUrl, toast]);
+  }, [batchMode, childName, multipleNames, batchLayout, paperSize, printOrientation, marginSize, fontStyle, lineStyle, showGuideDots, rowCount, letterCase, sizeMultiplier, formatName, safeFileName, toast, t]);
 
   const handleNameInput = (value: string) => {
     if (value.length > MAX_NAME_LENGTH) {
