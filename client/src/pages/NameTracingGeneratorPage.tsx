@@ -212,6 +212,48 @@ export default function NameTracingGeneratorPage() {
   // Use a ref to store the generateSVGForName function so it can be accessed by callbacks defined earlier
   const generateSVGForNameRef = React.useRef<((name: string) => string) | null>(null);
 
+  // Helper to convert SVG to PNG Data URL
+  const svgToPngDataUrl = React.useCallback(async (svgString: string, scale: number = 2.5): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      try {
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
+        const svgElement = svgDoc.documentElement as SVGSVGElement;
+
+        const cloned = svgElement.cloneNode(true) as SVGSVGElement;
+        cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        const data = new XMLSerializer().serializeToString(cloned);
+        const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const viewBox = svgElement.viewBox.baseVal;
+          canvas.width = viewBox.width * scale;
+          canvas.height = viewBox.height * scale;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            const pngUrl = canvas.toDataURL('image/png');
+            resolve(pngUrl);
+          } else {
+            reject(new Error('Canvas context not found'));
+          }
+          URL.revokeObjectURL(url);
+        };
+        image.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(new Error('Image load error'));
+        };
+        image.src = url;
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }, []);
+
   const handlePrint = React.useCallback(async () => {
     try {
       const generateFn = generateSVGForNameRef.current;
@@ -512,48 +554,7 @@ export default function NameTracingGeneratorPage() {
     }
   }, [batchMode, multipleNames, formatName, letterCase, safeFileName, svgRef, toast, t]);
 
-  // Helper to convert SVG to PNG Data URL
-  const svgToPngDataUrl = React.useCallback(async (svgString: string, scale: number = 2.5): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      try {
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
-        const svgElement = svgDoc.documentElement as SVGSVGElement;
 
-        const cloned = svgElement.cloneNode(true) as SVGSVGElement;
-        cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        const data = new XMLSerializer().serializeToString(cloned);
-        const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const image = new Image();
-        image.onload = () => {
-          const canvas = document.createElement('canvas');
-          const viewBox = svgElement.viewBox.baseVal;
-          canvas.width = viewBox.width * scale;
-          canvas.height = viewBox.height * scale;
-          const ctx = canvas.getContext('2d');
-          if (ctx) {
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-            const pngUrl = canvas.toDataURL('image/png');
-            resolve(pngUrl);
-          } else {
-            reject(new Error('Canvas context not found'));
-          }
-          URL.revokeObjectURL(url);
-        };
-        image.onerror = () => {
-          URL.revokeObjectURL(url);
-          reject(new Error('Image load error'));
-        };
-        image.src = url;
-      } catch (e) {
-        reject(e);
-      }
-    });
-
-  }, []);
 
   const handleDownloadPDF = React.useCallback(async () => {
     try {
