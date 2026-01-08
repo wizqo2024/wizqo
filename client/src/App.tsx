@@ -16,6 +16,7 @@ import { TermsPage } from './pages/TermsPage';
 import { CookiesPage } from './pages/CookiesPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { PrintablesPage } from './pages/PrintablesPage';
+import DebugSEOPage from './pages/DebugSEOPage';
 import { PrintablesLandingPage } from './pages/PrintablesLandingPage';
 import WorksheetsSecondGradePage from './pages/WorksheetsSecondGradePage';
 import ReadingComprehensionPage from './pages/ReadingComprehensionPage';
@@ -435,6 +436,8 @@ export default function App() {
                       <SplitPlanInterface onGeneratePlan={handleGeneratePlan} onNavigateBack={() => navigateTo('/')} />
                     </>
                   );
+                case 'debug-seo':
+                  return <DebugSEOPage />;
                 case 'plan':
                   return (
                     <>
