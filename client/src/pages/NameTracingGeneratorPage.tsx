@@ -8,9 +8,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { Download, Printer, Sparkles } from 'lucide-react';
+import { Download, FileText, Printer, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
+import jsPDF from 'jspdf';
 
 type LetterCase = 'original' | 'title' | 'upper' | 'lower';
 type FontStyle = 'classic' | 'dotted' | 'bubble' | 'script';
@@ -28,21 +29,21 @@ const MAX_NAME_LENGTH = 18;
 export default function NameTracingGeneratorPage() {
   const { toast } = useToast();
   const { t, isRTL } = useTranslation();
-  
+
   // Single name mode
   const [childName, setChildName] = React.useState<string>('Ava');
-  
+
   // Batch mode
   const [batchMode, setBatchMode] = React.useState<BatchMode>('single');
   const [multipleNames, setMultipleNames] = React.useState<string>('');
   const [batchLayout, setBatchLayout] = React.useState<BatchLayout>('one-per-page');
-  
+
   // Print layout settings
   const [printOrientation, setPrintOrientation] = React.useState<PrintOrientation>('portrait');
   const [paperSize, setPaperSize] = React.useState<PaperSize>('us-letter');
   const [marginSize, setMarginSize] = React.useState<MarginSize>('small');
   const [worksheetsPerPage, setWorksheetsPerPage] = React.useState<number>(1);
-  
+
   // Style settings
   const [letterCase, setLetterCase] = React.useState<LetterCase>('title');
   const [fontStyle, setFontStyle] = React.useState<FontStyle>('dotted');
@@ -63,7 +64,7 @@ export default function NameTracingGeneratorPage() {
       const names = rawNames
         .map(n => n.trim())
         .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH);
-      
+
       // Debug logging
       if (process.env.NODE_ENV === 'development') {
         console.log('multipleNames raw:', JSON.stringify(multipleNames));
@@ -71,9 +72,9 @@ export default function NameTracingGeneratorPage() {
         console.log('names after trim/filter:', names);
         console.log('batchLayout:', batchLayout);
       }
-      
+
       if (names.length === 0) return [t('pages.nameTracing.yourName')];
-      
+
       // For preview, show all names (up to 4) regardless of print layout
       // The print layout only affects the actual print/download, not the preview
       let result: string[];
@@ -87,11 +88,11 @@ export default function NameTracingGeneratorPage() {
         // one-per-page: show all names (up to 4) in preview so user can see what they entered
         result = names.slice(0, 4);
       }
-      
+
       if (process.env.NODE_ENV === 'development') {
         console.log('previewNames result:', result);
       }
-      
+
       return result;
     }
     return [childName.trim() || t('pages.nameTracing.yourName')];
@@ -243,7 +244,7 @@ export default function NameTracingGeneratorPage() {
           setTimeout(() => {
             try {
               document.body.removeChild(iframe);
-            } catch {}
+            } catch { }
           }, 600);
         };
         if (iframe.contentWindow?.document.readyState === 'complete') finish();
@@ -362,7 +363,7 @@ export default function NameTracingGeneratorPage() {
           setTimeout(() => {
             try {
               document.body.removeChild(iframe);
-            } catch {}
+            } catch { }
           }, 600);
         };
         if (iframe.contentWindow?.document.readyState === 'complete') finish();
@@ -370,11 +371,11 @@ export default function NameTracingGeneratorPage() {
       }
     } catch (error) {
       console.error('Unable to print name tracing sheet', error);
-        toast({
-          title: t('pages.nameTracing.error'),
-          description: t('pages.nameTracing.printError'),
-          variant: 'destructive',
-        });
+      toast({
+        title: t('pages.nameTracing.error'),
+        description: t('pages.nameTracing.printError'),
+        variant: 'destructive',
+      });
     }
   }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, toast, t]);
 
@@ -419,7 +420,7 @@ export default function NameTracingGeneratorPage() {
               const parser = new DOMParser();
               const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
               const svgElement = svgDoc.documentElement as SVGSVGElement;
-              
+
               const cloned = svgElement.cloneNode(true) as SVGSVGElement;
               cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
               const data = new XMLSerializer().serializeToString(cloned);
@@ -523,6 +524,165 @@ export default function NameTracingGeneratorPage() {
     }
   }, [batchMode, multipleNames, formatName, letterCase, safeFileName, svgRef, toast, t]);
 
+  // Helper to convert SVG to PNG Data URL
+  const svgToPngDataUrl = React.useCallback(async (svgString: string, scale: number = 2.5): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      try {
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
+        const svgElement = svgDoc.documentElement as SVGSVGElement;
+
+        const cloned = svgElement.cloneNode(true) as SVGSVGElement;
+        cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        const data = new XMLSerializer().serializeToString(cloned);
+        const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const viewBox = svgElement.viewBox.baseVal;
+          canvas.width = viewBox.width * scale;
+          canvas.height = viewBox.height * scale;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            const pngUrl = canvas.toDataURL('image/png');
+            resolve(pngUrl);
+          } else {
+            reject(new Error('Canvas context not found'));
+          }
+          URL.revokeObjectURL(url);
+        };
+        image.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(new Error('Image load error'));
+        };
+        image.src = url;
+      } catch (e) {
+        reject(e);
+      }
+    });
+
+  }, []);
+
+  const handleDownloadPDF = React.useCallback(async () => {
+    try {
+      toast({
+        title: t('pages.nameTracing.preparingPDF'),
+        description: t('pages.nameTracing.preparingPDFDesc'),
+      });
+
+      // Initialize jsPDF
+      const orientation = printOrientation === 'landscape' ? 'l' : 'p';
+      const format = paperSize === 'legal' ? 'legal' : paperSize === 'a4' ? 'a4' : 'letter';
+      const doc = new jsPDF({
+        orientation,
+        unit: 'px',
+        format,
+        hotfixes: ['px_scaling'],
+      });
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      // Helper to generate SVG string for a name
+      const generateFn = generateSVGForNameRef.current;
+
+      const scale = 2.0; // Good balance of quality and size for PDF
+
+      if (batchMode === 'batch') {
+        const names = multipleNames
+          .split('\n')
+          .map(n => n.trim())
+          .filter(n => n.length > 0 && n.length <= MAX_NAME_LENGTH)
+          .slice(0, 100); // Limit slightly higher for PDF
+
+        if (names.length === 0) {
+          toast({ title: t('pages.nameTracing.noNames'), description: t('pages.nameTracing.noNamesDesc'), variant: 'destructive' });
+          return;
+        }
+
+        if (!generateFn) {
+          toast({ title: t('pages.nameTracing.error'), description: t('pages.nameTracing.svgNotReady'), variant: 'destructive' });
+          return;
+        }
+
+        // We process names in chunks to avoid blocking UI too much, but for simplicity here we obey await
+        // Generate all SVGs then images
+
+        let currentNameIndex = 0;
+
+        while (currentNameIndex < names.length) {
+          if (currentNameIndex > 0) doc.addPage();
+
+          if (batchLayout === 'one-per-page') {
+            const name = names[currentNameIndex];
+            const svgString = generateFn(name);
+            const pngData = await svgToPngDataUrl(svgString, scale);
+            doc.addImage(pngData, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
+            currentNameIndex++;
+          } else if (batchLayout === 'two-per-page') {
+            for (let i = 0; i < 2; i++) {
+              if (currentNameIndex >= names.length) break;
+              const name = names[currentNameIndex];
+              const svgString = generateFn(name);
+              const pngData = await svgToPngDataUrl(svgString, scale);
+              // Top or Bottom
+              const yPos = i * (pageHeight / 2);
+              doc.addImage(pngData, 'PNG', 0, yPos, pageWidth, pageHeight / 2, undefined, 'FAST');
+              currentNameIndex++;
+            }
+          } else {
+            // four-per-page
+            for (let i = 0; i < 4; i++) {
+              if (currentNameIndex >= names.length) break;
+              const name = names[currentNameIndex];
+              const svgString = generateFn(name);
+              const pngData = await svgToPngDataUrl(svgString, scale);
+              // Grid 2x2
+              const col = i % 2;
+              const row = Math.floor(i / 2);
+              const xPos = col * (pageWidth / 2);
+              const yPos = row * (pageHeight / 2);
+              doc.addImage(pngData, 'PNG', xPos, yPos, pageWidth / 2, pageHeight / 2, undefined, 'FAST');
+              currentNameIndex++;
+            }
+          }
+        }
+
+        const safeFilename = names.length > 1 ? 'name-tracing-batch.pdf' : 'name-tracing-worksheet.pdf';
+        doc.save(safeFilename);
+
+      } else {
+        // Single Mode
+        const container = document.getElementById('name-tracing-sheet');
+        const svg = container?.querySelector('svg');
+        if (!svg) throw new Error('SVG not found');
+
+        const svgString = new XMLSerializer().serializeToString(svg);
+        const pngData = await svgToPngDataUrl(svgString, scale);
+
+        doc.addImage(pngData, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
+        doc.save(`${safeFileName}.pdf`);
+      }
+
+      toast({
+        title: t('pages.nameTracing.downloadComplete'),
+        description: t('pages.nameTracing.downloadCompleteDesc'),
+      });
+
+    } catch (error) {
+      console.error('PDF Generation failed', error);
+      toast({
+        title: t('pages.nameTracing.error'),
+        description: t('pages.nameTracing.downloadError'),
+        variant: 'destructive',
+      });
+    }
+  }, [batchMode, multipleNames, batchLayout, paperSize, printOrientation, t, safeFileName, svgToPngDataUrl, toast]);
+
   const handleNameInput = (value: string) => {
     if (value.length > MAX_NAME_LENGTH) {
       setChildName(value.slice(0, MAX_NAME_LENGTH));
@@ -536,7 +696,7 @@ export default function NameTracingGeneratorPage() {
   const pageDimensions = React.useMemo(() => {
     let width = 850; // US Letter portrait default
     let height = 1100;
-    
+
     if (paperSize === 'a4') {
       width = 794; // A4 width at 96 DPI
       height = 1123; // A4 height at 96 DPI
@@ -544,17 +704,17 @@ export default function NameTracingGeneratorPage() {
       width = 850;
       height = 1400; // Legal height
     }
-    
+
     if (printOrientation === 'landscape') {
       [width, height] = [height, width];
     }
-    
+
     return { width, height };
   }, [paperSize, printOrientation]);
-  
+
   const pageWidth = pageDimensions.width;
   const pageHeight = pageDimensions.height;
-  
+
   const margin = React.useMemo(() => {
     switch (marginSize) {
       case 'none': return 0;
@@ -805,22 +965,20 @@ export default function NameTracingGeneratorPage() {
                     <button
                       type="button"
                       onClick={() => setBatchMode('single')}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
-                        batchMode === 'single'
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${batchMode === 'single'
                           ? 'bg-purple-600 text-white'
                           : 'bg-white text-slate-700 hover:bg-purple-100'
-                      }`}
+                        }`}
                     >
                       {t('pages.nameTracing.single')}
                     </button>
                     <button
                       type="button"
                       onClick={() => setBatchMode('batch')}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
-                        batchMode === 'batch'
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${batchMode === 'batch'
                           ? 'bg-purple-600 text-white'
                           : 'bg-white text-slate-700 hover:bg-purple-100'
-                      }`}
+                        }`}
                     >
                       {t('pages.nameTracing.batch')}
                     </button>
@@ -867,7 +1025,7 @@ export default function NameTracingGeneratorPage() {
                         })()}
                       </p>
                     )}
-                    
+
                     {batchMode === 'batch' && (
                       <div className="mt-4 space-y-2">
                         <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -877,33 +1035,30 @@ export default function NameTracingGeneratorPage() {
                           <button
                             type="button"
                             onClick={() => setBatchLayout('one-per-page')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
-                              batchLayout === 'one-per-page'
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'one-per-page'
                                 ? 'bg-purple-600 text-white'
                                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
+                              }`}
                           >
                             {t('pages.nameTracing.onePerPage')}
                           </button>
                           <button
                             type="button"
                             onClick={() => setBatchLayout('two-per-page')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
-                              batchLayout === 'two-per-page'
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'two-per-page'
                                 ? 'bg-purple-600 text-white'
                                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
+                              }`}
                           >
                             {t('pages.nameTracing.twoPerPage')}
                           </button>
                           <button
                             type="button"
                             onClick={() => setBatchLayout('four-per-page')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
-                              batchLayout === 'four-per-page'
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'four-per-page'
                                 ? 'bg-purple-600 text-white'
                                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                            }`}
+                              }`}
                           >
                             {t('pages.nameTracing.fourPerPage')}
                           </button>
@@ -917,7 +1072,7 @@ export default function NameTracingGeneratorPage() {
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-4">
                   <div>
                     <h3 className="text-sm font-semibold text-slate-800 mb-3">{t('pages.nameTracing.printLayoutSettings')}</h3>
-                    
+
                     <div className="space-y-3">
                       <div>
                         <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.orientation')}</Label>
@@ -925,22 +1080,20 @@ export default function NameTracingGeneratorPage() {
                           <button
                             type="button"
                             onClick={() => setPrintOrientation('portrait')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
-                              printOrientation === 'portrait'
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${printOrientation === 'portrait'
                                 ? 'bg-purple-600 text-white'
                                 : 'bg-white text-slate-700 hover:bg-purple-50'
-                            }`}
+                              }`}
                           >
                             {t('pages.nameTracing.portrait')}
                           </button>
                           <button
                             type="button"
                             onClick={() => setPrintOrientation('landscape')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${
-                              printOrientation === 'landscape'
+                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${printOrientation === 'landscape'
                                 ? 'bg-purple-600 text-white'
                                 : 'bg-white text-slate-700 hover:bg-purple-50'
-                            }`}
+                              }`}
                           >
                             {t('pages.nameTracing.landscape')}
                           </button>
@@ -970,11 +1123,10 @@ export default function NameTracingGeneratorPage() {
                               key={size}
                               type="button"
                               onClick={() => setMarginSize(size)}
-                              className={`px-2 py-2 rounded-xl text-xs font-medium transition capitalize ${
-                                marginSize === size
+                              className={`px-2 py-2 rounded-xl text-xs font-medium transition capitalize ${marginSize === size
                                   ? 'bg-purple-600 text-white'
                                   : 'bg-white text-slate-700 hover:bg-purple-50'
-                              }`}
+                                }`}
                             >
                               {t(`pages.nameTracing.marginSizes.${size}`)}
                             </button>
@@ -1149,12 +1301,21 @@ export default function NameTracingGeneratorPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <Button
                     onClick={handlePrint}
                     className="rounded-2xl h-11 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600"
                   >
                     <Printer className="w-4 h-4 mr-2" /> {t('pages.nameTracing.printWorksheet')}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={handleDownloadPDF}
+                    className="rounded-2xl h-11 border-purple-200 text-purple-700 hover:bg-purple-50"
+                  >
+                    <FileText className="w-4 h-4 mr-2" /> {t('pages.nameTracing.downloadPDF')}
                   </Button>
                   <Button
                     variant="outline"
@@ -1183,19 +1344,19 @@ export default function NameTracingGeneratorPage() {
                     <div>
                       <h2 className="text-lg font-semibold text-slate-900">{t('pages.nameTracing.livePreview')}</h2>
                       <p className="text-xs text-slate-500">
-                        {batchMode === 'batch' 
+                        {batchMode === 'batch'
                           ? (() => {
-                              const count = formattedNames.length;
-                              const layout = batchLayout === 'two-per-page' ? t('pages.nameTracing.twoPerPage') : batchLayout === 'four-per-page' ? t('pages.nameTracing.fourPerPage') : t('pages.nameTracing.onePerPage');
-                              const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
-                              const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
-                              return t('pages.nameTracing.previewBatch').replace('{{count}}', String(count)).replace('{{nameCount}}', count === 1 ? '' : 's').replace('{{layout}}', layout).replace('{{paper}}', paper).replace('{{orientation}}', orientation);
-                            })()
+                            const count = formattedNames.length;
+                            const layout = batchLayout === 'two-per-page' ? t('pages.nameTracing.twoPerPage') : batchLayout === 'four-per-page' ? t('pages.nameTracing.fourPerPage') : t('pages.nameTracing.onePerPage');
+                            const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
+                            const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
+                            return t('pages.nameTracing.previewBatch').replace('{{count}}', String(count)).replace('{{nameCount}}', count === 1 ? '' : 's').replace('{{layout}}', layout).replace('{{paper}}', paper).replace('{{orientation}}', orientation);
+                          })()
                           : (() => {
-                              const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
-                              const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
-                              return t('pages.nameTracing.previewSingle').replace('{{paper}}', paper).replace('{{orientation}}', orientation);
-                            })()
+                            const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
+                            const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
+                            return t('pages.nameTracing.previewSingle').replace('{{paper}}', paper).replace('{{orientation}}', orientation);
+                          })()
                         }
                       </p>
                     </div>
@@ -1221,14 +1382,14 @@ export default function NameTracingGeneratorPage() {
                               const totalNames = formattedNames.length;
                               let worksheetWidth = pageWidth - margin * 2;
                               let worksheetHeight = pageHeight - margin * 2;
-                              
+
                               if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
                                 worksheetHeight = (pageHeight - margin * 2) / 2;
                               } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
                                 worksheetWidth = (pageWidth - margin * 2) / 2;
                                 worksheetHeight = (pageHeight - margin * 2) / 2;
                               }
-                              
+
                               return (
                                 <clipPath key={`clip-def-${nameIndex}`} id={`worksheet-clip-${nameIndex}`}>
                                   <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} />
@@ -1250,23 +1411,23 @@ export default function NameTracingGeneratorPage() {
                           {formattedNames.map((name, nameIndex) => {
                             // Use the name from the map parameter directly - it's already the correct value
                             if (!name) return null;
-                            
+
                             // Debug logging
                             if (process.env.NODE_ENV === 'development') {
                               console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
                               console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
                             }
-                            
+
                             const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
                             // Calculate position based on layout
                             // For preview, use a smart layout based on number of names
                             const totalNames = formattedNames.length;
-                            
+
                             let worksheetX = 0;
                             let worksheetY = 0;
                             let worksheetWidth = pageWidth - margin * 2;
                             let worksheetHeight = pageHeight - margin * 2;
-                            
+
                             if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
                               // Two names: stack vertically
                               worksheetHeight = (pageHeight - margin * 2) / 2;
@@ -1286,16 +1447,16 @@ export default function NameTracingGeneratorPage() {
                               worksheetX = margin;
                               worksheetY = margin;
                             }
-                            
+
                             // Adjust row calculations for smaller worksheets
-                            const adjustedRowGap = batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2) 
-                              ? rowGap * 0.8 
+                            const adjustedRowGap = batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)
+                              ? rowGap * 0.8
                               : (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2))
-                              ? rowGap * 0.6 
-                              : rowGap;
+                                ? rowGap * 0.6
+                                : rowGap;
                             const adjustedMaxRows = Math.min(rowCount, Math.max(2, Math.floor((worksheetHeight - 120) / adjustedRowGap)));
                             const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
-                            
+
                             return (
                               <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#worksheet-clip-${nameIndex})`}>
                                 {/* Debug: Visual border for worksheet area (remove in production) */}
@@ -1309,7 +1470,7 @@ export default function NameTracingGeneratorPage() {
                                   const topLine = baselineY - baselineOffset;
                                   const midLine = baselineY - baselineOffset / 2;
                                   const showPrimary = lineStyle === 'primary';
-                                  
+
                                   return (
                                     <g key={`row-${nameIndex}-${rowIndex}`}>
                                       {showPrimary && (
@@ -1319,7 +1480,7 @@ export default function NameTracingGeneratorPage() {
                                         </>
                                       )}
                                       <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
-                                      
+
                                       {rowType === 'blank' ? (
                                         <line x1={startX} y1={baselineY + 26} x2={endX} y2={baselineY + 26} stroke="#e2e8f0" strokeWidth={2} strokeDasharray="14 16" />
                                       ) : (
@@ -1562,6 +1723,6 @@ export default function NameTracingGeneratorPage() {
       </main>
 
       <Footer />
-    </div>
+    </div >
   );
 }
