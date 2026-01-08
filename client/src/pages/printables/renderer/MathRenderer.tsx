@@ -64,7 +64,10 @@ import {
     DecimalsPlaceValue,
     ComparingDecimals,
     AddSubDecimals,
-    FractionsToDecimals
+    FractionsToDecimals,
+    PercentToDecimal,
+    DecimalToPercent,
+    OrderingFractionsDecimals
 } from '../../DecimalWorksheets';
 import {
     LongDivision1Digit,
@@ -379,6 +382,12 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('comparing-decimals') && <ComparingDecimals docId="comparing-decimals" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('add-sub-decimals') && <AddSubDecimals docId="add-sub-decimals" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('fractions-to-decimals') && <FractionsToDecimals docId="fractions-to-decimals" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('percent-to-decimal') && <PercentToDecimal docId="percent-to-decimal" seed={effectiveSeed} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('decimal-to-percent') && <DecimalToPercent docId="decimal-to-percent" seed={effectiveSeed} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('ordering-fractions-decimals') && <OrderingFractionsDecimals docId="ordering-fractions-decimals" seed={effectiveSeed} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-out-of-100') && <FractionsToDecimals docId="fractions-out-of-100" variant="tenths" seed={effectiveSeed} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-to-decimals-basic-tenths') && <FractionsToDecimals docId="fractions-to-decimals-basic-tenths" variant="tenths" seed={effectiveSeed} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fractions-to-decimals-division') && <FractionsToDecimals docId="fractions-to-decimals-division" variant="division" seed={effectiveSeed} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Division */}
             {activeDocs.includes('long-division-1-digit') && <LongDivision1Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}

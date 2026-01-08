@@ -377,6 +377,9 @@ export const FractionsToDecimals: React.FC<{
                 denom = [2, 4, 5, 10, 20][nextInt(0, 4)]
                 num = nextInt(1, denom - 1)
             }
+            // fix num to not be larger than denom
+            if (num >= denom) num = denom - 1
+
             return {
                 id: i + 1,
                 num,
@@ -444,6 +447,259 @@ export const FractionsToDecimals: React.FC<{
                                 <div key={p.id} className="bg-white p-3 rounded border border-fuchsia-100 text-center">
                                     <div className="text-sm text-slate-500 mb-1">{p.num}/{p.denom}</div>
                                     <div className="font-bold text-fuchsia-600 font-mono">{p.decimal}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </DecimalLayout>
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// 5. Ordering Fractions and Decimals
+// ==========================================
+
+export const OrderingFractionsDecimals: React.FC<{
+    docId: string
+    showAnswersForDoc: ShowAnswersFn
+}> = ({ docId, showAnswersForDoc }) => {
+    const problems = React.useMemo(() => {
+        const seed = docId
+        const rng = makeRng(seed)
+        function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min }
+
+        return Array.from({ length: 5 }).map((_, i) => {
+            // Generate a mix of fractions and decimals
+            const items = []
+            for (let j = 0; j < 4; j++) {
+                const isDec = rng() > 0.5
+                const num = nextInt(1, 9)
+                const denom = isDec ? 0 : [2, 4, 5, 10][nextInt(0, 3)]
+
+                let val, label
+                if (isDec) {
+                    val = num / 10 + (rng() > 0.5 ? 0.05 : 0)
+                    label = val.toFixed(2).replace(/0$/, '')
+                } else {
+                    // fraction
+                    // prevent num >= denom
+                    const safeNum = Math.min(num, denom - 1) || 1
+                    val = safeNum / denom
+                    label = `${safeNum}/${denom}`
+                }
+                items.push({ id: j, val, label })
+            }
+
+            // Sort correct answer
+            const sorted = [...items].sort((a, b) => a.val - b.val).map(x => x.label).join(", ")
+
+            return {
+                id: i + 1,
+                items,
+                sorted
+            }
+        })
+    }, [docId])
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Ordering Fractions & Decimals"
+            description="Order the set of numbers from least to greatest."
+            learningObjectives={["Convert between fractions and decimals", "Compare values in different forms", "Order numbers"]}
+            emoji="🔢"
+            problemCount={problems.length}
+            parentTeacherTips={["Convert everything to decimals first (money helps!)", "Write them vertically to compare"]}
+        >
+            <DecimalLayout
+                title="Order Sorting"
+                subtitle="Smallest to Biggest"
+                emoji="🔢"
+                color="blue"
+                bannerIcons={{ bg1: "📉", bg2: "📈", float1: "1/2", float2: "0.6" }}
+                strategy={{
+                    title: "Sorting Strategy",
+                    steps: [
+                        { label: "1. Convert", text: "Change all fractions to decimals." },
+                        { label: "2. Compare", text: "Compare the decimal values." },
+                        { label: "3. Order", text: "Write the original numbers in order." }
+                    ]
+                }}
+            >
+                <div className="grid grid-cols-1 gap-6">
+                    {problems.map((prob) => (
+                        <div key={prob.id} className="border-2 border-slate-200 rounded-xl p-6 break-inside-avoid bg-white">
+                            <div className="flex flex-wrap gap-4 justify-center mb-6">
+                                {prob.items.map((item, idx) => (
+                                    <div key={idx} className="bg-slate-50 px-4 py-2 rounded-lg font-bold text-lg text-slate-700 border border-slate-200 shadow-sm">
+                                        {item.label}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="h-12 border-b-2 border-dashed border-blue-200 relative">
+                                <span className="absolute -bottom-6 left-0 text-xs text-blue-300 font-bold uppercase">Least</span>
+                                <span className="absolute -bottom-6 right-0 text-xs text-blue-300 font-bold uppercase">Greatest</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                {showAnswersForDoc(docId, () => (
+                    <div className="mt-8 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl break-before-page">
+                        <div className="font-bold text-blue-900 mb-4 text-xl">✅ Answer Key</div>
+                        <div className="space-y-3">
+                            {problems.map((p) => (
+                                <div key={p.id} className="flex gap-4 items-center bg-white p-3 rounded border border-blue-100">
+                                    <span className="font-bold text-blue-400 w-8">#{p.id}</span>
+                                    <span className="font-mono font-medium text-blue-800 tracking-wide">{p.sorted}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </DecimalLayout>
+        </WorksheetSectionWrapper>
+    )
+}
+
+// ==========================================
+// 6. Percent Conversions
+// ==========================================
+
+export const PercentToDecimal: React.FC<{
+    docId: string
+    showAnswersForDoc: ShowAnswersFn
+}> = ({ docId, showAnswersForDoc }) => {
+    const problems = React.useMemo(() => {
+        const seed = docId
+        const rng = makeRng(seed)
+        function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min }
+
+        return Array.from({ length: 12 }).map((_, i) => {
+            const val = nextInt(1, 150)
+            return {
+                id: i + 1,
+                pct: `${val}%`,
+                ans: (val / 100).toString()
+            }
+        })
+    }, [docId])
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Percent to Decimal"
+            description="Convert percentages to decimals."
+            learningObjectives={["Convert percent to decimal", "Understand 'per cent' means /100", "Moving decimal point"]}
+            emoji="℅"
+            problemCount={problems.length}
+            parentTeacherTips={["'Percent' means 'per 100'", "Divide by 100 or simply move the decimal point 2 places left", "50% -> 0.50"]}
+        >
+            <DecimalLayout
+                title="Percent Shifter"
+                subtitle="To Decimal Form"
+                emoji="℅"
+                color="emerald"
+                bannerIcons={{ bg1: "%", bg2: ".", float1: "/100", float2: "<<" }}
+                strategy={{
+                    title: "Move It Left",
+                    steps: [
+                        { label: "1. Find Dot", text: "If no dot, it's at the end (50.)" },
+                        { label: "2. Move Use", text: "Move the dot 2 spots LEFT." },
+                        { label: "3. Drop %", text: "Remove the symbol." }
+                    ]
+                }}
+            >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {problems.map((prob) => (
+                        <div key={prob.id} className="border-2 border-slate-200 rounded-xl p-4 break-inside-avoid bg-white flex flex-col items-center gap-2">
+                            <div className="text-2xl font-bold text-slate-800">{prob.pct}</div>
+                            <div className="text-slate-300">⬇</div>
+                            <div className="w-full h-10 border-b-2 border-dashed border-emerald-300"></div>
+                        </div>
+                    ))}
+                </div>
+                {showAnswersForDoc(docId, () => (
+                    <div className="mt-8 p-6 bg-emerald-50 border-2 border-emerald-200 rounded-xl break-before-page">
+                        <div className="font-bold text-emerald-900 mb-4 text-xl">✅ Answer Key</div>
+                        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+                            {problems.map((p) => (
+                                <div key={p.id} className="bg-white p-2 rounded border border-emerald-100 text-center">
+                                    <div className="text-xs text-slate-400">{p.pct} = </div>
+                                    <div className="font-bold text-emerald-700">{p.ans}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </DecimalLayout>
+        </WorksheetSectionWrapper>
+    )
+}
+
+export const DecimalToPercent: React.FC<{
+    docId: string
+    showAnswersForDoc: ShowAnswersFn
+}> = ({ docId, showAnswersForDoc }) => {
+    const problems = React.useMemo(() => {
+        const seed = docId
+        const rng = makeRng(seed)
+        function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min }
+
+        return Array.from({ length: 12 }).map((_, i) => {
+            const val = nextInt(1, 150)
+            const dec = val / 100
+            return {
+                id: i + 1,
+                dec: dec.toString(),
+                ans: `${val}%`
+            }
+        })
+    }, [docId])
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title="Decimal to Percent"
+            description="Convert decimals to percentages."
+            learningObjectives={["Convert decimal to percent", "Multiply by 100", "Understanding percentage representation"]}
+            emoji="℅"
+            problemCount={problems.length}
+            parentTeacherTips={["Multiply by 100", "Move the decimal point 2 places RIGHT", "Don't forget the symbol!"]}
+        >
+            <DecimalLayout
+                title="Percent Maker"
+                subtitle="To Percent Form"
+                emoji="℅"
+                color="amber"
+                bannerIcons={{ bg1: ".", bg2: "%", float1: "x100", float2: ">>" }}
+                strategy={{
+                    title: "Move It Right",
+                    steps: [
+                        { label: "1. Move Two", text: "Move the dot 2 spots RIGHT." },
+                        { label: "2. Fill 0", text: "Fill empty jumps with 0 (0.5 -> 0.50 -> 50)." },
+                        { label: "3. Add %", text: "Add the symbol at the end." }
+                    ]
+                }}
+            >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {problems.map((prob) => (
+                        <div key={prob.id} className="border-2 border-slate-200 rounded-xl p-4 break-inside-avoid bg-white flex flex-col items-center gap-2">
+                            <div className="text-2xl font-bold text-slate-800">{prob.dec}</div>
+                            <div className="text-slate-300">⬇</div>
+                            <div className="w-full h-10 border-b-2 border-dashed border-amber-300"></div>
+                        </div>
+                    ))}
+                </div>
+                {showAnswersForDoc(docId, () => (
+                    <div className="mt-8 p-6 bg-amber-50 border-2 border-amber-200 rounded-xl break-before-page">
+                        <div className="font-bold text-amber-900 mb-4 text-xl">✅ Answer Key</div>
+                        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+                            {problems.map((p) => (
+                                <div key={p.id} className="bg-white p-2 rounded border border-amber-100 text-center">
+                                    <div className="text-xs text-slate-400">{p.dec} = </div>
+                                    <div className="font-bold text-amber-700">{p.ans}</div>
                                 </div>
                             ))}
                         </div>
