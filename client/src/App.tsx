@@ -123,7 +123,7 @@ export default function App() {
   const [isNavigating, setIsNavigating] = React.useState(false);
 
   // NEW: Navigation function that updates URL properly and preserves locale
-  const navigateTo = React.useCallback((path: string) => {
+  const navigateTo = React.useCallback((path: string, options?: { replace?: boolean }) => {
     // Get current locale from URL
     const currentLocale = getLocaleFromURL();
 
@@ -143,9 +143,21 @@ export default function App() {
 
     const finalUrl = finalPath + url.search;
 
-    window.history.pushState({}, '', finalUrl);
+    if (options?.replace) {
+      window.history.replaceState({}, '', finalUrl);
+    } else {
+      window.history.pushState({}, '', finalUrl);
+    }
     setRoute(finalUrl);
   }, [parseLocaleFromPath, addLocaleToPath, removeLocaleFromPath, getLocaleFromURL, shouldAddLocale]);
+
+  // NEW: Redirect component for cleaner declarative redirects
+  const Redirect = React.useCallback(({ to, replace = true }: { to: string; replace?: boolean }) => {
+    React.useEffect(() => {
+      navigateTo(to, { replace });
+    }, [to, replace]);
+    return null;
+  }, [navigateTo]);
 
   // Track previous route for user flow analysis
   const prevRouteRef = React.useRef<string>('');
@@ -594,28 +606,17 @@ export default function App() {
                     'data-analysis-worksheets',
                     'word-problem-worksheets',
                     'science-worksheets',
-                    'all',
-                    'match-object-to-shadow'
+                    'all'
                   ];
 
                   if (routeSubKey && !categoryPages.includes(routeSubKey)) {
                     // Try to get worksheet SEO data - if found, it's a worksheet page
                     const worksheetSEO = getWorksheetSEOBySlug(routeSubKey);
                     if (worksheetSEO) {
-                      const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
-                      return (
-                        <>
-                          <SEOMetaTags
-                            title={worksheetSEO.title}
-                            description={worksheetSEO.metaDescription}
-                            keywords={worksheetSEO.keywords}
-                            canonicalUrl={`https://wizqo.com${canonical}`}
-                            noIndex={false}
-                            ogType="article"
-                          />
-                          <WorksheetPage slug={routeSubKey} />
-                        </>
-                      );
+                      // REDIRECT: Move worksheets to root (e.g. /worksheets/slug -> /slug)
+                      const target = addLocaleToPath(`/${routeSubKey}`, currentLocale);
+                      const search = window.location.search;
+                      return <Redirect to={target + search} replace />;
                     }
                     // If routeSubKey exists but no worksheet found, show 404
                     return <NotFoundPage />;
@@ -877,7 +878,37 @@ export default function App() {
                     </>
                   );
 
+                case 'shadow-matching-preview':
+                  return <ShadowMatchingWorksheetPage />;
+
+                case 'match-object-to-shadow':
+                  return <ShadowMatchingWorksheetPage />;
+
+                case 'match-the-feeling':
+                  return <MatchFeelingWorksheetPage />;
+
                 default:
+                  // Handle individual worksheets at the root (/:slug)
+                  if (routeKey) {
+                    const worksheetSEO = getWorksheetSEOBySlug(routeKey);
+                    if (worksheetSEO) {
+                      const canonical = addLocaleToPath(`/${routeKey}`, currentLocale);
+                      return (
+                        <>
+                          <SEOMetaTags
+                            title={worksheetSEO.title}
+                            description={worksheetSEO.metaDescription}
+                            keywords={worksheetSEO.keywords}
+                            canonicalUrl={`https://wizqo.com${canonical}`}
+                            noIndex={false}
+                            ogType="article"
+                          />
+                          <WorksheetPage slug={routeKey} />
+                        </>
+                      );
+                    }
+                  }
+
                   // Check if this is a truly invalid route (not just empty/home)
                   // If routeKey is empty, it's the homepage - show LandingPage
                   if (!routeKey || routeKey === '') {
@@ -894,8 +925,6 @@ export default function App() {
                     );
                   }
 
-                case 'shadow-matching-preview':
-                  return <ShadowMatchingWorksheetPage />;
                   // For any other unmatched route, show 404
                   return <NotFoundPage />;
               }

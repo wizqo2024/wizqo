@@ -7,6 +7,7 @@ import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { trackCategoryFilter, trackThumbnailClick } from '@/utils/analytics'
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 // Categories will be translated in the component
 const KINDERGARTEN_CATEGORIES_IDS = [
@@ -105,8 +106,8 @@ export default function WorksheetsKindergartenPage() {
     { title: t('pages.grades.kindergarten.worksheets.shapeSorting.title'), description: t('pages.grades.kindergarten.worksheets.shapeSorting.description'), href: getWorksheetURL('shape-sorting', 'kindergarten'), docId: 'shape-sorting', categories: ['shapes-colors'], section: 'Shapes & Colors' },
     { title: t('pages.grades.kindergarten.worksheets.colorRecognition.title'), description: t('pages.grades.kindergarten.worksheets.colorRecognition.description'), href: getWorksheetURL('color-recognition', 'kindergarten'), docId: 'color-recognition', categories: ['shapes-colors'], section: 'Shapes & Colors' },
     { title: t('pages.grades.kindergarten.worksheets.drawShape.title'), description: t('pages.grades.kindergarten.worksheets.drawShape.description'), href: getWorksheetURL('draw-shape', 'kindergarten'), docId: 'draw-shape', categories: ['shapes-colors', 'pre-writing'], section: 'Shapes & Colors' },
-    { title: '🌑 Match Object to Shadow', description: 'Draw a line to connect each object to its matching shadow. Great for visual perception!', href: '/worksheets/match-object-to-shadow', docId: 'match-object-to-shadow', categories: ['shapes-colors'], section: 'Shapes & Colors', customPreviewUrl: '/worksheets/match-object-to-shadow?preview=1', customDownloadUrl: '/worksheets/match-object-to-shadow' },
-    { title: '😊 Match the Feeling', description: 'Identify emotions! Match feelings like sad, happy, and bored to real-life situations.', href: '/worksheets/match-the-feeling', docId: 'match-the-feeling', categories: ['shapes-colors'], section: 'Shapes & Colors', customPreviewUrl: '/worksheets/match-the-feeling?preview=1', customDownloadUrl: '/worksheets/match-the-feeling' },
+    { title: '🌑 Match Object to Shadow', description: 'Draw a line to connect each object to its matching shadow. Great for visual perception!', href: addLocaleToPath('/match-object-to-shadow', getLocaleFromURL()), docId: 'match-object-to-shadow', categories: ['shapes-colors'], section: 'Shapes & Colors', customPreviewUrl: addLocaleToPath('/match-object-to-shadow?preview=1', getLocaleFromURL()), customDownloadUrl: addLocaleToPath('/match-object-to-shadow', getLocaleFromURL()) },
+    { title: '😊 Match the Feeling', description: 'Identify emotions! Match feelings like sad, happy, and bored to real-life situations.', href: addLocaleToPath('/match-the-feeling', getLocaleFromURL()), docId: 'match-the-feeling', categories: ['shapes-colors'], section: 'Shapes & Colors', customPreviewUrl: addLocaleToPath('/match-the-feeling?preview=1', getLocaleFromURL()), customDownloadUrl: addLocaleToPath('/match-the-feeling', getLocaleFromURL()) },
     // Patterns
 
     { title: t('pages.grades.kindergarten.worksheets.abPattern.title'), description: t('pages.grades.kindergarten.worksheets.abPattern.description'), href: getWorksheetURL('ab-pattern', 'kindergarten'), docId: 'ab-pattern', categories: ['patterns'], section: 'Patterns' },
@@ -154,18 +155,21 @@ export default function WorksheetsKindergartenPage() {
         title={t('pages.grades.kindergarten.seoTitle')}
         description={t('pages.grades.kindergarten.seoDescription')}
         keywords={t('pages.grades.kindergarten.seoKeywords')}
-        canonicalUrl="https://wizqo.com/worksheets/kindergarten-math-worksheets"
+        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/kindergarten-math-worksheets', getLocaleFromURL())}`}
       />
       {(() => {
-        const canonical = "https://wizqo.com/worksheets/kindergarten-math-worksheets";
+        const currentLocale = getLocaleFromURL();
+        const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/kindergarten-math-worksheets', currentLocale)}`;
+        const homeUrl = `https://wizqo.com${addLocaleToPath('/', currentLocale)}`;
+        const allWorksheetsUrl = `https://wizqo.com${addLocaleToPath('/worksheets/all', currentLocale)}`;
         const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "@id": breadcrumbId,
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+            { "@type": "ListItem", position: 1, name: "Home", item: homeUrl },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: allWorksheetsUrl },
             { "@type": "ListItem", position: 3, name: "Kindergarten Math Worksheets", item: canonical }
           ]
         } as const;
@@ -219,7 +223,7 @@ export default function WorksheetsKindergartenPage() {
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackAge')}</span>
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackFocus')}</span>
                 </div>
-                <a href="/print?doc=pack&time=5&age=k&skill=math&from=kindergarten" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: 'K' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
+                <a href={addLocaleToPath("/print?doc=pack&time=5&age=k&skill=math&from=kindergarten", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: 'K' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
               </div>
             </div>
           </section>
@@ -307,12 +311,12 @@ export default function WorksheetsKindergartenPage() {
           <section className="bg-white border border-slate-200 rounded-2xl p-5">
             <h2 className="text-xl font-bold text-slate-900">{t('pages.grades.kindergarten.exploreMore')}</h2>
             <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-              <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.firstGrade')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.secondGrade')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.grades.kindergarten.exploreLinks.thirdGrade')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">{t('pages.grades.kindergarten.exploreLinks.handwriting')}</a></li>
-              <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
-              <li><a className="hover:underline" href="/kids">{t('pages.grades.kindergarten.exploreLinks.kidsHub')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/1st-grade-math-worksheets", getLocaleFromURL())}>{t('pages.grades.kindergarten.exploreLinks.firstGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/2nd-grade-math-worksheets", getLocaleFromURL())}>{t('pages.grades.kindergarten.exploreLinks.secondGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/3rd-grade-math-worksheets", getLocaleFromURL())}>{t('pages.grades.kindergarten.exploreLinks.thirdGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/handwriting-worksheet-maker", getLocaleFromURL())}>{t('pages.grades.kindergarten.exploreLinks.handwriting')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/printables", getLocaleFromURL())}>{t('pages.printables.title')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/kids", getLocaleFromURL())}>{t('pages.grades.kindergarten.exploreLinks.kidsHub')}</a></li>
             </ul>
           </section>
 

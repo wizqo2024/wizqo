@@ -6,6 +6,7 @@ import { WizqoLogo } from './WizqoLogo';
 import { LanguageSelector } from './LanguageSelector';
 import { useTranslation } from '@/context/TranslationContext';
 import { ChevronDown, User, Settings, LogOut, LayoutDashboard, Menu, X, Puzzle } from 'lucide-react';
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale';
 
 interface UnifiedNavigationProps {
   showBackButton?: boolean;
@@ -103,14 +104,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
           {/* Left side - Logo and main nav */}
           <div className="flex items-center space-x-8">
             {/* Logo */}
-            <a href="/" className="flex items-center space-x-3 cursor-pointer group/logo">
+            <a href={addLocaleToPath("/", getLocaleFromURL())} className="flex items-center space-x-3 cursor-pointer group/logo">
               <WizqoLogo width={40} height={23} className="group-hover/logo:scale-110 transition-transform duration-300" />
               <span className="text-2xl font-bold tracking-tight text-slate-800 font-['Comic_Neue',_cursive] group-hover/logo:text-purple-600 transition-colors duration-300">Wizqo</span>
             </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
-              <a href="/" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+              <a href={addLocaleToPath("/", getLocaleFromURL())} className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <div className={currentPage === 'home' || currentPage === 'landing' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
                   <svg className="w-5 h-5" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#72C2E9" d="M252.334 253.197H3.667V83.8L128 2.8l124.334 81z" />
@@ -130,7 +131,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <span className="font-medium">{t('navigation.home')}</span>
               </a>
 
-              <a href="/blog" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'blog' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+              <a href={addLocaleToPath("/blog", getLocaleFromURL())} className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'blog' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <div className={currentPage === 'blog' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="3" y="4" width="18" height="16" rx="2" fill="#FEF3C7" />
@@ -146,7 +147,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
               <div className="relative">
                 <div className="flex items-center">
-                  <a href="/worksheets/all" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] whitespace-nowrap ${(() => {
+                  <a href={addLocaleToPath("/worksheets/all", getLocaleFromURL())} className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] whitespace-nowrap ${(() => {
                     // Show active on /worksheets/all or interactive-worksheets-generator
                     const pathname = window.location.pathname;
                     return pathname === '/worksheets/all' || currentPage === 'interactive-worksheets-generator' ||
@@ -194,7 +195,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     {/* First Column: Free Worksheet PDFs */}
                     <div className="-mx-1">
                       <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent border-b border-blue-100">Free Worksheet PDFs</div>
-                      <a href="/worksheets/all" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-purple-50 transition-colors border border-purple-200 bg-purple-50/50 mb-2">
+                      <a href={addLocaleToPath("/worksheets/all", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-purple-50 transition-colors border border-purple-200 bg-purple-50/50 mb-2">
                         <svg className="w-4 h-4 text-purple-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                           <path d="M9 22V12h6v10" />
@@ -204,7 +205,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-purple-600 truncate">Browse complete collection</div>
                         </div>
                       </a>
-                      <a href="/worksheets/multiplication-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/multiplication-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -213,7 +214,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">2nd-5th grade free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/times-table-multiplication-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/times-table-multiplication-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -222,7 +223,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">1-12 tables, confidence building free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/kindergarten-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/kindergarten-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -231,7 +232,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Counting, shapes, patterns free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/1st-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/1st-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -240,7 +241,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/2nd-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/2nd-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -249,7 +250,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Place value, add/sub free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/3rd-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/3rd-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -258,7 +259,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Fractions, division, word problems free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/4th-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/4th-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -267,7 +268,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Decimals, geometry, measurement free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/5th-grade-math-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/5th-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -276,7 +277,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Algebra, advanced operations free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/reading-comprehension" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/reading-comprehension", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -285,7 +286,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">G1-G3 passages free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/fractions-to-decimals-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/fractions-to-decimals-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -294,7 +295,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">3rd-5th grade free PDF</div>
                         </div>
                       </a>
-                      <a href="/worksheets/order-of-operations-worksheets" className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/order-of-operations-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
@@ -308,7 +309,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     {/* Second Column: Create Something Magical */}
                     <div className="-mx-1">
                       <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent border-b border-purple-100">Create Something Magical</div>
-                      <a href="/printables/certificate-maker" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/printables/certificate-maker", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 17l-5 3 1.9-5.9L4 9h6l2-6 2 6h6l-4.9 5.1L17 20z" />
                         </svg>
@@ -317,7 +318,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Editable name/date</div>
                         </div>
                       </a>
-                      <a href="/printables/name-tracing-generator" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/printables/name-tracing-generator", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 20h9" />
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
@@ -327,7 +328,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Personalized sheets</div>
                         </div>
                       </a>
-                      <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/worksheets/handwriting-worksheet-maker", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 20h9" />
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
@@ -344,7 +345,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                       <div className="px-2 py-1.5 mb-2">
                         <span className="text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent border-b border-green-100 pb-1.5 inline-block">Worksheets & Quick Packs</span>
                       </div>
-                      <a href="/interactive-worksheets-generator" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/interactive-worksheets-generator", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                         </svg>
@@ -353,7 +354,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">Create custom worksheets instantly</div>
                         </div>
                       </a>
-                      <a href="/printables" className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                      <a href={addLocaleToPath("/printables", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M6 9V2h12v7" />
                           <path d="M6 18H5a3 3 0 01-3-3v-2a3 3 0 013-3h14a3 3 0 013 3v2a3 3 0 01-3 3h-1" />
@@ -369,7 +370,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 </div>
               </div>
 
-              <a href="/generate" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
+              <a href={addLocaleToPath("/generate", getLocaleFromURL())} className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}>
                 <div className={currentPage === 'generate' || currentPage === 'plan' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2L4 7V17L12 22L20 17V7L12 2Z" fill="#ECFDF5" />
@@ -384,7 +385,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
               <div className="relative">
                 <div className="flex items-center">
-                  <a href="/kids" className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
+                  <a href={addLocaleToPath("/kids", getLocaleFromURL())} className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_15px_-3px_rgba(147,51,234,0.1)] ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`} aria-haspopup="true" aria-expanded={showKidsMenu}>
                     <div className={currentPage === 'kids' ? 'animate-[pulse_3s_ease-in-out_infinite]' : ''}>
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.5 13H15V9.5C15 8.11929 13.8807 7 12.5 7H11.5C10.1193 7 9 8.11929 9 9.5V13H5.5C4.11929 13 3 14.1193 3 15.5V16.5C3 17.8807 4.11929 19 5.5 19H18.5C19.8807 19 21 17.8807 21 16.5V15.5C21 14.1193 19.8807 13 18.5 13Z" fill="#F5H1FF" opacity="0.2" />
@@ -427,7 +428,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <div className="grid gap-2 min-w-[280px] md:grid-cols-[1fr_2.8fr] md:max-w-[850px]">
                     <div>
                       <div className="px-2 py-1 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent border-b border-orange-100 pb-1.5">{t('navigation.kidsGames')}</div>
-                      <a href="/kids/games/memory" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href={addLocaleToPath("/kids/games/memory", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="3" y="3" width="7" height="7" rx="1" />
                           <rect x="14" y="3" width="7" height="7" rx="1" />
@@ -439,7 +440,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">{t('navigation.memoryMatchDesc')}</div>
                         </div>
                       </a>
-                      <a href="/kids/games/word-search" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href={addLocaleToPath("/kids/games/word-search", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="11" cy="11" r="7" />
                           <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -449,7 +450,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">{t('navigation.wordSearchDesc')}</div>
                         </div>
                       </a>
-                      <a href="/kids/games/puzzle" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href={addLocaleToPath("/kids/games/puzzle", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M13 3h3a2 2 0 012 2v3h-2.5a1.5 1.5 0 100 3H18v3h-2.5a1.5 1.5 0 100 3H18v3a2 2 0 01-2 2h-3v-2.5a1.5 1.5 0 10-3 0V22H8a2 2 0 01-2-2v-3h2.5a1.5 1.5 0 000-3H6V9h2.5a1.5 1.5 0 000-3H6V5a2 2 0 012-2h3v2.5a1.5 1.5 0 003 0V3z" />
                         </svg>
@@ -458,7 +459,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">{t('navigation.puzzleBuilderDesc')}</div>
                         </div>
                       </a>
-                      <a href="/kids/games/typing" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href={addLocaleToPath("/kids/games/typing", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
                           <path d="M6 8h12" />
@@ -470,7 +471,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <div className="text-[10px] text-slate-600 truncate">{t('navigation.typingSafariDesc')}</div>
                         </div>
                       </a>
-                      <a href="/kids/games/pattern" className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
+                      <a href={addLocaleToPath("/kids/games/pattern", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1 rounded-lg text-slate-700 hover:bg-slate-50">
                         <svg className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M4 4h4v4H4z" />
                           <path d="M10 10h4v4h-4z" />
@@ -520,7 +521,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
                     <div className="py-1">
                       <a
-                        href="/dashboard"
+                        href={addLocaleToPath("/dashboard", getLocaleFromURL())}
                         className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setShowUserMenu(false)}
                       >
@@ -559,7 +560,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
           <div className="px-4 py-3 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <button
               onClick={() => {
-                window.location.href = '/';
+                window.location.href = addLocaleToPath('/', getLocaleFromURL());
                 setShowMobileMenu(false);
               }}
               className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'home' || currentPage === 'landing' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
@@ -583,7 +584,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
             <button
               onClick={() => {
-                window.location.href = '/blog';
+                window.location.href = addLocaleToPath('/blog', getLocaleFromURL());
                 setShowMobileMenu(false);
               }}
               className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'blog' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
@@ -597,7 +598,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             <div>
               <button
                 onClick={() => {
-                  window.location.href = '/interactive-worksheets-generator';
+                  window.location.href = addLocaleToPath('/interactive-worksheets-generator', getLocaleFromURL());
                   setShowMobileMenu(false);
                 }}
                 className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'interactive-worksheets-generator' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
@@ -612,7 +613,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent border-b border-purple-100">{t('navigation.createSomethingMagical')}</div>
                 <button
                   onClick={() => {
-                    window.location.href = '/printables/certificate-maker';
+                    window.location.href = addLocaleToPath('/printables/certificate-maker', getLocaleFromURL());
                     setShowMobileMenu(false);
                   }}
                   className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
@@ -621,7 +622,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 </button>
                 <button
                   onClick={() => {
-                    window.location.href = '/printables/name-tracing-generator';
+                    window.location.href = addLocaleToPath('/printables/name-tracing-generator', getLocaleFromURL());
                     setShowMobileMenu(false);
                   }}
                   className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
@@ -630,7 +631,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                 </button>
                 <button
                   onClick={() => {
-                    window.location.href = '/worksheets/handwriting-worksheet-maker';
+                    window.location.href = addLocaleToPath('/worksheets/handwriting-worksheet-maker', getLocaleFromURL());
                     setShowMobileMenu(false);
                   }}
                   className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-purple-700 hover:bg-purple-50 active:bg-purple-100"
@@ -642,7 +643,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent border-b border-blue-100">{t('navigation.freeWorksheetPDFs')}</div>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/multiplication-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/multiplication-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -651,7 +652,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/times-table-multiplication-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/times-table-multiplication-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -660,7 +661,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/kindergarten-math-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/kindergarten-math-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -669,7 +670,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/1st-grade-math-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/1st-grade-math-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -678,7 +679,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/2nd-grade-math-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/2nd-grade-math-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -687,7 +688,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/3rd-grade-math-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/3rd-grade-math-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -696,7 +697,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/4th-grade-math-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/4th-grade-math-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -705,7 +706,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/5th-grade-math-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/5th-grade-math-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -714,7 +715,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/reading-comprehension';
+                      window.location.href = addLocaleToPath('/worksheets/reading-comprehension', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -723,7 +724,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   </button>
                   <button
                     onClick={() => {
-                      window.location.href = '/worksheets/fractions-to-decimals-worksheets';
+                      window.location.href = addLocaleToPath('/worksheets/fractions-to-decimals-worksheets', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100"
@@ -736,7 +737,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent border-b border-green-100">{t('navigation.worksheetsQuickPacks')}</div>
                   <button
                     onClick={() => {
-                      window.location.href = '/printables';
+                      window.location.href = addLocaleToPath('/printables', getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-green-700 hover:bg-green-50 active:bg-green-100"
@@ -749,7 +750,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
             <button
               onClick={() => {
-                window.location.href = '/generate';
+                window.location.href = addLocaleToPath('/generate', getLocaleFromURL());
                 setShowMobileMenu(false);
               }}
               className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'generate' || currentPage === 'plan' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
@@ -763,7 +764,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             <div>
               <button
                 onClick={() => {
-                  window.location.href = '/kids';
+                  window.location.href = addLocaleToPath('/kids', getLocaleFromURL());
                   setShowMobileMenu(false);
                 }}
                 className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'kids' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
@@ -784,7 +785,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <button
                     key={href}
                     onClick={() => {
-                      window.location.href = href;
+                      window.location.href = addLocaleToPath(href, getLocaleFromURL());
                       setShowMobileMenu(false);
                     }}
                     className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-slate-700 hover:text-orange-700 hover:bg-orange-50 active:bg-orange-100"
@@ -800,7 +801,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
               <div className="pt-2 border-t border-slate-200 mt-2">
                 <button
                   onClick={() => {
-                    window.location.href = '/dashboard';
+                    window.location.href = addLocaleToPath('/dashboard', getLocaleFromURL());
                     setShowMobileMenu(false);
                   }}
                   className="w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left text-slate-600 hover:text-slate-800 hover:bg-slate-100"

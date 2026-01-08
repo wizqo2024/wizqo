@@ -19,7 +19,7 @@ import React, {
   ComponentType,
   MouseEvent
 } from 'react'
-import { removeLocaleFromPath } from '@/utils/locale';
+import { removeLocaleFromPath, getLocaleFromURL, addLocaleToPath } from '@/utils/locale';
 import { useTranslation } from '@/context/TranslationContext'
 import { WizqoLogo } from '@/components/WizqoLogo'
 import InteractiveBundleSections from '@/components/InteractiveBundleSections'
@@ -1185,13 +1185,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     // Check if 'from' is a known SEO slug
                     if (from) {
                       const seo = getWorksheetSEOBySlug(from)
-                      if (seo) return `/worksheets/${seo.slug}`
+                      if (seo) return addLocaleToPath(`/${seo.slug}`, getLocaleFromURL())
                     }
 
                     // Robust fallback: if 'from' looks like a full internal path, use it
                     if (from && (from.startsWith('/') || from.includes('-worksheets') || from.includes('-worksheet-') || from === 'reading-comprehension')) {
                       if (from.startsWith('/')) return from
-                      return `/worksheets/${from}`
+                      return addLocaleToPath(`/${from}`, getLocaleFromURL())
                     }
                     // Determine category anchor by doc or bundle selection
                     const cat = (() => {

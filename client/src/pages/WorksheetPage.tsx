@@ -9,6 +9,7 @@ import { getWorksheetSEOBySlug, getWorksheetSEO } from '@shared/worksheetSEO'
 import { trackWorksheetView, trackWorksheetDownload } from '@/utils/analytics'
 import ShadowMatchingWorksheetPage from './ShadowMatchingWorksheetPage'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
+import { getLocaleFromURL, addLocaleToPath } from '@/utils/locale'
 
 
 interface WorksheetPageProps {
@@ -117,7 +118,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         title={seoData.title}
         description={seoData.metaDescription}
         keywords={seoData.keywords}
-        canonicalUrl={`https://wizqo.com/worksheets/${slug}`}
+        canonicalUrl={`https://wizqo.com${addLocaleToPath(`/${slug}`, getLocaleFromURL())}`}
         noIndex={false}
         ogType="article"
       />
@@ -128,11 +129,11 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         {/* Breadcrumbs */}
         <nav className="mb-6 text-sm text-slate-600 print:hidden" aria-label="Breadcrumb">
           <ol className="flex items-center space-x-2">
-            <li><a href="/" className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Go to home page">Home</a></li>
+            <li><a href={addLocaleToPath("/", getLocaleFromURL())} className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Go to home page">Home</a></li>
             <li className="text-slate-400" aria-hidden="true">/</li>
-            <li><a href="/worksheets/all" className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Browse all worksheets">Worksheets</a></li>
+            <li><a href={addLocaleToPath("/worksheets/all", getLocaleFromURL())} className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label="Browse all worksheets">Worksheets</a></li>
             <li className="text-slate-400" aria-hidden="true">/</li>
-            <li><a href={categoryUrl} className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label={`Go to ${seoData.section} worksheets`}>{seoData.section}</a></li>
+            <li><a href={addLocaleToPath(categoryUrl, getLocaleFromURL())} className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded" aria-label={`Go to ${seoData.section} worksheets`}>{seoData.section}</a></li>
             <li className="text-slate-400" aria-hidden="true">/</li>
             <li className="text-slate-900 font-medium" aria-current="page">{seoData.h1}</li>
           </ol>
@@ -216,7 +217,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
                   return (
                     <a
                       key={relatedDocId}
-                      href={`/worksheets/${related.slug}`}
+                      href={addLocaleToPath(`/${related.slug}`, getLocaleFromURL())}
                       className="block p-4 bg-slate-50 rounded-lg border border-slate-200 hover:border-blue-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all"
                       aria-label={`View ${related.h1} worksheet`}
                     >

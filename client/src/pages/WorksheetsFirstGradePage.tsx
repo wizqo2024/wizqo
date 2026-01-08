@@ -8,6 +8,7 @@ import { trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 // Categories will be defined inside component to use translation
 
@@ -98,12 +99,12 @@ export default function WorksheetsFirstGradePage() {
     {
       title: '📖 Reading Discovery (Interactive)',
       description: 'Interactive comprehension with original stories and 3D illustrations. Try Leo\'s Space Adventure!',
-      href: '/worksheets/reading-discovery-interactive',
+      href: addLocaleToPath('/worksheets/reading-discovery-interactive', getLocaleFromURL()),
       docId: 'reading-discovery-interactive',
       categories: ['literacy'],
       section: 'Early Literacy',
-      customPreviewUrl: '/worksheets/reading-discovery-interactive?preview=1',
-      customDownloadUrl: '/worksheets/reading-discovery-interactive'
+      customPreviewUrl: addLocaleToPath('/worksheets/reading-discovery-interactive?preview=1', getLocaleFromURL()),
+      customDownloadUrl: addLocaleToPath('/worksheets/reading-discovery-interactive', getLocaleFromURL())
     },
   ], [t])
 
@@ -132,19 +133,22 @@ export default function WorksheetsFirstGradePage() {
       <SEOMetaTags
         title={t('pages.firstGrade.seoTitle')}
         description={t('pages.firstGrade.seoDescription')}
-        canonicalUrl="https://wizqo.com/worksheets/1st-grade-math-worksheets"
+        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/1st-grade-math-worksheets', getLocaleFromURL())}`}
       />
       {(() => {
-        const canonical = "https://wizqo.com/worksheets/1st-grade-math-worksheets";
+        const currentLocale = getLocaleFromURL();
+        const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/1st-grade-math-worksheets', currentLocale)}`;
+        const homeUrl = `https://wizqo.com${addLocaleToPath('/', currentLocale)}`;
+        const allWorksheetsUrl = `https://wizqo.com${addLocaleToPath('/worksheets/all', currentLocale)}`;
         const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "@id": breadcrumbId,
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
-            { "@type": "ListItem", position: 3, name: "1st Grade Math Worksheets", item: "https://wizqo.com/worksheets/1st-grade-math-worksheets" }
+            { "@type": "ListItem", position: 1, name: "Home", item: homeUrl },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: allWorksheetsUrl },
+            { "@type": "ListItem", position: 3, name: "1st Grade Math Worksheets", item: canonical }
           ]
         } as const;
         const faqLd = {
@@ -207,7 +211,7 @@ export default function WorksheetsFirstGradePage() {
               <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackAge')}</span>
               <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackFocus')}</span>
             </div>
-            <a href="/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '1' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
+            <a href={addLocaleToPath("/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '1' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
           </div>
         </section>
 
@@ -277,12 +281,12 @@ export default function WorksheetsFirstGradePage() {
         <section className="bg-white border border-slate-200 rounded-2xl p-5">
           <h2 className="text-xl font-bold text-slate-900">{t('pages.firstGrade.exploreMore')}</h2>
           <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/kindergarten-math-worksheets">{t('pages.firstGrade.exploreLinks.kindergarten')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.firstGrade.exploreLinks.secondGrade')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.firstGrade.exploreLinks.thirdGrade')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/handwriting-worksheet-maker">{t('pages.firstGrade.exploreLinks.handwriting')}</a></li>
-            <li><a className="hover:underline" href="/worksheets/reading-comprehension">{t('pages.firstGrade.exploreLinks.readingComprehension')}</a></li>
-            <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
+            <li><a className="hover:underline" href={addLocaleToPath("/worksheets/kindergarten-math-worksheets", getLocaleFromURL())}>{t('pages.firstGrade.exploreLinks.kindergarten')}</a></li>
+            <li><a className="hover:underline" href={addLocaleToPath("/worksheets/2nd-grade-math-worksheets", getLocaleFromURL())}>{t('pages.firstGrade.exploreLinks.secondGrade')}</a></li>
+            <li><a className="hover:underline" href={addLocaleToPath("/worksheets/3rd-grade-math-worksheets", getLocaleFromURL())}>{t('pages.firstGrade.exploreLinks.thirdGrade')}</a></li>
+            <li><a className="hover:underline" href={addLocaleToPath("/worksheets/handwriting-worksheet-maker", getLocaleFromURL())}>{t('pages.firstGrade.exploreLinks.handwriting')}</a></li>
+            <li><a className="hover:underline" href={addLocaleToPath("/worksheets/reading-comprehension", getLocaleFromURL())}>{t('pages.firstGrade.exploreLinks.readingComprehension')}</a></li>
+            <li><a className="hover:underline" href={addLocaleToPath("/printables", getLocaleFromURL())}>{t('pages.printables.title')}</a></li>
           </ul>
         </section>
 

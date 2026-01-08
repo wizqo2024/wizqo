@@ -7,6 +7,7 @@ import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 // Categories will be defined inside component to use translation
 
@@ -43,7 +44,7 @@ export default function WorksheetsFifthGradePage() {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
-    setSelectedCategories((prev) => {
+    setSelectedCategories((prev: Set<string>) => {
       const next = new Set(prev)
       const isSelecting = !next.has(categoryId)
       if (isSelecting) {
@@ -109,15 +110,15 @@ export default function WorksheetsFifthGradePage() {
     // Reverse the array to show newly added worksheets (at the bottom of the list) first
     const newestFirst = [...FIFTH_GRADE_WORKSHEETS].reverse()
     if (selectedCategories.size === 0) return newestFirst
-    return newestFirst.filter((ws) =>
-      ws.categories.some((cat) => selectedCategories.has(cat))
+    return newestFirst.filter((ws: WorksheetItem) =>
+      ws.categories.some((cat: string) => selectedCategories.has(cat))
     )
   }, [selectedCategories, FIFTH_GRADE_WORKSHEETS])
 
   // Group filtered worksheets by section
   const groupedWorksheets = useMemo(() => {
     const groups: Record<string, WorksheetItem[]> = {}
-    filteredWorksheets.forEach((ws) => {
+    filteredWorksheets.forEach((ws: WorksheetItem) => {
       const section = ws.section || 'Other'
       if (!groups[section]) groups[section] = []
       groups[section].push(ws)
@@ -131,18 +132,21 @@ export default function WorksheetsFifthGradePage() {
         title={t('pages.fifthGrade.seoTitle')}
         description={t('pages.fifthGrade.seoDescription')}
         keywords={t('pages.fifthGrade.seoKeywords')}
-        canonicalUrl="https://wizqo.com/worksheets/5th-grade-math-worksheets"
+        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/5th-grade-math-worksheets', getLocaleFromURL())}`}
       />
       {(() => {
-        const canonical = "https://wizqo.com/worksheets/5th-grade-math-worksheets";
+        const currentLocale = getLocaleFromURL();
+        const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/5th-grade-math-worksheets', currentLocale)}`;
+        const homeUrl = `https://wizqo.com${addLocaleToPath('/', currentLocale)}`;
+        const allWorksheetsUrl = `https://wizqo.com${addLocaleToPath('/worksheets/all', currentLocale)}`;
         const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "@id": breadcrumbId,
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+            { "@type": "ListItem", position: 1, name: "Home", item: homeUrl },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: allWorksheetsUrl },
             { "@type": "ListItem", position: 3, name: "5th Grade Math Worksheets", item: canonical }
           ]
         } as const;
@@ -196,7 +200,7 @@ export default function WorksheetsFifthGradePage() {
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fifthGrade.buildPackAge')}</span>
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fifthGrade.buildPackFocus')}</span>
                 </div>
-                <a href="/print?doc=pack&time=5&age=g5&skill=math&from=5th-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '5' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
+                <a href={addLocaleToPath("/print?doc=pack&time=5&age=g5&skill=math&from=5th-grade", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '5' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
               </div>
             </div>
           </section>
@@ -233,7 +237,7 @@ export default function WorksheetsFifthGradePage() {
                   <div key={section}>
                     <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
                     <div className="grid sm:grid-cols-2 gap-6">
-                      {worksheets.map((ws) => (
+                      {worksheets.map((ws: WorksheetItem) => (
                         <WorksheetThumbnailCard
                           key={ws.docId}
                           title={ws.title}
@@ -267,12 +271,12 @@ export default function WorksheetsFifthGradePage() {
           <section className="bg-white border border-slate-200 rounded-2xl p-5">
             <h2 className="text-xl font-bold text-slate-900">{t('pages.fifthGrade.exploreMore')}</h2>
             <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-              <li><a className="hover:underline" href="/worksheets/4th-grade-math-worksheets">{t('pages.fifthGrade.exploreLinks.fourthGrade')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">{t('pages.fifthGrade.exploreLinks.thirdGrade')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">{t('pages.fifthGrade.exploreLinks.multiplication')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">{t('pages.fifthGrade.exploreLinks.timesTable')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/reading-comprehension">{t('pages.fifthGrade.exploreLinks.readingComprehension')}</a></li>
-              <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/4th-grade-math-worksheets", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.fourthGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/3rd-grade-math-worksheets", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.thirdGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/multiplication-worksheets", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.multiplication')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/times-table-multiplication-worksheets", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.timesTable')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/reading-comprehension", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.readingComprehension')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/printables", getLocaleFromURL())}>{t('pages.printables.title')}</a></li>
             </ul>
           </section>
 

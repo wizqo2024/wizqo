@@ -8,6 +8,7 @@ import { trackPackGeneration, trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 interface WorksheetItem {
   title: string
@@ -109,16 +110,19 @@ export default function MultiplicationWorksheetsPage() {
         canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
       />
       {(() => {
-        const canonical = "https://wizqo.com/worksheets/multiplication-worksheets";
+        const currentLocale = getLocaleFromURL();
+        const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/multiplication-worksheets', currentLocale)}`;
+        const homeUrl = `https://wizqo.com${addLocaleToPath('/', currentLocale)}`;
+        const allWorksheetsUrl = `https://wizqo.com${addLocaleToPath('/worksheets/all', currentLocale)}`;
         const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "@id": breadcrumbId,
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
-            { "@type": "ListItem", position: 3, name: "Multiplication Worksheets", item: "https://wizqo.com/worksheets/multiplication-worksheets" }
+            { "@type": "ListItem", position: 1, name: "Home", item: homeUrl },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: allWorksheetsUrl },
+            { "@type": "ListItem", position: 3, name: "Multiplication Worksheets", item: canonical }
           ]
         } as const;
         return (
@@ -243,12 +247,12 @@ export default function MultiplicationWorksheetsPage() {
           <section className="bg-white border border-slate-200 rounded-2xl p-5">
             <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
             <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-              <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">Times Table Multiplication Worksheets</a></li>
-              <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets – Free PDF</a></li>
-              <li><a className="hover:underline" href="/worksheets/3rd-grade-math-worksheets">3rd Grade Math Worksheets – Printable</a></li>
-              <li><a className="hover:underline" href="/worksheets/4th-grade-math-worksheets">4th Grade Math Worksheets – Free PDF</a></li>
-              <li><a className="hover:underline" href="/worksheets/5th-grade-math-worksheets">5th Grade Math Worksheets – Printable</a></li>
-              <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/times-table-multiplication-worksheets", getLocaleFromURL())}>Times Table Multiplication Worksheets</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/2nd-grade-math-worksheets", getLocaleFromURL())}>2nd Grade Math Worksheets – Free PDF</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/3rd-grade-math-worksheets", getLocaleFromURL())}>3rd Grade Math Worksheets – Printable</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/4th-grade-math-worksheets", getLocaleFromURL())}>4th Grade Math Worksheets – Free PDF</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/5th-grade-math-worksheets", getLocaleFromURL())}>5th Grade Math Worksheets – Printable</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/printables", getLocaleFromURL())}>Printable Fun Learning Activities</a></li>
             </ul>
           </section>
 
@@ -475,7 +479,7 @@ function BuildPackInline() {
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Age/Grade: 2nd-5th Grade</span>
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Focus: Multiplication</span>
       </div>
-      <a href="/print?doc=pack&time=5&age=25&skill=math&from=multiplication" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={handleBuildPack}>{t('pages.printables.buildPackButton')}</a>
+      <a href={addLocaleToPath("/print?doc=pack&time=5&age=25&skill=math&from=multiplication", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={handleBuildPack}>{t('pages.printables.buildPackButton')}</a>
     </div>
   )
 }

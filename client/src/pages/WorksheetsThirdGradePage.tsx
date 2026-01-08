@@ -5,8 +5,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { trackCategoryFilter } from '@/utils/analytics'
-import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 // Categories will be defined inside component to use translation
 
@@ -127,18 +127,21 @@ export default function WorksheetsThirdGradePage() {
         title={t('pages.thirdGrade.seoTitle')}
         description={t('pages.thirdGrade.seoDescription')}
         keywords={t('pages.thirdGrade.seoKeywords')}
-        canonicalUrl="https://wizqo.com/worksheets/3rd-grade-math-worksheets"
+        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/3rd-grade-math-worksheets', getLocaleFromURL())}`}
       />
       {(() => {
-        const canonical = "https://wizqo.com/worksheets/3rd-grade-math-worksheets";
+        const currentLocale = getLocaleFromURL();
+        const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/3rd-grade-math-worksheets', currentLocale)}`;
+        const homeUrl = `https://wizqo.com${addLocaleToPath('/', currentLocale)}`;
+        const allWorksheetsUrl = `https://wizqo.com${addLocaleToPath('/worksheets/all', currentLocale)}`;
         const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "@id": breadcrumbId,
           itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+            { "@type": "ListItem", position: 1, name: "Home", item: homeUrl },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: allWorksheetsUrl },
             { "@type": "ListItem", position: 3, name: "3rd Grade Math Worksheets", item: canonical }
           ]
         } as const;
@@ -194,7 +197,7 @@ export default function WorksheetsThirdGradePage() {
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.thirdGrade.buildPackAge')}</span>
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.thirdGrade.buildPackFocus')}</span>
                 </div>
-                <a href="/print?doc=pack&time=5&age=g3&skill=math&from=3rd-grade" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '3' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
+                <a href={addLocaleToPath("/print?doc=pack&time=5&age=g3&skill=math&from=3rd-grade", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '3' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
               </div>
             </div>
           </section>
@@ -265,12 +268,12 @@ export default function WorksheetsThirdGradePage() {
           <section className="bg-white border border-slate-200 rounded-2xl p-5">
             <h2 className="text-xl font-bold text-slate-900">{t('pages.thirdGrade.exploreMore')}</h2>
             <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-              <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">{t('pages.thirdGrade.exploreLinks.secondGrade')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/4th-grade-math-worksheets">{t('pages.thirdGrade.exploreLinks.fourthGrade')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/multiplication-worksheets">{t('pages.thirdGrade.exploreLinks.multiplication')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/times-table-multiplication-worksheets">{t('pages.thirdGrade.exploreLinks.timesTable')}</a></li>
-              <li><a className="hover:underline" href="/worksheets/reading-comprehension">{t('pages.thirdGrade.exploreLinks.readingComprehension')}</a></li>
-              <li><a className="hover:underline" href="/printables">{t('pages.printables.title')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/2nd-grade-math-worksheets", getLocaleFromURL())}>{t('pages.thirdGrade.exploreLinks.secondGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/4th-grade-math-worksheets", getLocaleFromURL())}>{t('pages.thirdGrade.exploreLinks.fourthGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/multiplication-worksheets", getLocaleFromURL())}>{t('pages.thirdGrade.exploreLinks.multiplication')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/times-table-multiplication-worksheets", getLocaleFromURL())}>{t('pages.thirdGrade.exploreLinks.timesTable')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/reading-comprehension", getLocaleFromURL())}>{t('pages.thirdGrade.exploreLinks.readingComprehension')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/printables", getLocaleFromURL())}>{t('pages.printables.title')}</a></li>
             </ul>
           </section>
 

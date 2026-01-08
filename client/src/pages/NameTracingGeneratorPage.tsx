@@ -770,8 +770,9 @@ export default function NameTracingGeneratorPage() {
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Free Name Tracing Generator - Personalized Handwriting"
-        description="Create free personalized name tracing worksheets for kids! Customize fonts, sizes, and patterns. Perfect for teaching handwriting and name recognition skills."
+        title="Create Name Tracing Worksheets | Free Generator & Printable PDF"
+        description="Use our free name tracing generator to create custom name tracing worksheets instantly. Editable, printable PDFs perfect for preschool handwriting practice."
+        keywords="create name tracing worksheets, name tracing generator free, name tracing printable, editable name tracing, handwriting worksheet maker"
         canonicalUrl="https://wizqo.com/printables/name-tracing-generator"
       />
 

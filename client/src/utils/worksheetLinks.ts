@@ -4,6 +4,7 @@
  */
 
 import { getWorksheetSEO } from '@shared/worksheetSEO'
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 /**
  * Get SEO-friendly URL for a worksheet
@@ -14,10 +15,12 @@ export function getWorksheetURL(docId: string, fallbackFrom?: string): string {
   const from = fallbackFrom || 'worksheets'
 
   if (seo) {
-    return `/worksheets/${seo.slug}${from ? `?from=${from}` : ''}`
+    const url = `/${seo.slug}${from ? `?from=${from}` : ''}`
+    return addLocaleToPath(url, getLocaleFromURL())
   }
   // Fallback to print URL if SEO data not available
-  return `/print?doc=${docId}&from=${from}`
+  const url = `/print?doc=${docId}&from=${from}`
+  return addLocaleToPath(url, getLocaleFromURL())
 }
 
 export function getWorksheetPrintURL(docId: string, from?: string): string {

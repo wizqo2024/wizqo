@@ -3,6 +3,7 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { useTranslation } from '@/context/TranslationContext'
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 interface CategoryCard {
   title: string
@@ -162,7 +163,7 @@ export default function AllWorksheetsPage() {
         title="All Worksheet Categories - Discover Every Learning Tool | Wizqo"
         description="Explore our complete collection of free worksheet categories! From kindergarten math to 5th grade, multiplication to reading. 100% free, ready to print."
         keywords="worksheet categories, browse worksheets, all worksheet types, worksheet directory, worksheets by grade, worksheets by subject, complete worksheet list, free worksheet categories, math worksheets by grade, reading worksheets, handwriting worksheets"
-        canonicalUrl="https://wizqo.com/worksheets/all"
+        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/all', getLocaleFromURL())}`}
       />
 
       {/* Breadcrumb Schema */}
@@ -171,8 +172,8 @@ export default function AllWorksheetsPage() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "All Worksheets", item: "https://wizqo.com/worksheets/all" }
+            { "@type": "ListItem", position: 1, name: "Home", item: `https://wizqo.com${addLocaleToPath('/', getLocaleFromURL())}` },
+            { "@type": "ListItem", position: 2, name: "All Worksheets", item: `https://wizqo.com${addLocaleToPath('/worksheets/all', getLocaleFromURL())}` }
           ]
         })
       }} />
@@ -302,7 +303,7 @@ export default function AllWorksheetsPage() {
               Use our Interactive Worksheets Generator to create custom worksheets tailored to your exact needs. Generate unlimited unique worksheets with answer keys included.
             </p>
             <a
-              href="/interactive-worksheets-generator"
+              href={addLocaleToPath("/interactive-worksheets-generator", getLocaleFromURL())}
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -321,9 +322,10 @@ export default function AllWorksheetsPage() {
 
 // Category Card Component
 function CategoryCard({ category }: { category: CategoryCard }) {
+  const { isRTL } = useTranslation()
   return (
     <a
-      href={category.href}
+      href={addLocaleToPath(category.href, getLocaleFromURL())}
       className="group relative bg-white rounded-2xl border-2 border-slate-200 hover:border-purple-300 p-6 sm:p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col"
     >
       {/* Badge */}
