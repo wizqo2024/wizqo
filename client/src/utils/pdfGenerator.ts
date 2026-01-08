@@ -78,6 +78,17 @@ export async function generateWorksheetPDF(
                         // Improve text/image rendering in the clone
                         clonedSection.style.setProperty('image-rendering', 'auto', 'important')
                         clonedSection.style.setProperty('-webkit-font-smoothing', 'antialiased', 'important')
+                        clonedSection.style.setProperty('box-shadow', 'none', 'important')
+
+                        // Remove corner accents and other decorative elements that cause artifacts in PDF
+                        // They have print:hidden but html2canvas captures what's on screen
+                        const accents = clonedSection.querySelectorAll('[class*="rounded-bl-full"], [class*="rounded-tr-full"], [class*="animate-gradient-x"]');
+                        accents.forEach(el => {
+                            if (el instanceof HTMLElement) {
+                                el.style.setProperty('display', 'none', 'important');
+                            }
+                        });
+
 
                         // Inject Footer
                         const footer = clonedDoc.createElement('div')

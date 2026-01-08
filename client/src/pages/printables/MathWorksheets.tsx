@@ -1458,14 +1458,14 @@ export function NumberTracing1To10({ showAnswersForDoc }: SpecificWorksheetProps
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="Rainbow Tracing: 110"
+            title="Rainbow Tracing: 1-10"
             emoji={String.fromCodePoint(0x1F4D1)}
             description="Trace each number 3 times! Use different colors (Red, Blue, Green) to make a rainbow."
             problemCount={10}
             learningObjectives={[
                 'Develop fine motor control through repetition',
                 'Learn proper number formation stroke order',
-                'Recognize numbers 110',
+                'Recognize numbers 1-10',
                 'Build muscle memory for writing'
             ]}
             parentTeacherTips={[
@@ -1581,14 +1581,14 @@ export function NumberTracing1To20({ showAnswersForDoc }: SpecificWorksheetProps
     return (
         <WorksheetSectionWrapper
             docId={docId}
-            title="Rainbow Tracing: 120"
+            title="Rainbow Tracing: 1-20"
             emoji={String.fromCodePoint(0x1F4D1)}
             description="Trace each number 3 times! Use different colors (Red, Blue, Green) to make a rainbow."
             problemCount={20}
             learningObjectives={[
                 'Develop fine motor control through repetition',
                 'Learn proper number formation stroke order',
-                'Recognize numbers 120',
+                'Recognize numbers 1-20',
                 'Build muscle memory for writing'
             ]}
             parentTeacherTips={[
