@@ -247,6 +247,9 @@ export default function NameTracingGeneratorPage() {
 
         const html = `<!doctype html><html><head><meta charset="utf-8" />
 <title>Name Tracing Worksheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Codystar:wght@300;400&family=Patrick+Hand&family=Comic+Neue:wght@300;400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Handlee&display=swap" rel="stylesheet" />
 <style>
   @page { size: ${width}in ${height}in; margin: 0; }
   html, body { margin: 0; padding: 0; width: ${width}in; height: ${height}in; background: #fff; }
@@ -367,6 +370,9 @@ export default function NameTracingGeneratorPage() {
 
         const html = `<!doctype html><html><head><meta charset="utf-8" />
 <title>Name Tracing Worksheets - ${names.length} names</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Codystar:wght@300;400&family=Patrick+Hand&family=Comic+Neue:wght@300;400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Handlee&display=swap" rel="stylesheet" />
 <style>
   @page { size: ${width}in ${height}in; margin: 0; }
   html, body { margin: 0; padding: 0; background: #fff; }
@@ -1490,6 +1496,12 @@ export default function NameTracingGeneratorPage() {
                               // Single name: full page
                               worksheetX = margin;
                               worksheetY = margin;
+                            }
+
+                            // Debug logging
+                            if (process.env.NODE_ENV === 'development') {
+                              console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
+                              console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
                             }
 
                             // Adjust row calculations for smaller worksheets
