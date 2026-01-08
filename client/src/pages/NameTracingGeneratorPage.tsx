@@ -114,13 +114,22 @@ export default function NameTracingGeneratorPage() {
         const blob = await fontResponse.blob();
 
         const reader = new FileReader();
-        reader.onloadend = () => {
+        reader.onloadend = async () => {
           const result = reader.result as string;
           // Ensure we have the full data URL including prefix
           if (result && result.startsWith('data:')) {
             setCodystarFontBase64(result);
+            // Pre-warm the font cache for the browser
+            try {
+              const font = new FontFace('Codystar', `url(${result})`);
+              await font.load();
+              document.fonts.add(font);
+            } catch (e) {
+              console.warn('FontFace pre-load failed', e);
+            }
           }
         };
+
         reader.readAsDataURL(blob);
       } catch (error) {
         console.error('Failed to load Codystar font for PDF embedding', error);
@@ -136,9 +145,13 @@ export default function NameTracingGeneratorPage() {
     if (!codystarFontBase64) return svgContent;
     // Check if it's the dotted font style, otherwise we don't strictly need to embed this large string
     // But for simplicity/safety we can just do it if codystarFontBase64 is present
-    const styleBlock = `<defs><style type="text/css">@font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}') format('woff2'); font-weight: normal; font-style: normal; }</style></defs>`;
+    // Use exact font-family name 'Codystar' without surrounding quotes in the definition
+    const styleBlock = `<defs><style type="text/css"><![CDATA[
+      @font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}') format('woff2'); font-weight: normal; font-style: normal; }
+    ]]></style></defs>`;
     return svgContent.replace(/<svg[^>]*>/, (match) => `${match}${styleBlock}`);
   }, [codystarFontBase64]);
+
 
 
   // Format names for display
@@ -229,7 +242,7 @@ export default function NameTracingGeneratorPage() {
         const url = URL.createObjectURL(blob);
         const image = new Image();
         image.onload = () => {
-          // Give the browser a tiny bit of time to parse the embedded fonts inside the SVG image
+          // Increase delay to 350ms to give sub-resources (embedded font) time to be parsed in the image context
           setTimeout(() => {
             const canvas = document.createElement('canvas');
             const viewBox = svgElement.viewBox.baseVal;
@@ -246,7 +259,7 @@ export default function NameTracingGeneratorPage() {
               reject(new Error('Canvas context not found'));
             }
             URL.revokeObjectURL(url);
-          }, 100);
+          }, 350);
         };
 
         image.onerror = () => {
