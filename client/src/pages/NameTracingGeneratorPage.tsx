@@ -107,24 +107,21 @@ export default function NameTracingGeneratorPage() {
   React.useEffect(() => {
     const fetchFont = async () => {
       try {
-        // Fetch CSS first
-        const cssResponse = await fetch('https://fonts.googleapis.com/css2?family=Codystar&display=swap');
-        const cssText = await cssResponse.text();
+        // Try to fetch the WOFF2 font directly for better compatibility
+        // This is a direct link to the Codystar WOFF2 from Google Fonts
+        const fontUrl = 'https://fonts.gstatic.com/s/codystar/v18/F6rvut4W_Sip9j8QW7r1rKq6.woff2';
+        const fontResponse = await fetch(fontUrl);
+        const blob = await fontResponse.blob();
 
-        // Extract WOFF2 URL - handle quotes if present
-        const match = cssText.match(/src:\s*url\(['"]?([^'"]+)['"]?\)/);
-        if (match && match[1]) {
-          const fontUrl = match[1];
-          const fontResponse = await fetch(fontUrl);
-          const blob = await fontResponse.blob();
-
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const result = reader.result as string;
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const result = reader.result as string;
+          // Ensure we have the full data URL including prefix
+          if (result && result.startsWith('data:')) {
             setCodystarFontBase64(result);
-          };
-          reader.readAsDataURL(blob);
-        }
+          }
+        };
+        reader.readAsDataURL(blob);
       } catch (error) {
         console.error('Failed to load Codystar font for PDF embedding', error);
       }
@@ -133,14 +130,16 @@ export default function NameTracingGeneratorPage() {
     fetchFont();
   }, []);
 
+
   // Helper to embed font in SVG string
   const embedFontInSVG = React.useCallback((svgContent: string) => {
     if (!codystarFontBase64) return svgContent;
     // Check if it's the dotted font style, otherwise we don't strictly need to embed this large string
     // But for simplicity/safety we can just do it if codystarFontBase64 is present
-    const styleBlock = `<defs><style>@font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}'); }</style></defs>`;
+    const styleBlock = `<defs><style type="text/css">@font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}') format('woff2'); font-weight: normal; font-style: normal; }</style></defs>`;
     return svgContent.replace(/<svg[^>]*>/, (match) => `${match}${styleBlock}`);
   }, [codystarFontBase64]);
+
 
   // Format names for display
   const formattedNames = React.useMemo(() => {
@@ -230,22 +229,26 @@ export default function NameTracingGeneratorPage() {
         const url = URL.createObjectURL(blob);
         const image = new Image();
         image.onload = () => {
-          const canvas = document.createElement('canvas');
-          const viewBox = svgElement.viewBox.baseVal;
-          canvas.width = viewBox.width * scale;
-          canvas.height = viewBox.height * scale;
-          const ctx = canvas.getContext('2d');
-          if (ctx) {
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-            const pngUrl = canvas.toDataURL('image/png');
-            resolve(pngUrl);
-          } else {
-            reject(new Error('Canvas context not found'));
-          }
-          URL.revokeObjectURL(url);
+          // Give the browser a tiny bit of time to parse the embedded fonts inside the SVG image
+          setTimeout(() => {
+            const canvas = document.createElement('canvas');
+            const viewBox = svgElement.viewBox.baseVal;
+            canvas.width = viewBox.width * scale;
+            canvas.height = viewBox.height * scale;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+              const pngUrl = canvas.toDataURL('image/png');
+              resolve(pngUrl);
+            } else {
+              reject(new Error('Canvas context not found'));
+            }
+            URL.revokeObjectURL(url);
+          }, 100);
         };
+
         image.onerror = () => {
           URL.revokeObjectURL(url);
           reject(new Error('Image load error'));
@@ -568,18 +571,20 @@ export default function NameTracingGeneratorPage() {
         doc.save(safeFilename);
 
       } else {
-        // Single Mode
-        const container = document.getElementById('name-tracing-sheet');
-        const svg = container?.querySelector('svg');
-        if (!svg) throw new Error('SVG not found');
+        // Single Mode - use generateFn for consistency
+        if (!generateFn) {
+          toast({ title: t('pages.nameTracing.error'), description: t('pages.nameTracing.svgNotReady'), variant: 'destructive' });
+          return;
+        }
 
-        let svgString = new XMLSerializer().serializeToString(svg);
-        svgString = embedFontInSVG(svgString);
+        const rawSvg = generateFn(childName);
+        const svgString = embedFontInSVG(rawSvg);
         const pngData = await svgToPngDataUrl(svgString, scale);
 
         doc.addImage(pngData, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
         doc.save(`${safeFileName}.pdf`);
       }
+
 
       toast({
         title: t('pages.nameTracing.downloadComplete'),
@@ -841,840 +846,843 @@ export default function NameTracingGeneratorPage() {
   }, [generateSVGForName]);
 
   return (
-    <div className={`min-h-screen bg-slate-50 ${isPrinting ? 'no-print' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title="Create Name Tracing Worksheets | Free Generator & Printable PDF"
-        description="Use our free name tracing generator to create custom name tracing worksheets instantly. Editable, printable PDFs perfect for preschool handwriting practice."
-        keywords="create name tracing worksheets, name tracing generator free, name tracing printable, editable name tracing, handwriting worksheet maker"
-        canonicalUrl="https://wizqo.com/printables/name-tracing-generator"
-      />
+    <>
+      <div className={`min-h-screen bg-slate-50 ${isPrinting ? 'no-print' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
+        <SEOMetaTags
+          title="Create Name Tracing Worksheets | Free Generator & Printable PDF"
+          description="Use our free name tracing generator to create custom name tracing worksheets instantly. Editable, printable PDFs perfect for preschool handwriting practice."
+          keywords="create name tracing worksheets, name tracing generator free, name tracing printable, editable name tracing, handwriting worksheet maker"
+          canonicalUrl="https://wizqo.com/printables/name-tracing-generator"
+        />
 
-      <UnifiedNavigation currentPage="printables" />
+        <UnifiedNavigation currentPage="printables" />
 
-      <main className="pt-12 pb-16">
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[360px_minmax(0,1fr)] gap-10 lg:gap-14">
-            <div className="space-y-6">
-              <div className="bg-white/90 backdrop-blur border border-slate-200 rounded-3xl shadow-sm p-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold uppercase tracking-wide">
-                  <Sparkles className="w-3.5 h-3.5" /> {t('pages.nameTracing.makeItPersonal')}
-                </div>
-                <h1 className="text-3xl font-extrabold text-slate-900 mt-4 leading-tight">
-                  {t('pages.nameTracing.title')}
-                </h1>
-                <p className="mt-3 text-slate-600 text-sm leading-relaxed">
-                  {t('pages.nameTracing.subtitle')}
-                </p>
-              </div>
 
-              <div className="bg-white border border-slate-200 rounded-3xl shadow-sm p-6 space-y-6">
-                {/* Mode Selection */}
-                <div className="flex items-center justify-between bg-purple-50 border border-purple-200 rounded-2xl px-4 py-3">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.mode')}</p>
-                    <p className="text-xs text-slate-500">{t('pages.nameTracing.modeDesc')}</p>
+        <main className="pt-12 pb-16">
+          <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-[360px_minmax(0,1fr)] gap-10 lg:gap-14">
+              <div className="space-y-6">
+                <div className="bg-white/90 backdrop-blur border border-slate-200 rounded-3xl shadow-sm p-6">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold uppercase tracking-wide">
+                    <Sparkles className="w-3.5 h-3.5" /> {t('pages.nameTracing.makeItPersonal')}
                   </div>
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setBatchMode('single')}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${batchMode === 'single'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-white text-slate-700 hover:bg-purple-100'
-                        }`}
-                    >
-                      {t('pages.nameTracing.single')}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setBatchMode('batch')}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${batchMode === 'batch'
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-white text-slate-700 hover:bg-purple-100'
-                        }`}
-                    >
-                      {t('pages.nameTracing.batch')}
-                    </button>
-                  </div>
+                  <h1 className="text-3xl font-extrabold text-slate-900 mt-4 leading-tight">
+                    {t('pages.nameTracing.title')}
+                  </h1>
+                  <p className="mt-3 text-slate-600 text-sm leading-relaxed">
+                    {t('pages.nameTracing.subtitle')}
+                  </p>
                 </div>
 
-                {batchMode === 'single' ? (
-                  <div>
-                    <Label htmlFor="child-name" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      {t('pages.nameTracing.enterYourName')}
-                    </Label>
-                    <Input
-                      id="child-name"
-                      value={childName}
-                      onChange={(event) => handleNameInput(event.target.value)}
-                      placeholder={t('pages.nameTracing.typeAName')}
-                      className="mt-2 h-11 rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-base"
-                      maxLength={MAX_NAME_LENGTH}
-                    />
-                    <p className="mt-2 text-xs text-slate-500">
-                      {t('pages.nameTracing.nameInputHint').replace('{{maxLength}}', String(MAX_NAME_LENGTH))}
-                    </p>
+                <div className="bg-white border border-slate-200 rounded-3xl shadow-sm p-6 space-y-6">
+                  {/* Mode Selection */}
+                  <div className="flex items-center justify-between bg-purple-50 border border-purple-200 rounded-2xl px-4 py-3">
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.mode')}</p>
+                      <p className="text-xs text-slate-500">{t('pages.nameTracing.modeDesc')}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setBatchMode('single')}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${batchMode === 'single'
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-white text-slate-700 hover:bg-purple-100'
+                          }`}
+                      >
+                        {t('pages.nameTracing.single')}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setBatchMode('batch')}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${batchMode === 'batch'
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-white text-slate-700 hover:bg-purple-100'
+                          }`}
+                      >
+                        {t('pages.nameTracing.batch')}
+                      </button>
+                    </div>
                   </div>
-                ) : (
-                  <div>
-                    <Label htmlFor="multiple-names" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      {t('pages.nameTracing.enterNamesOnePerLine')}
-                    </Label>
-                    <Textarea
-                      id="multiple-names"
-                      value={multipleNames}
-                      onChange={(e) => setMultipleNames(e.target.value)}
-                      placeholder={t('pages.nameTracing.namesPlaceholder')}
-                      className="mt-2 min-h-[120px] rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-sm font-mono"
-                    />
-                    <p className="mt-2 text-xs text-slate-500">
-                      {t('pages.nameTracing.batchInputHint').replace('{{maxLength}}', String(MAX_NAME_LENGTH))}
-                    </p>
-                    {multipleNames && (
-                      <p className="mt-1 text-xs text-purple-600 font-medium">
-                        {(() => {
-                          const count = multipleNames.split('\n').filter(n => n.trim().length > 0).length;
-                          return `${count} ${count === 1 ? t('pages.nameTracing.nameEntered') : t('pages.nameTracing.namesEntered')}`;
-                        })()}
+
+                  {batchMode === 'single' ? (
+                    <div>
+                      <Label htmlFor="child-name" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        {t('pages.nameTracing.enterYourName')}
+                      </Label>
+                      <Input
+                        id="child-name"
+                        value={childName}
+                        onChange={(event) => handleNameInput(event.target.value)}
+                        placeholder={t('pages.nameTracing.typeAName')}
+                        className="mt-2 h-11 rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-base"
+                        maxLength={MAX_NAME_LENGTH}
+                      />
+                      <p className="mt-2 text-xs text-slate-500">
+                        {t('pages.nameTracing.nameInputHint').replace('{{maxLength}}', String(MAX_NAME_LENGTH))}
                       </p>
-                    )}
+                    </div>
+                  ) : (
+                    <div>
+                      <Label htmlFor="multiple-names" className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        {t('pages.nameTracing.enterNamesOnePerLine')}
+                      </Label>
+                      <Textarea
+                        id="multiple-names"
+                        value={multipleNames}
+                        onChange={(e) => setMultipleNames(e.target.value)}
+                        placeholder={t('pages.nameTracing.namesPlaceholder')}
+                        className="mt-2 min-h-[120px] rounded-xl border-slate-300 focus-visible:ring-2 focus-visible:ring-purple-500 text-sm font-mono"
+                      />
+                      <p className="mt-2 text-xs text-slate-500">
+                        {t('pages.nameTracing.batchInputHint').replace('{{maxLength}}', String(MAX_NAME_LENGTH))}
+                      </p>
+                      {multipleNames && (
+                        <p className="mt-1 text-xs text-purple-600 font-medium">
+                          {(() => {
+                            const count = multipleNames.split('\n').filter(n => n.trim().length > 0).length;
+                            return `${count} ${count === 1 ? t('pages.nameTracing.nameEntered') : t('pages.nameTracing.namesEntered')}`;
+                          })()}
+                        </p>
+                      )}
 
-                    {batchMode === 'batch' && (
-                      <div className="mt-4 space-y-2">
-                        <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                          {t('pages.nameTracing.layoutBatchMode')}
-                        </Label>
-                        <div className="grid grid-cols-3 gap-2">
-                          <button
-                            type="button"
-                            onClick={() => setBatchLayout('one-per-page')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'one-per-page'
-                              ? 'bg-purple-600 text-white'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                              }`}
-                          >
-                            {t('pages.nameTracing.onePerPage')}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setBatchLayout('two-per-page')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'two-per-page'
-                              ? 'bg-purple-600 text-white'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                              }`}
-                          >
-                            {t('pages.nameTracing.twoPerPage')}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setBatchLayout('four-per-page')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'four-per-page'
-                              ? 'bg-purple-600 text-white'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                              }`}
-                          >
-                            {t('pages.nameTracing.fourPerPage')}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Print Layout Settings */}
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-4">
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-800 mb-3">{t('pages.nameTracing.printLayoutSettings')}</h3>
-
-                    <div className="space-y-3">
-                      <div>
-                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.orientation')}</Label>
-                        <div className="grid grid-cols-2 gap-2">
-                          <button
-                            type="button"
-                            onClick={() => setPrintOrientation('portrait')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${printOrientation === 'portrait'
-                              ? 'bg-purple-600 text-white'
-                              : 'bg-white text-slate-700 hover:bg-purple-50'
-                              }`}
-                          >
-                            {t('pages.nameTracing.portrait')}
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setPrintOrientation('landscape')}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium transition ${printOrientation === 'landscape'
-                              ? 'bg-purple-600 text-white'
-                              : 'bg-white text-slate-700 hover:bg-purple-50'
-                              }`}
-                          >
-                            {t('pages.nameTracing.landscape')}
-                          </button>
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.paperSize')}</Label>
-                        <div className="relative">
-                          <select
-                            value={paperSize}
-                            onChange={(e) => setPaperSize(e.target.value as PaperSize)}
-                            className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
-                          >
-                            <option value="us-letter">{t('pages.nameTracing.paperSizes.usLetter')}</option>
-                            <option value="a4">{t('pages.nameTracing.paperSizes.a4')}</option>
-                            <option value="legal">{t('pages.nameTracing.paperSizes.legal')}</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.margins')}</Label>
-                        <div className="grid grid-cols-4 gap-2">
-                          {(['none', 'small', 'medium', 'large'] as MarginSize[]).map((size) => (
+                      {batchMode === 'batch' && (
+                        <div className="mt-4 space-y-2">
+                          <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                            {t('pages.nameTracing.layoutBatchMode')}
+                          </Label>
+                          <div className="grid grid-cols-3 gap-2">
                             <button
-                              key={size}
                               type="button"
-                              onClick={() => setMarginSize(size)}
-                              className={`px-2 py-2 rounded-xl text-xs font-medium transition capitalize ${marginSize === size
+                              onClick={() => setBatchLayout('one-per-page')}
+                              className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'one-per-page'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                }`}
+                            >
+                              {t('pages.nameTracing.onePerPage')}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setBatchLayout('two-per-page')}
+                              className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'two-per-page'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                }`}
+                            >
+                              {t('pages.nameTracing.twoPerPage')}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setBatchLayout('four-per-page')}
+                              className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'four-per-page'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                }`}
+                            >
+                              {t('pages.nameTracing.fourPerPage')}
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Print Layout Settings */}
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-4">
+                    <div>
+                      <h3 className="text-sm font-semibold text-slate-800 mb-3">{t('pages.nameTracing.printLayoutSettings')}</h3>
+
+                      <div className="space-y-3">
+                        <div>
+                          <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.orientation')}</Label>
+                          <div className="grid grid-cols-2 gap-2">
+                            <button
+                              type="button"
+                              onClick={() => setPrintOrientation('portrait')}
+                              className={`px-3 py-2 rounded-xl text-xs font-medium transition ${printOrientation === 'portrait'
                                 ? 'bg-purple-600 text-white'
                                 : 'bg-white text-slate-700 hover:bg-purple-50'
                                 }`}
                             >
-                              {t(`pages.nameTracing.marginSizes.${size}`)}
+                              {t('pages.nameTracing.portrait')}
                             </button>
-                          ))}
+                            <button
+                              type="button"
+                              onClick={() => setPrintOrientation('landscape')}
+                              className={`px-3 py-2 rounded-xl text-xs font-medium transition ${printOrientation === 'landscape'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-white text-slate-700 hover:bg-purple-50'
+                                }`}
+                            >
+                              {t('pages.nameTracing.landscape')}
+                            </button>
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.paperSize')}</Label>
+                          <div className="relative">
+                            <select
+                              value={paperSize}
+                              onChange={(e) => setPaperSize(e.target.value as PaperSize)}
+                              className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                            >
+                              <option value="us-letter">{t('pages.nameTracing.paperSizes.usLetter')}</option>
+                              <option value="a4">{t('pages.nameTracing.paperSizes.a4')}</option>
+                              <option value="legal">{t('pages.nameTracing.paperSizes.legal')}</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-xs font-semibold text-slate-600 mb-1.5 block">{t('pages.nameTracing.margins')}</Label>
+                          <div className="grid grid-cols-4 gap-2">
+                            {(['none', 'small', 'medium', 'large'] as MarginSize[]).map((size) => (
+                              <button
+                                key={size}
+                                type="button"
+                                onClick={() => setMarginSize(size)}
+                                className={`px-2 py-2 rounded-xl text-xs font-medium transition capitalize ${marginSize === size
+                                  ? 'bg-purple-600 text-white'
+                                  : 'bg-white text-slate-700 hover:bg-purple-50'
+                                  }`}
+                              >
+                                {t(`pages.nameTracing.marginSizes.${size}`)}
+                              </button>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      {t('pages.nameTracing.letterCase')}
-                    </Label>
-                  </div>
-                  <ToggleGroup
-                    type="single"
-                    value={letterCase}
-                    onValueChange={(value) => value && setLetterCase(value as LetterCase)}
-                    className="grid grid-cols-2 gap-2"
-                  >
-                    <ToggleGroupItem value="title" aria-label={t('pages.nameTracing.titleCase')} className="rounded-xl">
-                      {t('pages.nameTracing.titleCase')}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="upper" aria-label={t('pages.nameTracing.uppercase')} className="rounded-xl">
-                      {t('pages.nameTracing.uppercase')}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="lower" aria-label={t('pages.nameTracing.lowercase')} className="rounded-xl">
-                      {t('pages.nameTracing.lowercase')}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="original" aria-label={t('pages.nameTracing.keepAsTyped')} className="rounded-xl">
-                      {t('pages.nameTracing.keepAsTyped')}
-                    </ToggleGroupItem>
-                  </ToggleGroup>
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      {t('pages.nameTracing.tracingStyle')}
-                    </Label>
-                  </div>
-                  <ToggleGroup
-                    type="single"
-                    value={fontStyle}
-                    onValueChange={(value) => value && setFontStyle(value as FontStyle)}
-                    className="grid grid-cols-2 gap-2"
-                  >
-                    <ToggleGroupItem value="dotted" className="rounded-xl">
-                      {t('pages.nameTracing.dottedLines')}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="classic" className="rounded-xl">
-                      {t('pages.nameTracing.solidTrace')}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="bubble" className="rounded-xl">
-                      {t('pages.nameTracing.bubbleLetters')}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="script" className="rounded-xl">
-                      {t('pages.nameTracing.cursiveFlow')}
-                    </ToggleGroupItem>
-                  </ToggleGroup>
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                      {t('pages.nameTracing.fontSize')}
-                    </Label>
-                  </div>
-                  <ToggleGroup
-                    type="single"
-                    value={fontSizeMode}
-                    onValueChange={(value) => value && setFontSizeMode(value as FontSizeMode)}
-                    className="grid grid-cols-3 gap-2"
-                  >
-                    <ToggleGroupItem value="small" className="rounded-xl" aria-label={t('pages.nameTracing.small')}>
-                      {t('pages.nameTracing.small')}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="medium" className="rounded-xl" aria-label={t('pages.nameTracing.medium')}>
-                      {t('pages.nameTracing.medium')}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="large" className="rounded-xl" aria-label={t('pages.nameTracing.large')}>
-                      {t('pages.nameTracing.large')}
-                    </ToggleGroupItem>
-                  </ToggleGroup>
-                </div>
-
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.guidelineLines')}</h3>
-                        <p className="text-xs text-slate-500">{t('pages.nameTracing.chooseHandwritingLines')}</p>
-                      </div>
-                    </div>
-                    <div className="mt-3 space-y-2">
-                      <button
-                        type="button"
-                        onClick={() => setLineStyle('primary')}
-                        className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${lineStyle === 'primary' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
-                      >
-                        {t('pages.nameTracing.primaryLines')}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setLineStyle('baseline')}
-                        className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${lineStyle === 'baseline' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
-                      >
-                        {t('pages.nameTracing.singleBaselineOnly')}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.practicePattern')}</h3>
-                        <p className="text-xs text-slate-500">{t('pages.nameTracing.mixTracingWithBlankLines')}</p>
-                      </div>
-                    </div>
-                    <div className="mt-3 space-y-2">
-                      <button
-                        type="button"
-                        onClick={() => setPatternStyle('traceAndWrite')}
-                        className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${patternStyle === 'traceAndWrite' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
-                      >
-                        {t('pages.nameTracing.traceAndWrite')}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setPatternStyle('traceOnly')}
-                        className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${patternStyle === 'traceOnly' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
-                      >
-                        {t('pages.nameTracing.tracingOnly')}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-4 py-3">
                   <div>
-                    <p className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.friendlyStartDot')}</p>
-                    <p className="text-xs text-slate-500">{t('pages.nameTracing.friendlyStartDotDesc')}</p>
-                  </div>
-                  <Switch
-                    checked={showGuideDots}
-                    onCheckedChange={setShowGuideDots}
-                    aria-label={t('pages.nameTracing.toggleStartDot')}
-                  />
-                </div>
-
-                <div className="bg-white border border-slate-200 rounded-2xl p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.numberOfPracticeLines')}</h3>
-                      <p className="text-xs text-slate-500">{t('pages.nameTracing.chooseBetweenRows')}</p>
+                    <div className="flex items-center justify-between mb-2">
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        {t('pages.nameTracing.letterCase')}
+                      </Label>
                     </div>
+                    <ToggleGroup
+                      type="single"
+                      value={letterCase}
+                      onValueChange={(value) => value && setLetterCase(value as LetterCase)}
+                      className="grid grid-cols-2 gap-2"
+                    >
+                      <ToggleGroupItem value="title" aria-label={t('pages.nameTracing.titleCase')} className="rounded-xl">
+                        {t('pages.nameTracing.titleCase')}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="upper" aria-label={t('pages.nameTracing.uppercase')} className="rounded-xl">
+                        {t('pages.nameTracing.uppercase')}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="lower" aria-label={t('pages.nameTracing.lowercase')} className="rounded-xl">
+                        {t('pages.nameTracing.lowercase')}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="original" aria-label={t('pages.nameTracing.keepAsTyped')} className="rounded-xl">
+                        {t('pages.nameTracing.keepAsTyped')}
+                      </ToggleGroupItem>
+                    </ToggleGroup>
                   </div>
-                  <div className="mt-3 flex items-center gap-3">
-                    {[3, 4, 5, 6].map((count) => (
-                      <button
-                        key={count}
-                        type="button"
-                        onClick={() => setRowCount(count)}
-                        aria-label={`${count} ${t('pages.nameTracing.practiceRows')}`}
-                        className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold transition ${rowCount === count ? 'border-purple-500 bg-purple-50 text-purple-600 shadow-sm' : 'border-slate-200 bg-white text-slate-600 hover:border-purple-200 hover:text-purple-600'}`}
-                      >
-                        {count}
-                      </button>
-                    ))}
-                  </div>
-                </div>
 
-
-
-                <div className="flex flex-col sm:flex-row flex-wrap gap-3">
-                  <Button
-                    onClick={handlePrint}
-                    className="flex-1 rounded-2xl h-11 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 whitespace-nowrap"
-                  >
-                    <Printer className="w-4 h-4 mr-2" /> {t('pages.nameTracing.printWorksheet')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={handleDownloadPDF}
-                    className="flex-1 rounded-2xl h-11 border-purple-200 text-purple-700 hover:bg-purple-50 whitespace-nowrap"
-                  >
-                    <FileText className="w-4 h-4 mr-2" /> {t('pages.nameTracing.downloadPDF')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={handleDownloadPNG}
-                    className="flex-1 rounded-2xl h-11 whitespace-nowrap"
-                  >
-                    <Download className="w-4 h-4 mr-2" /> {t('pages.nameTracing.downloadPNG')}
-                  </Button>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 border border-purple-100 rounded-3xl p-6">
-                <h2 className="text-lg font-bold text-slate-900 mb-3">{t('pages.nameTracing.makeItMagical')}</h2>
-                <ul className="space-y-2 text-sm text-slate-600">
-                  <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.personalizedConnection')}</span> {t('pages.nameTracing.personalizedConnectionDesc')}</li>
-                  <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.encouragingPractice')}</span> {t('pages.nameTracing.encouragingPracticeDesc')}</li>
-                  <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.teacherApproved')}</span> {t('pages.nameTracing.teacherApprovedDesc')}</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="lg:sticky lg:top-28">
-              <div className="bg-white border border-slate-200 rounded-3xl shadow-lg overflow-hidden">
-                <div className="px-6 py-4 border-b border-slate-100">
-                  <div className="flex items-baseline justify-between">
-                    <div>
-                      <h2 className="text-lg font-semibold text-slate-900">{t('pages.nameTracing.livePreview')}</h2>
-                      <p className="text-xs text-slate-500">
-                        {batchMode === 'batch'
-                          ? (() => {
-                            const count = formattedNames.length;
-                            const layout = batchLayout === 'two-per-page' ? t('pages.nameTracing.twoPerPage') : batchLayout === 'four-per-page' ? t('pages.nameTracing.fourPerPage') : t('pages.nameTracing.onePerPage');
-                            const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
-                            const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
-                            return t('pages.nameTracing.previewBatch').replace('{{count}}', String(count)).replace('{{nameCount}}', count === 1 ? '' : 's').replace('{{layout}}', layout).replace('{{paper}}', paper).replace('{{orientation}}', orientation);
-                          })()
-                          : (() => {
-                            const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
-                            const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
-                            return t('pages.nameTracing.previewSingle').replace('{{paper}}', paper).replace('{{orientation}}', orientation);
-                          })()
-                        }
-                      </p>
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        {t('pages.nameTracing.tracingStyle')}
+                      </Label>
                     </div>
-                    <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-2.5 py-1 rounded-full">
-                      {batchMode === 'batch' ? t('pages.nameTracing.batchMode') : t('pages.nameTracing.readyToTrace')}
-                    </span>
+                    <ToggleGroup
+                      type="single"
+                      value={fontStyle}
+                      onValueChange={(value) => value && setFontStyle(value as FontStyle)}
+                      className="grid grid-cols-2 gap-2"
+                    >
+                      <ToggleGroupItem value="dotted" className="rounded-xl">
+                        {t('pages.nameTracing.dottedLines')}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="classic" className="rounded-xl">
+                        {t('pages.nameTracing.solidTrace')}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="bubble" className="rounded-xl">
+                        {t('pages.nameTracing.bubbleLetters')}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="script" className="rounded-xl">
+                        {t('pages.nameTracing.cursiveFlow')}
+                      </ToggleGroupItem>
+                    </ToggleGroup>
                   </div>
-                </div>
-                <div className="bg-slate-100 p-4">
-                  <div className="bg-white rounded-2xl shadow-inner border border-slate-200">
-                    <div id="name-tracing-sheet" className="p-4">
-                      {batchMode === 'batch' && formattedNames.length > 1 ? (
-                        // Show multiple names in batch mode when there are multiple names
-                        <svg
-                          ref={svgRef}
-                          viewBox={`0 0 ${pageWidth} ${pageHeight}`}
-                          role="img"
-                          aria-label={t('pages.nameTracing.nameTracingWorksheetsPreview')}
-                          className="w-full h-auto"
+
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        {t('pages.nameTracing.fontSize')}
+                      </Label>
+                    </div>
+                    <ToggleGroup
+                      type="single"
+                      value={fontSizeMode}
+                      onValueChange={(value) => value && setFontSizeMode(value as FontSizeMode)}
+                      className="grid grid-cols-3 gap-2"
+                    >
+                      <ToggleGroupItem value="small" className="rounded-xl" aria-label={t('pages.nameTracing.small')}>
+                        {t('pages.nameTracing.small')}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="medium" className="rounded-xl" aria-label={t('pages.nameTracing.medium')}>
+                        {t('pages.nameTracing.medium')}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="large" className="rounded-xl" aria-label={t('pages.nameTracing.large')}>
+                        {t('pages.nameTracing.large')}
+                      </ToggleGroupItem>
+                    </ToggleGroup>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.guidelineLines')}</h3>
+                          <p className="text-xs text-slate-500">{t('pages.nameTracing.chooseHandwritingLines')}</p>
+                        </div>
+                      </div>
+                      <div className="mt-3 space-y-2">
+                        <button
+                          type="button"
+                          onClick={() => setLineStyle('primary')}
+                          className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${lineStyle === 'primary' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
                         >
-                          <defs>
-                            {formattedNames.map((_, nameIndex) => {
+                          {t('pages.nameTracing.primaryLines')}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setLineStyle('baseline')}
+                          className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${lineStyle === 'baseline' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
+                        >
+                          {t('pages.nameTracing.singleBaselineOnly')}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.practicePattern')}</h3>
+                          <p className="text-xs text-slate-500">{t('pages.nameTracing.mixTracingWithBlankLines')}</p>
+                        </div>
+                      </div>
+                      <div className="mt-3 space-y-2">
+                        <button
+                          type="button"
+                          onClick={() => setPatternStyle('traceAndWrite')}
+                          className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${patternStyle === 'traceAndWrite' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
+                        >
+                          {t('pages.nameTracing.traceAndWrite')}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setPatternStyle('traceOnly')}
+                          className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${patternStyle === 'traceOnly' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
+                        >
+                          {t('pages.nameTracing.tracingOnly')}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-4 py-3">
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.friendlyStartDot')}</p>
+                      <p className="text-xs text-slate-500">{t('pages.nameTracing.friendlyStartDotDesc')}</p>
+                    </div>
+                    <Switch
+                      checked={showGuideDots}
+                      onCheckedChange={setShowGuideDots}
+                      aria-label={t('pages.nameTracing.toggleStartDot')}
+                    />
+                  </div>
+
+                  <div className="bg-white border border-slate-200 rounded-2xl p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-sm font-semibold text-slate-800">{t('pages.nameTracing.numberOfPracticeLines')}</h3>
+                        <p className="text-xs text-slate-500">{t('pages.nameTracing.chooseBetweenRows')}</p>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-center gap-3">
+                      {[3, 4, 5, 6].map((count) => (
+                        <button
+                          key={count}
+                          type="button"
+                          onClick={() => setRowCount(count)}
+                          aria-label={`${count} ${t('pages.nameTracing.practiceRows')}`}
+                          className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-semibold transition ${rowCount === count ? 'border-purple-500 bg-purple-50 text-purple-600 shadow-sm' : 'border-slate-200 bg-white text-slate-600 hover:border-purple-200 hover:text-purple-600'}`}
+                        >
+                          {count}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+
+
+                  <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+                    <Button
+                      onClick={handlePrint}
+                      className="flex-1 rounded-2xl h-11 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 whitespace-nowrap"
+                    >
+                      <Printer className="w-4 h-4 mr-2" /> {t('pages.nameTracing.printWorksheet')}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={handleDownloadPDF}
+                      className="flex-1 rounded-2xl h-11 border-purple-200 text-purple-700 hover:bg-purple-50 whitespace-nowrap"
+                    >
+                      <FileText className="w-4 h-4 mr-2" /> {t('pages.nameTracing.downloadPDF')}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={handleDownloadPNG}
+                      className="flex-1 rounded-2xl h-11 whitespace-nowrap"
+                    >
+                      <Download className="w-4 h-4 mr-2" /> {t('pages.nameTracing.downloadPNG')}
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 border border-purple-100 rounded-3xl p-6">
+                  <h2 className="text-lg font-bold text-slate-900 mb-3">{t('pages.nameTracing.makeItMagical')}</h2>
+                  <ul className="space-y-2 text-sm text-slate-600">
+                    <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.personalizedConnection')}</span> {t('pages.nameTracing.personalizedConnectionDesc')}</li>
+                    <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.encouragingPractice')}</span> {t('pages.nameTracing.encouragingPracticeDesc')}</li>
+                    <li><span className="font-semibold text-slate-800">{t('pages.nameTracing.teacherApproved')}</span> {t('pages.nameTracing.teacherApprovedDesc')}</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="lg:sticky lg:top-28">
+                <div className="bg-white border border-slate-200 rounded-3xl shadow-lg overflow-hidden">
+                  <div className="px-6 py-4 border-b border-slate-100">
+                    <div className="flex items-baseline justify-between">
+                      <div>
+                        <h2 className="text-lg font-semibold text-slate-900">{t('pages.nameTracing.livePreview')}</h2>
+                        <p className="text-xs text-slate-500">
+                          {batchMode === 'batch'
+                            ? (() => {
+                              const count = formattedNames.length;
+                              const layout = batchLayout === 'two-per-page' ? t('pages.nameTracing.twoPerPage') : batchLayout === 'four-per-page' ? t('pages.nameTracing.fourPerPage') : t('pages.nameTracing.onePerPage');
+                              const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
+                              const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
+                              return t('pages.nameTracing.previewBatch').replace('{{count}}', String(count)).replace('{{nameCount}}', count === 1 ? '' : 's').replace('{{layout}}', layout).replace('{{paper}}', paper).replace('{{orientation}}', orientation);
+                            })()
+                            : (() => {
+                              const paper = paperSize === 'a4' ? t('pages.nameTracing.paperSizes.a4') : paperSize === 'legal' ? t('pages.nameTracing.paperSizes.legal') : t('pages.nameTracing.paperSizes.usLetter');
+                              const orientation = printOrientation === 'portrait' ? t('pages.nameTracing.portrait') : t('pages.nameTracing.landscape');
+                              return t('pages.nameTracing.previewSingle').replace('{{paper}}', paper).replace('{{orientation}}', orientation);
+                            })()
+                          }
+                        </p>
+                      </div>
+                      <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-2.5 py-1 rounded-full">
+                        {batchMode === 'batch' ? t('pages.nameTracing.batchMode') : t('pages.nameTracing.readyToTrace')}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="bg-slate-100 p-4">
+                    <div className="bg-white rounded-2xl shadow-inner border border-slate-200">
+                      <div id="name-tracing-sheet" className="p-4">
+                        {batchMode === 'batch' && formattedNames.length > 1 ? (
+                          // Show multiple names in batch mode when there are multiple names
+                          <svg
+                            ref={svgRef}
+                            viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                            role="img"
+                            aria-label={t('pages.nameTracing.nameTracingWorksheetsPreview')}
+                            className="w-full h-auto"
+                          >
+                            <defs>
+                              {formattedNames.map((_, nameIndex) => {
+                                const totalNames = formattedNames.length;
+                                let worksheetWidth = pageWidth - margin * 2;
+                                let worksheetHeight = pageHeight - margin * 2;
+
+                                if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
+                                  worksheetHeight = (pageHeight - margin * 2) / 2;
+                                } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
+                                  worksheetWidth = (pageWidth - margin * 2) / 2;
+                                  worksheetHeight = (pageHeight - margin * 2) / 2;
+                                }
+
+                                return (
+                                  <clipPath key={`clip-def-${nameIndex}`} id={`worksheet-clip-${nameIndex}`}>
+                                    <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} />
+                                  </clipPath>
+                                );
+                              })}
+                            </defs>
+                            <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
+                            <rect
+                              x={margin - 24}
+                              y={margin - 24}
+                              width={pageWidth - (margin - 24) * 2}
+                              height={pageHeight - (margin - 24) * 2}
+                              fill="#f8fafc"
+                              stroke="#e2e8f0"
+                              strokeWidth={2}
+                              rx={28}
+                            />
+                            {formattedNames.map((name, nameIndex) => {
+                              // Use the name from the map parameter directly - it's already the correct value
+                              if (!name) return null;
+
+                              // Debug logging
+                              if (process.env.NODE_ENV === 'development') {
+                                console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
+                                console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
+                              }
+
+                              const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
+                              // Calculate position based on layout
+                              // For preview, use a smart layout based on number of names
                               const totalNames = formattedNames.length;
+
+                              let worksheetX = 0;
+                              let worksheetY = 0;
                               let worksheetWidth = pageWidth - margin * 2;
                               let worksheetHeight = pageHeight - margin * 2;
 
                               if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
+                                // Two names: stack vertically
                                 worksheetHeight = (pageHeight - margin * 2) / 2;
+                                worksheetX = margin;
+                                worksheetY = margin + nameIndex * worksheetHeight;
                               } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
+                                // Four names or more: use 2x2 grid
                                 worksheetWidth = (pageWidth - margin * 2) / 2;
                                 worksheetHeight = (pageHeight - margin * 2) / 2;
+                                // Calculate grid position: column (0 or 1) and row (0 or 1)
+                                const col = nameIndex % 2;
+                                const row = Math.floor(nameIndex / 2);
+                                worksheetX = margin + col * worksheetWidth;
+                                worksheetY = margin + row * worksheetHeight;
+                              } else {
+                                // Single name: full page
+                                worksheetX = margin;
+                                worksheetY = margin;
                               }
 
+                              // Debug logging
+                              if (process.env.NODE_ENV === 'development') {
+                                console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
+                                console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
+                              }
+
+                              // Adjust row calculations for smaller worksheets
+                              const adjustedRowGap = batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)
+                                ? rowGap * 0.8
+                                : (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2))
+                                  ? rowGap * 0.6
+                                  : rowGap;
+                              const adjustedMaxRows = Math.min(rowCount, Math.max(2, Math.floor((worksheetHeight - 120) / adjustedRowGap)));
+                              const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
+
                               return (
-                                <clipPath key={`clip-def-${nameIndex}`} id={`worksheet-clip-${nameIndex}`}>
-                                  <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} />
-                                </clipPath>
-                              );
-                            })}
-                          </defs>
-                          <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
-                          <rect
-                            x={margin - 24}
-                            y={margin - 24}
-                            width={pageWidth - (margin - 24) * 2}
-                            height={pageHeight - (margin - 24) * 2}
-                            fill="#f8fafc"
-                            stroke="#e2e8f0"
-                            strokeWidth={2}
-                            rx={28}
-                          />
-                          {formattedNames.map((name, nameIndex) => {
-                            // Use the name from the map parameter directly - it's already the correct value
-                            if (!name) return null;
+                                <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#worksheet-clip-${nameIndex})`}>
+                                  {/* Debug: Visual border for worksheet area (remove in production) */}
+                                  {process.env.NODE_ENV === 'development' && (
+                                    <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} fill="none" stroke="red" strokeWidth={2} strokeDasharray="5,5" opacity={0.3} />
+                                  )}
+                                  {adjustedRows.map((rowType, rowIndex) => {
+                                    const baselineY = 120 + rowIndex * adjustedRowGap;
+                                    const startX = 40;
+                                    const endX = Math.min(worksheetWidth - 20, startX + worksheetWidth - 60);
+                                    const topLine = baselineY - baselineOffset;
+                                    const midLine = baselineY - baselineOffset / 2;
+                                    const showPrimary = lineStyle === 'primary';
 
-                            // Debug logging
-                            if (process.env.NODE_ENV === 'development') {
-                              console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
-                              console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
-                            }
+                                    return (
+                                      <g key={`row-${nameIndex}-${rowIndex}`}>
+                                        {showPrimary && (
+                                          <>
+                                            <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
+                                            <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
+                                          </>
+                                        )}
+                                        <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
 
-                            const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
-                            // Calculate position based on layout
-                            // For preview, use a smart layout based on number of names
-                            const totalNames = formattedNames.length;
-
-                            let worksheetX = 0;
-                            let worksheetY = 0;
-                            let worksheetWidth = pageWidth - margin * 2;
-                            let worksheetHeight = pageHeight - margin * 2;
-
-                            if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
-                              // Two names: stack vertically
-                              worksheetHeight = (pageHeight - margin * 2) / 2;
-                              worksheetX = margin;
-                              worksheetY = margin + nameIndex * worksheetHeight;
-                            } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
-                              // Four names or more: use 2x2 grid
-                              worksheetWidth = (pageWidth - margin * 2) / 2;
-                              worksheetHeight = (pageHeight - margin * 2) / 2;
-                              // Calculate grid position: column (0 or 1) and row (0 or 1)
-                              const col = nameIndex % 2;
-                              const row = Math.floor(nameIndex / 2);
-                              worksheetX = margin + col * worksheetWidth;
-                              worksheetY = margin + row * worksheetHeight;
-                            } else {
-                              // Single name: full page
-                              worksheetX = margin;
-                              worksheetY = margin;
-                            }
-
-                            // Debug logging
-                            if (process.env.NODE_ENV === 'development') {
-                              console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
-                              console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
-                            }
-
-                            // Adjust row calculations for smaller worksheets
-                            const adjustedRowGap = batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)
-                              ? rowGap * 0.8
-                              : (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2))
-                                ? rowGap * 0.6
-                                : rowGap;
-                            const adjustedMaxRows = Math.min(rowCount, Math.max(2, Math.floor((worksheetHeight - 120) / adjustedRowGap)));
-                            const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
-
-                            return (
-                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#worksheet-clip-${nameIndex})`}>
-                                {/* Debug: Visual border for worksheet area (remove in production) */}
-                                {process.env.NODE_ENV === 'development' && (
-                                  <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} fill="none" stroke="red" strokeWidth={2} strokeDasharray="5,5" opacity={0.3} />
-                                )}
-                                {adjustedRows.map((rowType, rowIndex) => {
-                                  const baselineY = 120 + rowIndex * adjustedRowGap;
-                                  const startX = 40;
-                                  const endX = Math.min(worksheetWidth - 20, startX + worksheetWidth - 60);
-                                  const topLine = baselineY - baselineOffset;
-                                  const midLine = baselineY - baselineOffset / 2;
-                                  const showPrimary = lineStyle === 'primary';
-
-                                  return (
-                                    <g key={`row-${nameIndex}-${rowIndex}`}>
-                                      {showPrimary && (
-                                        <>
-                                          <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
-                                          <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
-                                        </>
-                                      )}
-                                      <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
-
-                                      {rowType === 'blank' ? (
-                                        <line x1={startX} y1={baselineY + 26} x2={endX} y2={baselineY + 26} stroke="#e2e8f0" strokeWidth={2} strokeDasharray="14 16" />
-                                      ) : (
-                                        <>
-                                          {showGuideDots && (
-                                            <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
-                                          )}
-                                          {fontStyle === 'dotted' && (
+                                        {rowType === 'blank' ? (
+                                          <line x1={startX} y1={baselineY + 26} x2={endX} y2={baselineY + 26} stroke="#e2e8f0" strokeWidth={2} strokeDasharray="14 16" />
+                                        ) : (
+                                          <>
+                                            {showGuideDots && (
+                                              <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
+                                            )}
+                                            {fontStyle === 'dotted' && (
+                                              <text
+                                                x={startX}
+                                                y={baselineY - 8}
+                                                fontFamily={nameConfig.fontFamily}
+                                                fontSize={nameConfig.fontSize}
+                                                fontWeight={nameConfig.fontWeight}
+                                                fill={nameConfig.fill}
+                                                style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
+                                              >
+                                                {name}
+                                              </text>
+                                            )}
                                             <text
                                               x={startX}
                                               y={baselineY - 8}
                                               fontFamily={nameConfig.fontFamily}
                                               fontSize={nameConfig.fontSize}
                                               fontWeight={nameConfig.fontWeight}
-                                              fill={nameConfig.fill}
+                                              fill={fontStyle === 'dotted' ? 'none' : nameConfig.fill}
+                                              stroke={nameConfig.stroke}
+                                              strokeWidth={nameConfig.strokeWidth}
+                                              strokeLinecap="round"
+                                              strokeLinejoin="round"
+                                              strokeDasharray={nameConfig.dashArray}
                                               style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
                                             >
                                               {name}
                                             </text>
-                                          )}
-                                          <text
-                                            x={startX}
-                                            y={baselineY - 8}
-                                            fontFamily={nameConfig.fontFamily}
-                                            fontSize={nameConfig.fontSize}
-                                            fontWeight={nameConfig.fontWeight}
-                                            fill={fontStyle === 'dotted' ? 'none' : nameConfig.fill}
-                                            stroke={nameConfig.stroke}
-                                            strokeWidth={nameConfig.strokeWidth}
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeDasharray={nameConfig.dashArray}
-                                            style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
-                                          >
-                                            {name}
-                                          </text>
-                                        </>
-                                      )}
-                                    </g>
-                                  );
-                                })}
-                              </g>
-                            );
-                          })}
-                          <text
-                            x={margin}
-                            y={pageHeight - margin + 10}
-                            fontSize={18}
-                            fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
-                            fill="#94a3b8"
+                                          </>
+                                        )}
+                                      </g>
+                                    );
+                                  })}
+                                </g>
+                              );
+                            })}
+                            <text
+                              x={margin}
+                              y={pageHeight - margin + 10}
+                              fontSize={18}
+                              fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
+                              fill="#94a3b8"
+                            >
+                              {t('pages.nameTracing.traceSlowly')}
+                            </text>
+                          </svg>
+                        ) : (
+                          // Single name preview (single mode or one-per-page batch mode)
+                          <svg
+                            ref={svgRef}
+                            viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                            role="img"
+                            aria-label={t('pages.nameTracing.nameTracingWorksheetPreview')}
+                            className="w-full h-auto"
                           >
-                            {t('pages.nameTracing.traceSlowly')}
-                          </text>
-                        </svg>
-                      ) : (
-                        // Single name preview (single mode or one-per-page batch mode)
-                        <svg
-                          ref={svgRef}
-                          viewBox={`0 0 ${pageWidth} ${pageHeight}`}
-                          role="img"
-                          aria-label={t('pages.nameTracing.nameTracingWorksheetPreview')}
-                          className="w-full h-auto"
-                        >
-                          <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
-                          <rect
-                            x={margin - 24}
-                            y={margin - 24}
-                            width={pageWidth - (margin - 24) * 2}
-                            height={pageHeight - (margin - 24) * 2}
-                            fill="#f8fafc"
-                            stroke="#e2e8f0"
-                            strokeWidth={2}
-                            rx={28}
-                          />
+                            <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
+                            <rect
+                              x={margin - 24}
+                              y={margin - 24}
+                              width={pageWidth - (margin - 24) * 2}
+                              height={pageHeight - (margin - 24) * 2}
+                              fill="#f8fafc"
+                              stroke="#e2e8f0"
+                              strokeWidth={2}
+                              rx={28}
+                            />
 
-                          {rowsForPreview.map((rowType, index) => {
-                            const baselineY = margin + 120 + index * rowGap;
-                            const startX = margin + 40;
-                            const endX = pageWidth - margin + 20;
-                            const topLine = baselineY - baselineOffset;
-                            const midLine = baselineY - baselineOffset / 2;
-                            const showPrimary = lineStyle === 'primary';
-                            const accessibilityLabel = rowType === 'blank'
-                              ? t('pages.nameTracing.blankHandwritingLine')
-                              : t('pages.nameTracing.traceableHandwritingLine');
-                            return (
-                              <g key={`row-${index}`} aria-label={accessibilityLabel}>
-                                {showPrimary && (
-                                  <>
-                                    <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
-                                    <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
-                                  </>
-                                )}
-                                <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
+                            {rowsForPreview.map((rowType, index) => {
+                              const baselineY = margin + 120 + index * rowGap;
+                              const startX = margin + 40;
+                              const endX = pageWidth - margin + 20;
+                              const topLine = baselineY - baselineOffset;
+                              const midLine = baselineY - baselineOffset / 2;
+                              const showPrimary = lineStyle === 'primary';
+                              const accessibilityLabel = rowType === 'blank'
+                                ? t('pages.nameTracing.blankHandwritingLine')
+                                : t('pages.nameTracing.traceableHandwritingLine');
+                              return (
+                                <g key={`row-${index}`} aria-label={accessibilityLabel}>
+                                  {showPrimary && (
+                                    <>
+                                      <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
+                                      <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
+                                    </>
+                                  )}
+                                  <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
 
-                                {rowType === 'blank' ? (
-                                  <>
-                                    <line
-                                      x1={startX}
-                                      y1={baselineY + 26}
-                                      x2={endX}
-                                      y2={baselineY + 26}
-                                      stroke="#e2e8f0"
-                                      strokeWidth={2}
-                                      strokeDasharray="14 16"
-                                    />
-                                  </>
-                                ) : (
-                                  <>
-                                    {showGuideDots && (
-                                      <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
-                                    )}
-                                    {fontStyle === 'dotted' && (
+                                  {rowType === 'blank' ? (
+                                    <>
+                                      <line
+                                        x1={startX}
+                                        y1={baselineY + 26}
+                                        x2={endX}
+                                        y2={baselineY + 26}
+                                        stroke="#e2e8f0"
+                                        strokeWidth={2}
+                                        strokeDasharray="14 16"
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      {showGuideDots && (
+                                        <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
+                                      )}
+                                      {fontStyle === 'dotted' && (
+                                        <text
+                                          x={startX}
+                                          y={baselineY - 8}
+                                          fontFamily={fittedFontConfig.fontFamily}
+                                          fontSize={fittedFontConfig.fontSize}
+                                          fontWeight={fittedFontConfig.fontWeight}
+                                          fill={fittedFontConfig.fill}
+                                          style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
+                                        >
+                                          {formattedName}
+                                        </text>
+                                      )}
                                       <text
                                         x={startX}
                                         y={baselineY - 8}
                                         fontFamily={fittedFontConfig.fontFamily}
                                         fontSize={fittedFontConfig.fontSize}
                                         fontWeight={fittedFontConfig.fontWeight}
-                                        fill={fittedFontConfig.fill}
+                                        fill={fontStyle === 'dotted' ? 'none' : fittedFontConfig.fill}
+                                        stroke={fittedFontConfig.stroke}
+                                        strokeWidth={fittedFontConfig.strokeWidth}
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeDasharray={fittedFontConfig.dashArray}
                                         style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
                                       >
                                         {formattedName}
                                       </text>
-                                    )}
-                                    <text
-                                      x={startX}
-                                      y={baselineY - 8}
-                                      fontFamily={fittedFontConfig.fontFamily}
-                                      fontSize={fittedFontConfig.fontSize}
-                                      fontWeight={fittedFontConfig.fontWeight}
-                                      fill={fontStyle === 'dotted' ? 'none' : fittedFontConfig.fill}
-                                      stroke={fittedFontConfig.stroke}
-                                      strokeWidth={fittedFontConfig.strokeWidth}
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeDasharray={fittedFontConfig.dashArray}
-                                      style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
-                                    >
-                                      {formattedName}
-                                    </text>
-                                  </>
-                                )}
-                              </g>
-                            );
-                          })}
+                                    </>
+                                  )}
+                                </g>
+                              );
+                            })}
 
-                          <text
-                            x={margin}
-                            y={pageHeight - margin + 10}
-                            fontSize={18}
-                            fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
-                            fill="#94a3b8"
-                          >
-                            {t('pages.nameTracing.traceSlowly')}
-                          </text>
-                        </svg>
-                      )}
+                            <text
+                              x={margin}
+                              y={pageHeight - margin + 10}
+                              fontSize={18}
+                              fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
+                              fill="#94a3b8"
+                            >
+                              {t('pages.nameTracing.traceSlowly')}
+                            </text>
+                          </svg>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-5">
-                <h2 className="text-xl font-bold text-slate-900">Helpful tips for joyful handwriting</h2>
-                <div className="space-y-4 text-sm text-slate-600">
-                  <p>
-                    Encourage a <strong>rainbow trace</strong>: print two copies and ask your child to trace with different colors each time. This keeps their hand relaxed and builds muscle memory.
-                  </p>
-                  <p>
-                    Use the <strong>fun name tracing worksheet for preschoolers</strong> as part of a morning routine. Pair it with a favorite song or timer so they know practice time is short and sweet.
-                  </p>
-                  <p>
-                    Adjust the <strong>font size</strong> toggle when you need extra breathing room or a tighter fit—large gives beginners more space, while small keeps confident writers focused on tidy letters.
-                  </p>
-                  <p>
-                    Ready for a challenge? Switch to the <strong>personalized handwriting practice for kids</strong> mode by turning off the dotted style and letting them write on the blank lines.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-8 bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-inner">
-                <h2 className="text-lg font-semibold text-slate-900 mb-4">More tools kids love</h2>
-                <div className="grid gap-4 md:grid-cols-3">
-                  <a
-                    href="/printables/certificate-maker"
-                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
-                  >
-                    <h3 className="text-sm font-semibold text-slate-900">Certificate Maker</h3>
-                    <p className="text-xs text-slate-600 mt-1">Design printable awards with cute badges and editable text.</p>
-                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Create certificate →</span>
-                  </a>
-
-                  <a
-                    href="/worksheets/handwriting-worksheet-maker"
-                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
-                  >
-                    <h3 className="text-sm font-semibold text-slate-900">Handwriting Worksheet Maker</h3>
-                    <p className="text-xs text-slate-600 mt-1">Generate tracing rows for letters, words, or sentences in print or cursive.</p>
-                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Build worksheet →</span>
-                  </a>
-
-                  <a
-                    href="/kids"
-                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
-                  >
-                    <h3 className="text-sm font-semibold text-slate-900">Kids Hub</h3>
-                    <p className="text-xs text-slate-600 mt-1">Play free learning games, print puzzles, and explore 7-day skill plans.</p>
-                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Visit Kids Hub →</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
-                <h2 className="text-lg font-semibold text-slate-900 mb-4">Frequently asked questions</h2>
-                <div className="space-y-4">
-                  <details className="group rounded-2xl border border-slate-200 p-4">
-                    <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-800">
-                      How can I help my child hold the pencil correctly?
-                      <span className="ml-2 text-purple-500 group-open:rotate-180 transition-transform">▾</span>
-                    </summary>
-                    <p className="mt-3 text-sm text-slate-600">
-                      Start with a short practice session, remind them of the tripod grip, and keep the wrist floating above the page. Use the friendly start dot so they always know where to begin each letter.
+                <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-5">
+                  <h2 className="text-xl font-bold text-slate-900">Helpful tips for joyful handwriting</h2>
+                  <div className="space-y-4 text-sm text-slate-600">
+                    <p>
+                      Encourage a <strong>rainbow trace</strong>: print two copies and ask your child to trace with different colors each time. This keeps their hand relaxed and builds muscle memory.
                     </p>
-                  </details>
-                  <details className="group rounded-2xl border border-slate-200 p-4">
-                    <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-800">
-                      Can I create more than one name?
-                      <span className="ml-2 text-purple-500 group-open:rotate-180 transition-transform">▾</span>
-                    </summary>
-                    <p className="mt-3 text-sm text-slate-600">
-                      Absolutely. Print or download your first sheet, then come back to type new names for siblings, classmates, or the whole preschool group. Each worksheet is instant and free.
+                    <p>
+                      Use the <strong>fun name tracing worksheet for preschoolers</strong> as part of a morning routine. Pair it with a favorite song or timer so they know practice time is short and sweet.
                     </p>
-                  </details>
+                    <p>
+                      Adjust the <strong>font size</strong> toggle when you need extra breathing room or a tighter fit—large gives beginners more space, while small keeps confident writers focused on tidy letters.
+                    </p>
+                    <p>
+                      Ready for a challenge? Switch to the <strong>personalized handwriting practice for kids</strong> mode by turning off the dotted style and letting them write on the blank lines.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-8 bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-inner">
+                  <h2 className="text-lg font-semibold text-slate-900 mb-4">More tools kids love</h2>
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <a
+                      href="/printables/certificate-maker"
+                      className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                    >
+                      <h3 className="text-sm font-semibold text-slate-900">Certificate Maker</h3>
+                      <p className="text-xs text-slate-600 mt-1">Design printable awards with cute badges and editable text.</p>
+                      <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Create certificate →</span>
+                    </a>
+
+                    <a
+                      href="/worksheets/handwriting-worksheet-maker"
+                      className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                    >
+                      <h3 className="text-sm font-semibold text-slate-900">Handwriting Worksheet Maker</h3>
+                      <p className="text-xs text-slate-600 mt-1">Generate tracing rows for letters, words, or sentences in print or cursive.</p>
+                      <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Build worksheet →</span>
+                    </a>
+
+                    <a
+                      href="/kids"
+                      className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                    >
+                      <h3 className="text-sm font-semibold text-slate-900">Kids Hub</h3>
+                      <p className="text-xs text-slate-600 mt-1">Play free learning games, print puzzles, and explore 7-day skill plans.</p>
+                      <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Visit Kids Hub →</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                  <h2 className="text-lg font-semibold text-slate-900 mb-4">Frequently asked questions</h2>
+                  <div className="space-y-4">
+                    <details className="group rounded-2xl border border-slate-200 p-4">
+                      <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-800">
+                        How can I help my child hold the pencil correctly?
+                        <span className="ml-2 text-purple-500 group-open:rotate-180 transition-transform">▾</span>
+                      </summary>
+                      <p className="mt-3 text-sm text-slate-600">
+                        Start with a short practice session, remind them of the tripod grip, and keep the wrist floating above the page. Use the friendly start dot so they always know where to begin each letter.
+                      </p>
+                    </details>
+                    <details className="group rounded-2xl border border-slate-200 p-4">
+                      <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-800">
+                        Can I create more than one name?
+                        <span className="ml-2 text-purple-500 group-open:rotate-180 transition-transform">▾</span>
+                      </summary>
+                      <p className="mt-3 text-sm text-slate-600">
+                        Absolutely. Print or download your first sheet, then come back to type new names for siblings, classmates, or the whole preschool group. Each worksheet is instant and free.
+                      </p>
+                    </details>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
 
-      <Footer />
+        <Footer />
+      </div>
 
-      {/* Print-only container */}
+      {/* Print-only container (moved outside to prevent parent display:none from hiding it) */}
       {isPrinting && (
-        <div className="print-only" style={{ background: '#fff' }}>
+        <div className="print-only" style={{ background: '#fff', position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 9999 }}>
           <style dangerouslySetInnerHTML={{
             __html: `
-            @media screen {
-              .print-only { display: none !important; }
+          @media screen {
+            .print-only { display: none !important; }
+          }
+          @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            @page { 
+              size: ${paperSize === 'us-letter' ? '8.5in 11in' : paperSize === 'a4' ? '210mm 297mm' : '8.5in 14in'}; 
+              margin: 0; 
             }
-            @media print {
-              .no-print { display: none !important; }
-              .print-only { display: block !important; }
-              @page { 
-                size: ${paperSize === 'us-letter' ? '8.5in 11in' : paperSize === 'a4' ? '210mm 297mm' : '8.5in 14in'}; 
-                margin: 0; 
-              }
-              html, body { 
-                margin: 0 !important; 
-                padding: 0 !important; 
-                height: auto !important;
-                background: #fff !important;
-              }
-              .print-page {
-                width: ${pageWidth}px;
-                height: ${pageHeight}px;
-                page-break-after: always;
-                position: relative;
-                overflow: hidden;
-                margin: 0 auto;
-              }
-              svg { width: 100%; height: 100%; }
+            html, body { 
+              margin: 0 !important; 
+              padding: 0 !important; 
+              height: auto !important;
+              background: #fff !important;
             }
-          `}} />
+            .print-page {
+              width: ${pageWidth}px;
+              height: ${pageHeight}px;
+              page-break-after: always;
+              position: relative;
+              overflow: hidden;
+              margin: 0 auto;
+            }
+            svg { width: 100%; height: 100%; }
+          }
+        `}} />
 
           {batchLayout === 'one-per-page' || batchMode === 'single' ? (
             printNames.map((name, i) => (
@@ -1717,7 +1725,6 @@ export default function NameTracingGeneratorPage() {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }
-
