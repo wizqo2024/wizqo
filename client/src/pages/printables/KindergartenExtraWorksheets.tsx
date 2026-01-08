@@ -1862,10 +1862,16 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
         });
 
         // For matching, we need a shuffled list of the counts
-        const shuffled = config.type === 'match' ? shuffleArray(probs.map(p => p.count), rng) : [];
+        let shuffled = config.type === 'match' ? shuffleArray(probs.map(p => p.count), makeRng(`${seed}-${docId}-${variant}-shuffle`)) : [];
+
+        // Extra check: If by some miracle (or bug) the shuffle is identical to the original order,
+        // we force a shuffle by reversing or shifting, as it defeats the purpose for a kid's worksheet.
+        if (config.type === 'match' && shuffled.length > 1 && shuffled.every((num, idx) => num === probs[idx].count)) {
+            shuffled = [...shuffled].reverse();
+        }
 
         return { problems: probs, shuffledNumbers: shuffled };
-    }, [config, rng]);
+    }, [config, rng, seed, docId, variant]);
 
     return (
         <WorksheetSectionWrapper
