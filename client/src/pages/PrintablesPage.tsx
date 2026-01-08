@@ -942,7 +942,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             width: 794px !important;
             max-width: 794px !important;
             margin: 0 !important; 
-            padding: 1.0in 0 0.5in 0 !important; 
+            padding: 0.25in 0 0 !important; 
             font-size: 11pt !important;
             line-height: 1.3 !important;
           }
@@ -1014,7 +1014,8 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
             print-color-adjust: exact !important;
             color-adjust: exact !important;
             padding: 20px 24px 24px 24px; /* Removed !important to allow JS override */
-            margin: 1.0in !important;
+            margin: 0.25in !important;
+            margin-top: 0 !important;
           }
           [data-worksheet-content="true"] .wizqo-logo-print {
             display: none !important; /* Managed by JS during capture */
