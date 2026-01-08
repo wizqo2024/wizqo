@@ -1713,8 +1713,61 @@ export function ClassifyingShapes5th({ seed, variant, showAnswersForDoc }: Speci
             <div className="space-y-8 mt-10">
                 {problems.map((p, i) => (
                     <div key={i} className="border-2 border-slate-200 rounded-3xl p-8 bg-white flex flex-col md:flex-row gap-8 items-center shadow-lg">
-                        <div className="w-32 h-32 bg-slate-50 rounded-2xl flex items-center justify-center border-4 border-slate-100 flex-shrink-0 animate-pulse">
-                            <span className="text-4xl text-slate-300">?</span>
+                        <div className="w-32 h-32 bg-slate-50 rounded-2xl flex items-center justify-center border-4 border-slate-100 flex-shrink-0 p-2">
+                            {(() => {
+                                const commonProps = { stroke: "#6366f1", strokeWidth: "3", fill: "none", strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+                                switch (p.name) {
+                                    case 'Square':
+                                        return (
+                                            <svg viewBox="0 0 100 100" className="w-full h-full">
+                                                <rect x="20" y="20" width="60" height="60" {...commonProps} />
+                                                <path d="M20 30 L30 30 L30 20" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                                <path d="M70 20 L70 30 L80 30" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                                <path d="M80 70 L70 70 L70 80" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                                <path d="M30 80 L30 70 L20 70" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                            </svg>
+                                        );
+                                    case 'Rectangle':
+                                        return (
+                                            <svg viewBox="0 0 100 100" className="w-full h-full">
+                                                <rect x="10" y="30" width="80" height="40" {...commonProps} />
+                                                <path d="M10 40 L20 40 L20 30" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                                <path d="M80 30 L80 40 L90 40" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                                <path d="M90 60 L80 60 L80 70" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                                <path d="M20 70 L20 60 L10 60" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                            </svg>
+                                        );
+                                    case 'Rhombus':
+                                        return (
+                                            <svg viewBox="0 0 100 100" className="w-full h-full">
+                                                <path d="M50 10 L90 50 L50 90 L10 50 Z" {...commonProps} />
+                                                <line x1="48" y1="28" x2="52" y2="32" stroke="#cbd5e1" strokeWidth="2" />
+                                                <line x1="72" y1="48" x2="68" y2="52" stroke="#cbd5e1" strokeWidth="2" />
+                                                <line x1="52" y1="68" x2="48" y2="72" stroke="#cbd5e1" strokeWidth="2" />
+                                                <line x1="28" y1="52" x2="32" y2="48" stroke="#cbd5e1" strokeWidth="2" />
+                                            </svg>
+                                        );
+                                    case 'Right Triangle':
+                                        return (
+                                            <svg viewBox="0 0 100 100" className="w-full h-full">
+                                                <path d="M20 20 L20 80 L80 80 Z" {...commonProps} />
+                                                <path d="M20 70 L30 70 L30 80" fill="none" stroke="#cbd5e1" strokeWidth="2" />
+                                            </svg>
+                                        );
+                                    case 'Trapezoid':
+                                        return (
+                                            <svg viewBox="0 0 100 100" className="w-full h-full">
+                                                <path d="M30 30 L70 30 L90 70 L10 70 Z" {...commonProps} />
+                                                {/* Parallel indicators (Top) */}
+                                                <path d="M50 30 L47 27 M50 30 L47 33" stroke="#cbd5e1" strokeWidth="2" fill="none" />
+                                                {/* Parallel indicators (Bottom) */}
+                                                <path d="M50 70 L47 67 M50 70 L47 73" stroke="#cbd5e1" strokeWidth="2" fill="none" />
+                                            </svg>
+                                        );
+                                    default:
+                                        return <span className="text-4xl text-slate-300">?</span>;
+                                }
+                            })()}
                         </div>
 
                         <div className="flex-1 space-y-4">
