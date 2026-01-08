@@ -761,16 +761,7 @@ export default function NameTracingGeneratorPage() {
           strokeWidth: 0,
           dashArray: undefined,
         };
-      default:
-        return {
-          fontFamily: "'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif",
-          fontWeight: 600,
-          letterSpacing: 4,
-          fill: 'rgba(59, 130, 246, 0.15)',
-          stroke: '#2563eb',
-          strokeWidth: 5,
-          dashArray: '0 26',
-        };
+      default: // dotted\n        return {\n          fontFamily: "'Codystar', sans-serif",\n          fontWeight: 400,\n          letterSpacing: 4,\n          fill: '#94a3b8',\n          stroke: undefined,\n          strokeWidth: 0,\n          dashArray: undefined,\n        };
     }
   }, [fontStyle]);
 
@@ -966,8 +957,8 @@ export default function NameTracingGeneratorPage() {
                       type="button"
                       onClick={() => setBatchMode('single')}
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${batchMode === 'single'
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-white text-slate-700 hover:bg-purple-100'
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-white text-slate-700 hover:bg-purple-100'
                         }`}
                     >
                       {t('pages.nameTracing.single')}
@@ -976,8 +967,8 @@ export default function NameTracingGeneratorPage() {
                       type="button"
                       onClick={() => setBatchMode('batch')}
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${batchMode === 'batch'
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-white text-slate-700 hover:bg-purple-100'
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-white text-slate-700 hover:bg-purple-100'
                         }`}
                     >
                       {t('pages.nameTracing.batch')}
@@ -1036,8 +1027,8 @@ export default function NameTracingGeneratorPage() {
                             type="button"
                             onClick={() => setBatchLayout('one-per-page')}
                             className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'one-per-page'
-                                ? 'bg-purple-600 text-white'
-                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                              ? 'bg-purple-600 text-white'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                               }`}
                           >
                             {t('pages.nameTracing.onePerPage')}
@@ -1046,8 +1037,8 @@ export default function NameTracingGeneratorPage() {
                             type="button"
                             onClick={() => setBatchLayout('two-per-page')}
                             className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'two-per-page'
-                                ? 'bg-purple-600 text-white'
-                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                              ? 'bg-purple-600 text-white'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                               }`}
                           >
                             {t('pages.nameTracing.twoPerPage')}
@@ -1056,8 +1047,8 @@ export default function NameTracingGeneratorPage() {
                             type="button"
                             onClick={() => setBatchLayout('four-per-page')}
                             className={`px-3 py-2 rounded-xl text-xs font-medium transition ${batchLayout === 'four-per-page'
-                                ? 'bg-purple-600 text-white'
-                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                              ? 'bg-purple-600 text-white'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                               }`}
                           >
                             {t('pages.nameTracing.fourPerPage')}
@@ -1081,8 +1072,8 @@ export default function NameTracingGeneratorPage() {
                             type="button"
                             onClick={() => setPrintOrientation('portrait')}
                             className={`px-3 py-2 rounded-xl text-xs font-medium transition ${printOrientation === 'portrait'
-                                ? 'bg-purple-600 text-white'
-                                : 'bg-white text-slate-700 hover:bg-purple-50'
+                              ? 'bg-purple-600 text-white'
+                              : 'bg-white text-slate-700 hover:bg-purple-50'
                               }`}
                           >
                             {t('pages.nameTracing.portrait')}
@@ -1091,8 +1082,8 @@ export default function NameTracingGeneratorPage() {
                             type="button"
                             onClick={() => setPrintOrientation('landscape')}
                             className={`px-3 py-2 rounded-xl text-xs font-medium transition ${printOrientation === 'landscape'
-                                ? 'bg-purple-600 text-white'
-                                : 'bg-white text-slate-700 hover:bg-purple-50'
+                              ? 'bg-purple-600 text-white'
+                              : 'bg-white text-slate-700 hover:bg-purple-50'
                               }`}
                           >
                             {t('pages.nameTracing.landscape')}
@@ -1124,8 +1115,8 @@ export default function NameTracingGeneratorPage() {
                               type="button"
                               onClick={() => setMarginSize(size)}
                               className={`px-2 py-2 rounded-xl text-xs font-medium transition capitalize ${marginSize === size
-                                  ? 'bg-purple-600 text-white'
-                                  : 'bg-white text-slate-700 hover:bg-purple-50'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-white text-slate-700 hover:bg-purple-50'
                                 }`}
                             >
                               {t(`pages.nameTracing.marginSizes.${size}`)}

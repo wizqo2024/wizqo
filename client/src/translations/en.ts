@@ -4008,6 +4008,7 @@ export const en = {
       practiceRows: 'practice rows',
       printWorksheet: 'Print worksheet',
       downloadPNG: 'Download PNG',
+      downloadPDF: 'Download PDF',
       makeItMagical: 'Make handwriting practice feel magical',
       personalizedConnection: '❤️ Personalized connection:',
       personalizedConnectionDesc: 'Create my child\'s name tracing printable in seconds.',
@@ -4045,6 +4046,8 @@ export const en = {
       downloadFailed: 'Download Failed',
       downloadFailedDesc: 'Unable to generate PNG. Please try again.',
       downloadError: 'An error occurred while downloading. Please try again.',
+      preparingPDF: 'Preparing PDF',
+      preparingPDFDesc: 'Generating your PDF worksheet...',
     },
     grades: {
       kindergarten: {
