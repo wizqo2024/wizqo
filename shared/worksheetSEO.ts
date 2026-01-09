@@ -2522,6 +2522,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Solid, liquid, or gas? Explore the states of matter through our engaging interactive digital virtual lab.',
     learningObjectives: ['Distinguish between the properties of solids, liquids, and gases', 'Visualize molecular movement under different temperature conditions', 'Understand the processes of melting, freezing, and evaporation through simulation'],
     intro: 'Matter matters! Our Interactive Science States lab lets students shrink down to the size of a molecule to see how things really work. By changing temperatures and pressures, you can watch solids melt into liquids and liquids evaporate into gases. It\'s a virtual experiment that makes chemistry feel like magic!'
+  },
+  'interactive-science-weather': {
+    title: 'Interactive Science Weather - Virtual Weather Station | Wizqo',
+    metaDescription: 'Become a meteorologist! Predict and track weather patterns with our engaging interactive digital science lab. Free to play online.',
+    learningObjectives: ['Identify and measure weather variables (temperature, precipitation, wind speed)', 'Understand the water cycle and its role in creating daily weather patterns', 'Analyze scientific data to make simple short-term weather predictions'],
+    intro: 'Whats the forecast today? Our Interactive Science Weather station puts you in control of the atmosphere! By monitoring changes in pressure, humidity, and temperature, students learn how the building blocks of the sky create everything from light breezes to major storms. Step into the shoes of a meteorologist and start charting the skies!'
+  },
+  'interactive-geography-map': {
+    title: 'Interactive Geography Map - Digital Cartography Adventure | Wizqo',
+    metaDescription: 'Explore the globe! Master map skills and world landmarks with our engaging interactive geography game. Free online learning.',
+    learningObjectives: ['Identify continents, oceans, and major mountain ranges on a digital map', 'Understand map features including compass roses, scales, and legends', 'Develop spatial reasoning skills by navigating a virtual world map'],
+    intro: 'The world is at your fingertips! Our Interactive Geography Map turns cartography into an exploration game. By navigating through continents and zooming into world wonders, students build a mental map of our planet that lasts a lifetime. Whether you\'re finding the Equator or the Eiffel Tower, every click is a step toward global mastery!'
+  },
+  'interactive-geography-culture': {
+    title: 'Interactive Geography Culture - Global Traditions Journey | Wizqo',
+    metaDescription: 'Meet the world! Explore traditions, languages, and foods from different cultures in our engaging interactive digital game.',
+    learningObjectives: ['Recognize and respect the diversity of human traditions and lifestyles', 'Identify key cultural symbols and practices from various global regions', 'Develop global awareness and empathy through cross-cultural exploration'],
+    intro: 'Pack your virtual bags! Our Interactive Geography Culture journey takes you on a tour of the human family. From the festivals of Asia to the music of Africa, students learn how people around the world live, celebrate, and speak. It\'s a beautiful, engaging way to build the empathy and curiosity needed for a connected global future!'
+  },
+  'interactive-geography-history': {
+    title: 'Interactive Geography History - Time-Traveling Map Quest | Wizqo',
+    metaDescription: 'Journey through time! Explore historical eras and events on our engaging interactive digital history map.',
+    learningObjectives: ['Connect historical events to their specific geographic locations', 'Understand how physical geography has influenced the course of world history', 'Analyze how borders and societies have changed over different historical eras'],
+    intro: 'History isn\'t just a date—it\'s a place! Our Interactive Geography History quest turns the world map into a time machine. By exploring how civilizations grew and changed across the land, students see the "where" behind the "when" of famous events. Trace the paths of explorers and the rise of empires in a story that spans the ages!'
+  },
+  'interactive-grammar-parts': {
+    title: 'Interactive Grammar Parts of Speech - Digital Word Sort | Wizqo',
+    metaDescription: 'Master English grammar! Practice identifying nouns, verbs, and adjectives with our engaging interactive digital word sort game.',
+    learningObjectives: ['Correctly classify words as nouns, verbs, adjectives, or adverbs', 'Understand the functional role of each part of speech in a sentence', 'Strengthen vocabulary by exploring varied word types in a digital workspace'],
+    intro: 'Let\'s get sorted! Our Interactive Grammar Parts of Speech game turns sentence mechanics into a playful challenge. By dragging and dropping words into their correct categories, students build the foundational grammar "muscles" needed for clear and expressive writing. It\'s the fun, hands-on way to make the rules of English stick!'
+  },
+  'interactive-grammar-tenses': {
+    title: 'Interactive Grammar Tenses - Dynamic Verb Timeline | Wizqo',
+    metaDescription: 'Past, present, or future? Master verb tenses with our engaging interactive digital timeline game. Free online grammar practice.',
+    learningObjectives: ['Identify and apply correct verb conjugations for past, present, and future time', 'Understand how tense markers change the meaning of a narrative', 'Improve writing accuracy by maintaining consistent tenses across sentences'],
+    intro: 'Take control of time! Our Interactive Grammar Tenses workshop uses a dynamic timeline to show how verbs move the world. By shifting actions from the past to the future, students see the immediate impact of grammar on meaning. It\'s an intuitive, visual way to master the tricky rhythms of English verbs!'
+  },
+  'interactive-grammar-antonyms': {
+    title: 'Interactive Grammar Antonyms - Opposites Matching Game | Wizqo',
+    metaDescription: 'Find the opposite! Master antonyms and expand your vocabulary with our engaging interactive digital matching game.',
+    learningObjectives: ['Identify antonym pairs for common adjectives, verbs, and nouns', 'Expand vocabulary by recognizing contrasting word meanings', 'Improve linguistic flexibility and precision in writing and speech'],
+    intro: 'Stop and go! High and low! Our Interactive Grammar Antonyms game turns vocabulary building into a high-energy matching challenge. By connecting words with their opposites, students sharpen their mental word maps and learn how to choose the "just right" term for any situation. It\'s a fun, fast-paced way to see that every word has its flip side!'
+  },
+  'interactive-art-design': {
+    title: 'Interactive Art Design - Digital Graphic Creator | Wizqo',
+    metaDescription: 'Unleash your inner designer! Explore layout, composition, and shape-design in our engaging interactive digital art studio.',
+    learningObjectives: ['Understand the principles of good design including balance, contrast, and alignment', 'Create original digital compositions using various shapes and tools', 'Develop aesthetic judgment and visual communication skills'],
+    intro: 'Design your world! Our Interactive Art Design studio is a playground for your visual ideas. By arranging shapes, colors, and textures on a digital canvas, students learn the building blocks of graphic arts used by professional designers and architects. Whether you\'re making a poster or a masterpiece, this room is yours to create in!'
+  },
+  'interactive-art-colorwheel': {
+    title: 'Interactive Art Color Wheel - Color Theory Lab | Wizqo',
+    metaDescription: 'Master the rainbow! Explore primary, secondary, and tertiary colors in our engaging interactive digital color lab.',
+    learningObjectives: ['Identify primary, secondary, and tertiary colors on a standard scale', 'Understand the principles of color mixing and complementary hues', 'Apply color theory to create harmonious and impactful digital art'],
+    intro: 'Dive into the spectrum! Our Interactive Art Color Wheel is a hands-on lab for the science of sight. By mixing digital hues and exploring how different colors interact, students discover the secrets behind every great painting and photograph. From warm tones to cool shades, learn how to paint with the full power of the rainbow!'
+  },
+  'interactive-art-sketch': {
+    title: 'Interactive Art Sketch - Free-Form Digital Studio | Wizqo',
+    metaDescription: 'Draw your dreams! Explore digital sketching with dynamic brush tools and textures in our engaging interactive art room.',
+    learningObjectives: ['Master digital drawing tools and basic artistic techniques (lines, shading, texture)', 'Express creative ideas through free-form visual storytelling', 'Build confidence in artistic self-expression and motor skill coordination'],
+    intro: 'If you can dream it, you can draw it! Our Interactive Art Sketch studio is a wide-open space for your creativity. With a variety of digital brushes, markers, and textures, students can explore the joy of drawing without ever running out of ink. From simple doodles to detailed sketches, this is where your imagination takes shape!'
   }
 }
 
