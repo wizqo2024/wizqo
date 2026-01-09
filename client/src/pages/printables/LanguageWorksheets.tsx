@@ -247,7 +247,7 @@ export function LetterTracingAZ({ showAnswersForDoc }: SpecificWorksheetProps) {
                             <line x1="40" y1="100" x2="360" y2="100" stroke="#94a3b8" strokeDasharray="8 8" />
                             <line x1="40" y1="160" x2="360" y2="160" stroke="#ef4444" strokeWidth="3" />
                         </g>
-                        <g fill="none" stroke="#111827" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round">
+                        <g fill="none" stroke="#cbd5e1" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
                             {letter === 'A' && <path d="M200 40 L150 160 M200 40 L250 160 M165 115 L235 115" />}
                             {letter === 'B' && <path d="M160 40 L160 160 M160 40 C220 40 220 95 160 95 C230 95 230 160 160 160" />}
                             {letter === 'C' && <path d="M230 60 C210 40 160 40 160 100 C160 160 210 160 230 140" />}
@@ -276,7 +276,7 @@ export function LetterTracingAZ({ showAnswersForDoc }: SpecificWorksheetProps) {
                             {letter === 'Z' && <path d="M160 40 L240 40 L160 160 L240 160" />}
                         </g>
                         <circle cx="200" cy="50" r="7" fill="#ef4444" stroke="#ffffff" strokeWidth="2" />
-                        <text x="200" y="210" fontSize="24" fontWeight="bold" fill="#111827" textAnchor="middle">{letter}</text>
+                        <text x="200" y="210" fontSize="24" fill="#94a3b8" textAnchor="middle">{letter}</text>
                     </svg>
                 </div>
             ))}
