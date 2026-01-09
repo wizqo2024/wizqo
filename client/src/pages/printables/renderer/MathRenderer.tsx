@@ -586,8 +586,8 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
 
             {/* Higher Grade Content */}
             {activeDocs.includes('div-facts-1-12') && <DivisionFacts seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('factors-multiples') && <FactorsMultiples docId="factors-multiples" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('prime-composite') && <PrimeComposite docId="prime-composite" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('factors-multiples') && <FactorsMultiples docId="factors-multiples" seed={effectiveSeed} variant={numVariant} showAnswers={showAnswers} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('prime-composite') && <PrimeComposite docId="prime-composite" seed={effectiveSeed} variant={numVariant} showAnswers={showAnswers} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('math-maze') && <MathMazeWorksheets key="math-maze" docId="math-maze" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('logic-grid') && <LogicWorksheets docId="logic-grid" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />}
             {activeDocs.includes('logic-maze') && <LogicWorksheets docId="logic-maze" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} activeDocs={activeDocs} />}

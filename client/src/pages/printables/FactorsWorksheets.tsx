@@ -84,9 +84,14 @@ export function FactorsMultiples({ seed, variant, showAnswersForDoc }: SpecificW
                                 {p.type === 'factors' ? `Find all factors of ${p.num}` : `List first 5 multiples of ${p.num}`}
                             </h3>
                         </div>
-                        <div className="h-24 w-full border-b-2 border-slate-100 bg-slate-50/50 rounded-lg flex items-end p-4">
-                            {/* Lines for writing answer */}
-                            <div className="w-full border-b border-slate-300 border-dashed mb-2"></div>
+                        <div className="h-24 w-full border-b-2 border-slate-100 bg-slate-50/50 rounded-lg flex items-center justify-center p-4">
+                            {showAnswers ? (
+                                <div className="text-xl font-bold text-orange-600 bg-orange-50 px-4 py-2 rounded-lg border border-orange-200 shadow-sm animate-in fade-in zoom-in duration-300">
+                                    {p.answer}
+                                </div>
+                            ) : (
+                                <div className="w-full border-b border-slate-300 border-dashed mb-2 mt-auto"></div>
+                            )}
                         </div>
                     </div>
                 ))}
@@ -160,10 +165,10 @@ export function PrimeComposite({ seed, variant, showAnswersForDoc }: SpecificWor
                         <div className="w-16 h-16 rounded-full bg-rose-50 flex items-center justify-center text-2xl font-black text-rose-500 border-2 border-rose-200">
                             {p.num}
                         </div>
-                        <div className="w-full flex justify-between gap-2 text-xs font-bold text-slate-500 uppercase">
-                            <div className="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">P</div>
-                            <div className="flex-1 border-b border-slate-200 mb-3"></div>
-                            <div className="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center">C</div>
+                        <div className="w-full flex justify-between items-center gap-2 text-xs font-bold text-slate-500 uppercase">
+                            <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${showAnswers && p.answer === 'Prime' ? 'bg-rose-500 border-rose-600 text-white scale-110 shadow-md' : 'border-slate-300'}`}>P</div>
+                            <div className="flex-1 border-b border-slate-200"></div>
+                            <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${showAnswers && p.answer === 'Composite' ? 'bg-rose-500 border-rose-600 text-white scale-110 shadow-md' : 'border-slate-300'}`}>C</div>
                         </div>
                     </div>
                 ))}
