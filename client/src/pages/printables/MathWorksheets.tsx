@@ -1602,11 +1602,11 @@ export function NumberTracing1To20({ showAnswersForDoc }: SpecificWorksheetProps
                 <div className="font-bold text-3xl tracking-widest text-slate-700 opacity-50">{String.fromCodePoint(0x270F)}</div>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 print:block print:scale-95 print:origin-top-left">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 print:flex print:flex-wrap print:gap-0 print:w-full">
                 {numbers.map((n) => (
                     <div
                         key={n}
-                        className="break-inside-avoid flex flex-col items-center print:inline-block print:w-[23%] print:align-top print:mx-[1%] print:mb-2"
+                        className="break-inside-avoid flex flex-col items-center print:block print:w-[25%] print:p-2"
                         style={{
                             pageBreakInside: 'avoid',
                             ...(n === 11 ? { pageBreakBefore: 'always', breakBefore: 'page' } : {})
