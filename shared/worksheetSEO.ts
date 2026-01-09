@@ -2282,6 +2282,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Linear math for beginners! Practice basic multiplication facts 1-5 in a horizontal format. Free printable PDF.',
     learningObjectives: ['Master foundational multiplication facts (1-5) in a horizontal layout', 'Build early confidence with linear mathematical notation', 'Prepare for symbolic math by recognizing factors and products in a row'],
     intro: 'Simple, clear, and effective! Our 1-5 Horizontal Multiplication Table is the perfect starting point for students transitioning to symbolic math. By laying out the basic facts in a straightforward row-by-row format, we make it easy for young minds to focus on one table at a time without the distraction of a larger grid. It\'s the foundational step to becoming a math pro!'
+  },
+  'times-table-horizontal-6-12': {
+    title: 'Horizontal Multiplication Table 6-12 - Advanced Practice | Wizqo',
+    metaDescription: 'Master the upper tables! Practice multiplication facts 6-12 in a linear, horizontal format. Free printable math PDF for grades 4-6.',
+    learningObjectives: ['Fluently recall advanced multiplication facts (6-12) in horizontal notation', 'Identify linear number patterns in higher-level multiplication tables', 'Strengthen mental math speed for multi-digit multiplication and division'],
+    intro: 'Ready for the big leagues? Our Horizontal Multiplication Table 6-12 targets the most challenging part of the multiplication curriculum. By presenting advanced facts in a clean, linear layout, we help students move beyond basic grids to the symbolic math used in algebra. It\'s the perfect workout for building the mental stamina needed for middle school math!'
+  },
+  'times-table-missing-1-5': {
+    title: 'Missing Number Multiplication 1-5 - Early Algebra | Wizqo',
+    metaDescription: 'Find the secret factor! Solve missing-number multiplication puzzles for tables 1-5. Free printable PDF for grades 2-3.',
+    learningObjectives: ['Solve for an unknown factor using basic multiplication knowledge', 'Understand the inverse relationship between multiplication and division', 'Develop foundational algebraic thinking and problem-solving skills'],
+    intro: 'Math is a puzzle waiting to be solved! Our 1-5 Missing Number Multiplication worksheet turns simple facts into exciting brain-teasers. By asking "What number times 3 equals 12?", we help young learners build the logic needed for algebra and the ability to work "backwards" through an equation. It\'s the perfect bridge from basic arithmetic to creative problem-solving!'
+  },
+  'times-table-missing-6-12': {
+    title: 'Missing Number Multiplication 6-12 - Advanced Puzzles | Wizqo',
+    metaDescription: 'Think like an algebra pro! Solve for unknown factors in the 6-12 multiplication tables. Free printable math worksheet.',
+    learningObjectives: ['Determine missing factors in advanced 6-12 multiplication equations', 'Strengthen the mental connection between products and their factor pairs', 'Build the analytical speed required for high-stakes math testing'],
+    intro: 'Level up your logic! Our 6-12 Missing Number Multiplication worksheet focuses on the most challenging factor pairs in the math world. By identifying the "missing piece" in advanced equations, students develop a deeper numerical intuition and the algebraic flexibility used in science and engineering. It\'s the ultimate workout for a sharp, mathematical mind!'
+  },
+  'times-table-missing-mixed': {
+    title: 'Mixed Missing Number Multiplication - Algebra Prep | Wizqo',
+    metaDescription: 'The ultimate factor challenge! Solve randomized missing-number puzzles across all 1-12 tables. Free printable PDF.',
+    learningObjectives: ['Solve for unknown factors across a wide range of multiplication facts (1-12)', 'Flexibly switch between different factor families in a single workspace', 'Demonstrate comprehensive mastery of multiplication and division inverse logic'],
+    intro: 'Are you ready for the great factor hunt? Our Mixed Missing Number Multiplication worksheet is the ultimate test of your flexible thinking. Instead of focusing on one group of numbers, you\'ll have to jump between 1s and 12s, solving for unknowns in every direction. It\'s the perfect way to prove that you don\'t just know your facts—you truly understand how they work together!'
+  },
+  'times-table-mixed-review': {
+    title: 'Multiplication Mixed Review - Comprehensive Mastery | Wizqo',
+    metaDescription: 'prove your skills! A varied review of multiplication types from basic facts to complex problems. Free printable PDF for grades 3-6.',
+    learningObjectives: ['Demonstrate consistent accuracy across a diverse set of multiplication types', 'Apply different strategies (algorithms, mental math, properties) to varied problems', 'Build confidence in comprehensive multiplication mastery before moving to division'],
+    intro: 'You\'ve learned the rules, now show your stuff! Our Multiplication Mixed Review is the final victory lap of the arithmetic unit. By switching between different factors, formats, and difficulty levels, students prove they have the versatile "math muscles" needed for real-world success. This is where practice turns into true proficiency!'
+  },
+  'times-table-timed-1-12': {
+    title: '1-12 Timed Multiplication Test - Ultimate Fluency | Wizqo',
+    metaDescription: 'Beat the clock! Build instant recall for all tables 1-12 with our high-speed timed test. Free printable PDF for grades 3-5.',
+    learningObjectives: ['Recall all multiplication facts 1-12 with 100% accuracy under time pressure', 'Build the automaticity needed for higher-level mental math and division', 'Personalize speed goals to improve calculation rate over repeated attempts'],
+    intro: 'Ready, set, math! Our 1-12 Timed Multiplication Test is designed for the high-intensity practice that leads to "automaticity." By testing their recall under the clock, students learn how to think fast and trust their instincts. Mastering this drill means you\'ll never have to pause during long division or fractions again—the answers will simply be there!'
+  },
+  'times-table-timed-1-5': {
+    title: '1-5 Timed Multiplication Test - Early Fluency Drill | Wizqo',
+    metaDescription: 'Speed practice for beginners! Build rapid recall for the 1-5 tables with our timed worksheet. Free printable PDF.',
+    learningObjectives: ['Recall basic multiplication facts (1-5) quickly and accurately', 'Develop the mental "stamina" for timed mathematical assessments', 'Transition from skip-counting to instant number recall'],
+    intro: 'Fast math is fun math! Our 1-5 Timed Multiplication Test helps young learners move beyond counting on their fingers to instant recall. By practicing these foundational facts against the clock, children build the "math reflex" that makes all future arithmetic easier. It\'s a high-energy way to celebrate how much they\'ve learned!'
+  },
+  'times-table-timed-6-12': {
+    title: '6-12 Timed Multiplication Test - Advanced Speed Drill | Wizqo',
+    metaDescription: 'Master the tough ones fast! Develop instant recall for the 6-12 tables under time pressure. Free printable math PDF.',
+    learningObjectives: ['Recall challenging 6-12 multiplication facts with high speed and precision', 'Overcome "hesitation points" in advanced times tables', 'Prepare for middle school math requirements through rapid factor recall'],
+    intro: 'Don\'t let the clock stop you! Our 6-12 Timed Multiplication Test targets the facts that students often find the most difficult. By practicing those "hard" numbers under time pressure, we help kids build the confidence and speed used by top mathematical thinkers. Once you can beat this clock, you\'re ready for any math challenge the world throws at you!'
+  },
+  'times-table-vertical-1-12': {
+    title: 'Vertical Multiplication Practice 1-12 - Standard Method | Wizqo',
+    metaDescription: 'Master the standard algorithm! Practice multiplication facts 1-12 in a traditional vertical format. Free printable PDF.',
+    learningObjectives: ['Execute multiplication facts accurately using vertical notation', 'Build the spacing and alignment habits needed for multi-digit multiplication', 'Reinforce the relationship between factor pairs and vertical products'],
+    intro: 'Numbers look better stacked! Our Vertical Multiplication 1-12 worksheet teaches students the classical "standard" way of writing math. By organizing equations vertically, children build the neatness and precision they need for future long multiplication and division. it\'s the clean, professional layout used by mathematicians everywhere to keep their calculations organized and accurate!'
+  },
+  'times-table-vertical-1-5': {
+    title: 'Vertical Multiplication Practice 1-5 - Beginner Layout | Wizqo',
+    metaDescription: 'Stack and solve! Learn vertical multiplication for the 1-5 tables with our clear, simple practice sheet. Free printable PDF.',
+    learningObjectives: ['Correctly align factors and products in a vertical multiplication format', 'Master basic facts (1-5) using standard mathematical notation', 'Develop the organizational skills needed for more complex multi-step math'],
+    intro: 'Let\'s stack the facts! Our 1-5 Vertical Multiplication worksheet introduces early learners to the standard way we write "big" math. By practicing simple problems in a vertical format, students get used to the layout they\'ll use for the rest of their school years. It\'s a simple, effective way to build the foundations of numerical organization!'
   }
 }
 
