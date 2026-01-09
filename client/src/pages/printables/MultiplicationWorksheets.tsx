@@ -4067,12 +4067,26 @@ export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWork
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
 
-    const problems = Array.from({ length: 4 }).map(() => {
-        // 2-digit x 2-digit
-        const a = nextInt(12, 55);
-        const b = nextInt(12, 55);
-        return { a, b };
-    });
+    const problems = React.useMemo(() => {
+        const generated = new Set<string>();
+        const result: { a: number, b: number }[] = [];
+        let attempts = 0;
+
+        while (result.length < 4 && attempts < 100) {
+            attempts++;
+            const a = nextInt(12, 55);
+            const b = nextInt(12, 55);
+            // Sort small-large to prevent (25,31) and (31,25) duplicates
+            const [min, max] = a < b ? [a, b] : [b, a];
+            const key = `${min}-${max}`;
+
+            if (!generated.has(key)) {
+                generated.add(key);
+                result.push({ a, b }); // Keep original generated order for display variety
+            }
+        }
+        return result;
+    }, [seed, variant]);
 
     return (
         <WorksheetSectionWrapper
