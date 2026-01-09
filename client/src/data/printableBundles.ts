@@ -97,6 +97,7 @@ export const PRINTABLE_BUNDLE_SECTIONS: Record<string, string[]> = {
     'pemdas-exponents', 'pemdas-fluency', 'pemdas-mixed-review', 'pemdas-multistep',
     'pemdas-parentheses', 'pemdas-practice', 'pemdas-rules', 'pemdas-step-by-step',
     'pemdas-word-problems',
+    'mult-lattice',
     // Times Tables
     'times-table-blank-1-5', 'times-table-blank-6-12', 'times-table-blank-1-12',
     'times-table-color-1-5', 'times-table-color-6-12', 'times-table-color-1-12',
@@ -373,4 +374,5 @@ export const PRINTABLE_DOC_META: Record<string, { level: PrintableDifficulty }> 
   'div-facts-1-12': { level: 'Intermediate' },
   'factors-multiples': { level: 'Intermediate' },
   'prime-composite': { level: 'Intermediate' },
+  'mult-lattice': { level: 'Advanced' },
 };

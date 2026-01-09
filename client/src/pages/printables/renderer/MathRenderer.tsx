@@ -27,6 +27,7 @@ import {
     MultiplicationDecimals,
     PartialProducts,
     AreaModelMult,
+    LatticeMultiplication,
 } from '../MultiplicationWorksheets';
 import {
     EquivFractions4th,
@@ -299,6 +300,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             })()}
 
             {activeDocs.includes('mult-area-model') && <AreaModelMult seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-lattice') && <LatticeMultiplication seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Specific Math Worksheets from MathWorksheets.tsx and SecondGradeMath.tsx */}
             {activeDocs.includes('addition-subtraction-0-10') && (

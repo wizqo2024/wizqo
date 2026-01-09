@@ -4171,3 +4171,150 @@ export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWork
         </WorksheetSectionWrapper>
     );
 }
+
+export function LatticeMultiplication({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+    const docId = "mult-lattice";
+    const { getTrans, t } = useWorksheetTranslation(docId);
+    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+
+    const problems = Array.from({ length: 4 }).map((_, i) => {
+        const topDigits = i < 2 ? 2 : 3;
+        const bottomDigits = 2;
+        const a = nextInt(Math.pow(10, topDigits - 1), Math.pow(10, topDigits) - 1);
+        const b = nextInt(Math.pow(10, bottomDigits - 1), Math.pow(10, bottomDigits) - 1);
+        return { a, b, topDigits, bottomDigits };
+    });
+
+    return (
+        <WorksheetSectionWrapper
+            docId={docId}
+            title={getTrans("title", "Lattice Multiplication Master")}
+            emoji={String.fromCodePoint(0x1F9E9)}
+            description={getTrans("description", "Master the multi-digit multiplication using the lattice method! Solve these problems using the grids provided.")}
+            learningObjectives={t("learningObjectives", [
+                "Understand the place value structure of multiplication",
+                "Master the lattice multiplication method",
+                "Improve accuracy with multi-digit products"
+            ])}
+            parentTeacherTips={t("parentTeacherTips", [
+                "Each cell is for one single multiplication (e.g., 2 x 4)",
+                "Write tens in the top triangle and ones in the bottom",
+                "Sum along the diagonals, starting from the bottom right",
+                "Remember to carry over if a diagonal sum is 10 or more!"
+            ])}
+        >
+            <PremiumWorksheetBanner
+                title={getTrans("banner.title", "Golden Grid Challenge")}
+                subtitle={getTrans("banner.subtitle", "The Ancient Art of Lattice Multiplication")}
+                icons={{
+                    bg1: "📜",
+                    bg2: "📐",
+                    float1: "✨",
+                    float2: "✍️"
+                }}
+                colors={{
+                    bg: "bg-gradient-to-br from-amber-50 to-orange-50",
+                    border: "border-amber-200",
+                    pillBg: "bg-amber-400",
+                    pillBorder: "border-amber-500",
+                    pillText: "text-amber-900",
+                    accent: "text-amber-200"
+                }}
+            />
+
+            <StrategySpotlight
+                strategyName="The Lattice Method"
+                icon="📐"
+                steps={[
+                    "Write the first number along the top and the second down the right side.",
+                    "Multiply the numbers for each cell. Tens go in the top triangle, ones in the bottom.",
+                    "Add the numbers along the diagonal paths, starting from the bottom right.",
+                    "The resulting numbers form your final answer!"
+                ]}
+                exampleTitle="Example: 24 x 13"
+                exampleProblem="Set up a 2x2 grid and follow the diagonals."
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10">
+                {problems.map((p, pIdx) => {
+                    const aDigits = String(p.a).split("");
+                    const bDigits = String(p.b).split("");
+                    return (
+                        <div key={pIdx} className="relative p-8 border-2 border-amber-100 rounded-3xl bg-white shadow-sm hover:shadow-md transition-shadow">
+                            <div className="absolute top-4 left-6 text-xl font-black text-amber-200">#{pIdx + 1}</div>
+                            <div className="flex flex-col items-center">
+                                <div className="mb-10 text-3xl font-black text-slate-800 tracking-widest">
+                                    {p.a} × {p.b} = <span className="inline-block w-40 border-b-4 border-amber-400 opacity-30"></span>
+                                </div>
+
+                                {/* Lattice Grid */}
+                                <div className="relative mb-12">
+                                    {/* Top Digits */}
+                                    <div className="flex justify-center ml-0 mr-12 mb-2">
+                                        {aDigits.map((d, i) => (
+                                            <div key={i} className="w-24 text-center text-3xl font-black text-amber-600 drop-shadow-sm">{d}</div>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex">
+                                        <div className="relative border-4 border-slate-800 rounded-sm bg-white overflow-visible shadow-xl"
+                                            style={{ width: `${p.topDigits * 96}px`, height: `${p.bottomDigits * 96}px` }}>
+                                            {/* Cells */}
+                                            <div className="grid" style={{ gridTemplateColumns: `repeat(${p.topDigits}, 1fr)` }}>
+                                                {Array.from({ length: p.topDigits * p.bottomDigits }).map((_, i) => (
+                                                    <div key={i} className="relative w-24 h-24 border border-slate-300">
+                                                        {/* Diagonal Line */}
+                                                        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                                                            <line x1="100" y1="0" x2="0" y2="100" stroke="#94a3b8" strokeWidth="2" strokeDasharray="4 2" />
+                                                        </svg>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Right Digits */}
+                                        <div className="flex flex-col justify-around ml-4">
+                                            {bDigits.map((d, i) => (
+                                                <div key={i} className="h-24 flex items-center text-3xl font-black text-amber-600 drop-shadow-sm">{d}</div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Diagonal Solution Lines (Visual Guide) */}
+                                    {/* These are represented by placeholders below the grid */}
+                                    <div className="absolute -bottom-16 -left-12 w-[calc(100%+48px)] flex justify-between px-4">
+                                        {Array.from({ length: p.topDigits + p.bottomDigits }).map((_, i) => (
+                                            <div key={i} className="w-12 h-12 rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/50 flex items-center justify-center text-amber-200">
+                                                ?
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {showAnswersForDoc(docId, () => (
+                <div className="mt-16 p-8 bg-amber-50 border-4 border-amber-200 rounded-3xl print:page-break-before-always shadow-inner">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center text-white text-2xl shadow-md">✓</div>
+                        <h3 className="text-2xl font-black text-amber-900">Answer Key</h3>
+                    </div>
+                    <div className="grid grid-cols-2 gap-8">
+                        {problems.map((p, i) => (
+                            <div key={i} className="bg-white p-4 rounded-2xl border border-amber-100 flex items-center justify-between">
+                                <span className="text-amber-400 font-black text-lg">#{i + 1}</span>
+                                <div className="text-xl font-bold text-slate-700">
+                                    {p.a} × {p.b} = <span className="text-amber-600">{p.a * p.b}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </WorksheetSectionWrapper>
+    );
+}

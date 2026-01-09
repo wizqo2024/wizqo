@@ -266,7 +266,7 @@ export default function App() {
     const cleanPath = pathWithoutLocale.replace(/^\/+/, '');
 
     // Get first segment (route key) after removing locale
-    const seg = cleanPath.split('/')[0] || '';
+    const seg = (cleanPath.split('/')[0] || '').toLowerCase();
     const params = new URLSearchParams(queryString || '');
     return [seg, params] as const;
   }, [route, parseLocaleFromPath]);
@@ -280,7 +280,7 @@ export default function App() {
     const { path: pathWithoutLocale } = parseLocaleFromPath(pathname);
     const cleanPath = pathWithoutLocale.replace(/^\/+/, '');
     const segs = cleanPath.split('/');
-    return segs[1] || '';
+    return (segs[1] || '').toLowerCase();
   }, [route, parseLocaleFromPath]);
 
   // Redirect bare /worksheets to the preferred hub URL to avoid duplicate indexing

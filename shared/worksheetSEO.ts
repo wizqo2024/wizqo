@@ -58,6 +58,7 @@ function createSlug(docId: string): string {
     'skip-count-5-10-120': 'skip-counting-by-5s-and-10s-to-120',
     'order-of-operations': 'order-of-operations-pemdas',
     'fractions-to-decimals': 'converting-fractions-to-decimals',
+    'mult-lattice': 'lattice-multiplication-practice',
   }
 
   if (slugMap[docId]) {
@@ -136,6 +137,7 @@ function createTitle(docId: string): string {
     .map(word => {
       // Handle numbers
       if (/^\d+$/.test(word)) return word
+      if (word === 'mult') return 'Multiplication'
       // Capitalize first letter
       return word.charAt(0).toUpperCase() + word.slice(1)
     })
@@ -204,6 +206,10 @@ function inferCategory(docId: string): string[] {
   }
   if (docId.includes('pemdas') || docId.includes('order-of-operations')) {
     categories.push('order-of-operations')
+  }
+  if (docId.includes('lattice')) {
+    categories.push('multiplication')
+    categories.push('logic')
   }
   if (docId.includes('pattern')) {
     categories.push('patterns')

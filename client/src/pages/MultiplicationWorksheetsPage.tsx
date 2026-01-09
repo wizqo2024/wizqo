@@ -79,6 +79,14 @@ export default function MultiplicationWorksheetsPage() {
     { title: t('pages.multiplication.worksheets.mixedReview.title'), description: t('pages.multiplication.worksheets.mixedReview.description'), href: getWorksheetURL('mult-mixed-review', 'multiplication'), docId: 'mult-mixed-review', categories: ['fluency'], gradeRange: 'All' },
     { title: t('pages.multiplication.worksheets.strategies.title'), description: t('pages.multiplication.worksheets.strategies.description'), href: getWorksheetURL('mult-strategies', 'multiplication'), docId: 'mult-strategies', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
     { title: t('pages.multiplication.worksheets.patterns.title'), description: t('pages.multiplication.worksheets.patterns.description'), href: getWorksheetURL('mult-patterns', 'multiplication'), docId: 'mult-patterns', categories: ['fluency', 'skip-counting'], gradeRange: 'All' },
+    {
+      title: 'Lattice Multiplication',
+      description: 'Master multi-digit multiplication using the ancient lattice method with guided premium grids.',
+      href: getWorksheetURL('mult-lattice', 'multiplication'),
+      docId: 'mult-lattice',
+      categories: ['multi-digit', 'logic'],
+      gradeRange: '4th-5th'
+    },
   ], [t])
 
   // Filter worksheets based on selected categories
