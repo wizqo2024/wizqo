@@ -2402,6 +2402,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Manipulate the world! Learn about 2D and 3D shapes through our interactive digital geometry experience.',
     learningObjectives: ['Identify and classify shapes based on their interactive properties (sides, vertices)', 'Visualize 3D rotations and spatial relationships in a digital space', 'Build a conceptual understanding of geometry through direct manipulation'],
     intro: 'Geometry literally comes to life! Our Interactive Math Shapes game lets students touch, turn, and transform the building blocks of the world. By manipulating shapes in a digital environment, children build the spatial intuition and geometric logic needed for architecture and design. It\'s math history in the making—one shape at a time!'
+  },
+  'mult-facts-1-5': {
+    title: 'Multiplication Facts 1-5 - Early Math Drills | Wizqo',
+    metaDescription: 'Master the basics! Practice multiplication tables 1-5 with our clear, structured drills. Free printable PDF for grades 2-3.',
+    learningObjectives: ['Fluently recall multiplication facts for numbers 1 through 5', 'Understand the concept of repeated addition through basic factors', 'Build numerical confidence before moving to advanced tables'],
+    intro: 'Foundation first! Our Multiplication Facts 1-5 worksheet focuses on the critical starting point of the arithmetic journey. By mastering these smaller factor pairs, students build the "math reflex" needed for more complex operations. It\'s the perfect, low-stress way to ensure every young learner feels like a math superstar!'
+  },
+  'mult-facts-6-12': {
+    title: 'Multiplication Facts 6-12 - Mastery Drills | Wizqo',
+    metaDescription: 'Conquer the tough tables! Practice advanced multiplication facts 6-12 to build total numerical fluency. Free printable math PDF.',
+    learningObjectives: ['Master the most challenging multiplication facts from 6x6 to 12x12', 'Improve mental calculation speed for division and multi-step problems', 'Develop total automaticity across the entire 12x12 multiplication grid'],
+    intro: 'The mastery challenge! Our Multiplication Facts 6-12 worksheet targets the "power tables" that students often find most difficult. By providing focused, high-repetition practice for factors 6 through 12, we help children eliminate hesitation and build the rapid recall used by scientists and engineers. Turn those "hard" numbers into second nature!'
+  },
+  'ws-world': {
+    title: 'Worksheet World Multi-Skill Challenge - Comprehensive Review | Wizqo',
+    metaDescription: 'Explore the world of math! A diverse collection of problems covering arithmetic, logic, and geometry. Free printable PDF.',
+    learningObjectives: ['Apply diverse mathematical skills to a variety of problem types', 'Improve versatility by switching between different math domains', 'Demonstrate comprehensive mastery of primary-grade math concepts'],
+    intro: 'Welcome to Worksheet World! This special multi-skill challenge isn\'t just about one topic—it\'s an adventure through the entire math curriculum. From arithmetic puzzles to geometric logic, students will travel through different "zones" of learning, proving their versatility and building the well-rounded expertise of a true math explorer!'
+  },
+  'match-the-feeling': {
+    title: 'Match the Feeling to the Situation - Free SEL Worksheet | Wizqo',
+    metaDescription: 'Free printable Social Emotional Learning (SEL) worksheet. Help kids identify feelings like sad, happy, bored, and friendly by matching them to real-life situations.',
+    learningObjectives: ['Identify core emotions', 'Connect feelings to causes', 'Build emotional vocabulary'],
+    intro: 'This interactive Social Emotional Learning (SEL) worksheet helps children develop emotional intelligence by matching feelings to real-world situations. Perfect for Kindergarten and 1st Grade students to practice empathy and self-awareness.'
+  },
+  'reading-discovery-interactive': {
+    title: 'Reading Discovery: Interactive Comprehension Worksheet | Wizqo',
+    metaDescription: 'Free interactive reading comprehension worksheet for kids. Practice reading with 3 original stories, colorful 3D illustrations, and instant "Show Answer" features. Perfect for Grade 1 and 2.',
+    learningObjectives: ['Improve text comprehension', 'Identify key details in stories', 'Connect visual aids to written context', 'Build vocabulary'],
+    intro: 'Welcome to Reading Discovery! This interactive worksheet features three original stories—Leo\'s Space Adventure, The Helpful Robot, and Mia\'s Magic Garden—designed to build reading comprehension and critical thinking skills in young learners. Use the "Show Answer" feature for interactive classroom learning or print the worksheet for quiet practice.'
+  },
+  'interactive-math-money': {
+    title: 'Interactive Math Money - Digital Financial Literacy Game | Wizqo',
+    metaDescription: 'Learn to earn and spend! Practice coin counting and currency math in our engaging interactive digital economy. Free to play online.',
+    learningObjectives: ['Accurately count and combine various coin and bill denominations', 'Solve real-world transaction problems including making change', 'Develop foundational financial literacy and money-management skills'],
+    intro: 'Math makes cents! Our Interactive Math Money experience turns financial literacy into a fun digital market. By managing virtual currency, counting coins, and making change, students build the practical life skills needed for the real world. Engage with money in a safe, interactive environment where every calculation helps you master the art of the shop!'
+  },
+  'interactive-math-fractions': {
+    title: 'Interactive Math Fractions - Gamified Parts and Wholes | Wizqo',
+    metaDescription: 'Slice and solve! Explore fraction equivalence and comparison through our dynamic interactive digital tools.',
+    learningObjectives: ['Visualize fractions as parts of a whole through interactive slicing and shading', 'Compare and order fractions with like and unlike denominators', 'Identify equivalent fractions using dynamic visual representations'],
+    intro: 'Don\'t fear the fraction! Our Interactive Math Fractions game turns abstract numbers into a hands-on exploration of parts and wholes. By slicing shapes, shading grids, and moving pieces in a digital space, students see the logic behind fraction equivalence and comparison. It\'s a colorful, intuitive way to make fractions feel as easy as pie!'
+  },
+  'interactive-math-measurement': {
+    title: 'Interactive Math Measurement - Digital Precision Tools | Wizqo',
+    metaDescription: 'Measure the world! Practice length, weight, and volume calculations with our interactive digital measurement lab.',
+    learningObjectives: ['Use digital rulers and scales to measure objects with precision', 'Convert between different units of measurement in an interactive context', 'Apply measurement logic to solve multi-step problems and experiments'],
+    intro: 'Measurement comes to life! Our Interactive Math Measurement lab gives students the digital tools to explore the physical world. From measuring virtual objects with high-precision rulers to balancing scales and calculating volume, children learn that math is the key to describing everything around us. Step into the lab and start measuring your way to discovery!'
+  },
+  'interactive-reading-adventure': {
+    title: 'Interactive Reading Adventure - Branching Story Choices | Wizqo',
+    metaDescription: 'You choose the path! Improve reading comprehension with our interactive adventure where your choices change the story.',
+    learningObjectives: ['Improve reading comprehension through active narrative participation', 'Analyze character motivations to make logical story choices', 'Understand cause-and-effect relationships within a branching plot'],
+    intro: 'The story is in your hands! Our Interactive Reading Adventure turns reading into a quest where every choice you make shaped the outcome. By analyzing clues and choosing the path, students become active participants in the narrative, boosting their engagement and comprehension. Will you be the hero of your own reading journey? Start the adventure to find out!'
+  },
+  'interactive-reading-detective': {
+    title: 'Interactive Reading Detective - Evidence-Based Investigation | Wizqo',
+    metaDescription: 'Solve the mystery! Practice inference and detail-finding with our interactive digital reading detective game.',
+    learningObjectives: ['Cite specific evidence from a digital text to solve a mystery', 'Develop advanced inference skills by connecting subtle narrative clues', 'Improve attention to detail and critical reading speed'],
+    intro: 'Get your magnifying glass ready! Our Interactive Reading Detective game turns comprehension practice into a high-stakes mystery. Instead of just reading, students must scan the text for clues, cross-reference evidence, and solve the case. It\'s a rigorous, engaging way to build the investigative skills used by real-world researchers and analysts. The case is open—can you solve it?'
   }
 }
 
@@ -3125,38 +3185,6 @@ export function initializeWorksheetSEO() {
       .slice(0, 5)
       .map(w => w.docId)
     seo.relatedDocIds = related
-  }
-
-  // MANUAL OVERRIDE for Match The Feeling (Premium SEO)
-  WORKSHEET_SEO_MAP['match-the-feeling'] = {
-    docId: 'match-the-feeling',
-    slug: 'match-the-feeling',
-    title: 'Match the Feeling to the Situation - Free SEL Worksheet | Wizqo',
-    metaDescription: 'Free printable Social Emotional Learning (SEL) worksheet. Help kids identify feelings like sad, happy, bored, and friendly by matching them to real-life situations.',
-    keywords: 'match the feeling worksheet, social emotional learning worksheets, sel worksheets for kids, feelings and emotions worksheets, kindergarten feelings activity, identifying emotions worksheet, preschool sel printables',
-    h1: 'Match the Feeling to the Situation',
-    intro: 'This interactive Social Emotional Learning (SEL) worksheet helps children develop emotional intelligence by matching feelings to real-world situations. Perfect for Kindergarten and 1st Grade students to practice empathy and self-awareness.',
-    grade: ['Kindergarten', '1st Grade'],
-    category: ['visual-perception', 'social-emotional-learning'],
-    section: 'Shapes & Colors',
-    learningObjectives: ['Identify core emotions', 'Connect feelings to causes', 'Build emotional vocabulary'],
-    relatedDocIds: ['match-object-to-shadow', 'feelings-checkin', 'winter-kindness']
-  }
-
-  // MANUAL OVERRIDE for Reading Discovery (High Performance SEO)
-  WORKSHEET_SEO_MAP['reading-discovery-interactive'] = {
-    docId: 'reading-discovery-interactive',
-    slug: 'reading-discovery-interactive',
-    title: 'Reading Discovery: Interactive Comprehension Worksheet | Wizqo',
-    metaDescription: 'Free interactive reading comprehension worksheet for kids. Practice reading with 3 original stories, colorful 3D illustrations, and instant "Show Answer" features. Perfect for Grade 1 and 2.',
-    keywords: 'reading discovery worksheet, interactive reading comprehension, free reading worksheets for kids, reading passages with questions, grade 1 reading comprehension, grade 2 reading comprehension, interactive learning worksheets, printable reading pdf',
-    h1: 'Reading Discovery: Interactive Comprehension',
-    intro: 'Welcome to Reading Discovery! This interactive worksheet features three original stories—Leo\'s Space Adventure, The Helpful Robot, and Mia\'s Magic Garden—designed to build reading comprehension and critical thinking skills in young learners. Use the "Show Answer" feature for interactive classroom learning or print the worksheet for quiet practice.',
-    grade: ['1st Grade', '2nd Grade'],
-    category: ['reading', 'visual-perception'],
-    section: 'Reading',
-    learningObjectives: ['Improve text comprehension', 'Identify key details in stories', 'Connect visual aids to written context', 'Build vocabulary'],
-    relatedDocIds: ['reading-g1-birthday-cake', 'reading-g2-magic-seeds', 'match-the-feeling']
   }
 }
 
