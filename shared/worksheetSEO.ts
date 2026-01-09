@@ -128,6 +128,186 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Download our 1st-grade reading passage "All About Ants." Includes simple facts and comprehension questions to build early literacy and science knowledge.',
     learningObjectives: ['Recall simple scientific facts from the text', 'Identify the main topic of a reading passage', 'Practice decoding informational text'],
     intro: 'Introduce young learners to the fascinating world of insects with our "All About Ants" reading comprehension worksheet. This passage is written specifically for 1st-grade readers, using simple vocabulary and engaging facts to build literacy while teaching basic science. After reading, students answer straightforward questions that confirm their understanding, helping them transition from "learning to read" to "reading to learn."'
+  },
+  'add-2digit-100': {
+    title: 'Adding 2-Digit Numbers within 100 - Vertical Addition | Wizqo',
+    metaDescription: 'Practice vertical addition within 100 without regrouping. Build accuracy and speed with our 2-digit addition worksheet. Free printable PDF for 1st-2nd grade.',
+    learningObjectives: ['Align 2-digit numbers vertically by place value', 'Add tens and ones separately within 100', 'Solve addition problems without regrouping'],
+    intro: 'Vertical addition is the standard way to handle larger sums, and our Adding 2-Digit Numbers within 100 worksheet makes it easy to learn. By focusing on problems that don\'t require regrouping (borrowing), students can concentrate on alignment and column addition, building the procedural fluency needed for more complex math. Perfect for classroom morning work or extra home practice.'
+  },
+  'add-2digit-regrouping': {
+    title: 'Adding with Regrouping (2-Digit) - Carry Over Practice | Wizqo',
+    metaDescription: 'Master 2-digit addition with regrouping (carrying). Targeted practice for students learning to move ones to the tens column. Free PDF with answer key.',
+    learningObjectives: ['Master the concept of "carrying over" in addition', 'Perform 2-digit addition with regrouping', 'Understand place value transformation in sums > 10'],
+    intro: 'Regrouping is often where young mathematicians hit their first major hurdle. Our Adding with Regrouping worksheet is designed to make the "carry over" process visual and intuitive. With clear spacing and guided examples, students learn how ten ones become one ten, transforming their understanding of place value and enabling them to tackle any 2-digit sum with total confidence.'
+  },
+  'add-sub-fractions': {
+    title: 'Adding and Subtracting Fractions - Like Denominators | Wizqo',
+    metaDescription: 'Practice basic fraction arithmetic with our Adding and Subtracting Fractions worksheet. Focus on fractions with the same denominator. Free printable PDF.',
+    learningObjectives: ['Add and subtract fractions with common denominators', 'Understand that the denominator stays the same in basic operations', 'Visualize fraction addition using models'],
+    intro: 'Fractions don\'t have to be intimidating! Our Adding and Subtracting Fractions worksheet focuses on "like denominators," teaching students that when the pieces are the same size, you simply add or subtract the top numbers (numerators). This printable practice sheet builds the foundational logic needed before moving on to unlike denominators, ensuring a smooth transition into more advanced fraction operations.'
+  },
+  'area-model-mult': {
+    title: 'Area Model Multiplication - Visual Strategy Practice | Wizqo',
+    metaDescription: 'Learn to multiply using the box method/area model. Break down large numbers for easier calculation. Perfect for 3rd-5th grade math mastery.',
+    learningObjectives: ['Decompose numbers into expanded form for multiplication', 'Calculate partial products using the area model grid', 'Sum partial products to find the final total'],
+    intro: 'Standard algorithms can feel like a "black box," but the Area Model Multiplication worksheet makes math transparent. By breaking numbers like 24 into 20 and 4, students can visualize multiplication as a physical area on a grid. This "box method" is a favorite among teachers for reducing calculation errors and building a deep, conceptual understanding of how multi-digit multiplication actually works.'
+  },
+  'bar-graphs-data': {
+    title: 'Interpreting Bar Graphs and Data - Statistics for Kids | Wizqo',
+    metaDescription: 'Practice reading and analyzing bar graphs with our Data Interpretation worksheet. Answer questions based on visual charts. Free printable for grades 2-4.',
+    learningObjectives: ['Read and interpret data from a vertical bar graph', 'Compare quantities using visual chart scales', 'Draw conclusions based on statistical evidence'],
+    intro: 'Information is everywhere, and being able to read a graph is a vital life skill. Our Interpreting Bar Graphs and Data worksheet presents students with colorful, relatable scenarios and challenges them to extract meaning from the bars. From comparing quantities to finding the total count, this worksheet transforms raw numbers into visual insights, strengthening both math and critical thinking skills.'
+  },
+  'beginning-sounds-az': {
+    title: 'Beginning Sounds A-Z - Phonics & Letter Recognition | Wizqo',
+    metaDescription: 'Help early readers identify starting letter sounds for objects A-Z. Perfect for Pre-K and Kindergarten phonemic awareness. Free printable PDF.',
+    learningObjectives: ['Connect spoken sounds to written letters', 'Identify the starting sound of common objects', 'Enhance phonemic awareness through visual matching'],
+    intro: 'Reading begins with the ear. Our Beginning Sounds A-Z worksheet helps young learners bridge the gap between spoken language and written symbols by identifying the "first sound" of familiar objects. Whether it\'s "A" for Apple or "Z" for Zebra, this phonics practice sheet provides the repetitive, joyful engagement needed to build a strong foundation for decoding and spelling.'
+  },
+  'comparing-fractions': {
+    title: 'Comparing Fractions - Visual and Numerical Practice | Wizqo',
+    metaDescription: 'Learn to compare fractions using models and common denominators. Practice using greater than, less than, and equal signs. Free PDF for grades 3-4.',
+    learningObjectives: ['Use benchmark fractions (like 1/2) to compare values', 'Understand that larger denominators mean smaller pieces', 'Correctly use comparison symbols (<, >, =) with fractions'],
+    intro: 'Is 1/3 really bigger than 1/4? Our Comparing Fractions worksheet helps students answer this common question using both visual models and logical reasoning. By seeing the physical difference in slice sizes and learning to find common denominators, children develop a "fraction sense" that prevents common errors. This printable resource is perfect for consolidating 3rd and 4th-grade math standards.'
+  },
+  'customary-conversion': {
+    title: 'Customary Unit Conversion Practice - Length, Weight, Volume | Wizqo',
+    metaDescription: 'Practice converting between inches, feet, yards, ounces, and pounds. Build measurement fluency with our Customary Units worksheet. Free PDF.',
+    learningObjectives: ['Convert between standard units of length (inches, feet, yards)', 'Understand relationships between ounces and pounds', 'Identify the correct operation (multiplication/division) for unit changes'],
+    intro: 'Navigating the customary measurement system requires a solid grasp of conversion factors. Our Customary Unit Conversion worksheet provides targeted practice for the most common units used in the United States, from measuring height in feet to weighing items in pounds. With clear reference charts and varied problems, students build the mathematical "fluidity" needed for real-world measurements and science experiments.'
+  },
+  'decimals-place-value': {
+    title: 'Decimals Place Value - Tenths and Hundredths Mastery | Wizqo',
+    metaDescription: 'Master the value of digits to the right of the decimal point. Practice identifying tenths and hundredths. Free printable for 4th and 5th grade.',
+    learningObjectives: ['Identify the place value of digits in a decimal number', 'Read and write decimals in expanded and word form', 'Understand the relationship between fractions and decimals'],
+    intro: 'What happens when a number is smaller than one? Our Decimals Place Value worksheet introduces students to the world of tenths and hundredths, showing them how the base-ten system extends beyond the decimal point. By mapping decimals to visual grids and place value charts, learners build the clarity needed for adding, subtracting, and comparing decimals with precision.'
+  },
+  'div-facts-1-12': {
+    title: 'Division Facts 1-12 - Division Mastery & Speed Drills | Wizqo',
+    metaDescription: 'Build instant recall of division facts from 1 to 12. Includes speed drills and targeted practice for 3rd-5th grade math fluency. Free PDF download.',
+    learningObjectives: ['Recall division facts 1-12 with accuracy and speed', 'Connect division to its inverse multiplication facts', 'Strengthen mental math calculation foundations'],
+    intro: 'True math fluency is built on a foundation of fast, accurate fact recall. Our Division Facts 1-12 worksheet offers a mix of repetition and speed challenges designed to move division into long-term memory. By mastering these basic facts, students remove the "mental tax" from complex problems like long division and simplifying fractions, allowing them to focus on new concepts without getting bogged down in basic arithmetic.'
+  },
+  'equivalent-fractions': {
+    title: 'Finding Equivalent Fractions - Visual & Algebraic Practice | Wizqo',
+    metaDescription: 'Learn how to find fractions that represent the same value. Use multiplication and division to simplify and expand fractions. Free printable PDF.',
+    learningObjectives: ['Identify equivalent fractions using visual models', 'Use the "Identity Property" (multiplying by n/n) to find equivalents', 'Simplify fractions to their lowest terms'],
+    intro: 'Why does 2/4 equal 1/2? Our Finding Equivalent Fractions worksheet turns this abstract concept into a concrete skill. By coloring in equivalent areas and using the "secret" of multiplying or dividing the top and bottom by the same number, students learn that fractions can look different while representing the same amount. This is a crucial "bridge" skill for adding fractions with unlike denominators.'
+  },
+  'factors-multiples': {
+    title: 'Factors and Multiples - Number Theory Practice | Wizqo',
+    metaDescription: 'Identify the factors and multiples of common numbers. Practice finding GCF and LCM with our clear, printable worksheet. Perfect for grades 4-6.',
+    learningObjectives: ['List all factor pairs for a given number', 'Identify multiples and common multiples in a set', 'Distinguish between prime and composite numbers'],
+    intro: 'Every number is built from factors! Our Factors and Multiples worksheet helps students peek "under the hood" of mathematics to see how numbers are constructed. By mastering these concepts, children build the foundations for Greatest Common Factor (GCF) and Least Common Multiple (LCM), making advanced fraction work and algebra much more intuitive. Perfect for building a strong number-sense foundation.'
+  },
+  'fractions-to-decimals': {
+    title: 'Converting Fractions to Decimals - Math Skills Mastery | Wizqo',
+    metaDescription: 'Learn to transform fractions into their decimal equivalents. Focus on tenths, hundredths, and division methods. Free PDF for 4th-6th grade.',
+    learningObjectives: ['Convert fractions with denominators of 10 and 100 to decimals', 'Use long division to turn any fraction into a decimal', 'Recognize common fraction-decimal equivalents on sight'],
+    intro: 'Math is a language with many dialects! Our Converting Fractions to Decimals worksheet helps students "translate" between these two essential forms. Whether it\'s recognizing that 1/2 is 0.5 or using division for more complex values, this practice sheet ensures learners are comfortable moving between systems—a skill that is used daily in money, measurement, and science.'
+  },
+  'long-division-1digit': {
+    title: 'Long Division with 1-Digit Divisors - Step-by-Step | Wizqo',
+    metaDescription: 'Master the long division algorithm (Does McDonald\'s Sell Cheese Burgers?). Practice 2 and 3-digit dividends with 1-digit divisors. Free PDF.',
+    learningObjectives: ['Execute the Divide-Multiply-Subtract-Bring Down sequence', 'Correctly place the quotient in relation to the dividend', 'Manage remainders accurately in long division problems'],
+    intro: 'Long division is a rite of passage for every math student. Our Long Division with 1-Digit Divisors worksheet breaks this complex multi-step process into manageable bites. Using the "DMSB" (Divide, Multiply, Subtract, Bring Down) mnemonic, students practice the rhythm of the algorithm on a clean, organized layout that prevents common alignment errors. Perfect for building confidence in 4th and 5th-grade math.'
+  },
+  'mult-word-problems': {
+    title: 'Multiplication Word Problems - Real-World Math Mastery | Wizqo',
+    metaDescription: 'Apply multiplication to real-life scenarios. Our word problems worksheet helps kids translate stories into math equations. Free PDF for grades 2-4.',
+    learningObjectives: ['Identify "clue words" that signal a multiplication problem', 'Translate narrative scenarios into multiplication equations', 'Solve multi-step problems involving repetitive addition'],
+    intro: 'Math is most powerful when it solves real problems. Our Multiplication Word Problems worksheet takes math out of the textbook and into the real world, asking students to calculate everything from total cookies at a party to rows of seats in a theater. By practicing the art of "translation"—turning words into numbers—children build the logic and reading comprehension skills needed for all future math success.'
+  },
+  'add-three-numbers': {
+    title: 'Adding Three Numbers - Multi-Addend Calculation | Wizqo',
+    metaDescription: 'Practice adding three single-digit numbers. Learn to find "friendly pairs" (making ten) to simplify arithmetic. Free PDF for 1st-2nd grade.',
+    learningObjectives: ['Sum three single-digit numbers accurately', 'Use the associative property to group numbers', 'Identify "ten partners" within a set of three numbers'],
+    intro: 'Moving from two addends to three is a major step in numerical fluency. Our Adding Three Numbers worksheet encourages students to look for shortcuts, like finding two numbers that make ten first. By learning to group numbers strategically, children build the mental flexibility needed for higher-level mental math and complex multi-step addition.'
+  },
+  'animal-pack': {
+    title: 'Animal Themed Learning Pack - All-in-One Printable | Wizqo',
+    metaDescription: 'Download our comprehensive Animal Pack! Includes coloring, counting, and letter recognition activities all centered around your favorite animals. Free PDF.',
+    learningObjectives: ['Engage with cross-curricular animal themes', 'Practice early math and literacy in a thematic context', 'Strengthen fine motor skills through animal-themed art'],
+    intro: 'Learning is always better with friends from the animal kingdom! Our Animal Themed Learning Pack combines math, literacy, and art into one engaging bundle. From counting kittens to coloring lions, this comprehensive printable resource is perfect for keeping Pre-K and Kindergarten learners excited about their "school work" while building essential foundational skills.'
+  },
+  'balance-equations-10': {
+    title: 'Balancing Equations within 10 - Intro to Algebra | Wizqo',
+    metaDescription: 'Understand the equal sign with our Balancing Equations worksheet. Find missing numbers to make both sides equal. Perfect for 1st grade math.',
+    learningObjectives: ['Define the equal sign as "the same as"', 'Find missing addends to balance an equation', 'Verify equality through calculation on both sides'],
+    intro: 'The equal sign isn\'t just an "answer" button—it\'s a balance scale! Our Balancing Equations within 10 worksheet introduces students to this core algebraic concept by asking them to make both sides of the equation match. By finding the missing number that solves the puzzle, children move beyond simple calculation and start thinking like future mathematicians.'
+  },
+  'big-small': {
+    title: 'Big or Small? - Size Comparison & Logic | Wizqo',
+    metaDescription: 'Practice identifying different sizes with our Big and Small worksheet. Compare objects and categorize them by scale. Fun early learning PDF for Pre-K.',
+    learningObjectives: ['Identify differences in physical scale', 'Apply labels like "biggest" and "smallest" correctly', 'Develop visual discrimination and logical categorization'],
+    intro: 'Size is one of the first ways children learn to categorize the world. Our Big or Small worksheet uses familiar objects to teach the concept of relative scale. By identifying which item is the largest or smallest in a group, young learners build the visual discrimination skills that are essential for everything from geometry to reading readiness.'
+  },
+  'classifying-angles': {
+    title: 'Classifying Angles - Acute, Obtuse, and Right | Wizqo',
+    metaDescription: 'Learn to identify and categorize angles based on their degrees. Includes practice for right, acute, and obtuse angles. Free PDF for 4th-5th grade.',
+    learningObjectives: ['Identify right angles (exactly 90 degrees)', 'Distinguish between acute (under 90) and obtuse (over 90) angles', 'Use real-world examples to visualize angle types'],
+    intro: 'Geometry is the study of shapes, and angles are the corners that define them. Our Classifying Angles worksheet teaches students how to use the 90-degree "right angle" as a benchmark to identify acute and obtuse turns. With clear diagrams and practice problems, this printable resource helps 4th and 5th graders master the vocabulary of geometry and build a foundation for trigonometry.'
+  },
+  'color-by-number': {
+    title: 'Color by Number - Fun Math & Art Activity | Wizqo',
+    metaDescription: 'Combine art and math with our Color by Number worksheets. Practice number recognition while creating beautiful pictures. Free printable for kids.',
+    learningObjectives: ['Correlate numbers with specific color codes', 'Improve concentration and detail-oriented focus', 'Strengthen fine motor skills through precision coloring'],
+    intro: 'Make math colorful! Our Color by Number worksheets turn number recognition and basic calculation into a creative masterpiece. By following the numerical code to fill in the image, students stay engaged longer than with traditional drills, building their concentration and manual dexterity while they "uncover" the hidden artwork.'
+  },
+  'compare-2digit': {
+    title: 'Comparing 2-Digit Numbers - Greater Than & Less Than | Wizqo',
+    metaDescription: 'Learn to use <, >, and = signs with 2-digit numbers. Focused practice on place value logic. Free printable PDF for 1st and 2nd grade math.',
+    learningObjectives: ['Compare the tens digits of two numbers first', 'Use the ones digits as a tie-breaker for comparison', 'Correctly use the symbols for greater than, less than, and equal'],
+    intro: 'Which number is larger: 42 or 24? Our Comparing 2-Digit Numbers worksheet teaches students the systematic way to compare values by looking at the tens place first. Using the classic "hungry alligator" signs (< and >), this printable practice sheet helps children master place value logic and feel confident comparing any numbers up to 100.'
+  },
+  'counting-objects-20': {
+    title: 'Counting Objects to 20 - Number Sense Practice | Wizqo',
+    metaDescription: 'Master counting with our Objects to 20 worksheet. Help early learners connect quantities to numerals. Perfect for Kindergarten math readiness.',
+    learningObjectives: ['Accurately count groups of up to 20 objects', 'Write the correct numeral for a given quantity', 'Understand the concept of one-to-one correspondence'],
+    intro: 'Counting isn\'t just reciting a sequence—it\'s understanding how much "twenty" actually is. Our Counting Objects to 20 worksheet provides diverse groups of items for students to count, helping them master one-to-one correspondence. This visual practice is vital for ensuring that kids don\'t just memorize the names of numbers, but actually understand the quantities they represent.'
+  },
+  'count-write-30': {
+    title: 'Count and Write to 30 - Kindergarten Math Skills | Wizqo',
+    metaDescription: 'Expand counting skills beyond 20! Practice counting and writing numbers up to 30 with our clear, printable worksheet. Free PDF download.',
+    learningObjectives: ['Count fluently from 1 to 30', 'Practice proper formation of two-digit numbers', 'Transition from basic counting to higher numerical ranges'],
+    intro: 'Once students are comfortable with numbers up to 20, it\'s time to break into the 20s and beyond. This Count and Write to 30 worksheet provides the perfect bridge, challenging learners to maintain their accuracy as the numbers get larger. Regular practice writing these digits helps cement their shape and order, preparing children for the 100-chart and basic addition.'
+  },
+  'decimal-word-problems': {
+    title: 'Decimal Word Problems - Real-World Applications | Wizqo',
+    metaDescription: 'Solve math stories involving decimals! Practice adding, subtracting, and multiplying decimals in context. Free PDF for 5th and 6th grade.',
+    learningObjectives: ['Apply decimal arithmetic to money and measurement scenarios', 'Align decimals correctly when interpreting word problems', 'Determine the correct operation based on contextual clues'],
+    intro: 'Decimals are most common in "real world" situations like shopping or measuring ingredients. Our Decimal Word Problems worksheet takes math concepts and applies them to relatable stories, helping students see the purpose of their calculations. Whether they are calculating change or dividing a piece of fabric, learners build the practical fluency needed for success in everyday life.'
+  },
+  'dividing-decimals': {
+    title: 'Dividing Decimals by Whole Numbers - Precision Practice | Wizqo',
+    metaDescription: 'Learn where to place the decimal point in division. Practice dividing decimals with accuracy. Free printable PDF for 5th grade math mastery.',
+    learningObjectives: ['Correctly place the decimal point in the quotient', 'Execute the long division algorithm with decimal dividends', 'Check division results using multiplication'],
+    intro: 'The most important part of dividing decimals is the decimal point! Our Dividing Decimals worksheet teaches students to "bring the point straight up" into the answer before they even start dividing. By practicing this specific step alongside standard long division, students avoid the most common errors and gain the precision needed for advanced sciences and financial math.'
+  },
+  'dot-to-dot-1-20': {
+    title: 'Dot-to-Dot 1-20 - Fine Motor & Counting Fun | Wizqo',
+    metaDescription: 'Connect the dots from 1 to 20 to reveal the hidden picture. Perfect for fine motor skills and number sequence practice. Free printable PDF.',
+    learningObjectives: ['Follow a numerical sequence from 1 to 20', 'Strengthen hand-eye coordination and pencil control', 'Discover hidden patterns through sequential logic'],
+    intro: 'Turn number practice into a game of discovery! Our Dot-to-Dot 1-20 worksheet challenges students to follow a logical path to reveal a hidden image. This classic activity is one of the best ways to build the fine motor control needed for writing, while simultaneously reinforcing the order of numbers in a fun, reward-driven format.'
+  },
+  'elapsed-time-4th': {
+    title: 'Elapsed Time Practice - Calculating Duration | Wizqo',
+    metaDescription: 'Learn to find the difference between start and end times. Includes "t-chart" strategies for easier calculation. Free PDF for 4th-5th grade.',
+    learningObjectives: ['Calculate the duration between two specific times', 'Understand AM and PM transitions in time blocks', 'Use addition and subtraction to solve time-based problems'],
+    intro: 'How long until lunch? Our Elapsed Time worksheet helps students answer this question by teaching them to calculate durations. From simple hour-long jumps to complex minute transitions, this printable resource provides the practice needed to master the clock. We include space for "time-line" or "t-chart" strategies, making these calculations visual and stress-free.'
+  },
+  'even-odd-100': {
+    title: 'Even or Odd? - Number Property Identification | Wizqo',
+    metaDescription: 'Identify even and odd numbers up to 100. Practice the "pairing" rule to understand parity. Free printable PDF for 2nd and 3rd grade.',
+    learningObjectives: ['Identify even numbers ending in 0, 2, 4, 6, 8', 'Identify odd numbers ending in 1, 3, 5, 7, 9', 'Understand that even numbers can be partitioned into two equal groups'],
+    intro: 'Every number has a "personality," and parity is the most basic one. Our Even or Odd worksheet helps students categorize numbers up to 100 by looking at the digit in the ones place. By learning to recognize these patterns, children build a foundational understanding of division and multiplication, making it easier to predict remainders and understand number relationships later on.'
+  },
+  'expanded-form-200': {
+    title: 'Expanded Form to 200 - Place Value Visualized | Wizqo',
+    metaDescription: 'Break down numbers into hundreds, tens, and ones. Practice writing 154 as 100 + 50 + 4. Free printable for 1st-2nd grade math.',
+    learningObjectives: ['Decompose 3-digit numbers into their place value parts', 'Write numbers in mathematical expanded notation sums', 'Understand that the "value" of a digit depends on its position'],
+    intro: 'Writing a number is just a shorthand for its total value. Our Expanded Form to 200 worksheet helps students see that "154" is actually just 100 plus 50 plus 4. By physically breaking numbers apart into their hundreds, tens, and ones, children develop a deep place-value intuition that is essential for regrouping in addition and subtraction.'
   }
 }
 
