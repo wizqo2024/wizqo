@@ -217,11 +217,12 @@ async function getSupabaseUserIdFromRequest(req: any): Promise<string | null> {
 app.get('/api/db-diagnostics', async (_req, res) => {
   try {
     if (!supabaseAnon) return res.status(503).json({ ok: false, error: 'db_unavailable' });
-    const checks: any = { url: !!supabaseUrl, anon: !!supabaseAnonKey, service: !!supabaseServiceRoleKey };
-    const { data: tables } = await supabaseAnon.from('information_schema.tables')
-      .select('table_name')
-      .eq('table_schema', 'public');
-    checks.tables = (tables || []).map((t: any) => t.table_name);
+    const checks: any = {
+      url: !!supabaseUrl,
+      anon: !!supabaseAnonKey,
+      service: !!supabaseServiceRoleKey,
+      timestamp: new Date().toISOString()
+    };
     res.json({ ok: true, checks });
   } catch (e: any) {
     res.status(500).json({ ok: false, error: 'diagnostics_failed', details: String(e?.message || e) });

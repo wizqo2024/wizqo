@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+
 
 interface ValidationResponse {
   isValid: boolean;
@@ -16,11 +16,11 @@ export class OpenRouterHobbyValidator {
   constructor() {
     this.openRouterKey = process.env.OPENROUTER_API_KEY || '';
     this.baseUrl = 'https://openrouter.ai/api/v1/chat/completions';
-    
+
     console.log('🔍 OpenRouter API Key status:', this.openRouterKey ? 'Found' : 'Missing');
     console.log('🔍 API Key length:', this.openRouterKey ? this.openRouterKey.length : 0);
     console.log('🔍 API Key prefix:', this.openRouterKey ? this.openRouterKey.substring(0, 10) + '...' : 'None');
-    
+
     if (!this.openRouterKey) {
       console.warn('⚠️ No OpenRouter API key found - hobby validation will be limited');
     } else if (this.openRouterKey.length < 50) {
@@ -30,7 +30,7 @@ export class OpenRouterHobbyValidator {
 
   async validateHobby(userInput: string): Promise<ValidationResponse> {
     const cacheKey = userInput.toLowerCase().trim();
-    
+
     // Treat ultra-short inputs and greetings as unknown, don't guess a hobby
     const shortOrGreeting = /^(hi|hello|hey|yo|hola|\s*)$/i;
     if (!cacheKey || cacheKey.length < 3 || shortOrGreeting.test(userInput.trim())) {
@@ -47,7 +47,7 @@ export class OpenRouterHobbyValidator {
       console.log(`⚠️ DANGEROUS hobby input blocked: ${userInput}`);
       return dangerousHobbyResult;
     }
-    
+
     // Check for hardcoded complex hobbies (override AI inconsistency)
     const complexHobbyResult = this.checkComplexHobby(cacheKey);
     if (complexHobbyResult) {
@@ -67,14 +67,14 @@ export class OpenRouterHobbyValidator {
         reasoning: 'Corrected likely misspelling of a known hobby'
       };
     }
-    
+
     // Check cache first for consistency
     const cached = this.validationCache.get(cacheKey);
     if (cached && (Date.now() - cached.timestamp) < this.cacheExpiryMs) {
       console.log(`📋 Using cached validation for: ${userInput}`);
       return cached.result;
     }
-    
+
     if (!this.openRouterKey) {
       return this.fallbackValidation(userInput);
     }
@@ -154,13 +154,13 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
         const cleanedContent = this.cleanJsonResponse(content);
         const result = JSON.parse(cleanedContent) as ValidationResponse;
         console.log(`✅ OpenRouter validation result:`, result);
-        
+
         // Cache the result for consistency
         this.validationCache.set(cacheKey, {
           result,
           timestamp: Date.now()
         });
-        
+
         return result;
       } catch (parseError) {
         console.error('OpenRouter: Failed to parse JSON response:', parseError);
@@ -202,34 +202,34 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
 
   private checkDangerousHobby(input: string): ValidationResponse | null {
     console.log(`🔍 SAFETY CHECK: Checking input "${input}" for dangerous content`);
-    
+
     // List of dangerous/harmful activities that should be rejected
     const dangerousKeywords = [
       // Explosives & weapons
       'bomb', 'explosive', 'dynamite', 'grenade', 'weapon', 'gun', 'rifle', 'pistol',
       'ammunition', 'bullet', 'gunpowder', 'tnt', 'c4', 'molotov', 'missile', 'rocket launcher',
-      
+
       // Violence & harm
       'killing', 'murder', 'assassination', 'torture', 'violence', 'fighting', 'stabbing',
       'shooting', 'attacking', 'hurting', 'harm', 'injury', 'wound', 'bloodshed',
-      
+
       // Illegal substances & activities
       'drug', 'cocaine', 'heroin', 'methamphetamine', 'meth', 'lsd', 'ecstasy', 'marijuana production',
       'counterfeiting', 'forgery', 'fraud', 'scam', 'theft', 'robbery', 'burglary',
       'hacking', 'cyber attack', 'virus creation', 'malware',
-      
+
       // Dangerous chemicals & activities
       'poison', 'toxic', 'radioactive', 'biological weapon', 'chemical weapon',
       'acid attack', 'arson', 'fire setting', 'burning things', 'destruction',
-      
+
       // Self-harm & dangerous activities
       'suicide', 'self harm', 'cutting', 'overdose', 'dangerous stunt',
       'extreme danger', 'life threatening',
-      
+
       // Illegal activities
       'smuggling', 'trafficking', 'blackmail', 'extortion', 'kidnapping',
       'identity theft', 'money laundering', 'tax evasion',
-      
+
       // Sexual & inappropriate content
       'sex', 'sexual', 'porn', 'pornography', 'erotic', 'adult content', 'xxx',
       'masturbation', 'orgasm', 'fetish', 'bdsm', 'kink', 'nude', 'nudity',
@@ -238,7 +238,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
       'sexual positions', 'adult entertainment', 'sexual fantasy', 'sexual roleplay',
       'sexting', 'sexual harassment', 'sexual abuse', 'sexual assault'
     ];
-    
+
     // Check if input contains any dangerous keywords
     const containsDangerousContent = dangerousKeywords.some(keyword => {
       const matches = input.includes(keyword) || input.includes(keyword.replace(' ', ''));
@@ -247,7 +247,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
       }
       return matches;
     });
-    
+
     // Also check for suspicious patterns
     const suspiciousPatterns = [
       /how to (kill|hurt|harm|attack|murder)/, // "how to kill/hurt someone"
@@ -261,7 +261,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
       /(intimate|sexual) (photography|videos?)/, // "intimate photography/videos"
       /adult (content|entertainment|activities?)/ // "adult content/entertainment"
     ];
-    
+
     const matchesSuspiciousPattern = suspiciousPatterns.some(pattern => {
       const matches = pattern.test(input);
       if (matches) {
@@ -269,7 +269,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
       }
       return matches;
     });
-    
+
     if (containsDangerousContent || matchesSuspiciousPattern) {
       console.log(`🚫 BLOCKING DANGEROUS INPUT: "${input}"`);
       return {
@@ -278,9 +278,9 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
         reasoning: 'This input contains harmful or dangerous content. We only support safe, positive learning activities. Please try one of our suggested hobbies instead!'
       };
     }
-    
+
     console.log(`✅ SAFETY CHECK PASSED: "${input}" is not flagged as dangerous`);
-    
+
     return null;
   }
 
@@ -300,7 +300,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
       'rocket science': ['model rockets', 'physics basics', 'astronomy'],
       'quantum physics': ['physics basics', 'mathematics', 'science experiments']
     };
-    
+
     if (complexHobbies[input]) {
       return {
         isValid: false,
@@ -308,7 +308,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
         reasoning: `${input.charAt(0).toUpperCase() + input.slice(1)} is quite complex and typically requires more than 7 days to learn effectively. However, these related activities are perfect for getting started!`
       };
     }
-    
+
     return null;
   }
 
@@ -331,7 +331,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
     ];
 
     const input = userInput.toLowerCase().trim();
-    
+
     // Direct match
     if (validHobbies.includes(input)) {
       return {
@@ -341,7 +341,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
     }
 
     // Fuzzy matching for common misspellings
-    const fuzzyMatches = validHobbies.filter(hobby => 
+    const fuzzyMatches = validHobbies.filter(hobby =>
       this.calculateSimilarity(input, hobby) > 0.7
     );
 
@@ -354,7 +354,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
     }
 
     // Check if it contains a valid hobby word
-    const partialMatch = validHobbies.find(hobby => 
+    const partialMatch = validHobbies.find(hobby =>
       input.includes(hobby) || hobby.includes(input)
     );
 
@@ -401,7 +401,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
   private cleanJsonResponse(content: string): string {
     // Remove markdown code blocks if present
     let cleaned = content.trim();
-    
+
     // Remove ```json and ``` markers
     if (cleaned.startsWith('```json')) {
       cleaned = cleaned.replace(/^```json\s*/, '');
@@ -412,7 +412,7 @@ For dangerous, inappropriate, or completely invalid inputs, suggest 3 safe, legi
     if (cleaned.endsWith('```')) {
       cleaned = cleaned.replace(/\s*```$/, '');
     }
-    
+
     return cleaned.trim();
   }
 

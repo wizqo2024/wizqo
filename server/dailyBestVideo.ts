@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
-import fetch from 'node-fetch';
+import os from 'os';
+import path from 'path';
 
 type YouTubeApiVideo = {
 	id: string;
@@ -14,7 +15,7 @@ type YouTubeApiVideo = {
 type HistoryEntry = { id: string; chosenAt: string };
 type HistoryFile = { hobbies: Record<string, HistoryEntry[]> };
 
-const HISTORY_PATH = '/workspace/server/.video-history.json';
+const HISTORY_PATH = path.join(os.tmpdir(), '.video-history.json');
 const PUBLISHED_AFTER_ISO = '2020-01-01T00:00:00Z';
 
 function isoDurationToSeconds(iso: string): number {
@@ -31,7 +32,7 @@ async function readHistory(): Promise<HistoryFile> {
 		const buf = await fs.readFile(HISTORY_PATH, 'utf8');
 		const parsed = JSON.parse(buf);
 		if (parsed && typeof parsed === 'object' && parsed.hobbies) return parsed as HistoryFile;
-	} catch {}
+	} catch { }
 	return { hobbies: {} };
 }
 
