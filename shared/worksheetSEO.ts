@@ -2342,6 +2342,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Stack and solve! Learn vertical multiplication for the 1-5 tables with our clear, simple practice sheet. Free printable PDF.',
     learningObjectives: ['Correctly align factors and products in a vertical multiplication format', 'Master basic facts (1-5) using standard mathematical notation', 'Develop the organizational skills needed for more complex multi-step math'],
     intro: 'Let\'s stack the facts! Our 1-5 Vertical Multiplication worksheet introduces early learners to the standard way we write "big" math. By practicing simple problems in a vertical format, students get used to the layout they\'ll use for the rest of their school years. It\'s a simple, effective way to build the foundations of numerical organization!'
+  },
+  'times-table-vertical-6-12': {
+    title: 'Vertical Multiplication Practice 6-12 - Advanced Layout | Wizqo',
+    metaDescription: 'Level up your algorithm! Practice multiplication facts 6-12 in a traditional vertical format. Free printable PDF for grades 4-6.',
+    learningObjectives: ['Master the vertical algorithm for advanced multiplication facts (6-12)', 'Maintain numerical alignment and precision in complex calculations', 'Prepare for multi-digit multiplication by practicing vertical factor pairs'],
+    intro: 'Stacking up the challenge! Our 6-12 Vertical Multiplication worksheet is designed for students who are ready to handle the most important facts in the math curriculum. By practicing advanced factor pairs in a clean, vertical layout, children build the procedural habits needed for long multiplication and algebra. It\'s the professional way to master the tables!'
+  },
+  'volume-rectangular-prisms': {
+    title: 'Volume of Rectangular Prisms - 3D Space & Capacity | Wizqo',
+    metaDescription: 'Calculate the space inside! Learn the Volume = L x W x H formula for rectangular prisms. Free printable PDF for grades 5-6.',
+    learningObjectives: ['Apply the (Length x Width x Height) formula to find the volume of 3D shapes', 'Understand the concept of cubic units as a measurement of internal space', 'Solve real-world capacity problems involving boxes, containers, and architecture'],
+    intro: 'How much can it hold? Our Volume of Rectangular Prisms worksheet takes math into the third dimension! By exploring the relationship between length, width, and height, students learn how to measure the "inside" of a shape. This foundational skill is essential for everything from shipping and logistics to building the next great architectural marvel!'
+  },
+  'weekly-goals': {
+    title: 'Student Weekly Goals - Planning and Achievement Tracker | Wizqo',
+    metaDescription: 'Plan for success! Set and track your weekly learning goals with our motivational student organizer. Free printable PDF.',
+    learningObjectives: ['Define 3-5 specific, measurable goals for the upcoming week', 'Track progress daily to build consistency and self-accountability', 'Reflect on achievements and challenges to improve future planning'],
+    intro: 'A goal without a plan is just a wish! Our Student Weekly Goals worksheet helps children take charge of their own learning journey. By breaking down big dreams into small, actionable steps, students build the time-management and self-discipline skills that lead to lifelong success. It\'s a powerful tool for turning effort into achievement, star by star!'
+  },
+  'what-comes-next': {
+    title: 'What Comes Next? - Logical Patterns and Sequences | Wizqo',
+    metaDescription: 'Predict the pattern! Complete logical sequences of shapes and numbers. Free printable math worksheet for preschool-K.',
+    learningObjectives: ['Identify the recursive rule in a repeating visual or numerical pattern', 'Predict the next item in a sequence based on logical observation', 'Develop the critical thinking foundations needed for coding and algebra'],
+    intro: 'Math is the science of prediction! Our What Comes Next? worksheet challenges young minds to find the "hidden rhythm" in a sequence. By observing shapes, colors, and numbers to see what follows, children build the pattern-recognition skills that are at the core of all advanced mathematical and scientific thinking. It\'s a fun, visual way to start thinking like a scientist!'
+  },
+  'writing-expressions': {
+    title: 'Writing Algebraic Expressions - Translating Math Phrases | Wizqo',
+    metaDescription: 'Translate words into math! Practice converting verbal phrases into algebraic expressions. Free printable PDF for grades 5-7.',
+    learningObjectives: ['Identify mathematical operations from "clue words" (e.g., "sum," "less than," "product")', 'Translate sentence-based scenarios into formal symbolic expressions (e.g., "3 more than x" to x+3)', 'Understand the role of variables as placeholders for unknown quantities'],
+    intro: 'Math is a language—let\'s learn how to speak it! Our Writing Algebraic Expressions worksheet teaches students how to turn everyday words into elegant equations. By learning the "clue words" for addition, subtraction, multiplication, and division, children gain the ability to translate a story into a solution. It\'s the essential first step in mastering the logic of algebra!'
+  },
+  'match-object-to-shadow': {
+    title: 'Match the Shadow - Visual Perception and Spatial Logic | Wizqo',
+    metaDescription: 'Find the match! Connect common objects to their silhouettes in this fun visual logic activity. Free printable for preschool-K.',
+    learningObjectives: ['Develop spatial reasoning by comparing 3D objects to 2D silhouettes', 'Improve visual discrimination and attention to detail', 'Strengthen fine motor skills through matching-line drawing'],
+    intro: 'Every object has a secret silhouette! Our Match the Shadow worksheet turns visual perception into a fun detective game. By looking closely at outlines and matching them to their real-world counterparts, young learners sharpen their observational skills and spatial awareness. It\'s a playful, high-interest way to build the "pre-math" logic needed for geometry!'
+  },
+  'interactive-math-rhythm': {
+    title: 'Interactive Math Rhythm - Musical Numeracy Game | Wizqo',
+    metaDescription: 'Feel the beat of the numbers! Practice math in a rhythmic, musical environment with our interactive digital activity.',
+    learningObjectives: ['Sync mathematical calculations with a rhythmic pulse or beat', 'Understand the connection between fractions, time signatures, and numerical patterns', 'Build focus and coordination through multi-sensory math engagement'],
+    intro: 'Math has a beat! Our Interactive Math Rhythm experience turns arithmetic into a musical performance. By solving problems in time with the music, students develop a visceral sense of numerical flow and timing. It\'s a multi-sensory way to learn that makes math feel as natural as a heartbeat!'
+  },
+  'interactive-math-race': {
+    title: 'Interactive Math Race - Competitive Speed Challenge | Wizqo',
+    metaDescription: 'Race to the finish! Test your math speed and accuracy in our high-energy interactive digital game.',
+    learningObjectives: ['Increase calculation speed through gamified time-pressure scenarios', 'Engage in healthy competition to drive mathematical motivation', 'Reduce hesitation when solving core arithmetic facts (add/sub/mult/div)'],
+    intro: 'Start your engines! Our Interactive Math Race turns fluency practice into a high-stakes competition. By solving problems quickly to move ahead, students build the instant recall and focus needed for advanced math in a high-energy, digital environment. It\'s the most fun you can have while becoming a math pro!'
+  },
+  'interactive-math-puzzle': {
+    title: 'Interactive Math Puzzle - Logic and Critical Thinking | Wizqo',
+    metaDescription: 'Crack the code! Solve complex mathematical puzzles in our engaging interactive digital environment.',
+    learningObjectives: ['Apply multi-step logical reasoning to solve gamified math mysteries', 'Integrate diverse math skills (geometry, logic, arithmetic) in a single puzzle', 'Develop persistence and trial-and-error problem-solving strategies'],
+    intro: 'Are you a master codebreaker? Our Interactive Math Puzzle challenges you to think outside the box! This isn\'t just about finding an answer—it\'s about navigating a world of logic, where every number is a clue. Engage your brain in a digital playground where critical thinking is the key to unlocking the next level!'
+  },
+  'interactive-math-shapes': {
+    title: 'Interactive Math Shapes - Geometric Exploration Game | Wizqo',
+    metaDescription: 'Manipulate the world! Learn about 2D and 3D shapes through our interactive digital geometry experience.',
+    learningObjectives: ['Identify and classify shapes based on their interactive properties (sides, vertices)', 'Visualize 3D rotations and spatial relationships in a digital space', 'Build a conceptual understanding of geometry through direct manipulation'],
+    intro: 'Geometry literally comes to life! Our Interactive Math Shapes game lets students touch, turn, and transform the building blocks of the world. By manipulating shapes in a digital environment, children build the spatial intuition and geometric logic needed for architecture and design. It\'s math history in the making—one shape at a time!'
   }
 }
 
