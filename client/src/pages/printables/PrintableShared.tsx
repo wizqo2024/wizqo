@@ -255,7 +255,9 @@ export function WorksheetSectionWrapper({
     learningObjectives,
     parentTeacherTips,
     hideDefaultHeader = false,
-    footer
+    footer,
+    hideDownloadButton = false,
+    className = ""
 }: {
     docId: string
     title: string
@@ -267,6 +269,8 @@ export function WorksheetSectionWrapper({
     parentTeacherTips?: string[]
     hideDefaultHeader?: boolean
     footer?: ReactNode
+    hideDownloadButton?: boolean
+    className?: string
 }) {
     const { t, isRTL, language } = useTranslation()
     const theme = getWorksheetTheme(docId)
@@ -336,16 +340,17 @@ export function WorksheetSectionWrapper({
     }
 
     return (
-        <div className="relative group w-full">
+        <div className={`relative group w-full ${hideDownloadButton ? '' : 'mb-10'}`}>
             {/* Download Button (Always Visible) */}
-            {/* Download Button (Always Visible) */}
-            <PDFDownloadButton
-                onClick={handleDownloadPDF}
-                isGenerating={isGeneratingPdf}
-            />
+            {!hideDownloadButton && (
+                <PDFDownloadButton
+                    onClick={handleDownloadPDF}
+                    isGenerating={isGeneratingPdf}
+                />
+            )}
             <section
                 ref={sectionRef}
-                className={`mb-10 break-inside-auto rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section`}
+                className={`break-inside-auto rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section ${className}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
                 style={{
                     pageBreakInside: 'auto',
