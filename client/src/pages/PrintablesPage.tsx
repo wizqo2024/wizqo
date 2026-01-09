@@ -76,6 +76,8 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'logic-grid',
   'grammar-detective',
   'math-maze',
+  'factors-multiples',
+  'prime-composite',
   // Reading print views
   'reading-mini-1',
   'reading-g1-lost-hat',
