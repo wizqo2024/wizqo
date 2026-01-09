@@ -237,17 +237,17 @@ export function LetterTracingAZ({ showAnswersForDoc }: SpecificWorksheetProps) {
     ]
 
     const LetterGrid = ({ letters }: { letters: typeof alphabet }) => (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-3">
             {letters.map(({ l: letter, i }, idx) => (
                 <div key={idx} className="relative bg-white border border-green-200 rounded-lg p-2 hover:shadow-md transition-shadow">
-                    <div className="absolute top-2 right-2 text-2xl opacity-80">{i}</div>
-                    <svg viewBox="0 0 400 200" className="w-full h-auto">
+                    <div className="absolute top-1 right-1 text-xl opacity-80">{i}</div>
+                    <svg viewBox="0 0 400 220" className="w-full h-auto">
                         <g fill="none" strokeWidth="2">
                             <line x1="40" y1="40" x2="360" y2="40" stroke="#94a3b8" />
                             <line x1="40" y1="100" x2="360" y2="100" stroke="#94a3b8" strokeDasharray="8 8" />
                             <line x1="40" y1="160" x2="360" y2="160" stroke="#ef4444" strokeWidth="3" />
                         </g>
-                        <g fill="none" stroke="#111827" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+                        <g fill="none" stroke="#111827" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round">
                             {letter === 'A' && <path d="M200 40 L150 160 M200 40 L250 160 M165 115 L235 115" />}
                             {letter === 'B' && <path d="M160 40 L160 160 M160 40 C220 40 220 95 160 95 C230 95 230 160 160 160" />}
                             {letter === 'C' && <path d="M230 60 C210 40 160 40 160 100 C160 160 210 160 230 140" />}
@@ -275,8 +275,8 @@ export function LetterTracingAZ({ showAnswersForDoc }: SpecificWorksheetProps) {
                             {letter === 'Y' && <path d="M160 40 L200 100 L240 40 M200 100 L200 160" />}
                             {letter === 'Z' && <path d="M160 40 L240 40 L160 160 L240 160" />}
                         </g>
-                        <circle cx="200" cy="50" r="5" fill="#ef4444" stroke="#ffffff" strokeWidth="1" />
-                        <text x="200" y="190" fontSize="24" fill="#111827" textAnchor="middle">{letter}</text>
+                        <circle cx="200" cy="50" r="7" fill="#ef4444" stroke="#ffffff" strokeWidth="2" />
+                        <text x="200" y="210" fontSize="24" fontWeight="bold" fill="#111827" textAnchor="middle">{letter}</text>
                     </svg>
                 </div>
             ))}
@@ -296,19 +296,19 @@ export function LetterTracingAZ({ showAnswersForDoc }: SpecificWorksheetProps) {
                 docId="letter-tracing-az"
                 title="Alphabet Garden Tracing (Part 1)"
                 emoji={String.fromCodePoint(0x1F41E)}
-                description="Trace the letters and grow your garden of knowledge! Start at the dot and follow the lines."
+                description="Trace the letters and grow your garden! Start at the dot and follow the lines."
                 learningObjectives={objectives}
                 hideDownloadButton
                 className="mb-8"
             >
                 <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-green-400 to-yellow-400 animate-gradient-x mb-4" />
 
-                <div className="w-full h-28 mb-6 relative overflow-hidden bg-green-50 rounded-xl border-2 border-green-200 print:mb-4">
-                    <div className="absolute -bottom-4 left-0 text-7xl text-green-200 opacity-40">🌿</div>
-                    <div className="absolute -bottom-4 right-0 text-7xl text-green-200 opacity-40">🌿</div>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                        <div className="bg-white/80 px-8 py-3 rounded-full border border-green-300 shadow-sm backdrop-blur-sm">
-                            <h2 className="text-2xl font-bold text-green-800 flex items-center gap-3">
+                <div className="w-full h-24 mb-6 relative overflow-hidden bg-green-50 rounded-xl border-2 border-green-200 print:mb-4">
+                    <div className="absolute -bottom-4 left-0 text-6xl text-green-200 opacity-30">🌿</div>
+                    <div className="absolute -bottom-4 right-0 text-6xl text-green-200 opacity-30">🌿</div>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <div className="bg-white/90 px-8 py-2 rounded-full border border-green-300 shadow-sm backdrop-blur-sm">
+                            <h2 className="text-xl font-bold text-green-800 flex items-center gap-3">
                                 {String.fromCodePoint(0x1F33B)} Alphabet Garden {String.fromCodePoint(0x1F33C)}
                             </h2>
                         </div>
@@ -331,7 +331,7 @@ export function LetterTracingAZ({ showAnswersForDoc }: SpecificWorksheetProps) {
                 <LetterGrid letters={part2} />
 
                 {showAnswersForDoc('letter-tracing-az', () => (
-                    <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
+                    <div className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-900 text-sm">
                         <div className="font-semibold mb-1">Teaching tip</div>
                         <p className="text-sm">Start at the red dot and follow the arrow direction. Practice saying the letter name and sound while tracing.</p>
                     </div>
