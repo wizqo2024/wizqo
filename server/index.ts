@@ -4,12 +4,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { createClient } from '@supabase/supabase-js';
 import { getBestUniqueVideoForHobby } from './dailyBestVideo.js';
-import { generateInteractiveWorksheetPack } from '../shared/interactive/generator.js';
+import { generateInteractiveWorksheetPack } from '../shared/interactive/generator.ts';
 import {
   INTERACTIVE_CATEGORIES,
   INTERACTIVE_GRADE_OPTIONS,
   type GradeBand,
-} from '../shared/interactive/interactiveWorksheets.js';
+} from '../shared/interactive/interactiveWorksheets.ts';
 // Inline affiliate generator to avoid module resolution issues in serverless bundle
 type AffiliateProduct = { title: string; link: string; price: string };
 const AFFILIATE_TAG = 'wizqohobby-20';
