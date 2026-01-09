@@ -4098,7 +4098,7 @@ export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWork
                 }}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 print:block">
                 {problems.map((p, i) => {
                     const at = Math.floor(p.a / 10) * 10;
                     const ao = p.a % 10;
@@ -4106,7 +4106,14 @@ export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWork
                     const bo = p.b % 10;
 
                     return (
-                        <div key={i} className="break-inside-avoid" style={{ pageBreakInside: 'avoid' }}>
+                        <div
+                            key={i}
+                            className="break-inside-avoid print:mb-8"
+                            style={{
+                                pageBreakInside: 'avoid',
+                                ...(i === 1 ? { pageBreakAfter: 'always' } : {})
+                            }}
+                        >
                             <div className="flex items-center gap-3 mb-6 font-mono text-2xl font-bold text-slate-700 justify-center">
                                 <div className="w-8 h-8 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center text-sm shadow-sm">{i + 1}</div>
                                 {p.a} × {p.b} = ?
