@@ -58,7 +58,7 @@ function createSlug(docId: string): string {
     'skip-count-5-10-120': 'skip-counting-by-5s-and-10s-to-120',
     'order-of-operations': 'order-of-operations-pemdas',
     'fractions-to-decimals': 'converting-fractions-to-decimals',
-    'mult-lattice': 'lattice-multiplication-practice',
+    'mult-lattice': 'multiplication-lattice-method',
   }
 
   if (slugMap[docId]) {
