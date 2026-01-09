@@ -4,12 +4,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { createClient } from '@supabase/supabase-js';
 import { getBestUniqueVideoForHobby } from './dailyBestVideo.js';
-import { generateInteractiveWorksheetPack } from '../shared/interactive/generator.ts';
+import { generateInteractiveWorksheetPack } from '../shared/interactive/generator.js';
 import {
   INTERACTIVE_CATEGORIES,
   INTERACTIVE_GRADE_OPTIONS,
   type GradeBand,
-} from '../shared/interactive/interactiveWorksheets.ts';
+} from '../shared/interactive/interactiveWorksheets.js';
 // Inline affiliate generator to avoid module resolution issues in serverless bundle
 type AffiliateProduct = { title: string; link: string; price: string };
 const AFFILIATE_TAG = 'wizqohobby-20';
@@ -233,19 +233,6 @@ app.post('/api/user-profile', async (req, res) => {
     const avatar_url: string | null = (req.body?.avatar_url ?? null) as any;
     if (!user_id) return res.status(400).json({ error: 'missing_user_id' });
 
-    // Optional: inspect table columns to tailor the write
-    let profileColumns: string[] = [];
-    try {
-      if (supabaseAnon) {
-        const cols = await supabaseAnon
-          .from('information_schema.columns')
-          .select('column_name')
-          .eq('table_schema', 'public')
-          .eq('table_name', 'user_profiles');
-        profileColumns = (cols.data as any[] | null)?.map(c => c.column_name) || [];
-      }
-    } catch { }
-
     // 1) Try update by id
     const updateById = await supabaseAdmin
       .from('user_profiles')
@@ -337,7 +324,7 @@ app.post('/api/user-profile', async (req, res) => {
       console.error('profile_upsert_rest_exception', restErr);
     }
 
-    console.error('profile_upsert_failed', { columns: profileColumns, updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
+    console.error('profile_upsert_failed', { updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
 
     // All attempts failed - return error
     return res.status(500).json({

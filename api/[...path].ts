@@ -2,10 +2,17 @@
 export default async function handler(req: any, res: any) {
   let mod: any;
   try {
-    mod = await import("../server/index");
-  } catch {
-    // Fallback to compiled path if bundled under dist/server
+    // Prioritize compiled bundle for production reliability and speed
     mod = await import("../dist/server/index.cjs");
+  } catch {
+    // Fallback to source if dist is missing
+    try {
+      mod = await import("../server/index");
+    } catch (err: any) {
+      res.statusCode = 500;
+      res.end(`Failed to load server module: ${err?.message || err}`);
+      return;
+    }
   }
   let appAny: any = mod?.default ?? mod?.app ?? mod;
   if (appAny && typeof appAny === 'object' && 'default' in appAny) {
