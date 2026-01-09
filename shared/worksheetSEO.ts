@@ -2415,12 +2415,6 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     learningObjectives: ['Master the most challenging multiplication facts from 6x6 to 12x12', 'Improve mental calculation speed for division and multi-step problems', 'Develop total automaticity across the entire 12x12 multiplication grid'],
     intro: 'The mastery challenge! Our Multiplication Facts 6-12 worksheet targets the "power tables" that students often find most difficult. By providing focused, high-repetition practice for factors 6 through 12, we help children eliminate hesitation and build the rapid recall used by scientists and engineers. Turn those "hard" numbers into second nature!'
   },
-  'ws-world': {
-    title: 'Worksheet World Multi-Skill Challenge - Comprehensive Review | Wizqo',
-    metaDescription: 'Explore the world of math! A diverse collection of problems covering arithmetic, logic, and geometry. Free printable PDF.',
-    learningObjectives: ['Apply diverse mathematical skills to a variety of problem types', 'Improve versatility by switching between different math domains', 'Demonstrate comprehensive mastery of primary-grade math concepts'],
-    intro: 'Welcome to Worksheet World! This special multi-skill challenge isn\'t just about one topic—it\'s an adventure through the entire math curriculum. From arithmetic puzzles to geometric logic, students will travel through different "zones" of learning, proving their versatility and building the well-rounded expertise of a true math explorer!'
-  },
   'match-the-feeling': {
     title: 'Match the Feeling to the Situation - Free SEL Worksheet | Wizqo',
     metaDescription: 'Free printable Social Emotional Learning (SEL) worksheet. Help kids identify feelings like sad, happy, bored, and friendly by matching them to real-life situations.',
@@ -2720,6 +2714,108 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'First marks! Explore "pre-writing" strokes and letter shapes with our engaging interactive digital writing lab for Pre-K.',
     learningObjectives: ['Develop the fine motor coordination needed for pencil control and writing', 'Practice basic pre-writing strokes (horizontal lines, circles, zig-zags)', 'Recognize the visual "paths" that form foundational letter shapes'],
     intro: 'Let\'s get writing! Our Interactive Writing Pre-K lab is a mess-free digital studio for exploring the building blocks of literacy. By tracing paths and creating "pre-writing" patterns, students build the motor skills and hand-eye coordination needed to eventually write their first letters. Every scribble is a step toward becoming a storyteller!'
+  },
+  'word-problems-100': {
+    title: 'Grade 2 Math Word Problems to 100 - Logic & Arithmetic | Wizqo',
+    metaDescription: 'Solve real-world math stories with our 2nd Grade Word Problems worksheet. Practice addition and subtraction within 100 in context. Free printable PDF.',
+    learningObjectives: ['Translate word stories into mathematical equations', 'Solve 2-digit addition and subtraction problems within 100', 'Identify key words that signal specific math operations'],
+    intro: 'Math makes sense when it solves a story! Our Grade 2 Word Problems worksheet takes students through relatable scenarios—from counting cookies to measuring distance—using numbers up to 100. By identifying the \'math\' hidden in the narrative, children build both reading comprehension and numerical fluency, preparing them for the rigors of 3rd-grade mathematics.'
+  },
+  'ws-animals': {
+    title: 'Animal Word Search - Fun Vocabulary & Spelling Puzzle | Wizqo',
+    metaDescription: 'Find hidden animals from around the world! A fun word search puzzle that builds spelling and recognition skills for elementary students. Free PDF.',
+    learningObjectives: ['Identify animal names in a complex letter grid', 'Improve spelling and visual scanning skills', 'Enlarge vocabulary related to the animal kingdom'],
+    intro: 'Go on a safari from your desk! Our Animal Word Search is a fun way to practice spelling and letter recognition while exploring the names of creatures great and small. Whether it\'s a \'lion\' or a \'penguin\', searching for these words helps children build visual tracking skills and a love for the natural world.'
+  },
+  'ws-space': {
+    title: 'Outer Space Word Search - Cosmic Vocabulary Challenge | Wizqo',
+    metaDescription: 'Search for planets, stars, and rockets! Explore the galaxy with our space-themed word search puzzle for kids. Perfect for STEM and science labs.',
+    learningObjectives: ['Strengthen spelling for astronomical terms', 'Enhance visual attention and detail-oriented focus', 'Spark curiosity about space exploration and the solar system'],
+    intro: 'Blast off into a world of words! This Space Word Search challenges young astronauts to find celestial terms hidden amongst the stars. It\'s a stellar way to build concentration and vocabulary, making it the perfect companion for science lessons or a rainy day at home.'
+  },
+  'ws-sight-words': {
+    title: 'Sight Words Word Search - Early Literacy & Reading Fun | Wizqo',
+    metaDescription: 'Master common sight words through play! Our Sight Words Word Search helps young readers identify high-frequency words in a fun puzzle format. Free PDF.',
+    learningObjectives: ['Recognize high-frequency sight words on sight', 'Improve spelling speed and visual discrimination', 'Build confidence in reading foundational vocabulary'],
+    intro: 'Seeing is believing! Our Sight Words Word Search turns reading practice into a treasure hunt. By finding common high-frequency words in the grid, students build the instant recognition skills that lead to fluent reading. It\'s a low-stress, high-engagement way to boost early literacy.'
+  },
+  'ws-world': {
+    title: 'World Geography Word Search - Global Places & Cultures | Wizqo',
+    metaDescription: 'Find countries and continents in our World Geography Word Search. Explore the map through a fun vocabulary puzzle. Great for social studies.',
+    learningObjectives: ['Identify major countries, continents, and geographic features', 'Build global awareness and vocabulary', 'Strengthen visual scanning and spelling accuracy'],
+    intro: 'Travel the globe one word at a time! Our World Geography Word Search invites students to discover the names of places and landmarks from around the world. It\'s a great way to introduce social studies concepts while building the focus and spelling skills required for elementary success.'
+  },
+  'kindergarten-counting-1-10': {
+    title: 'Kindergarten Visual Counting 1-10 - Math Readiness | Wizqo',
+    metaDescription: 'Build strong counting foundations with our visual 1-10 worksheet. Connect quantities to numbers through engaging, character-based activities. Free PDF.',
+    learningObjectives: ['Count objects accurately from 1 to 10', 'Understand one-to-one correspondence', 'Connect visual quantities to written numerals'],
+    intro: 'Let\'s count! This Kindergarten Visual Counting worksheet is designed to make numbers come alive. With adorable characters and clear layouts, early learners practice the fundamental skill of one-to-one correspondence, ensuring they truly understand the \'amount\' each number represents before moving on to addition.'
+  },
+  'kindergarten-number-recognition': {
+    title: 'Number Recognition 1-20 - Early Math Success | Wizqo',
+    metaDescription: 'Identify and name numbers 1 to 20 with ease. Our Kindergarten recognition worksheet uses fun visual cues to build number sense. Free printable.',
+    learningObjectives: ['Instantly identify written numerals 1-20', 'Distinguish between similar-looking numbers', 'Build the confidence to navigate the base-ten system'],
+    intro: 'Numbers are everywhere, and recognizing them is the first step! Our Kindergarten Number Recognition worksheet provides a variety of games and activities to help children identify digits 1 through 20. By mastering these shapes early, students build the \'number sense\' required for all future math operations.'
+  },
+  'kindergarten-shapes': {
+    title: 'Kindergarten Shape Identification - Geometry Foundations | Wizqo',
+    metaDescription: 'Learn circles, squares, triangles, and more! Our shapes worksheet helps early learners identify and name 2D geometric figures. Free PDF download.',
+    learningObjectives: ['Identify core 2D shapes by name and property', 'Differentiate between shapes based on sides and corners', 'Recognize geometric forms in everyday objects'],
+    intro: 'Squares have corners, and circles are round! Our Kindergarten Shape Identification worksheet introduces the building blocks of geometry. Through matching and identification exercises, students learn to see the world as a collection of geometric forms, building the spatial reasoning skills used in both art and advanced math.'
+  },
+  'kindergarten-patterns': {
+    title: 'Kindergarten Pattern Logic - AB and ABC Sequences | Wizqo',
+    metaDescription: 'Identify and extend simple patterns with our Kindergarten logic worksheet. Build predictive thinking skills through colors and shapes. Free PDF.',
+    learningObjectives: ['Recognize repeating units in a sequence', 'Predict what element comes next in a pattern', 'Create original patterns using established logic'],
+    intro: 'What comes next? Patterns are the heartbeat of math and science. Our Kindergarten Pattern Logic worksheet helps young learners identify AB and ABC sequences using familiar colors and shapes. By learning to predict the next step, children build the logical reasoning skills that are foundational for algebra and coding.'
+  },
+  'kindergarten-addition-pictures': {
+    title: 'Kindergarten Picture Addition - Visual Math Mastery | Wizqo',
+    metaDescription: 'Learn to add using pictures! Our Kindergarten Addition with Pictures worksheet makes math concrete and fun for early learners. Free printable PDF.',
+    learningObjectives: ['Add two groups of objects to find a total', 'Connect visual addition to numeric equations', 'Understand that addition means \'putting things together\''],
+    intro: 'Math is better with pictures! Our Kindergarten Picture Addition worksheet turns arithmetic into a visual story. By counting two groups of objects and finding the total, children develop a concrete understanding of what addition actually does, making the transition to abstract numbers smooth and intuitive.'
+  },
+  'kindergarten-counting-visual': {
+    title: 'Visual Counting Adventures - Fun Math for Early Learners | Wizqo',
+    metaDescription: 'Count with cute characters! Our visual counting worksheet builds number sense and engagement for Kindergarten students. Free PDF download.',
+    learningObjectives: ['Maintain counting accuracy amidst a busy visual field', 'Connect characters to specific numerical values', 'Strengthen visual tracking and one-to-one correspondence'],
+    intro: 'Join the counting crew! This Visual Counting Adventures worksheet is perfect for students who love a challenge. By finding and counting specific characters on the page, children build their visual tracking and concentration skills while reinforcing the core math foundations of Kindergarten.'
+  },
+  'coloring-heroes': {
+    title: 'Superhero Coloring Pages - Creative Art & Action | Wizqo',
+    metaDescription: 'Unleash your inner hero with our Superhero coloring worksheet! Includes dynamic designs for coloring and creative expression. Free printable PDF.',
+    learningObjectives: ['Exercise creative freedom through color choice', 'Strengthen fine motor control and precision', 'Develop imaginative storytelling through heroic art'],
+    intro: 'Save the day with color! Our Superhero Coloring worksheet is designed for high-energy learners who love action and adventure. By bringing these heroic characters to life with their favorite hues, students build the manual dexterity and concentration required for high-quality work in all subjects.'
+  },
+  'curve-tracing': {
+    title: 'Curve Tracing Practice - Fine Motor & Handwriting Lab | Wizqo',
+    metaDescription: 'Master swoops and swirls with our Curve Tracing worksheet. Build the wrist flexibility needed for cursive and cursive writing. Free PDF for kids.',
+    learningObjectives: ['Develop smooth wrist and hand movements for writing', 'Improve hand-eye coordination through guided tracing', 'Build confidence with complex pre-writing shapes'],
+    intro: 'Follow the curves! Our Curve Tracing worksheet is a vital \'warm-up\' for students learning to write. By tracing swoops and loops, children build the specific muscle memory and flexibility needed for cursive writing and complex drawing. It\'s a fun and relaxing way to prepare for the world of literacy.'
+  },
+  'line-tracing': {
+    title: 'Simple Line Tracing - Basic Motor Skills Fundamentals | Wizqo',
+    metaDescription: 'Practice straight lines with our entry-level tracing worksheet. Perfect for Pre-K and early Kindergarten handwriting readiness. Free PDF.',
+    learningObjectives: ['Master straight-line pencil control', 'Follow a visual path from start to finish', 'Strengthen grip and stability for early writing'],
+    intro: 'Start the journey to writing with simple lines! Our Line Tracing worksheet provides a series of clear, straight paths for early learners to follow. By practicing these basic strokes, children build the hand strength and coordination required to eventually form their first letters and numbers with confidence.'
+  },
+  'zigzag-lines': {
+    title: 'Zigzag Tracing Practice - Precision Handwriting Skills | Wizqo',
+    metaDescription: 'Master sharp turns and angles with our Zigzag Tracing worksheet. Build the control needed for letters like M, W, and Z. Free printable PDF.',
+    learningObjectives: ['Execute precise changes in direction with a pencil', 'Improve hand-eye coordination for angular shapes', 'Identify and replicate zigzag patterns'],
+    intro: 'Zip and zap across the page! Our Zigzag Tracing worksheet challenges students to master sharp turns and consistent angles. This targeted practice is essential for learning letters with \'points\' like V, M, and W. It\'s a fun way to improve precision and pencil control while exploring different line styles.'
+  },
+  'path-tracing': {
+    title: 'Complex Path Tracing - Advanced Motor Skills & Logic | Wizqo',
+    metaDescription: 'Follow the tricky paths! Our Path Tracing worksheet combines fine motor practice with maze-like logic. Perfect for Kindergarten and 1st Grade.',
+    learningObjectives: ['Navigate complex, winding paths with precision', 'Anticipate changes in direction and adjust motor planning', 'Build focus and stamina for intricate tracing tasks'],
+    intro: 'Can you follow the trail? Our Complex Path Tracing worksheet blends art and logic into a winding adventure. By navigating intricate, multi-directional paths, students build the high-level motor control and planning skills used in both refined handwriting and advanced artistic design. It\'s the ultimate challenge for fine motor mastery!'
+  },
+  'winter-kindness': {
+    title: 'Winter Kindness Challenge - SEL & Social Skills Activity | Wizqo',
+    metaDescription: 'Spread warmth this winter with our Kindness worksheet! Includes prompts for sharing, empathy, and positive social interaction. Free printable SEL.',
+    learningObjectives: ['Identify opportunities for kindness in daily winter life', 'Express empathy and warmth toward others', 'Understand the emotional impact of helpful social behaviors'],
+    intro: 'Warm up the winter with kindness! Our Winter Kindness Challenge is a social-emotional learning activity that encourages students to think about how they can help others during the coldest months. From sharing a scarf to helping a neighbor, these heart-warming prompts help children build empathy and a positive classroom culture while celebrating the spirit of the season.'
   }
 }
 
@@ -2760,6 +2856,12 @@ function createSlug(docId: string): string {
     'order-of-operations': 'order-of-operations-pemdas',
     'fractions-to-decimals': 'converting-fractions-to-decimals',
     'mult-lattice': 'multiplication-lattice-method',
+    'word-problems-100': 'word-problems-within-100',
+    'ws-animals': 'animal-word-search',
+    'ws-space': 'space-word-search',
+    'ws-sight-words': 'sight-words-word-search',
+    'ws-world': 'world-geography-word-search',
+    'coloring-heroes': 'superhero-coloring-pages',
   }
 
   if (slugMap[docId]) {
@@ -3437,7 +3539,11 @@ export function initializeWorksheetSEO() {
     'interactive-early-numbers', 'interactive-early-shapes', 'interactive-geography-prek',
     'interactive-grammar-prek', 'interactive-logic-prek', 'interactive-reading-prek',
     'interactive-reading-storymap', 'interactive-science-prek', 'interactive-science-space',
-    'interactive-sel-prek', 'interactive-writing-prek'
+    'interactive-sel-prek', 'interactive-writing-prek',
+    'word-problems-100', 'ws-animals', 'ws-space', 'ws-sight-words', 'ws-world',
+    'kindergarten-counting-1-10', 'kindergarten-number-recognition', 'kindergarten-shapes',
+    'kindergarten-patterns', 'kindergarten-addition-pictures', 'kindergarten-counting-visual',
+    'coloring-heroes', 'curve-tracing', 'line-tracing', 'zigzag-lines', 'path-tracing', 'winter-kindness'
   ]
 
   // Generate SEO data for each worksheet
