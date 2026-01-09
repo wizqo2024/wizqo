@@ -1304,6 +1304,624 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Spark your imagination with our fun, open-ended writing prompts! Includes space for drawing and storytelling. Free printable PDF for kids.',
     learningObjectives: ['Develop original narrative ideas based on themed prompts', 'Practice sentence structure and creative vocabulary in writing', 'Express complex ideas through a combination of text and illustration'],
     intro: 'What if you could fly? Our Creative Writing Prompts worksheet provides the "spark" for your student\'s next great story. From magical adventures to funny "what if" scenarios, these prompts encourage children to use their vocabulary and imagination to build unique words and worlds. With plenty of space for both writing and drawing, this resource is a favorite for developing literacy and self-expression!'
+  },
+  'fractions-out-of-100': {
+    title: 'Fractions Out of 100 - Base-Ten & Percent Prep | Wizqo',
+    metaDescription: 'Master fractions with a denominator of 100. Practice identifying hundredths and connecting them to decimals and percents. Free PDF for grades 4-5.',
+    learningObjectives: ['Identify and represent fractions with denominators of 100', 'Connect hundredths to decimal place value', 'Build foundations for percentage understanding'],
+    intro: 'What does "out of 100" really mean? This worksheet focuses on fractions where the denominator is exactly one hundred, helping students visualize these "hundredths" using grids and numerical models. By mastering these specific fractions, children build a direct bridge to decimals and percentages, making advanced math concepts feel intuitive and manageable.'
+  },
+  'fractions-to-decimals-basic-tenths': {
+    title: 'Converting Tenths to Decimals - Basic Math Fluency | Wizqo',
+    metaDescription: 'Learn to turn fractions like 3/10 into decimals like 0.3. Master the "tenths" place value with our clear, printable worksheet. Free PDF.',
+    learningObjectives: ['Convert fractions with a denominator of 10 to decimals', 'Identify the tenths place value column', 'Understand that 10/10 equals one whole (1.0)'],
+    intro: 'Decimal fractions are just another way to write the same number! Our Converting Tenths to Decimals worksheet focuses on the very first place value after the decimal point. By seeing how three-tenths (3/10) becomes 0.3, students learn the rhythmic logic of the base-ten system, providing a solid foundation for more complex conversions and measurement math.'
+  },
+  'fractions-to-decimals-division': {
+    title: 'Converting Fractions using Division - Advanced Strategy | Wizqo',
+    metaDescription: 'Learn to turn any fraction into a decimal by dividing the numerator by the denominator. Perfect for non-base-10 fractions. Free printable PDF.',
+    learningObjectives: ['Apply long division to convert any fraction into a decimal', 'Understand the relationship between the fraction bar and the division symbol', 'Identify repeating and terminating decimal patterns'],
+    intro: 'Every fraction is really just a division problem waiting to happen! Our Fractions to Decimals using Division worksheet teaches students the "universal" method of conversion: dividing the top number by the bottom. This strategy works for any fraction—not just those with 10 or 100 at the bottom—giving learners the power to handle any numerical representation they encounter in science and higher math.'
+  },
+  'fractions-whole': {
+    title: 'Fractions and Wholes - Understanding "n/n" Equality | Wizqo',
+    metaDescription: 'Master the concept that a fraction is one whole when the top and bottom numbers match. Practice identifying wholes in models. Free PDF.',
+    learningObjectives: ['Identify that a fraction equals 1 when the numerator matches the denominator', 'Visualize whole units partitioned into equal segments', 'Connect fractional representations to integer values'],
+    intro: 'Why does 4/4 equal 1? Our Fractions and Wholes worksheet helps students visualize the concept of completeness. By shading in all the parts of a partitioned shape, children learn that when you have every piece, you have the entire thing. This foundational "fraction sense" is essential for understanding improper fractions, mixed numbers, and basic arithmetic operations.'
+  },
+  'fraction-word-problems-5th': {
+    title: '5th Grade Fraction Word Problems - Advanced Application | Wizqo',
+    metaDescription: 'Solve complex math stories involving mixed numbers and unlike denominators. Targeted practice for 5th-grade standards. Free PDF with answers.',
+    learningObjectives: ['Perform multi-step fraction operations within a narrative context', 'Find common denominators to solve real-world addition and subtraction', 'Interpret "fractions of a total" in complex sharing scenarios'],
+    intro: 'Take your fraction skills into the real world! Our 5th Grade Fraction Word Problems worksheet presents students with complex scenarios involving cooking, distance, and time. By requiring learners to find common denominators and manage mixed numbers within a story, this practice builds the critical reading and mathematical stamina needed for middle school and competitive math.'
+  },
+  'div-fractions': {
+    title: 'Dividing Fractions Practice - Reciprocal Method mastery | Wizqo',
+    metaDescription: 'Master fraction division with the "Keep, Change, Flip" strategy. Practice dividing fractions by whole numbers and other fractions. Free PDF.',
+    learningObjectives: ['Execute the Keep-Change-Flip (reciprocal) division algorithm', 'Simplify resulting fractional quotients', 'Visualize fraction division using area and number line models'],
+    intro: 'Dividing fractions is simpler than it looks! Our Dividing Fractions worksheet focuses on the "reciprocal" method, teaching students to transform a division problem into a multiplication one by flipping the second fraction. With clear examples and plenty of practice space, this resource ensures that students master the algorithm while understanding the underlying logic of "how many parts fit into a whole."'
+  },
+  'geo-compass-rose': {
+    title: 'The Compass Rose - Learning Cardinal Directions | Wizqo',
+    metaDescription: 'N, S, E, W! Master the directions with our Compass Rose worksheet. Learn to navigate maps and identify orientations. Free printable for grades K-2.',
+    learningObjectives: ['Identify the four cardinal directions (North, South, East, West)', 'Correctly label a compass rose on a map', 'Use directional vocabulary to describe relative locations'],
+    intro: 'Which way to the playground? Our Compass Rose worksheet introduces early explorers to the fundamental language of navigation. By learning to identify North, South, East, and West, children build the spatial awareness needed to read maps and understand the world around them. It\'s a fun, foundational geography lesson that turns everyday movement into a scientific adventure!'
+  },
+  'geo-continents-k2': {
+    title: 'The Seven Continents - World Geography for Kids | Wizqo',
+    metaDescription: 'Identify Africa, Antarctica, Asia, Australia, Europe, North America, and South America. Fun map-matching and labeling activity. Free PDF.',
+    learningObjectives: ['Correctly name each of the seven continents', 'Identify continent shapes and locations on a global map', 'Learn basic facts about each world region'],
+    intro: 'Our world is huge and diverse! Our Seven Continents worksheet takes students on a global tour, teaching them to recognize the giant landmasses that make up our planet. From the ice of Antarctica to the vastness of Asia, children build the foundational geography knowledge needed to understand world history, science, and current events. A perfect start for any young global citizen!'
+  },
+  'geo-landforms': {
+    title: 'Identifying Landforms - Earth\'s Physical Features | Wizqo',
+    metaDescription: 'Learn about mountains, valleys, plains, and plateaus. Practice matching names to physical descriptions of Earth\'s surface. Free printable PDF.',
+    learningObjectives: ['Identify common physical features of the Earth (mountains, islands, valleys)', 'Distinguish between different land and water formations', 'Build scientific vocabulary for physical geography and geology'],
+    intro: 'Earth has many shapes! Our Identifying Landforms worksheet helps students recognize the different physical features that define our landscape. By matching terms like "peninsula," "mountain," and "isthmus" to their visual representations, children gain the scientific vocabulary needed to describe the world\'s geography. This activity is a wonderful way to spark interest in geology and environmental science.'
+  },
+  'geo-latlong': {
+    title: 'Longitude and Latitude - Global Coordinate Systems | Wizqo',
+    metaDescription: 'Learn how to use "invisible lines" to find any spot on Earth. Introduction to the global grid system. Free PDF for grades 4-6 geography.',
+    learningObjectives: ['Define the roles of the Equator and Prime Meridian', 'Understand latitude as "horizontal" and longitude as "vertical"', 'Use coordinates to locate specific points on a world map'],
+    intro: 'Every place on Earth has an address—but it\'s not made of streets! Our Longitude and Latitude worksheet introduces the global grid system, teaching students how to use degrees to pinpoint any location on the planet. By understanding the "lines that go across" and the "lines that go up and down," learners build the advanced spatial reasoning used by pilots, captains, and GPS engineers.'
+  },
+  'geometry-word-problems': {
+    title: 'Geometry Word Problems - Shapes in the Real World | Wizqo',
+    metaDescription: 'Apply area, perimeter, and shape logic to daily stories! Practice solving geometry problems in context. Free printable PDF for grades 3-5.',
+    learningObjectives: ['Translate narrative scenarios into geometric diagrams or formulas', 'Calculate dimensions based on descriptive textual clues', 'Select the appropriate measurement tool (Area vs. Perimeter) for a task'],
+    intro: 'How much paint do you need for a wall? How long is the fence around the pool? Our Geometry Word Problems worksheet takes math formulas and puts them into action. By solving realistic scenarios involving construction, design, and travel, students learn that geometry is a vital tool for building and measuring the world we live in. Perfect for strengthening both math and reading skills!'
+  },
+  'grammar-detective': {
+    title: 'Grammar Detective - Finding & Fixing Writing Errors | Wizqo',
+    metaDescription: 'Become a language investigator! Identify and correct errors in punctuation, capitalization, and spelling. Free printable PDF for grades 2-4.',
+    learningObjectives: ['Identify common grammatical errors in a variety of sentences', 'Apply rules of capitalization and punctuation to "broken" text', 'Improve self-editing skills for more polished writing'],
+    intro: 'Something is wrong with these sentences—can you find the clues? Our Grammar Detective worksheet turn proofreading into a fun investigation. By searching for missing periods, misplaced capitals, and misspelled words, students build the "copy-editing" brain needed for high-quality writing. This practice makes grammar feel like a rewarding puzzle rather than just a series of rules to memorize.'
+  },
+  'gratitude-jar': {
+    title: 'The Gratitude Jar - Social Emotional Learning Activity | Wizqo',
+    metaDescription: 'Focus on the positive! Use our "Gratitude Jar" worksheet to identify things you are thankful for today. Free printable SEL resource for kids.',
+    learningObjectives: ['Identify and reflect on positive personal experiences and relationships', 'Practice mindfulness and "positive focus" as a mental health tool', 'Express emotions through drawing and descriptive writing'],
+    intro: 'What makes your heart happy? Our Gratitude Jar worksheet provides a peaceful, creative space for students to reflect on the good things in their lives. By "filling" their jar with people, things, and moments they are thankful for, children build a positive mindset and emotional resilience. This social-emotional learning tool is a wonderful way to start or end a busy school day with a sense of peace.'
+  },
+  'halloween-pack': {
+    title: 'Halloween Learning Pack - Spooky Fun Activities | Wizqo',
+    metaDescription: 'Download our Halloween-themed bundle! Includes spooky math, literacy, and art activities for a fun October lesson. Free printable PDF.',
+    learningObjectives: ['Engage with academic concepts through seasonal themes', 'Practice counting, spelling, and fine motor skills with holiday imagery', 'Bridge the gap between "play" and "learning" during festivities'],
+    intro: 'No tricks, just treats for the brain! Our Halloween Learning Pack combines math, literacy, and art with a fun, spooky twist. From counting ghosts to writing about a magic potion, this comprehensive resource keeps students engaged during the October season. It\'s the perfect way to maintain academic focus while celebrating a favorite holiday with creative and "frightfully" fun activities.'
+  },
+  'heavy-light': {
+    title: 'Measurements: Heavy and Light - Early Comparison | Wizqo',
+    metaDescription: 'Which one is harder to lift? Practice comparing weight with our elementary mass worksheet. Free printable for Preschool and Kindergarten.',
+    learningObjectives: ['Distinguish between objects of significantly different weights', 'Use the vocabulary words "heavier" and "lighter" correctly', 'Develop the observational skills needed for early physical science'],
+    intro: 'Is a feather heavier than a brick? Our Heavy and Light worksheet helps young scientists explore the world of mass and gravity. By looking at pairs of familiar objects and identifying which one takes "more muscle" to move, children build the foundational comparison skills needed for everything from cooking to physics. A simple, hands-on way to start measuring the physical world around us!'
+  },
+  'hidden-object': {
+    title: 'Hidden Objects Challenge - Visual Perception Game | Wizqo',
+    metaDescription: 'Can you find the secret items? Build focus, patience, and visual tracking with our fun "Hidden Objects" worksheet. Free printable PDF.',
+    learningObjectives: ['Strengthen visual attention and detail-oriented focus', 'Improve visual tracking and scanning skills', 'Build persistence and concentration through a game-like format'],
+    intro: 'Look closer! Our Hidden Objects Challenge turns concentration into a fun game of discovery. By searching for specific items in a detailed scene, students strengthen their visual processing and attention to detail—the same skills they\'ll need to scan a page for information when reading or to find errors in a math problem. It\'s a rewarding way to build the "focus muscle" that supports all academic learning.'
+  },
+  'identify-polygons': {
+    title: 'Identifying Polygons - Geometry Shape Recognition | Wizqo',
+    metaDescription: 'Is it a pentagon or a hexagon? Master polygon names and properties with our clear, printable geometry worksheet. Free PDF for grades 2-4.',
+    learningObjectives: ['Define a polygon as a closed plane figure with straight sides', 'Identify shapes based on the number of sides (3 to 10)', 'Distinguish between regular and irregular polygons'],
+    intro: 'The world is built of many sides! Our Identifying Polygons worksheet helps students move beyond basic squares and circles to master the names of multi-sided shapes. By counting sides and vertices to identify pentagons, octagons, and more, children build the precise geometric vocabulary needed for advanced math and architectural thinking.'
+  },
+  'letter-tracing-az': {
+    title: 'A-Z Letter Tracing - Complete Handwriting Practice | Wizqo',
+    metaDescription: 'Master every letter from A to Z! Practice uppercase and lowercase formation with our comprehensive handwriting guide. Free printable PDF.',
+    learningObjectives: ['Develop proper stroke order for all 26 letters of the alphabet', 'Distinguish between uppercase and lowercase character forms', 'Build fine motor control and consistent letter sizing'],
+    intro: 'Mastering the alphabet starts with the right strokes! Our A-Z Letter Tracing worksheet provides a complete roadmap for early writers to practice every letter in the English language. With clear directional guides and plenty of space for repetition, this resource helps children build the muscle memory and confidence needed for clear, legible handwriting.'
+  },
+  'line-plots': {
+    title: 'Creating and Reading Line Plots - Data Analysis | Wizqo',
+    metaDescription: 'Learn to represent data with Xs on a number line. Practice creating and interpreting line plots with our printable math worksheet. Free PDF.',
+    learningObjectives: ['Organize a raw data set into a frequency table', 'Correctly plot data points as marks on a scaled number line', 'Analyze horizontal distribution to find clusters and outliers'],
+    intro: 'Data tells a story, and line plots make it easy to see! Our Line Plots worksheet teaches students how to organize information by placing marks along a number line. From measuring plant growth to counting pets, children learn how to visualize "how many" of each item exists in a set, building the foundational data analysis skills used in science and statistics.'
+  },
+  'lines-angles-4th': {
+    title: '4th Grade Lines and Angles - Geometry Mastery | Wizqo',
+    metaDescription: 'Master points, lines, rays, and segments. Practice identifying acute, obtuse, and right angles with our 4th-grade geometry worksheet. Free PDF.',
+    learningObjectives: ['Differentiate between lines, rays, and line segments', 'Identify and draw parallel, perpendicular, and intersecting lines', 'Classify angles as acute, obtuse, right, or straight'],
+    intro: 'Geometry is all about the connections! Our 4th Grade Lines and Angles worksheet dives deep into the building blocks of shapes. By practicing the identification of rays and the measurement of various angle types, students gain the precision needed to describe complex figures and solve advanced spatial problems in middle school math.'
+  },
+  'lines-rays-angles': {
+    title: 'Introduction to Lines, Rays, and Angles | Wizqo',
+    metaDescription: 'Learn the fundamental "building blocks" of geometry. Practice identifying different line types and angle basics. Free printable PDF.',
+    learningObjectives: ['Identify points, lines, rays, and segments by their endpoint symbols', 'Recognize the vertex as the meeting point of two rays', 'Understand basic angle nomenclature for early geometry'],
+    intro: 'Before we build shapes, we must understand the lines that create them! Our Introduction to Lines, Rays, and Angles worksheet explains the essential "vocabulary" of the geometric world. By seeing the difference between a line that goes forever and a ray with a starting point, children build a rock-solid foundation for understanding how every shape in our world is constructed.'
+  },
+  'liquid-measurement': {
+    title: 'Liquid Measurement - Understanding Cups to Gallons | Wizqo',
+    metaDescription: 'How much water is in the jar? Learn about liquid volume (capacity) and standard units like cups, pints, and quarts. Free printable for kids.',
+    learningObjectives: ['Identify standard units of liquid measurement (cup, pint, quart, gallon)', 'Compare relative capacities of common household containers', 'Estimate the volume of liquids using standard units'],
+    intro: 'Is it a drop or a gallon? Our Liquid Measurement worksheet introduces students to the essential concepts of volume and capacity. By exploring how many cups fit in a pint and how many quarts make a gallon, children build the practical math skills used every day in the kitchen, the garden, and the science lab.'
+  },
+  'liquid-measurement-4th': {
+    title: '4th Grade Liquid Capacity - Advanced Conversion | Wizqo',
+    metaDescription: 'Master complex liquid measurement conversions. Solve multi-step problems involving gallons, quarts, and pints. Free printable PDF.',
+    learningObjectives: ['Convert between various liquid units (e.g., gallons to cups)', 'Solve multi-step word problems involving liquid volume', 'Apply fractional concepts to capacity measurements'],
+    intro: 'Take your measurement skills to the next level! Our 4th Grade Liquid Capacity worksheet challenges students to navigate the relationships between different units of volume. By performing conversions and solving real-world sharing problems, learners develop the numerical fluency needed for advanced science experiments and culinary arts.'
+  },
+  'long-division-multidigit': {
+    title: 'Multidigit Long Division - Advanced Arithmetic | Wizqo',
+    metaDescription: 'Master division with 3 and 4-digit dividends. Practice the step-by-step long division algorithm with our printable math worksheet. Free PDF.',
+    learningObjectives: ['Execute the long division algorithm (DMSB) with large numbers', 'Manage multi-digit dividends and single or double-digit divisors', 'Correctly identify quotients and remainders in complex problems'],
+    intro: 'Big numbers are no match for a great strategy! Our Multidigit Long Division worksheet helps students master the rhythm of Divide, Multiply, Subtract, and Bring Down with 3 and 4-digit numbers. By breaking large division problems into manageable steps, children build the mathematical stamina and accuracy required for higher-level algebra and real-world budgeting.'
+  },
+  'long-short': {
+    title: 'Comparing Lengths: Long and Short - Early Prep | Wizqo',
+    metaDescription: 'Which one is longer? Practice comparing object lengths with our fun "Long and Short" worksheet. Free printable for Preschool and Kindergarten.',
+    learningObjectives: ['Visually distinguish between objects of different lengths', 'Use the comparative words "longer" and "shorter" correctly', 'Develop the observation skills needed for linear measurement'],
+    intro: 'Which snake is the longest? Our Long and Short worksheet helps early learners explore the world of linear measurement through simple comparison. By looking at pairs of objects and identifying which one stretches further, children build the foundational spatial reasoning and vocabulary needed before they ever pick up a ruler!'
+  },
+  'mandalas': {
+    title: 'Geometry Mandalas - Art, Symmetry & Focus | Wizqo',
+    metaDescription: 'Combine math and art! Explore radial symmetry and geometric patterns with our beautiful mandala coloring worksheet. Free printable PDF.',
+    learningObjectives: ['Identify radial symmetry and repeating geometric patterns', 'Explore the relationship between geometry and artistic design', 'Strengthen focus and fine motor control through detailed coloring'],
+    intro: 'Math can be beautiful! Our Geometry Mandalas worksheet blends the precision of shapes with the creativity of art. By exploring radial symmetry—where patterns repeat in a circle—students see math in a whole new light. It\'s a relaxing, meditative way to build fine motor skills while reinforcing concepts of balance, rotation, and pattern recognition.'
+  },
+  'mass-weight': {
+    title: 'Introduction to Mass and Weight - Measurement | Wizqo',
+    metaDescription: 'Learn how we measure "how heavy" something is. Introduction to grams, kilograms, and pounds for elementary students. Free printable PDF.',
+    learningObjectives: ['Understand the basic difference between mass and weight', 'Identify common units of weight (ounces, pounds, grams)', 'Compare the relative weights of everyday objects'],
+    intro: 'How much does it weigh? Our Introduction to Mass and Weight worksheet helps students understand how we quantify the heaviness of objects. By exploring grams for light things and kilograms or pounds for heavier ones, children build the scientific understanding of matter and the practical skills needed for grocery shopping and post-office visits.'
+  },
+  'mass-weight-4th': {
+    title: '4th Grade Mass and Weight - Unit Conversions | Wizqo',
+    metaDescription: 'Master converting between units of mass and weight. Solve word problems involving pounds, ounces, and grams. Free printable for 4th Grade.',
+    learningObjectives: ['Convert between standard units of weight (pounds to ounces)', 'Solve word problems involving mass and weight in a real-world context', 'Compare weights using different unit systems'],
+    intro: 'Can you turn pounds into ounces? Our 4th Grade Mass and Weight worksheet challenges students to master the conversions that scientists and chefs use every day. By solving complex word problems and managing unit changes, learners build the computational accuracy and "number sense" needed for physical science and advanced measurement math.'
+  },
+  'math-maze': {
+    title: 'Arithmetic Math Maze - Fun Operation Practice | Wizqo',
+    metaDescription: 'Solve math problems to find the right path! A fun way to practice addition, subtraction, and multiplication. Free printable math puzzle PDF.',
+    learningObjectives: ['Apply mental math fluency to navigate a puzzle path', 'Execute a series of operations in correct sequence', 'Strengthen persistence and problem-solving through a game format'],
+    intro: 'Find your way out with numbers! Our Arithmetic Math Maze turns standard operation practice into an exciting puzzle adventure. To reach the finish line, students must solve their way through a grid of equations, choosing the path with the correct answers. It\'s a high-engagement way to build mental math speed and logical thinking without it ever feeling like "work".'
+  },
+  'mean-median-mode': {
+    title: 'Introduction to Mean, Median, and Mode | Wizqo',
+    metaDescription: 'Learn the three ways to find the "middle" of data. Practice calculating averages with our clear, printable statistics worksheet. Free PDF.',
+    learningObjectives: ['Calculate the mean (average) of a small data set', 'Find the median (middle number) by ordering data', 'Identify the mode (most frequent number) in a set'],
+    intro: 'What is "typical" in a group of numbers? Our Mean, Median, and Mode worksheet introduces students to the three essential tools of statistics. By learning to find the average, the middle, and the most common number, children gain the power to analyze everything from sports scores to weather patterns, building the critical thinking skills used by data scientists around the world.'
+  },
+  'measurement-length': {
+    title: 'Measuring Length - Using Rulers and Standard Units | Wizqo',
+    metaDescription: 'How long is the pencil? Practice using a ruler to measure in inches and centimeters with our printable math worksheet. Free PDF.',
+    learningObjectives: ['Accurately use a ruler starting from the zero mark', 'Measure objects to the nearest whole or half unit (inch/cm)', 'Compare lengths using standard linear measurement units'],
+    intro: 'Measure it exactly! Our Measuring Length worksheet takes students from estimating to precision. By practicing with real-world objects and standard units like inches and centimeters, children learn how to use the ruler correctly and understand the importance of standard scales. It\'s a fundamental life skill that bridges the gap between the classroom and the real world of building and creating!'
+  },
+  'mental-math-20': {
+    title: 'Mental Math Within 20 - Speed & Accuracy Practice | Wizqo',
+    metaDescription: 'Build fast "head math" skills! Practice adding and subtracting within 20 without using fingers or paper. Free printable PDF.',
+    learningObjectives: ['Develop speed and accuracy in basic arithmetic facts', 'Strengthen working memory and numerical visualization', 'Identify number bonds and patterns within the 0-20 range'],
+    intro: 'Put away the pencil and trust your brain! Our Mental Math Within 20 worksheet focuses on building "number sense" and calculation speed. By practicing these foundational facts until they become second nature, students free up their cognitive energy for the more complex math challenges they\'ll face in higher grades.'
+  },
+  'metric-units': {
+    title: 'Introduction to Metric Units - Liters, Grams & Meters | Wizqo',
+    metaDescription: 'Learn the primary units of the metric system. Practice choosing the right unit for mass, volume, and length. Free printable PDF.',
+    learningObjectives: ['Identify grams, liters, and meters as standard units', 'Match specific units to their physical properties (mass vs volume)', 'Develop a baseline "sense" for metric quantities in daily life'],
+    intro: 'How do you measure a mountain versus a mosquito? Our Introduction to Metric Units worksheet helps students pick the right tool for the job. By exploring the roles of grams for weight, liters for liquid, and meters for length, children build a universal scientific vocabulary that works in any country and any lab.'
+  },
+  'missing-addends': {
+    title: 'Missing Addends - Solving for the Unknown Number | Wizqo',
+    metaDescription: 'Find the secret number! Practice solving addition problems where one part is missing (e.g., 5 + ? = 12). Perfect for early algebra prep. Free PDF.',
+    learningObjectives: ['Identify the missing component in an addition equation', 'Understand the relationship between addition and subtraction', 'Build foundations for solving algebraic variables'],
+    intro: 'Equations are like puzzles with a missing piece! Our Missing Addends worksheet teaches students how to find the "unknown" number that makes a math statement true. This practice isn\'t just about addition—it\'s the very first step toward algebra, helping children think flexibly about how numbers fit together.'
+  },
+  'missing-numbers-50': {
+    title: 'Missing Numbers to 50 - Counting & Sequence Mastery | Wizqo',
+    metaDescription: 'Fill in the blanks! Complete number sequences and grids up to 50 to build counting fluency. Free printable PDF for Kindergarten and 1st Grade.',
+    learningObjectives: ['Develop fluency in the 1-50 number sequence', 'Identify "one more" and "one less" within a series', 'Strengthen number recognition and writing accuracy'],
+    intro: 'Our number line has some gaps—can you fix them? Our Missing Numbers to 50 worksheet provides vital practice for children mastering the rhythmic order of numbers. By identifying what comes before, after, and in-between, students build the deep familiarity with the 0-50 range that supports all future arithmetic.'
+  },
+  'missing-shape': {
+    title: 'Missing Shape Patterns - Logic & Visual Perception | Wizqo',
+    metaDescription: 'Identify the next shape in the sequence! Build logical reasoning and visual tracking with our fun pattern worksheet. Free printable PDF.',
+    learningObjectives: ['Analyze geometric sequences to identify repeating rules', 'Predict the next element in a visual pattern', 'Develop detail-oriented scanning and focus skills'],
+    intro: 'What comes next? Our Missing Shape Patterns worksheet challenges students to become "pattern detectives." By analyzing sequences of circles, squares, and triangles, children sharpen the logical reasoning skills used in both computer programming and higher-level mathematics. It\'s a visual brain-teaser that makes logic feel like a game!'
+  },
+  'mixed-improper-fractions': {
+    title: 'Converting Mixed Numbers & Improper Fractions | Wizqo',
+    metaDescription: 'Master the relationship between 1 1/2 and 3/2. Practice switching between fraction formats with our clear math worksheet. Free PDF.',
+    learningObjectives: ['Convert mixed numbers into improper fractions', 'Simplify improper fractions back into mixed numbers', 'Visualize the equivalence using area models and number lines'],
+    intro: 'Two ways to say the same thing! Our Mixed Numbers and Improper Fractions worksheet helps students bridge the gap between whole numbers and parts. By learning the "multiply and add" strategy to convert formats, children gain the flexibility needed to perform advanced fraction multiplication and division with ease.'
+  },
+  'money-coins-bills': {
+    title: 'Identifying Money: Coins and Bills - US Currency | Wizqo',
+    metaDescription: 'Pennies, nickels, dimes, and dollars! Practice identifying and naming US currency with our clear, printable worksheet. Free PDF.',
+    learningObjectives: ['Identify the names and values of common US coins and bills', 'Differentiate between physical currency based on color and size', 'Calculate simple total values for small groups of money'],
+    intro: 'It\'s time to talk about cents! Our Coins and Bills worksheet introduces students to the physical currency we use every day. From the copper penny to the green dollar bill, children build the foundational financial literacy needed to understand prices, savings, and the value of a job well done.'
+  },
+  'mood-tracker': {
+    title: 'Daily Mood Tracker - Social Emotional Learning Tool | Wizqo',
+    metaDescription: 'Check in with your feelings! Use our daily mood log to identify and express emotions. Free printable SEL activity for classroom or home.',
+    learningObjectives: ['Identify and name personal emotional states over time', 'Practice mindfulness and self-reflection as a daily habit', 'Connect moods to external events or internal thoughts'],
+    intro: 'How are you feeling today? Our Daily Mood Tracker provides a colorful, safe space for students to explore their emotional landscape. By identifying their feelings each day, children build the self-awareness and emotional intelligence needed to manage stress and build healthy relationships with themselves and others.'
+  },
+  'more-less': {
+    title: 'Comparing Amounts: More and Less - Early Math | Wizqo',
+    metaDescription: 'Identify the bigger group! Practice basic comparison concepts with our fun, visual "More or Less" worksheet. Free printable for Pre-K.',
+    learningObjectives: ['Visually distinguish between groups of different sizes', 'Use the quantitative words "more" and "less" correctly', 'Develop foundational number sense before formal counting'],
+    intro: 'Which pile of cookies is bigger? Our More or Less worksheet helps early learners understand the concept of quantity without needing to count every single item. By focusing on the visual "size" of groups, children build the primary mathematical intuition that underpins all future work with numbers and sets.'
+  },
+  'more-less-equal-10': {
+    title: 'Comparing Numbers to 10 - Greater, Less, or Equal | Wizqo',
+    metaDescription: 'Master the <, >, and = symbols! Practice comparing single-digit numbers with our clear, printable math worksheet. Free PDF.',
+    learningObjectives: ['Correctly use the comparison symbols <, >, and =', 'Analyze the relative value of digits within the 1-10 range', 'Strengthen number-line visualization and numeric order'],
+    intro: 'Which way does the "alligator" mouth point? Our Comparing Numbers to 10 worksheet introduces the classic symbols of math comparison. By deciding if 7 is bigger, smaller, or equal to 3, students build the analytical brain needed to handle complex inequalities and logical proofs in later years.'
+  },
+  'mult-2x1': {
+    title: '2-Digit by 1-Digit Multiplication - Step-by-Step | Wizqo',
+    metaDescription: 'Learn to multiply larger numbers! Master the standard algorithm for 2x1 multiplication with our clear math worksheet. Free printable PDF.',
+    learningObjectives: ['Execute the vertical multiplication algorithm for 2-digit numbers', 'Manage regrouping (carrying) from the ones to the tens place', 'Identify the relationship between partial products and the final total'],
+    intro: 'Ready to go beyond the basic times tables? Our 2-Digit by 1-Digit Multiplication worksheet teaches students the classical algorithm for handling larger numbers. By breaking the process into "bottom times ones" and "bottom times tens," children gain the confidence to tackle any multi-digit problem with precision and speed.'
+  },
+  'mult-2x1-digit': {
+    title: 'Intensive 2x1 Digit Multiplication Practice | Wizqo',
+    metaDescription: 'Master the rhythm of multi-digit multiplication! Targeted practice for 2x1 digit problems with plenty of workspace. Free PDF.',
+    learningObjectives: ['Strengthen fluency with the 2-digit multiplication algorithm', 'Improve accuracy in carrying and adding regrouped digits', 'Build the mathematical stamina needed for multi-step arithmetic'],
+    intro: 'Consistency is the key to math mastery! This intensive 2x1 Digit Multiplication worksheet provides the repetition needed to turn a new skill into an automatic habit. With clear grids and ample space for "carrying," students can focus on the rhythmic steps of the algorithm until they can solve two-digit problems with their eyes closed!'
+  },
+  'mult-2x2': {
+    title: '2-Digit by 2-Digit Multiplication - The Standard Algorithm | Wizqo',
+    metaDescription: 'Step up to 2x2 multiplication! Master the double-digit vertical method with our clear, structured math worksheet. Free printable PDF.',
+    learningObjectives: ['Multiply by a two-digit number using regrouping', 'Understand the role of the "zero placeholder" in the tens-place step', 'Correctly sum partial products for the final answer'],
+    intro: 'You\'ve mastered the basics, now let\'s double up! Our 2-Digit by 2-Digit Multiplication worksheet guides students through the "double-decker" vertical algorithm. By learning where to place the placeholder zero and how to manage multiple rounds of carrying, children build the precision and patience required for real-world algebra and advanced engineering math.'
+  },
+  'mult-2x2-digit': {
+    title: 'Double-Digit Multiplication Intensive Practice | Wizqo',
+    metaDescription: 'Build stamina with 2x2 digit multiplication. Structured practice sheets for mastering the vertical algorithm. Free PDF for grades 4-5.',
+    learningObjectives: ['Improve fluency and speed in 2x2 digit vertical multiplication', 'Strengthen mental accuracy in regrouping and partial sums', 'Identify and correct common errors in placeholder placement'],
+    intro: 'Repetition is the path to expertise! This Intensive 2x2 Digit Multiplication worksheet provides a rigorous workout for students who know the steps but need more practice to achieve total accuracy. With plenty of workspace and a clean grid layout, learners can focus on the rhythmic repetition of "multiply, carry, and add" until the standard algorithm becomes second nature.'
+  },
+  'mult-3x2-digit': {
+    title: '3-Digit by 2-Digit Multiplication Mastery | Wizqo',
+    metaDescription: 'Take on bigger numbers! Practice multiplying 3-digit numbers by 2-digit factors with our advanced arithmetic worksheet. Free PDF.',
+    learningObjectives: ['Extend the vertical multiplication algorithm to 3-digit numbers', 'Manage complex regrouping across hundreds and thousands places', 'Develop organizational skills for large multi-step math problems'],
+    intro: 'Are you ready for a challenge? Our 3-Digit by 2-Digit Multiplication worksheet is for students who have mastered the basics and are ready for professional-grade arithmetic. By managing larger partial products and tracking complex carries across multiple place values, children build the mathematical stamina and organizational discipline used by architects and computer scientists.'
+  },
+  'mult-area-model': {
+    title: 'Multiplication Area Model - Visualizing Partial Products | Wizqo',
+    metaDescription: 'See the math behind the numbers! Use box models to break down multiplication into manageable chunks. Free printable for grades 3-5.',
+    learningObjectives: ['Decompose numbers into expanded form (tens and ones)', 'Visualize multiplication as the area of a rectangle', 'Connect partial products in a grid to the final solution'],
+    intro: 'Multiplication isn\'t just a set of rules—it\'s a map! Our Area Model Multiplication worksheet teaches students how to break large numbers into friendly "chunks" using expanded form. By calculating the area of each box in the grid, children see exactly how partial products contribute to the final answer. It\'s the perfect bridge for visual learners moving toward the standard vertical algorithm.'
+  },
+  'mult-arrays-models': {
+    title: 'Multiplication Arrays and Visual Models Practice | Wizqo',
+    metaDescription: 'Connect pictures to equations! Master multiplication using rows and columns with our visual math worksheet. Free printable PDF.',
+    learningObjectives: ['Translate visual arrays into multiplication number sentences', 'Identify rows and columns as factors in an equation', 'Strengthen commutative property awareness through visual rotation'],
+    intro: 'Math is all about patterns! Our Multiplication Arrays and Models worksheet helps students see the logic behind the "times" sign. By representing equations as rows and columns of objects, children build a concrete understanding of quantity and group-size. This visual foundation makes it much easier to memorize facts and understand how multiplication scale works in geometry!'
+  },
+  'mult-by-10-100': {
+    title: 'Multiplying by 10 and 100 - Mental Math Shortcuts | Wizqo',
+    metaDescription: 'Master the "add a zero" trick! Learn to multiply large numbers by 10, 100, and 1000 with speed and accuracy. Free printable PDF.',
+    learningObjectives: ['Identify the place-value shift when multiplying by powers of 10', 'Apply decimal-shifting shortcuts for rapid mental calculation', 'Understand the relationship between base-10 and scientific notation'],
+    intro: 'Why work harder when you can work faster? Our Multiplying by 10 and 100 worksheet teaches students the most powerful shortcut in the math world. By learning how zeroes move digits to the left on the place-value chart, children gain the ability to multiply massive numbers in their heads, building the numerical confidence used by rocket scientists and financial analysts!'
+  },
+  'mult-complex-word': {
+    title: 'Complex Multiplication Word Problems - Multi-Step Math | Wizqo',
+    metaDescription: 'Solve real-world math mysteries! Apply multiplication to multi-step stories involving logic and reasoning. Free PDF for grades 4-5.',
+    learningObjectives: ['Extract relevant data from complex narrative contexts', 'Sequentially apply multiplication to multi-step scenarios', 'Verify real-world logic and plausibility of mathematical results'],
+    intro: 'The real world doesn\'t just give you a list of numbers—it tells you a story! Our Complex Multiplication Word Problems worksheet challenges students to be "math investigators." From planning a school carnival budget to calculating resources for a space station, these problems require children to think critically, step-by-step, to find the right solution to a tricky problem.'
+  },
+  'mult-fact-families': {
+    title: 'Multiplication Fact Families - The Inverse Connection | Wizqo',
+    metaDescription: 'Link multiplication and division! Understand the relationship between factors and quotients with our fact family worksheet. Free PDF.',
+    learningObjectives: ['Identify the "three-number" relationship in fact families', 'Write four related equations (2 multiplication, 2 division) for a set', 'Reinforce the commutative property of multiplication'],
+    intro: 'Multiplication and division are two sides of the same coin! Our Fact Families worksheet helps students see the deep connection between inverse operations. By discovering that 4x5=20 and 20÷5=4 belong to the same number house, children build the algebraic flexibility needed to solve for variables and master their basic calculation facts with half the effort!'
+  },
+  'mult-fact-fluency': {
+    title: 'Multiplication Fact Fluency - Speed & Accuracy Drills | Wizqo',
+    metaDescription: 'Build instant recall of times tables! High-engagement drills for mastering multiplication facts 0-12. Free printable math worksheet.',
+    learningObjectives: ['Develop automaticity and instant recall for basic facts', 'Identify personal "tough spots" in the times tables', 'Improve calculation speed under low-stakes practice conditions'],
+    intro: 'Turn your math into a reflex! Our Multiplication Fact Fluency worksheet is designed to build "automaticity"—the ability to answer a problem without even having to think about it. By practicing these core facts until they are as fast as saying your own name, students free up their brains to tackle the exciting logic of geometry, fractions, and algebra in the years ahead!'
+  },
+  'mult-mixed-review': {
+    title: 'Multiplication Mixed Review - The Ultimate Challenge | Wizqo',
+    metaDescription: 'Switch gears! Practice varied multiplication types from basic facts to area models in one comprehensive worksheet. Free PDF.',
+    learningObjectives: ['Identify and apply different strategies for varied problem types', 'Flexibly move between algorithms, models, and word problems', 'Demonstrate comprehensive mastery of multiplication concepts'],
+    intro: 'Are you a multiplication master? Our Mixed Review worksheet is the ultimate test of your skills! Instead of doing the same thing over and over, you\'ll have to switch gears between vertical problems, area models, and tricky word problems on a single page. It\'s the perfect way to prove that you don\'t just know the rules—you truly understand the power of multiplication!'
+  },
+  'mult-multi-step-word': {
+    title: 'Multi-Step Multiplication Word Problems - Real-World Logic | Wizqo',
+    metaDescription: 'Solve complex math stories! Apply multiplication in multiple steps to find solutions for realistic scenarios. Free printable PDF for grades 4-5.',
+    learningObjectives: ['Deconstruct complex narratives into sequential math operations', 'Apply advanced multiplication algorithms to multi-part problems', 'Verify the logical consistency of multi-step numerical results'],
+    intro: 'Real-world math is rarely a single step! Our Multi-Step Multiplication Word Problems worksheet teaches students how to break down complex stories into a logical series of calculations. From managing a farm\'s harvest to planning global shipping routes, these problems build the analytical stamina and critical thinking skills needed for success in science, business, and beyond.'
+  },
+  'mult-patterns': {
+    title: 'Multiplication Number Patterns - Sequence and Logic | Wizqo',
+    metaDescription: 'Discover the rhythm of numbers! Identify and extend patterns based on multiplication rules. Free printable math worksheet for grades 3-5.',
+    learningObjectives: ['Identify recursive multiplication rules in a number sequence', 'Extend geometric and numerical patterns accurately', 'Connect multiplication facts to the growth of sequences'],
+    intro: 'Numbers have a secret rhythm! Our Multiplication Number Patterns worksheet challenges students to become "math detectives" who find the rules that make a sequence grow. Whether it\'s doubling, tripling, or following a complex multiplicative skip-count, this practice builds the predictive logic and algebraic intuition that underpins higher-level computer science and mathematical theory.'
+  },
+  'mult-properties': {
+    title: 'Properties of Multiplication - Commutative, Associative & More | Wizqo',
+    metaDescription: 'Learn the rules of the game! Practice applying the properties that make multiplication work. Free printable math worksheet for grades 3-5.',
+    learningObjectives: ['Identify and apply the Commutative, Associative, and Distributive properties', 'Understand how regrouping factors can simplify mental math', 'Explain "why" multiplication equations work through property definitions'],
+    intro: 'Math has universal laws! Our Properties of Multiplication worksheet helps students move beyond "how" to calculate and start understanding "why" multiplication behaves the way it does. By exploring concepts like the flipped order of the Commutative property or the breaking-apart power of the Distributive property, children gain the flexible thinking tools used by professional mathematicians to simplify even the largest problems.'
+  },
+  'mult-strategies': {
+    title: 'Effective Multiplication Strategies - Beyond the Algorithms | Wizqo',
+    metaDescription: 'Learn diverse ways to multiply! Explore doubling, halving, partial products, and more. Free printable for flexible math thinking.',
+    learningObjectives: ['Apply diverse mental math strategies like doubling and halving', 'Use partial products to simplify complex multi-digit calculations', 'Select the most efficient multiplication method for a given problem'],
+    intro: 'There is more than one way to find an answer! Our Multiplication Strategies worksheet introduces students to a toolbox of mental math techniques. From breaking numbers apart into friendly chunks to using the "doubles" method for rapid calculation, this practice encourages flexible thinking and numerical creativity, ensuring that students never feel "stuck" when they encounter a challenging problem.'
+  },
+  'mult-word-problems-2-3': {
+    title: 'Multiplication Word Problems - Grades 2 and 3 Practice | Wizqo',
+    metaDescription: 'Start solving math stories! Introductory multiplication word problems tailored for early elementary readers. Free printable PDF.',
+    learningObjectives: ['Identify multiplication scenarios in simple reading passages', 'Connect "groups of" language in text to the times (x) symbol', 'Solve introductory multiplication problems within familiar real-world contexts'],
+    intro: 'Let\'s turn stories into math! Our Multiplication Word Problems for Grades 2-3 are specifically written for younger learners who are just beginning to see how groups of objects work in the real world. By solving relatable problems about toy collections, classroom snacks, and playground games, children build the foundational "translation" skills that bridge the gap between reading and arithmetic.'
+  },
+  'nets-3d-shapes': {
+    title: '3D Shape Nets - From 2D Foldouts to 3D Figures | Wizqo',
+    metaDescription: 'Make geometry tactile! Fold 2D "nets" into cubes, prisms, and pyramids. Free printable geometry craft and learning worksheet.',
+    learningObjectives: ['Identify the 2D layout (net) that corresponds to a 3D solid', 'Analyze the number of faces, edges, and vertices on a geometric figure', 'Strengthen spatial visualization by mentally "folding" a 2D shape'],
+    intro: 'Geometry is something you can touch! Our 3D Shape Nets worksheet provides foldable templates for cubes, rectangular prisms, and pyramids. By cutting, folding, and gluing these 2D layouts into 3D objects, students gain an intuitive understanding of surface area and spatial logic that no textbook diagram can match. It\'s a hands-on exploration of the building blocks of our physical world!'
+  },
+  'number-bonds-10': {
+    title: 'Number Bonds to 10 - Part-Part-Whole Relationships | Wizqo',
+    metaDescription: 'Master the "friends of ten"! Practice finding pairs that add up to 10 with our visual number bond worksheet. Free PDF for K-1st grade.',
+    learningObjectives: ['Identify the missing addend in "sum of ten" pairs', 'Visualize the part-part-whole structure of the number 10', 'Build foundational mental math recall for basic addition facts'],
+    intro: 'Ten is the most important number in our math system! Our Number Bonds to 10 worksheet helps early learners master the "friends of ten"—pairs like 7 and 3, or 6 and 4. By visualizing these relationships through "bond bubbles," children build the rock-solid base-ten foundation needed for regrouping, multi-digit addition, and efficient mental calculation in the future.'
+  },
+  'number-line-200': {
+    title: 'Number Line to 200 - Navigating 3-Digit Numbers | Wizqo',
+    metaDescription: 'Extend your math horizons! Practice identifying and ordering numbers up to 200 on a visual number line. Free printable PDF for 2nd grade.',
+    learningObjectives: ['Accurately place 2 and 3-digit numbers on a linear scale', 'Identify "one more" and "one less" within the 100-200 range', 'Strengthen the mental number line for larger numbers'],
+    intro: 'How big is 200? Our Number Line to 200 worksheet takes students beyond the basic 100-chart and into the world of three-digit numbers. By visualizing where numbers "live" relative to one another, children build the spatial sense and interval-counting skills needed to handle addition and subtraction with hundreds. It\'s a vital tool for making large numbers feel manageable!'
+  },
+  'number-line-add': {
+    title: 'Adding on a Number Line - The Jump Method | Wizqo',
+    metaDescription: 'Jump your way to the answer! Practice the visual addition strategy with our number line worksheet. Free printable PDF for grades 1-2.',
+    learningObjectives: ['Apply the "jump" method to solve addition equations visually', 'Understand addition as movement to the right on a number line', 'Decompose addends into "friendly jumps" (like jumps of 5 or 10)'],
+    intro: 'Let\'s take a math walk! Our Adding on a Number Line worksheet teaches students how to use "jumps" to solve addition problems. Instead of just memorizing facts, children learn to move step-by-step along a visual path, seeing exactly how sums grow. This strategy is particularly powerful for learning how to group numbers and "make ten" during mental math.'
+  },
+  'number-matching-1-15': {
+    title: 'Number Matching (1-15) - Digits and Quantity | Wizqo',
+    metaDescription: 'Connect numbers to objects! Practice counting and identifying quantities from 1 to 15. Free early learning math worksheet for Pre-K and K.',
+    learningObjectives: ['Correctly match written numerals (1-15) to sets of illustrated objects', 'Strengthen one-to-one correspondence during counting', 'Build recognition and naming speed for 2-digit numbers up to 15'],
+    intro: 'Counting is more than saying words—it\'s about understanding how many! Our Number Matching (1-15) worksheet helps early learners connect the "symbol" (the written number) with the "reality" (a group of objects). By drawing lines to match numbers like 12 or 15 to their equivalent groups, children build the foundational number sense and one-to-one correspondence needed for all future arithmetic.'
+  },
+  'ordering-fractions-decimals': {
+    title: 'Ordering Fractions and Decimals - Mixed Value Sequencing | Wizqo',
+    metaDescription: 'Put numbers in their place! Practice sequencing fractions and decimals on a single number line. Free printable math worksheet for grades 4-6.',
+    learningObjectives: ['Convert between fractions and decimals for easier comparison', 'Compare mixed numerical formats using a common number line', 'Sequence diverse rational numbers from least to greatest'],
+    intro: 'Is 0.5 bigger than 1/4? Our Ordering Fractions and Decimals worksheet helps students solve this puzzle by teaching them how to compare different "dialects" of the same math language. By converting values to a common format and plotting them on a single scale, learners build the flexible numerical reasoning needed for advanced science and financial math.'
+  },
+  'partial-products': {
+    title: 'Multiplication via Partial Products - Area Model Method | Wizqo',
+    metaDescription: 'Break it down! Master multi-digit multiplication by solving simpler partial products. Free printable math worksheet for grades 3-5.',
+    learningObjectives: ['Decompose multi-digit factors into place-value components', 'Calculate individual partial products before summing for the total', 'Visualize the distributive property in action during multiplication'],
+    intro: 'Big numbers are just groups of small numbers! Our Partial Products worksheet teaches students how to multiply by breaking problems into manageable pieces. By solving for each place value separately and then adding the results, children build a deep, conceptual understanding of the distributive property that makes the standard algorithm much easier to master.'
+  },
+  'pattern-complete': {
+    title: 'Completing Complex Patterns - Logical Reasoning Prep | Wizqo',
+    metaDescription: 'Find the missing piece! Practice identifying and extending complex numerical and visual patterns. Free printable PDF for grades 2-4.',
+    learningObjectives: ['Analyze sequences to identify underlying mathematical rules', 'Predict and fill in missing terms in complex patterns', 'Strengthen deductive reasoning and predictive thinking skills'],
+    intro: 'Can you see the rule? Our Pattern Complete worksheet challenges students to be "math detectives." By analyzing sequences that grow, shrink, or repeat in complex ways, children sharpen the logical brain needed for both computer coding and high-level geometry. It\'s a fun, puzzle-based way to build mathematical foresight!'
+  },
+  'pemdas-advanced': {
+    title: 'Advanced PEMDAS - Nesting, Exponents & Roots | Wizqo',
+    metaDescription: 'Order of operations for experts! Master complex equations with nested parentheses and exponents. Free PDF for grades 5-7.',
+    learningObjectives: ['Apply the full PEMDAS hierarchy to multi-layered equations', 'Correctly manage nested parentheses (bracket within brackets)', 'Execute calculations involving exponents and multiple operational tiers'],
+    intro: 'Ready for the professional league of arithmetic? Advanced PEMDAS takes the standard hierarchy and adds layers of complexity with nested parentheses and power operations. By following the "order of operations" through intricate, multi-step equations, students build the rigorous discipline and procedural accuracy required for college-level algebra and physics.'
+  },
+  'pemdas-basic': {
+    title: 'Basic PEMDAS - Introduction to Order of Operations | Wizqo',
+    metaDescription: 'Start with the rules! Practice simple expression evaluation with addition, subtraction, and multiplication. Free printable for grades 3-4.',
+    learningObjectives: ['Identify the priority of multiplication over addition and subtraction', 'Use the left-to-right rule for operations of the same tier', 'Evaluate simple numerical expressions with 2 or 3 steps'],
+    intro: 'Why do we multiply before we add? Our Basic PEMDAS worksheet introduces students to the "laws of math." By practicing simple equations that require a specific order to reach the correct answer, children learn that math isn\'t just about the numbers—it\'s about the sequence. It\'s the first step toward understanding the grammar of mathematics!'
+  },
+  'pemdas-complex': {
+    title: 'Complex PEMDAS - Challenge Equations for Mastery | Wizqo',
+    metaDescription: 'Tackle the big ones! Challenging order of operations problems involving all four tiers. Free printable PDF for grades 5-6.',
+    learningObjectives: ['Navigate complex equations with competing operational priorities', 'Maintain accuracy through 5+ step mathematical evaluations', 'Identify and avoid common order-of-operation pifalls'],
+    intro: 'It\'s time to put your skills to the test! Our Complex PEMDAS worksheet features equations with a "twist"—multiple groups of parentheses, exponents, and competing multiplications. By working through these brain-teasers, students develop the mathematical stamina and focus needed to ensure that even the most cluttered expressions result in the perfect answer.'
+  },
+  'pemdas-exponents': {
+    title: 'PEMDAS with Exponents - Power and Priority | Wizqo',
+    metaDescription: 'Master the "E" in PEMDAS! Practice order of operations with squares and cubes. Free printable math worksheet for grades 5-6.',
+    learningObjectives: ['Correctly prioritize exponents after parentheses and before multiplication', 'Calculate squares and cubes within multi-step numerical expressions', 'Understand how exponents impact the growth of an equation\'s value'],
+    intro: 'Exponents add "power" to your math! This targeted PEMDAS worksheet focuses on the critical second step of the hierarchy: Exponents. By practicing how to handle squared and cubed numbers before moving on to multiplication and division, students build the foundational skills needed for scientific notation and advanced algebraic modeling.'
+  },
+  'pemdas-fluency': {
+    title: 'PEMDAS Fluency - Rapid Order of Operations Drills | Wizqo',
+    metaDescription: 'Turn the rules into a reflex! Speed and accuracy practice for standard order of operations. Free PDF for grades 4-6.',
+    learningObjectives: ['Develop automaticity in identifying operational priorities', 'Improve calculation speed for multi-step arithmetic', 'Recall the PEMDAS hierarchy instantly under drill conditions'],
+    intro: 'Don\'t think—just calculate! Our PEMDAS Fluency worksheet is designed to turn the order of operations into a second-nature habit. By practicing these rules through high-repetition drills, students free up their cognitive energy for the logic of the problem itself, rather than getting stuck on "which step comes next." Speed and accuracy start here!'
+  },
+  'pemdas-mixed-review': {
+    title: 'PEMDAS Mixed Review - The Ultimate Rules Test | Wizqo',
+    metaDescription: 'Switch tiers! varied order of operations problems from basic to advanced on one page. Free printable for grades 4-6 math.',
+    learningObjectives: ['Identify the specific tier of PEMDAS required for varied problems', 'Flexibly apply different rules across a diverse set of equations', 'Demonstrate comprehensive mastery of the operational hierarchy'],
+    intro: 'Can you handle anything the math world throws at you? This Mixed Review worksheet features a random assortment of PEMDAS problems, from simple two-step additions to complex equations with markers and exponents. It\'s the perfect final check to ensure that you\'ve truly mastered the laws of math and can apply them anywhere!'
+  },
+  'pemdas-multistep': {
+    title: 'Multi-Step PEMDAS - Advanced Sequential Calculation | Wizqo',
+    metaDescription: 'Track your steps! Lengthy order of operations problems requiring careful organization. Free printable PDF for grades 5-6.',
+    learningObjectives: ['Organize complex calculations into distinct, sequential steps', 'Maintain accuracy over long strings of mathematical operations', 'Identify "inner" and "outer" priorities in complex strings'],
+    intro: 'Math is a marathon, not a sprint! Our Multi-Step PEMDAS worksheet features "long" equations that can have seven or eight different operations in a row. By learning how to carefully peel back the layers of a long expression—one step at a time—students build the organizational discipline and patience used by accountants, engineers, and programmers.'
+  },
+  'pemdas-parentheses': {
+    title: 'PEMDAS Parentheses Practice - The Power of Grouping | Wizqo',
+    metaDescription: 'Master the first step of order of operations! Practice evaluating math expressions where parentheses change everything. Free printable PDF.',
+    learningObjectives: ['Identify and prioritize calculations inside parentheses', 'Understand how grouping symbols change the value of an equation', 'Maintain operational order through multi-layered grouping'],
+    intro: 'Parentheses always come first! Our PEMDAS Parentheses worksheet focuses on the critical first step of the math hierarchy. By practicing how grouping symbols "jump the line" in front of multiplication and addition, students learn the foundational rules of algebraic syntax. It\'s the secret to solving complex formulas with total accuracy!'
+  },
+  'pemdas-practice': {
+    title: 'PEMDAS Order of Operations - Comprehensive Practice | Wizqo',
+    metaDescription: 'Master the rules of math! A varied collection of order of operations problems for all skill levels. Free printable PDF for grades 4-6.',
+    learningObjectives: ['Apply the full PEMDAS hierarchy to varied arithmetic expressions', 'Identify operational priorities across multiple tiers (P-E-MD-AS)', 'Strengthen mental math accuracy in sequential calculation'],
+    intro: 'Math follows a specific set of laws, and our PEMDAS Practice worksheet helps you master them all! From simple three-step addition to complex multi-operator equations, this practice sheet provides the repetition needed to make the "order of operations" an automatic habit. Perfect for establishing a strong foundation before moving on to pre-algebra!'
+  },
+  'pemdas-rules': {
+    title: 'Mastering PEMDAS Rules - Order of Operations Guide | Wizqo',
+    metaDescription: 'Remember the mnemonic! Targeted practice for identifying which math step comes next. Free printable worksheet for grades 4-5.',
+    learningObjectives: ['Define the meaning of each letter in the PEMDAS acronym', 'Differentiate between the priority levels of MD (Multiplication/Division) and AS (Addition/Subtraction)', 'Correctly identify the next step in a provided math expression'],
+    intro: 'Please Excuse My Dear Aunt Sally! Our PEMDAS Rules worksheet helps students go beyond just memorizing the acronym and start understanding the hierarchy. By analyzing equations and labeling which step "goes first," children build the logical clarity needed to ensure every math challenge they meet results in the right answer.'
+  },
+  'pemdas-step-by-step': {
+    title: 'Step-by-Step PEMDAS - Guided Operational Reduction | Wizqo',
+    metaDescription: 'Slow down and get it right! Guided practice for reducing complex math equations one step at a time. Free printable PDF.',
+    learningObjectives: ['Break complex expressions into single, manageable operational steps', 'Demonstrate the reduction process through clear, line-by-line workspace', 'Avoid common errors by focusing on one priority tier at a time'],
+    intro: 'Don\'t rush the math! Our Step-by-Step PEMDAS worksheet is designed to teach students organizational discipline. With dedicated workspace for each reduction in the equation, children learn to solve one part at a time, bringing the whole expression closer to its final answer with every line. It\'s the best way to build confidence and stop calculation mistakes before they happen!'
+  },
+  'pemdas-word-problems': {
+    title: 'PEMDAS Word Problems - Translating Stories to Equations | Wizqo',
+    metaDescription: 'Apply the rules to real life! Solve story problems that require correct order of operations. Free printable PDF for grades 5-6.',
+    learningObjectives: ['Translate complex narrative scenarios into PEMDAS-ready math expressions', 'Identify real-world grouping and priority scenarios in text', 'Solve multi-part story problems with sequential mathematical accuracy'],
+    intro: 'The real world is multi-step! Our PEMDAS Word Problems worksheet challenges students to take a story and turn it into a perfect math formula. Whether you\'re calculating the total cost of a group trip or planning resources for a space voyage, these problems teach you how to organize data and follow the rules of math to solve real-life mysteries.'
+  },
+  'percent-to-decimal': {
+    title: 'Converting Percents to Decimals - Place Value Mastery | Wizqo',
+    metaDescription: 'Learn the two-step shift! practice converting percentages into decimal values and vice versa. Free printable math worksheet.',
+    learningObjectives: ['Master the "shift by two" decimal point movement', 'Understand that percent means "per one hundred"', 'Flexibly move between hundredths, decimals, and percent symbols'],
+    intro: 'Percentage is just a different dialect of decimal! Our Percent to Decimal worksheet teaches students the simple logic of the decimal-point shift. By understanding that "75%" is just a faster way of saying "0.75," children gain the numerical flexibility needed for calculating taxes, reading scientific data, and mastering middle school math.'
+  },
+  'percent-word-problems': {
+    title: 'Real-World Percent Word Problems - Finance & Logic | Wizqo',
+    metaDescription: 'Calculate taxes, tips, and discounts! Apply percentage math to realistic shopping and data scenarios. Free printable PDF.',
+    learningObjectives: ['Calculate "percent of" in practical shopping and financial contexts', 'Understand the impact of discounts and taxes on total price', 'Apply decimal and percentage logic to real-world narrative data'],
+    intro: 'Math is how you manage your money! Our Percent Word Problems worksheet takes abstract numbers and puts them in the shopping mall. From calculating a 20% discount on a new game to figuring out the tax on a school lunch, these problems teach students the essential financial literacy skills they\'ll use for the rest of their lives.'
+  },
+  'perimeter-area-word-problems': {
+    title: 'Perimeter and Area Word Problems - Geometry in Context | Wizqo',
+    metaDescription: 'Solve for space! Apply geometric formulas to real-world stories about fences, gardens, and rooms. Free printable PDF for grades 4-5.',
+    learningObjectives: ['Distinguish between the "boundary" concept (perimeter) and the "space" concept (area)', 'Apply formulas correctly in a varied narrative context', 'Solve for missing dimensions given a total perimeter or area'],
+    intro: 'How much fence do you need for a yard? How much rug do you need for a room? Our Perimeter and Area Word Problems worksheet turns geometry into a practical tool for designers, architects, and gardeners. By solving these real-world scenarios, students learn to visualize physical space and apply math formulas to solve structural challenges.'
+  },
+  'perimeter-shapes': {
+    title: 'Calculating Perimeter of Polygons - Boundary Practice | Wizqo',
+    metaDescription: 'Walk around the edge! Practice summing side lengths for squares, rectangles, and irregular shapes. Free printable PDF for grades 3-4.',
+    learningObjectives: ['Define perimeter as the total distance around a 2D shape', 'Sum the side lengths of various polygons with accuracy', 'Calculate perimeter for irregular shapes with missing or implied labels'],
+    intro: 'Perimeter is simply "the long way around"! Our Perimeter of Shapes worksheet teaches students how to measure the boundary of any polygon. From perfect squares to tricky irregular shapes, this practice builds the foundational geometry skills and addition accuracy needed to understand our three-dimensional world.'
+  },
+  'picture-addition-10': {
+    title: 'Picture Addition within 10 - Visual Math Early Learning | Wizqo',
+    metaDescription: 'Count and add! Use fun icons and images to find sums within 10. Perfect for Pre-K and Kindergarten math readiness. Free PDF.',
+    learningObjectives: ['Translate groups of physical objects into numerical addends', 'Complete simple addition equations using visual cues', 'Develop one-to-one correspondence while finding sums'],
+    intro: 'Math is all around us! Our Picture Addition within 10 worksheet helps early learners see that numbers represent real things. By counting groups of cute animals, colorful toys, and delicious snacks, children build the foundational "part-part-whole" understanding that turns counting into calculation. It\'s the perfect, low-stress bridge to formal arithmetic!'
+  },
+  'place-value-hto': {
+    title: 'Place Value: Hundreds, Tens, and Ones - Base-10 Mastery | Wizqo',
+    metaDescription: 'Understand the building blocks of numbers! Practice identifying HTO values (Hundreds, Tens, Ones) with our visual place value worksheet. Free PDF.',
+    learningObjectives: ['Identify the value of digits in the hundreds, tens, and ones places', 'Decompose three-digit numbers into expanded form', 'Understand the power-of-10 relationship between adjacent place values'],
+    intro: 'Every large number is just a collection of smaller groups! Our Hundreds, Tens, and Ones (HTO) worksheet helps students peek behind the curtain of the base-10 system. By breaking down 3-digit numbers into their component parts, children build the mental model needed for regrouping, multi-digit addition, and complex mental math. It\'s the key to making big numbers feel small!'
+  },
+  'powers-of-10': {
+    title: 'Powers of 10 - Multiplying and Dividing by 10/100/1000 | Wizqo',
+    metaDescription: 'Master the decimal shift! Learn to scale numbers up and down using powers of ten. Free printable math worksheet for grades 4-6.',
+    learningObjectives: ['Identify the pattern of zeroes when multiplying by powers of 10', 'Efficiently shift decimal points to the right or left based on markers', 'Understand the relationship between base-10 and exponential growth'],
+    intro: 'How fast can you multiply by a million? Our Powers of 10 worksheet teaches students the secret shortcuts of the decimal system. By learning how zeroes act as place-value signals, children gain the ability to scale numbers up or down in their heads, building the numerical speed needed for scientific notation and advanced engineering formulas.'
+  },
+  'prime-composite': {
+    title: 'Prime and Composite Numbers - Factorization Mastery | Wizqo',
+    metaDescription: 'Identify the "unbreakable" numbers! Practice categorizing numbers as prime or composite based on their factors. Free printable PDF.',
+    learningObjectives: ['Distinguish between numbers with exactly two factors (prime) and more (composite)', 'Identify common prime numbers within the 1-100 range', 'Understand the role of primes as the building blocks of number theory'],
+    intro: 'Some numbers simply cannot be broken! Our Prime and Composite Numbers worksheet helps students explore the fundamental architecture of math. By testing which numbers can be divided into equal groups and which remain "indivisible," children build the number-sense foundation needed for simplifying fractions, finding least common multiples, and understanding secure digital encryption.'
+  },
+  'probability': {
+    title: 'Introduction to Probability - Chance and Likelihood | Wizqo',
+    metaDescription: 'Will it happen? Learn about likely, unlikely, and certain outcomes with our introductory probability worksheet. Free printable for grades 3-5.',
+    learningObjectives: ['Define probability as the measure of chance for an event', 'Identify outcomes as certain, likely, unlikely, or impossible', 'Calculate simple probabilities using fractions and visual data'],
+    intro: 'Is it a sure thing? Our Introduction to Probability worksheet teaches students how to measure the "maybe." From flipping coins to pulling marbles from a bag, children learn the language of chance and how to use math to predict the world around them. It\'s a vital tool for understanding everything from weather reports to game strategy!'
+  },
+  'ratio-proportion-word-problems': {
+    title: 'Ratio and Proportion Word Problems - Real-World Balancing | Wizqo',
+    metaDescription: 'Keep things in balance! Apply ratio and proportion logic to real-life stories like recipes and maps. Free printable PDF for grades 5-6.',
+    learningObjectives: ['Identify the fixed relationship between two quantities in a narrative', 'Use cross-multiplication or scaling to solve for missing proportions', 'Apply ratio logic to practical scenarios like scaling recipes or distances'],
+    intro: 'Math is all about balance! Our Ratio and Proportion Word Problems worksheet shows students how to keep relationships steady even when the numbers change. Whether you\'re doubling a cake recipe or calculating the scale of a map, these problems build the algebraic reasoning and proportional thinking skills used every day by chefs, artists, and architects.'
+  },
+  'reading-g1-big-box': {
+    title: 'Reading Comprehension: The Big Box - Grade 1 Story | Wizqo',
+    metaDescription: 'A tale of imagination! Read the 1st-grade story "The Big Box" and answer questions to build literacy and inference skills. Free PDF.',
+    learningObjectives: ['Recall key plot points from an imaginative narrative', 'Identify the main character\'s creative use of an object', 'Practice decoding simple descriptive sentences'],
+    intro: 'To a child, a cardboard box is never just a box! "The Big Box" is a delightful 1st-grade reading passage that celebrates the power of imagination. By reading about how a simple object becomes a spaceship or a castle, students build their literacy skills through a story they can truly relate to. After reading, targeted questions help confirm their understanding and detail-finding abilities.'
+  },
+  'reading-g1-birthday-cake': {
+    title: 'Reading Comprehension: The Birthday Cake - G1 Phonics | Wizqo',
+    metaDescription: 'Celebrate and learn! Download our 1st-grade reading passage "The Birthday Cake" with comprehension questions for early literacy. Free printable.',
+    learningObjectives: ['Sequence the events of a party preparation story', 'Identify nouns and verbs related to a birthday celebration', 'Answer "who, what, and where" questions based on the text'],
+    intro: 'It\'s time for a party! Our "The Birthday Cake" reading comprehension worksheet is designed specifically for emerging 1st-grade readers. This engaging story uses familiar vocabulary to describe the excitement of preparing for a special day. By answering simple questions after the passage, children gain confidence in their ability to extract meaning from text while enjoying a joyful narrative.'
+  },
+  'reading-g1-bus-ride': {
+    title: 'Reading Comprehension: The Bus Ride - 1st Grade Literacy | Wizqo',
+    metaDescription: 'Practice morning routines! Read "The Bus Ride" and complete questions to build 1st-grade comprehension and vocabulary. Free PDF.',
+    learningObjectives: ['Recall details about a daily morning routine', 'Identify the chronological order of events in the story', 'Practice environmental reading by recognizing bus-related vocabulary'],
+    intro: 'The school day starts with a journey! "The Bus Ride" is a relatable short story for 1st-grade students that focuses on the sights and sounds of the morning commute. By reading about meeting the driver and finding a seat, children build their situational vocabulary and reading stamina. The included questions encourage them to look back at the text to verify facts—a vital skill for all future reading success.'
+  },
+  'reading-g1-garden-snail': {
+    title: 'Reading Comprehension: The Garden Snail - Grade 1 Science | Wizqo',
+    metaDescription: 'Learn about backyard biology! An informational passage for 1st grade about garden snails with simple facts and questions. Free printable.',
+    learningObjectives: ['Differentiate between informational (non-fiction) and narrative text', 'Recall scientific facts about snail movement and shells', 'Identify the main topic of a descriptive passage'],
+    intro: 'Who is that hiding under the leaf? Our "Garden Snail" reading passage introduces 1st-grade students to the world of informational text. This non-fiction worksheet provides simple, fascinating facts about how snails move and protect themselves. It\'s the perfect resource for blending science and literacy, helping children learn "how things work" while they master new vocabulary.'
+  },
+  'reading-g1-pet-fish': {
+    title: 'Reading Comprehension: My Pet Fish - G1 Responsibility | Wizqo',
+    metaDescription: 'Learn about pet care! Read the 1st-grade story "My Pet Fish" and answer questions about care and responsibility. Free printable PDF.',
+    learningObjectives: ['Identify the steps of simple pet care mentioned in the story', 'Express empathy for a character\'s responsibility', 'Practice answering complete sentence questions about a passage'],
+    intro: 'Having a pet is a big responsibility! "My Pet Fish" is a 1st-grade reading comprehension story that teaches children about caring for a living creature. By reading about feeding and cleaning the tank, students build their vocabulary while reflecting on the importance of chores and empathy. This printable resource is excellent for both literacy centers and social-emotional learning discussions.'
+  },
+  'reading-g1-red-balloon': {
+    title: 'Reading Comprehension: The Red Balloon - G1 Phonics | Wizqo',
+    metaDescription: 'Follow the journey! Read the 1st-grade story "The Red Balloon" and answer questions to build early literacy and color recognition. Free PDF.',
+    learningObjectives: ['Trace the chronological path of a moving object in a story', 'Identify adjectives (colors/sizes) used in the narrative', 'Answering descriptive questions based on the text'],
+    intro: 'Up, up, and away! "The Red Balloon" is a charming 1st-grade reading passage that follows the journey of a bright red balloon through a neighborhood. By tracking where the balloon goes and who it meets, children build their sequencing skills and descriptive vocabulary. This printable worksheet is a great way to make reading practice feel like a joyful adventure!'
+  },
+  'reading-g2-bird-feeder': {
+    title: 'Reading Comprehension: Making a Bird Feeder - G2 Science | Wizqo',
+    metaDescription: 'Help the birds! Read this informational 2nd-grade passage about bird feeders and wildlife care. Includes facts and questions. Free PDF.',
+    learningObjectives: ['Identify the steps and materials needed for a simple project', 'Understand the ecological benefit of feeding local birds', 'Apply context clues to define new vocabulary words'],
+    intro: 'How can we help our feathered friends? Our "Making a Bird Feeder" reading passage for 2nd grade combines practical "how-to" information with backyard science. By reading about common bird species and what they eat, students build their informational literacy while learning about environmental responsibility. It\'s a perfect resource for young naturalists!'
+  },
+  'reading-g2-cookie-recipe': {
+    title: 'Reading Comprehension: The Cookie Recipe - G2 Functional Reading | Wizqo',
+    metaDescription: 'Read the instructions! Practice sequencing and measurement vocabulary with our "Cookie Recipe" 2nd-grade reading worksheet. Free PDF.',
+    learningObjectives: ['Sequence the chronological steps of a recipe', 'Identify specific measurements and units in a functional text', 'Understand the importance of following directions in order'],
+    intro: 'Cooking is math and reading in action! "The Cookie Recipe" is a functional reading worksheet for 2nd-grade students that uses a delicious scenario to teach sequencing and measurement vocabulary. By reading the steps to bake a batch of cookies, children learn how to extract specific information from a "technical" text—a vital life skill that goes beyond standard storytelling.'
+  },
+  'reading-g2-library-card': {
+    title: 'Reading Comprehension: Getting a Library Card - G2 Community | Wizqo',
+    metaDescription: 'A world of books! Read the 2nd-grade story about visiting the library and build community awareness and literacy. Free printable.',
+    learningObjectives: ['Identify the civic role of the library in a community', 'Summarize the steps required to receive a library card', 'Practice inferring characters\' feelings from their actions'],
+    intro: 'The library is a gateway to every world imaginable! This 2nd-grade reading comprehension story follows a child’s first trip to get their very own library card. By reading about the shelves, the librarian, and the responsibility of borrowing books, students build their community awareness while strengthening their inference and detail-finding skills.'
+  },
+  'reading-g2-lost-and-found': {
+    title: 'Reading Comprehension: The Lost and Found - G2 SEL | Wizqo',
+    metaDescription: 'A lesson in honesty! Read the 2nd-grade story "The Lost and Found" and answer questions about character and community. Free printable.',
+    learningObjectives: ['Identify the central conflict and resolution of a narrative', 'Discuss the character trait of honesty as presented in the text', 'Apply lesson-based inference to real-world social scenarios'],
+    intro: 'What would you do if you found something that didn\'t belong to you? "The Lost and Found" is a 2nd-grade reading passage that blends literacy with social-emotional learning. By following a character who finds a lost item and decides to do the right thing, students practice identification of plot points while reflecting on values like honesty and empathy.'
+  },
+  'reading-g2-paper-bridge': {
+    title: 'Reading Comprehension: The Paper Bridge - G2 STEM | Wizqo',
+    metaDescription: 'Build and learn! An informational 2nd-grade reading passage about engineering and testing bridges. Includes comprehension questions. Free PDF.',
+    learningObjectives: ['Understand the basic principles of structural engineering and support', 'Identify the variables used in a scientific experiment described in text', 'Analyze how different shapes provide different levels of strength'],
+    intro: 'Can a piece of paper hold up a heavy toy? Our "Paper Bridge" reading comprehension worksheet for 2nd grade introduces students to the exciting world of STEM and engineering. By reading about a classroom experiment with folds, triangles, and weight-testing, children build their informational reading skills while learning the logic of structural design.'
+  },
+  'reading-g2-rainy-garden': {
+    title: 'Reading Comprehension: The Rainy Garden - G2 Science | Wizqo',
+    metaDescription: 'Explore the weather! An informational 2nd-grade passage about how gardens grow and change in the rain. Free printable math and literacy.',
+    learningObjectives: ['Recall facts about the water cycle and plant growth', 'Identify cause-and-effect relationships in a nature-based text', 'Categorize various garden animals and their reactions to weather'],
+    intro: 'What happens to the garden when it rains? This 2nd-grade informational text takes a scientific look at a rainy day. From worms coming to the surface to plants getting a much-needed drink, students learn about backyard biology through clear, descriptive prose. It\'s a wonderful resource for building academic vocabulary and a love for the natural world.'
+  },
+  'reading-g2-tree-house': {
+    title: 'Reading Comprehension: The Tree House - G2 Teamwork | Wizqo',
+    metaDescription: 'Work together! Read the 2nd-grade story "The Tree House" and answer questions about cooperation and construction. Free printable PDF.',
+    learningObjectives: ['Identify the roles of different characters in a collaborative project', 'Summarize the steps involved in building a structure in the story', 'Connect the theme of teamwork to personal classroom experiences'],
+    intro: 'Building something big takes a team! "The Tree House" is a 2nd-grade reading comprehension passage that celebrates cooperation and creativity. By reading about a group of friends who work together to design and build their perfect hangout, students practice identifying character traits and plot details while reflecting on the importance of working with others to reach a goal.'
+  },
+  'reading-g2-magic-seeds': {
+    title: 'Reading Comprehension: The Magic Seeds - G2 Imagination | Wizqo',
+    metaDescription: 'A tale of wonder! Read the 2nd-grade imaginative story "The Magic Seeds" and build inference and vocabulary skills. Free printable PDF.',
+    learningObjectives: ['Identify elements of fantasy vs. reality in a narrative', 'Predict future story events based on magical plot clues', 'Describe the setting and its transformation throughout the story'],
+    intro: 'What would you plant in a magical garden? "The Magic Seeds" is an enchanting 2nd-grade reading passage that encourages students to think outside the box. By following a character who plants mysterious seeds that grow into impossible things, children build their inference skills and creative vocabulary. It\'s the perfect spark for a follow-up creative writing session!'
+  },
+  'reading-g3-art-project': {
+    title: 'Reading Comprehension: The Big Art Project - G3 Literacy | Wizqo',
+    metaDescription: 'Express yourself! Read the 3rd-grade story about creativity and personal expression. Includes advanced comprehension questions. Free PDF.',
+    learningObjectives: ['Identify the internal motivation of a character in the story', 'Analyze how a character overcomes a creative block', 'Evaluate the theme of personal expression vs. following the rules'],
+    intro: 'Art is more than just drawing—it\'s a way to tell the world who you are! "The Big Art Project" is a 3rd-grade reading comprehension story that explores the emotional side of creativity. By following a student who struggles to find their own style for a class assignment, readers build their ability to analyze character motivations and complex themes. It\'s an excellent bridge to upper-elementary literary analysis.'
   }
 }
 
