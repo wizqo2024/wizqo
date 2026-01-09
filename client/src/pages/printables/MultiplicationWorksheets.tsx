@@ -4072,19 +4072,27 @@ export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWork
         const result: { a: number, b: number }[] = [];
         let attempts = 0;
 
-        while (result.length < 4 && attempts < 100) {
+        while (result.length < 4 && attempts < 200) {
             attempts++;
-            const a = nextInt(12, 55);
-            const b = nextInt(12, 55);
-            // Sort small-large to prevent (25,31) and (31,25) duplicates
-            const [min, max] = a < b ? [a, b] : [b, a];
+            const val1 = nextInt(12, 55);
+            const val2 = nextInt(12, 55);
+
+            // Ensure numbers are not equal to each other (e.g. 25x25) for more variety
+            if (val1 === val2) continue;
+
+            const [min, max] = val1 < val2 ? [val1, val2] : [val2, val1];
             const key = `${min}-${max}`;
 
             if (!generated.has(key)) {
                 generated.add(key);
-                result.push({ a, b }); // Keep original generated order for display variety
+                result.push({ a: val1, b: val2 });
             }
         }
+
+        while (result.length < 4) {
+            result.push({ a: nextInt(12, 55), b: nextInt(12, 55) });
+        }
+
         return result;
     }, [seed, variant]);
 
