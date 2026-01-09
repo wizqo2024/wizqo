@@ -1,7 +1,7 @@
 import React from 'react';
 type ReactNode = React.ReactNode;
 import { useTranslation } from '@/context/TranslationContext';
-import { makeRng, pick, shuffleArray } from '@/utils/printableUtils';
+import { makeRng, pick, pickNUnique, shuffleArray } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner } from './PrintableShared';
 import { SpecificWorksheetProps } from '../../types/printable';
 
@@ -27,8 +27,11 @@ export function FactorsMultiples({ seed, variant, showAnswers, showAnswersForDoc
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
 
     // Generate Factor Problems
-    const factorProblems = Array.from({ length: 6 }).map(() => {
-        const num = nextInt(12, 50);
+    const factorProblems = pickNUnique(
+        Array.from({ length: 39 }, (_, i) => i + 12),
+        6,
+        rng
+    ).map(num => {
         const factors = [];
         for (let i = 1; i <= num; i++) {
             if (num % i === 0) factors.push(i);
@@ -37,8 +40,11 @@ export function FactorsMultiples({ seed, variant, showAnswers, showAnswersForDoc
     });
 
     // Generate Multiple Problems
-    const multipleProblems = Array.from({ length: 6 }).map(() => {
-        const num = nextInt(2, 9);
+    const multipleProblems = pickNUnique(
+        Array.from({ length: 8 }, (_, i) => i + 2),
+        6,
+        rng
+    ).map(num => {
         const multiples = [];
         for (let i = 1; i <= 5; i++) {
             multiples.push(num * i);
