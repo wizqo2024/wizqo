@@ -68,6 +68,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Improve 1st grade reading skills with "The Lost Hat" passage. Includes comprehension questions to build inference and detail-finding skills. Download free PDF.',
     learningObjectives: ['Recall specific details from a short story', 'Identify the main character and setting', 'Practice basic inference skills'],
     intro: 'Engage young readers with "The Lost Hat," a charming short story designed specifically for 1st-grade reading comprehension. This worksheet presents a relatable narrative followed by targeted questions that encourage children to scan the text for details, identify characters, and draw simple conclusions. It is an excellent resource for building early fluency and a love for storytelling in the classroom or at home.'
+  },
+  'mult-arrays-2-5': {
+    title: 'Multiplication Arrays (2-5) - Visual Math Practice | Wizqo',
+    metaDescription: 'Master multiplication facts 2-5 with our Arrays worksheet. Use rows and columns to visualize multiplication concepts. Free printable PDF for grades 2-3.',
+    learningObjectives: ['Connect arrays to multiplication equations', 'Identify rows and columns in a grid', 'Visualize multiplication facts 2-5'],
+    intro: 'Visualization is a powerful tool for early multiplication. This Multiplications Arrays (2-5) worksheet helps students move beyond rote memorization by illustrating math problems as functional grids. By counting rows and columns, children develop a concrete understanding of what multiplication actually represents, making it easier to skip-count and solve basic equations with confidence.'
+  },
+  'patterns-rules': {
+    title: 'Number Patterns and Rules - Logical Sequence Practice | Wizqo',
+    metaDescription: 'Identify, extend, and describe number patterns with our Patterns and Rules worksheet. Practice finding the hidden rule in sequences. Perfect for grades 3-4 math.',
+    learningObjectives: ['Identify arithmetic patterns in sequences', 'Use addition and subtraction to find pattern rules', 'Extend number sequences accurately'],
+    intro: 'Developing a strong sense of patterns is the first step toward algebraic thinking. Our Number Patterns and Rules worksheet challenges students to become "math detectives" who find the hidden logic in numerical sequences. Whether the pattern involves adding five or doubling each step, this worksheet provides the perfect playground for building observation skills and mathematical reasoning.'
+  },
+  'ten-frames-1-10': {
+    title: 'Ten-Frames (1-10) - Kindergarten Counting & Number Sense | Wizqo',
+    metaDescription: 'Build strong number sense with our Ten-Frames 1-10 worksheet. Help early learners visualize numbers 1-10 using standard frames. Perfect for Pre-K and K.',
+    learningObjectives: ['Recognize numbers 1-10 instantly on a ten-frame', 'Understand the "five-wise" and "pair-wise" structures', 'Build foundations for addition and place value'],
+    intro: 'Ten-frames are one of the most effective tools for building "number sense" in early childhood. This Ten-Frames (1-10) worksheet helps Kindergarten students visualize how numbers are structured, showing them that "seven" is just a full row of five plus two more. This visual mapping is essential for future skills like "making ten" and understanding the base-ten system.'
+  },
+  'uppercase-lowercase-match': {
+    title: 'Uppercase and Lowercase Letter Matching - Literacy Skills | Wizqo',
+    metaDescription: 'Practice identifying alphabet pairs with our Letter Matching worksheet. Connect uppercase letters to their lowercase partners. Fun Pre-K and Kindergarten activity.',
+    learningObjectives: ['Identify both uppercase and lowercase alphabet forms', 'Correctly pair big and small letters', 'Strengthen visual letter recognition'],
+    intro: 'Mastery of the alphabet requires recognizing that every letter has two forms. This Uppercase and Lowercase Letter Matching worksheet provides a fun, low-stress way for early readers to connect "A" with "a" and "B" with "b." By using visual lines to match these pairs, children build the foundational literacy skills needed for both reading and writing their first words.'
+  },
+  'number-patterns-200': {
+    title: 'Number Patterns to 200 - Advanced Skip Counting | Wizqo',
+    metaDescription: 'Practice skip counting and pattern identification up to 200. Extend number sequences and find the rule. Perfect for 2nd and 3rd grade math.',
+    learningObjectives: ['Identify and extend patterns beyond 100', 'Practice skip counting by various intervals', 'Build numerical fluency with 3-digit numbers'],
+    intro: 'Once students master patterns within 100, it\'s time to expand their horizons. Our Number Patterns to 200 worksheet takes pattern-finding to the next level, challenging learners to apply their logic to 3-digit numbers. This worksheet helps bridge the gap between basic counting and more complex arithmetic, ensuring students feel comfortable navigating the entire number line up to 200.'
+  },
+  'cvc-words': {
+    title: 'CVC Word Building - Phonics and Reading Practice | Wizqo',
+    metaDescription: 'Practice Consonant-Vowel-Consonant (CVC) words with our phonics worksheet. Perfect for early readers learning to blend sounds and spell simple words.',
+    learningObjectives: ['Blend individual sounds into CVC words', 'Identify middle vowel sounds (a, e, i, o, u)', 'Practice spelling 3-letter words'],
+    intro: 'CVC words—like cat, hen, and pig—are the building blocks of early reading. This CVC Word Building worksheet focuses on phonemic awareness, helping students identify the beginning, middle, and ending sounds in simple three-letter words. By practicing these foundational blends, children gain the decoding skills necessary to read full sentences with confidence.'
+  },
+  'number-id-1-10': {
+    title: 'Kindergarten Number Recognition (1-20) - Math Readiness | Wizqo',
+    metaDescription: 'Help your child identify and write numbers 1-20 with this fun recognition worksheet. Perfect for preschool and kindergarten math foundations.',
+    learningObjectives: ['Correctly identify written numerals 1-20', 'Practice proper number formation', 'Match written numbers to counted quantities'],
+    intro: 'Identifying numbers on sight is a vital first step in every child\'s mathematical journey. Our Kindergarten Number Recognition worksheet provides a variety of activities—from tracing to counting—designed to help children become familiar with the shapes and values of numbers 1 through 20. This printable PDF ensures that students have a rock-solid foundation for addition and subtraction.'
+  },
+  'mean-median-mode-range': {
+    title: 'Mean, Median, Mode, and Range - Data Analysis Practice | Wizqo',
+    metaDescription: 'Master basic statistics with our Data Analysis worksheet. Practice calculating mean, median, mode, and range for simple data sets. Perfect for grades 4-6.',
+    learningObjectives: ['Calculate the average (mean) of a data set', 'Find the middle value (median) and most frequent (mode)', 'Determine the range of a set of numbers'],
+    intro: 'Data analysis starts with understanding the "center" and "spread" of a group of numbers. This Mean, Median, Mode, and Range worksheet provides clear, step-by-step practice for these essential statistical concepts. By working through diverse data sets, students learn how to summarize information accurately, a skill they will use in math, science, and everyday life.'
+  },
+  'line-graphs': {
+    title: 'Interpreting and Creating Line Graphs - Data Visuals | Wizqo',
+    metaDescription: 'Learn to read and draw line graphs with our Data Visualization worksheet. Practice tracking changes over time and plotting data points. Free PDF.',
+    learningObjectives: ['Read and interpret data trends on a line graph', 'Plot data points accurately on a grid', 'Draw lines to connect data points and show trends'],
+    intro: 'Line graphs are the best way to visualize how something changes over time. Our Line Graphs worksheet teaches students how to read the X and Y axes, identify trends (like a temperature rise), and plot their own data points from a table. This printable activity transforms abstract numbers into a visual story, building the graphing skills needed for upper elementary and middle school.'
+  },
+  'reading-g1-ants': {
+    title: 'Reading Comprehension: All About Ants - Grade 1 Phonics | Wizqo',
+    metaDescription: 'Download our 1st-grade reading passage "All About Ants." Includes simple facts and comprehension questions to build early literacy and science knowledge.',
+    learningObjectives: ['Recall simple scientific facts from the text', 'Identify the main topic of a reading passage', 'Practice decoding informational text'],
+    intro: 'Introduce young learners to the fascinating world of insects with our "All About Ants" reading comprehension worksheet. This passage is written specifically for 1st-grade readers, using simple vocabulary and engaging facts to build literacy while teaching basic science. After reading, students answer straightforward questions that confirm their understanding, helping them transition from "learning to read" to "reading to learn."'
   }
 }
 

@@ -116,7 +116,9 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Codystar:wght@300;400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Codystar:wght@300;400&display=swap"
+    rel="stylesheet" />
 
   <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://images.unsplash.com" />
@@ -275,7 +277,7 @@
             },
             '2nd-grade-math-worksheets': {
               title: '2nd Grade Math Worksheets – Free Printable PDF',
-              description: 'Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF.',
+              description: 'Download free 2nd grade math worksheets covering critical skills: double-digit addition/subtraction with regrouping, place value to 1,000, skip counting, introductory multiplication, and data interpretation. Comprehensive PDF worksheets with answer keys included.',
               keywords: '2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2'
             },
             '3rd-grade-math-worksheets': {
@@ -290,7 +292,7 @@
             },
             '5th-grade-math-worksheets': {
               title: '5th Grade Math Worksheets – Free Printable PDF',
-              description: 'Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics. Download printable PDF worksheets with answer keys for comprehensive math practice.',
+              description: 'Master upper elementary math with our 5th grade worksheets. Covers advanced multiplication/division, decimals, fraction operations, algebra basics (PEMDAS), and coordinate graphing. Each printable PDF includes a step-by-step answer key.',
               keywords: '5th grade math worksheets, fifth grade math worksheets, free 5th grade math worksheets PDF, printable math worksheets grade 5'
             },
             'handwriting-worksheet-maker': {
@@ -323,16 +325,16 @@
             canonicalUrl = seoData.canonicalUrl;
 
             var h1Text = seoData.h1 || title.replace(' – Free Printable Worksheet | Wizqo', '').replace(' | Wizqo', '');
-            var objectives = seoData.learningObjectives ? '<div style="margin-top: 1.5rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Learning Objectives</h3><ul style="padding-left: 1.25rem; color: #475569;">' + seoData.learningObjectives.map(function(obj) { return '<li style="margin-bottom: 0.25rem;">' + obj + '</li>'; }).join('') + '</ul></div>' : '';
-            var labels = (seoData.grade || seoData.category) ? '<div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">' + (seoData.grade || []).concat(seoData.category || []).map(function(l) { return '<span style="padding: 0.25rem 0.75rem; background: #f1f5f9; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; color: #475569;">' + l + '</span>'; }).join('') + '</div>' : '';
-            
-            fallbackContent = '<div>' + 
+            var objectives = seoData.learningObjectives ? '<div style="margin-top: 1.5rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Learning Objectives</h3><ul style="padding-left: 1.25rem; color: #475569;">' + seoData.learningObjectives.map(function (obj) { return '<li style="margin-bottom: 0.25rem;">' + obj + '</li>'; }).join('') + '</ul></div>' : '';
+            var labels = (seoData.grade || seoData.category) ? '<div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">' + (seoData.grade || []).concat(seoData.category || []).map(function (l) { return '<span style="padding: 0.25rem 0.75rem; background: #f1f5f9; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; color: #475569;">' + l + '</span>'; }).join('') + '</div>' : '';
+
+            fallbackContent = '<div>' +
               '<nav style="font-size: 0.875rem; color: #64748b; margin-bottom: 1.5rem;">Home / Worksheets / ' + (seoData.category ? seoData.category[0] : 'Math') + '</nav>' +
               labels +
-              '<h2 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">' + h1Text + '</h2>' + 
-              '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6;">' + description + '</p>' + 
-              objectives + 
-            '</div>';
+              '<h2 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">' + h1Text + '</h2>' +
+              '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6;">' + description + '</p>' +
+              objectives +
+              '</div>';
           } else if (isFractionsPage) {
             title = 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)';
             description = 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.';
