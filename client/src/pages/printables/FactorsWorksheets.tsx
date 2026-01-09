@@ -19,7 +19,7 @@ function useWorksheetTranslation(docId: string) {
     return { t, getTrans };
 }
 
-export function FactorsMultiples({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+export function FactorsMultiples({ seed, variant, showAnswers, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = 'factors-multiples';
     const { getTrans } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
@@ -114,7 +114,7 @@ export function FactorsMultiples({ seed, variant, showAnswersForDoc }: SpecificW
     );
 }
 
-export function PrimeComposite({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+export function PrimeComposite({ seed, variant, showAnswers, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = 'prime-composite';
     const { getTrans } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
