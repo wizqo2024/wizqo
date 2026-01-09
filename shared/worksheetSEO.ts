@@ -1922,6 +1922,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Express yourself! Read the 3rd-grade story about creativity and personal expression. Includes advanced comprehension questions. Free PDF.',
     learningObjectives: ['Identify the internal motivation of a character in the story', 'Analyze how a character overcomes a creative block', 'Evaluate the theme of personal expression vs. following the rules'],
     intro: 'Art is more than just drawing—it\'s a way to tell the world who you are! "The Big Art Project" is a 3rd-grade reading comprehension story that explores the emotional side of creativity. By following a student who struggles to find their own style for a class assignment, readers build their ability to analyze character motivations and complex themes. It\'s an excellent bridge to upper-elementary literary analysis.'
+  },
+  'reading-g3-community-garden': {
+    title: 'Reading Comprehension: The Community Garden - G3 Teamwork | Wizqo',
+    metaDescription: 'Grow together! Read the 3rd-grade story about urban gardening and cooperation. Includes detail-finding questions. Free printable PDF.',
+    learningObjectives: ['Identify the benefits of community projects for a neighborhood', 'Analyze how different characters contribute to a shared goal', 'Recall specific botanical and gardening vocabulary from the text'],
+    intro: 'It takes many hands to make a garden grow! "The Community Garden" is a 3rd-grade reading passage that highlights the power of working together. By reading about how neighbors transform a vacant lot into a beautiful green space, students practice identifying main ideas and supporting details while reflecting on community and environmental care.'
+  },
+  'reading-g3-lighthouse': {
+    title: 'Reading Comprehension: The Coastal Lighthouse - G3 Narrative | Wizqo',
+    metaDescription: 'A light in the dark! Read the descriptive 3rd-grade story about lighthouses and coastal life. Free printable math and literacy. PDF included.',
+    learningObjectives: ['Analyze descriptive language used to establish a coastal setting', 'Understand the historical and functional role of lighthouses', 'Practice summarizing a narrative with a strong focus on setting'],
+    intro: 'Standing tall against the waves, the lighthouse has a story to tell! This 3rd-grade reading comprehension worksheet uses rich sensory details to bring a coastal setting to life. By reading about the history and purpose of these maritime beacons, students build their descriptive vocabulary and their ability to visualize a story\'s location while confirming facts through targeted questions.'
+  },
+  'reading-g3-school-play': {
+    title: 'Reading Comprehension: The School Play - G3 Performance | Wizqo',
+    metaDescription: 'Take the stage! Read the 3rd-grade story about overcoming stage fright and the performing arts. Free printable literacy worksheet.',
+    learningObjectives: ['Trace the internal emotional growth of a character from start to finish', 'Identify the climax and resolution in a performance-based narrative', 'Connect the story\'s theme of bravery to personal school experiences'],
+    intro: 'Spotlight on! "The School Play" is an engaging 3rd-grade reading passage that explores the excitement—and the nerves—of performing. By following a character from the first rehearsal to the final bow, readers build their empathy and character analysis skills. It\'s a relatable narrative that encourages children to see the value of practice and the thrill of overcoming a fear.'
+  },
+  'reading-g3-science-fair': {
+    title: 'Reading Comprehension: The Science Fair - G3 Innovation | Wizqo',
+    metaDescription: 'Test your hypothesis! Read the 3rd-grade story about curiosity and the scientific method. Includes comprehension questions. Free PDF.',
+    learningObjectives: ['Identify the steps of the scientific method as presented in the story', 'Analyze how a character uses logical thinking to solve a problem', 'Recall specific scientific vocabulary used in the narrative'],
+    intro: 'Curiosity is the start of every great discovery! "The Science Fair" is a 3rd-grade reading comprehension story that introduces students to the logic of experimentation. By following a character as they develop a project and test their ideas, children learn about the scientific method in a fun, narrative context. After reading, use the included questions to check for understanding of both plot and procedure.'
+  },
+  'reading-mini-1': {
+    title: 'Mini Reading Comprehension (Set 1) - Quick Drill | Wizqo',
+    metaDescription: 'Fast-track literacy skills! Concise reading passage with targeted questions for a quick comprehension check. Free printable for grades 1-3.',
+    learningObjectives: ['Efficiently extract the main idea from a short, dense text', 'Identify key supporting details with high speed and accuracy', 'Practice focused reading for quick information retrieval'],
+    intro: 'Big learning in a small package! Our Mini Reading Comprehension (Set 1) is designed for quick, focused literacy drills. Whether you\'re looking for a fast classroom warm-up or a targeted assessment tool, this concise passage and question set helps students practice the essential skill of finding the "who, what, and where" without the fatigue of a long story.'
+  },
+  'rhyming-words': {
+    title: 'Rhyming Words Practice - Phonics & Sound Patterns | Wizqo',
+    metaDescription: 'Hear the beat! Practice identifying and generating rhyming words to build phonics and reading fluency. Free printable for K-2nd grade.',
+    learningObjectives: ['Identify words with the same ending sound (rhyme)', 'Sort words into "families" based on their auditory patterns', 'Strengthen phonological awareness for early reading success'],
+    intro: 'Cat, bat, hat—can you hear the match? Our Rhyming Words worksheet is a fundamental phonics tool for early readers. By practicing how to identify and group words with similar ending sounds, children build the auditory recognition and word-family knowledge needed for fluent decoding and creative poetry writing. It\'s a fun, musical way to master the sounds of English!'
+  },
+  'rounding-nearest-10': {
+    title: 'Rounding to the Nearest 10 - Estimation Skills | Wizqo',
+    metaDescription: 'Find the nearest landmark! Master the 0-4 / 5-9 rule for rounding two-digit numbers. Free printable math worksheet for grades 2-3.',
+    learningObjectives: ['Apply the standard rounding rules (0-4 down, 5-9 up)', 'Identify the nearest "multiple of 10" for any provided number', 'Understand the practical role of rounding in estimation and mental math'],
+    intro: 'Rounding is like finding the closest "rest stop" on the number line! Our Rounding to the Nearest 10 worksheet helps students master the basic rules of estimation. By learning when to "stay" and when to "round up," children gain the ability to make fast, accurate guesses in math and real life. It\'s an essential skill for grocery shopping, time management, and mental arithmetic!'
+  },
+  'same-different': {
+    title: 'Same vs. Different - Early Logic & Discrimination | Wizqo',
+    metaDescription: 'Spot the pattern! Build visual discrimination and comparison skills with our early learning logic worksheet. Perfect for Pre-K and K.',
+    learningObjectives: ['Identify similarities and differences in shape, color, and size', 'Analyze groups of objects to find the one that doesn\'t belong', 'Clearly articulate the reasoning behind a comparison'],
+    intro: 'Math begins with observation! Our Same vs. Different worksheet helps the youngest learners build the visual discrimination skills they need for both geometry and reading. By comparing groups of fun icons and identifying what makes them unique, children sharpen their focus and their ability to categorize the world around them. It\'s the first step in logical thinking!'
+  },
+  'science-lifecycle': {
+    title: 'Plant and Animal Lifecycles - Nature\'s Timeline | Wizqo',
+    metaDescription: 'Watch them grow! Practice sequencing the stages of life for butterflies, frogs, and sunflowers. Free printable science worksheet.',
+    learningObjectives: ['Sequence the chronological stages of a specific lifecycle', 'Identify key biological terms like "larva," "pupa," or "seedling"', 'Understand the repetitive, cyclical nature of life in the natural world'],
+    intro: 'Every living thing has a story that repeats! Our Science Lifecycles worksheet takes students on a journey from "seed to sunflower" and "egg to frog." By practicing how to order the stages of growth, children develop a deep understanding of transformation and biology. This visual sequencing activity is a great way to bring the wonders of nature into the classroom or home library.'
+  },
+  'science-match': {
+    title: 'General Science Matching - Tools and Functions | Wizqo',
+    metaDescription: 'Connect the dots in science! Link tools to their uses and organs to their jobs. Free printable science worksheet for grades 1-3.',
+    learningObjectives: ['Connect scientific tools (like thermometers) to their specific functions', 'Match biological organs to the body systems they support', 'Strengthen associative logic and scientific vocabulary'],
+    intro: 'Science is all about how things work together! Our Science Match worksheet challenges students to connect the "tool" to the "task." Whether it\'s matching a magnifying glass to the act of observation or a heart to the circulatory system, this associative logic practice builds a strong foundation of scientific knowledge and vocabulary. It\'s a great way to reinforce concepts from various science units in one fun activity!'
   }
 }
 
