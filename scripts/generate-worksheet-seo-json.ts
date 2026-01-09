@@ -12,6 +12,10 @@ const seoData: Record<string, {
   description: string
   keywords: string
   canonicalUrl: string
+  learningObjectives: string[]
+  grade: string[]
+  category: string[]
+  h1: string
 }> = {}
 
 for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
@@ -19,7 +23,11 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
     title: seo.title,
     description: seo.metaDescription,
     keywords: seo.keywords,
-    canonicalUrl: `https://wizqo.com/worksheets/${seo.slug}`
+    canonicalUrl: `https://wizqo.com/worksheets/${seo.slug}`,
+    learningObjectives: seo.learningObjectives,
+    grade: seo.grade,
+    category: seo.category,
+    h1: seo.h1
   }
 }
 

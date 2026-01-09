@@ -30,6 +30,8 @@ Disallow: /dashboard
 Disallow: /privacy
 Disallow: /terms
 Disallow: /cookies
+Disallow: /*.json
+Disallow: /print
 
 # Sitemaps
 Sitemap: https://wizqo.com/sitemap.xml

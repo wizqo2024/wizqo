@@ -322,8 +322,17 @@
             keywords = seoData.keywords;
             canonicalUrl = seoData.canonicalUrl;
 
-            var h1Text = title.replace(' – Free Printable Worksheet | Wizqo', '').replace(' | Wizqo', '');
-            fallbackContent = '<h2 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">' + h1Text + '</h2><p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>';
+            var h1Text = seoData.h1 || title.replace(' – Free Printable Worksheet | Wizqo', '').replace(' | Wizqo', '');
+            var objectives = seoData.learningObjectives ? '<div style="margin-top: 1.5rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Learning Objectives</h3><ul style="padding-left: 1.25rem; color: #475569;">' + seoData.learningObjectives.map(function(obj) { return '<li style="margin-bottom: 0.25rem;">' + obj + '</li>'; }).join('') + '</ul></div>' : '';
+            var labels = (seoData.grade || seoData.category) ? '<div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">' + (seoData.grade || []).concat(seoData.category || []).map(function(l) { return '<span style="padding: 0.25rem 0.75rem; background: #f1f5f9; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; color: #475569;">' + l + '</span>'; }).join('') + '</div>' : '';
+            
+            fallbackContent = '<div>' + 
+              '<nav style="font-size: 0.875rem; color: #64748b; margin-bottom: 1.5rem;">Home / Worksheets / ' + (seoData.category ? seoData.category[0] : 'Math') + '</nav>' +
+              labels +
+              '<h2 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">' + h1Text + '</h2>' + 
+              '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6;">' + description + '</p>' + 
+              objectives + 
+            '</div>';
           } else if (isFractionsPage) {
             title = 'Free Converting Fractions to Decimals Worksheets (PDF + Answer Key)';
             description = 'Download free fractions-to-decimals worksheets with answer keys. Easy, clear, no-login math PDFs perfect for grades 3–5. Boost confidence with simple step-by-step practice.';

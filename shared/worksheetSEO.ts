@@ -23,6 +23,55 @@ export interface WorksheetSEO {
 }
 
 /**
+ * Manual content overrides for specific worksheets to ensure uniqueness.
+ * This helps resolve "Thin Content" and "Crawled - currently not indexed" issues.
+ */
+const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
+  'sentence-building': {
+    title: 'Sentence Building Worksheet - Creative Writing Practice | Wizqo',
+    metaDescription: 'Boost early literacy with our Sentence Building worksheet. Students practice structure and grammar by arranging words into logical, descriptive sentences. PDF with answer key.',
+    learningObjectives: ['Understand basic sentence structure', 'Identify subject and verb placement', 'Build descriptive writing skills'],
+    intro: 'Help your students master English grammar and sentence structure with this engaging Sentence Building worksheet. By organizing scrambled words into meaningful sentences, children develop a natural feel for language flow, punctuation, and descriptive writing. This printable activity is perfect for Grade 1 and 2 literacy centers, providing a strong foundation for future creative writing.'
+  },
+  'doubles-facts': {
+    title: 'Doubles Addition Facts Practice - Math Skills Mastery | Wizqo',
+    metaDescription: 'Improve addition speed with our Doubles Facts worksheet. Mastering 1+1 through 10+10 builds mental math foundations for multi-digit addition. Free PDF download.',
+    learningObjectives: ['Recall doubles addition facts instantly', 'Connect doubles to near-doubles', 'Improve mental math calculation speed'],
+    intro: 'Mastering doubles addition facts is a critical milestone for young mathematicians. This worksheet focuses specifically on the "doubles" strategy (like 6+6 and 8+8), which serves as a powerful mental math anchor for more complex addition and subtraction problems. By developing instant recall of these pairs, students gain the confidence needed to tackle "near-doubles" and multi-digit operations with ease.'
+  },
+  'maze-focus': {
+    title: 'Math Maze Focus - Logical Thinking & Multiplication | Wizqo',
+    metaDescription: 'Keep kids engaged with our Math Maze Focus worksheet. Combine path-finding puzzles with multiplication practice to build concentration and math fluency. PDF included.',
+    learningObjectives: ['Strengthen visual attention and focus', 'Practice multiplication facts through engagement', 'Build logical path-finding skills'],
+    intro: 'Turn multiplication practice into a fun adventure! The Math Maze Focus worksheet combines specialized path-finding challenges with multiplication problems to keep students engaged while they learn. Unlike standard drills, this "focus" maze requires children to pay close attention to numerical patterns and logical routes, strengthening both their concentration and their multiplication fluency in a stress-free, printable format.'
+  },
+  'sub-2digit-100': {
+    title: 'Subtracting 2-Digit Numbers within 100 - Multi-Step Practice | Wizqo',
+    metaDescription: 'Download our 2-digit subtraction worksheet with regrouping focus. Practice subtracting numbers within 100 to build accuracy and place value understanding. Free PDF.',
+    learningObjectives: ['Master 2-digit subtraction with regrouping', 'Understand place value in multi-digit operations', 'Verify results using addition'],
+    intro: 'Subtraction within 100 is a core 2nd and 3rd-grade skill, and our Subtracting 2-Digit Numbers worksheet is designed to make it stick. This practice sheet focuses on both regrouping (borrowing) and place value alignment, helping students visualize how tens and ones interact during subtraction. With a clean layout and clear instructions, this printable PDF provides the rigorous practice needed for mathematical mastery.'
+  },
+  'times-table-confidence-6-12': {
+    title: 'Times Table Confidence (6-12) - Advanced Multiplication Mastery | Wizqo',
+    metaDescription: 'Focus on the "tough" multiplication facts from 6 to 12. Build confidence and accuracy with targeted practice sheets designed for Grade 3-5 math fluency.',
+    learningObjectives: ['Master multiplication facts for numbers 6 through 12', 'Increase calculation speed for advanced math', 'Build confidence with challenging times tables'],
+    intro: 'Break through the multiplication plateau! Many students find the 6-12 times tables to be the most challenging part of math class. Our Times Table Confidence worksheet is specifically designed to target these higher numbers, providing focused, repetitive practice that builds long-term memory. By mastering these "difficult" facts, students unlock their ability to handle long division and multi-step word problems with absolute confidence.'
+  },
+  'shapes-colors-sort': {
+    title: 'Shapes and Colors Sorting - Early Geometry & Logic | Wizqo',
+    metaDescription: 'Perfect for Pre-K and Kindergarten, this sorting worksheet helps kids identify and categorize 2D shapes by color and type. Free printable logic activity.',
+    learningObjectives: ['Identify 2D shapes (Circle, Square, Triangle)', 'Categorize objects by multiple attributes', 'Strengthen logical reasoning and visual discrimination'],
+    intro: 'Build a foundation for geometry and logic with our Shapes and Colors Sorting worksheet. This early learning activity encourages students to look beyond the surface and categorize items based on specific attributes like side count, corner type, and color. By sorting shapes into their correct groups, young learners develop critical visual discrimination skills that are essential for reading readiness and mathematical thinking.'
+  },
+  'reading-g1-lost-hat': {
+    title: 'Reading Comprehension: The Lost Hat - Grade 1 Practice | Wizqo',
+    metaDescription: 'Improve 1st grade reading skills with "The Lost Hat" passage. Includes comprehension questions to build inference and detail-finding skills. Download free PDF.',
+    learningObjectives: ['Recall specific details from a short story', 'Identify the main character and setting', 'Practice basic inference skills'],
+    intro: 'Engage young readers with "The Lost Hat," a charming short story designed specifically for 1st-grade reading comprehension. This worksheet presents a relatable narrative followed by targeted questions that encourage children to scan the text for details, identify characters, and draw simple conclusions. It is an excellent resource for building early fluency and a love for storytelling in the classroom or at home.'
+  }
+}
+
+/**
  * Convert docId to SEO-friendly slug
  */
 function createSlug(docId: string): string {
@@ -712,18 +761,20 @@ export function initializeWorksheetSEO() {
     const grade = inferGrade(docId)
     const category = inferCategory(docId)
 
+    const overrides = WORKSHEET_MANUAL_CONTENT[docId] || {}
+
     WORKSHEET_SEO_MAP[docId] = {
       docId,
       slug,
-      title: generateSEOTitle(name, grade),
-      metaDescription: generateMetaDescription(name, grade, category),
-      keywords: generateKeywords(name, category, grade),
-      h1: `${name} Worksheet`,
-      intro: generateIntro(name, grade, category),
+      title: overrides.title || generateSEOTitle(name, grade),
+      metaDescription: overrides.metaDescription || generateMetaDescription(name, grade, category),
+      keywords: overrides.keywords || generateKeywords(name, category, grade),
+      h1: overrides.h1 || `${name} Worksheet`,
+      intro: overrides.intro || generateIntro(name, grade, category),
       grade,
       category,
       section: category[0] || 'Math',
-      learningObjectives: generateLearningObjectives(name, category),
+      learningObjectives: overrides.learningObjectives || generateLearningObjectives(name, category),
       relatedDocIds: [], // Will be populated based on category/grade
     }
   }
