@@ -4111,7 +4111,7 @@ export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWork
                             className="break-inside-avoid print:mb-8"
                             style={{
                                 pageBreakInside: 'avoid',
-                                ...(i === 1 ? { pageBreakAfter: 'always' } : {})
+                                ...(i === 2 ? { pageBreakBefore: 'always', breakBefore: 'page' } : {})
                             }}
                         >
                             <div className="flex items-center gap-3 mb-6 font-mono text-2xl font-bold text-slate-700 justify-center">
