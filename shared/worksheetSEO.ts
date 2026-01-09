@@ -2462,6 +2462,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Solve the mystery! Practice inference and detail-finding with our interactive digital reading detective game.',
     learningObjectives: ['Cite specific evidence from a digital text to solve a mystery', 'Develop advanced inference skills by connecting subtle narrative clues', 'Improve attention to detail and critical reading speed'],
     intro: 'Get your magnifying glass ready! Our Interactive Reading Detective game turns comprehension practice into a high-stakes mystery. Instead of just reading, students must scan the text for clues, cross-reference evidence, and solve the case. It\'s a rigorous, engaging way to build the investigative skills used by real-world researchers and analysts. The case is open—can you solve it?'
+  },
+  'interactive-reading-vocab': {
+    title: 'Interactive Reading Vocabulary - Word Mastery Game | Wizqo',
+    metaDescription: 'Boost your word power! Master new vocabulary through our interactive digital reading game featuring context clues and definitions. Free to play online.',
+    learningObjectives: ['Identify the meaning of new words using surrounding context clues', 'Distinguish between synonyms and antonyms in a narrative setting', 'Improve reading fluency by building a robust digital vocabulary'],
+    intro: 'Words are the keys to the world! Our Interactive Reading Vocabulary game turns word-learning into an engaging digital quest. By exploring stories and identifying "power words," students learn how to unlock meaning from context and build the expressive language skills needed for advanced writing. Dive in and start growing your word power today!'
+  },
+  'interactive-reading-summary': {
+    title: 'Interactive Reading Summary - Main Idea & Synthesis Tool | Wizqo',
+    metaDescription: 'Get the big picture! Learn how to summarize stories and identify main ideas with our interactive digital reading tool.',
+    learningObjectives: ['Identify the "Who, What, Where, When, and Why" of a reading passage', 'Synthesize complex narratives into concise, accurate summaries', 'Differentiate between central themes and supporting details'],
+    intro: 'What\'s the big idea? Our Interactive Reading Summary tool helps students distill long stories into their most important points. By using digital organizers to group key events and identify main themes, readers learn how to process information efficiently and communicate clearly. Mastering the art of the summary is a superpower for school and beyond!'
+  },
+  'interactive-reading-compare': {
+    title: 'Interactive Reading Compare - Comparative Analysis Tool | Wizqo',
+    metaDescription: 'Spot the difference! Compare characters, settings, and plots using our interactive digital Venn diagrams and analysis tools.',
+    learningObjectives: ['Compare and contrast two or more narrative elements using text evidence', 'Use digital Venn diagrams to visualize similarities and differences', 'Develop critical thinking skills by analyzing multiple perspectives in reading'],
+    intro: 'Every story has a twin—or an opposite! Our Interactive Reading Compare activity teaches students how to look at two things at once. Whether comparing two characters\' choices or two different settings, this tool uses dynamic visuals to help readers see patterns and contrasts. It\'s a high-level thinking exercise that turns reading into deep analysis!'
+  },
+  'interactive-writing-prompts': {
+    title: 'Interactive Writing Prompts - Creative Story Generator | Wizqo',
+    metaDescription: 'Spark your imagination! Generate unique story ideas and start writing with our dynamic, interactive prompt engine.',
+    learningObjectives: ['Initiate creative writing projects using randomized or targeted prompts', 'Develop narrative structures based on specific character and setting cues', 'Overcome "writer\'s block" through interactive brainstorming and idea generation'],
+    intro: 'Your next great story starts here! Our Interactive Writing Prompts engine is a digital spark for your imagination. With thousands of possible combinations of characters, conflicts, and settings, students will never run out of ideas. It\'s the perfect playground for young authors to find their voice and start their journey into creative writing!'
+  },
+  'interactive-writing-sentences': {
+    title: 'Interactive Writing Sentences - Structure & Expansion Lab | Wizqo',
+    metaDescription: 'Build better sentences! Practice sentence expansion and grammar with our engaging interactive digital writing lab.',
+    learningObjectives: ['Expand simple sentences into complex, descriptive statements', 'Master the use of adjectives, adverbs, and conjunctions in a digital workspace', 'Identify and correct common sentence-structure errors through interactive feedback'],
+    intro: 'Build your writing, brick by brick! Our Interactive Writing Sentences lab turns grammar into a construction project. By taking simple ideas and "leveling them up" with descriptive language and proper structure, students learn the mechanics of great prose. It\'s a hands-on way to master the building blocks of the English language!'
+  },
+  'interactive-writing-poetry': {
+    title: 'Interactive Writing Poetry - Rhyme & Rhythm Workshop | Wizqo',
+    metaDescription: 'Find your rhythm! Explore poetic structures, rhymes, and styles in our engaging interactive digital poetry workshop.',
+    learningObjectives: ['Identify and apply various poetic structures (Acrostic, Haiku, Rhyme)', 'Understand the role of rhythm and meter in poetic expression', 'Use digital tools to explore word sounds and emotional imagery'],
+    intro: 'Let your words sing! Our Interactive Writing Poetry workshop is a digital stage for your creative expressions. Whether you\'re writing a rhythmic rhyme or a thoughtful haiku, this tool guides you through the patterns and sounds that make poetry powerful. It\'s a beautiful, interactive way to find the music in your writing!'
+  },
+  'interactive-writing-opinion': {
+    title: 'Interactive Writing Opinion - Persuasion & Reasoning | Wizqo',
+    metaDescription: 'Make your case! Learn persuasive writing and evidence-based reasoning with our interactive digital writing tool.',
+    learningObjectives: ['Formulate clear opinion statements on high-interest topics', 'Support arguments with logical reasoning and credible evidence', 'Structure persuasive essays using an effective beginning, middle, and end'],
+    intro: 'Speak your mind and change the world! Our Interactive Writing Opinion workshop teaches students how to turn their thoughts into powerful arguments. By learning how to state a position and back it up with evidence, writers develop the critical thinking and communication skills used by leaders and activists. What do YOU think? Let\'s write it down!'
+  },
+  'interactive-science-observation': {
+    title: 'Interactive Science Observation - Digital Lab Notebook | Wizqo',
+    metaDescription: 'Observe like a scientist! Record data and analyze results in our engaging interactive digital science lab.',
+    learningObjectives: ['Observe and record physical phenomena using digital scientific tools', 'Differentiate between objective observations and subjective inferences', 'Develop the habit of detailed and accurate data collection in science'],
+    intro: 'Step into the lab! Our Interactive Science Observation tool turns your device into a scientific field journal. By observing experiments, recording data, and analyzing patterns, students learn the fundamental skills of the scientific method. Every great discovery starts with a careful observation—what will you find today?'
+  },
+  'interactive-science-lifecycle': {
+    title: 'Interactive Science Lifecycle - Biotic Growth Simulator | Wizqo',
+    metaDescription: 'Watch it grow! Explore the life cycles of plants and animals through our dynamic interactive digital simulator.',
+    learningObjectives: ['Identify and sequence the stages of various plant and animal life cycles', 'Understand the environmental factors that influence growth and development', 'Visualize the cyclical nature of life through interactive growth animations'],
+    intro: 'The circle of life is interactive! Our Science Lifecycle simulator lets students "fast-forward" through months of growth in seconds. By manipulating the environment and watching how organisms develop from seeds to adults, children gain a deep, visual understanding of biology. Witness the miracle of growth in a hands-on, digital world!'
+  },
+  'interactive-science-states': {
+    title: 'Interactive Science States of Matter - Virtual Lab | Wizqo',
+    metaDescription: 'Solid, liquid, or gas? Explore the states of matter through our engaging interactive digital virtual lab.',
+    learningObjectives: ['Distinguish between the properties of solids, liquids, and gases', 'Visualize molecular movement under different temperature conditions', 'Understand the processes of melting, freezing, and evaporation through simulation'],
+    intro: 'Matter matters! Our Interactive Science States lab lets students shrink down to the size of a molecule to see how things really work. By changing temperatures and pressures, you can watch solids melt into liquids and liquids evaporate into gases. It\'s a virtual experiment that makes chemistry feel like magic!'
   }
 }
 
