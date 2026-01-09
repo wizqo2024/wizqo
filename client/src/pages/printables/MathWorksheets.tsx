@@ -1602,7 +1602,7 @@ export function NumberTracing1To20({ showAnswersForDoc }: SpecificWorksheetProps
                 <div className="font-bold text-3xl tracking-widest text-slate-700 opacity-50">{String.fromCodePoint(0x270F)}</div>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 break-inside-avoid">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                 {numbers.map((n) => (
                     <div key={n} className="break-inside-avoid flex flex-col items-center">
                         <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border-2 border-slate-200 rounded-xl shadow-sm">
