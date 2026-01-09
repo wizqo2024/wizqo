@@ -2162,6 +2162,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'The ultimate math challenge! Practice solving problems with multiple operations in context. Free printable PDF for grades 3-6.',
     learningObjectives: ['Distinguish between relevant and irrelevant data in complex prompts', 'Map out a multi-step solution path before beginning calculations', 'Build confidence in switching between addition, subtraction, multiplication, and division'],
     intro: 'Are you ready for the math marathon? Our Multi-Step Word Problems worksheet is the final boss of arithmetic! Instead of focusing on one skill, you\'ll have to use everything you\'ve learned—adding, subtracting, multiplying, and dividing—in a single problem. It\'s the perfect way to build the mental flexibility and problem-solving grit that will last a lifetime!'
+  },
+  'word-search': {
+    title: 'Educational Word Search Puzzles - Vocabulary Fun | Wizqo',
+    metaDescription: 'Boost spelling and focus! Find thematic words in our engaging word search puzzles. Free printable PDF for all grades.',
+    learningObjectives: ['Strengthen word recognition and spelling through visual pattern matching', 'Improve concentration and scan-speed across a letter grid', 'Build thematic vocabulary (e.g., seasons, science, animals) in a playful context'],
+    intro: 'Math needs letters too! Our Word Search puzzles turn vocabulary building into a high-stakes scavenger hunt. By scanning grids for hidden terms, students sharpen their focus and spelling skills while exploring new themes like ocean life, space, or seasonal holidays. It\'s the perfect "brain break" that keeps the learning moving forward!'
+  },
+  'reward-chart': {
+    title: 'Printable Reward Charts - Positive Habit Tracking | Wizqo',
+    metaDescription: 'Celebrate progress! Track student achievements and positive behaviors with our fun reward charts. Free printable PDF.',
+    learningObjectives: ['Set and track specific, achievable goals over a week or month', 'Visualize personal progress and build intrinsic motivation', 'Establish a positive routines for homework, chores, or classroom behavior'],
+    intro: 'Small wins lead to big success! Our Printable Reward Charts help students visualize their journey toward a goal. Whether it\'s finishing 10 math worksheets or practicing a musical instrument, these charts provide the positive reinforcement needed to turn effort into a lifestyle. Perfect for parents and teachers looking to build confidence one star at a time!'
+  },
+  'rounding-decimals': {
+    title: 'Rounding Decimals - Precision and Rules Practice | Wizqo',
+    metaDescription: 'Round with confidence! Master the rules for rounding decimals to the nearest tenth or hundredth. Free printable PDF for grades 4-6.',
+    learningObjectives: ['Identify the "neighbor" digit to determine if a decimal rounds up or down', 'Round numbers with precision to the nearest whole, tenth, and hundredth', 'Understand the practical use of rounding in estimation and currency'],
+    intro: 'Sometimes near enough is good enough! Our Rounding Decimals worksheet teaches students how to "simplify" complex numbers without losing their value. By mastering the rules of 5-and-up or 4-and-below, children gain the estimation skills needed for quick mental math, science reporting, and handling money. It\'s the secret to making math feel manageable and real!'
+  },
+  'skip-count-2s': {
+    title: 'Skip Counting by 2s - Foundational Number Patterns | Wizqo',
+    metaDescription: 'Count by twos! Build early multiplication skills and even number recognition. Free printable math worksheet for grades K-2.',
+    learningObjectives: ['Fluently count by 2s up to 100 with accuracy', 'Demonstrate an understanding of even vs. odd number patterns', 'Build the conceptual "on-ramp" for the 2s multiplication table'],
+    intro: 'Math is full of shortcuts! Skip-counting by 2s is the first step in moving beyond counting by ones. Our engaging worksheet helps young learners see the "jump" between numbers, building the pattern-recognition skills needed for multiplication and time-telling. It\'s fun, fast, and the foundation of everything that follows!'
+  },
+  'skip-count-5-10-120': {
+    title: 'Skip Counting by 5s & 10s - Rhythmic Math | Wizqo',
+    metaDescription: 'Jump to 120! Master skip-counting by 5s and 10s to build time and money skills. Free printable PDF for grades 1-3.',
+    learningObjectives: ['Fluently count by 5s and 10s up to 120 starting from any number', 'Identify patterns in the ones place (0 and 5 repeats)', 'Apply skip-counting logic to counting nickels, dimes, and analog clock minutes'],
+    intro: '5, 10, 15, 20... Math has a beat! Our Skip Counting by 5s and 10s worksheet turns numerical patterns into a rhythmic exercise. Mastering these increments is the secret key to counting money and telling time with ease. By practicing up to 120, students build the "big number" confidence they need for higher-level addition and subtraction.'
+  },
+  'spring-scavenger': {
+    title: 'Spring Nature Scavenger Hunt - Outdoor Exploration | Wizqo',
+    metaDescription: 'Explore the season! Find flowers, birds, and signs of spring with our outdoor scavenger hunt. Free printable activity for kids.',
+    learningObjectives: ['Observe and identify seasonal changes in the local environment', 'Practice descriptive observation and scientific inquiry outdoors', 'Build a connection to nature through active, play-based exploration'],
+    intro: 'Take the classroom outside! Our Spring Scavenger Hunt is designed to turn a walk in the park into a scientific expedition. By searching for specific signs of renewal—like budding trees, chirping birds, and blooming flowers—kids develop their observational skills and appreciation for the natural world. It\'s the perfect way to welcome the sun and learn on the move!'
+  },
+  'stem-balloon-rocket': {
+    title: 'STEM: Balloon Rocket Experiment - Forces & Motion | Wizqo',
+    metaDescription: 'Blast off with physics! Learn about thrust and Newton\'s Third Law with a balloon rocket. Free printable STEM activity guide.',
+    learningObjectives: ['Define thrust and explain how air pressure creates propulsion', 'Apply Newton\'s Third Law (Action/Reaction) to a physical experiment', 'Practice the scientific method by varying air volume and measuring distance'],
+    intro: 'Ready for liftoff? Our Balloon Rocket STEM worksheet guides students through a high-speed physics experiment! By building their own simple rocket using a balloon and string, children witness Newton\'s laws of motion in action. This hands-on activity turns abstract concepts like force and thrust into a thrilling, tangible experience that sparks a lifelong love of engineering.'
+  },
+  'stem-walking-water': {
+    title: 'STEM: Walking Water Experiment - Capillary Action | Wizqo',
+    metaDescription: 'See water defy gravity! Explore capillary action and color-mixing with this simple STEM experiment. Free printable guide.',
+    learningObjectives: ['Explain capillary action and how liquid moves through porous materials', 'Observe and record the process of color-mixing to create secondary colors', 'Develop patience and record-keeping skills through long-form observation'],
+    intro: 'Can water walk? Yes, it can! Our Walking Water experiment takes students on a colorful journey into the world of capillary action. By watching water "climb" through paper towels to mix and create new colors, children see the same physics that allows trees to pull water from the soil. It\'s a beautiful, slow-motion look at the invisible forces of nature!'
+  },
+  'time-to-minute': {
+    title: 'Telling Time to the Minute - Precision Clock Reading | Wizqo',
+    metaDescription: 'Master the clock! Practice reading analog time with 1-minute precision. Free printable math worksheet for grades 3-4.',
+    learningObjectives: ['Identify exact minutes on an analog clock with 1-minute accuracy', 'Understand that 60 minutes equals one full rotation of the hour hand', 'Solve elapsed time problems using minute-by-minute calculations'],
+    intro: 'Every minute counts! Our Telling Time to the Minute worksheet is for students who are ready to master the full cycle of the clock. By moving beyond 5-minute intervals to exact precision, children gain the independence and time-management skills they need for a busy day. It\'s the final step in becoming a true time-keeping pro!'
+  },
+  'transformations-5th': {
+    title: '5th Grade Geometric Transformations - Slide, Flip, & Turn | Wizqo',
+    metaDescription: 'Master coordinate geometry! Practice translations, reflections, and rotations. Free printable PDF for Grade 5.',
+    learningObjectives: ['Identify and perform translations (slides) on a coordinate plane', 'Understand reflections (flips) and rotations (turns) of 2D shapes', 'Maintain the congruence of shapes throughout geometric movement'],
+    intro: 'Geometry is on the move! Our 5th Grade Transformations worksheet teaches students how to manipulate shapes in space. Whether they are sliding across a grid (translation), flipping over an axis (reflection), or turning around a point (rotation), kids build the spatial reasoning skills used in architecture, video game design, and bridge engineering!'
   }
 }
 
