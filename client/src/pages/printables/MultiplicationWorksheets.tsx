@@ -4224,16 +4224,16 @@ export function LatticeMultiplication({ seed, variant, showAnswersForDoc }: Spec
             />
 
             <StrategySpotlight
-                strategyName="The Lattice Method"
+                title="The Lattice Method"
                 icon="📐"
+                color="orange"
                 steps={[
-                    "Write the first number along the top and the second down the right side.",
-                    "Multiply the numbers for each cell. Tens go in the top triangle, ones in the bottom.",
-                    "Add the numbers along the diagonal paths, starting from the bottom right.",
-                    "The resulting numbers form your final answer!"
+                    { label: "Step 1", text: "Write the first number along the top and the second down the right side." },
+                    { label: "Step 2", text: "Multiply the numbers for each cell. Tens go in the top triangle, ones in the bottom." },
+                    { label: "Step 3", text: "Sum along the diagonal paths, starting from the bottom right." },
+                    { label: "Step 4", text: "The resulting numbers form your final answer!" }
                 ]}
-                exampleTitle="Example: 24 x 13"
-                exampleProblem="Set up a 2x2 grid and follow the diagonals."
+                description="The lattice method breaks multiplication into smaller, manageable pieces by using a grid with diagonal paths."
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10">
