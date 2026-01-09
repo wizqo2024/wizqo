@@ -2642,6 +2642,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Ready for school! Master the foundational "basics" with our comprehensive interactive digital learning lab for early learners.',
     learningObjectives: ['Demonstrate mastery of core readiness skills (colors, shapes, numbers, letters)', 'Follow multi-step digital instructions to complete varied basic tasks', 'Build the confidence and motor skills needed for a successful school start'],
     intro: 'Master the essentials! Our Interactive Early Basics lab is a one-stop-shop for everything a young learner needs to know. From identifying colors to recognizing first letters, this comprehensive lab guides children through the "readiness" skills that make the start of school a success. It\'s the perfect foundation for a bright academic future!'
+  },
+  'interactive-early-foundations': {
+    title: 'Interactive Early Foundations - Pre-K Readiness Lab | Wizqo',
+    metaDescription: 'Building a strong start! Master core Pre-K skills through our engaging interactive digital foundations lab for early learners.',
+    learningObjectives: ['Develop fundamental gross and fine motor coordination through digital interaction', 'Identify core school-readiness concepts (above/below, big/small, same/different)', 'Foster curiosity and persistence in a playful, low-stake learning environment'],
+    intro: 'The adventure begins here! Our Interactive Early Foundations lab is designed to give the youngest learners a confident head start. By exploring basic concepts of spatial logic and comparison through large, friendly visuals, children build the foundational "academic vocabulary" needed for Pre-K success. It\'s where playing becomes learning!'
+  },
+  'interactive-early-letters': {
+    title: 'Interactive Early Letters - Preschool Alphabet Discovery | Wizqo',
+    metaDescription: 'Hello, alphabet! Discover letters and sounds with our high-contrast, simplified interactive digital letter lab for Pre-K.',
+    learningObjectives: ['Recognize and name uppercase and lowercase letters through visual matching', 'Identify the specific shapes and curves that form each letter of the alphabet', 'Develop early letter-sound association in a simplified, distraction-free environment'],
+    intro: 'Meet the letters! Our Interactive Early Letters lab is a high-contrast, simplified world where the alphabet comes to life. Designed for very young children, this tool uses large, clear visuals and friendly feedback to make letter recognition feel like a game of hide-and-seek. Start your journey into the world of words with a smile!'
+  },
+  'interactive-early-numbers': {
+    title: 'Interactive Early Numbers - Pre-K Counting & Logic | Wizqo',
+    metaDescription: 'One, two, buckle your shoe! Explore numbers 1-10 with our playful, simplified interactive digital math tool for early learners.',
+    learningObjectives: ['Identify and name numbers 1 through 10 with confidence', 'Understand the concept of quantity through visual one-to-one correspondence', 'Begin to explore basic number-order and sequencing at a Pre-K level'],
+    intro: 'Counting is a blast! Our Interactive Early Numbers tool is a playful playground for Pre-K math. By interacting with large, colorful numbers and counting friendly objects, children discover the magic of quantity in a way that\'s perfectly scaled for their development. It\'s the fun, easy way to become a number master!'
+  },
+  'interactive-early-shapes': {
+    title: 'Interactive Early Shapes - Preschool Geometry Lab | Wizqo',
+    metaDescription: 'Shapes all around! Explore circles, squares, and triangles with our tactile interactive digital geometry lab for Pre-K.',
+    learningObjectives: ['Correctly identify and name basic 2D shapes (Circle, Square, Triangle, Heart)', 'Match shapes based on their visual properties and outlines', 'Develop spatial awareness by dragging and fitting shapes into matching slots'],
+    intro: 'The world is full of shapes! Our Interactive Early Shapes lab turns geometry into a tactile discovery journey. Kids can touch, move, and match the building blocks of their world, learning how to distinguish between curves and corners. It\'s a hands-on digital experience that makes geometry as fun as building blocks!'
+  },
+  'interactive-geography-prek': {
+    title: 'Interactive Geography Pre-K - World Wonders for Tots | Wizqo',
+    metaDescription: 'Explore our big world! Discover animals and landmarks from around the globe with our engaging interactive geography game for Pre-K.',
+    learningObjectives: ['Identify major natural landmarks and climate zones (ocean, forest, desert)', 'Recognize animals that live in different parts of the world', 'Develop an early curiosity and appreciation for global diversity'],
+    intro: 'It\'s a big, beautiful world! Our Interactive Geography Pre-K adventure is a visual tour designed for the smallest explorers. From penguin-filled icebergs to elephant-filled savannas, children learn about the different neighborhoods of our planet through vibrant 3D illustrations and simple interactions. Start your global adventure today!'
+  },
+  'interactive-grammar-prek': {
+    title: 'Interactive Grammar Pre-K - Picture-Word Mastery | Wizqo',
+    metaDescription: 'Let\'s talk! Master first words and picture-word association with our engaging interactive digital vocabulary game for Pre-K.',
+    learningObjectives: ['Correctly pair common objects with their written and spoken names', 'Build a robust "receptive vocabulary" of high-interest school and home words', 'Understand that written symbols represent real-world objects and actions'],
+    intro: 'Every picture tells a story! Our Interactive Grammar Pre-K lab builds the bridge between what children see and the words they use. By matching vibrant pictures to their names, young learners expand their vocabulary and take their first steps toward understanding the power of language. Let\'s start communicating!'
+  },
+  'interactive-logic-prek': {
+    title: 'Interactive Logic Pre-K - Early Sorting & Sequence | Wizqo',
+    metaDescription: 'Think and play! Explore grouping, sorting, and early logic with our engaging interactive digital puzzles for Pre-K.',
+    learningObjectives: ['Sort objects based on a single attribute like color or size', 'Complete simple 2-step sequences and "what comes next" puzzles', 'Develop the basic categorization skills that underpin math and reading'],
+    intro: 'Get your thinking cap on! Our Interactive Logic Pre-K workshop is full of playful puzzles that challenge young brains to find the "why" behind the "what." By sorting items and finding patterns, children build the logical foundations needed for everything from coding to clean-up time. It\'s where sharp minds start to grow!'
+  },
+  'interactive-reading-prek': {
+    title: 'Interactive Reading Pre-K - First Storybook Experience | Wizqo',
+    metaDescription: 'Once upon a time! Experience interactive storytelling and pre-literacy skills with our engaging digital stories for Pre-K.',
+    learningObjectives: ['Follow a narrative through visual "tracking cues" and simple interactions', 'Identify the protagonist and main setting of a short, engaging story', 'Develop a positive, enthusiastic attitude toward books and reading'],
+    intro: 'Dive into a story! Our Interactive Reading Pre-K experience is a "living book" designed to enchant young readers. With bouncing-ball indicators and character-based interactions, children learn that reading is an active adventure. It\'s the perfect, magical way to introduce the world of books to your toddler!'
+  },
+  'interactive-reading-storymap': {
+    title: 'Interactive Reading Story Map - Visual Plot Builder | Wizqo',
+    metaDescription: 'Map the adventure! Master story structure with our engaging interactive digital plot-mapping tool for early readers.',
+    learningObjectives: ['Identify the beginning, middle, and end of a narrative sequence', 'Locate the main character and setting within a visual story map', 'Understand how a sequence of events creates a complete story arc'],
+    intro: 'Where does the story go? Our Interactive Reading Story Map tool turns reading comprehension into a visual journey. By dragging key events into their correct slots on the "map," students learn the architecture of a good tale. It\'s the perfect way to build the narrative logic needed for both reading and writing!'
+  },
+  'interactive-science-prek': {
+    title: 'Interactive Science Pre-K - Tiny Scientist Discovery Lab | Wizqo',
+    metaDescription: 'Look, listen, learn! Explore nature and basic science observations with our engaging interactive digital lab for Pre-K.',
+    learningObjectives: ['Identify the basic needs of living things (water, sunlight, food)', 'Make simple observations of natural phenomena through digital simulation', 'Differentiate between living and non-living things in a variety of contexts'],
+    intro: 'Nature is full of surprises! Our Interactive Science Pre-K lab allows tiny scientists to explore the world through a virtual magnifying glass. From watching a seed sprout to observing how clouds move, children build the observation habits and curiosity that make them scientists for life. Let\'s go on a discovery quest!'
   }
 }
 
