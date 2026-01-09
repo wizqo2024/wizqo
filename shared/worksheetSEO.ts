@@ -1982,6 +1982,126 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Connect the dots in science! Link tools to their uses and organs to their jobs. Free printable science worksheet for grades 1-3.',
     learningObjectives: ['Connect scientific tools (like thermometers) to their specific functions', 'Match biological organs to the body systems they support', 'Strengthen associative logic and scientific vocabulary'],
     intro: 'Science is all about how things work together! Our Science Match worksheet challenges students to connect the "tool" to the "task." Whether it\'s matching a magnifying glass to the act of observation or a heart to the circulatory system, this associative logic practice builds a strong foundation of scientific knowledge and vocabulary. It\'s a great way to reinforce concepts from various science units in one fun activity!'
+  },
+  'shape-identification': {
+    title: 'Geometric Shape Identification - Early Geometry Mastery | Wizqo',
+    metaDescription: 'Is it a hexagon or a pentagon? Practice identifying and naming 2D geometric shapes with our visual geometry worksheet. Free printable PDF.',
+    learningObjectives: ['Correctly name common 2D shapes based on their visual properties', 'Identify the specific number of sides and corners for each shape', 'Build foundations for geometric classification and spatial reasoning'],
+    intro: 'Geometric shapes are the puzzle pieces of our world! Our Shape Identification worksheet helps students move beyond "ball" and "box" to formal math terms like "sphere" and "rectangle." By learning the names and properties of varied polygons, children build the spatial reasoning and vocabulary needed for advanced geometry and architectural design. It\'s a vital first step in seeing the world through a mathematical lens!'
+  },
+  'shape-patterns': {
+    title: 'Completing Geometric Shape Patterns - Logic Practice | Wizqo',
+    metaDescription: 'Predict the next piece! Strengthen logical reasoning with our geometric shape pattern worksheet. Perfect for Pre-K and K math readiness.',
+    learningObjectives: ['Complete repeating (ABAB) and growing patterns of geometric shapes', 'Identify the underlying logical rule of a visual sequence', 'Strengthen predictive thinking and visual attention to detail'],
+    intro: 'Patterns are everywhere in nature and in math! Our Shape Patterns worksheet challenges early learners to be "shape detectives." By identifying the rules of repeating sequences, children develop the predictive thinking and logical processing used in computer programming and high-level algebra. It\'s a fun, visual way to build a brain that looks for order in the world!'
+  },
+  'shape-sorting': {
+    title: 'Geometric Shape Sorting - Attribute Logic | Wizqo',
+    metaDescription: 'Sort by sides and corners! practice categorizing 2D shapes with our visual sorting worksheet. Free printable for Kindergarten and 1st grade.',
+    learningObjectives: ['Categorize shapes based on shared physical attributes (sides, corners)', 'Identify common properties among diverse geometric figures', 'Differentiate between shapes that look similar but have different names'],
+    intro: 'What makes a square a square? Our Shape Sorting worksheet teaches students to look past the surface and analyze the "blueprint" of a shape. By organizing diverse figures into groups based on their attributes, children build the critical thinking and classification skills used by scientists and engineers. It\'s more than just a game—it\'s an introduction to logical taxonomy!'
+  },
+  'sight-words-pre-primer': {
+    title: 'Pre-Primer Sight Words - Early Literacy Fluency | Wizqo',
+    metaDescription: 'Master the "hidden" words! Practice high-frequency sight words for emerging readers. Free printable PDF for Pre-K and Kindergarten.',
+    learningObjectives: ['Identify and read high-frequency "sight words" by rote recognition', 'Increase reading speed for the most common words in early narratives', 'Build confidence and stamina for independent reading activities'],
+    intro: 'Some words don\'t follow the rules! Our Pre-Primer Sight Words worksheet helps early readers master the "building blocks" of English sentences. These high-frequency words often appear unexpectedly and can\'t always be sounded out phonetically. By practicing recognition and repetition, children build the fluency and confidence they need to move from "decoding" to truly enjoying their first stories.'
+  },
+  'size-comparison': {
+    title: 'Scale and Size Comparison - Early Measurement Logic | Wizqo',
+    metaDescription: 'Biggest vs. Smallest! Practice comparing relative scale and size with our visual measurement worksheet. Free printable for Pre-K and K.',
+    learningObjectives: ['Identify relative scale using terms like "bigger," "smaller," and "same"', 'Sequence a group of objects from shortest to tallest or vice versa', 'Develop the visual discrimination needed for physical measurement concepts'],
+    intro: 'Which one is the giant? Our Size Comparison worksheet helps young learners understand the relationship between objects in physical space. By comparing animals, plants, and toys, children build the observational logic and vocabulary (like "longest" and "shortest") used in everyday life and future science experiments. It\'s a wonderful way to help kids start measuring the world without needing a ruler!'
+  },
+  'skip-count-mult': {
+    title: 'Skip-Counting for Multiplication mastery - Math Patterns | Wizqo',
+    metaDescription: 'Turn counting into calculating! Practice skip-counting patterns to build multiplication table fluency. Free printable PDF for grades 2-3.',
+    learningObjectives: ['Connect rhythmic skip-counting patterns to multiplication facts', 'Identify intervals of 2, 5, 10, and more on a standard number scale', 'Build mental math speed for repetitive addition and division prep'],
+    intro: 'Counting by ones is good, but skip-counting is faster! Our Skip-Count for Multiplication worksheet bridge the gap between simple counting and advanced arithmetic. By learning how numbers "jump" in patterns of 3, 4, or 6, students build the mental pathways used for the multiplication table and early division. It\'s rhythmic, logical, and the secret to mathematical speed!'
+  },
+  'solving-one-step-equations': {
+    title: 'Solving One-Step Equations - Intro to Algebra | Wizqo',
+    metaDescription: 'Find the hidden value! Practice isolating variables in basic addition and subtraction equations. Free printable for grades 5-6.',
+    learningObjectives: ['Understand the concept of a variable (x) as a placeholder for a value', 'Apply inverse operations (addition/subtraction) to isolate a variable', 'Verify equation balance by substituting results back into the problem'],
+    intro: 'Algebra is like a math mystery! Our Solving One-Step Equations worksheet introduces students to the concept of the "variable." By learning how to work backwards to solve for "x," children build the logical discipline and procedural accuracy needed for all of high school math. It\'s the perfect, low-stress bridge from basic arithmetic to the world of algebraic reasoning!'
+  },
+  'spelling': {
+    title: 'Targeted Spelling Practice - Phonics and Word Patterns | Wizqo',
+    metaDescription: 'Master the patterns! Practice spelling common words to build literacy and writing fluency. Free printable PDF for early elementary.',
+    learningObjectives: ['Correctly spell high-frequency and phonics-based words', 'Identify common letter clusters and auditory patterns (blends/digraphs)', 'Strengthen the connection between written form and verbal sound'],
+    intro: 'Spelling is the bridge between thinking and writing! our Targeted Spelling worksheet helps students master the core patterns of the English language. By focusing on both phonetic rules and those "tricky" exceptions, children build the confidence to express their own ideas clearly on paper. It\'s a vital literacy tool that turns students into powerful communicators for the classroom and beyond.'
+  },
+  'spot-difference': {
+    title: 'Spot the Difference Puzzle - Visual Attention Drill | Wizqo',
+    metaDescription: 'Look closer! Build visual discrimination and attention to detail with our fun "Spot the Difference" challenge. Free printable for kids.',
+    learningObjectives: ['Strengthen visual attention and sustained concentration', 'Identify subtle differences in shape, color, position, and detail', 'Develop the visual scanning habits used in reading and data analysis'],
+    intro: 'Good observers see what others miss! Our Spot the Difference worksheet is a fun "workout" for the eyes and the brain. By scanning two similar images for subtle "hidden" changes, children develop the sustained focus and visual discrimination habits used in proofreading, map navigation, and scientific observation. It\'s a puzzle that builds the foundation for academic accuracy!'
+  },
+  'stem-leaf-plots': {
+    title: 'Stem-and-Leaf Plots - Data Analysis and Stats | Wizqo',
+    metaDescription: 'Organize your data! Practice creating and interpreting stem-and-leaf plots for statistical sets. Free printable math worksheet for grades 4-6.',
+    learningObjectives: ['Organize raw data into a functional stem-and-leaf structure', 'Identify the range, median, and mode of a dataset using the plot', 'Understand how to read and interpret vertical place-value data maps'],
+    intro: 'Data is just a mess until you organize it! Our Stem-and-Leaf Plots worksheet teaches students one of the most powerful tools in basic statistics. By splitting numbers into "stems" (tens) and "leaves" (ones), learners can quickly see patterns, outliers, and averages in large datasets. It\'s a vital skill for future scientists, economists, and anyone who wants to understand the world through numbers!'
+  },
+  'sub-2digit-regrouping': {
+    title: '2-Digit Subtraction with Regrouping - Mastering Borrowing | Wizqo',
+    metaDescription: 'Step up your subtraction! Practice 2-digit "borrowing" with our regrouping worksheet. Free printable math PDF for grades 2-3.',
+    learningObjectives: ['Master the process of "borrowing" or regrouping from the tens place', 'Correctly align multi-digit numbers for subtraction accuracy', 'Verify subtraction results using inverse addition operations'],
+    intro: 'Sometimes you have to borrow to move forward! Our 2-Digit Subtraction with Regrouping worksheet focuses on the critical shift from basic arithmetic to multi-digit logic. By learning how to transform one ten into ten ones, students build the place-value foundation needed for complex subtraction and mental math. It\'s a major milestone in every young mathematician\'s journey!'
+  },
+  'sudoku4': {
+    title: 'Introductory 4x4 Sudoku - Early Logic Puzzles | Wizqo',
+    metaDescription: 'A brain workout for beginners! Solve 4x4 Sudoku puzzles to build deductive reasoning and concentration. Free printable for kids.',
+    learningObjectives: ['Complete 4x4 grids by ensuring no numbers repeat in any row, column, or block', 'Develop early deductive reasoning and "process of elimination" skills', 'Strengthen visual attention and sustained focus through logic'],
+    intro: 'Math can be a game! Our 4x4 Sudoku worksheet is the perfect introduction to the world of logic puzzles. By using numbers 1-4 to fill in the grid without repeats, children learn the "process of elimination" and deductive thinking habits used in coding and advanced geometry. It\'s a fun, stress-free way to build a powerful brain!'
+  },
+  'sudoku6': {
+    title: 'Intermediate 6x6 Sudoku - Logical Thinking Challenge | Wizqo',
+    metaDescription: 'Level up the logic! 6x6 Sudoku puzzles for increasing concentration and deductive skills. Free printable PDF for grades 2-5.',
+    learningObjectives: ['Analyze a 6x6 grid to identify missing numerical values in rows and blocks', 'Manage multiple logical constraints simultaneously during problem-solving', 'Build the mathematical stamina needed for more complex 9x9 puzzles'],
+    intro: 'Ready for a bigger challenge? Our 6x6 Sudoku worksheet takes logic to the next level. With more numbers and more blocks to track, students must sharpen their focus and use advanced deductive strategies to solve the puzzle. It\'s an excellent way to bridge the gap between simple games and the high-level critical thinking used in pre-algebra and beyond!'
+  },
+  'subtraction-stories': {
+    title: 'Subtraction Word Problems - Real-World Story Math | Wizqo',
+    metaDescription: 'Take it away! Practice solving subtraction in narrative contexts like shopping and sharing. Free printable PDF for grades 1-3.',
+    learningObjectives: ['Identify subtraction "clue words" in narrative text (e.g., "left," "remains")', 'Translate story situations into formal numerical equations', 'Differentiate between simple subtraction and "compare" scenarios'],
+    intro: 'Math isn\'t just numbers—it\'s stories! Our Subtraction Stories worksheet takes abstract equations and puts them in real-world situations like spending money, sharing snacks, and losing balloons. By learning how to "find the math" in a story, children build the situational literacy and problem-solving skills they need for life outside the classroom.'
+  },
+  'summer-pack': {
+    title: 'Summer Learning Fun Pack - Seasonal Skills Review | Wizqo',
+    metaDescription: 'Keep the brain active! A varied collection of summer-themed math, logic, and visual puzzles. Free printable PDF for Grades K-3.',
+    learningObjectives: ['Review core arithmetic and logic skills in a low-stress format', 'Strengthen visual-perception through seasonal puzzles and drawing', 'Maintain educational momentum during the long summer break'],
+    intro: 'School might be out, but the learning never stops! Our Summer Fun Pack is a joyful mix of sunshine-themed math, logic puzzles, and creative drawing challenges. From counting seashells to solving summer mazes, this pack is designed to keep young minds sharp and curious while they enjoy their vacation. It\'s the perfect companion for a rainy beach day or a quiet afternoon at home!'
+  },
+  'symmetry': {
+    title: 'Introduction to Symmetry - Mirror Image Practice | Wizqo',
+    metaDescription: 'Find the balance! Identify and draw lines of symmetry in shapes and objects. Free printable geometry worksheet for grades 1-3.',
+    learningObjectives: ['Define symmetry as a balanced and proportionate similarity between two sides', 'Correctly identify and draw lines of symmetry in geometric figures', 'Recognize symmetrical patterns in the natural and architectural world'],
+    intro: 'Math is beautiful! Our symmetry worksheet introduces students to the concept of "balance." By finding where a shape can be folded into two identical halves, children build the visual discrimination and geometric awareness used in art, biology, and advanced physics. It\'s the secret to understanding why a butterfly or a snowflake looks so perfect!'
+  },
+  'symmetry-transformations': {
+    title: 'Symmetry and Transformations - Positional Geometry | Wizqo',
+    metaDescription: 'Flip it and fold it! Advanced practice with mirrored reflections and geometric symmetry. Free printable PDF for grades 4-5.',
+    learningObjectives: ['Execute mirrored reflections of complex shapes across an axis', 'Identify vertical, horizontal, and diagonal lines of symmetry', 'Understand how transformations impact the orientation of geometric figures'],
+    intro: 'Geometry is on the move! Our Symmetry and Transformations worksheet challenges older students to think about how shapes interact with space. By practicing mirrored reflections and identifying multiple axes of symmetry, learners build the advanced spatial reasoning and visualization skills used by computer animators, architects, and engineers.'
+  },
+  'tangram-animals': {
+    title: 'Tangram Animal Puzzles - Geometric Art & Logic | Wizqo',
+    metaDescription: 'Build a bird or a cat! Solve ancient Chinese geometric puzzles with our tangram animals worksheet. Free printable for all ages.',
+    learningObjectives: ['Identify and manipulate the seven standard tangram shapes (tans)', 'Compose complex animal figures using basic geometric building blocks', 'Strengthen spatial visualization and "part-whole" structural reasoning'],
+    intro: 'What can you make with seven simple shapes? Our Tangram Animals worksheet uses an ancient Chinese puzzle to teach modern geometry. By arranging triangles, squares, and parallelograms into the shapes of foxes, birds, and fish, kids build the spatial intelligence and creative problem-solving skills that are the foundation of high-level architecture and design.'
+  },
+  'ten-frames-1-20': {
+    title: 'Ten-Frames 1-20 - Advanced Number Sense Visualization | Wizqo',
+    metaDescription: 'Master the "teen" numbers! Practice visualizing sums up to 20 using dual ten-frames. Free printable for Kindergarten and 1st Grade.',
+    learningObjectives: ['Recognize and name "teen" numbers as 10 plus some more', 'Understand place value foundations by filling a full frame (ten)', 'Instantly recognize quantities up to 20 without counting by ones'],
+    intro: 'Once you master 10, it\'s time to grow! Our Ten-Frames (1-20) worksheet uses two side-by-side frames to help students visualize the "teen" numbers. By seeing 14 as one "full" ten and four "extra" ones, children build the base-10 mental model that makes multi-digit addition and place value second nature. It\'s the ultimate tool for early math fluency!'
+  },
+  'time-5min': {
+    title: 'Telling Time to 5 Minutes - Analog Clock Master | Wizqo',
+    metaDescription: 'Read the hidden minutes! Practice telling time with 5-minute precision. Free printable math worksheet for grades 2-3.',
+    learningObjectives: ['Identify the hour and minute hands with 5-minute interval accuracy', 'Practice skip-counting by 5s around the clock face', 'Translate analog clock positions into digital numerical format'],
+    intro: 'The clock has a secret code! Our Telling Time to 5 Minutes worksheet teaches students how to read between the numbers. By skip-counting by fives and tracking the slow crawl of the hour hand, children gain the precision they need to manage their own schedules and understand the flow of the day. It\'s a vital "grown-up" skill that builds numerical fluency and self-reliance!'
   }
 }
 
