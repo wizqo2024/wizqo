@@ -2582,6 +2582,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Draw your dreams! Explore digital sketching with dynamic brush tools and textures in our engaging interactive art room.',
     learningObjectives: ['Master digital drawing tools and basic artistic techniques (lines, shading, texture)', 'Express creative ideas through free-form visual storytelling', 'Build confidence in artistic self-expression and motor skill coordination'],
     intro: 'If you can dream it, you can draw it! Our Interactive Art Sketch studio is a wide-open space for your creativity. With a variety of digital brushes, markers, and textures, students can explore the joy of drawing without ever running out of ink. From simple doodles to detailed sketches, this is where your imagination takes shape!'
+  },
+  'interactive-early-phonics': {
+    title: 'Interactive Early Phonics - Letter-Sound Matching Game | Wizqo',
+    metaDescription: 'Start reading today! Master beginning letter sounds with our engaging interactive digital phonics game for Pre-K and Kindergarten.',
+    learningObjectives: ['Connect individual letters to their corresponding phonetic sounds', 'Identify beginning sounds in simple words through visual and auditory cues', 'Build the foundational decoding skills needed for early reading fluency'],
+    intro: 'The journey to reading starts with a single sound! Our Interactive Early Phonics game turns letter-learning into a digital playground. By matching letters to sounds and pictures, young learners build the "alphabet muscles" needed to start blending and reading their first words. It\'s a fun, low-stress way to spark a lifelong love for literacy!'
+  },
+  'interactive-early-counting': {
+    title: 'Interactive Early Counting - Digital Math Foundations | Wizqo',
+    metaDescription: 'One, two, three! Master basic counting and number recognition with our engaging interactive digital math lab for young learners.',
+    learningObjectives: ['Demonstrate one-to-one correspondence when counting digital objects', 'Recognize and name numbers 1-20 in a variety of interactive contexts', 'Understand the relationship between numbers and quantities through direct manipulation'],
+    intro: 'Math is a numbers game! Our Interactive Early Counting lab helps children discover the logic of "how many." By dragging, dropping, and counting colorful digital objects, students build the solid number sense that serves as the foundation for all future math skills. Count your way to confidence in a hand-on, digital world!'
+  },
+  'interactive-early-patterns': {
+    title: 'Interactive Early Patterns - Color & Shape Logic Studio | Wizqo',
+    metaDescription: 'Spot the pattern! Explore visual logic and sequences with our engaging interactive digital pattern-building game for kids.',
+    learningObjectives: ['Identify, extend, and create simple repeating patterns (AB, ABC)', 'Recognize patterns in colors, shapes, and sizes through interactive play', 'Develop the logical reasoning and prediction skills used in math and science'],
+    intro: 'Patterns are everywhere! Our Interactive Early Patterns studio turns logical thinking into a creative art form. By arranging shapes and colors into repeating sequences, students learn how to predict "what comes next" and understand the rules that govern the world around them. It\'s a colorful, intuitive way to build a math-ready brain!'
+  },
+  'interactive-logic-sequence': {
+    title: 'Interactive Logic Sequence - Chronological Order Puzzle | Wizqo',
+    metaDescription: 'First, second, third! Master the logic of time and order with our engaging interactive digital sequencing puzzles.',
+    learningObjectives: ['Correctly sequence events in chronological or logical order', 'Identify cause-and-effect relationships within a short sequence', 'Improve temporal awareness and logical reasoning through interactive storytelling'],
+    intro: 'Everything has its place and time! Our Interactive Logic Sequence puzzles teach students how to organize information and understand the flow of events. By putting stories and processes in the right order, readers build the narrative logic and critical thinking skills used in both reading and science. Can you find the right order for every story?'
+  },
+  'interactive-logic-riddles': {
+    title: 'Interactive Logic Riddles - Critical Thinking Workshop | Wizqo',
+    metaDescription: 'Solve the mystery! Practice deductive reasoning and word-play with our engaging interactive digital riddle workshop.',
+    learningObjectives: ['Apply deductive logic to solve complex word and picture riddles', 'Improve vocabulary and lateral thinking through linguistic challenges', 'Build persistence and problem-solving strategies in a gamified environment'],
+    intro: 'Think outside the box! Our Interactive Logic Riddles workshop is a gymnasium for the mind. Each riddle is a puzzle that requires students to look at clues from different angles, use their vocabulary, and apply sharp logic to find the answer. It\'s a rewarding, engaging way to build the "deep thinking" habits of a true problem solver!'
+  },
+  'interactive-logic-deduction': {
+    title: 'Interactive Logic Deduction - Evidence-Based Brain Game | Wizqo',
+    metaDescription: 'Case closed! Master the art of deduction and evidence-based logic with our engaging interactive digital brain game.',
+    learningObjectives: ['Use provided evidence to rule out possibilities and reach a logical conclusion', 'Identify key "clues" within a digital scenarios to solve logic-grid puzzles', 'Strengthen working memory and systematic thinking processes'],
+    intro: 'Become a master of logic! Our Interactive Deduction game turns evidence into answers. By analyzing facts and using logic to solve "who, what, and where" mysteries, students practice the same systematic thinking used by computer programmers and detectives. Every case solved is a victory for your critical thinking skills!'
+  },
+  'interactive-sel-mindfulness': {
+    title: 'Interactive SEL Mindfulness - Digital Focus & Calm Lab | Wizqo',
+    metaDescription: 'Breathe and focus. Practice emotional regulation and mindfulness with our engaging interactive digital SEL tools.',
+    learningObjectives: ['Identify and name internal emotional states through guided interaction', 'Practice breathing and focus techniques for self-regulation and stress relief', 'Build self-awareness and concentration through quiet, mindful engagement'],
+    intro: 'Find your center! Our Interactive SEL Mindfulness lab is a quiet space for your mind to grow. Through gentle breathing exercises and focus-based activities, students learn how to manage big feelings and stay calm in a busy world. It\'s a digital tool for emotional wellness that helps every learner feel ready for their day!'
+  },
+  'interactive-sel-empathy': {
+    title: 'Interactive SEL Empathy - Perspective-Taking Journey | Wizqo',
+    metaDescription: 'See through their eyes. Explore kindness and perspective-taking with our engaging interactive digital empathy scenarios.',
+    learningObjectives: ['Recognize emotions in others based on visual and situational cues', 'Identify kind and helpful responses to various social challenges', 'Develop the perspective-taking skills needed for healthy relationships'],
+    intro: 'Walk a mile in their digital shoes! Our Interactive SEL Empathy journey turns social scenarios into a lesson in kindness. By seeing a situation from multiple points of view and choosing the most caring response, students build the heart-skills needed for a more compassionate world. Learn the power of empathy, one choice at a time!'
+  },
+  'interactive-sel-goals': {
+    title: 'Interactive SEL Goals - Habit & Achievement Tracker | Wizqo',
+    metaDescription: 'Reach for the stars! Learn goal-setting and self-management with our engaging interactive digital achievement tool.',
+    learningObjectives: ['Identify personal and academic goals using S.M.A.R.T. criteria', 'Break down large goals into small, manageable action steps', 'Develop self-discipline and persistence through habit tracking and celebration'],
+    intro: 'Dream big, plan smart! Our Interactive SEL Goals tool turns your aspirations into a roadmap for success. By learning how to set, track, and celebrate your progress, you build the self-management skills used by the world\'s most successful people. What is YOUR next big goal? Let\'s start tracking it today!'
+  },
+  'interactive-early-basics': {
+    title: 'Interactive Early Basics - Kindergarten Readiness Lab | Wizqo',
+    metaDescription: 'Ready for school! Master the foundational "basics" with our comprehensive interactive digital learning lab for early learners.',
+    learningObjectives: ['Demonstrate mastery of core readiness skills (colors, shapes, numbers, letters)', 'Follow multi-step digital instructions to complete varied basic tasks', 'Build the confidence and motor skills needed for a successful school start'],
+    intro: 'Master the essentials! Our Interactive Early Basics lab is a one-stop-shop for everything a young learner needs to know. From identifying colors to recognizing first letters, this comprehensive lab guides children through the "readiness" skills that make the start of school a success. It\'s the perfect foundation for a bright academic future!'
   }
 }
 
