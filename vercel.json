@@ -361,6 +361,10 @@
     {
       "source": "/:locale(es|ar)/worksheets/:slug",
       "destination": "/index.html"
+    },
+    {
+      "source": "/((?!assets/|api/|sitemap|robots).*)",
+      "destination": "/index.html"
     }
   ]
 }

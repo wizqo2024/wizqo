@@ -1,5 +1,7 @@
 import express, { type Express } from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { createClient } from '@supabase/supabase-js';
 import { getBestUniqueVideoForHobby } from './dailyBestVideo.js';
 import { generateInteractiveWorksheetPack } from '../shared/interactive/generator.ts';
@@ -147,8 +149,8 @@ app.get('/api/interactive-worksheets', (req, res) => {
       ? Math.max(1, Math.floor(Number(req.query.countPerCategory)))
       : 3
     // Always generate a timestamp for uniqueness - use provided one or generate new
-    const timestamp = Number.isFinite(Number(req.query?.timestamp)) 
-      ? Number(req.query.timestamp) 
+    const timestamp = Number.isFinite(Number(req.query?.timestamp))
+      ? Number(req.query.timestamp)
       : Date.now() + Math.floor(Math.random() * 1000)
 
     const pack = generateInteractiveWorksheetPack({
@@ -242,7 +244,7 @@ app.post('/api/user-profile', async (req, res) => {
           .eq('table_name', 'user_profiles');
         profileColumns = (cols.data as any[] | null)?.map(c => c.column_name) || [];
       }
-    } catch {}
+    } catch { }
 
     // 1) Try update by id
     const updateById = await supabaseAdmin
@@ -336,16 +338,16 @@ app.post('/api/user-profile', async (req, res) => {
     }
 
     console.error('profile_upsert_failed', { columns: profileColumns, updateByIdErr: updateById.error, updateByUserIdErr: updateByUserId.error, insertWithIdErr: insertWithId.error, insertWithUserIdErr: insertWithUserId.error });
-    
+
     // All attempts failed - return error
-    return res.status(500).json({ 
-      error: 'profile_upsert_failed', 
-      details: { 
+    return res.status(500).json({
+      error: 'profile_upsert_failed',
+      details: {
         updateByIdErr: updateById.error,
         updateByUserIdErr: updateByUserId.error,
         insertWithIdErr: insertWithId.error,
         insertWithUserIdErr: insertWithUserId.error
-      } 
+      }
     });
   } catch (e: any) {
     console.error('profile_upsert_exception', e);
@@ -380,7 +382,7 @@ app.post('/api/user-progress', async (req, res) => {
           .eq('table_name', 'user_progress');
         progressColumns = (cols.data as any[] | null)?.map(c => c.column_name) || [];
       }
-    } catch {}
+    } catch { }
     const hasLastAccessed = progressColumns.includes('last_accessed_at');
 
     // Select then update/insert to avoid depending on composite unique constraint
@@ -454,7 +456,7 @@ app.post('/api/hobby-plans', async (req, res) => {
         const ht = m ? normalize(m[1]) : '';
         return target && (h1 === target || h2 === target || hp === target || ht === target);
       });
-      if (dup) return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${(hobby||hobby_name) || 'this hobby'}.` });
+      if (dup) return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${(hobby || hobby_name) || 'this hobby'}.` });
 
       // Total cap: max 5 plans per user
       const total = await supabaseAdmin
@@ -464,7 +466,7 @@ app.post('/api/hobby-plans', async (req, res) => {
       if ((total.count || 0) >= 5) {
         return res.status(429).json({ error: 'plan_limit_reached' });
       }
-    } catch {}
+    } catch { }
 
     // Try flexible insert handling both schemas (hobby or hobby_name)
     // Use service role to bypass RLS policies
@@ -513,7 +515,7 @@ app.post('/api/hobby-plans', async (req, res) => {
           .eq('table_name', 'hobby_plans');
         planColumns = (cols.data as any[] | null)?.map(c => c.column_name) || [];
       }
-    } catch {}
+    } catch { }
 
     console.error('hobby_plan_save_failed', { columns: planColumns, first: first.error, second: second.error });
     // Return a stub response so UI can continue; saving can be retried later
@@ -573,39 +575,39 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
   const key = process.env.OPENROUTER_API_KEY as string;
   if (!key) throw new Error('missing_openrouter_key');
   // Super intelligent hobby parsing - understand any user input
-     const smartHobby = (() => {
-     const lowerHobby = hobby.toLowerCase().trim();
-     
-     // If the input is too broad/complex for 7 days, map to a beginner-friendly scope first
-     const complexityMappings: Array<{ keywords: string[]; target: string }> = [
-       { keywords: ['artificial intelligence', 'ai'], target: 'python for machine learning basics' },
-       { keywords: ['machine learning', 'deep learning'], target: 'machine learning fundamentals with python' },
-       { keywords: ['data science'], target: 'python data analysis basics' },
-       { keywords: ['full stack', 'fullstack'], target: 'web development fundamentals (html, css, js)' },
-       { keywords: ['cybersecurity', 'ethical hacking'], target: 'cybersecurity basics' },
-       { keywords: ['blockchain', 'web3'], target: 'blockchain fundamentals' },
-       { keywords: ['robotics'], target: 'arduino basics' },
-       { keywords: ['electronics'], target: 'basic electronics projects' },
-       { keywords: ['3d modeling'], target: 'blender basics' },
-       { keywords: ['animation'], target: '2d animation basics' },
-       { keywords: ['trading', 'stock market', 'crypto trading'], target: 'investing basics' },
-       { keywords: ['medicine', 'surgery'], target: 'human anatomy basics' },
-       { keywords: ['pilot', 'aviation'], target: 'flight theory basics' },
-       { keywords: ['architecture'], target: 'sketching buildings basics' },
-       { keywords: ['kubernetes'], target: 'docker and containers basics' },
-       { keywords: ['devops'], target: 'ci/cd basics' },
-       { keywords: ['photography'], target: 'beginner photography' },
-     ];
-     for (const map of complexityMappings) {
-       if (map.keywords.every(k => lowerHobby.includes(k))) {
-         return map.target;
-       }
-       if (map.keywords.some(k => lowerHobby === k)) {
-         return map.target;
-       }
-     }
-     
-     // Religious/Spiritual reading patterns
+  const smartHobby = (() => {
+    const lowerHobby = hobby.toLowerCase().trim();
+
+    // If the input is too broad/complex for 7 days, map to a beginner-friendly scope first
+    const complexityMappings: Array<{ keywords: string[]; target: string }> = [
+      { keywords: ['artificial intelligence', 'ai'], target: 'python for machine learning basics' },
+      { keywords: ['machine learning', 'deep learning'], target: 'machine learning fundamentals with python' },
+      { keywords: ['data science'], target: 'python data analysis basics' },
+      { keywords: ['full stack', 'fullstack'], target: 'web development fundamentals (html, css, js)' },
+      { keywords: ['cybersecurity', 'ethical hacking'], target: 'cybersecurity basics' },
+      { keywords: ['blockchain', 'web3'], target: 'blockchain fundamentals' },
+      { keywords: ['robotics'], target: 'arduino basics' },
+      { keywords: ['electronics'], target: 'basic electronics projects' },
+      { keywords: ['3d modeling'], target: 'blender basics' },
+      { keywords: ['animation'], target: '2d animation basics' },
+      { keywords: ['trading', 'stock market', 'crypto trading'], target: 'investing basics' },
+      { keywords: ['medicine', 'surgery'], target: 'human anatomy basics' },
+      { keywords: ['pilot', 'aviation'], target: 'flight theory basics' },
+      { keywords: ['architecture'], target: 'sketching buildings basics' },
+      { keywords: ['kubernetes'], target: 'docker and containers basics' },
+      { keywords: ['devops'], target: 'ci/cd basics' },
+      { keywords: ['photography'], target: 'beginner photography' },
+    ];
+    for (const map of complexityMappings) {
+      if (map.keywords.every(k => lowerHobby.includes(k))) {
+        return map.target;
+      }
+      if (map.keywords.some(k => lowerHobby === k)) {
+        return map.target;
+      }
+    }
+
+    // Religious/Spiritual reading patterns
     if (lowerHobby.includes('reading') && (lowerHobby.includes('quran') || lowerHobby.includes('koran'))) {
       return 'quran reading';
     }
@@ -615,7 +617,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('reading') && (lowerHobby.includes('holy') || lowerHobby.includes('religious') || lowerHobby.includes('sacred'))) {
       return 'religious reading';
     }
-    
+
     // General reading patterns
     if (lowerHobby.includes('reading') && lowerHobby.includes('book')) {
       return 'book reading';
@@ -626,7 +628,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('reading') && lowerHobby.includes('poetry')) {
       return 'poetry reading';
     }
-    
+
     // Music instrument patterns
     if (lowerHobby.includes('playing') && lowerHobby.includes('guitar')) {
       return 'guitar';
@@ -640,7 +642,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('playing') && lowerHobby.includes('drum')) {
       return 'drums';
     }
-    
+
     // Art patterns
     if (lowerHobby.includes('drawing') || lowerHobby.includes('sketching')) {
       return 'drawing';
@@ -654,7 +656,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('painting') && lowerHobby.includes('oil')) {
       return 'oil painting';
     }
-    
+
     // Cooking patterns
     if (lowerHobby.includes('cooking') || lowerHobby.includes('chef')) {
       return 'cooking';
@@ -662,7 +664,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('baking') || lowerHobby.includes('pastry')) {
       return 'baking';
     }
-    
+
     // Photography patterns
     if (lowerHobby.includes('photo') || lowerHobby.includes('camera')) {
       return 'photography';
@@ -670,7 +672,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('digital') && lowerHobby.includes('photo')) {
       return 'digital photography';
     }
-    
+
     // Language patterns
     if (lowerHobby.includes('learning') && lowerHobby.includes('language')) {
       return 'language learning';
@@ -690,7 +692,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('chinese') || lowerHobby.includes('mandarin')) {
       return 'mandarin';
     }
-    
+
     // Fitness patterns
     if (lowerHobby.includes('yoga') || lowerHobby.includes('meditation')) {
       return 'yoga';
@@ -704,7 +706,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('swimming') || lowerHobby.includes('swim')) {
       return 'swimming';
     }
-    
+
     // Technology patterns
     if (lowerHobby.includes('coding') || lowerHobby.includes('programming') || lowerHobby.includes('code')) {
       return 'coding';
@@ -715,7 +717,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('app') && lowerHobby.includes('development')) {
       return 'app development';
     }
-    
+
     // Gardening patterns
     if (lowerHobby.includes('garden') || lowerHobby.includes('plant')) {
       return 'gardening';
@@ -723,7 +725,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('flower') && lowerHobby.includes('growing')) {
       return 'flower gardening';
     }
-    
+
     // Craft patterns
     if (lowerHobby.includes('knitting') || lowerHobby.includes('knit')) {
       return 'knitting';
@@ -734,7 +736,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('sewing') || lowerHobby.includes('sew')) {
       return 'sewing';
     }
-    
+
     // Writing patterns
     if (lowerHobby.includes('writing') && lowerHobby.includes('poetry')) {
       return 'poetry writing';
@@ -745,7 +747,7 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('blog') || lowerHobby.includes('blogging')) {
       return 'blogging';
     }
-    
+
     // Gaming patterns
     if (lowerHobby.includes('game') && lowerHobby.includes('development')) {
       return 'game development';
@@ -756,12 +758,12 @@ async function generatePlanViaOpenRouter(hobby: string, experience: string, time
     if (lowerHobby.includes('board') && lowerHobby.includes('game')) {
       return 'board games';
     }
-    
+
     // Return original if no pattern matches
     return hobby;
   })();
 
-    const prompt = `Create a comprehensive 7-day learning plan for ${smartHobby}.
+  const prompt = `Create a comprehensive 7-day learning plan for ${smartHobby}.
 
 IMPORTANT INSTRUCTIONS:
  1. Treat "${hobby}" as a single, unified hobby or activity
@@ -916,7 +918,7 @@ Return ONLY a JSON object with this exact structure:
 async function getYouTubeVideo(hobby: string, day: number, title: string, excludeIds: string[] = []) {
   const apiKey = process.env.YOUTUBE_API_KEY as string | undefined;
   if (!apiKey) return null as any;
-  
+
   try {
     // Create more specific and varied search queries for each day
     const searchQueries = [
@@ -951,7 +953,7 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
     // Use day number to select different search strategies
     const queryIndex = (day - 1) % searchQueries.length;
     const selectedQuery = searchQueries[queryIndex];
-    
+
     // Add day-specific modifiers to make searches more unique
     const dayModifiers = [
       'beginner', 'intermediate', 'advanced', 'fundamentals', 'practice', 'technique',
@@ -959,20 +961,20 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
     ];
     const modifierIndex = (day - 1) % dayModifiers.length;
     const dayModifier = dayModifiers[modifierIndex];
-    
+
     // Create final search query with day-specific content
     const finalQuery = `${selectedQuery} ${dayModifier}`;
-    
+
     console.log(`?? Video search for Day ${day}: "${finalQuery}"`);
-    
+
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${encodeURIComponent(finalQuery)}&key=${apiKey}&relevanceLanguage=en`;
-    
+
     const r = await fetch(url);
     if (!r.ok) throw new Error(`yt_${r.status}`);
-    
+
     const j = await r.json();
     const items = j.items || [];
-    
+
     if (items.length === 0) return null as any;
 
     // Fetch details to enforce 5?50 minutes, >=5k views, published since 2020, public/processed/embeddable
@@ -1060,10 +1062,10 @@ async function getYouTubeVideo(hobby: string, day: number, title: string, exclud
     };
     console.log(`? Day ${day} video selected (5?50 min): ${result.title}`);
     return result;
-    
-  } catch (e) { 
+
+  } catch (e) {
     console.error(`? Video search error for Day ${day}:`, e);
-    return null as any; 
+    return null as any;
   }
 }
 
@@ -1071,7 +1073,7 @@ async function getVideoViaOpenRouterFallback(hobby: string, day: number, title: 
   try {
     const key = process.env.OPENROUTER_API_KEY as string | undefined;
     if (!key) return null as any;
-    
+
     // Create day-specific prompts for better video variety
     const daySpecificPrompts = [
       `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: BEGINNER BASICS. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`,
@@ -1082,33 +1084,33 @@ async function getVideoViaOpenRouterFallback(hobby: string, day: number, title: 
       `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: ADVANCED TECHNIQUES. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`,
       `Suggest a YouTube video ID for ${hobby} day ${day} titled "${title}". Focus on: MASTERY & REFINEMENT. Reply ONLY with JSON: {"id":"VIDEO_ID","title":"Title"}`
     ];
-    
+
     // Use day number to select different focus areas
     const promptIndex = (day - 1) % daySpecificPrompts.length;
     const selectedPrompt = daySpecificPrompts[promptIndex];
-    
+
     console.log(`?? AI Video suggestion for Day ${day}: ${selectedPrompt}`);
-    
+
     const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'Authorization': `Bearer ${key}` 
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${key}`
       },
-      body: JSON.stringify({ 
-        model: 'deepseek/deepseek-chat', 
-        messages: [{ role: 'user', content: selectedPrompt }], 
+      body: JSON.stringify({
+        model: 'deepseek/deepseek-chat',
+        messages: [{ role: 'user', content: selectedPrompt }],
         max_tokens: 100,
         temperature: 0.7 // Add some randomness for variety
       })
     });
-    
-  if (!resp.ok) return null as any;
-    
+
+    if (!resp.ok) return null as any;
+
     const data = await resp.json();
     let content = data.choices?.[0]?.message?.content || '';
     content = content.trim().replace(/^```json\s*|^```\s*|\s*```$/g, '');
-    
+
     try {
       const parsed = JSON.parse(content);
       if (parsed?.id && typeof parsed.id === 'string') {
@@ -1123,7 +1125,7 @@ async function getVideoViaOpenRouterFallback(hobby: string, day: number, title: 
     } catch (parseError) {
       console.error(`? AI video suggestion parse error for Day ${day}:`, parseError);
     }
-    
+
     return null as any;
   } catch (error) {
     console.error(`? AI video suggestion error for Day ${day}:`, error);
@@ -1137,7 +1139,7 @@ app.post('/api/generate-plan', async (req, res) => {
     const hobby = String(req.body?.hobby || '').trim();
     const experience = String(req.body?.experience || 'beginner');
     const timeAvailable = String(req.body?.timeAvailable || '30-60 minutes');
-    const goal = String(req.body?.goal || (hobby ? `Learn ${hobby} fundamentals` : '')); 
+    const goal = String(req.body?.goal || (hobby ? `Learn ${hobby} fundamentals` : ''));
     const userId = String(req.body?.user_id || '').trim();
     if (!hobby) return res.status(400).json({ error: 'missing_hobby' });
     if (!process.env.OPENROUTER_API_KEY) return res.status(503).json({ error: 'missing_api_keys', missing: ['OPENROUTER_API_KEY'] });
@@ -1173,7 +1175,7 @@ app.post('/api/generate-plan', async (req, res) => {
           return res.status(409).json({ error: 'duplicate_plan', plan_id: dup.id, message: `You already have a learning plan for ${hobby}.` });
         }
       }
-    } catch {}
+    } catch { }
 
     const aiPlan = await generatePlanViaOpenRouter(hobby, experience, timeAvailable, goal);
     if (!aiPlan) return res.status(502).json({ error: 'bad_ai_response' });
@@ -1187,7 +1189,7 @@ app.post('/api/generate-plan', async (req, res) => {
       title: typeof d?.title === 'string' ? d.title : null,
       goals: Array.isArray(d?.checklist) ? d.checklist.slice(0, 3) : (Array.isArray(d?.howTo) ? d.howTo.slice(0, 3) : [])
     }));
-    const outline = explicitOutline.length ? explicitOutline.slice(0,7) : derivedOutline;
+    const outline = explicitOutline.length ? explicitOutline.slice(0, 7) : derivedOutline;
 
     // Generate only Day 1 content now to save tokens
     const d1 = rawDays?.[0] || {} as any;
@@ -1196,7 +1198,7 @@ app.post('/api/generate-plan', async (req, res) => {
     if (!d1.title || typeof d1.title !== 'string' || !d1.title.trim()) {
       return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate a title for Day 1. Please try again.' });
     }
-    
+
     const title = d1.title.trim();
     const excludeIds1: string[] = [];
     let video = await getYouTubeVideo(hobby, dayNum, title, excludeIds1);
@@ -1205,11 +1207,11 @@ app.post('/api/generate-plan', async (req, res) => {
     if (!d1.mainTask && !d1.goal && !d1.objective) {
       return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate sufficient content for Day 1. Please try again.' });
     }
-    
+
     if (!d1.howTo || d1.howTo.length === 0) {
       return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate steps for Day 1. Please try again.' });
     }
-    
+
     const day1 = {
       day: 1,
       title,
@@ -1231,11 +1233,11 @@ app.post('/api/generate-plan', async (req, res) => {
     if (!aiPlan.title || typeof aiPlan.title !== 'string' || !aiPlan.title.trim()) {
       return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate a plan title. Please try again.' });
     }
-    
+
     if (!aiPlan.overview && !aiPlan.description) {
       return res.status(502).json({ error: 'insufficient_ai_content', message: 'AI did not generate a plan overview. Please try again.' });
     }
-    
+
     res.json({
       hobby: aiPlan.hobby || hobby,
       title: aiPlan.title.trim(),
@@ -1254,7 +1256,7 @@ app.post('/api/generate-plan', async (req, res) => {
     if (msg.startsWith('openrouter_402') || msg.startsWith('openrouter_403') || msg.startsWith('openrouter_401')) {
       return res.status(503).json({ error: 'ai_quota_exhausted', message: 'AI quota or authorization issue. Please try again later.' });
     }
-    if (msg.startsWith('openrouter_5') || msg.includes('openrouter_') ) {
+    if (msg.startsWith('openrouter_5') || msg.includes('openrouter_')) {
       return res.status(503).json({ error: 'ai_unavailable', message: 'AI provider unavailable. Please try again.' });
     }
     res.status(500).json({ error: 'failed_to_generate_plan', message: String(e?.message || e), upstream: e?.upstream || '' });
@@ -1314,7 +1316,7 @@ app.post('/api/generate-day', async (req, res) => {
     if (!resp.ok) {
       const text = await resp.text().catch(() => '');
       const err = new Error(`openrouter_${resp.status}`);
-      ;(err as any).upstream = text;
+      ; (err as any).upstream = text;
       throw err;
     }
     const data = await resp.json();
@@ -1387,7 +1389,7 @@ app.post('/api/generate-day', async (req, res) => {
           excludeIds = Array.from(new Set([...(excludeIds || []), ...priorDbIds]));
         }
       }
-    } catch {}
+    } catch { }
     let video = await getYouTubeVideo(hobby, dayNumber, title, excludeIds);
     if (!video) video = await getVideoViaOpenRouterFallback(hobby, dayNumber, title);
 
@@ -1498,7 +1500,7 @@ app.post('/api/generate-day', async (req, res) => {
     if (msg.startsWith('openrouter_402') || msg.startsWith('openrouter_403') || msg.startsWith('openrouter_401')) {
       return res.status(503).json({ error: 'ai_quota_exhausted', message: 'AI quota or authorization issue. Please try again later.' });
     }
-    if (msg.startsWith('openrouter_5') || msg.includes('openrouter_') ) {
+    if (msg.startsWith('openrouter_5') || msg.includes('openrouter_')) {
       return res.status(503).json({ error: 'ai_unavailable', message: 'AI provider unavailable. Please try again.' });
     }
     res.status(500).json({ error: 'failed_to_generate_day', message: String(e?.message || e), upstream: e?.upstream || '' });
@@ -1544,7 +1546,7 @@ app.get('/api/hobby-plans/:id', async (req, res) => {
           if (Array.isArray(arr) && arr.length > 0) return res.json(arr[0]);
         }
       }
-    } catch {}
+    } catch { }
 
     return res.status(404).json({ error: 'not_found' });
   } catch {
@@ -1598,7 +1600,7 @@ app.post('/api/hobby-chat', async (req, res) => {
         const dayN = plan.days[Math.min(6, plan.days.length - 1)]?.title || '';
         planSummary = `Plan: ${title} | Days: ${total} | Sample: Day1: ${day1} ... Day${Math.min(7, plan.days.length)}: ${dayN}`;
       }
-    } catch {}
+    } catch { }
 
     const key = process.env.OPENROUTER_API_KEY as string;
     const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -1635,17 +1637,17 @@ app.post('/api/hobby-chat', async (req, res) => {
 app.post('/api/validate-hobby', async (req, res) => {
   try {
     const { hobby } = req.body;
-    
+
     if (!hobby || typeof hobby !== 'string') {
-      return res.status(400).json({ 
-        isValid: false, 
-        error: 'Invalid hobby input' 
+      return res.status(400).json({
+        isValid: false,
+        error: 'Invalid hobby input'
       });
     }
 
     // Basic hobby validation with smart variations
     const cleanHobby = hobby.toLowerCase().trim();
-    
+
     // Hobby categories and mappings
     const hobbyCategories = {
       arts: ['drawing', 'painting', 'photography', 'sketching', 'calligraphy'],
@@ -1658,7 +1660,7 @@ app.post('/api/validate-hobby', async (req, res) => {
     };
 
     // Common variations and synonyms
-  const hobbyVariations: Record<string, string> = {
+    const hobbyVariations: Record<string, string> = {
       'coffee making': 'coffee',
       'coffee brewing': 'coffee',
       'canva editing': 'design',
@@ -1753,9 +1755,9 @@ app.post('/api/validate-hobby', async (req, res) => {
 
   } catch (error) {
     console.error('Hobby validation error:', error);
-    return res.status(500).json({ 
-      isValid: false, 
-      error: 'Validation failed' 
+    return res.status(500).json({
+      isValid: false,
+      error: 'Validation failed'
     });
   }
 });
@@ -1816,7 +1818,7 @@ Respond in JSON format:
 
     const data = await response.json();
     const content = data.choices[0]?.message?.content;
-    
+
     if (!content) {
       throw new Error('No content from AI');
     }
@@ -1854,4 +1856,26 @@ Respond in JSON format:
 
 // Export the app for Vercel @vercel/node
 export default app;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files and handle SPA routing in non-Vercel environments (like local production preview)
+const publicDir = path.resolve(__dirname, '../dist/public');
+app.use(express.static(publicDir));
+
+app.get('*', (req, res) => {
+  // Always skip API routes for the catch-all
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'API route not found' });
+  }
+
+  // Serve index.html for all other routes to support SPA
+  res.sendFile(path.join(publicDir, 'index.html'), (err) => {
+    if (err) {
+      // If index.html is missing (e.g. build hasn't run), send a basic 404
+      res.status(404).send('Not Found');
+    }
+  });
+});
 
