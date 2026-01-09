@@ -1,5 +1,5 @@
 /** @jsxImportSource react */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared';
@@ -24,6 +24,7 @@ interface SpecificWorksheetProps {
     seed: string
     variant: number
     showAnswersForDoc: (docId: string, render: () => ReactNode) => ReactNode
+    showAnswers?: boolean
 }
 
 
@@ -4172,19 +4173,22 @@ export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWork
     );
 }
 
-export function LatticeMultiplication({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
+export function LatticeMultiplication({ seed, variant, showAnswers, showAnswersForDoc }: SpecificWorksheetProps) {
     const docId = "mult-lattice";
     const { getTrans, t } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
     function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
 
-    const problems = Array.from({ length: 4 }).map((_, i) => {
+    const problems = useMemo(() => Array.from({ length: 4 }).map((_, i) => {
         const topDigits = i < 2 ? 2 : 3;
         const bottomDigits = 2;
         const a = nextInt(Math.pow(10, topDigits - 1), Math.pow(10, topDigits) - 1);
         const b = nextInt(Math.pow(10, bottomDigits - 1), Math.pow(10, bottomDigits) - 1);
-        return { a, b, topDigits, bottomDigits };
-    });
+        const product = a * b;
+        const productDigits = String(product).padStart(topDigits + bottomDigits, '0').split("");
+        // If the first digit is 0 (carry), we might still want to show the placeholder as empty or 0 if showing answers
+        return { a, b, topDigits, bottomDigits, product, productDigits };
+    }), [seed, variant]);
 
     return (
         <WorksheetSectionWrapper
@@ -4236,57 +4240,66 @@ export function LatticeMultiplication({ seed, variant, showAnswersForDoc }: Spec
                 description="The lattice method breaks multiplication into smaller, manageable pieces by using a grid with diagonal paths."
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10">
-                {problems.map((p, pIdx) => {
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-24 gap-x-12 mt-10">
+                {problems.map((p: any, pIdx: number) => {
                     const aDigits = String(p.a).split("");
                     const bDigits = String(p.b).split("");
+                    const showThisAnswer = showAnswers;
+
                     return (
-                        <div key={pIdx} className="relative p-8 border-2 border-amber-100 rounded-3xl bg-white shadow-sm hover:shadow-md transition-shadow">
+                        <div key={pIdx} className="relative p-10 pt-16 border-2 border-amber-100 rounded-3xl bg-white shadow-sm hover:shadow-md transition-shadow">
                             <div className="absolute top-4 left-6 text-xl font-black text-amber-200">#{pIdx + 1}</div>
                             <div className="flex flex-col items-center">
-                                <div className="mb-10 text-3xl font-black text-slate-800 tracking-widest">
-                                    {p.a} × {p.b} = <span className="inline-block w-40 border-b-4 border-amber-400 opacity-30"></span>
+                                <div className="mb-14 text-3xl font-black text-slate-800 tracking-widest flex items-center gap-2">
+                                    {p.a} × {p.b} =
+                                    <span className="inline-flex items-center justify-center min-w-[120px] h-10 border-b-4 border-amber-400">
+                                        {showThisAnswer ? <span className="text-amber-600 animate-in fade-in slide-in-from-bottom-2 duration-500">{p.product}</span> : ""}
+                                    </span>
                                 </div>
 
-                                {/* Lattice Grid */}
-                                <div className="relative mb-12">
-                                    {/* Top Digits */}
-                                    <div className="flex justify-center ml-0 mr-12 mb-2">
-                                        {aDigits.map((d, i) => (
+                                {/* Lattice Grid Container */}
+                                <div className="relative">
+                                    {/* Top Digits - Precisely Aligned */}
+                                    <div className="flex mb-2" style={{ marginLeft: "0", width: `${p.topDigits * 96}px` }}>
+                                        {aDigits.map((d: string, i: number) => (
                                             <div key={i} className="w-24 text-center text-3xl font-black text-amber-600 drop-shadow-sm">{d}</div>
                                         ))}
                                     </div>
 
                                     <div className="flex">
-                                        <div className="relative border-4 border-slate-800 rounded-sm bg-white overflow-visible shadow-xl"
+                                        {/* The Grid */}
+                                        <div className="relative border-4 border-slate-800 rounded-sm bg-white overflow-hidden shadow-xl"
                                             style={{ width: `${p.topDigits * 96}px`, height: `${p.bottomDigits * 96}px` }}>
-                                            {/* Cells */}
-                                            <div className="grid" style={{ gridTemplateColumns: `repeat(${p.topDigits}, 1fr)` }}>
-                                                {Array.from({ length: p.topDigits * p.bottomDigits }).map((_, i) => (
-                                                    <div key={i} className="relative w-24 h-24 border border-slate-300">
+                                            {/* Cells Grid */}
+                                            <div className="grid h-full" style={{ gridTemplateColumns: `repeat(${p.topDigits}, 1fr)`, gridTemplateRows: `repeat(${p.bottomDigits}, 1fr)` }}>
+                                                {Array.from({ length: p.topDigits * p.bottomDigits }).map((_, i: number) => (
+                                                    <div key={i} className="relative border border-slate-300">
                                                         {/* Diagonal Line */}
-                                                        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
-                                                            <line x1="100" y1="0" x2="0" y2="100" stroke="#94a3b8" strokeWidth="2" strokeDasharray="4 2" />
+                                                        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                                            <line x1="100" y1="0" x2="0" y2="100" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="6 3" />
                                                         </svg>
                                                     </div>
                                                 ))}
                                             </div>
                                         </div>
 
-                                        {/* Right Digits */}
-                                        <div className="flex flex-col justify-around ml-4">
-                                            {bDigits.map((d, i) => (
+                                        {/* Right Digits - Precisely Aligned */}
+                                        <div className="flex flex-col ml-4" style={{ height: `${p.bottomDigits * 96}px` }}>
+                                            {bDigits.map((d: string, i: number) => (
                                                 <div key={i} className="h-24 flex items-center text-3xl font-black text-amber-600 drop-shadow-sm">{d}</div>
                                             ))}
                                         </div>
                                     </div>
 
-                                    {/* Diagonal Solution Lines (Visual Guide) */}
-                                    {/* These are represented by placeholders below the grid */}
-                                    <div className="absolute -bottom-16 -left-12 w-[calc(100%+48px)] flex justify-between px-4">
-                                        {Array.from({ length: p.topDigits + p.bottomDigits }).map((_, i) => (
-                                            <div key={i} className="w-12 h-12 rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/50 flex items-center justify-center text-amber-200">
-                                                ?
+                                    {/* Solution Placeholders - Positioned to align with diagonals */}
+                                    <div className="absolute -bottom-20 -left-12 flex items-center justify-center w-[calc(100%+24px)] gap-4">
+                                        {p.productDigits.map((d: string, i: number) => (
+                                            <div key={i} className={`w-14 h-14 rounded-2xl border-2 border-dashed ${showThisAnswer ? 'border-amber-400 bg-amber-50' : 'border-amber-300 bg-white'} flex items-center justify-center text-2xl font-black shadow-sm transition-all duration-500`}>
+                                                {showThisAnswer ? (
+                                                    <span className="text-amber-600 animate-in zoom-in duration-300">{d}</span>
+                                                ) : (
+                                                    <span className="text-amber-200 opacity-30">?</span>
+                                                )}
                                             </div>
                                         ))}
                                     </div>

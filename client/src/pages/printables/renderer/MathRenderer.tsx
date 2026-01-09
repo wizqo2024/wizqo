@@ -140,13 +140,14 @@ interface MathRendererProps {
     activeDocs: string[];
     seed: string;
     variant: number;
+    showAnswers?: boolean;
     showAnswersForDoc: (id: string, render: () => React.ReactNode) => React.ReactNode;
     t: (key: string) => string;
     getTrans: (key: string, fallback: string) => string;
     language?: string;
 }
 
-export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAnswersForDoc, t, getTrans, language = 'en' }: MathRendererProps) => {
+export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAnswers, showAnswersForDoc, t, getTrans, language = 'en' }: MathRendererProps) => {
     const numVariant = variant;
     return (
         <>
@@ -300,7 +301,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             })()}
 
             {activeDocs.includes('mult-area-model') && <AreaModelMult seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('mult-lattice') && <LatticeMultiplication seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-lattice') && <LatticeMultiplication seed={effectiveSeed} variant={numVariant} showAnswers={showAnswers} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Specific Math Worksheets from MathWorksheets.tsx and SecondGradeMath.tsx */}
             {activeDocs.includes('addition-subtraction-0-10') && (
