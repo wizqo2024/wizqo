@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createClient } from '@supabase/supabase-js';
-import { getBestUniqueVideoForHobby } from './dailyBestVideo.js';
+import { getBestUniqueVideoForHobby } from './dailyBestVideo';
 import { generateInteractiveWorksheetPack } from '../shared/interactive/generator.ts';
 import {
   INTERACTIVE_CATEGORIES,
@@ -121,6 +121,14 @@ async function generateAffiliateProducts(hobby: string, objectiveOrTitle: string
 const app: Express = express();
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
+
+// Handle underscore vs hyphen discrepancy in API URLs safely
+app.use((req, res, next) => {
+  if (req.url && req.url.includes('/api/user_profile')) {
+    req.url = req.url.replace('/api/user_profile', '/api/user-profile');
+  }
+  next();
+});
 
 // Health
 app.get('/api/health', (_req, res) => {
