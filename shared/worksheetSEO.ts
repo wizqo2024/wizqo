@@ -2702,6 +2702,24 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Look, listen, learn! Explore nature and basic science observations with our engaging interactive digital lab for Pre-K.',
     learningObjectives: ['Identify the basic needs of living things (water, sunlight, food)', 'Make simple observations of natural phenomena through digital simulation', 'Differentiate between living and non-living things in a variety of contexts'],
     intro: 'Nature is full of surprises! Our Interactive Science Pre-K lab allows tiny scientists to explore the world through a virtual magnifying glass. From watching a seed sprout to observing how clouds move, children build the observation habits and curiosity that make them scientists for life. Let\'s go on a discovery quest!'
+  },
+  'interactive-science-space': {
+    title: 'Interactive Science Space - Virtual Solar System Tour | Wizqo',
+    metaDescription: 'Launch into learning! Explore planets, orbits, and gravity in our engaging interactive digital space science lab for kids.',
+    learningObjectives: ['Identify the eight planets in our solar system and their relative positions', 'Understand the concepts of gravity, orbit, and planetary rotation', 'Describe key characteristics of the Sun, Moon, and celestial bodies'],
+    intro: '3, 2, 1... Blast off! Our Interactive Science Space lab turns your screen into a cockpit for celestial exploration. From the fiery surface of the Sun to the icy rings of Saturn, students navigate the solar system to discover the laws of gravity and the beauty of the stars. It\'s a giant leap for young astronomers everywhere!'
+  },
+  'interactive-sel-prek': {
+    title: 'Interactive SEL Pre-K - First Feelings Discovery | Wizqo',
+    metaDescription: 'Happy, sad, or curious? Explore "Big Feelings" with our engaging interactive digital SEL tools for Pre-K and toddlers.',
+    learningObjectives: ['Identify and name basic emotions (Happy, Sad, Angry, Surprised)', 'Connect facial expressions and body language to specific feelings', 'Develop early emotional awareness and self-soothing strategies'],
+    intro: 'How are you feeling today? Our Interactive SEL Pre-K discovery tool uses friendly characters and emoji-matching to help the youngest learners understand their inner world. By identifying "Big Feelings" in ourselves and others, children build the foundational emotional intelligence and empathy that makes every day brighter. Let\'s share a smile!'
+  },
+  'interactive-writing-prek': {
+    title: 'Interactive Writing Pre-K - Early Motor Skills Lab | Wizqo',
+    metaDescription: 'First marks! Explore "pre-writing" strokes and letter shapes with our engaging interactive digital writing lab for Pre-K.',
+    learningObjectives: ['Develop the fine motor coordination needed for pencil control and writing', 'Practice basic pre-writing strokes (horizontal lines, circles, zig-zags)', 'Recognize the visual "paths" that form foundational letter shapes'],
+    intro: 'Let\'s get writing! Our Interactive Writing Pre-K lab is a mess-free digital studio for exploring the building blocks of literacy. By tracing paths and creating "pre-writing" patterns, students build the motor skills and hand-eye coordination needed to eventually write their first letters. Every scribble is a step toward becoming a storyteller!'
   }
 }
 
@@ -3411,7 +3429,15 @@ export function initializeWorksheetSEO() {
     'tracing-uppercase', 'two-digit-addition-no-regrouping', 'two-digit-addition-with-regrouping',
     'two-digit-subtraction-no-regrouping', 'two-digit-subtraction-with-regrouping', 'unitary-method-5th',
     'uppercase-alphabet', 'uppercase-lowercase-sorting', 'vowel-recognition',
-    'word-problems-addition-subtraction', 'writing-numbers-1-100', 'writing-prompts-creative'
+    'word-problems-addition-subtraction', 'writing-numbers-1-100', 'writing-prompts-creative',
+    'interactive-early-phonics', 'interactive-early-counting', 'interactive-early-patterns',
+    'interactive-logic-sequence', 'interactive-logic-riddles', 'interactive-logic-deduction',
+    'interactive-sel-mindfulness', 'interactive-sel-empathy', 'interactive-sel-goals',
+    'interactive-early-basics', 'interactive-early-foundations', 'interactive-early-letters',
+    'interactive-early-numbers', 'interactive-early-shapes', 'interactive-geography-prek',
+    'interactive-grammar-prek', 'interactive-logic-prek', 'interactive-reading-prek',
+    'interactive-reading-storymap', 'interactive-science-prek', 'interactive-science-space',
+    'interactive-sel-prek', 'interactive-writing-prek'
   ]
 
   // Generate SEO data for each worksheet
