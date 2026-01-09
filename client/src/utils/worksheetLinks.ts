@@ -15,7 +15,7 @@ export function getWorksheetURL(docId: string, fallbackFrom?: string): string {
   const from = fallbackFrom || 'worksheets'
 
   if (seo) {
-    const url = `/${seo.slug}${from ? `?from=${from}` : ''}`
+    const url = `/worksheets/${seo.slug}${from ? `?from=${from}` : ''}`
     return addLocaleToPath(url, getLocaleFromURL())
   }
   // Fallback to print URL if SEO data not available

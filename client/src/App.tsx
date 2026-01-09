@@ -616,10 +616,20 @@ export default function App() {
                     // Try to get worksheet SEO data - if found, it's a worksheet page
                     const worksheetSEO = getWorksheetSEOBySlug(routeSubKey);
                     if (worksheetSEO) {
-                      // REDIRECT: Move worksheets to root (e.g. /worksheets/slug -> /slug)
-                      const target = addLocaleToPath(`/${routeSubKey}`, currentLocale);
-                      const search = window.location.search;
-                      return <Redirect to={target + search} replace />;
+                      const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
+                      return (
+                        <>
+                          <SEOMetaTags
+                            title={worksheetSEO.title}
+                            description={worksheetSEO.metaDescription}
+                            keywords={worksheetSEO.keywords}
+                            canonicalUrl={`https://wizqo.com${canonical}`}
+                            noIndex={false}
+                            ogType="article"
+                          />
+                          <WorksheetPage slug={routeSubKey} />
+                        </>
+                      );
                     }
                     // If routeSubKey exists but no worksheet found, show 404
                     return <NotFoundPage />;
@@ -895,20 +905,10 @@ export default function App() {
                   if (routeKey) {
                     const worksheetSEO = getWorksheetSEOBySlug(routeKey);
                     if (worksheetSEO) {
-                      const canonical = addLocaleToPath(`/${routeKey}`, currentLocale);
-                      return (
-                        <>
-                          <SEOMetaTags
-                            title={worksheetSEO.title}
-                            description={worksheetSEO.metaDescription}
-                            keywords={worksheetSEO.keywords}
-                            canonicalUrl={`https://wizqo.com${canonical}`}
-                            noIndex={false}
-                            ogType="article"
-                          />
-                          <WorksheetPage slug={routeKey} />
-                        </>
-                      );
+                      // REDIRECT: Individual worksheets now live under /worksheets/
+                      const target = addLocaleToPath(`/worksheets/${routeKey}`, currentLocale);
+                      const search = window.location.search;
+                      return <Redirect to={target + search} replace />;
                     }
                   }
 
