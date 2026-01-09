@@ -1853,25 +1853,30 @@ Respond in JSON format:
 // Export the app for Vercel @vercel/node
 export default app;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 // Serve static files and handle SPA routing in non-Vercel environments (like local production preview)
-const publicDir = path.resolve(__dirname, '../dist/public');
-app.use(express.static(publicDir));
+// We check for process.env.VERCEL because Vercel handles static routing automatically via vercel.json.
+// Accessing import.meta.url in a CJS bundle (production) would crash.
+if (!process.env.VERCEL) {
+  try {
+    const isEsm = typeof import.meta !== 'undefined' && import.meta.url;
+    const resolvedFilename = isEsm ? fileURLToPath(import.meta.url) : '';
+    const resolvedDirname = resolvedFilename ? path.dirname(resolvedFilename) : '';
 
-app.get('*', (req, res) => {
-  // Always skip API routes for the catch-all
-  if (req.path.startsWith('/api/')) {
-    return res.status(404).json({ error: 'API route not found' });
-  }
+    if (resolvedDirname) {
+      const publicDir = path.resolve(resolvedDirname, '../dist/public');
+      app.use(express.static(publicDir));
 
-  // Serve index.html for all other routes to support SPA
-  res.sendFile(path.join(publicDir, 'index.html'), (err) => {
-    if (err) {
-      // If index.html is missing (e.g. build hasn't run), send a basic 404
-      res.status(404).send('Not Found');
+      app.get('*', (req, res) => {
+        if (req.path.startsWith('/api/')) {
+          return res.status(404).json({ error: 'API route not found' });
+        }
+        res.sendFile(path.join(publicDir, 'index.html'), (err) => {
+          if (err) res.status(404).send('Not Found');
+        });
+      });
     }
-  });
-});
+  } catch (e) {
+    console.warn('Static serving initialization skipped or failed:', e);
+  }
+}
 
