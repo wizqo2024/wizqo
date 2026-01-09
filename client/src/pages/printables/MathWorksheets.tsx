@@ -1607,7 +1607,10 @@ export function NumberTracing1To20({ showAnswersForDoc }: SpecificWorksheetProps
                     <div
                         key={n}
                         className="break-inside-avoid flex flex-col items-center print:inline-block print:w-[22%] print:align-top print:mx-[1.5%] print:mb-4"
-                        style={{ pageBreakInside: 'avoid' }}
+                        style={{
+                            pageBreakInside: 'avoid',
+                            ...(n === 11 ? { pageBreakBefore: 'always', breakBefore: 'page' } : {})
+                        }}
                     >
                         <svg viewBox="0 0 200 200" className="w-full h-auto bg-white border-2 border-slate-200 rounded-xl shadow-sm">
                             {/* Grid Lines for reference (light) */}
