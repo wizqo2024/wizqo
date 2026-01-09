@@ -2102,6 +2102,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Read the hidden minutes! Practice telling time with 5-minute precision. Free printable math worksheet for grades 2-3.',
     learningObjectives: ['Identify the hour and minute hands with 5-minute interval accuracy', 'Practice skip-counting by 5s around the clock face', 'Translate analog clock positions into digital numerical format'],
     intro: 'The clock has a secret code! Our Telling Time to 5 Minutes worksheet teaches students how to read between the numbers. By skip-counting by fives and tracking the slow crawl of the hour hand, children gain the precision they need to manage their own schedules and understand the flow of the day. It\'s a vital "grown-up" skill that builds numerical fluency and self-reliance!'
+  },
+  'mult-facts-0-12': {
+    title: 'Multiplication Facts 0-12 - Fluency and Speed Drill | Wizqo',
+    metaDescription: 'Master the tables! Practice multiplication facts from 0-12 with our comprehensive speed drill. Free printable PDF for grades 3-5.',
+    learningObjectives: ['Recall basic multiplication facts (0x0 to 12x12) with high speed and accuracy', 'Identify patterns in multiplication tables (e.g., identity property of 0 and 1)', 'Build the mathematical stamina required for multi-digit multiplication'],
+    intro: 'The multiplication table is the engine of arithmetic! Our Multiplication Facts 0-12 worksheet is designed for pure fluency. By practicing these foundational "math facts" until they become second nature, students clear the mental space needed for long division, fractions, and algebra. It\'s the ultimate "workout" for building a fast, accurate, and confident mathematical mind!'
+  },
+  'fraction-word-problems': {
+    title: 'Fraction Word Problems - Real-World Applications | Wizqo',
+    metaDescription: 'Math in context! Solve story-based problems involving halves, thirds, and fourths. Free printable PDF for grades 3-4.',
+    learningObjectives: ['Identify fraction "clue words" in narrative text (e.g., "half of," "share equally")', 'Translate sharing scenarios into formal fraction notation', 'Visualize fractional parts within a real-world story context'],
+    intro: 'How do you split a pizza with 3 friends? How much of your book is left to read? Our Fraction Word Problems worksheet brings math out of the textbook and into real life. By solving stories about sharing, measuring, and dividing, students build a concrete understanding of what fractions actually represent. It\'s not just numbers—it\'s practical logic for everyday life!'
+  },
+  'how-many-1-15': {
+    title: 'How Many? - Counting Objects 1-15 | Wizqo',
+    metaDescription: 'Practice basic counting! Identify and write the total number of objects in a set (1-15). Free printable PDF for preschool-K.',
+    learningObjectives: ['Develop one-to-one correspondence by counting distinct objects', 'Accurately identify and write numbers between 1 and 15', 'Build early numeracy and subitizing skills for small groups'],
+    intro: 'Counting is where the math adventure begins! Our How Many? (1-15) worksheet helps young learners master the art of 1-to-1 correspondence. By pointing to and counting fun illustrations, children build the foundational "number sense" they need for future addition and subtraction. It\'s a colorful, engaging way to turn "how many" into "I know the answer!"'
+  },
+  'logic-grid': {
+    title: 'Logic Grid Puzzles - Deductive Reasoning for Kids | Wizqo',
+    metaDescription: 'Boost critical thinking! Solve deductive logic puzzles using grids and clues. Free printable math worksheet for grades 3-5.',
+    learningObjectives: ['Use a process of elimination to solve deductive puzzles', 'Interpret logical clues and translate them into a grid format', 'Strengthen critical thinking, patience, and attention to detail'],
+    intro: 'Put on your detective hat! Our Logic Grid Puzzles worksheet teaches students the power of deductive reasoning. By using a grid to track clues and eliminate impossible options, children learn how to "think about their thinking." It\'s a brain-boosting challenge that builds the same logical pathways used in coding, legal analysis, and advanced problem-solving!'
+  },
+  'mult-lattice': {
+    title: 'Lattice Multiplication Method - Visual Calculations | Wizqo',
+    metaDescription: 'Try a new way to multiply! Master multi-digit multiplication using the lattice method. Free printable PDF for grades 4-5.',
+    learningObjectives: ['Understand the procedural steps of the lattice multiplication grid', 'Compare and contrast the lattice method with standard algorithms', 'Reduce calculation errors in multi-digit problems through organized layout'],
+    intro: 'Break free from the standard algorithm! Our Lattice Multiplication worksheet introduces a fun, visual way to handle big numbers. By organizing digits into a diagonal grid, students can focus on one basic fact at a time without getting lost in "carries" and "placeholders." It\'s the perfect strategy for visual learners who want an organized, foolproof way to master long multiplication!'
+  },
+  'multiplying-decimals': {
+    title: 'Multiplying Decimals - Place Value and Precision | Wizqo',
+    metaDescription: 'Don\'t fear the point! Practice multiplying decimals with accuracy and ease. Free printable math worksheet for grades 5-6.',
+    learningObjectives: ['Correctly place the decimal point in the final product', 'Multiply multi-digit decimals using both standard and mental strategies', 'Understand how decimal multiplication scales quantities down (e.g., 0.5 x 10)'],
+    intro: 'Decimals are just "shrunken" numbers! Our Multiplying Decimals worksheet takes the mystery out of the floating point. By learning how to count place values and manage precision, students build the accuracy needed for science experiments and financial math. Master the decimal, and you\'ll master the measurement of the world around you!'
+  },
+  'multiplying-fractions': {
+    title: 'Multiplying Fractions - Parts of Parts | Wizqo',
+    metaDescription: 'Multiply fractions with ease! Practice multiplying numerators and denominators. Free printable PDF for grades 4-6.',
+    learningObjectives: ['Apply the (Numerator x Numerator) / (Denominator x Denominator) rule', 'Simplify products using greatest common factors (GCF)', 'Understand the conceptual meaning of taking a fraction "of" another fraction'],
+    intro: 'What is half of a half? Our Multiplying Fractions worksheet helps students visualize why multiplying fractions often results in a smaller number! By mastering the simple rule of "multiply across" and then simplifying their results, children gain the tools they need for advanced cooking, engineering, and algebra. It\'s about understanding the "parts of parts" in our world!'
+  },
+  'multi-step-word-4th': {
+    title: '4th Grade Multi-Step Word Problems - Logic & Review | Wizqo',
+    metaDescription: 'Grade 4 math challenge! Solve complex word problems requiring multiple operations. Free printable PDF.',
+    learningObjectives: ['Identify multiple hidden steps within a single story problem', 'Select and apply the correct sequence of operations (add, sub, mult, div)', 'Build the analytical stamina needed for standardized testing and real-life logic'],
+    intro: 'One step isn\'t enough! Our 4th Grade Multi-Step Word Problems worksheet challenges students to think like engineers. From budgeting for a class party to calculating travel distances, these problems require kids to plan their route before they start calculating. It\'s the ultimate "math mixer" for building true operational mastery and critical thinking.'
+  },
+  'multi-step-word-5th': {
+    title: '5th Grade Multi-Step Word Problems - Advanced Logic | Wizqo',
+    metaDescription: 'Math for the real world! Solve advanced multi-step problems involving decimals and fractions. Free printable PDF for Grade 5.',
+    learningObjectives: ['Deconstruct complex narrative data into sequential mathematical steps', 'Integrate decimals, fractions, and whole numbers into a single solution', 'Verify the plausibility of results in the context of advanced story scenarios'],
+    intro: 'Level up your logic! Our 5th Grade Multi-Step Word Problems worksheet is designed for the transition to middle school math. By tackling scenarios that involve mixed operations, decimals, and budget-style reasoning, students build the "big picture" thinking needed for algebra. This isn\'t just math practice—it\'s training for real-world decision-making!'
+  },
+  'multi-step-word-problems': {
+    title: 'Multi-Step Math Word Problems - Operation Mixer | Wizqo',
+    metaDescription: 'The ultimate math challenge! Practice solving problems with multiple operations in context. Free printable PDF for grades 3-6.',
+    learningObjectives: ['Distinguish between relevant and irrelevant data in complex prompts', 'Map out a multi-step solution path before beginning calculations', 'Build confidence in switching between addition, subtraction, multiplication, and division'],
+    intro: 'Are you ready for the math marathon? Our Multi-Step Word Problems worksheet is the final boss of arithmetic! Instead of focusing on one skill, you\'ll have to use everything you\'ve learned—adding, subtracting, multiplying, and dividing—in a single problem. It\'s the perfect way to build the mental flexibility and problem-solving grit that will last a lifetime!'
   }
 }
 
