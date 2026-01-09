@@ -4106,7 +4106,7 @@ export function AreaModelMult({ seed, variant, showAnswersForDoc }: SpecificWork
                     const bo = p.b % 10;
 
                     return (
-                        <div key={i} className="break-inside-avoid">
+                        <div key={i} className="break-inside-avoid" style={{ pageBreakInside: 'avoid' }}>
                             <div className="flex items-center gap-3 mb-6 font-mono text-2xl font-bold text-slate-700 justify-center">
                                 <div className="w-8 h-8 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center text-sm shadow-sm">{i + 1}</div>
                                 {p.a} × {p.b} = ?
