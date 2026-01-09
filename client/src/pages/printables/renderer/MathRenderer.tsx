@@ -300,7 +300,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
                 )
             })()}
 
-            {activeDocs.includes('mult-area-model') && <AreaModelMult seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+
             {activeDocs.includes('mult-lattice') && <LatticeMultiplication seed={effectiveSeed} variant={numVariant} showAnswers={showAnswers} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Specific Math Worksheets from MathWorksheets.tsx and SecondGradeMath.tsx */}
