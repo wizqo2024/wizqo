@@ -2222,6 +2222,66 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Master coordinate geometry! Practice translations, reflections, and rotations. Free printable PDF for Grade 5.',
     learningObjectives: ['Identify and perform translations (slides) on a coordinate plane', 'Understand reflections (flips) and rotations (turns) of 2D shapes', 'Maintain the congruence of shapes throughout geometric movement'],
     intro: 'Geometry is on the move! Our 5th Grade Transformations worksheet teaches students how to manipulate shapes in space. Whether they are sliding across a grid (translation), flipping over an axis (reflection), or turning around a point (rotation), kids build the spatial reasoning skills used in architecture, video game design, and bridge engineering!'
+  },
+  'times-table-blank-1-12': {
+    title: 'Blank Multiplication Table 1-12 - Practice Grid | Wizqo',
+    metaDescription: 'Test your memory! Fill in our 12x12 blank multiplication grid to master basic facts and building fluency. Free printable PDF.',
+    learningObjectives: ['Recall and record multiplication facts from 1x1 to 12x12 accurately', 'Identify symmetry and patterns within a 144-square multiplication grid', 'Build mathematical stamina and self-correction skills through grid completion'],
+    intro: 'Can you fill in the blanks? Our 1-12 Blank Multiplication Table is the ultimate test of mathematical recall. By filling in the grid from scratch, students engage their "muscle memory" for numbers, helping these core facts stick for life. It\'s a high-impact, low-stress way to build the numerical foundation needed for algebra and beyond!'
+  },
+  'times-table-blank-1-5': {
+    title: 'Blank Multiplication Table 1-5 - Early Practice | Wizqo',
+    metaDescription: 'Perfect for beginners! Fill in the 5x5 blank multiplication table to build starting numeracy skills. Free printable PDF.',
+    learningObjectives: ['Accurately recall multiplication facts for the numbers 1 through 5', 'Understand the relationship between factors and products in a simple grid', 'Build initial confidence with tabular data and multiplication patterns'],
+    intro: 'Every expert starts as a beginner! Our 1-5 Blank Multiplication Table is designed for young learners who are just discovering the magic of "groups." By mastering this smaller grid first, students build the confidence and accuracy they need before moving on to larger numbers. It\'s the perfect "warm-up" for a lifetime of math success!'
+  },
+  'times-table-blank-6-12': {
+    title: 'Blank Multiplication Table 6-12 - Advanced Drill | Wizqo',
+    metaDescription: 'Target the tough ones! Master upper-level multiplication with our 6-12 blank grid. Free printable math worksheet.',
+    learningObjectives: ['Master the most challenging multiplication facts from the 6s to the 12s', 'Strengthen recall for "hard-to-remember" products like 7x8 and 9x7', 'Improve overall calculation speed for advanced arithmetic tasks'],
+    intro: 'Mastering the tables is a journey, and the 6s-12s are the peaks! Our 6-12 Blank Multiplication Table focuses specifically on the "tougher" half of the multiplication charts. By eliminating the easy early numbers, students can focus their mental energy on the facts that require the most practice, ensuring total mastery of the entire 12x12 system.'
+  },
+  'times-table-color-1-12': {
+    title: 'Color-Coded Multiplication Table 1-12 - Learning Aid | Wizqo',
+    metaDescription: 'See the patterns! Master the 12x12 table with our high-contrast, color-coded multiplication guide. Free printable PDF.',
+    learningObjectives: ['Identify numerical patterns (e.g., evens vs. odds) through visual color cues', 'Use a color-coded reference to memorize multiplication facts more effectively', 'Build visual scanning skills for finding products on a large grid'],
+    intro: 'Math is a language of patterns, and color makes them pop! Our Color-Coded 1-12 Multiplication Table uses visual cues to help students see the hidden rhythms of numbers. Whether it\'s tracking a specific factor or noticing squares like 25, 36, and 49, this high-contrast guide turns memorization into a visual experience that stays in the mind long after the page is turned!'
+  },
+  'times-table-color-1-5': {
+    title: 'Color-Coded Multiplication Table 1-5 - Visual Guide | Wizqo',
+    metaDescription: 'Early math made colorful! Learn the 1-5 multiplication tables with our easy-to-read, color-coded guide. Free printable PDF.',
+    learningObjectives: ['Build initial familiarity with simple multiplication facts through color', 'Connect specific numbers to colors for better long-term recall', 'Gain confidence in reading and using a mathematical reference chart'],
+    intro: 'Learning math should be as vibrant as a rainbow! Our 1-5 Color-Coded Multiplication Table is the perfect introductory reference for early learners. By grouping facts by color, we help young students transition from counting objects to understanding the structure of a multiplication grid. it\'s a friendly, engaging first step into the world of "big" math!'
+  },
+  'times-table-color-6-12': {
+    title: 'Color-Coded Multiplication Table 6-12 - Advanced Guide | Wizqo',
+    metaDescription: 'Master the hard tables! Use our 6-12 color-coded guide to memorize advanced multiplication facts easily. Free printable PDF.',
+    learningObjectives: ['Strengthen visual recall for advanced multiplication facts (6-12)', 'Use color-coded patterns to differentiate between similar products', 'Increase the speed of looking up and verifying large multiplication results'],
+    intro: 'Don\'t let the big numbers intimidate you! Our 6-12 Color-Coded Multiplication Table is a high-utility map for the most challenging part of the math curriculum. By using distinct colors to highlight the relationships between factors, we make the "scary" tables feel organized and approachable. It\'s the ultimate tool for turning "I don\'t know" into "I can see it!"'
+  },
+  'times-table-confidence-1-5': {
+    title: '1-5 Multiplication Confidence Tracker - Mastery Drill | Wizqo',
+    metaDescription: 'Self-assess your skills! Track your mastery of basic multiplication tables 1-5. Free printable math worksheet.',
+    learningObjectives: ['Assess personal speed and accuracy for basic multiplication facts', 'Identify specific facts that require more practice or reinforcement', 'Build intrinsic motivation through measurable progress and check-offs'],
+    intro: 'How well do you know your 2s? Your 5s? Our 1-5 Multiplication Confidence Tracker is about more than just finding an answer—it\'s about knowing that you know it! This worksheet allows students to rate their own comfort level with basic facts, helping them target their study time where they need it most. It\'s math practice with a self-improvement twist!'
+  },
+  'times-table-fluency-1-12': {
+    title: 'Multiplication Fluency 1-12 - Speed and Recall Drill | Wizqo',
+    metaDescription: 'Time to shine! Build instant recall for the 1-12 tables with our high-speed fluency workout. Free printable PDF.',
+    learningObjectives: ['Develop automaticity (answer recall in <2 seconds) for all facts 1-12', 'Increase mental calculation speed for use in long division and fractions', 'Reduce cognitive load for advanced math by making multiplication second nature'],
+    intro: 'Turn your math into a reflex! Our 1-12 Multiplication Fluency drill is designed for students who want to move beyond "figuring it out" to "just knowing it." By practicing for speed and accuracy, children build the mathematical automaticity used by engineers and scientists. When you master your fluency, the rest of math starts to feel like a breeze!'
+  },
+  'times-table-horizontal-1-12': {
+    title: 'Horizontal Multiplication Table 1-12 - Linear Mastery | Wizqo',
+    metaDescription: 'Master the tables in a row! Practice multiplication facts 1-12 in a linear, horizontal format. Free printable math PDF.',
+    learningObjectives: ['Read and solve multiplication equations in a standard horizontal format', 'Improve linear scanning and data entry skills for mathematical records', 'Build the pattern-recognition skills needed for number sequences and series'],
+    intro: 'Math moves from left to right! Our Horizontal Multiplication Table 1-12 provides a different perspective on the classic grid. By presenting facts in a linear, organized sequence, we help students build the reading and logic skills used in standard equations and computer programming. It\'s a clean, efficient layout for students who like their math oragnized and clear!'
+  },
+  'times-table-horizontal-1-5': {
+    title: 'Horizontal Multiplication Table 1-5 - Early Success | Wizqo',
+    metaDescription: 'Linear math for beginners! Practice basic multiplication facts 1-5 in a horizontal format. Free printable PDF.',
+    learningObjectives: ['Master foundational multiplication facts (1-5) in a horizontal layout', 'Build early confidence with linear mathematical notation', 'Prepare for symbolic math by recognizing factors and products in a row'],
+    intro: 'Simple, clear, and effective! Our 1-5 Horizontal Multiplication Table is the perfect starting point for students transitioning to symbolic math. By laying out the basic facts in a straightforward row-by-row format, we make it easy for young minds to focus on one table at a time without the distraction of a larger grid. It\'s the foundational step to becoming a math pro!'
   }
 }
 
