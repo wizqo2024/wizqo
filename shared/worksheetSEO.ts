@@ -3514,18 +3514,25 @@ export function initializeWorksheetSEO() {
     }
   }
 
-  // Populate related worksheets
+  // Populate related worksheets - optimized to avoid O(N^2) filter scans
+  const allSeoItems = Object.values(WORKSHEET_SEO_MAP);
   for (const docId in WORKSHEET_SEO_MAP) {
-    const seo = WORKSHEET_SEO_MAP[docId]
-    const related = Object.values(WORKSHEET_SEO_MAP)
-      .filter(w =>
-        w.docId !== docId &&
-        (w.category.some(c => seo.category.includes(c)) ||
-          w.grade.some(g => seo.grade.includes(g)))
-      )
-      .slice(0, 5)
-      .map(w => w.docId)
-    seo.relatedDocIds = related
+    const seo = WORKSHEET_SEO_MAP[docId];
+    const related: string[] = [];
+
+    for (const item of allSeoItems) {
+      if (item.docId === docId) continue;
+
+      // Match by category or grade
+      const sharedCat = item.category.some(c => seo.category.includes(c));
+      const sharedGrade = item.grade.some(g => seo.grade.includes(g));
+
+      if (sharedCat || sharedGrade) {
+        related.push(item.docId);
+        if (related.length >= 5) break; // Found enough related items
+      }
+    }
+    seo.relatedDocIds = related;
   }
 }
 

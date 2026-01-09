@@ -4,6 +4,7 @@
     "outDir": "../dist/server",
     "module": "ESNext",
     "moduleResolution": "Node",
+    "noEmit": false,
     "types": [
       "node"
     ]
