@@ -163,6 +163,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'mult-mixed-review',
   'mult-strategies',
   'mult-patterns',
+  'mult-lattice',
   // Times Table worksheets
   'times-table-horizontal-1-5',
   'times-table-horizontal-6-12',
@@ -1411,6 +1412,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           activeDocs={activeDocs}
           seed={effectiveSeed}
           variant={variant}
+          showAnswers={showAnswers}
           showAnswersForDoc={showAnswersForDoc}
           t={t}
           getTrans={getTrans}

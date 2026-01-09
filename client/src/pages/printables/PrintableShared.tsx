@@ -599,6 +599,8 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
             return getTranslatedWorksheetTitle(docId, t, ' Adding 3 Numbers')
         case 'missing-addends':
             return getTranslatedWorksheetTitle(docId, t, ' Missing Addends')
+        case 'mult-lattice':
+            return getTranslatedWorksheetTitle(docId, t, ' Lattice Multiplication Master')
         case 'fact-families-20':
             return getTranslatedWorksheetTitle(docId, t, ' Fact Families (to 20)')
         case 'mental-math-20':
