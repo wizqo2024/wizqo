@@ -637,11 +637,22 @@ export default function HandwritingMakerPage() {
           <div className="order-2 md:order-1 md:col-span-5 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-full whitespace-normal">
             {/* Mode segmented control */}
             <div className="mb-4">
-              <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
-                <button onClick={() => setMode('letters')} className={`px-4 py-2 text-sm ${mode === 'letters' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.letters')}</button>
-                <button onClick={() => setMode('words')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode === 'words' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.words')}</button>
-                <button onClick={() => setMode('sentences')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode === 'sentences' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.sentences')}</button>
-              </div>
+              <ToggleGroup
+                type="single"
+                value={mode}
+                onValueChange={(v: string) => v && setMode(v as Mode)}
+                className="justify-start border border-slate-200 rounded-lg overflow-hidden"
+              >
+                <ToggleGroupItem value="letters" className="px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0">
+                  {t('pages.handwriting.mode.letters')}
+                </ToggleGroupItem>
+                <ToggleGroupItem value="words" className="px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0 border-l border-slate-200">
+                  {t('pages.handwriting.mode.words')}
+                </ToggleGroupItem>
+                <ToggleGroupItem value="sentences" className="px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0 border-l border-slate-200">
+                  {t('pages.handwriting.mode.sentences')}
+                </ToggleGroupItem>
+              </ToggleGroup>
             </div>
 
             {/* Inputs */}
@@ -675,7 +686,7 @@ export default function HandwritingMakerPage() {
                     className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm"
                   />
                   <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
-                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e) => setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
                   </label>
                 </div>
               )}
@@ -737,7 +748,7 @@ export default function HandwritingMakerPage() {
                   <ToggleGroup
                     type="single"
                     value={decoration}
-                    onValueChange={(v) => v && setDecoration(v as DecorationType)}
+                    onValueChange={(v: string) => v && setDecoration(v as DecorationType)}
                     className="justify-start gap-2"
                   >
                     {[
@@ -769,7 +780,7 @@ export default function HandwritingMakerPage() {
                       max={72}
                       step={2}
                       value={fontSize}
-                      onChange={(e) => setFontSize(parseInt(e.target.value))}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontSize(parseInt(e.target.value))}
                       className="flex-1 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
                     />
                     <span className="text-xs font-bold text-slate-700 w-6">{fontSize}</span>
@@ -791,32 +802,35 @@ export default function HandwritingMakerPage() {
 
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.lineType')}</Label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => setLineType('primary')}
-                      className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg border transition-all ${lineType === 'primary' ? 'bg-purple-600 border-purple-600 text-white shadow-sm' : 'bg-white border-slate-200 text-slate-600'
-                        }`}
+                  <ToggleGroup
+                    type="single"
+                    value={lineType}
+                    onValueChange={(v: string) => v && setLineType(v as 'primary' | 'baseline')}
+                    className="grid grid-cols-2 gap-2"
+                  >
+                    <ToggleGroupItem
+                      value="primary"
+                      className="px-3 py-1.5 h-auto text-[10px] font-bold uppercase rounded-lg border data-[state=on]:bg-purple-600 data-[state=on]:border-purple-600 data-[state=on]:text-white"
                     >
                       Three Lines
-                    </button>
-                    <button
-                      onClick={() => setLineType('baseline')}
-                      className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg border transition-all ${lineType === 'baseline' ? 'bg-purple-600 border-purple-600 text-white shadow-sm' : 'bg-white border-slate-200 text-slate-600'
-                        }`}
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value="baseline"
+                      className="px-3 py-1.5 h-auto text-[10px] font-bold uppercase rounded-lg border data-[state=on]:bg-purple-600 data-[state=on]:border-purple-600 data-[state=on]:text-white"
                     >
                       Single Line
-                    </button>
-                  </div>
+                    </ToggleGroupItem>
+                  </ToggleGroup>
                 </div>
 
                 <div className="flex flex-col justify-end space-y-2">
                   <div className="flex items-center justify-between">
                     <Label className="text-[10px] font-bold uppercase text-slate-500">{t('pages.handwriting.options.dotted')}</Label>
-                    <Switch checked={dotted} onCheckedChange={setDotted} />
+                    <Switch checked={dotted} onCheckedChange={(checked: boolean) => setDotted(checked)} />
                   </div>
                   <div className="flex items-center justify-between">
                     <Label className="text-[10px] font-bold uppercase text-slate-500">{t('pages.handwriting.options.startDots')}</Label>
-                    <Switch checked={startDots} onCheckedChange={setStartDots} />
+                    <Switch checked={startDots} onCheckedChange={(checked: boolean) => setStartDots(checked)} />
                   </div>
                 </div>
               </div>
