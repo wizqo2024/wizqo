@@ -1299,8 +1299,8 @@ export default function CertificateMakerPage() {
 
       <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 lg:pb-28 space-y-10">
         <header className="space-y-4 text-center lg:text-left">
-          <Badge variant="secondary" className="mx-auto w-fit rounded-full border border-indigo-100 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-indigo-600 lg:mx-0">
-            {t('pages.printables.title')}
+          <Badge {...({ variant: "secondary", className: "mx-auto w-fit rounded-full border border-indigo-100 bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-indigo-600 lg:mx-0" } as any)}>
+            {String(t('pages.printables.title'))}
           </Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900">
             {t('pages.certificate.title')}
@@ -1400,7 +1400,7 @@ export default function CertificateMakerPage() {
                               <input
                                 type="file"
                                 accept="image/*"
-                                onChange={(e) => {
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                   const file = e.target.files?.[0];
                                   if (file) {
                                     // Validate file size (max 5MB)
@@ -1466,7 +1466,7 @@ export default function CertificateMakerPage() {
                               <div className="mt-2 space-y-1">
                                 <Input
                                   value={issuer}
-                                  onChange={e => {
+                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     if (e.target.value.length <= 30) {
                                       setIssuer(e.target.value);
                                     }
@@ -1501,7 +1501,7 @@ export default function CertificateMakerPage() {
                               <div className="mt-2 space-y-1">
                                 <Input
                                   value={issuer}
-                                  onChange={e => {
+                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     if (e.target.value.length <= 30) {
                                       setIssuer(e.target.value);
                                     }
@@ -1618,7 +1618,7 @@ export default function CertificateMakerPage() {
                         <select
                           id="theme"
                           value={theme}
-                          onChange={e => setTheme(e.target.value as typeof theme)}
+                          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTheme(e.target.value as typeof theme)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
                           <option value="classic">{t('pages.certificate.themes.classic')}</option>
@@ -1641,7 +1641,7 @@ export default function CertificateMakerPage() {
                         <select
                           id="templateStyle"
                           value={templateStyle}
-                          onChange={e => setTemplateStyle(e.target.value as typeof templateStyle)}
+                          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTemplateStyle(e.target.value as typeof templateStyle)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
                           <option value="simple">{t('pages.certificate.templates.simple')}</option>
@@ -1663,7 +1663,7 @@ export default function CertificateMakerPage() {
                         <select
                           id="badgeIcon"
                           value={badgeIcon}
-                          onChange={e => setBadgeIcon(e.target.value as typeof badgeIcon)}
+                          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setBadgeIcon(e.target.value as typeof badgeIcon)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
                           <option value="none">{t('pages.certificate.badgeOptions.none')}</option>
@@ -1812,7 +1812,7 @@ export default function CertificateMakerPage() {
                     <div className="mt-auto pt-2 space-y-2">
                       <div className="flex flex-col sm:flex-row gap-3">
                         <Button
-                          onClick={(e) => {
+                          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                             e.preventDefault();
                             downloadPNG();
                           }}
@@ -1835,7 +1835,7 @@ export default function CertificateMakerPage() {
                         </Button>
 
                         <Button
-                          onClick={(e) => {
+                          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                             e.preventDefault();
                             handleDownloadPDF();
                           }}
@@ -1970,7 +1970,7 @@ export default function CertificateMakerPage() {
       {/* Signature Drawing Modal */}
       {showSignatureDrawer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={() => setShowSignatureDrawer(false)}>
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6" onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-semibold text-slate-900">{t('pages.certificate.drawSignature')}</h3>
               <button
