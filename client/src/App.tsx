@@ -295,6 +295,16 @@ export default function App() {
           setRoute(target);
         }
       }
+
+      // Fix 404: Redirect legacy /fractions-to-decimals-worksheets to /worksheets/fractions-to-decimals-worksheets
+      if (routeKey === 'fractions-to-decimals-worksheets') {
+        const currentLocale = getLocaleFromURL();
+        const target = addLocaleToPath('/worksheets/fractions-to-decimals-worksheets', currentLocale);
+        if (window.location.pathname !== target) {
+          window.history.replaceState({}, '', target);
+          setRoute(target);
+        }
+      }
     } catch { }
   }, [routeKey, routeSubKey, getLocaleFromURL, addLocaleToPath]);
 
