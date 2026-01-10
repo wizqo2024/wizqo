@@ -44,7 +44,7 @@ export default function HandwritingMakerPage() {
 
   const { toast } = useToast();
 
-  const [mode, setMode] = React.useState<Mode>('letters');
+  const [mode, setMode] = React.useState<Mode>('sentences');
   const [letters, setLetters] = React.useState<string>('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z');
   const [words, setWords] = React.useState<string>('cat dog sun moon bus red blue green');
   const [sentences, setSentences] = React.useState<string>('I can write neatly. We like to read. Today is fun.');
@@ -53,8 +53,8 @@ export default function HandwritingMakerPage() {
   const [dotted, setDotted] = React.useState<boolean>(true);
   const [startDots, setStartDots] = React.useState<boolean>(true);
   const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(true);
-  const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
-  const [decoration, setDecoration] = React.useState<DecorationType>('none');
+  const [colorTheme, setColorTheme] = React.useState<ColorTheme>('forest');
+  const [decoration, setDecoration] = React.useState<DecorationType>('flowers');
   const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('cursive');
 
   // Quick-fill helpers for nicer UX
@@ -82,15 +82,13 @@ export default function HandwritingMakerPage() {
   #frame { position: relative; width: 8.5in; height: 11in; overflow: hidden; background: #fff; }
   /* Printed worksheet area */
   svg { position: absolute; left: 0.5in; top: 0.5in; width: 7.5in; height: 10in; }
-  /* Logo in the top-left margin */
-  #print-logo { position: absolute; top: 0.25in; left: 0.25in; width: 0.6in; height: auto; opacity: 0.95; }
   /* Name/Date footer */
   #print-footer { position: absolute; bottom: 0.35in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; font: 12px system-ui, -apple-system, 'Segoe UI', Roboto, Arial; color: #334155; }
   #print-footer .label { margin-right: 6px; }
   #print-footer .line { border-bottom: 1px solid #94a3b8; min-width: 2.5in; height: 0.9em; display: inline-block; }
   
 </style>
-</head><body><div id=\"frame\"><img id=\"print-logo\" src=\"/favicon.svg\" alt=\"Wizqo\" />${content}<div id=\"print-footer\"><div><span class=\"label\">${nameLabel}</span><span class=\"line\"></span></div><div><span class=\"label\">${dateLabel}</span><span class=\"line\"></span></div></div></div></body></html>`;
+</head><body><div id=\"frame\">${content}<div id=\"print-footer\"><div><span class=\"label\">${nameLabel}</span><span class=\"line\"></span></div><div><span class=\"label\">${dateLabel}</span><span class=\"line\"></span></div></div></div></body></html>`;
       const iframe = document.createElement('iframe');
       iframe.style.position = 'fixed';
       iframe.style.right = '0';
@@ -624,8 +622,6 @@ export default function HandwritingMakerPage() {
             overflow: hidden !important; page-break-before: avoid; page-break-after: avoid; break-inside: avoid-page;
           }
           #handwriting-sheet svg { width: 8in !important; height: 10.5in !important; break-inside: avoid-page; }
-          /* Show small logo in top-left margin when printing from the page directly */
-          #print-logo-inline { position: fixed; top: 0.15in; left: 0.15in; width: 0.5in; height: auto; visibility: visible !important; }
         }
       `}</style>
 
@@ -869,7 +865,6 @@ export default function HandwritingMakerPage() {
           </div>
           {/* Right: Preview */}
           <div className="order-1 md:order-2 md:col-span-7 w-full min-w-0" id="handwriting-preview">
-            <img id="print-logo-inline" src="/favicon.svg" alt="Wizqo" className="hidden print:block" />
             <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
             <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
               <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}-${textStyle}-${colorTheme}-${decoration}`} />
