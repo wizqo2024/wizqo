@@ -197,18 +197,7 @@ export default function HandwritingMakerPage() {
       doc.setTextColor(urlRGB.r, urlRGB.g, urlRGB.b);
       doc.text('www.wizqo.com', pageW - margin, margin + 20, { align: 'right' });
 
-      // Name/Date lines
-      const lineY = margin + 65;
-      doc.setFontSize(12);
-      const textRGB = hexToRgb('#334155');
-      doc.setTextColor(textRGB.r, textRGB.g, textRGB.b);
-      doc.text(t('pages.handwriting.name'), margin, lineY);
-      const lineRGB = hexToRgb(theme.secondary);
-      doc.setDrawColor(lineRGB.r, lineRGB.g, lineRGB.b);
-      doc.line(margin + 45, lineY + 2, margin + 220, lineY + 2);
-
-      doc.text(t('pages.handwriting.date'), pageW - 140, lineY);
-      doc.line(pageW - 105, lineY + 2, pageW - margin, lineY + 2);
+      // Name/Date removed to prevent overlap in compact layout
     };
 
     // Logic to replicate PreviewSVG rows
