@@ -318,8 +318,8 @@ export default function HandwritingMakerPage() {
         doc.circle(margin + 8, baselineY - fontSizeVal * 0.2, 4, 'F');
       }
 
-      if (dotted) doc.setFont('Codystar', 'normal');
-      else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
+      if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
+      else if (dotted) doc.setFont('Codystar', 'normal');
       else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
 
       doc.setFontSize(fontSizeVal);
