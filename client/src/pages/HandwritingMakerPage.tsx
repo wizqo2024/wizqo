@@ -5,11 +5,35 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { useTranslation } from '@/context/TranslationContext';
 import { Download, Printer } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import jsPDF from 'jspdf';
 import { CODYSTAR_TTF_BASE64 } from '@/lib/fonts';
 import { hexToRgb } from '@/utils/pdfHelpers';
 
 type Mode = 'letters' | 'words' | 'sentences';
+type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset';
+type DecorationType = 'none' | 'stars' | 'hearts' | 'flowers';
+
+const THEMES: Record<ColorTheme, {
+  name: string;
+  primary: string; // Baseline color
+  secondary: string; // Guideline color
+  text: string; // Default text color
+  dots: string; // Guide dot color
+  bg: string; // Sheet background tint
+  rainbow?: boolean;
+}> = {
+  classic: { name: 'Classic Blue', primary: '#94a3b8', secondary: '#cbd5f5', text: '#94a3b8', dots: '#34d399', bg: '#f8fafc' },
+  rainbow: { name: 'Rainbow', primary: '#cbd5f1', secondary: '#e2e8f0', text: '#475569', dots: '#ec4899', bg: '#fffafb', rainbow: true },
+  ocean: { name: 'Deep Sea', primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', dots: '#2DD4BF', bg: '#f0f9ff' },
+  candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
+  forest: { name: 'Magic Forest', primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#f0fdf4' },
+  sunset: { name: 'Warm Sunset', primary: '#ea580c', secondary: '#ffedd5', text: '#9a3412', dots: '#ef4444', bg: '#fff7ed' },
+};
+
+const RAINBOW_COLORS = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
 
 export default function HandwritingMakerPage() {
   const { t, isRTL } = useTranslation();
@@ -29,6 +53,8 @@ export default function HandwritingMakerPage() {
   const [dotted, setDotted] = React.useState<boolean>(true);
   const [startDots, setStartDots] = React.useState<boolean>(true);
   const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(true);
+  const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
+  const [decoration, setDecoration] = React.useState<DecorationType>('none');
   const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('print');
 
   // Quick-fill helpers for nicer UX
@@ -104,29 +130,79 @@ export default function HandwritingMakerPage() {
     const fontSizeVal = fontSize;
     const lineGap = fontSizeVal * 2.2;
     const rowsPerPage = Math.floor((pageH - startY - margin) / lineGap);
+    const theme = THEMES[colorTheme as ColorTheme] || THEMES.classic;
 
     // Load Codystar for dotted print
     doc.addFileToVFS('Codystar-Regular.ttf', CODYSTAR_TTF_BASE64);
     doc.addFont('Codystar-Regular.ttf', 'Codystar', 'normal');
 
     const drawHeader = () => {
+      // Sheet Background
+      const bgRGB = hexToRgb(theme.bg);
+      doc.setFillColor(bgRGB.r, bgRGB.g, bgRGB.b);
+      doc.rect(0, 0, pageW, pageH, 'F');
+
+      // Decorations
+      if (decoration !== 'none') {
+        const decoRGB = hexToRgb(theme.dots);
+        doc.setFillColor(decoRGB.r, decoRGB.g, decoRGB.b);
+        const decoPos = [
+          { x: margin - 10, y: margin - 10 },
+          { x: pageW - margin + 10, y: margin - 10 },
+          { x: margin - 10, y: pageH - margin + 10 },
+          { x: pageW - margin + 10, y: pageH - margin + 10 }
+        ];
+
+        decoPos.forEach(pos => {
+          if (decoration === 'stars') {
+            const r = 8;
+            const innerR = 3;
+            const points: number[][] = [];
+            for (let i = 0; i < 11; i++) {
+              const radius = i % 2 === 0 ? r : innerR;
+              const angle = (Math.PI * i) / 5 - Math.PI / 2;
+              points.push([pos.x + radius * Math.cos(angle), pos.y + radius * Math.sin(angle)]);
+            }
+            for (let i = 0; i < points.length - 1; i++) {
+              doc.triangle(pos.x, pos.y, points[i][0], points[i][1], points[i + 1][0], points[i + 1][1], 'F');
+            }
+          } else if (decoration === 'hearts') {
+            const s = 5;
+            doc.circle(pos.x - s / 1.5, pos.y - s / 2, s, 'F');
+            doc.circle(pos.x + s / 1.5, pos.y - s / 2, s, 'F');
+            doc.triangle(pos.x - s, pos.y + s / 4, pos.x + s, pos.y + s / 4, pos.x, pos.y + s * 2, 'F');
+          } else if (decoration === 'flowers') {
+            const s = 6;
+            for (let i = 0; i < 5; i++) {
+              const angle = (i * 72 * Math.PI) / 180;
+              doc.ellipse(pos.x + Math.cos(angle) * s * 0.6, pos.y + Math.sin(angle) * s * 0.6, s * 0.4, s * 0.7, 'F', angle);
+            }
+            doc.circle(pos.x, pos.y, s * 0.3, 'F');
+          }
+        });
+      }
+
       // Branding
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(24);
-      doc.setTextColor(15, 23, 42);
+      const brandingRGB = hexToRgb('#0f172a');
+      doc.setTextColor(brandingRGB.r, brandingRGB.g, brandingRGB.b);
       doc.text('Wizqo', margin, margin + 20);
 
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(10);
-      doc.setTextColor(100, 116, 139);
+      const urlRGB = hexToRgb('#64748b');
+      doc.setTextColor(urlRGB.r, urlRGB.g, urlRGB.b);
       doc.text('www.wizqo.com', pageW - margin, margin + 20, { align: 'right' });
 
       // Name/Date lines
       const lineY = margin + 65;
       doc.setFontSize(12);
-      doc.setTextColor(51, 65, 85);
+      const textRGB = hexToRgb('#334155');
+      doc.setTextColor(textRGB.r, textRGB.g, textRGB.b);
       doc.text(t('pages.handwriting.name'), margin, lineY);
-      doc.setDrawColor(148, 163, 184); // #94a3b8
+      const lineRGB = hexToRgb(theme.secondary);
+      doc.setDrawColor(lineRGB.r, lineRGB.g, lineRGB.b);
       doc.line(margin + 45, lineY + 2, margin + 220, lineY + 2);
 
       doc.text(t('pages.handwriting.date'), pageW - 140, lineY);
@@ -218,8 +294,11 @@ export default function HandwritingMakerPage() {
       const top = y - fontSizeVal * 0.7;
       const baselineY = y;
 
+      const secondaryRGB = hexToRgb(theme.secondary);
+      const primaryRGB = hexToRgb(theme.primary);
+
       if (lineType === 'primary') {
-        doc.setDrawColor(229, 231, 235);
+        doc.setDrawColor(secondaryRGB.r, secondaryRGB.g, secondaryRGB.b);
         doc.setLineWidth(1.5);
         doc.setLineDashPattern([8, 8], 0);
         doc.line(margin, top, pageW - margin, top);
@@ -227,12 +306,13 @@ export default function HandwritingMakerPage() {
         doc.line(margin, mid, pageW - margin, mid);
       }
       doc.setLineDashPattern([], 0);
-      doc.setDrawColor(203, 213, 225);
+      doc.setDrawColor(primaryRGB.r, primaryRGB.g, primaryRGB.b);
       doc.setLineWidth(2);
       doc.line(margin, baselineY, pageW - margin, baselineY);
 
       if (startDots) {
-        doc.setFillColor(16, 185, 129);
+        const dotRGB = hexToRgb(theme.dots);
+        doc.setFillColor(dotRGB.r, dotRGB.g, dotRGB.b);
         doc.circle(margin + 8, baselineY - fontSizeVal * 0.2, 4, 'F');
       }
 
@@ -241,13 +321,16 @@ export default function HandwritingMakerPage() {
       else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
 
       doc.setFontSize(fontSizeVal);
-      doc.setTextColor(15, 23, 42);
+
+      const rowTextColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
+      const rowTextRGB = hexToRgb(rowTextColor);
+      doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
       doc.setCharSpace(letterSpacing);
 
       const renderingMode = textStyle === 'bubble' ? 1 : 0;
       if (textStyle === 'bubble') {
         doc.setLineWidth(1);
-        doc.setDrawColor(15, 23, 42);
+        doc.setDrawColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
       }
 
       doc.text(txt, margin + 16, baselineY - 6, { renderingMode: renderingMode as any });
@@ -359,13 +442,57 @@ export default function HandwritingMakerPage() {
     }
     if (lines.length < rowsCount && current) lines.push(current);
     const rows = lines.slice(0, rowsCount);
-    const baselineColor = '#cbd5e1';
-    const midlineColor = '#e5e7eb';
-    const topLineColor = '#e5e7eb';
+    const theme = THEMES[colorTheme as ColorTheme] || THEMES.classic;
+    const baselineColor = theme.primary;
+    const midlineColor = theme.secondary;
+    const topLineColor = theme.secondary;
+
+    const renderDecoration = (type: DecorationType, x: number, y: number, size: number) => {
+      if (type === 'stars') {
+        return (
+          <path
+            d={`M ${x} ${y - size} L ${x + size * 0.25} ${y - size * 0.25} L ${x + size} ${y - size * 0.15} L ${x + size * 0.4} ${y + size * 0.25} L ${x + size * 0.6} ${y + size} L ${x} ${y + size * 0.5} L ${x - size * 0.6} ${y + size} L ${x - size * 0.4} ${y + size * 0.25} L ${x - size} ${y - size * 0.15} L ${x - size * 0.25} ${y - size * 0.25} Z`}
+            fill={theme.dots}
+            opacity="0.6"
+          />
+        );
+      }
+      if (type === 'hearts') {
+        return (
+          <path
+            d={`M ${x} ${y + size * 0.5} C ${x - size} ${y - size} ${x - size * 1.5} ${y + size * 1.5} ${x} ${y + size * 2} C ${x + size * 1.5} ${y + size * 1.5} ${x + size} ${y - size} ${x} ${y + size * 0.5} Z`}
+            fill={theme.dots}
+            opacity="0.6"
+            transform={`translate(0, -${size})`}
+          />
+        );
+      }
+      if (type === 'flowers') {
+        return (
+          <g transform={`translate(${x},${y})`}>
+            {[0, 72, 144, 216, 288].map(angle => (
+              <ellipse key={angle} cx="0" cy={-size * 0.6} rx={size * 0.4} ry={size * 0.7} fill={theme.dots} opacity="0.6" transform={`rotate(${angle})`} />
+            ))}
+            <circle cx="0" cy="0" r={size * 0.3} fill={theme.primary} />
+          </g>
+        );
+      }
+      return null;
+    };
 
     return (
-      <svg viewBox={`0 0 ${pageW} ${pageH}`} className="w-full h-auto bg-white border border-slate-300 rounded" role="img" aria-label="Handwriting sheet preview">
-        <rect x={margin / 2} y={margin / 2} width={pageW - margin} height={pageH - margin} fill="none" stroke="#e2e8f0" />
+      <svg viewBox={`0 0 ${pageW} ${pageH}`} className="w-full h-auto border border-slate-300 rounded transition-colors duration-300" style={{ background: theme.bg }} role="img" aria-label="Handwriting sheet preview">
+        <rect x={margin / 2} y={margin / 2} width={pageW - margin} height={pageH - margin} fill="none" stroke={theme.secondary} strokeWidth={1} opacity="0.3" />
+
+        {decoration !== 'none' && (
+          <>
+            {renderDecoration(decoration, margin / 2 + 15, margin / 2 + 15, 12)}
+            {renderDecoration(decoration, pageW - margin / 2 - 15, margin / 2 + 15, 12)}
+            {renderDecoration(decoration, margin / 2 + 15, pageH - margin / 2 - 15, 12)}
+            {renderDecoration(decoration, pageW - margin / 2 - 15, pageH - margin / 2 - 15, 12)}
+          </>
+        )}
+
         {rows.map((text, idx) => {
           const y = startY + idx * lineGap;
           const mid = y - fontSize * 0.35;
@@ -391,11 +518,13 @@ export default function HandwritingMakerPage() {
                 fontFamily={fontFamily}
                 fill={(() => {
                   if (textStyle === 'bubble') return 'none';
-                  return dotted ? 'none' : '#0f172a';
+                  if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
+                  return dotted ? 'none' : theme.text;
                 })()}
                 stroke={(() => {
-                  if (textStyle === 'bubble') return '#0f172a';
-                  return dotted ? '#0f172a' : 'none';
+                  if (textStyle === 'bubble') return theme.text;
+                  if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
+                  return dotted ? theme.text : 'none';
                 })()}
                 strokeWidth={(() => {
                   if (textStyle === 'bubble') return 3;
@@ -406,7 +535,7 @@ export default function HandwritingMakerPage() {
                   return dotted ? '3 5' : undefined;
                 })()}
                 strokeLinecap={dotted ? 'round' as any : undefined}
-                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: autoSpaceLetters ? `${letterSpacing}px` : undefined } as any}
+                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: autoSpaceLetters ? `${letterSpacing}pt` : undefined } as any}
               >
                 {text}
               </text>
@@ -581,42 +710,115 @@ export default function HandwritingMakerPage() {
                 </div>
               )}
 
-              <div className="mt-4 border-t pt-3 grid grid-cols-2 gap-3">
-                <label className="text-sm text-slate-700">{t('pages.handwriting.options.fontSize')} <span className="text-slate-400">(28–72)</span>
-                  <input
-                    type="number"
-                    min={28}
-                    max={72}
-                    step={2}
-                    value={fontSize}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      const raw = parseInt(e.target.value || '42', 10);
-                      const safe = isNaN(raw) ? 42 : raw;
-                      const clamped = Math.max(28, Math.min(72, safe));
-                      setFontSize(clamped);
-                    }}
-                    className="ml-2 w-24 px-2 py-1 border border-slate-300 rounded"
-                  />
-                </label>
-                <label className="text-sm text-slate-700">{t('pages.handwriting.options.textStyle')}
-                  <select value={textStyle} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTextStyle(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
-                    <option value="print">{t('pages.handwriting.options.print')}</option>
-                    <option value="cursive">{t('pages.handwriting.options.cursive')}</option>
-                    <option value="bubble">{t('pages.handwriting.options.bubble')}</option>
+              {/* Premium Aesthetics Section */}
+              <div className="mt-4 border-t pt-4 space-y-4">
+                <div>
+                  <Label className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 block">
+                    {t('Color Theme')}
+                  </Label>
+                  <div className="flex flex-wrap gap-2">
+                    {(Object.keys(THEMES) as ColorTheme[]).map((tKey) => (
+                      <button
+                        key={tKey}
+                        onClick={() => setColorTheme(tKey)}
+                        className={`w-8 h-8 rounded-full border-2 transition-all ${colorTheme === tKey ? 'border-slate-900 scale-110 shadow-sm' : 'border-transparent hover:scale-105'
+                          }`}
+                        style={{ background: THEMES[tKey].primary }}
+                        title={THEMES[tKey].name}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 block">
+                    {t('Decorations')}
+                  </Label>
+                  <ToggleGroup
+                    type="single"
+                    value={decoration}
+                    onValueChange={(v) => v && setDecoration(v as DecorationType)}
+                    className="justify-start gap-2"
+                  >
+                    {[
+                      { id: 'none', label: 'None', icon: '🚫' },
+                      { id: 'stars', label: 'Stars', icon: '⭐' },
+                      { id: 'hearts', label: 'Hearts', icon: '❤️' },
+                      { id: 'flowers', label: 'Flowers', icon: '🌸' },
+                    ].map(dec => (
+                      <ToggleGroupItem
+                        key={dec.id}
+                        value={dec.id}
+                        className="px-3 py-1 h-8 text-xs border rounded-lg data-[state=on]:bg-slate-900 data-[state=on]:text-white"
+                      >
+                        <span className="mr-1">{dec.icon}</span> {dec.label}
+                      </ToggleGroupItem>
+                    ))}
+                  </ToggleGroup>
+                </div>
+              </div>
+
+              {/* Standard Options */}
+              <div className="mt-4 border-t pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Label className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.fontSize')}</Label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="range"
+                      min={28}
+                      max={72}
+                      step={2}
+                      value={fontSize}
+                      onChange={(e) => setFontSize(parseInt(e.target.value))}
+                      className="flex-1 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+                    />
+                    <span className="text-xs font-bold text-slate-700 w-6">{fontSize}</span>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.textStyle')}</Label>
+                  <select
+                    value={textStyle}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTextStyle(e.target.value as any)}
+                    className="w-full text-xs px-2 py-1.5 border border-slate-200 rounded-lg bg-slate-50 focus:ring-2 focus:ring-purple-500 outline-none"
+                  >
+                    <option value="print">✍️ {t('pages.handwriting.options.print')}</option>
+                    <option value="cursive">🖋️ {t('pages.handwriting.options.cursive')}</option>
+                    <option value="bubble">🫧 {t('pages.handwriting.options.bubble')}</option>
                   </select>
-                </label>
-                <label className="text-sm text-slate-700">{t('pages.handwriting.options.lineType')}
-                  <select value={lineType} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLineType(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
-                    <option value="primary">{t('pages.handwriting.options.primary')}</option>
-                    <option value="baseline">{t('pages.handwriting.options.baseline')}</option>
-                  </select>
-                </label>
-                <label className="text-sm text-slate-700 inline-flex items-center gap-2">
-                  <input type="checkbox" checked={dotted} onChange={(e) => setDotted(e.target.checked)} /> {t('pages.handwriting.options.dotted')}
-                </label>
-                <label className="text-sm text-slate-700 inline-flex items-center gap-2">
-                  <input type="checkbox" checked={startDots} onChange={(e) => setStartDots(e.target.checked)} /> {t('pages.handwriting.options.startDots')}
-                </label>
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.lineType')}</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => setLineType('primary')}
+                      className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg border transition-all ${lineType === 'primary' ? 'bg-purple-600 border-purple-600 text-white shadow-sm' : 'bg-white border-slate-200 text-slate-600'
+                        }`}
+                    >
+                      Three Lines
+                    </button>
+                    <button
+                      onClick={() => setLineType('baseline')}
+                      className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg border transition-all ${lineType === 'baseline' ? 'bg-purple-600 border-purple-600 text-white shadow-sm' : 'bg-white border-slate-200 text-slate-600'
+                        }`}
+                    >
+                      Single Line
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex flex-col justify-end space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-[10px] font-bold uppercase text-slate-500">{t('pages.handwriting.options.dotted')}</Label>
+                    <Switch checked={dotted} onCheckedChange={setDotted} />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <Label className="text-[10px] font-bold uppercase text-slate-500">{t('pages.handwriting.options.startDots')}</Label>
+                    <Switch checked={startDots} onCheckedChange={setStartDots} />
+                  </div>
+                </div>
               </div>
 
               <div className="print:hidden pt-2 flex flex-col sm:flex-row gap-3">
@@ -652,7 +854,7 @@ export default function HandwritingMakerPage() {
             <img id="print-logo-inline" src="/favicon.svg" alt="Wizqo" className="hidden print:block" />
             <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
             <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
-              <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}-${textStyle}`} />
+              <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}-${textStyle}-${colorTheme}-${decoration}`} />
             </div>
             <div className="text-xs text-slate-500 mt-2 print:hidden">Tip: Long text wraps to the next line automatically.</div>
           </div>
