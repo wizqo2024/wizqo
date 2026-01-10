@@ -1806,6 +1806,75 @@ const ColorableIcon = ({ icon, size = 32, colorMode = false }: { icon: string, s
                 <line x1="40" y1="55" x2="20" y2="75" stroke={colorMode ? "#000" : "currentColor"} />
                 <line x1="35" y1="40" x2="15" y2="35" stroke={colorMode ? "#000" : "currentColor"} />
             </svg>
+        ),
+        '🍦': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M50 95 L25 45 L75 45 Z" fill={colorMode ? "#fcd34d" : "none"} stroke={colorMode ? "#d97706" : "currentColor"} />
+                <circle cx="50" cy="35" r="25" fill={colorMode ? "#fecaca" : "none"} stroke={colorMode ? "#f87171" : "currentColor"} />
+                <circle cx="50" cy="15" r="5" fill={colorMode ? "#ef4444" : "none"} />
+            </svg>
+        ),
+        '🚀': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M50 10 Q70 50 70 80 L30 80 Q30 50 50 10" fill={colorMode ? "#e5e7eb" : "none"} stroke={colorMode ? "#374151" : "currentColor"} />
+                <path d="M30 80 L20 95 L30 90 Z" fill={colorMode ? "#ef4444" : "none"} />
+                <path d="M70 80 L80 95 L70 90 Z" fill={colorMode ? "#ef4444" : "none"} />
+                <circle cx="50" cy="45" r="8" fill={colorMode ? "#3b82f6" : "none"} stroke={colorMode ? "#1e40af" : "currentColor"} />
+            </svg>
+        ),
+        '🐝': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <ellipse cx="50" cy="55" rx="25" ry="18" fill={colorMode ? "#eab308" : "none"} stroke={colorMode ? "#000" : "currentColor"} />
+                <path d="M40 37 L30 20 M60 37 L70 20" stroke={colorMode ? "#000" : "currentColor"} />
+                <circle cx="65" cy="50" r="2" fill="#000" />
+                <path d="M42 40 Q50 35 58 40" stroke={colorMode ? "#000" : "currentColor"} />
+            </svg>
+        ),
+        '🐟': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M10 50 Q30 20 70 40 L90 20 L90 80 L70 60 Q30 80 10 50" fill={colorMode ? "#60a5fa" : "none"} stroke={colorMode ? "#1e40af" : "currentColor"} />
+                <circle cx="25" cy="45" r="3" fill="#000" />
+            </svg>
+        ),
+        '🍓': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M50 90 Q15 80 15 45 Q15 20 50 20 Q85 20 85 45 Q85 80 50 90" fill={colorMode ? "#ef4444" : "none"} stroke={colorMode ? "#991b1b" : "currentColor"} />
+                <path d="M50 20 L40 10 M50 20 L60 10 M50 20 L50 5" stroke={colorMode ? "#15803d" : "currentColor"} strokeWidth="4" />
+                <circle cx="35" cy="40" r="1.5" fill={colorMode ? "#fde68a" : "#000"} />
+                <circle cx="65" cy="45" r="1.5" fill={colorMode ? "#fde68a" : "#000"} />
+                <circle cx="50" cy="65" r="1.5" fill={colorMode ? "#fde68a" : "#000"} />
+            </svg>
+        ),
+        '🍉': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M10 40 Q50 95 90 40 Z" fill={colorMode ? "#f87171" : "none"} stroke={colorMode ? "#15803d" : "currentColor"} strokeWidth="5" />
+                <circle cx="35" cy="55" r="2" fill="#000" />
+                <circle cx="50" cy="65" r="2" fill="#000" />
+                <circle cx="65" cy="55" r="2" fill="#000" />
+            </svg>
+        ),
+        '🍄': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M35 85 L65 85 L60 55 L40 55 Z" fill={colorMode ? "#f3f4f6" : "none"} stroke={colorMode ? "#9ca3af" : "currentColor"} />
+                <path d="M10 55 Q50 10 90 55 Z" fill={colorMode ? "#ef4444" : "none"} stroke={colorMode ? "#991b1b" : "currentColor"} />
+                <circle cx="35" cy="35" r="5" fill={colorMode ? "#fff" : "none"} />
+                <circle cx="65" cy="40" r="4" fill={colorMode ? "#fff" : "none"} />
+                <circle cx="50" cy="25" r="3" fill={colorMode ? "#fff" : "none"} />
+            </svg>
+        ),
+        '🦒': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M40 90 L40 40 Q40 20 60 20 L75 20 L75 35 Q60 35 60 55 L60 90" fill={colorMode ? "#fbbf24" : "none"} stroke={colorMode ? "#b45309" : "currentColor"} />
+                <circle cx="70" cy="25" r="2" fill="#000" />
+                <path d="M60 35 L50 45 L60 55" fill={colorMode ? "#b45309" : "none"} />
+            </svg>
+        ),
+        '🦀': (
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <circle cx="50" cy="60" r="25" fill={colorMode ? "#ef4444" : "none"} stroke={colorMode ? "#991b1b" : "currentColor"} />
+                <path d="M25 60 L10 50 M25 70 L10 80 M75 60 L90 50 M75 70 L90 80" stroke={colorMode ? "#ef4444" : "currentColor"} strokeWidth="5" />
+                <path d="M35 40 Q30 20 45 40 M65 40 Q70 20 55 40" stroke={colorMode ? "#ef4444" : "currentColor"} strokeWidth="5" />
+            </svg>
         )
     };
 
@@ -1828,14 +1897,18 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
     const rng = makeRng(`${seed}-${docId}-${variant}`);
     const config = COUNTING_DATA[docId] || COUNTING_DATA['count-color-1-10'];
 
-    const items = ['🍎', '⭐️', '🌸', '🦋', '🎈', '🍪', '🧸', '🚗', '⚽️'];
+    const items = ['🍎', '⭐️', '🌸', '🦋', '🎈', '🍪', '🧸', '🚗', '⚽️', '🍦', '🚀', '🐝', '🐟', '🍓', '🍉', '🍄', '🦒', '🦀'];
 
     // Generate problems
     const { problems, shuffledNumbers } = useMemo(() => {
         const problemCount = config.type === 'match' ? 6 : config.type === 'color' ? 6 : 9;
+
+        // Pick unique icons for each problem
+        const shuffledItems = shuffleArray([...items], rng);
+
         const probs = Array.from({ length: problemCount }).map((_, i) => {
             const count = Math.floor(rng() * config.max) + 1;
-            const icon = pick(items, rng) || '⭐️';
+            const icon = shuffledItems[i % shuffledItems.length] || '⭐️';
 
             // For 'circle' type, generate options
             let options: number[] = [];
