@@ -1733,81 +1733,83 @@ export function AnimalPack({ seed, variant, showAnswersForDoc }: SpecificWorkshe
 
 
 // --- Colorable Icon for Counting Worksheets ---
-const ColorableIcon = ({ icon, size = 32 }: { icon: string, size?: number }) => {
-    // Return an SVG outline for specific emojis if type is 'color'
-    const outlineIcons: Record<string, React.ReactNode> = {
+const ColorableIcon = ({ icon, size = 32, colorMode = false }: { icon: string, size?: number, colorMode?: boolean }) => {
+    const strokeWidth = colorMode ? 0 : 2.5;
+
+    // Return an SVG outline/colored version for specific emojis
+    const icons: Record<string, React.ReactNode> = {
         '🍎': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M50 25 C60 15 90 25 90 55 C90 85 50 95 50 95 C50 95 10 85 10 55 C10 25 40 15 50 25Z" />
-                <path d="M50 25 L50 15" />
-                <path d="M50 15 Q60 5 70 15" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M50 25 C60 15 90 25 90 55 C90 85 50 95 50 95 C50 95 10 85 10 55 C10 25 40 15 50 25Z" fill={colorMode ? "#ef4444" : "none"} />
+                <path d="M50 25 L50 15" stroke={colorMode ? "#b91c1c" : "currentColor"} />
+                <path d="M50 15 Q60 5 70 15" stroke={colorMode ? "#15803d" : "currentColor"} fill={colorMode ? "#22c55e" : "none"} />
             </svg>
         ),
         '⭐️': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M50 5 L63 38 L95 38 L69 57 L79 90 L50 70 L21 90 L31 57 L5 38 L37 38 Z" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M50 5 L63 38 L95 38 L69 57 L79 90 L50 70 L21 90 L31 57 L5 38 L37 38 Z" fill={colorMode ? "#eab308" : "none"} stroke={colorMode ? "#ca8a04" : "currentColor"} />
             </svg>
         ),
         '🌸': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M50 30 Q60 10 70 30 T90 50 T70 70 T50 90 T30 70 T10 50 T30 30 T50 30" />
-                <circle cx="50" cy="50" r="10" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M50 30 Q60 10 70 30 T90 50 T70 70 T50 90 T30 70 T10 50 T30 30 T50 30" fill={colorMode ? "#f472b6" : "none"} stroke={colorMode ? "#db2777" : "currentColor"} />
+                <circle cx="50" cy="50" r="10" fill={colorMode ? "#fbbf24" : "none"} stroke={colorMode ? "#d97706" : "currentColor"} />
             </svg>
         ),
         '🦋': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M50 40 Q30 15 15 40 Q15 60 40 65 Q40 90 50 85 Q60 90 60 65 Q85 60 85 40 Q70 15 50 40" />
-                <path d="M50 30 L50 80" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M50 40 Q30 15 15 40 Q15 60 40 65 Q40 90 50 85 Q60 90 60 65 Q85 60 85 40 Q70 15 50 40" fill={colorMode ? "#60a5fa" : "none"} stroke={colorMode ? "#2563eb" : "currentColor"} />
+                <path d="M50 30 L50 80" stroke={colorMode ? "#1e40af" : "currentColor"} />
             </svg>
         ),
         '🎈': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <ellipse cx="50" cy="40" rx="30" ry="38" />
-                <path d="M50 78 L45 83 L55 83 Z" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <ellipse cx="50" cy="40" rx="30" ry="38" fill={colorMode ? "#f87171" : "none"} stroke={colorMode ? "#dc2626" : "currentColor"} />
+                <path d="M50 78 L45 83 L55 83 Z" fill={colorMode ? "#dc2626" : "none"} />
                 <path d="M50 83 Q45 90 50 100" />
             </svg>
         ),
         '🍪': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="50" cy="50" r="42" />
-                <circle cx="35" cy="35" r="4" fill="currentColor" />
-                <circle cx="65" cy="45" r="4" fill="currentColor" />
-                <circle cx="45" cy="65" r="4" fill="currentColor" />
-                <circle cx="55" cy="70" r="4" fill="currentColor" />
-                <circle cx="50" cy="30" r="4" fill="currentColor" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <circle cx="50" cy="50" r="42" fill={colorMode ? "#d97706" : "none"} stroke={colorMode ? "#92400e" : "currentColor"} />
+                <circle cx="35" cy="35" r="4" fill={colorMode ? "#451a03" : "currentColor"} />
+                <circle cx="65" cy="45" r="4" fill={colorMode ? "#451a03" : "currentColor"} />
+                <circle cx="45" cy="65" r="4" fill={colorMode ? "#451a03" : "currentColor"} />
+                <circle cx="55" cy="70" r="4" fill={colorMode ? "#451a03" : "currentColor"} />
+                <circle cx="50" cy="30" r="4" fill={colorMode ? "#451a03" : "currentColor"} />
             </svg>
         ),
         '🧸': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="50" cy="60" r="32" />
-                <circle cx="28" cy="32" r="14" />
-                <circle cx="72" cy="32" r="14" />
-                <circle cx="50" cy="65" r="10" />
-                <circle cx="40" cy="52" r="3.5" fill="currentColor" />
-                <circle cx="60" cy="52" r="3.5" fill="currentColor" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <circle cx="50" cy="60" r="32" fill={colorMode ? "#b45309" : "none"} stroke={colorMode ? "#78350f" : "currentColor"} />
+                <circle cx="28" cy="32" r="14" fill={colorMode ? "#b45309" : "none"} stroke={colorMode ? "#78350f" : "currentColor"} />
+                <circle cx="72" cy="32" r="14" fill={colorMode ? "#b45309" : "none"} stroke={colorMode ? "#78350f" : "currentColor"} />
+                <circle cx="50" cy="65" r="10" fill={colorMode ? "#fde68a" : "none"} />
+                <circle cx="40" cy="52" r="3.5" fill={colorMode ? "#000" : "currentColor"} />
+                <circle cx="60" cy="52" r="3.5" fill={colorMode ? "#000" : "currentColor"} />
             </svg>
         ),
         '🚗': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M10 70 L90 70 L85 50 L65 50 L55 30 L25 30 L15 50 L10 50 Z" />
-                <circle cx="25" cy="70" r="8" />
-                <circle cx="75" cy="70" r="8" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <path d="M10 70 L90 70 L85 50 L65 50 L55 30 L25 30 L15 50 L10 50 Z" fill={colorMode ? "#ef4444" : "none"} stroke={colorMode ? "#991b1b" : "currentColor"} />
+                <circle cx="25" cy="70" r="8" fill={colorMode ? "#333" : "none"} stroke={colorMode ? "#000" : "currentColor"} />
+                <circle cx="75" cy="70" r="8" fill={colorMode ? "#333" : "none"} stroke={colorMode ? "#000" : "currentColor"} />
             </svg>
         ),
         '⚽️': (
-            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="50" cy="50" r="42" />
-                <path d="M50 30 L65 40 L60 55 L40 55 L35 40 Z" fill="currentColor" opacity="0.1" />
-                <line x1="50" y1="30" x2="50" y2="8" />
-                <line x1="65" y1="40" x2="85" y2="35" />
-                <line x1="60" y1="55" x2="80" y2="75" />
-                <line x1="40" y1="55" x2="20" y2="75" />
-                <line x1="35" y1="40" x2="15" y2="35" />
+            <svg width={size} height={size} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
+                <circle cx="50" cy="50" r="42" fill={colorMode ? "#fff" : "none"} stroke={colorMode ? "#000" : "currentColor"} />
+                <path d="M50 30 L65 40 L60 55 L40 55 L35 40 Z" fill={colorMode ? "#333" : "currentColor"} opacity={colorMode ? "1" : "0.1"} />
+                <line x1="50" y1="30" x2="50" y2="8" stroke={colorMode ? "#000" : "currentColor"} />
+                <line x1="65" y1="40" x2="85" y2="35" stroke={colorMode ? "#000" : "currentColor"} />
+                <line x1="60" y1="55" x2="80" y2="75" stroke={colorMode ? "#000" : "currentColor"} />
+                <line x1="40" y1="55" x2="20" y2="75" stroke={colorMode ? "#000" : "currentColor"} />
+                <line x1="35" y1="40" x2="15" y2="35" stroke={colorMode ? "#000" : "currentColor"} />
             </svg>
         )
     };
 
-    return outlineIcons[icon] || <span style={{ fontSize: `${size * 0.8}px` }} className="grayscale opacity-40">{icon}</span>;
+    return icons[icon] || <span style={{ fontSize: `${size * 0.8}px` }}>{icon}</span>;
 }
 
 // --- Counting Worksheets (New Implementation) ---
@@ -1898,10 +1900,10 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                     <div className="flex-1 flex flex-col gap-6">
                         {problems.map((p: any) => (
                             <div key={p.id} className="relative border-2 border-slate-200 rounded-xl p-3 bg-white shadow-sm h-32 flex items-center justify-center break-inside-avoid">
-                                <div className={`grid ${p.count > 12 ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 justify-items-center items-center`}>
+                                <div className={`grid ${p.count > 12 ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 justify-items-center items-center p-2 rounded-lg bg-slate-50/50`}>
                                     {Array.from({ length: p.count }).map((_, idx) => (
                                         <div key={idx} className={`flex items-center justify-center ${p.count > 12 ? 'w-6 h-6' : 'w-8 h-8'}`}>
-                                            <span className={`${p.count > 12 ? 'text-lg' : 'text-xl'} leading-none`}>{p.icon}</span>
+                                            <ColorableIcon icon={p.icon} size={p.count > 12 ? 22 : 28} colorMode={true} />
                                         </div>
                                     ))}
                                 </div>
@@ -1924,16 +1926,16 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                 /* Grid Layout for other types */
                 <div className={`grid ${config.type === 'color' ? 'grid-cols-2' : 'grid-cols-3'} gap-6 mt-8`}>
                     {problems.map((p: any) => (
-                        <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
+                        <div key={p.id} className="border-2 border-slate-200 rounded-2xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-[0_4px_12px_-4px_rgba(0,0,0,0.1)] hover:shadow-md transition-shadow">
                             {/* Object Display */}
-                            <div className={`mb-4 w-full ${config.type === 'color' ? 'min-h-[12rem]' : 'min-h-[6rem]'} flex items-center justify-center p-2`}>
+                            <div className={`mb-4 w-full ${config.type === 'color' ? 'min-h-[14rem]' : 'min-h-[8rem]'} flex items-center justify-center p-4 rounded-xl ${config.type === 'color' ? 'bg-white' : 'bg-slate-50/50'}`}>
                                 <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} ${p.count > 10 ? 'gap-2' : 'gap-4'} justify-items-center items-center`}>
                                     {Array.from({ length: config.type === 'color' ? config.max : p.count }).map((_, idx) => (
-                                        <div key={idx} className={`flex items-center justify-center ${config.type === 'color' ? 'w-14 h-14' : p.count > 12 ? 'w-8 h-8' : 'w-10 h-10'}`}>
+                                        <div key={idx} className={`flex items-center justify-center ${config.type === 'color' ? 'w-16 h-16' : p.count > 12 ? 'w-10 h-10' : 'w-12 h-12'}`}>
                                             {config.type === 'color' ? (
-                                                <ColorableIcon icon={p.icon} size={48} />
+                                                <ColorableIcon icon={p.icon} size={54} colorMode={false} />
                                             ) : (
-                                                <span className={`${p.count > 12 ? 'text-xl' : 'text-2xl'} leading-none`}>{p.icon}</span>
+                                                <ColorableIcon icon={p.icon} size={p.count > 12 ? 32 : 42} colorMode={true} />
                                             )}
                                         </div>
                                     ))}
