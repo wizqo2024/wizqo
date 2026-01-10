@@ -324,6 +324,12 @@ export default function HandwritingMakerPage() {
 
       doc.setFontSize(fontSizeVal);
 
+      // Apply transparency for tracing if dotted is enabled
+      if (dotted) {
+        // @ts-ignore
+        doc.setGState(new doc.GState({ opacity: 0.3 }));
+      }
+
       const rowTextColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
       const rowTextRGB = hexToRgb(rowTextColor);
       doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
@@ -336,6 +342,12 @@ export default function HandwritingMakerPage() {
       }
 
       doc.text(txt, margin + 16, baselineY - 6, { renderingMode: renderingMode as any });
+
+      // Reset transparency
+      if (dotted) {
+        // @ts-ignore
+        doc.setGState(new doc.GState({ opacity: 1 }));
+      }
       doc.setCharSpace(0);
     });
 
