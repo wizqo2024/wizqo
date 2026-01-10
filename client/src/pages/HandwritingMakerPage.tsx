@@ -3,16 +3,23 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { useTranslation } from '@/context/TranslationContext';
+import { Download, Printer } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import jsPDF from 'jspdf';
+import { CODYSTAR_TTF_BASE64 } from '@/lib/fonts';
+import { hexToRgb } from '@/utils/pdfHelpers';
 
 type Mode = 'letters' | 'words' | 'sentences';
 
 export default function HandwritingMakerPage() {
   const { t, isRTL } = useTranslation();
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
-  
+
+  const { toast } = useToast();
+
   const [mode, setMode] = React.useState<Mode>('letters');
   const [letters, setLetters] = React.useState<string>('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z');
   const [words, setWords] = React.useState<string>('cat dog sun moon bus red blue green');
@@ -75,13 +82,172 @@ export default function HandwritingMakerPage() {
         try {
           iframe.contentWindow?.focus();
           iframe.contentWindow?.print();
-        } catch {}
-        setTimeout(() => { try { document.body.removeChild(iframe); } catch {} }, 1000);
+        } catch { }
+        setTimeout(() => { try { document.body.removeChild(iframe); } catch { } }, 1000);
       };
       if (iframe.contentWindow?.document.readyState === 'complete') doPrint();
       else iframe.onload = doPrint;
-    } catch {}
+    } catch { }
   }
+
+  const handleDownloadPDF = async () => {
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'pt',
+      format: 'letter'
+    });
+
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const margin = 36;
+    const startY = 120;
+    const fontSizeVal = fontSize;
+    const lineGap = fontSizeVal * 2.2;
+    const rowsCount = Math.floor((pageH - startY - margin) / lineGap);
+
+    // Load Codystar for dotted print
+    doc.addFileToVFS('Codystar-Regular.ttf', CODYSTAR_TTF_BASE64);
+    doc.addFont('Codystar-Regular.ttf', 'Codystar', 'normal');
+
+    // Branding
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(24);
+    doc.setTextColor(15, 23, 42);
+    doc.text('Wizqo', margin, margin + 20);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(100, 116, 139);
+    doc.text('www.wizqo.com', pageW - margin, margin + 20, { align: 'right' });
+
+    // Name/Date lines
+    const lineY = margin + 60;
+    doc.setFontSize(12);
+    doc.setTextColor(51, 65, 85);
+    doc.text(t('pages.handwriting.name'), margin, lineY);
+    doc.setDrawColor(148, 163, 184); // #94a3b8
+    doc.line(margin + 40, lineY + 2, margin + 240, lineY + 2);
+
+    doc.text(t('pages.handwriting.date'), pageW - 140, lineY);
+    doc.line(pageW - 105, lineY + 2, pageW - margin, lineY + 2);
+
+    // Logic to replicate PreviewSVG rows
+    const srcText = (() => {
+      if (mode === 'letters') {
+        const cleaned = letters.replace(/\r?\n/g, ' <br> ');
+        return cleaned.replace(/ {2,}/g, ' ').trim();
+      }
+      if (mode === 'words') {
+        const withMarkers = words.replace(/\r?\n/g, ' <br> ');
+        return withMarkers.replace(/ {2,}/g, ' ').trim();
+      }
+      const sentWithMarkers = sentences.replace(/\r?\n/g, ' <br> ');
+      const parts = sentWithMarkers.split(/[\.!?]+/).map((s: string) => s.trim()).filter(Boolean);
+      return parts.join(' ');
+    })();
+
+    // Wrapping logic
+    const tokens = srcText ? srcText.split(' ') : [];
+    const pdfRows: string[] = [];
+    let current = '';
+    const availableWidth = pageW - margin * 2 - 20;
+
+    const measure = (txt: string) => {
+      if (textStyle === 'cursive') doc.setFont('times', 'italic');
+      else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
+      doc.setFontSize(fontSizeVal);
+      return doc.getTextWidth(txt);
+    };
+
+    const letterSpacing = (() => {
+      if (!autoSpaceLetters) return 0;
+      if (textStyle === 'cursive') return 0;
+      const base = (mode === 'letters' ? fontSizeVal * 0.18 : fontSizeVal * 0.25);
+      return textStyle === 'bubble' ? base + fontSizeVal * 0.05 : base;
+    })();
+
+    const measureWithSpacing = (txt: string) => {
+      const charCount = Array.from(txt).length;
+      return measure(txt) + Math.max(0, charCount - 1) * letterSpacing;
+    };
+
+    const pushCurrent = () => { if (current) { pdfRows.push(current); current = ''; } };
+    for (let ti = 0; ti < tokens.length && pdfRows.length < rowsCount; ti++) {
+      const token = tokens[ti];
+      if (token === '<br>') { pushCurrent(); continue; }
+      const next = current ? `${current} ${token}` : token;
+      if (measureWithSpacing(next) <= availableWidth) {
+        current = next;
+      } else {
+        if (current) {
+          pushCurrent();
+          ti--;
+        } else {
+          let part = '';
+          for (const ch of token) {
+            if (measureWithSpacing(part + ch) <= availableWidth) {
+              part += ch;
+            } else {
+              pdfRows.push(part);
+              part = ch;
+              if (pdfRows.length >= rowsCount) break;
+            }
+          }
+          current = part;
+        }
+      }
+    }
+    if (pdfRows.length < rowsCount && current) pdfRows.push(current);
+
+    pdfRows.forEach((txt, idx) => {
+      const y = startY + idx * lineGap;
+      const mid = y - fontSizeVal * 0.35;
+      const top = y - fontSizeVal * 0.7;
+      const baselineY = y;
+
+      if (lineType === 'primary') {
+        doc.setDrawColor(229, 231, 235);
+        doc.setLineWidth(1.5);
+        doc.setLineDashPattern([8, 8], 0);
+        doc.line(margin, top, pageW - margin, top);
+        doc.setLineDashPattern([6, 10], 0);
+        doc.line(margin, mid, pageW - margin, mid);
+      }
+      doc.setLineDashPattern([], 0);
+      doc.setDrawColor(203, 213, 225);
+      doc.setLineWidth(2);
+      doc.line(margin, baselineY, pageW - margin, baselineY);
+
+      if (startDots) {
+        doc.setFillColor(16, 185, 129);
+        doc.circle(margin + 8, baselineY - fontSizeVal * 0.2, 4, 'F');
+      }
+
+      if (dotted) doc.setFont('Codystar', 'normal');
+      else if (textStyle === 'cursive') doc.setFont('times', 'italic');
+      else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
+
+      doc.setFontSize(fontSizeVal);
+      doc.setTextColor(15, 23, 42);
+      doc.setCharSpace(letterSpacing);
+
+      const renderingMode = textStyle === 'bubble' ? 1 : 0;
+      if (textStyle === 'bubble') {
+        doc.setLineWidth(1);
+        doc.setDrawColor(15, 23, 42);
+      }
+
+      doc.text(txt, margin + 16, baselineY - 6, { renderingMode: renderingMode as any });
+      doc.setCharSpace(0);
+    });
+
+    const fileNameText = (content[0] || 'worksheet').substring(0, 15).replace(/\s+/g, '-');
+    doc.save(`handwriting-${fileNameText}.pdf`);
+    toast({
+      title: t('Downloaded'),
+      description: t('Your handwriting worksheet has been saved as PDF.'),
+    });
+  };
 
   const content = React.useMemo(() => {
     if (mode === 'letters') return letters.split(/\s+/).filter(Boolean);
@@ -120,7 +286,7 @@ export default function HandwritingMakerPage() {
       const sentWithMarkers = sentences.replace(/\r?\n/g, ' <br> ');
       const parts = sentWithMarkers
         .split(/[\.!?]+/)
-        .map(s => s.trim())
+        .map((s: string) => s.trim())
         .filter(Boolean);
       return parts.join(' ');
     })();
@@ -132,14 +298,14 @@ export default function HandwritingMakerPage() {
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
     if (ctx) ctx.font = `${fontWeight}${fontSize}px ${fontFamily}`;
     const measure = (t: string) => (ctx ? ctx.measureText(t).width : t.length * (fontSize * 0.6));
-          const availableWidth = pageW - (margin + 16) - margin;
-          const letterSpacing = (() => {
-            if (!autoSpaceLetters) return 0;
-            if (textStyle === 'cursive') return 0;
-            // bubble needs a little extra space for stroke outline
-            const base = (mode === 'letters' ? fontSize * 0.18 : fontSize * 0.25);
-            return textStyle === 'bubble' ? base + fontSize * 0.05 : base;
-          })();
+    const availableWidth = pageW - (margin + 16) - margin;
+    const letterSpacing = (() => {
+      if (!autoSpaceLetters) return 0;
+      if (textStyle === 'cursive') return 0;
+      // bubble needs a little extra space for stroke outline
+      const base = (mode === 'letters' ? fontSize * 0.18 : fontSize * 0.25);
+      return textStyle === 'bubble' ? base + fontSize * 0.05 : base;
+    })();
     // Include CSS letter-spacing effect in our width measurement so lines wrap correctly
     const measureWithSpacing = (t: string) => {
       const charCount = Array.from(t).length;
@@ -186,7 +352,7 @@ export default function HandwritingMakerPage() {
 
     return (
       <svg viewBox={`0 0 ${pageW} ${pageH}`} className="w-full h-auto bg-white border border-slate-300 rounded" role="img" aria-label="Handwriting sheet preview">
-        <rect x={margin/2} y={margin/2} width={pageW - margin} height={pageH - margin} fill="none" stroke="#e2e8f0" />
+        <rect x={margin / 2} y={margin / 2} width={pageW - margin} height={pageH - margin} fill="none" stroke="#e2e8f0" />
         {rows.map((text, idx) => {
           const y = startY + idx * lineGap;
           const mid = y - fontSize * 0.35;
@@ -330,34 +496,34 @@ export default function HandwritingMakerPage() {
             {/* Mode segmented control */}
             <div className="mb-4">
               <div className="inline-flex rounded-lg border border-slate-200 overflow-hidden">
-                <button onClick={() => setMode('letters')} className={`px-4 py-2 text-sm ${mode==='letters' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.letters')}</button>
-                <button onClick={() => setMode('words')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode==='words' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.words')}</button>
-                <button onClick={() => setMode('sentences')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode==='sentences' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.sentences')}</button>
+                <button onClick={() => setMode('letters')} className={`px-4 py-2 text-sm ${mode === 'letters' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.letters')}</button>
+                <button onClick={() => setMode('words')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode === 'words' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.words')}</button>
+                <button onClick={() => setMode('sentences')} className={`px-4 py-2 text-sm border-l border-slate-200 ${mode === 'sentences' ? 'bg-purple-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-50'}`}>{t('pages.handwriting.mode.sentences')}</button>
               </div>
             </div>
 
             {/* Inputs */}
             <div className="space-y-4">
-              {mode==='letters' && (
+              {mode === 'letters' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-sm text-slate-700">{t('pages.handwriting.mode.letters')}</label>
                     <div className="flex items-center gap-2">
-                      <button type="button" onClick={()=>applyLettersSample('upper')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.uppercase')}</button>
-                      <button type="button" onClick={()=>applyLettersSample('lower')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.lowercase')}</button>
-                      <button type="button" onClick={()=>applyLettersSample('mixed')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.mixed')}</button>
-                      <button type="button" onClick={()=>setLetters('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                      <button type="button" onClick={() => applyLettersSample('upper')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.uppercase')}</button>
+                      <button type="button" onClick={() => applyLettersSample('lower')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.lowercase')}</button>
+                      <button type="button" onClick={() => applyLettersSample('mixed')} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.mixed')}</button>
+                      <button type="button" onClick={() => setLetters('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
                     </div>
                   </div>
                   <textarea
                     value={letters}
-                    onChange={(e)=>{
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                       const v = e.target.value;
                       if (autoSpaceLetters) {
                         // Preserve manual newlines while auto-spacing letters per line
                         const spacedByLine = v
                           .split(/\r?\n/)
-                          .map(line => line.replace(/\s+/g, '').split('').join(' '))
+                          .map((line: string) => line.replace(/\s+/g, '').split('').join(' '))
                           .join('\n');
                         setLetters(spacedByLine);
                       } else {
@@ -367,37 +533,37 @@ export default function HandwritingMakerPage() {
                     className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm"
                   />
                   <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
-                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e) => setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
                   </label>
                 </div>
               )}
-              {mode==='words' && (
+              {mode === 'words' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-sm text-slate-700">{t('pages.handwriting.mode.words')}</label>
                     <div className="flex items-center gap-2">
                       <button type="button" onClick={applyWordsSample} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.words')}</button>
-                      <button type="button" onClick={()=>setWords('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                      <button type="button" onClick={() => setWords('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
                     </div>
                   </div>
-                  <textarea value={words} onChange={(e)=>setWords(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                  <textarea value={words} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setWords(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                   <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
-                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
                   </label>
                 </div>
               )}
-              {mode==='sentences' && (
+              {mode === 'sentences' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-sm text-slate-700">{t('pages.handwriting.mode.sentences')}</label>
                     <div className="flex items-center gap-2">
                       <button type="button" onClick={applySentencesSample} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50">{t('pages.handwriting.quickFill.sentences')}</button>
-                      <button type="button" onClick={()=>setSentences('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
+                      <button type="button" onClick={() => setSentences('')} className="text-sm px-3 py-1.5 rounded border border-slate-200 text-slate-700 hover:bg-slate-50">Clear</button>
                     </div>
                   </div>
-                  <textarea value={sentences} onChange={(e)=>setSentences(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
+                  <textarea value={sentences} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSentences(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
                   <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
-                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e)=>setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
+                    <input type="checkbox" checked={autoSpaceLetters} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAutoSpaceLetters(e.target.checked)} /> {t('pages.handwriting.options.autoSpace')}
                   </label>
                 </div>
               )}
@@ -410,7 +576,7 @@ export default function HandwritingMakerPage() {
                     max={72}
                     step={2}
                     value={fontSize}
-                    onChange={(e)=>{
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       const raw = parseInt(e.target.value || '42', 10);
                       const safe = isNaN(raw) ? 42 : raw;
                       const clamped = Math.max(28, Math.min(72, safe));
@@ -420,33 +586,40 @@ export default function HandwritingMakerPage() {
                   />
                 </label>
                 <label className="text-sm text-slate-700">{t('pages.handwriting.options.textStyle')}
-                  <select value={textStyle} onChange={(e)=>setTextStyle(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
+                  <select value={textStyle} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTextStyle(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
                     <option value="print">{t('pages.handwriting.options.print')}</option>
                     <option value="cursive">{t('pages.handwriting.options.cursive')}</option>
                     <option value="bubble">{t('pages.handwriting.options.bubble')}</option>
                   </select>
                 </label>
                 <label className="text-sm text-slate-700">{t('pages.handwriting.options.lineType')}
-                  <select value={lineType} onChange={(e)=>setLineType(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
+                  <select value={lineType} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLineType(e.target.value as any)} className="ml-2 px-2 py-1 border border-slate-300 rounded">
                     <option value="primary">{t('pages.handwriting.options.primary')}</option>
                     <option value="baseline">{t('pages.handwriting.options.baseline')}</option>
                   </select>
                 </label>
                 <label className="text-sm text-slate-700 inline-flex items-center gap-2">
-                  <input type="checkbox" checked={dotted} onChange={(e)=>setDotted(e.target.checked)} /> {t('pages.handwriting.options.dotted')}
+                  <input type="checkbox" checked={dotted} onChange={(e) => setDotted(e.target.checked)} /> {t('pages.handwriting.options.dotted')}
                 </label>
                 <label className="text-sm text-slate-700 inline-flex items-center gap-2">
-                  <input type="checkbox" checked={startDots} onChange={(e)=>setStartDots(e.target.checked)} /> {t('pages.handwriting.options.startDots')}
+                  <input type="checkbox" checked={startDots} onChange={(e) => setStartDots(e.target.checked)} /> {t('pages.handwriting.options.startDots')}
                 </label>
               </div>
 
-              <div className="print:hidden pt-2">
+              <div className="print:hidden pt-2 flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={handleDownloadPDF}
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 text-sm font-semibold shadow-md transition-all active:scale-[0.98]"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>{t('Download PDF')}</span>
+                </button>
                 <button
                   onClick={printPreview}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 text-sm shadow"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-sm font-semibold shadow-sm transition-all active:scale-[0.98]"
                 >
-                  <span>⬇️</span>
-                  <span>{t('pages.handwriting.print')}</span>
+                  <Printer className="h-4 w-4" />
+                  <span>{t('Print Worksheet')}</span>
                 </button>
               </div>
               {/* Tips moved here below the Print button */}
@@ -463,13 +636,13 @@ export default function HandwritingMakerPage() {
           </div>
           {/* Right: Preview */}
           <div className="order-1 md:order-2 md:col-span-7 w-full min-w-0" id="handwriting-preview">
-              <img id="print-logo-inline" src="/favicon.svg" alt="Wizqo" className="hidden print:block" />
-              <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
-              <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
-                <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}-${textStyle}`} />
-              </div>
-              <div className="text-xs text-slate-500 mt-2 print:hidden">Tip: Long text wraps to the next line automatically.</div>
+            <img id="print-logo-inline" src="/favicon.svg" alt="Wizqo" className="hidden print:block" />
+            <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
+            <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
+              <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}-${textStyle}`} />
             </div>
+            <div className="text-xs text-slate-500 mt-2 print:hidden">Tip: Long text wraps to the next line automatically.</div>
+          </div>
         </section>
 
         {/* Explore More Worksheets (SEO-friendly, hidden in print) */}

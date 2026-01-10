@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 /**
  * Helper to convert hex to RGB for jsPDF
  */
-const hexToRgb = (hex: string) => {
+export const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
         r: parseInt(result[1], 16),
