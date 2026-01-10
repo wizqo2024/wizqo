@@ -7,13 +7,15 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
+import { Download, Printer } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
+import jsPDF from 'jspdf';
 
 export default function CertificateMakerPage() {
   const { toast } = useToast();
   const { t, isRTL } = useTranslation();
-  
+
   // Initialize date with today's date
   const getTodayDate = () => {
     const today = new Date();
@@ -26,7 +28,7 @@ export default function CertificateMakerPage() {
   const [recipient, setRecipient] = React.useState<string>('');
   const [awardTitle, setAwardTitle] = React.useState<string>('');
   const [reason, setReason] = React.useState<string>('');
-  
+
   // Initialize default values after translation context is ready
   React.useEffect(() => {
     if (!awardTitle && !reason) {
@@ -42,6 +44,7 @@ export default function CertificateMakerPage() {
   const signatureCanvasRef = React.useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = React.useState<boolean>(false);
   const [isDownloadingPNG, setIsDownloadingPNG] = React.useState<boolean>(false);
+  const [isDownloadingPDF, setIsDownloadingPDF] = React.useState<boolean>(false);
   const [theme, setTheme] = React.useState<'classic' | 'rainbow' | 'space' | 'animals' | 'gold' | 'confetti'>('classic');
 
   // Initialize canvas when signature drawer opens
@@ -111,8 +114,8 @@ export default function CertificateMakerPage() {
     try {
       const sheet = document.getElementById('certificate-sheet');
       if (!sheet) return;
-      const svg = sheet.querySelector('svg');
-      const content = svg ? (svg as SVGElement).outerHTML : sheet.innerHTML;
+      const previewSvgElement = sheet.querySelector('svg');
+      const content = previewSvgElement ? (previewSvgElement as SVGElement).outerHTML : sheet.innerHTML;
       const html = `<!doctype html><html><head><meta charset="utf-8"/>
 <title>Print</title>
 <style>
@@ -139,287 +142,185 @@ export default function CertificateMakerPage() {
         try {
           iframe.contentWindow?.focus();
           iframe.contentWindow?.print();
-        } catch {}
-        setTimeout(() => { try { document.body.removeChild(iframe); } catch {} }, 1000);
+        } catch { }
+        setTimeout(() => { try { document.body.removeChild(iframe); } catch { } }, 1000);
       };
       if (iframe.contentWindow?.document.readyState === 'complete') doPrint();
       else iframe.onload = doPrint;
-    } catch {}
+    } catch { }
   }
 
-  function downloadPNG() {
+  const downloadPNG = async () => {
     try {
       const sheet = document.getElementById('certificate-sheet');
-      if (!sheet) {
-        toast({
-          title: t('pages.certificate.error'),
-          description: t('pages.certificate.certificateNotFound'),
-          variant: 'destructive',
-        });
-        console.error('Certificate sheet not found');
-        return;
-      }
-      const svg = sheet.querySelector('svg');
-      if (!svg) {
-        toast({
-          title: t('pages.certificate.error'),
-          description: t('pages.certificate.svgNotFound'),
-          variant: 'destructive',
-        });
-        console.error('SVG not found');
-        return;
-      }
+      if (!sheet) return;
+      const svgElement = sheet.querySelector('svg');
+      if (!svgElement) return;
 
-      // Show loading indicator
       setIsDownloadingPNG(true);
 
-      // Clone the SVG to avoid modifying the original
-      const svgClone = svg.cloneNode(true) as SVGElement;
-      
-      // Get SVG dimensions
+      const svgClone = svgElement.cloneNode(true) as SVGElement;
       const viewBox = svgClone.getAttribute('viewBox');
-      const [x, y, width, height] = viewBox ? viewBox.split(' ').map(Number) : [0, 0, 1120, 800];
-      
-      // Ensure all images in the SVG are loaded and converted to data URLs
+      const [vx, vy, width, height] = viewBox ? viewBox.split(' ').map(Number) : [0, 0, 1120, 800];
+
       const images = svgClone.querySelectorAll('image');
-      const imagePromises: Promise<void>[] = [];
-      
-      images.forEach((img) => {
+      const imagePromises = Array.from(images).map(async (img) => {
         const href = img.getAttribute('href') || img.getAttribute('xlink:href');
-        if (href && href.startsWith('data:')) {
-          // Already a data URL, no conversion needed
-          return;
-        }
-        
-        if (href) {
-          const promise = new Promise<void>((resolve) => {
-            // If it's already a data URL, use it directly
-            if (href.startsWith('data:')) {
-              resolve();
-              return;
-            }
-            
-            const imgElement = new Image();
-            // Don't set crossOrigin for data URLs or same-origin images
-            if (!href.startsWith('data:') && !href.startsWith(window.location.origin)) {
-              imgElement.crossOrigin = 'anonymous';
-            }
-            
-            imgElement.onload = () => {
-              try {
-                const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = imgElement.width || 200;
-                tempCanvas.height = imgElement.height || 50;
-                const tempCtx = tempCanvas.getContext('2d');
-                if (tempCtx) {
-                  // Set white background first
-                  tempCtx.fillStyle = '#ffffff';
-                  tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-                  // Then draw the image
-                  tempCtx.drawImage(imgElement, 0, 0);
-                  
-                  // Try to get data URL - if it fails due to tainted canvas, use the original data URL if available
-                  try {
-                    const dataURL = tempCanvas.toDataURL('image/png');
-                    img.setAttribute('href', dataURL);
-                    img.removeAttribute('xlink:href');
-                  } catch (toDataURLError) {
-                    // If toDataURL fails (tainted canvas), check if we have the original data URL
-                    if (href.startsWith('data:')) {
-                      // Keep the original data URL
-                      img.setAttribute('href', href);
-                    } else {
-                      // Remove the image if we can't convert it
-                      console.warn('Cannot convert image to data URL, removing:', href);
-                      img.remove();
-                    }
-                  }
-                }
+        if (href && !href.startsWith('data:')) {
+          try {
+            const res = await fetch(href);
+            const blob = await res.blob();
+            return new Promise<void>((resolve) => {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                img.setAttribute('href', reader.result as string);
+                img.removeAttribute('xlink:href');
                 resolve();
-              } catch (error) {
-                console.error('Error converting image to data URL:', error);
-                // If conversion fails, remove the image element
-                img.remove();
-                resolve(); // Continue even if one image fails
-              }
-            };
-            imgElement.onerror = () => {
-              console.error('Error loading image:', href);
-              // Remove the image if it fails to load
-              img.remove();
-              resolve(); // Continue even if image fails to load
-            };
-            
-            // Try to load the image
-            try {
-              imgElement.src = href;
-            } catch (error) {
-              console.error('Error setting image src:', error);
-              img.remove();
-              resolve();
-            }
-          });
-          imagePromises.push(promise);
+              };
+              reader.readAsDataURL(blob);
+            });
+          } catch (e) { console.error('Image fetch error:', e); }
         }
       });
 
-      // Wait for all images to be converted, then proceed
-      Promise.all(imagePromises).then(() => {
-        try {
-          // Create a canvas
-          const canvas = document.createElement('canvas');
-          const scale = 2; // Higher resolution (2x)
-          canvas.width = width * scale;
-          canvas.height = height * scale;
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            toast({
-              title: t('pages.certificate.error'),
-              description: t('pages.certificate.cannotCreateCanvas'),
-              variant: 'destructive',
-            });
-            console.error('Could not get canvas context');
-            setIsDownloadingPNG(false);
-            return;
-          }
+      await Promise.all(imagePromises);
 
-          // Set white background
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const canvas = document.createElement('canvas');
+      const scale = 2.5;
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
 
-          // Convert SVG to image - ensure proper namespace and all images are data URLs
-          const svgData = new XMLSerializer().serializeToString(svgClone);
-          // Fix namespace issues
-          const fixedSvgData = svgData.replace(/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/g, 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"');
-          
-          // Convert SVG to data URL directly instead of blob URL to avoid CORS issues
-          const svgBase64 = btoa(unescape(encodeURIComponent(fixedSvgData)));
-          const svgDataURL = `data:image/svg+xml;base64,${svgBase64}`;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-          const img = new Image();
-          // No need to set crossOrigin for data URLs
-          img.onload = () => {
-            try {
-              // Draw the image on canvas
-              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const svgData = new XMLSerializer().serializeToString(svgClone);
+      const fixedSvgData = svgData.replace(/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/g, 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"');
+      const svgBase64 = btoa(unescape(encodeURIComponent(fixedSvgData)));
+      const svgDataURL = `data:image/svg+xml;base64,${svgBase64}`;
 
-              // Try toDataURL first (works even with some tainted canvases in some browsers)
-              let downloadSuccess = false;
-              try {
-                const dataURL = canvas.toDataURL('image/png');
-                // Check if dataURL is valid (not the default empty image)
-                if (dataURL && dataURL !== 'data:,') {
-                  const link = document.createElement('a');
-                  link.href = dataURL;
-                  const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
-                  link.download = filename;
-                  link.style.display = 'none';
-                  document.body.appendChild(link);
-                  link.click();
-                  setTimeout(() => {
-                    document.body.removeChild(link);
-                    setIsDownloadingPNG(false);
-                    toast({
-                      title: t('pages.certificate.downloadComplete'),
-                      description: t('pages.certificate.downloadCompleteDesc'),
-                    });
-                  }, 100);
-                  downloadSuccess = true;
-                }
-              } catch (dataURLError) {
-                console.warn('toDataURL failed:', dataURLError);
-              }
-              
-              // If toDataURL failed, try toBlob as fallback
-              if (!downloadSuccess) {
-                try {
-                  canvas.toBlob((blob) => {
-                    if (!blob) {
-                      toast({
-                        title: t('pages.certificate.exportFailed'),
-                        description: t('pages.certificate.exportFailedDesc'),
-                        variant: 'destructive',
-                      });
-                      console.error('Failed to create blob');
-                      setIsDownloadingPNG(false);
-                      return;
-                    }
-                    const downloadUrl = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = downloadUrl;
-                    const filename = `certificate-${recipient ? recipient.replace(/[^a-z0-9]/gi, '-').toLowerCase() : 'certificate'}-${Date.now()}.png`;
-                    link.download = filename;
-                    link.style.display = 'none';
-                    document.body.appendChild(link);
-                    link.click();
-                    setTimeout(() => {
-                      document.body.removeChild(link);
-                      URL.revokeObjectURL(downloadUrl);
-                      setIsDownloadingPNG(false);
-                      toast({
-                        title: 'Download Complete',
-                        description: 'Your certificate has been downloaded successfully.',
-                      });
-                    }, 100);
-                  }, 'image/png', 1.0);
-                } catch (toBlobError) {
-                  console.error('toBlob also failed:', toBlobError);
-                  toast({
-                    title: t('pages.certificate.exportFailed'),
-                    description: t('pages.certificate.exportFailedSecurity'),
-                    variant: 'destructive',
-                  });
-                  setIsDownloadingPNG(false);
-                }
-              }
-            } catch (error) {
-              console.error('Error creating PNG:', error);
-              toast({
-                title: t('pages.certificate.error'),
-                description: `${t('pages.certificate.errorCreatingPNG')}${error instanceof Error ? error.message : t('pages.certificate.unknownError')}. ${t('pages.certificate.tryPrintPDF')}`,
-                variant: 'destructive',
-              });
-              setIsDownloadingPNG(false);
-            }
-          };
-          img.onerror = (error) => {
-            console.error('Error loading SVG image:', error);
-            toast({
-              title: t('pages.certificate.error'),
-              description: t('pages.certificate.failedToLoadSVG'),
-              variant: 'destructive',
-            });
-            setIsDownloadingPNG(false);
-          };
-          img.src = svgDataURL;
-        } catch (error) {
-          console.error('Error in PNG conversion:', error);
-          toast({
-            title: t('pages.certificate.error'),
-            description: `${t('pages.certificate.errorConvertingPNG')}${error instanceof Error ? error.message : t('pages.certificate.unknownError')}`,
-            variant: 'destructive',
-          });
-          setIsDownloadingPNG(false);
-        }
-      }).catch((error) => {
-        console.error('Error processing images:', error);
-        toast({
-          title: t('pages.certificate.error'),
-          description: `${t('pages.certificate.errorProcessingImages')}${error instanceof Error ? error.message : t('pages.certificate.unknownError')}`,
-          variant: 'destructive',
-        });
-        setIsDownloadingPNG(false);
+      const img = new Image();
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = svgDataURL;
+      });
+
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const dataURL = canvas.toDataURL('image/png');
+
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = `certificate-${recipient ? recipient.replace(/\s+/g, '-') : 'award'}.png`;
+      link.click();
+
+      toast({
+        title: t('pages.certificate.downloadComplete'),
+        description: t('pages.certificate.downloadCompleteDesc'),
       });
     } catch (error) {
-      console.error('Download PNG error:', error);
-        toast({
-          title: t('pages.certificate.error'),
-          description: `${t('pages.certificate.failedToDownloadPNG')}${error instanceof Error ? error.message : t('pages.certificate.unknownError')}. ${t('pages.certificate.tryAgainOrPrintPDF')}`,
-          variant: 'destructive',
-        });
+      console.error('PNG export error:', error);
+      toast({
+        title: t('pages.certificate.error'),
+        description: t('pages.certificate.exportFailed'),
+        variant: 'destructive'
+      });
+    } finally {
       setIsDownloadingPNG(false);
     }
-  }
+  };
+
+  const handleDownloadPDF = async () => {
+    try {
+      const sheet = document.getElementById('certificate-sheet');
+      if (!sheet) return;
+      const svgElement = sheet.querySelector('svg');
+      if (!svgElement) return;
+
+      setIsDownloadingPDF(true);
+
+      // Clone SVG
+      const svgClone = svgElement.cloneNode(true) as SVGElement;
+      const viewBox = svgClone.getAttribute('viewBox');
+      const [vx, vy, width, height] = viewBox ? viewBox.split(' ').map(Number) : [0, 0, 1120, 800];
+
+      // Convert all images to DataURLs (reusing logic from downloadPNG)
+      const images = svgClone.querySelectorAll('image');
+      const imagePromises = Array.from(images).map(async (img) => {
+        const href = img.getAttribute('href') || img.getAttribute('xlink:href');
+        if (href && !href.startsWith('data:')) {
+          try {
+            const res = await fetch(href);
+            const blob = await res.blob();
+            return new Promise<void>((resolve) => {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                img.setAttribute('href', reader.result as string);
+                img.removeAttribute('xlink:href');
+                resolve();
+              };
+              reader.readAsDataURL(blob);
+            });
+          } catch (e) {
+            console.error('Failed to convert image in SVG:', e);
+          }
+        }
+      });
+
+      await Promise.all(imagePromises);
+
+      // Create high-res canvas (300 DPI approx)
+      const canvas = document.createElement('canvas');
+      const scale = 2.5; // High resolution
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const svgData = new XMLSerializer().serializeToString(svgClone);
+      const fixedSvgData = svgData.replace(/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/g, 'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"');
+      const svgBase64 = btoa(unescape(encodeURIComponent(fixedSvgData)));
+      const svgDataURL = `data:image/svg+xml;base64,${svgBase64}`;
+
+      const img = new Image();
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = svgDataURL;
+      });
+
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+      // Create PDF (landscape)
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'pt',
+        format: [width, height]
+      });
+
+      pdf.addImage(imgData, 'JPEG', 0, 0, width, height);
+      pdf.save(`certificate-${recipient ? recipient.replace(/\s+/g, '-') : 'award'}.pdf`);
+
+      toast({
+        title: t('Downloaded'),
+        description: t('Your certificate has been saved as PDF.'),
+      });
+    } catch (error) {
+      console.error('PDF export error:', error);
+      toast({
+        title: t('Error'),
+        description: t('Failed to generate PDF. Please try again.'),
+        variant: 'destructive'
+      });
+    } finally {
+      setIsDownloadingPDF(false);
+    }
+  };
 
   const reactId = React.useId();
   const backgroundClipId = React.useMemo(() => `certificate-bg-${reactId.replace(/:/g, '')}`, [reactId]);
@@ -921,7 +822,7 @@ export default function CertificateMakerPage() {
     const sealInnerGradient = `${sealPrefix}-inner-grad`;
     const sealEmbossGradient = `${sealPrefix}-emboss`;
     const sealShadowGradient = `${sealPrefix}-shadow`;
-    
+
     // Color schemes for different seal styles
     const getSealColors = () => {
       switch (sealStyle) {
@@ -969,9 +870,9 @@ export default function CertificateMakerPage() {
           };
       }
     };
-    
+
     const { color: sealColor, light: sealLight, dark: sealDark, mid: sealMid } = getSealColors();
-    
+
     return (
       <g transform={`translate(${sealPositionCoords.x} ${sealPositionCoords.y})`} aria-label="Official seal">
         <defs>
@@ -1002,10 +903,10 @@ export default function CertificateMakerPage() {
             <stop offset="100%" stopColor={sealDark} stopOpacity="0.4" />
           </radialGradient>
         </defs>
-        
+
         {/* Drop shadow for realistic effect */}
         <circle r={sealSize + 8} fill={`url(#${sealShadowGradient})`} opacity="0.6" />
-        
+
         {/* Render different seal styles */}
         {sealStyle === 'classic-official' && (
           <>
@@ -1056,7 +957,7 @@ export default function CertificateMakerPage() {
                 <path id={`${sealPrefix}-bottom-text-path`} d={`M ${sealSize * 0.7},0 A ${sealSize * 0.7},${sealSize * 0.7} 0 0,1 -${sealSize * 0.7},0`} fill="none" />
                 <text fontSize="8" fill={sealDark} fontFamily="serif" fontWeight="600" letterSpacing="1.5" opacity="0.7">
                   <textPath href={`#${sealPrefix}-bottom-text-path`} startOffset="50%" textAnchor="middle">
-                    {(() => { try { return new Date(date).getFullYear(); } catch {} return ''; })()}
+                    {(() => { try { return new Date(date).getFullYear(); } catch { } return ''; })()}
                   </textPath>
                 </text>
               </>
@@ -1069,7 +970,7 @@ export default function CertificateMakerPage() {
             })}
           </>
         )}
-        
+
         {sealStyle === 'notary' && (
           <>
             {/* Notary seal - blue with scales of justice */}
@@ -1095,7 +996,7 @@ export default function CertificateMakerPage() {
             </text>
           </>
         )}
-        
+
         {sealStyle === 'academic' && (
           <>
             {/* Academic seal - with laurel wreath */}
@@ -1126,7 +1027,7 @@ export default function CertificateMakerPage() {
             </text>
           </>
         )}
-        
+
         {sealStyle === 'government' && (
           <>
             {/* Government seal - with eagle/shield */}
@@ -1151,7 +1052,7 @@ export default function CertificateMakerPage() {
             </text>
           </>
         )}
-        
+
         {sealStyle === 'corporate' && (
           <>
             {/* Corporate seal - modern with building/star */}
@@ -1172,7 +1073,7 @@ export default function CertificateMakerPage() {
             </text>
           </>
         )}
-        
+
         {sealStyle === 'medallion' && (
           <>
             {/* Medallion seal - ornate with ribbon */}
@@ -1212,7 +1113,7 @@ export default function CertificateMakerPage() {
   const interiorFillColor = inkFriendly ? '#f8fafc' : '#ffffff';
   const interiorFillOpacity = inkFriendly ? 0.9 : 0.78;
 
-  const svg = (
+  const certificateSvg = (
     <svg viewBox="0 0 1120 800" role="img" aria-label="Certificate preview">
       <defs>
         <clipPath id={backgroundClipId}>
@@ -1419,20 +1320,20 @@ export default function CertificateMakerPage() {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="recipient" className="text-slate-700">{t('pages.certificate.recipientName')}</Label>
-                      <Input id="recipient" value={recipient} onChange={e => setRecipient(e.target.value)} placeholder={t('pages.certificate.recipientPlaceholder')} />
+                      <Input id="recipient" value={recipient} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRecipient(e.target.value)} placeholder={t('pages.certificate.recipientPlaceholder')} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="awardTitle" className="text-slate-700">{t('pages.certificate.awardTitle')}</Label>
-                      <Input id="awardTitle" value={awardTitle} onChange={e => setAwardTitle(e.target.value)} placeholder={t('pages.certificate.awardTitlePlaceholder')} />
+                      <Input id="awardTitle" value={awardTitle} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAwardTitle(e.target.value)} placeholder={t('pages.certificate.awardTitlePlaceholder')} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="reason" className="text-slate-700">{t('pages.certificate.reason')}</Label>
-                      <Textarea id="reason" value={reason} onChange={e => setReason(e.target.value)} placeholder={t('pages.certificate.reasonPlaceholder')} className="min-h-[120px]" />
+                      <Textarea id="reason" value={reason} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setReason(e.target.value)} placeholder={t('pages.certificate.reasonPlaceholder')} className="min-h-[120px]" />
                     </div>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label htmlFor="date" className="text-slate-700">{t('pages.handwriting.date')}</Label>
-                        <Input id="date" type="date" value={date} onChange={e => setDate(e.target.value)} />
+                        <Input id="date" type="date" value={date} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDate(e.target.value)} />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="issuer" className="text-slate-700">{t('pages.certificate.signatureIssuer')}</Label>
@@ -1441,22 +1342,20 @@ export default function CertificateMakerPage() {
                             <button
                               type="button"
                               onClick={() => setSignatureMode('text')}
-                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
-                                signatureMode === 'text'
-                                  ? 'bg-purple-600 text-white'
-                                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                              }`}
+                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${signatureMode === 'text'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                }`}
                             >
                               {t('pages.certificate.text')}
                             </button>
                             <button
                               type="button"
                               onClick={() => setSignatureMode('upload')}
-                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
-                                signatureMode === 'upload'
-                                  ? 'bg-purple-600 text-white'
-                                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                              }`}
+                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${signatureMode === 'upload'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                }`}
                             >
                               {t('pages.certificate.upload')}
                             </button>
@@ -1466,33 +1365,32 @@ export default function CertificateMakerPage() {
                                 setSignatureMode('draw');
                                 setShowSignatureDrawer(true);
                               }}
-                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${
-                                signatureMode === 'draw'
-                                  ? 'bg-purple-600 text-white'
-                                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                              }`}
+                              className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition ${signatureMode === 'draw'
+                                ? 'bg-purple-600 text-white'
+                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                }`}
                             >
                               {t('pages.certificate.draw')}
                             </button>
                           </div>
-                          
+
                           {signatureMode === 'text' && (
                             <div className="space-y-1">
-                              <Input 
-                                id="issuer" 
-                                value={issuer} 
-                                onChange={e => {
+                              <Input
+                                id="issuer"
+                                value={issuer}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                   if (e.target.value.length <= 30) {
                                     setIssuer(e.target.value);
                                   }
-                                }} 
+                                }}
                                 placeholder={t('pages.certificate.issuerPlaceholder')}
                                 maxLength={30}
                               />
                               <p className="text-xs text-slate-500">{issuer.length}/30 {t('pages.certificate.characters')}</p>
                             </div>
                           )}
-                          
+
                           {signatureMode === 'upload' && (
                             <div className="space-y-2">
                               <input
@@ -1513,7 +1411,7 @@ export default function CertificateMakerPage() {
                                       e.target.value = '';
                                       return;
                                     }
-                                    
+
                                     // Validate file type
                                     if (!file.type.startsWith('image/')) {
                                       toast({
@@ -1524,7 +1422,7 @@ export default function CertificateMakerPage() {
                                       e.target.value = '';
                                       return;
                                     }
-                                    
+
                                     const reader = new FileReader();
                                     reader.onload = (event) => {
                                       setSignatureImage(event.target?.result as string);
@@ -1576,7 +1474,7 @@ export default function CertificateMakerPage() {
                               </div>
                             </div>
                           )}
-                          
+
                           {signatureMode === 'draw' && (
                             <div className="space-y-2">
                               {signatureImage ? (
@@ -1794,7 +1692,7 @@ export default function CertificateMakerPage() {
                           <select
                             id="sealStyle"
                             value={sealStyle}
-                            onChange={e => setSealStyle(e.target.value as typeof sealStyle)}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSealStyle(e.target.value as typeof sealStyle)}
                             className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                           >
                             <option value="classic-official">{t('pages.certificate.sealStyles.classicOfficial')}</option>
@@ -1818,7 +1716,7 @@ export default function CertificateMakerPage() {
                         <select
                           id="bgStyle"
                           value={bgStyle}
-                          onChange={e => setBgStyle(e.target.value as typeof bgStyle)}
+                          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setBgStyle(e.target.value as typeof bgStyle)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
                           <option value="none">{t('pages.certificate.bgStyles.none')}</option>
@@ -1841,7 +1739,7 @@ export default function CertificateMakerPage() {
                         <select
                           id="fontStyle"
                           value={fontStyle}
-                          onChange={e => setFontStyle(e.target.value as typeof fontStyle)}
+                          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFontStyle(e.target.value as typeof fontStyle)}
                           className="w-full appearance-none rounded-xl border border-slate-200 bg-white/90 px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-transparent focus:outline-none focus:ring-2 focus:ring-violet-400"
                         >
                           <option value="print">{t('pages.certificate.fontStyles.print')}</option>
@@ -1881,7 +1779,7 @@ export default function CertificateMakerPage() {
                           id="textColor"
                           type="color"
                           value={textColorOverride || colors.text}
-                          onChange={e => setTextColorOverride(e.target.value)}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTextColorOverride(e.target.value)}
                           className="h-12 w-full cursor-pointer rounded-xl border border-slate-200 bg-white p-1 shadow-inner"
                         />
                       </div>
@@ -1891,7 +1789,7 @@ export default function CertificateMakerPage() {
                           id="accentColor"
                           type="color"
                           value={accentColorOverride || colors.accent}
-                          onChange={e => setAccentColorOverride(e.target.value)}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAccentColorOverride(e.target.value)}
                           className="h-12 w-full cursor-pointer rounded-xl border border-slate-200 bg-white p-1 shadow-inner"
                         />
                       </div>
@@ -1908,60 +1806,61 @@ export default function CertificateMakerPage() {
                       </Button>
                     </div>
                     <div className="mt-auto pt-2 space-y-2">
-                      <Button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          downloadPNG();
-                        }}
-                        disabled={isDownloadingPNG}
-                        className="w-full justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-sm font-semibold shadow-lg hover:from-emerald-600/90 hover:via-teal-600/90 hover:to-cyan-600/90 disabled:opacity-50 disabled:cursor-not-allowed"
-                        size="lg"
-                        type="button"
-                      >
-                        <span className="inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
-                          {isDownloadingPNG ? (
-                            <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                          ) : (
-                            <svg
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="h-5 w-5"
-                            >
-                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                              <polyline points="7 10 12 15 17 10" />
-                              <line x1="12" y1="15" x2="12" y2="3" />
-                            </svg>
-                          )}
-                        </span>
-                        <span>{isDownloadingPNG ? t('pages.certificate.generatingPNG') : t('pages.certificate.downloadPNG')}</span>
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            downloadPNG();
+                          }}
+                          disabled={isDownloadingPNG}
+                          className="flex-1 justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-sm font-semibold shadow-lg hover:from-emerald-600/90 hover:via-teal-600/90 hover:to-cyan-600/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                          size="lg"
+                          type="button"
+                        >
+                          <span className="inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
+                            {isDownloadingPNG ? (
+                              <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                            ) : (
+                              <Download className="h-5 w-5" />
+                            )}
+                          </span>
+                          <span>{isDownloadingPNG ? t('pages.certificate.generatingPNG') : t('pages.certificate.downloadPNG')}</span>
+                        </Button>
+
+                        <Button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleDownloadPDF();
+                          }}
+                          disabled={isDownloadingPDF}
+                          className="flex-1 justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-sm font-semibold shadow-lg hover:from-blue-600/90 hover:via-indigo-600/90 hover:to-violet-600/90 disabled:opacity-50 disabled:cursor-not-allowed"
+                          size="lg"
+                          type="button"
+                        >
+                          <span className="inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
+                            {isDownloadingPDF ? (
+                              <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                            ) : (
+                              <Download className="h-5 w-5" />
+                            )}
+                          </span>
+                          <span>{isDownloadingPDF ? t('pages.certificate.generatingPDF') : t('Download PDF')}</span>
+                        </Button>
+                      </div>
+
                       <Button
                         onClick={printPreview}
-                        className="w-full justify-center gap-2 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-sm font-semibold shadow-lg hover:from-purple-600/90 hover:via-indigo-600/90 hover:to-blue-600/90"
+                        className="w-full justify-center gap-2 rounded-full border-2 border-slate-200 bg-white text-slate-700 font-semibold shadow-sm hover:bg-slate-50"
                         size="lg"
                       >
                         <span className="inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="h-5 w-5"
-                          >
-                            <path d="M7 17h10v4H7z" />
-                            <path d="M7 17H6a3 3 0 0 1-3-3v-3a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1" />
-                            <path d="M7 8V3h10v5" />
-                            <path d="M17 13h.01" />
-                          </svg>
+                          <Printer className="h-5 w-5" />
                         </span>
                         <span>{t('pages.certificate.printSavePDF')}</span>
                       </Button>
@@ -1989,7 +1888,7 @@ export default function CertificateMakerPage() {
                 <div className="relative flex h-full flex-col rounded-[32px] border border-white/70 bg-white p-4 shadow-[0_25px_70px_-30px_rgba(15,23,42,0.45)]">
                   <div className="flex-1 overflow-hidden rounded-[24px] border border-slate-200/80 bg-slate-50/60 p-4 shadow-inner">
                     <div id="certificate-sheet" className="h-full rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
-                      {svg}
+                      {certificateSvg}
                     </div>
                   </div>
                 </div>
@@ -2063,7 +1962,7 @@ export default function CertificateMakerPage() {
         </div>
       </section>
       <Footer />
-      
+
       {/* Signature Drawing Modal */}
       {showSignatureDrawer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={() => setShowSignatureDrawer(false)}>
@@ -2086,7 +1985,7 @@ export default function CertificateMakerPage() {
                 width={600}
                 height={200}
                 className="w-full cursor-crosshair"
-                onMouseDown={(e) => {
+                onMouseDown={(e: React.MouseEvent<HTMLCanvasElement>) => {
                   if (!signatureCanvasRef.current) return;
                   const canvas = signatureCanvasRef.current;
                   const rect = canvas.getBoundingClientRect();
@@ -2100,7 +1999,7 @@ export default function CertificateMakerPage() {
                   ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
                   setIsDrawing(true);
                 }}
-                onMouseMove={(e) => {
+                onMouseMove={(e: React.MouseEvent<HTMLCanvasElement>) => {
                   if (!isDrawing || !signatureCanvasRef.current) return;
                   const canvas = signatureCanvasRef.current;
                   const rect = canvas.getBoundingClientRect();
@@ -2111,7 +2010,7 @@ export default function CertificateMakerPage() {
                 }}
                 onMouseUp={() => setIsDrawing(false)}
                 onMouseLeave={() => setIsDrawing(false)}
-                onTouchStart={(e) => {
+                onTouchStart={(e: React.TouchEvent<HTMLCanvasElement>) => {
                   e.preventDefault();
                   if (!signatureCanvasRef.current) return;
                   const canvas = signatureCanvasRef.current;
@@ -2127,7 +2026,7 @@ export default function CertificateMakerPage() {
                   ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
                   setIsDrawing(true);
                 }}
-                onTouchMove={(e) => {
+                onTouchMove={(e: React.TouchEvent<HTMLCanvasElement>) => {
                   e.preventDefault();
                   if (!isDrawing || !signatureCanvasRef.current) return;
                   const canvas = signatureCanvasRef.current;
