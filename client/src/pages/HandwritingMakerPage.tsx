@@ -100,7 +100,7 @@ export default function HandwritingMakerPage() {
     const pageW = doc.internal.pageSize.getWidth();
     const pageH = doc.internal.pageSize.getHeight();
     const margin = 36;
-    const startY = 120;
+    const startY = 170; // Increased from 120 to avoid overlap with name/date
     const fontSizeVal = fontSize;
     const lineGap = fontSizeVal * 2.2;
     const rowsCount = Math.floor((pageH - startY - margin) / lineGap);
@@ -121,15 +121,15 @@ export default function HandwritingMakerPage() {
     doc.text('www.wizqo.com', pageW - margin, margin + 20, { align: 'right' });
 
     // Name/Date lines
-    const lineY = margin + 60;
+    const lineY = margin + 65;
     doc.setFontSize(12);
     doc.setTextColor(51, 65, 85);
     doc.text(t('pages.handwriting.name'), margin, lineY);
     doc.setDrawColor(148, 163, 184); // #94a3b8
-    doc.line(margin + 40, lineY + 2, margin + 240, lineY + 2);
+    doc.line(margin + 45, lineY + 2, margin + 260, lineY + 2);
 
-    doc.text(t('pages.handwriting.date'), pageW - 140, lineY);
-    doc.line(pageW - 105, lineY + 2, pageW - margin, lineY + 2);
+    doc.text(t('pages.handwriting.date'), pageW - 160, lineY);
+    doc.line(pageW - 125, lineY + 2, pageW - margin, lineY + 2);
 
     // Logic to replicate PreviewSVG rows
     const srcText = (() => {
