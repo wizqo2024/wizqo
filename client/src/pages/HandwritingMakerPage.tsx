@@ -48,7 +48,7 @@ export default function HandwritingMakerPage() {
   const [letters, setLetters] = React.useState<string>('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z');
   const [words, setWords] = React.useState<string>('cat dog sun moon bus red blue green');
   const [sentences, setSentences] = React.useState<string>('I can write neatly. We like to read. Today is fun.');
-  const [fontSize, setFontSize] = React.useState<number>(42);
+  const [fontSize, setFontSize] = React.useState<number>(72);
   const [lineType, setLineType] = React.useState<'primary' | 'baseline'>('primary');
   const [dotted, setDotted] = React.useState<boolean>(true);
   const [startDots, setStartDots] = React.useState<boolean>(true);
