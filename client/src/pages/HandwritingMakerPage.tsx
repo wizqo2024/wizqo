@@ -394,7 +394,7 @@ export default function HandwritingMakerPage() {
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
     if (ctx) ctx.font = `${fontWeight}${fontSize}px ${fontFamily}`;
     const measure = (t: string) => (ctx ? ctx.measureText(t).width : t.length * (fontSize * 0.6));
-    const availableWidth = pageW - (margin + 16) - margin;
+    const availableWidth = pageW - (margin + 16) - margin - 20; // Added 20px safety margin
     const letterSpacing = (() => {
       if (!autoSpaceLetters) return 0;
       if (textStyle === 'cursive') return 0;
@@ -535,7 +535,7 @@ export default function HandwritingMakerPage() {
                   return dotted ? '3 5' : undefined;
                 })()}
                 strokeLinecap={dotted ? 'round' as any : undefined}
-                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: autoSpaceLetters ? `${letterSpacing}pt` : undefined } as any}
+                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: autoSpaceLetters ? `${letterSpacing}px` : undefined } as any}
               >
                 {text}
               </text>
