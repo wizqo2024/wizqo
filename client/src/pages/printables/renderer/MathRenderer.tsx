@@ -281,24 +281,6 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
                 <MultiplicationWordProblems seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="mult-complex-word" difficulty="complex" />
             )}
 
-            {/* Multi-Digit Multiplication (Vertical) */}
-            {activeDocs.some((d: string) => ['mult-2x1', 'mult-2x2', 'mult-3x1', 'mult-3x2', 'mult-2x1-digit', 'mult-2x2-digit', 'mult-3x1-digit', 'mult-3x2-digit'].includes(d)) && (() => {
-                const docId = activeDocs.find((d: string) => d.startsWith('mult-')) || 'mult-2x1';
-                let top = 2, bottom = 1;
-                if (docId.includes('2x2')) { top = 2; bottom = 2; }
-                else if (docId.includes('3x2')) { top = 3; bottom = 2; }
-
-                return (
-                    <MultiplicationVertical
-                        seed={effectiveSeed}
-                        variant={numVariant}
-                        showAnswersForDoc={showAnswersForDoc}
-                        docId={docId}
-                        digitsTop={top}
-                        digitsBottom={bottom}
-                    />
-                )
-            })()}
 
 
             {activeDocs.includes('mult-lattice') && <LatticeMultiplication seed={effectiveSeed} variant={numVariant} showAnswers={showAnswers} showAnswersForDoc={showAnswersForDoc} />}
@@ -396,7 +378,6 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('long-division-1-digit') && <LongDivision1Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('long-division-2-digit') && <LongDivision2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('long-division-multi-digit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('long-division-multi-digit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('dividing-by-10-100') || activeDocs.includes('div-by-10-100')) && <DividingBy10And100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 3rd Grade Math Restoration */}
@@ -471,7 +452,6 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('add-sub-fractions-unlike') && <AddSubFractionsUnlike seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 5th Grade Operations */}
-            {activeDocs.includes('long-division-multidigit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('order-of-operations') || activeDocs.includes('order-of-operations-pemdas')) && <OrderOfOperations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} docId="order-of-operations" />}
 
             {/* Order of Operations (PEMDAS) - New Mappings */}
@@ -496,7 +476,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('nets-3d-shapes') && <Nets3DShapes seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('transformations-5th') && <Transformations5th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('patterns-rules') && <PatternsRules seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {(activeDocs.includes('solving-one-step-equations') || activeDocs.includes('writing-expressions')) && <SolvingOneStepEquations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('solving-one-step-equations') && <SolvingOneStepEquations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('evaluating-expressions') && <EvaluatingExpressions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 5th Grade Data Analysis */}
@@ -516,13 +496,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('rounding-decimals') && <RoundingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('estimating-sums-differences') && <EstimatingSumsDifferences seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('powers-of-10') && <PowersOf10 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('rounding-decimals') && <RoundingDecimals seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('estimating-sums-differences') && <EstimatingSumsDifferences seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('evaluating-expressions') && <EvaluatingExpressions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('writing-expressions') && <WritingExpressions seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('solving-one-step-equations') && <SolvingOneStepEquations seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('patterns-rules') && <PatternsRules seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* Critical Math Restorations */}
             {activeDocs.includes('add-2digit-regrouping') && <Add2DigitRegrouping docId="add-2digit-regrouping" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
