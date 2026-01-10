@@ -1222,16 +1222,26 @@ export default function NameTracingGeneratorPage() {
                         <button
                           type="button"
                           onClick={() => setLineStyle('primary')}
-                          className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${lineStyle === 'primary' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
+                          className={`w-full text-left p-2.5 rounded-xl border transition-all duration-200 ${lineStyle === 'primary'
+                              ? 'border-purple-500 bg-white shadow-md ring-1 ring-purple-500'
+                              : 'border-slate-200 bg-white/50 hover:border-slate-300 hover:bg-white text-slate-600'
+                            }`}
                         >
-                          {t('pages.nameTracing.primaryLines')}
+                          <div className={`text-[11px] font-bold leading-tight ${lineStyle === 'primary' ? 'text-purple-700' : 'text-slate-800'}`}>
+                            {t('pages.nameTracing.primaryLines')}
+                          </div>
                         </button>
                         <button
                           type="button"
                           onClick={() => setLineStyle('baseline')}
-                          className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${lineStyle === 'baseline' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
+                          className={`w-full text-left p-2.5 rounded-xl border transition-all duration-200 ${lineStyle === 'baseline'
+                              ? 'border-purple-500 bg-white shadow-md ring-1 ring-purple-500'
+                              : 'border-slate-200 bg-white/50 hover:border-slate-300 hover:bg-white text-slate-600'
+                            }`}
                         >
-                          {t('pages.nameTracing.singleBaselineOnly')}
+                          <div className={`text-[11px] font-bold leading-tight ${lineStyle === 'baseline' ? 'text-purple-700' : 'text-slate-800'}`}>
+                            {t('pages.nameTracing.singleBaselineOnly')}
+                          </div>
                         </button>
                       </div>
                     </div>
@@ -1247,16 +1257,26 @@ export default function NameTracingGeneratorPage() {
                         <button
                           type="button"
                           onClick={() => setPatternStyle('traceAndWrite')}
-                          className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${patternStyle === 'traceAndWrite' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
+                          className={`w-full text-left p-2.5 rounded-xl border transition-all duration-200 ${patternStyle === 'traceAndWrite'
+                              ? 'border-purple-500 bg-white shadow-md ring-1 ring-purple-500'
+                              : 'border-slate-200 bg-white/50 hover:border-slate-300 hover:bg-white text-slate-600'
+                            }`}
                         >
-                          {t('pages.nameTracing.traceAndWrite')}
+                          <div className={`text-[11px] font-bold leading-tight ${patternStyle === 'traceAndWrite' ? 'text-purple-700' : 'text-slate-800'}`}>
+                            {t('pages.nameTracing.traceAndWrite')}
+                          </div>
                         </button>
                         <button
                           type="button"
                           onClick={() => setPatternStyle('traceOnly')}
-                          className={`w-full text-left text-sm px-3 py-2 rounded-xl border transition ${patternStyle === 'traceOnly' ? 'border-purple-400 bg-white shadow-sm text-slate-900' : 'border-transparent hover:bg-white/70 text-slate-600'}`}
+                          className={`w-full text-left p-2.5 rounded-xl border transition-all duration-200 ${patternStyle === 'traceOnly'
+                              ? 'border-purple-500 bg-white shadow-md ring-1 ring-purple-500'
+                              : 'border-slate-200 bg-white/50 hover:border-slate-300 hover:bg-white text-slate-600'
+                            }`}
                         >
-                          {t('pages.nameTracing.tracingOnly')}
+                          <div className={`text-[11px] font-bold leading-tight ${patternStyle === 'traceOnly' ? 'text-purple-700' : 'text-slate-800'}`}>
+                            {t('pages.nameTracing.tracingOnly')}
+                          </div>
                         </button>
                       </div>
                     </div>
