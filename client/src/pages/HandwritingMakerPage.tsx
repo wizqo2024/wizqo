@@ -100,36 +100,38 @@ export default function HandwritingMakerPage() {
     const pageW = doc.internal.pageSize.getWidth();
     const pageH = doc.internal.pageSize.getHeight();
     const margin = 36;
-    const startY = 170; // Increased from 120 to avoid overlap with name/date
+    const startY = 170;
     const fontSizeVal = fontSize;
     const lineGap = fontSizeVal * 2.2;
-    const rowsCount = Math.floor((pageH - startY - margin) / lineGap);
+    const rowsPerPage = Math.floor((pageH - startY - margin) / lineGap);
 
     // Load Codystar for dotted print
     doc.addFileToVFS('Codystar-Regular.ttf', CODYSTAR_TTF_BASE64);
     doc.addFont('Codystar-Regular.ttf', 'Codystar', 'normal');
 
-    // Branding
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(24);
-    doc.setTextColor(15, 23, 42);
-    doc.text('Wizqo', margin, margin + 20);
+    const drawHeader = () => {
+      // Branding
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(24);
+      doc.setTextColor(15, 23, 42);
+      doc.text('Wizqo', margin, margin + 20);
 
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.setTextColor(100, 116, 139);
-    doc.text('www.wizqo.com', pageW - margin, margin + 20, { align: 'right' });
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(100, 116, 139);
+      doc.text('www.wizqo.com', pageW - margin, margin + 20, { align: 'right' });
 
-    // Name/Date lines
-    const lineY = margin + 65;
-    doc.setFontSize(12);
-    doc.setTextColor(51, 65, 85);
-    doc.text(t('pages.handwriting.name'), margin, lineY);
-    doc.setDrawColor(148, 163, 184); // #94a3b8
-    doc.line(margin + 45, lineY + 2, margin + 260, lineY + 2);
+      // Name/Date lines
+      const lineY = margin + 65;
+      doc.setFontSize(12);
+      doc.setTextColor(51, 65, 85);
+      doc.text(t('pages.handwriting.name'), margin, lineY);
+      doc.setDrawColor(148, 163, 184); // #94a3b8
+      doc.line(margin + 45, lineY + 2, margin + 260, lineY + 2);
 
-    doc.text(t('pages.handwriting.date'), pageW - 160, lineY);
-    doc.line(pageW - 125, lineY + 2, pageW - margin, lineY + 2);
+      doc.text(t('pages.handwriting.date'), pageW - 160, lineY);
+      doc.line(pageW - 125, lineY + 2, pageW - margin, lineY + 2);
+    };
 
     // Logic to replicate PreviewSVG rows
     const srcText = (() => {
@@ -153,7 +155,8 @@ export default function HandwritingMakerPage() {
     const availableWidth = pageW - margin * 2 - 20;
 
     const measure = (txt: string) => {
-      if (textStyle === 'cursive') doc.setFont('times', 'italic');
+      if (dotted) doc.setFont('Codystar', 'normal');
+      else if (textStyle === 'cursive') doc.setFont('times', 'italic');
       else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
       doc.setFontSize(fontSizeVal);
       return doc.getTextWidth(txt);
@@ -172,7 +175,7 @@ export default function HandwritingMakerPage() {
     };
 
     const pushCurrent = () => { if (current) { pdfRows.push(current); current = ''; } };
-    for (let ti = 0; ti < tokens.length && pdfRows.length < rowsCount; ti++) {
+    for (let ti = 0; ti < tokens.length; ti++) {
       const token = tokens[ti];
       if (token === '<br>') { pushCurrent(); continue; }
       const next = current ? `${current} ${token}` : token;
@@ -190,17 +193,27 @@ export default function HandwritingMakerPage() {
             } else {
               pdfRows.push(part);
               part = ch;
-              if (pdfRows.length >= rowsCount) break;
             }
           }
           current = part;
         }
       }
     }
-    if (pdfRows.length < rowsCount && current) pdfRows.push(current);
+    if (current) pdfRows.push(current);
+
+    // Initial page header
+    drawHeader();
 
     pdfRows.forEach((txt, idx) => {
-      const y = startY + idx * lineGap;
+      const pageIdx = Math.floor(idx / rowsPerPage);
+      const rowInPage = idx % rowsPerPage;
+
+      if (pageIdx > 0 && rowInPage === 0) {
+        doc.addPage();
+        drawHeader();
+      }
+
+      const y = startY + rowInPage * lineGap;
       const mid = y - fontSizeVal * 0.35;
       const top = y - fontSizeVal * 0.7;
       const baselineY = y;
@@ -241,7 +254,7 @@ export default function HandwritingMakerPage() {
       doc.setCharSpace(0);
     });
 
-    const fileNameText = (content[0] || 'worksheet').substring(0, 15).replace(/\s+/g, '-');
+    const fileNameText = (pdfRows[0] || 'worksheet').substring(0, 15).replace(/\s+/g, '-');
     doc.save(`handwriting-${fileNameText}.pdf`);
     toast({
       title: t('Downloaded'),
