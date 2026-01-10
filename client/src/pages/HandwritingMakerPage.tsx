@@ -124,9 +124,9 @@ export default function HandwritingMakerPage() {
     const pageW = doc.internal.pageSize.getWidth();
     const pageH = doc.internal.pageSize.getHeight();
     const margin = 36;
-    const startY = 200;
+    const startY = 140;
     const fontSizeVal = fontSize;
-    const lineGap = fontSizeVal * 2.2;
+    const lineGap = fontSizeVal * 2.0;
     const rowsPerPage = Math.floor((pageH - startY - margin) / lineGap);
     const theme = THEMES[colorTheme as ColorTheme] || THEMES.classic;
 
