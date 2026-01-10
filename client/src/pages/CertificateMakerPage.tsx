@@ -1214,6 +1214,8 @@ export default function CertificateMakerPage() {
       )}
       {/* Title */}
       <text x="560" y="200" textAnchor="middle" fontSize="48" fontWeight="800" fill={effective.text} fontFamily={effective.fontFamily}
+        textLength={Math.min(900, (awardTitle || t('pages.certificate.defaultAwardTitle')).length * 28)}
+        lengthAdjust="spacingAndGlyphs"
         style={{ letterSpacing: '1px' }}>
         {awardTitle || t('pages.certificate.defaultAwardTitle')}
       </text>
@@ -1222,6 +1224,8 @@ export default function CertificateMakerPage() {
         {t('pages.certificate.awardedTo')}
       </text>
       <text x="560" y="360" textAnchor="middle" fontSize="56" fontWeight="700" fill={effective.accent} fontFamily={effective.fontFamily}
+        textLength={Math.min(920, (recipient || t('pages.certificate.yourNameHere')).length * 34)}
+        lengthAdjust="spacingAndGlyphs"
         style={{ letterSpacing: '1px' }}>
         {recipient || t('pages.certificate.yourNameHere')}
       </text>
