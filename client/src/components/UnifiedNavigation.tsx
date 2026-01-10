@@ -171,9 +171,9 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     type="button"
                     aria-label="Toggle Worksheets menu"
                     ref={worksheetsToggleRef}
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent) => {
                       e.preventDefault();
-                      setShowWorksheetsMenu((v) => !v);
+                      setShowWorksheetsMenu((v: boolean) => !v);
                     }}
                     className="px-2 py-2 text-slate-600 hover:text-slate-800"
                   >
@@ -405,9 +405,9 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     type="button"
                     aria-label="Toggle Kids menu"
                     ref={kidsToggleRef}
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent) => {
                       e.preventDefault();
-                      setShowKidsMenu((v) => !v);
+                      setShowKidsMenu((v: boolean) => !v);
                     }}
                     className="px-2 py-2 text-slate-600 hover:text-slate-800"
                   >
@@ -507,32 +507,42 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
           <div className="hidden md:flex items-center space-x-4" dir="ltr">
             {user ? (
               <div className="relative">
-                <Button
-                  variant="ghost"
+                <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-2 text-slate-600 hover:text-slate-800"
+                  className="flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white/80 shadow-sm transition-all duration-300 hover:border-indigo-200 hover:bg-indigo-50/30 hover:shadow-md group"
                 >
-                  <User className="w-4 h-4" />
-                  <span>{user?.user_metadata?.username || user?.email?.split('@')[0] || 'User'}</span>
-                  <ChevronDown className="w-4 h-4" />
-                </Button>
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-sm ring-2 ring-white transition-transform duration-300 group-hover:scale-110">
+                    <User className="h-4 w-4" />
+                  </div>
+                  <span className="max-w-[120px] truncate text-sm font-semibold text-slate-700 transition-colors group-hover:text-indigo-700">
+                    {user?.user_metadata?.username || user?.email?.split('@')[0] || 'User'}
+                  </span>
+                  <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform duration-300 group-hover:text-indigo-500 ${showUserMenu ? 'rotate-180' : ''}`} />
+                </button>
 
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                    <div className="py-1">
+                  <div className="absolute right-0 mt-3 w-56 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200 z-50 p-1.5 overflow-hidden animate-in fade-in zoom-in duration-200">
+                    <div className="flex flex-col">
+                      <div className="px-3 py-2 border-b border-slate-100 mb-1">
+                        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">{t('navigation.account')}</div>
+                      </div>
                       <a
                         href={addLocaleToPath("/dashboard", getLocaleFromURL())}
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="flex items-center gap-3 px-3 py-2.5 text-sm font-semibold text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-xl transition-all duration-200 group/item"
                         onClick={() => setShowUserMenu(false)}
                       >
-                        <LayoutDashboard className="w-4 h-4 mr-2" />
+                        <div className="p-1.5 rounded-lg bg-slate-100 group-hover/item:bg-indigo-100 transition-colors">
+                          <LayoutDashboard className="w-4 h-4" />
+                        </div>
                         {t('navigation.dashboard')}
                       </a>
                       <button
                         onClick={handleSignOut}
-                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-semibold text-slate-700 hover:bg-red-50 hover:text-red-700 rounded-xl transition-all duration-200 group/item"
                       >
-                        <LogOut className="w-4 h-4 mr-2" />
+                        <div className="p-1.5 rounded-lg bg-slate-100 group-hover/item:bg-red-100 transition-colors">
+                          <LogOut className="w-4 h-4" />
+                        </div>
                         {t('navigation.signOut')}
                       </button>
                     </div>
