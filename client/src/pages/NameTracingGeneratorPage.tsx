@@ -105,11 +105,12 @@ export default function NameTracingGeneratorPage() {
 
   // Use the imported TTF base64 directly for PDF and PNG embedding
   // This avoids network fetch issues and ensures the font is always available synchronously
-  const codystarFontBase64 = CODYSTAR_TTF_BASE64;
+  // Prepend data URI prefix since the raw constant doesn't have it
+  const codystarFontBase64 = `data:font/ttf;base64,${CODYSTAR_TTF_BASE64}`;
 
   // Register the font for the browser's Canvas/DOM usage if not already done by CSS
   React.useEffect(() => {
-    if (codystarFontBase64 && codystarFontBase64.startsWith('data:')) {
+    if (codystarFontBase64) {
       // Pre-warm the font cache for the browser
       // This helps ensure the font is ready when we eventually draw to canvas
       try {
