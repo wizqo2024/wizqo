@@ -1896,7 +1896,7 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                 <div className="flex justify-between gap-12 mt-8 max-w-2xl mx-auto">
                     {/* Left Column: Groups */}
                     <div className="flex-1 flex flex-col gap-6">
-                        {problems.map((p) => (
+                        {problems.map((p: any) => (
                             <div key={p.id} className="relative border-2 border-slate-200 rounded-xl p-3 bg-white shadow-sm h-32 flex items-center justify-center break-inside-avoid">
                                 <div className={`grid ${p.count > 12 ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} gap-2 justify-items-center items-center`}>
                                     {Array.from({ length: p.count }).map((_, idx) => (
@@ -1911,7 +1911,7 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
 
                     {/* Right Column: Shuffled Numbers */}
                     <div className="w-24 flex flex-col gap-6 justify-between py-2">
-                        {shuffledNumbers.map((num, idx) => (
+                        {shuffledNumbers.map((num: number, idx: number) => (
                             <div key={idx} className="relative h-32 flex items-center justify-end">
                                 <div className="w-16 h-16 rounded-2xl border-2 border-indigo-100 bg-indigo-50/50 flex items-center justify-center text-2xl font-black text-indigo-700 shadow-sm">
                                     {num}
@@ -1923,15 +1923,15 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
             ) : (
                 /* Grid Layout for other types */
                 <div className={`grid ${config.type === 'color' ? 'grid-cols-2' : 'grid-cols-3'} gap-6 mt-8`}>
-                    {problems.map((p) => (
+                    {problems.map((p: any) => (
                         <div key={p.id} className="border-2 border-slate-200 rounded-xl p-4 flex flex-col items-center bg-white break-inside-avoid shadow-sm">
                             {/* Object Display */}
-                            <div className={`mb-4 w-full ${config.type === 'color' ? 'min-h-[10rem]' : 'min-h-[6rem]'} flex items-center justify-center p-2`}>
+                            <div className={`mb-4 w-full ${config.type === 'color' ? 'min-h-[12rem]' : 'min-h-[6rem]'} flex items-center justify-center p-2`}>
                                 <div className={`grid ${p.count > 12 || config.type === 'color' ? 'grid-cols-5' : p.count > 6 ? 'grid-cols-4' : 'grid-cols-3'} ${p.count > 10 ? 'gap-2' : 'gap-4'} justify-items-center items-center`}>
                                     {Array.from({ length: config.type === 'color' ? config.max : p.count }).map((_, idx) => (
-                                        <div key={idx} className={`flex items-center justify-center ${p.count > 12 ? 'w-8 h-8' : 'w-10 h-10'}`}>
+                                        <div key={idx} className={`flex items-center justify-center ${config.type === 'color' ? 'w-14 h-14' : p.count > 12 ? 'w-8 h-8' : 'w-10 h-10'}`}>
                                             {config.type === 'color' ? (
-                                                <ColorableIcon icon={p.icon} size={36} />
+                                                <ColorableIcon icon={p.icon} size={48} />
                                             ) : (
                                                 <span className={`${p.count > 12 ? 'text-xl' : 'text-2xl'} leading-none`}>{p.icon}</span>
                                             )}
@@ -1948,7 +1948,7 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
 
                             {config.type === 'circle' && (
                                 <div className="flex gap-2 justify-center w-full">
-                                    {p.options.map(opt => (
+                                    {p.options.map((opt: number) => (
                                         <div key={opt} className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center font-bold text-slate-600">
                                             {opt}
                                         </div>
@@ -1970,7 +1970,7 @@ export function CountingWorksheet({ docId, showAnswersForDoc, seed, variant }: S
                 <div className="mt-8 p-4 border border-emerald-200 rounded-lg bg-emerald-50 text-sm text-emerald-800 break-inside-avoid">
                     <strong>Answer Key:</strong>
                     <div className="grid grid-cols-4 gap-2 mt-2">
-                        {problems.map((p, i) => (
+                        {problems.map((p: any, i: number) => (
                             <div key={i}>#{i + 1}: {p.count}</div>
                         ))}
                     </div>
