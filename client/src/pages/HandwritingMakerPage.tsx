@@ -100,7 +100,7 @@ export default function HandwritingMakerPage() {
     const pageW = doc.internal.pageSize.getWidth();
     const pageH = doc.internal.pageSize.getHeight();
     const margin = 36;
-    const startY = 170;
+    const startY = 200;
     const fontSizeVal = fontSize;
     const lineGap = fontSizeVal * 2.2;
     const rowsPerPage = Math.floor((pageH - startY - margin) / lineGap);
@@ -127,10 +127,10 @@ export default function HandwritingMakerPage() {
       doc.setTextColor(51, 65, 85);
       doc.text(t('pages.handwriting.name'), margin, lineY);
       doc.setDrawColor(148, 163, 184); // #94a3b8
-      doc.line(margin + 45, lineY + 2, margin + 260, lineY + 2);
+      doc.line(margin + 45, lineY + 2, margin + 220, lineY + 2);
 
-      doc.text(t('pages.handwriting.date'), pageW - 160, lineY);
-      doc.line(pageW - 125, lineY + 2, pageW - margin, lineY + 2);
+      doc.text(t('pages.handwriting.date'), pageW - 140, lineY);
+      doc.line(pageW - 105, lineY + 2, pageW - margin, lineY + 2);
     };
 
     // Logic to replicate PreviewSVG rows
