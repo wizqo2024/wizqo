@@ -726,16 +726,10 @@ export default function App() {
                       </>
                     );
                   }
-                  if (routeSubKey === 'handwriting-worksheet-maker') {
-                    const canonical = addLocaleToPath('/worksheets/handwriting-worksheet-maker', currentLocale);
+                  if (routeSubKey === 'handwriting-worksheet-maker' || routeSubKey === 'cursive-writing-practice-sheets') {
+                    const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
                     return (
                       <>
-                        <SEOMetaTags
-                          title="Free Handwriting Practice Sheets | Printable Tracing Worksheets"
-                          description="Download free printable handwriting practice sheets for kids. Trace letters A–Z, words, and sentences in print and cursive. Perfect for teaching handwriting!"
-                          keywords="handwriting worksheets, handwriting practice sheets, printable handwriting worksheets, tracing worksheets, cursive handwriting worksheets, print handwriting worksheets, handwriting practice for kids, free handwriting worksheets PDF"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
                         <HandwritingMakerPage />
                       </>
                     );

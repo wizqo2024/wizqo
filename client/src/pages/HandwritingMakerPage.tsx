@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import jsPDF from 'jspdf';
-import { CODYSTAR_TTF_BASE64 } from '@/lib/fonts';
+import { CODYSTAR_TTF_BASE64, CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
 import { hexToRgb } from '@/utils/pdfHelpers';
 
 type Mode = 'letters' | 'words' | 'sentences';
@@ -55,7 +55,7 @@ export default function HandwritingMakerPage() {
   const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(true);
   const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
   const [decoration, setDecoration] = React.useState<DecorationType>('none');
-  const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('print');
+  const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('cursive');
 
   // Quick-fill helpers for nicer UX
   const applyLettersSample = (variant: 'lower' | 'upper' | 'mixed') => {
@@ -135,6 +135,10 @@ export default function HandwritingMakerPage() {
     // Load Codystar for dotted print
     doc.addFileToVFS('Codystar-Regular.ttf', CODYSTAR_TTF_BASE64);
     doc.addFont('Codystar-Regular.ttf', 'Codystar', 'normal');
+
+    // Load Cedarville Cursive for cursive style
+    doc.addFileToVFS('Cedarville-Cursive.ttf', CEDARVILLE_CURSIVE_TTF_BASE64);
+    doc.addFont('Cedarville-Cursive.ttf', 'Cedarville-Cursive', 'normal');
 
     const drawHeader = () => {
       // Sheet Background
@@ -232,7 +236,7 @@ export default function HandwritingMakerPage() {
 
     const measure = (txt: string) => {
       if (dotted) doc.setFont('Codystar', 'normal');
-      else if (textStyle === 'cursive') doc.setFont('times', 'italic');
+      else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
       else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
       doc.setFontSize(fontSizeVal);
       return doc.getTextWidth(txt);
@@ -317,7 +321,7 @@ export default function HandwritingMakerPage() {
       }
 
       if (dotted) doc.setFont('Codystar', 'normal');
-      else if (textStyle === 'cursive') doc.setFont('times', 'italic');
+      else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
       else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
 
       doc.setFontSize(fontSizeVal);
@@ -389,7 +393,7 @@ export default function HandwritingMakerPage() {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const fontStackPrint = "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial";
-    const fontStackCursive = "'Brush Script MT', 'Segoe Script', 'Snell Roundhand', 'Dancing Script', 'Pacifico', cursive";
+    const fontStackCursive = "'Cedarville Cursive', 'Brush Script MT', 'Segoe Script', 'Snell Roundhand', 'Dancing Script', 'Pacifico', cursive";
     const fontFamily = textStyle === 'cursive' ? fontStackCursive : fontStackPrint;
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
     if (ctx) ctx.font = `${fontWeight}${fontSize}px ${fontFamily}`;
@@ -549,10 +553,10 @@ export default function HandwritingMakerPage() {
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title={t('pages.handwriting.title')}
-        description={t('pages.handwriting.subtitle')}
-        keywords="handwriting worksheets, handwriting practice sheets, printable handwriting worksheets, tracing worksheets, cursive handwriting worksheets, print handwriting worksheets, handwriting practice for kids, free handwriting worksheets PDF"
-        canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
+        title="Free Cursive Writing Practice Sheets (PDF) | Build Writing Confidence"
+        description="Watch their confidence soar! Create personalized cursive writing practice sheets in seconds. Free PDF download designed for frustration-free learning and beautiful handwriting results."
+        keywords="cursive handwriting worksheets, cursive writing practice, printable cursive sheets, tracing cursive letters, cursive handwriting PDF, kids cursive practice, handwriting worksheet maker"
+        canonicalUrl="https://wizqo.com/worksheets/cursive-writing-practice-sheets"
       />
       <UnifiedNavigation currentPage="kids" />
       {(() => {
@@ -571,9 +575,9 @@ export default function HandwritingMakerPage() {
         const webPageLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Free Handwriting Practice Sheets for Kids | Printable Tracing Worksheets",
-          url: "https://wizqo.com/worksheets/handwriting-worksheet-maker",
-          description: "Generate printable handwriting practice sheets with guidelines and dotted letters. Practice A–Z, words, or sentences and save as PDF.",
+          name: "Free Cursive Writing Practice Sheets for Kids | Printable Tracing Worksheets",
+          url: "https://wizqo.com/worksheets/cursive-writing-practice-sheets",
+          description: "Watch their confidence soar! Create personalized cursive writing practice sheets in seconds. Free PDF download designed for frustration-free learning and beautiful handwriting results.",
           breadcrumb: { "@id": breadcrumbId }
         } as const;
         const faqLd = {
@@ -627,7 +631,7 @@ export default function HandwritingMakerPage() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         <header>
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">{t('pages.handwriting.title')}</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Turn Frustration into Pride: Custom Cursive Writing Practice Sheets</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 text-sm max-w-3xl">{t('pages.handwriting.subtitle')}</p>
         </header>

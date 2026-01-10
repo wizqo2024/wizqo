@@ -2812,10 +2812,14 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     intro: 'Can you follow the trail? Our Complex Path Tracing worksheet blends art and logic into a winding adventure. By navigating intricate, multi-directional paths, students build the high-level motor control and planning skills used in both refined handwriting and advanced artistic design. It\'s the ultimate challenge for fine motor mastery!'
   },
   'winter-kindness': {
-    title: 'Winter Kindness Challenge - SEL & Social Skills Activity | Wizqo',
-    metaDescription: 'Spread warmth this winter with our Kindness worksheet! Includes prompts for sharing, empathy, and positive social interaction. Free printable SEL.',
+    intro: 'Spread warmth this winter with our Kindness worksheet! Includes prompts for sharing, empathy, and positive social interaction. Free printable SEL.',
     learningObjectives: ['Identify opportunities for kindness in daily winter life', 'Express empathy and warmth toward others', 'Understand the emotional impact of helpful social behaviors'],
-    intro: 'Warm up the winter with kindness! Our Winter Kindness Challenge is a social-emotional learning activity that encourages students to think about how they can help others during the coldest months. From sharing a scarf to helping a neighbor, these heart-warming prompts help children build empathy and a positive classroom culture while celebrating the spirit of the season.'
+  },
+  'cursive-writing': {
+    title: 'Free Cursive Writing Practice Sheets (PDF) | Build Writing Confidence',
+    metaDescription: 'Watch their confidence soar! Create personalized cursive writing practice sheets in seconds. Free PDF download designed for frustration-free learning and beautiful handwriting results.',
+    learningObjectives: ['Master fluid cursive letter connections', 'Improve handwriting speed and legibility', 'Build confidence in creative cursive writing'],
+    intro: 'Transform handwriting struggle into success! Our personalized Cursive Writing Practice Sheets are designed to help students master the fluid, connected strokes of cursive with ease. Whether you are practicing individual letters or full sentences, our custom worksheet maker provides the perfect, frustration-free foundation for beautiful handwriting and lifelong writing confidence.'
   }
 }
 
@@ -2825,6 +2829,7 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
 function createSlug(docId: string): string {
   // Special mappings for better SEO
   const slugMap: Record<string, string> = {
+    'cursive-writing': 'cursive-writing-practice-sheets',
     'mult-facts-0-12': 'multiplication-facts-0-12',
     'mult-arrays': 'multiplication-arrays',
     'mult-word-problems': 'multiplication-word-problems',
@@ -3418,6 +3423,7 @@ export function initializeWorksheetSEO() {
     'classifying-shapes', 'classifying-triangles', 'color-by-number', 'color-patterns', 'color-recognition',
     'color-shapes', 'coloring', 'coloring-animals', 'coloring-letters-numbers', 'coloring-nature',
     'coloring-space', 'coloring-vehicles', 'compare-2digit', 'comparing-decimals', 'comparing-fractions',
+    'cursive-writing',
     'comparing-fractions-4th', 'comparing-ordering-fractions-decimals', 'coordinate-graphing', 'count-circle-1-10', 'count-color-1-10',
     'counting-objects-20', 'count-match-1-20', 'count-write-30', 'creative-challenge', 'customary-conversion',
     'customary-units', 'cut-and-paste-crafts', 'cvc-words', 'decimals-place-value', 'decimal-to-percent',
