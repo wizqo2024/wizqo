@@ -103,53 +103,43 @@ export default function NameTracingGeneratorPage() {
     return [childName.trim() || t('pages.nameTracing.yourName')];
   }, [batchMode, multipleNames, childName, batchLayout, t]);
 
-  // Load Codystar font as base64 for PDF embedding
-  const [codystarFontBase64, setCodystarFontBase64] = React.useState<string>('');
+  // Use the imported TTF base64 directly for PDF and PNG embedding
+  // This avoids network fetch issues and ensures the font is always available synchronously
+  const codystarFontBase64 = CODYSTAR_TTF_BASE64;
 
+  // Register the font for the browser's Canvas/DOM usage if not already done by CSS
   React.useEffect(() => {
-    const fetchFont = async () => {
+    if (codystarFontBase64 && codystarFontBase64.startsWith('data:')) {
+      // Pre-warm the font cache for the browser
+      // This helps ensure the font is ready when we eventually draw to canvas
       try {
-        // Try to fetch the WOFF2 font directly for better compatibility
-        // This is a direct link to the Codystar WOFF2 from Google Fonts
-        const fontUrl = 'https://fonts.gstatic.com/s/codystar/v18/F6rvut4W_Sip9j8QW7r1rKq6.woff2';
-        const fontResponse = await fetch(fontUrl);
-        const blob = await fontResponse.blob();
-
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-          const result = reader.result as string;
-          // Ensure we have the full data URL including prefix
-          if (result && result.startsWith('data:')) {
-            setCodystarFontBase64(result);
-            // Pre-warm the font cache for the browser
-            try {
-              const font = new FontFace('Codystar', `url(${result})`);
-              await font.load();
-              document.fonts.add(font);
-            } catch (e) {
-              console.warn('FontFace pre-load failed', e);
-            }
-          }
-        };
-
-        reader.readAsDataURL(blob);
-      } catch (error) {
-        console.error('Failed to load Codystar font for PDF embedding', error);
+        // Note: FontFace API supports 'url(data:...)'
+        const font = new FontFace('Codystar', `url(${codystarFontBase64})`);
+        font.load().then((loadedFont) => {
+          document.fonts.add(loadedFont);
+        }).catch(err => {
+          console.warn('FontFace load failed', err);
+        });
+      } catch (e) {
+        console.warn('FontFace pre-load failed', e);
       }
-    };
-
-    fetchFont();
-  }, []);
+    }
+  }, []); // Run once on mount
 
 
   // Helper to embed font in SVG string
   const embedFontInSVG = React.useCallback((svgContent: string) => {
     if (!codystarFontBase64) return svgContent;
-    // Check if it's the dotted font style, otherwise we don't strictly need to embed this large string
-    // But for simplicity/safety we can just do it if codystarFontBase64 is present
-    // Use exact font-family name 'Codystar' without surrounding quotes in the definition
+
+    // Embed the font directly in the SVG style
+    // Use format('truetype') as our bundled constant is TTF
     const styleBlock = `<defs><style type="text/css"><![CDATA[
-      @font-face { font-family: 'Codystar'; src: url('${codystarFontBase64}') format('woff2'); font-weight: normal; font-style: normal; }
+      @font-face { 
+        font-family: 'Codystar'; 
+        src: url('${codystarFontBase64}') format('truetype'); 
+        font-weight: normal; 
+        font-style: normal; 
+      }
     ]]></style></defs>`;
     return svgContent.replace(/<svg[^>]*>/, (match) => `${match}${styleBlock}`);
   }, [codystarFontBase64]);
