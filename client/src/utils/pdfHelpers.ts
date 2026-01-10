@@ -114,6 +114,7 @@ export const drawWorksheetOnPDF = (
     // Frame (using theme secondary color for border if not classic)
     const frameStroke = hexToRgb(theme.secondary);
     doc.setDrawColor(frameStroke.r, frameStroke.g, frameStroke.b);
+    doc.setFillColor(255, 255, 255); // Inner frame always white
     doc.setLineWidth(2 * scale);
     doc.roundedRect(
         (margin - 24) * scale + xOffset,
@@ -122,7 +123,7 @@ export const drawWorksheetOnPDF = (
         (pageHeight - (margin - 24) * 2) * scale,
         28 * scale,
         28 * scale,
-        'D'
+        'FD'
     );
 
     // Decorations
@@ -138,11 +139,30 @@ export const drawWorksheetOnPDF = (
 
         decoPos.forEach(pos => {
             if (decoration === 'stars') {
-                // Approximate a star with lines or a small polygon
-                // Simplified star for PDF
-                doc.circle(pos.x, pos.y, 4 * scale, 'F');
+                const r = 10 * scale;
+                const innerR = 4 * scale;
+                const points: number[][] = [];
+                for (let i = 0; i < 11; i++) {
+                    const radius = i % 2 === 0 ? r : innerR;
+                    const angle = (Math.PI * i) / 5 - Math.PI / 2;
+                    points.push([pos.x + radius * Math.cos(angle), pos.y + radius * Math.sin(angle)]);
+                }
+                // Draw star using polygon lines
+                for (let i = 0; i < points.length - 1; i++) {
+                    doc.line(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1]);
+                }
+                // Fill the star (approximate with a center point and triangles)
+                for (let i = 0; i < points.length - 1; i++) {
+                    doc.triangle(pos.x, pos.y, points[i][0], points[i][1], points[i + 1][0], points[i + 1][1], 'F');
+                }
             } else if (decoration === 'hearts') {
-                doc.circle(pos.x, pos.y, 4 * scale, 'F');
+                const s = 6 * scale;
+                doc.setFillColor(decoRGB.r, decoRGB.g, decoRGB.b);
+                // Heart shape using three circles and a triangle
+                doc.circle(pos.x - s / 1.5, pos.y - s / 2, s, 'F');
+                doc.circle(pos.x + s / 1.5, pos.y - s / 2, s, 'F');
+                // The bottom triangle
+                doc.triangle(pos.x - s, pos.y + s / 4, pos.x + s, pos.y + s / 4, pos.x, pos.y + s * 2, 'F');
             }
         });
     }
@@ -189,6 +209,10 @@ export const drawWorksheetOnPDF = (
             doc.setFont('Codystar', 'normal');
             doc.setFontSize(fittedSize);
 
+            // Calculate letter spacing (approximate from SVG)
+            const letterSpacing = (fittedSize * 0.05); // Rough 5% spacing to match preview
+            doc.setCharSpace(letterSpacing);
+
             if (theme.rainbow) {
                 let currentX = currentStartX;
                 const chars = Array.from(formatted);
@@ -197,13 +221,15 @@ export const drawWorksheetOnPDF = (
                     const rgb = hexToRgb(charColor);
                     doc.setTextColor(rgb.r, rgb.g, rgb.b);
                     doc.text(char, currentX, baselineY - 8 * scale);
-                    currentX += doc.getTextWidth(char) + 2 * scale; // Simple spacing
+                    // Update X with actual text width + char spacing
+                    currentX += doc.getTextWidth(char) + letterSpacing;
                 });
             } else {
                 const textRGB = hexToRgb(theme.text);
                 doc.setTextColor(textRGB.r, textRGB.g, textRGB.b);
                 doc.text(formatted, currentStartX, baselineY - 8 * scale);
             }
+            doc.setCharSpace(0); // Reset for next elements
         }
     });
 

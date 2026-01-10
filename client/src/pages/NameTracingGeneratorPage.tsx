@@ -746,7 +746,7 @@ export default function NameTracingGeneratorPage() {
         variant: 'destructive',
       });
     }
-  }, [batchMode, multipleNames, formatName, letterCase, safeFileName, svgRef, toast, t]);
+  }, [batchMode, multipleNames, formatName, letterCase, safeFileName, svgRef, toast, t, colorTheme, decoration]);
 
 
 
@@ -864,7 +864,7 @@ export default function NameTracingGeneratorPage() {
         variant: 'destructive',
       });
     }
-  }, [batchMode, childName, multipleNames, batchLayout, paperSize, printOrientation, marginSize, fontStyle, lineStyle, showGuideDots, rowCount, letterCase, sizeMultiplier, formatName, safeFileName, toast, t]);
+  }, [batchMode, childName, multipleNames, batchLayout, paperSize, printOrientation, marginSize, fontStyle, lineStyle, showGuideDots, rowCount, letterCase, sizeMultiplier, formatName, safeFileName, toast, t, colorTheme, decoration]);
 
 
 
