@@ -25,8 +25,29 @@ type PaperSize = 'us-letter' | 'a4' | 'legal';
 type MarginSize = 'none' | 'small' | 'medium' | 'large';
 type BatchMode = 'single' | 'batch';
 type BatchLayout = 'one-per-page' | 'two-per-page' | 'four-per-page';
+type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset';
+type DecorationType = 'none' | 'stars' | 'hearts' | 'flowers';
 
 const MAX_NAME_LENGTH = 18;
+
+const THEMES: Record<ColorTheme, {
+  name: string;
+  primary: string; // Baseline color
+  secondary: string; // Guideline color
+  text: string; // Default text color
+  dots: string; // Guide dot color
+  bg: string; // Sheet background tint
+  rainbow?: boolean;
+}> = {
+  classic: { name: 'Classic Blue', primary: '#94a3b8', secondary: '#cbd5f5', text: '#94a3b8', dots: '#34d399', bg: '#f8fafc' },
+  rainbow: { name: 'Rainbow', primary: '#cbd5f1', secondary: '#e2e8f0', text: '#475569', dots: '#ec4899', bg: '#fffafb', rainbow: true },
+  ocean: { name: 'Deep Sea', primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', dots: '#2DD4BF', bg: '#f0f9ff' },
+  candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
+  forest: { name: 'Magic Forest', primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#f0fdf4' },
+  sunset: { name: 'Warm Sunset', primary: '#ea580c', secondary: '#ffedd5', text: '#9a3412', dots: '#ef4444', bg: '#fff7ed' },
+};
+
+const RAINBOW_COLORS = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
 
 export default function NameTracingGeneratorPage() {
   const { toast } = useToast();
@@ -54,6 +75,8 @@ export default function NameTracingGeneratorPage() {
   const [showGuideDots, setShowGuideDots] = React.useState<boolean>(true);
   const [patternStyle, setPatternStyle] = React.useState<PatternStyle>('traceAndWrite');
   const [rowCount, setRowCount] = React.useState<number>(4);
+  const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
+  const [decoration, setDecoration] = React.useState<DecorationType>('none');
   const [isPrinting, setIsPrinting] = React.useState<boolean>(false);
   const [printNames, setPrintNames] = React.useState<string[]>([]);
 
@@ -231,29 +254,30 @@ export default function NameTracingGeneratorPage() {
   const rowsForPreview = practicingRows.slice(0, maxRows);
 
   const baseFontConfig = React.useMemo(() => {
+    const theme = THEMES[colorTheme as ColorTheme];
     switch (fontStyle) {
       case 'bubble':
         return {
           fontFamily: "'Comic Neue', 'Patrick Hand', 'Arial Rounded MT Bold', 'Segoe UI', sans-serif",
-          fontWeight: 800, letterSpacing: 6, fill: '#1d4ed8', stroke: '#1d4ed8', strokeWidth: 6, dashArray: undefined,
+          fontWeight: 800, letterSpacing: 6, fill: theme.text, stroke: theme.text, strokeWidth: 6, dashArray: undefined,
         };
       case 'script':
         return {
           fontFamily: "'Dancing Script', 'Pacifico', 'Brush Script MT', cursive",
-          fontWeight: 600, letterSpacing: 4, fill: '#1f2937', stroke: undefined, strokeWidth: 0, dashArray: undefined,
+          fontWeight: 600, letterSpacing: 4, fill: theme.text, stroke: undefined, strokeWidth: 0, dashArray: undefined,
         };
       case 'classic':
         return {
           fontFamily: "'Patrick Hand', 'Handlee', 'Comic Neue', 'Segoe UI', sans-serif",
-          fontWeight: 600, letterSpacing: 3, fill: '#0f172a', stroke: undefined, strokeWidth: 0, dashArray: undefined,
+          fontWeight: 600, letterSpacing: 3, fill: theme.text, stroke: undefined, strokeWidth: 0, dashArray: undefined,
         };
       default: // dotted
         return {
           fontFamily: "'Codystar', sans-serif",
-          fontWeight: 400, letterSpacing: 4, fill: '#94a3b8', stroke: undefined, strokeWidth: 0, dashArray: undefined,
+          fontWeight: 400, letterSpacing: 4, fill: theme.text, stroke: undefined, strokeWidth: 0, dashArray: undefined,
         };
     }
-  }, [fontStyle]);
+  }, [fontStyle, colorTheme]);
 
   const sizeMultiplier = fontSizeMode === 'large' ? 1 : fontSizeMode === 'medium' ? 0.85 : 0.7;
   const baseFontSize = (fontStyle === 'script' ? 100 : 110) * sizeMultiplier;
@@ -359,9 +383,31 @@ export default function NameTracingGeneratorPage() {
     const maxRows = Math.min(rowCount, Math.max(3, Math.floor((pageHeight - margin * 2) / rowGap)));
     const rowsForSVG = rows.slice(0, maxRows);
 
+    const theme = THEMES[colorTheme as ColorTheme];
+    const isRainbow = theme.rainbow;
+
     // Generate SVG content
-    let svgContent = `<rect x="0" y="0" width="${pageWidth}" height="${pageHeight}" fill="#ffffff" rx="36" />`;
-    svgContent += `<rect x="${margin - 24}" y="${margin - 24}" width="${pageWidth - (margin - 24) * 2}" height="${pageHeight - (margin - 24) * 2}" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="28" />`;
+    let svgContent = `<rect x="0" y="0" width="${pageWidth}" height="${pageHeight}" fill="${theme.bg}" rx="36" />`;
+    svgContent += `<rect x="${margin - 24}" y="${margin - 24}" width="${pageWidth - (margin - 24) * 2}" height="${pageHeight - (margin - 24) * 2}" fill="#ffffff" stroke="${theme.secondary}" stroke-width="2" rx="28" />`;
+
+    // Render Decorations
+    if (decoration !== 'none') {
+      const decoColor = theme.dots;
+      const positions = [
+        { x: margin + 30, y: margin + 30 },
+        { x: pageWidth - margin - 30, y: margin + 30 },
+        { x: margin + 30, y: pageHeight - margin - 30 },
+        { x: pageWidth - margin - 30, y: pageHeight - margin - 30 }
+      ];
+
+      positions.forEach(pos => {
+        if (decoration === 'stars') {
+          svgContent += `<path d="M ${pos.x} ${pos.y - 15} L ${pos.x + 4} ${pos.y - 4} L ${pos.x + 15} ${pos.y - 4} L ${pos.x + 6} ${pos.y + 3} L ${pos.x + 10} ${pos.y + 15} L ${pos.x} ${pos.y + 7} L ${pos.x - 10} ${pos.y + 15} L ${pos.x - 6} ${pos.y + 3} L ${pos.x - 15} ${pos.y - 4} L ${pos.x - 4} ${pos.y - 4} Z" fill="${decoColor}" opacity="0.6" />`;
+        } else if (decoration === 'hearts') {
+          svgContent += `<path d="M ${pos.x} ${pos.y + 10} C ${pos.x - 20} ${pos.y - 10}, ${pos.x} ${pos.y - 20}, ${pos.x} ${pos.y - 5} C ${pos.x} ${pos.y - 20}, ${pos.x + 20} ${pos.y - 10}, ${pos.x} ${pos.y + 10}" fill="${decoColor}" opacity="0.6" />`;
+        }
+      });
+    }
 
     rowsForSVG.forEach((rowType, index) => {
       const baselineY = margin + 120 + index * rowGap;
@@ -372,27 +418,53 @@ export default function NameTracingGeneratorPage() {
       const showPrimary = lineStyle === 'primary';
 
       if (showPrimary) {
-        svgContent += `<line x1="${currentStartX}" y1="${topLine}" x2="${currentEndX}" y2="${topLine}" stroke="#cbd5f5" stroke-width="3" stroke-dasharray="10 14" />`;
-        svgContent += `<line x1="${currentStartX}" y1="${midLine}" x2="${currentEndX}" y2="${midLine}" stroke="#dbeafe" stroke-width="2.5" stroke-dasharray="14 14" />`;
+        svgContent += `<line x1="${currentStartX}" y1="${topLine}" x2="${currentEndX}" y2="${topLine}" stroke="${theme.secondary}" stroke-width="3" stroke-dasharray="10 14" />`;
+        svgContent += `<line x1="${currentStartX}" y1="${midLine}" x2="${currentEndX}" y2="${midLine}" stroke="${theme.secondary}" opacity="0.5" stroke-width="2.5" stroke-dasharray="14 14" />`;
       }
-      svgContent += `<line x1="${currentStartX}" y1="${baselineY}" x2="${currentEndX}" y2="${baselineY}" stroke="#94a3b8" stroke-width="4" />`;
+      svgContent += `<line x1="${currentStartX}" y1="${baselineY}" x2="${currentEndX}" y2="${baselineY}" stroke="${theme.primary}" stroke-width="4" />`;
 
       if (rowType === 'blank') {
-        svgContent += `<line x1="${currentStartX}" y1="${baselineY + 26}" x2="${currentEndX}" y2="${baselineY + 26}" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="14 16" />`;
+        svgContent += `<line x1="${currentStartX}" y1="${baselineY + 26}" x2="${currentEndX}" y2="${baselineY + 26}" stroke="${theme.secondary}" stroke-width="2" stroke-dasharray="14 16" />`;
       } else {
         if (showGuideDots) {
-          svgContent += `<circle cx="${currentStartX - 16}" cy="${baselineY - baselineOffset / 3}" r="8" fill="#34d399" />`;
+          svgContent += `<circle cx="${currentStartX - 16}" cy="${baselineY - baselineOffset / 3}" r="8" fill="${theme.dots}" />`;
         }
-        if (fontStyle === 'dotted') {
-          svgContent += `<text x="${currentStartX}" y="${baselineY - 8}" font-family="${fitted.fontFamily}" font-size="${fitted.fontSize}" font-weight="${fitted.fontWeight}" fill="${fitted.fill}" style="letter-spacing: ${fitted.letterSpacing}px">${formatted}</text>`;
+
+        if (isRainbow) {
+          // Rainbow mode: each letter gets a color
+          let currentX = currentStartX;
+          const chars = Array.from(formatted);
+          chars.forEach((char, charIdx) => {
+            const charColor = RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length];
+            const charWeight = fitted.fontWeight || 600;
+            // Note: SVG text spacing is tricky with individual characters. 
+            // We use dx for relative spacing if available, but here we'll just use a simple offset approach or text-anchor.
+            // Simplified: we'll use a single text element with tspans for colors.
+          });
+
+          // Re-implementing rainbow text more reliably
+          svgContent += `<text x="${currentStartX}" y="${baselineY - 8}" font-family="${fitted.fontFamily}" font-size="${fitted.fontSize}" font-weight="${fitted.fontWeight}" style="letter-spacing: ${fitted.letterSpacing}px">`;
+          chars.forEach((char, charIdx) => {
+            const charColor = RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length];
+            svgContent += `<tspan fill="${charColor}">${char}</tspan>`;
+          });
+          svgContent += `</text>`;
+
+          if (fontStyle !== 'dotted') {
+            // For non-dotted styles in rainbow mode, we might want a stroke or something, but let's keep it simple first
+          }
+        } else {
+          if (fontStyle === 'dotted') {
+            svgContent += `<text x="${currentStartX}" y="${baselineY - 8}" font-family="${fitted.fontFamily}" font-size="${fitted.fontSize}" font-weight="${fitted.fontWeight}" fill="${theme.text}" style="letter-spacing: ${fitted.letterSpacing}px">${formatted}</text>`;
+          }
+          svgContent += `<text x="${currentStartX}" y="${baselineY - 8}" font-family="${fitted.fontFamily}" font-size="${fitted.fontSize}" font-weight="${fitted.fontWeight}" fill="${fontStyle === 'dotted' ? 'none' : theme.text}" stroke="${fitted.stroke || 'none'}" stroke-width="${fitted.strokeWidth || 0}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${fitted.dashArray || 'none'}" style="letter-spacing: ${fitted.letterSpacing}px">${formatted}</text>`;
         }
-        svgContent += `<text x="${currentStartX}" y="${baselineY - 8}" font-family="${fitted.fontFamily}" font-size="${fitted.fontSize}" font-weight="${fitted.fontWeight}" fill="${fontStyle === 'dotted' ? 'none' : fitted.fill}" stroke="${fitted.stroke || 'none'}" stroke-width="${fitted.strokeWidth || 0}" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${fitted.dashArray || 'none'}" style="letter-spacing: ${fitted.letterSpacing}px">${formatted}</text>`;
       }
     });
 
-    svgContent += `<text x="${margin}" y="${pageHeight - margin + 10}" font-size="18" font-family="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif" fill="#94a3b8">${t('pages.nameTracing.traceSlowly')}</text>`;
+    svgContent += `<text x="${margin}" y="${pageHeight - margin + 10}" font-size="18" font-family="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif" fill="${theme.primary}">${t('pages.nameTracing.traceSlowly')}</text>`;
     return `<svg viewBox="0 0 ${pageWidth} ${pageHeight}" xmlns="http://www.w3.org/2000/svg">${svgContent}</svg>`;
-  }, [formatName, letterCase, patternStyle, rowCount, margin, pageWidth, pageHeight, baseFontConfig, baseFontSize, sizeMultiplier, lineStyle, showGuideDots, fontStyle, t]);
+  }, [formatName, letterCase, patternStyle, rowCount, margin, pageWidth, pageHeight, baseFontConfig, baseFontSize, sizeMultiplier, lineStyle, showGuideDots, fontStyle, t, colorTheme, decoration]);
 
   const generateSVGForNameRef = React.useRef<((name: string) => string) | null>(null);
 
@@ -1034,6 +1106,60 @@ export default function NameTracingGeneratorPage() {
                   </div>
 
                   <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        {t('pages.nameTracing.colorTheme') || 'Color Theme'}
+                      </Label>
+                      <span className="text-[10px] bg-yellow-100 text-yellow-700 font-bold px-1.5 py-0.5 rounded uppercase">Premium</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2">
+                      {(Object.keys(THEMES) as ColorTheme[]).map((themeKey) => (
+                        <button
+                          key={themeKey}
+                          onClick={() => setColorTheme(themeKey)}
+                          className={`flex flex-col items-center gap-1.5 p-2 rounded-xl border-2 transition ${colorTheme === themeKey ? 'border-purple-500 bg-purple-50' : 'border-slate-100 bg-white hover:border-purple-200'}`}
+                        >
+                          <div
+                            className="w-full h-8 rounded-lg shadow-inner flex items-center justify-center overflow-hidden"
+                            style={{ background: THEMES[themeKey].bg }}
+                          >
+                            <div className="flex gap-0.5">
+                              {THEMES[themeKey].rainbow ? (
+                                RAINBOW_COLORS.slice(0, 3).map((c, i) => <div key={i} className="w-2 h-2 rounded-full" style={{ background: c }} />)
+                              ) : (
+                                <>
+                                  <div className="w-2 h-2 rounded-full" style={{ background: THEMES[themeKey].primary }} />
+                                  <div className="w-2 h-2 rounded-full" style={{ background: THEMES[themeKey].dots }} />
+                                </>
+                              )}
+                            </div>
+                          </div>
+                          <span className="text-[10px] font-medium text-slate-600 truncate w-full text-center">{THEMES[themeKey].name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        {t('pages.nameTracing.decorations') || 'Decorations'}
+                      </Label>
+                    </div>
+                    <ToggleGroup
+                      type="single"
+                      value={decoration}
+                      onValueChange={(value: string) => setDecoration(value as DecorationType || 'none')}
+                      className="grid grid-cols-4 gap-2"
+                    >
+                      <ToggleGroupItem value="none" className="rounded-xl text-[10px]">None</ToggleGroupItem>
+                      <ToggleGroupItem value="stars" className="rounded-xl text-[10px]">Stars</ToggleGroupItem>
+                      <ToggleGroupItem value="hearts" className="rounded-xl text-[10px]">Hearts</ToggleGroupItem>
+                      <ToggleGroupItem value="flowers" className="rounded-xl text-[10px]">Flowers</ToggleGroupItem>
+                    </ToggleGroup>
+                  </div>
+
+                  <div>
                     <div className="flex items-center justify-between mb-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                         {t('pages.nameTracing.tracingStyle')}
@@ -1266,22 +1392,42 @@ export default function NameTracingGeneratorPage() {
                                 );
                               })}
                             </defs>
-                            <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
+                            <rect x={0} y={0} width={pageWidth} height={pageHeight} fill={THEMES[colorTheme].bg} rx={36} />
                             <rect
                               x={margin - 24}
                               y={margin - 24}
                               width={pageWidth - (margin - 24) * 2}
                               height={pageHeight - (margin - 24) * 2}
-                              fill="#f8fafc"
-                              stroke="#e2e8f0"
+                              fill="#ffffff"
+                              stroke={THEMES[colorTheme as ColorTheme].secondary}
                               strokeWidth={2}
                               rx={28}
                             />
+
+                            {/* Decorations for Batch Preview */}
+                            {decoration !== 'none' && (
+                              <g opacity="0.6" fill={THEMES[colorTheme].dots}>
+                                {[
+                                  { x: margin + 10, y: margin + 10 },
+                                  { x: pageWidth - margin - 10, y: margin + 10 },
+                                  { x: margin + 10, y: pageHeight - margin - 10 },
+                                  { x: pageWidth - margin - 10, y: pageHeight - margin - 10 }
+                                ].map((pos, i) => (
+                                  decoration === 'stars' ? (
+                                    <path key={i} d={`M ${pos.x} ${pos.y - 12} L ${pos.x + 3} ${pos.y - 3} L ${pos.x + 12} ${pos.y - 3} L ${pos.x + 5} ${pos.y + 2} L ${pos.x + 8} ${pos.y + 12} L ${pos.x} ${pos.y + 6} L ${pos.x - 8} ${pos.y + 12} L ${pos.x - 5} ${pos.y + 2} L ${pos.x - 12} ${pos.y - 3} L ${pos.x - 3} ${pos.y - 3} Z`} />
+                                  ) : (
+                                    <path key={i} d={`M ${pos.x} ${pos.y + 8} C ${pos.x - 16} ${pos.y - 8}, ${pos.x} ${pos.y - 16}, ${pos.x} ${pos.y - 4} C ${pos.x} ${pos.y - 16}, ${pos.x + 16} ${pos.y - 8}, ${pos.x} ${pos.y + 8}`} />
+                                  )
+                                ))}
+                              </g>
+                            )}
+
                             {(formattedNames as string[]).map((name: string, nameIndex: number) => {
                               // Use the name from the map parameter directly - it's already the correct value
                               if (!name) return null;
 
                               const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
+                              const currentTheme = THEMES[colorTheme];
                               // Calculate position based on layout
                               // For preview, use a smart layout based on number of names
                               const totalNames = formattedNames.length;
@@ -1311,12 +1457,6 @@ export default function NameTracingGeneratorPage() {
                                 worksheetY = margin;
                               }
 
-                              // Debug logging
-                              if (process.env.NODE_ENV === 'development') {
-                                console.log(`Rendering name at index ${nameIndex}:`, name, 'from formattedNames:', formattedNames);
-                                console.log(`Worksheet position: x=${worksheetX}, y=${worksheetY}, width=${worksheetWidth}, height=${worksheetHeight}`);
-                              }
-
                               // Adjust row calculations for smaller worksheets
                               const adjustedRowGap = batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)
                                 ? rowGap * 0.8
@@ -1328,11 +1468,6 @@ export default function NameTracingGeneratorPage() {
 
                               return (
                                 <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#worksheet-clip-${nameIndex})`}>
-                                  {/* Debug: Visual border for worksheet area (remove in production) */}
-                                  {/* @ts-ignore */}
-                                  {typeof process !== 'undefined' && process.env.NODE_ENV === 'development' && (
-                                    <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} fill="none" stroke="red" strokeWidth={2} strokeDasharray="5,5" opacity={0.3} />
-                                  )}
                                   {adjustedRows.map((rowType: 'trace' | 'blank', rowIndex: number) => {
                                     const baselineY = 120 + rowIndex * adjustedRowGap;
                                     const startX = 40;
@@ -1345,48 +1480,66 @@ export default function NameTracingGeneratorPage() {
                                       <g key={`row-${nameIndex}-${rowIndex}`}>
                                         {showPrimary && (
                                           <>
-                                            <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
-                                            <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
+                                            <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke={currentTheme.secondary} strokeWidth={3} strokeDasharray="10 14" />
+                                            <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke={currentTheme.secondary} opacity={0.5} strokeWidth={2.5} strokeDasharray="14 14" />
                                           </>
                                         )}
-                                        <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
+                                        <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke={currentTheme.primary} strokeWidth={4} />
 
                                         {rowType === 'blank' ? (
-                                          <line x1={startX} y1={baselineY + 26} x2={endX} y2={baselineY + 26} stroke="#e2e8f0" strokeWidth={2} strokeDasharray="14 16" />
+                                          <line x1={startX} y1={baselineY + 26} x2={endX} y2={baselineY + 26} stroke={currentTheme.secondary} strokeWidth={2} strokeDasharray="14 16" />
                                         ) : (
                                           <>
                                             {showGuideDots && (
-                                              <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
+                                              <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill={currentTheme.dots} />
                                             )}
-                                            {fontStyle === 'dotted' && (
+
+                                            {currentTheme.rainbow ? (
                                               <text
                                                 x={startX}
                                                 y={baselineY - 8}
                                                 fontFamily={nameConfig.fontFamily}
                                                 fontSize={nameConfig.fontSize}
                                                 fontWeight={nameConfig.fontWeight as any}
-                                                fill={nameConfig.fill}
                                                 style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
                                               >
-                                                {name}
+                                                {Array.from(name).map((char, charIdx) => (
+                                                  <tspan key={charIdx} fill={RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length]}>{char}</tspan>
+                                                ))}
                                               </text>
+                                            ) : (
+                                              <>
+                                                {fontStyle === 'dotted' && (
+                                                  <text
+                                                    x={startX}
+                                                    y={baselineY - 8}
+                                                    fontFamily={nameConfig.fontFamily}
+                                                    fontSize={nameConfig.fontSize}
+                                                    fontWeight={nameConfig.fontWeight as any}
+                                                    fill={currentTheme.text}
+                                                    style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
+                                                  >
+                                                    {name}
+                                                  </text>
+                                                )}
+                                                <text
+                                                  x={startX}
+                                                  y={baselineY - 8}
+                                                  fontFamily={nameConfig.fontFamily}
+                                                  fontSize={nameConfig.fontSize}
+                                                  fontWeight={nameConfig.fontWeight}
+                                                  fill={fontStyle === 'dotted' ? 'none' : currentTheme.text}
+                                                  stroke={nameConfig.stroke}
+                                                  strokeWidth={nameConfig.strokeWidth}
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                  strokeDasharray={nameConfig.dashArray}
+                                                  style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
+                                                >
+                                                  {name}
+                                                </text>
+                                              </>
                                             )}
-                                            <text
-                                              x={startX}
-                                              y={baselineY - 8}
-                                              fontFamily={nameConfig.fontFamily}
-                                              fontSize={nameConfig.fontSize}
-                                              fontWeight={nameConfig.fontWeight}
-                                              fill={fontStyle === 'dotted' ? 'none' : nameConfig.fill}
-                                              stroke={nameConfig.stroke}
-                                              strokeWidth={nameConfig.strokeWidth}
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                              strokeDasharray={nameConfig.dashArray}
-                                              style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
-                                            >
-                                              {name}
-                                            </text>
                                           </>
                                         )}
                                       </g>
@@ -1400,7 +1553,7 @@ export default function NameTracingGeneratorPage() {
                               y={pageHeight - margin + 10}
                               fontSize={18}
                               fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
-                              fill="#94a3b8"
+                              fill={THEMES[colorTheme].primary}
                             >
                               {t('pages.nameTracing.traceSlowly')}
                             </text>
@@ -1414,17 +1567,35 @@ export default function NameTracingGeneratorPage() {
                             aria-label={t('pages.nameTracing.nameTracingWorksheetPreview')}
                             className="w-full h-auto"
                           >
-                            <rect x={0} y={0} width={pageWidth} height={pageHeight} fill="#ffffff" rx={36} />
+                            <rect x={0} y={0} width={pageWidth} height={pageHeight} fill={THEMES[colorTheme].bg} rx={36} />
                             <rect
                               x={margin - 24}
                               y={margin - 24}
                               width={pageWidth - (margin - 24) * 2}
                               height={pageHeight - (margin - 24) * 2}
-                              fill="#f8fafc"
-                              stroke="#e2e8f0"
+                              fill="#ffffff"
+                              stroke={THEMES[colorTheme].secondary}
                               strokeWidth={2}
                               rx={28}
                             />
+
+                            {/* Decorations for Single Preview */}
+                            {decoration !== 'none' && (
+                              <g opacity="0.6" fill={THEMES[colorTheme].dots}>
+                                {[
+                                  { x: margin + 10, y: margin + 10 },
+                                  { x: pageWidth - margin - 10, y: margin + 10 },
+                                  { x: margin + 10, y: pageHeight - margin - 10 },
+                                  { x: pageWidth - margin - 10, y: pageHeight - margin - 10 }
+                                ].map((pos, i) => (
+                                  decoration === 'stars' ? (
+                                    <path key={i} d={`M ${pos.x} ${pos.y - 12} L ${pos.x + 3} ${pos.y - 3} L ${pos.x + 12} ${pos.y - 3} L ${pos.x + 5} ${pos.y + 2} L ${pos.x + 8} ${pos.y + 12} L ${pos.x} ${pos.y + 6} L ${pos.x - 8} ${pos.y + 12} L ${pos.x - 5} ${pos.y + 2} L ${pos.x - 12} ${pos.y - 3} L ${pos.x - 3} ${pos.y - 3} Z`} />
+                                  ) : (
+                                    <path key={i} d={`M ${pos.x} ${pos.y + 8} C ${pos.x - 16} ${pos.y - 8}, ${pos.x} ${pos.y - 16}, ${pos.x} ${pos.y - 4} C ${pos.x} ${pos.y - 16}, ${pos.x + 16} ${pos.y - 8}, ${pos.x} ${pos.y + 8}`} />
+                                  )
+                                ))}
+                              </g>
+                            )}
 
                             {rowsForPreview.map((rowType: 'trace' | 'blank', index: number) => {
                               const baselineY = margin + 120 + index * rowGap;
@@ -1433,6 +1604,8 @@ export default function NameTracingGeneratorPage() {
                               const topLine = baselineY - baselineOffset;
                               const midLine = baselineY - baselineOffset / 2;
                               const showPrimary = lineStyle === 'primary';
+                              const currentTheme = THEMES[colorTheme];
+
                               const accessibilityLabel = rowType === 'blank'
                                 ? t('pages.nameTracing.blankHandwritingLine')
                                 : t('pages.nameTracing.traceableHandwritingLine');
@@ -1440,11 +1613,11 @@ export default function NameTracingGeneratorPage() {
                                 <g key={`row-${index}`} aria-label={accessibilityLabel}>
                                   {showPrimary && (
                                     <>
-                                      <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke="#cbd5f5" strokeWidth={3} strokeDasharray="10 14" />
-                                      <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke="#dbeafe" strokeWidth={2.5} strokeDasharray="14 14" />
+                                      <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke={currentTheme.secondary} strokeWidth={3} strokeDasharray="10 14" />
+                                      <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke={currentTheme.secondary} opacity={0.5} strokeWidth={2.5} strokeDasharray="14 14" />
                                     </>
                                   )}
-                                  <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke="#94a3b8" strokeWidth={4} />
+                                  <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke={currentTheme.primary} strokeWidth={4} />
 
                                   {rowType === 'blank' ? (
                                     <>
@@ -1453,7 +1626,7 @@ export default function NameTracingGeneratorPage() {
                                         y1={baselineY + 26}
                                         x2={endX}
                                         y2={baselineY + 26}
-                                        stroke="#e2e8f0"
+                                        stroke={currentTheme.secondary}
                                         strokeWidth={2}
                                         strokeDasharray="14 16"
                                       />
@@ -1461,37 +1634,55 @@ export default function NameTracingGeneratorPage() {
                                   ) : (
                                     <>
                                       {showGuideDots && (
-                                        <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill="#34d399" />
+                                        <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill={currentTheme.dots} />
                                       )}
-                                      {fontStyle === 'dotted' && (
+
+                                      {currentTheme.rainbow ? (
                                         <text
                                           x={startX}
                                           y={baselineY - 8}
                                           fontFamily={fittedFontConfig.fontFamily}
                                           fontSize={fittedFontConfig.fontSize}
                                           fontWeight={fittedFontConfig.fontWeight as any}
-                                          fill={fittedFontConfig.fill}
                                           style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
                                         >
-                                          {formattedName}
+                                          {Array.from(formattedName).map((char, charIdx) => (
+                                            <tspan key={charIdx} fill={RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length]}>{char}</tspan>
+                                          ))}
                                         </text>
+                                      ) : (
+                                        <>
+                                          {fontStyle === 'dotted' && (
+                                            <text
+                                              x={startX}
+                                              y={baselineY - 8}
+                                              fontFamily={fittedFontConfig.fontFamily}
+                                              fontSize={fittedFontConfig.fontSize}
+                                              fontWeight={fittedFontConfig.fontWeight as any}
+                                              fill={currentTheme.text}
+                                              style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
+                                            >
+                                              {formattedName}
+                                            </text>
+                                          )}
+                                          <text
+                                            x={startX}
+                                            y={baselineY - 8}
+                                            fontFamily={fittedFontConfig.fontFamily}
+                                            fontSize={fittedFontConfig.fontSize}
+                                            fontWeight={fittedFontConfig.fontWeight}
+                                            fill={fontStyle === 'dotted' ? 'none' : currentTheme.text}
+                                            stroke={fittedFontConfig.stroke}
+                                            strokeWidth={fittedFontConfig.strokeWidth}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeDasharray={fittedFontConfig.dashArray}
+                                            style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
+                                          >
+                                            {formattedName}
+                                          </text>
+                                        </>
                                       )}
-                                      <text
-                                        x={startX}
-                                        y={baselineY - 8}
-                                        fontFamily={fittedFontConfig.fontFamily}
-                                        fontSize={fittedFontConfig.fontSize}
-                                        fontWeight={fittedFontConfig.fontWeight}
-                                        fill={fontStyle === 'dotted' ? 'none' : fittedFontConfig.fill}
-                                        stroke={fittedFontConfig.stroke}
-                                        strokeWidth={fittedFontConfig.strokeWidth}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeDasharray={fittedFontConfig.dashArray}
-                                        style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
-                                      >
-                                        {formattedName}
-                                      </text>
                                     </>
                                   )}
                                 </g>
@@ -1503,7 +1694,7 @@ export default function NameTracingGeneratorPage() {
                               y={pageHeight - margin + 10}
                               fontSize={18}
                               fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
-                              fill="#94a3b8"
+                              fill={THEMES[colorTheme].primary}
                             >
                               {t('pages.nameTracing.traceSlowly')}
                             </text>

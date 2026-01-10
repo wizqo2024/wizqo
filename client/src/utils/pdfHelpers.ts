@@ -1,11 +1,23 @@
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
+
+/**
+ * Helper to convert hex to RGB for jsPDF
+ */
+const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : { r: 0, g: 0, b: 0 };
+};
 
 /**
  * Draws a single worksheet layout on a jsPDF instance.
- * Replicates the SVG structure from generateSVGForName.
+ * Replicates the SVG structure from NameTracingGeneratorPage.
  */
 export const drawWorksheetOnPDF = (
-    doc: jsPDF,
+    doc: any,
     name: string,
     config: {
         pageWidth: number;
@@ -13,7 +25,7 @@ export const drawWorksheetOnPDF = (
         margin: number;
         fontStyle: string;
         lineStyle: string;
-        patternStyle: 'traceOnly' | 'traceBlank' | 'traceAndWrite';
+        patternStyle: string;
         showGuideDots: boolean;
         rowCount: number;
         letterCase: 'original' | 'title' | 'upper' | 'lower';
@@ -22,6 +34,8 @@ export const drawWorksheetOnPDF = (
         xOffset?: number;
         yOffset?: number;
         scale?: number;
+        colorTheme?: string;
+        decoration?: string;
     },
     formatName: (n: string, c: any) => string
 ) => {
@@ -40,12 +54,25 @@ export const drawWorksheetOnPDF = (
         xOffset = 0,
         yOffset = 0,
         scale = 1,
+        colorTheme = 'classic',
+        decoration = 'none',
     } = config;
+
+    const THEMES: Record<string, any> = {
+        classic: { primary: '#94a3b8', secondary: '#cbd5f5', text: '#1e293b', dots: '#34d399', bg: '#ffffff' },
+        rainbow: { primary: '#cbd5f1', secondary: '#e2e8f0', text: '#475569', dots: '#ec4899', bg: '#ffffff', rainbow: true },
+        ocean: { primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', dots: '#2DD4BF', bg: '#ffffff' },
+        candy: { primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#ffffff' },
+        forest: { primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#ffffff' },
+        sunset: { primary: '#ea580c', secondary: '#ffedd5', text: '#9a3412', dots: '#ef4444', bg: '#ffffff' },
+    };
+
+    const RAINBOW_COLORS = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+    const theme = THEMES[colorTheme] || THEMES.classic;
 
     const formatted = formatName(name, letterCase);
 
     const practicingRows = (() => {
-        // Correct mapping of patternStyle to row types
         const sequence = patternStyle === 'traceOnly' ? ['trace'] : ['trace', 'trace', 'blank'];
         const rows: Array<'trace' | 'blank'> = [];
         for (let i = 0; rows.length < rowCount; i += 1) {
@@ -59,18 +86,14 @@ export const drawWorksheetOnPDF = (
     const usableWidth = endX - startX;
     const maxWidth = Math.max(140 * scale, usableWidth - 80 * scale);
 
-    // Measure text width for jsPDF.
     doc.setFont('Codystar', 'normal');
     doc.setFontSize(baseFontSize * scale);
     const measuredWidth = doc.getTextWidth(formatted);
 
-    const dominantRowType = practicingRows.find((row) => row === 'trace') ? 'trace' : 'blank';
-    const isTraceRow = dominantRowType === 'trace';
-
     const traceMinBase = fontStyle === 'bubble' ? 52 : fontStyle === 'script' ? 48 : 44;
     const blankMinBase = fontStyle === 'bubble' ? 60 : fontStyle === 'script' ? 54 : 50;
-    const baseMin = isTraceRow ? traceMinBase : blankMinBase;
-    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (isTraceRow ? 1 : 0.9)));
+    const baseMin = practicingRows.includes('trace') ? traceMinBase : blankMinBase;
+    const minFontSize = Math.max(36, Math.round(baseMin * sizeMultiplier * (practicingRows.includes('trace') ? 1 : 0.9)));
 
     let fittedSize = baseFontSize * scale;
     if (measuredWidth > maxWidth && measuredWidth > 0) {
@@ -83,13 +106,13 @@ export const drawWorksheetOnPDF = (
     const maxRows = Math.min(rowCount, Math.max(3, Math.floor(((pageHeight - margin * 2) * scale) / rowGap)));
     const rowsToDraw = practicingRows.slice(0, maxRows);
 
-    // Background
+    // Background (Sheet color)
     doc.setFillColor(255, 255, 255);
     doc.roundedRect(0 + xOffset, 0 + yOffset, pageWidth * scale, pageHeight * scale, 36 * scale, 36 * scale, 'F');
 
-    // Frame
-    doc.setFillColor(248, 250, 252);
-    doc.setDrawColor(226, 232, 240);
+    // Frame (using theme secondary color for border if not classic)
+    const frameStroke = hexToRgb(theme.secondary);
+    doc.setDrawColor(frameStroke.r, frameStroke.g, frameStroke.b);
     doc.setLineWidth(2 * scale);
     doc.roundedRect(
         (margin - 24) * scale + xOffset,
@@ -98,8 +121,30 @@ export const drawWorksheetOnPDF = (
         (pageHeight - (margin - 24) * 2) * scale,
         28 * scale,
         28 * scale,
-        'FD'
+        'D'
     );
+
+    // Decorations
+    if (decoration !== 'none') {
+        const decoRGB = hexToRgb(theme.dots);
+        doc.setFillColor(decoRGB.r, decoRGB.g, decoRGB.b);
+        const decoPos = [
+            { x: (margin + 10) * scale + xOffset, y: (margin + 10) * scale + yOffset },
+            { x: (pageWidth - margin - 10) * scale + xOffset, y: (margin + 10) * scale + yOffset },
+            { x: (margin + 10) * scale + xOffset, y: (pageHeight - margin - 10) * scale + yOffset },
+            { x: (pageWidth - margin - 10) * scale + xOffset, y: (pageHeight - margin - 10) * scale + yOffset }
+        ];
+
+        decoPos.forEach(pos => {
+            if (decoration === 'stars') {
+                // Approximate a star with lines or a small polygon
+                // Simplified star for PDF
+                doc.circle(pos.x, pos.y, 4 * scale, 'F');
+            } else if (decoration === 'hearts') {
+                doc.circle(pos.x, pos.y, 4 * scale, 'F');
+            }
+        });
+    }
 
     rowsToDraw.forEach((rowType, index) => {
         const baselineY = (margin + 120) * scale + index * rowGap + yOffset;
@@ -109,53 +154,63 @@ export const drawWorksheetOnPDF = (
         const midLine = baselineY - baselineOffset / 2;
         const showPrimary = lineStyle === 'primary';
 
+        const secondaryRGB = hexToRgb(theme.secondary);
+        const primaryRGB = hexToRgb(theme.primary);
+
         if (showPrimary) {
-            // Top dashed line
-            doc.setDrawColor(203, 213, 245);
+            doc.setDrawColor(secondaryRGB.r, secondaryRGB.g, secondaryRGB.b);
             doc.setLineWidth(3 * scale);
             doc.setLineDashPattern([10 * scale, 14 * scale], 0);
             doc.line(currentStartX, topLine, currentEndX, topLine);
 
-            // Mid dashed line
-            doc.setDrawColor(219, 234, 254);
             doc.setLineWidth(2.5 * scale);
             doc.setLineDashPattern([14 * scale, 14 * scale], 0);
             doc.line(currentStartX, midLine, currentEndX, midLine);
         }
 
-        // Baseline solid
-        doc.setDrawColor(148, 163, 184);
+        doc.setDrawColor(primaryRGB.r, primaryRGB.g, primaryRGB.b);
         doc.setLineWidth(4 * scale);
         doc.setLineDashPattern([], 0);
         doc.line(currentStartX, baselineY, currentEndX, baselineY);
 
         if (rowType === 'blank') {
-            // Descent line for blank rows
-            doc.setDrawColor(226, 232, 240);
+            doc.setDrawColor(secondaryRGB.r, secondaryRGB.g, secondaryRGB.b);
             doc.setLineWidth(2 * scale);
             doc.setLineDashPattern([14 * scale, 16 * scale], 0);
             doc.line(currentStartX, baselineY + 26 * scale, currentEndX, baselineY + 26 * scale);
         } else {
-            // Guide dots
             if (showGuideDots) {
-                doc.setFillColor(52, 211, 153);
+                const dotRGB = hexToRgb(theme.dots);
+                doc.setFillColor(dotRGB.r, dotRGB.g, dotRGB.b);
                 doc.circle(currentStartX - 16 * scale, baselineY - baselineOffset / 3, 8 * scale, 'F');
             }
 
-            // Draw Name
             doc.setFont('Codystar', 'normal');
             doc.setFontSize(fittedSize);
-            doc.setTextColor(30, 41, 59); // Slate 800
 
-            // jsPDF text drawing
-            // @ts-ignore
-            if (doc.setCharSpace) {
-                // @ts-ignore
-                doc.setCharSpace(0);
+            if (theme.rainbow) {
+                let currentX = currentStartX;
+                const chars = Array.from(formatted);
+                chars.forEach((char, i) => {
+                    const charColor = RAINBOW_COLORS[i % RAINBOW_COLORS.length];
+                    const rgb = hexToRgb(charColor);
+                    doc.setTextColor(rgb.r, rgb.g, rgb.b);
+                    doc.text(char, currentX, baselineY - 8 * scale);
+                    currentX += doc.getTextWidth(char) + 2 * scale; // Simple spacing
+                });
+            } else {
+                const textRGB = hexToRgb(theme.text);
+                doc.setTextColor(textRGB.r, textRGB.g, textRGB.b);
+                doc.text(formatted, currentStartX, baselineY - 8 * scale);
             }
-            doc.text(formatted, currentStartX, baselineY - 8 * scale);
         }
     });
+
+    // Trace slowing text at bottom
+    const footerRGB = hexToRgb(theme.primary);
+    doc.setTextColor(footerRGB.r, footerRGB.g, footerRGB.b);
+    doc.setFontSize(14 * scale);
+    doc.text('Trace slowly and carefully...', margin * scale + xOffset, (pageHeight - margin + 10) * scale + yOffset);
 
     return doc;
 };
