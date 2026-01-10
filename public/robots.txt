@@ -30,7 +30,7 @@ Disallow: /dashboard
 Disallow: /privacy
 Disallow: /terms
 Disallow: /cookies
-Disallow: /*.json
+
 Disallow: /print
 
 # Sitemaps
