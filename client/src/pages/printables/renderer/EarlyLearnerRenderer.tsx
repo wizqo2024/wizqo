@@ -84,6 +84,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Cursive Writing Alphabet"
                     description="Practice writing the entire cursive alphabet with these comprehensive worksheets."
                     emoji={String.fromCodePoint(0x270D)}
+                    orientation="l"
                 >
                     <CursiveAlphabetWorksheet />
                 </WorksheetSectionWrapper>
@@ -94,6 +95,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Cursive Writing Practice"
                     description="Improve your cursive handwriting with daily practice sheets."
                     emoji={String.fromCodePoint(0x1F4DD)}
+                    orientation="l"
                 >
                     <CursivePracticeWorksheet />
                 </WorksheetSectionWrapper>
@@ -104,6 +106,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Capital Cursive Writing"
                     description="Master the art of writing capital cursive letters."
                     emoji={String.fromCodePoint(0x1F170)}
+                    orientation="l"
                 >
                     <CapitalCursiveWorksheet />
                 </WorksheetSectionWrapper>
@@ -114,6 +117,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Joining Cursive Letters"
                     description="Learn how to connect cursive letters smoothly."
                     emoji={String.fromCodePoint(0x1F517)}
+                    orientation="l"
                 >
                     <JoiningCursiveWorksheet />
                 </WorksheetSectionWrapper>
@@ -124,6 +128,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Half Print Half Cursive"
                     description="Bridge the gap between print and cursive writing styles."
                     emoji={String.fromCodePoint(0x2ABC)}
+                    orientation="l"
                 >
                     <HybridHandwritingWorksheet />
                 </WorksheetSectionWrapper>

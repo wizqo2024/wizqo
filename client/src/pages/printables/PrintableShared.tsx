@@ -258,7 +258,8 @@ export function WorksheetSectionWrapper({
     footer,
     hideDownloadButton = false,
     className = "",
-    isPreview = false
+    isPreview = false,
+    orientation = 'p'
 }: {
     docId: string
     title: string
@@ -273,6 +274,7 @@ export function WorksheetSectionWrapper({
     hideDownloadButton?: boolean
     className?: string
     isPreview?: boolean
+    orientation?: 'p' | 'l'
 }) {
     const { t, isRTL, language } = useTranslation()
     const theme = getWorksheetTheme(docId)
@@ -330,7 +332,8 @@ export function WorksheetSectionWrapper({
             await generateWorksheetPDF(sectionRef.current, {
                 filename,
                 scale: 3.0,
-                showAnswers: false // Individual handouts typically don't show answers in the hover PDF
+                showAnswers: false, // Individual handouts typically don't show answers in the hover PDF
+                orientation: orientation
             })
 
         } catch (error) {

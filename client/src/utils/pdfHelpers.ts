@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
+import { CEDARVILLE_CURSIVE_TTF_BASE64, CODYSTAR_TTF_BASE64 } from '@/lib/fonts';
 import html2canvas from 'html2canvas';
 
 /**
@@ -270,6 +270,10 @@ export const drawSvgRefOnPDF = async (
                 @font-face {
                     font-family: 'Cedarville Cursive';
                     src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                }
+                @font-face {
+                    font-family: 'Codystar';
+                    src: url(data:font/ttf;base64,${CODYSTAR_TTF_BASE64}) format('truetype');
                 }
             `;
             clonedDoc.getElementsByTagName('head')[0].appendChild(style);
