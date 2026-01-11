@@ -58,6 +58,14 @@ export default function CursiveAlphabetWorksheet({ isPrintView = false }: { isPr
 
     const renderContent = () => (
         <>
+            <style>
+                {`
+                    @font-face {
+                        font-family: 'Cedarville Cursive';
+                        src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                    }
+                `}
+            </style>
             {/* Vintage Border */}
             <rect x="20" y="20" width={pageWidth - 40} height={pageHeight - 40} fill="none" stroke="#94a3b8" strokeWidth="2" />
             <rect x="24" y="24" width={pageWidth - 48} height={pageHeight - 48} fill="none" stroke="#cbd5e1" strokeWidth="1" />

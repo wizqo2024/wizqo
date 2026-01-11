@@ -42,6 +42,14 @@ export default function HybridHandwritingWorksheet({ isPrintView = false }: { is
 
     const renderContent = () => (
         <>
+            <style>
+                {`
+                    @font-face {
+                        font-family: 'Cedarville Cursive';
+                        src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                    }
+                `}
+            </style>
             <rect x="20" y="20" width={pageWidth - 40} height={pageHeight - 40} fill="none" stroke="#d6d3d1" strokeWidth="4" />
 
             {WORDS.map((word, i) => {
