@@ -2859,7 +2859,6 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
 function createSlug(docId: string): string {
   // Special mappings for better SEO
   const slugMap: Record<string, string> = {
-    'cursive-writing': 'cursive-writing-practice-sheets',
     'mult-facts-0-12': 'multiplication-facts-0-12',
     'mult-arrays': 'multiplication-arrays',
     'mult-word-problems': 'multiplication-word-problems',
