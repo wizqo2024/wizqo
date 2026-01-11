@@ -47,14 +47,6 @@ export default function CapitalCursiveWorksheet({ isPrintView = false }: { isPri
 
     const renderContent = () => (
         <>
-            <style>
-                {`
-                    @font-face {
-                        font-family: 'Cedarville Cursive';
-                        src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
-                    }
-                `}
-            </style>
             <defs>
                 <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
                     <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#f1f5f9" strokeWidth="1" />

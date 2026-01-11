@@ -45,14 +45,6 @@ export default function JoiningCursiveWorksheet({ isPrintView = false }: { isPri
 
     const renderContent = () => (
         <>
-            <style>
-                {`
-                    @font-face {
-                        font-family: 'Cedarville Cursive';
-                        src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
-                    }
-                `}
-            </style>
             <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ecfeff" opacity="0.3" />
 
             {/* Header */}

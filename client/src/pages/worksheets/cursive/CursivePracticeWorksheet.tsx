@@ -69,14 +69,6 @@ export default function CursivePracticeWorksheet({ isPrintView = false }: { isPr
 
     const renderContent = () => (
         <>
-            <style>
-                {`
-                    @font-face {
-                        font-family: 'Cedarville Cursive';
-                        src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
-                    }
-                `}
-            </style>
             <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ffffff" />
 
             {/* Header */}

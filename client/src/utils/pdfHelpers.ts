@@ -1,4 +1,5 @@
 import jsPDF from 'jspdf';
+import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
 import html2canvas from 'html2canvas';
 
 /**
@@ -262,6 +263,17 @@ export const drawSvgRefOnPDF = async (
         allowTaint: true,
         backgroundColor: null, // Transparent background
         logging: false,
+        onclone: (clonedDoc) => {
+            // Inject the font into the cloned document so html2canvas can use it
+            const style = clonedDoc.createElement('style');
+            style.innerHTML = `
+                @font-face {
+                    font-family: 'Cedarville Cursive';
+                    src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                }
+            `;
+            clonedDoc.getElementsByTagName('head')[0].appendChild(style);
+        }
     });
 
     // 2. Convert Canvas to PNG
