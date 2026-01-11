@@ -48,10 +48,7 @@ export default function CursivePracticeWorksheet({ isPrintView = false }: { isPr
             if (!svgRef.current) return;
             const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
-            try {
-                doc.addFileToVFS("Cedarville-Cursive.ttf", CEDARVILLE_CURSIVE_TTF_BASE64);
-                doc.addFont("Cedarville-Cursive.ttf", "Cedarville", "normal");
-            } catch (e) { console.warn(e); }
+
 
             await drawSvgRefOnPDF(doc, svgRef.current, 0, 0, 297, 210);
             doc.save(`cursive-practice-set-${currentSetIndex + 1}.pdf`);
