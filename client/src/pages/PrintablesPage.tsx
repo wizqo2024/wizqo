@@ -1089,7 +1089,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           /* End of layout fixes */
         }
       `}</style>
-      <div className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
+      <div className={`${isPreview ? 'w-full h-full p-0 m-0' : 'max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10'} print:p-0 print:py-0 print:mt-0 ${isPreview ? 'preview-mode' : ''}`}>
         {/* Customization header (print view - appears once at top) */}
         {(teacherName || className || studentNames.length > 0) && !isPreview && (
           <div className="hidden print:block print-customization-header" aria-hidden>

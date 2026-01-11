@@ -352,7 +352,7 @@ export function WorksheetSectionWrapper({
             )}
             <section
                 ref={sectionRef}
-                className={`break-inside-auto rounded-xl border-2 ${theme.border} ${theme.background} p-6 print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 shadow-lg relative overflow-hidden print:overflow-visible worksheet-section ${className}`}
+                className={`break-inside-auto ${isPreview ? 'p-0 border-0 shadow-none bg-white' : `rounded-xl border-2 ${theme.border} ${theme.background} p-6 shadow-lg`} print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 relative overflow-hidden print:overflow-visible worksheet-section ${className}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
                 style={{
                     pageBreakInside: 'auto',
