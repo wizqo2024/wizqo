@@ -78,19 +78,54 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
             )}
 
             {activeDocs.includes('cursive-writing-alphabet-worksheets') && (
-                <CursiveAlphabetWorksheet isPrintView={true} />
+                <WorksheetSectionWrapper
+                    docId="cursive-writing-alphabet-worksheets"
+                    title="Cursive Writing Alphabet"
+                    description="Practice writing the entire cursive alphabet with these comprehensive worksheets."
+                    emoji={String.fromCodePoint(0x270D)}
+                >
+                    <CursiveAlphabetWorksheet isPrintView={true} />
+                </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('cursive-writing-practice-sheets') && (
-                <CursivePracticeWorksheet isPrintView={true} />
+                <WorksheetSectionWrapper
+                    docId="cursive-writing-practice-sheets"
+                    title="Cursive Writing Practice"
+                    description="Improve your cursive handwriting with daily practice sheets."
+                    emoji={String.fromCodePoint(0x1F4DD)}
+                >
+                    <CursivePracticeWorksheet isPrintView={true} />
+                </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('capital-cursive-writing-worksheets') && (
-                <CapitalCursiveWorksheet isPrintView={true} />
+                <WorksheetSectionWrapper
+                    docId="capital-cursive-writing-worksheets"
+                    title="Capital Cursive Writing"
+                    description="Master the art of writing capital cursive letters."
+                    emoji={String.fromCodePoint(0x1F170)}
+                >
+                    <CapitalCursiveWorksheet isPrintView={true} />
+                </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('joining-cursive-letters-worksheets') && (
-                <JoiningCursiveWorksheet isPrintView={true} />
+                <WorksheetSectionWrapper
+                    docId="joining-cursive-letters-worksheets"
+                    title="Joining Cursive Letters"
+                    description="Learn how to connect cursive letters smoothly."
+                    emoji={String.fromCodePoint(0x1F517)}
+                >
+                    <JoiningCursiveWorksheet isPrintView={true} />
+                </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('half-print-half-cursive-writing') && (
-                <HybridHandwritingWorksheet isPrintView={true} />
+                <WorksheetSectionWrapper
+                    docId="half-print-half-cursive-writing"
+                    title="Half Print Half Cursive"
+                    description="Bridge the gap between print and cursive writing styles."
+                    emoji={String.fromCodePoint(0x2ABC)}
+                >
+                    <HybridHandwritingWorksheet isPrintView={true} />
+                </WorksheetSectionWrapper>
             )}
 
             {activeDocs.includes('directed-drawing-animals') && (

@@ -606,12 +606,6 @@ export default function App() {
                     );
                   }
 
-                  // Cursive Routes
-                  if (routeSubKey === 'cursive-writing-alphabet-worksheets') return <CursiveAlphabetWorksheet />;
-                  if (routeSubKey === 'cursive-writing-practice-sheets') return <CursivePracticeWorksheet />;
-                  if (routeSubKey === 'capital-cursive-writing-worksheets') return <CapitalCursiveWorksheet />;
-                  if (routeSubKey === 'joining-cursive-letters-worksheets') return <JoiningCursiveWorksheet />;
-                  if (routeSubKey === 'half-print-half-cursive-writing') return <HybridHandwritingWorksheet />;
 
                   // Check if this is an individual worksheet page (slug-based)
                   // First, check if it's NOT a category page
