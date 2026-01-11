@@ -671,6 +671,25 @@ export default function App() {
                     );
                   }
 
+                  // Explicit routing for Cursive Worksheets to ensure Rich Header
+                  if (routeSubKey === 'half-print-half-cursive-writing' ||
+                    routeSubKey === 'cursive-writing-alphabet-worksheets' ||
+                    routeSubKey === 'cursive-writing-practice-sheets' ||
+                    routeSubKey === 'capital-cursive-writing-worksheets' ||
+                    routeSubKey === 'joining-cursive-letters-worksheets') {
+                    return (
+                      <>
+                        <SEOMetaTags
+                          title={getWorksheetSEOBySlug(routeSubKey)?.title || "Free Cursive Worksheets"}
+                          description={getWorksheetSEOBySlug(routeSubKey)?.metaDescription || "Download free cursive writing worksheets."}
+                          keywords={getWorksheetSEOBySlug(routeSubKey)?.keywords || "cursive writing, handwriting practice, free worksheets"}
+                          canonicalUrl={`https://wizqo.com${addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale)}`}
+                        />
+                        <WorksheetPage slug={routeSubKey} />
+                      </>
+                    );
+                  }
+
                   // Existing category page routes
                   if (routeSubKey === 'multiplication-worksheets') {
                     const canonical = addLocaleToPath('/worksheets/multiplication-worksheets', currentLocale);
