@@ -86,7 +86,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     emoji={String.fromCodePoint(0x270D)}
                     isPreview={isPreview}
                 >
-                    <CursiveAlphabetWorksheet isPrintView={true} />
+                    <CursiveAlphabetWorksheet isEmbedded={true} />
                 </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('cursive-writing-practice-sheets') && (
@@ -97,7 +97,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     emoji={String.fromCodePoint(0x1F4DD)}
                     isPreview={isPreview}
                 >
-                    <CursivePracticeWorksheet isPrintView={true} />
+                    <CursivePracticeWorksheet isEmbedded={true} />
                 </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('capital-cursive-writing-worksheets') && (
@@ -108,7 +108,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     emoji={String.fromCodePoint(0x1F170)}
                     isPreview={isPreview}
                 >
-                    <CapitalCursiveWorksheet isPrintView={true} />
+                    <CapitalCursiveWorksheet isEmbedded={true} />
                 </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('joining-cursive-letters-worksheets') && (
@@ -119,7 +119,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     emoji={String.fromCodePoint(0x1F517)}
                     isPreview={isPreview}
                 >
-                    <JoiningCursiveWorksheet isPrintView={true} />
+                    <JoiningCursiveWorksheet isEmbedded={true} />
                 </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('half-print-half-cursive-writing') && (
@@ -130,7 +130,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     emoji={String.fromCodePoint(0x2ABC)}
                     isPreview={isPreview}
                 >
-                    <HybridHandwritingWorksheet isPrintView={true} />
+                    <HybridHandwritingWorksheet isEmbedded={true} />
                 </WorksheetSectionWrapper>
             )}
 
