@@ -10,7 +10,7 @@ import jsPDF from 'jspdf';
 import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
 import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
-export default function CursiveAlphabetWorksheet() {
+export default function CursiveAlphabetWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
     const { toast } = useToast();
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -56,6 +56,58 @@ export default function CursiveAlphabetWorksheet() {
         }
     };
 
+    const renderContent = () => (
+        <>
+            {/* Vintage Border */}
+            <rect x="20" y="20" width={pageWidth - 40} height={pageHeight - 40} fill="none" stroke="#94a3b8" strokeWidth="2" />
+            <rect x="24" y="24" width={pageWidth - 48} height={pageHeight - 48} fill="none" stroke="#cbd5e1" strokeWidth="1" />
+
+            {/* Header */}
+            <text x={pageWidth / 2} y={60} textAnchor="middle" fontSize="32" fontFamily="serif" fill="#1e293b" fontWeight="bold">Cursive Alphabet</text>
+
+            {/* Grid Layout for Alphabet */}
+            {alphabet.map((pair, index) => {
+                const cols = 7;
+                const cellWidth = (pageWidth - margin * 2) / cols;
+                const cellHeight = (pageHeight - 100 - margin) / 4; // 4 rows
+
+                const col = index % cols;
+                const row = Math.floor(index / cols);
+
+                const x = margin + col * cellWidth + cellWidth / 2;
+                const y = 110 + row * cellHeight;
+
+                // Skip if overflow (should fit 26 exactly in 4x7 grid with room)
+                if (index >= 26) return null;
+
+                return (
+                    <g key={pair}>
+                        {/* Guide Lines */}
+                        <line x1={x - 40} y1={y - 15} x2={x + 40} y2={y - 15} stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4,2" /> {/* Top */}
+                        <line x1={x - 40} y1={y + 15} x2={x + 40} y2={y + 15} stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4,2" /> {/* Bottom */}
+                        <line x1={x - 40} y1={y} x2={x + 40} y2={y} stroke="#e2e8f0" strokeWidth="1" /> {/* Base */}
+
+                        {/* Letter */}
+                        <text
+                            x={x}
+                            y={y}
+                            textAnchor="middle"
+                            fontFamily="'Cedarville Cursive', cursive"
+                            fontSize="42"
+                            fill="#1e293b" // Navy/Slate ink
+                            dominantBaseline="middle"
+                        >
+                            {pair}
+                        </text>
+                    </g>
+                );
+            })}
+
+            {/* Decorative Footer */}
+            <text x={pageWidth / 2} y={pageHeight - 30} textAnchor="middle" fontSize="14" fontFamily="serif" fill="#64748b" italic="true">Practice makes progress.</text>
+        </>
+    );
+
     if (isPreview) {
         return (
             <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
@@ -64,54 +116,21 @@ export default function CursiveAlphabetWorksheet() {
                     className="w-full h-full max-w-full max-h-full"
                     preserveAspectRatio="xMidYMid meet"
                 >
-                    {/* Vintage Border */}
-                    <rect x="20" y="20" width={pageWidth - 40} height={pageHeight - 40} fill="none" stroke="#94a3b8" strokeWidth="2" />
-                    <rect x="24" y="24" width={pageWidth - 48} height={pageHeight - 48} fill="none" stroke="#cbd5e1" strokeWidth="1" />
+                    {renderContent()}
+                </svg>
+            </div>
+        );
+    }
 
-                    {/* Header */}
-                    <text x={pageWidth / 2} y={60} textAnchor="middle" fontSize="32" fontFamily="serif" fill="#1e293b" fontWeight="bold">Cursive Alphabet</text>
-
-                    {/* Grid Layout for Alphabet */}
-                    {alphabet.map((pair, index) => {
-                        const cols = 7;
-                        const cellWidth = (pageWidth - margin * 2) / cols;
-                        const cellHeight = (pageHeight - 100 - margin) / 4; // 4 rows
-
-                        const col = index % cols;
-                        const row = Math.floor(index / cols);
-
-                        const x = margin + col * cellWidth + cellWidth / 2;
-                        const y = 110 + row * cellHeight;
-
-                        // Skip if overflow (should fit 26 exactly in 4x7 grid with room)
-                        if (index >= 26) return null;
-
-                        return (
-                            <g key={pair}>
-                                {/* Guide Lines */}
-                                <line x1={x - 40} y1={y - 15} x2={x + 40} y2={y - 15} stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4,2" /> {/* Top */}
-                                <line x1={x - 40} y1={y + 15} x2={x + 40} y2={y + 15} stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4,2" /> {/* Bottom */}
-                                <line x1={x - 40} y1={y} x2={x + 40} y2={y} stroke="#e2e8f0" strokeWidth="1" /> {/* Base */}
-
-                                {/* Letter */}
-                                <text
-                                    x={x}
-                                    y={y}
-                                    textAnchor="middle"
-                                    fontFamily="'Cedarville Cursive', cursive"
-                                    fontSize="42"
-                                    fill="#1e293b" // Navy/Slate ink
-                                    dominantBaseline="middle"
-                                >
-                                    {pair}
-                                </text>
-                            </g>
-                        );
-                    })}
-
-                    {/* Decorative Footer */}
-                    <text x={pageWidth / 2} y={pageHeight - 30} textAnchor="middle" fontSize="14" fontFamily="serif" fill="#64748b" italic="true">Practice makes progress.</text>
-
+    if (isPrintView) {
+        return (
+            <div className="max-w-[842px] mx-auto">
+                <svg
+                    ref={svgRef}
+                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                    className="w-full h-auto bg-white"
+                >
+                    {renderContent()}
                 </svg>
             </div>
         );
@@ -125,7 +144,7 @@ export default function CursiveAlphabetWorksheet() {
                 keywords={['cursive writing alphabet worksheets', 'cursive chart', '3rd grade handwriting', 'printable cursive'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/cursive-writing-alphabet-worksheets"
             />
-            {!isPreview && <UnifiedNavigation />}
+            <UnifiedNavigation />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="text-center mb-12">
@@ -154,54 +173,7 @@ export default function CursiveAlphabetWorksheet() {
                         viewBox={`0 0 ${pageWidth} ${pageHeight}`}
                         className="w-full h-auto bg-[#fffaf0]" // Very subtle ivory paper
                     >
-                        {/* Vintage Border */}
-                        <rect x="20" y="20" width={pageWidth - 40} height={pageHeight - 40} fill="none" stroke="#94a3b8" strokeWidth="2" />
-                        <rect x="24" y="24" width={pageWidth - 48} height={pageHeight - 48} fill="none" stroke="#cbd5e1" strokeWidth="1" />
-
-                        {/* Header */}
-                        <text x={pageWidth / 2} y={60} textAnchor="middle" fontSize="32" fontFamily="serif" fill="#1e293b" fontWeight="bold">Cursive Alphabet</text>
-
-                        {/* Grid Layout for Alphabet */}
-                        {alphabet.map((pair, index) => {
-                            const cols = 7;
-                            const cellWidth = (pageWidth - margin * 2) / cols;
-                            const cellHeight = (pageHeight - 100 - margin) / 4; // 4 rows
-
-                            const col = index % cols;
-                            const row = Math.floor(index / cols);
-
-                            const x = margin + col * cellWidth + cellWidth / 2;
-                            const y = 110 + row * cellHeight;
-
-                            // Skip if overflow (should fit 26 exactly in 4x7 grid with room)
-                            if (index >= 26) return null;
-
-                            return (
-                                <g key={pair}>
-                                    {/* Guide Lines */}
-                                    <line x1={x - 40} y1={y - 15} x2={x + 40} y2={y - 15} stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4,2" /> {/* Top */}
-                                    <line x1={x - 40} y1={y + 15} x2={x + 40} y2={y + 15} stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4,2" /> {/* Bottom */}
-                                    <line x1={x - 40} y1={y} x2={x + 40} y2={y} stroke="#e2e8f0" strokeWidth="1" /> {/* Base */}
-
-                                    {/* Letter */}
-                                    <text
-                                        x={x}
-                                        y={y}
-                                        textAnchor="middle"
-                                        fontFamily="'Cedarville Cursive', cursive"
-                                        fontSize="42"
-                                        fill="#1e293b" // Navy/Slate ink
-                                        dominantBaseline="middle"
-                                    >
-                                        {pair}
-                                    </text>
-                                </g>
-                            );
-                        })}
-
-                        {/* Decorative Footer */}
-                        <text x={pageWidth / 2} y={pageHeight - 30} textAnchor="middle" fontSize="14" fontFamily="serif" fill="#64748b" italic="true">Practice makes progress.</text>
-
+                        {renderContent()}
                     </svg>
                 </div>
 
@@ -210,7 +182,7 @@ export default function CursiveAlphabetWorksheet() {
                 </div>
 
             </main>
-            {!isPreview && <Footer />}
+            <Footer />
         </div>
     );
 }

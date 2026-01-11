@@ -10,7 +10,7 @@ import jsPDF from 'jspdf';
 import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
 import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
-export default function JoiningCursiveWorksheet() {
+export default function JoiningCursiveWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
     const { toast } = useToast();
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -43,6 +43,51 @@ export default function JoiningCursiveWorksheet() {
         }
     };
 
+    const renderContent = () => (
+        <>
+            <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ecfeff" opacity="0.3" />
+
+            {/* Header */}
+            <rect x={margin} y={margin} width={pageWidth - margin * 2} height={80} fill="white" rx="10" stroke="#bae6fd" strokeWidth="2" />
+            <text x={pageWidth / 2} y={margin + 50} textAnchor="middle" fontSize="24" fontFamily="serif" fill="#0891b2">Common Letter Joins</text>
+
+            {/* Grid of Joins */}
+            {JOINS.map((join, i) => {
+                const cols = 3;
+                const rowH = 120;
+                const col = i % cols;
+                const row = Math.floor(i / cols);
+
+                const x = margin + 50 + col * ((pageWidth - margin * 2) / cols);
+                const y = 200 + row * rowH;
+
+                return (
+                    <g key={join}>
+                        {/* Line Set */}
+                        <line x1={x - 80} y1={y - 20} x2={x + 80} y2={y - 20} stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
+                        <line x1={x - 80} y1={y + 20} x2={x + 80} y2={y + 20} stroke="#94a3b8" strokeWidth="2" />
+
+                        {/* The Join Text */}
+                        <text
+                            x={x}
+                            y={y + 5}
+                            textAnchor="middle"
+                            fontFamily="'Cedarville Cursive', cursive"
+                            fontSize="64"
+                            fill="#0891b2"
+                            dominantBaseline="middle"
+                        >
+                            {join}
+                        </text>
+
+                        {/* Repetition guides */}
+                        <text x={x} y={y + 50} textAnchor="middle" fontSize="32" fill="#e2e8f0" fontFamily="'Cedarville Cursive', cursive">{join} {join}</text>
+                    </g>
+                )
+            })}
+        </>
+    );
+
     if (isPreview) {
         return (
             <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
@@ -51,46 +96,21 @@ export default function JoiningCursiveWorksheet() {
                     className="w-full h-full max-w-full max-h-full"
                     preserveAspectRatio="xMidYMid meet"
                 >
-                    <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ecfeff" opacity="0.3" />
+                    {renderContent()}
+                </svg>
+            </div>
+        );
+    }
 
-                    {/* Header */}
-                    <rect x={margin} y={margin} width={pageWidth - margin * 2} height={80} fill="white" rx="10" stroke="#bae6fd" strokeWidth="2" />
-                    <text x={pageWidth / 2} y={margin + 50} textAnchor="middle" fontSize="24" fontFamily="serif" fill="#0891b2">Common Letter Joins</text>
-
-                    {/* Grid of Joins */}
-                    {JOINS.map((join, i) => {
-                        const cols = 3;
-                        const rowH = 120;
-                        const col = i % cols;
-                        const row = Math.floor(i / cols);
-
-                        const x = margin + 50 + col * ((pageWidth - margin * 2) / cols);
-                        const y = 200 + row * rowH;
-
-                        return (
-                            <g key={join}>
-                                {/* Line Set */}
-                                <line x1={x - 80} y1={y - 20} x2={x + 80} y2={y - 20} stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
-                                <line x1={x - 80} y1={y + 20} x2={x + 80} y2={y + 20} stroke="#94a3b8" strokeWidth="2" />
-
-                                {/* The Join Text */}
-                                <text
-                                    x={x}
-                                    y={y + 5}
-                                    textAnchor="middle"
-                                    fontFamily="'Cedarville Cursive', cursive"
-                                    fontSize="64"
-                                    fill="#0891b2"
-                                    dominantBaseline="middle"
-                                >
-                                    {join}
-                                </text>
-
-                                {/* Repetition guides */}
-                                <text x={x} y={y + 50} textAnchor="middle" fontSize="32" fill="#e2e8f0" fontFamily="'Cedarville Cursive', cursive">{join} {join}</text>
-                            </g>
-                        )
-                    })}
+    if (isPrintView) {
+        return (
+            <div className="max-w-[842px] mx-auto">
+                <svg
+                    ref={svgRef}
+                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                    className="w-full h-auto bg-white"
+                >
+                    {renderContent()}
                 </svg>
             </div>
         );
@@ -104,7 +124,7 @@ export default function JoiningCursiveWorksheet() {
                 keywords={['joining cursive letters', 'cursive connections', 'handwriting joins', 'cursive writing practice'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/joining-cursive-letters-worksheets"
             />
-            {!isPreview && <UnifiedNavigation />}
+            <UnifiedNavigation />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="flex flex-col items-center mb-10 text-center">
@@ -135,51 +155,12 @@ export default function JoiningCursiveWorksheet() {
                         viewBox={`0 0 ${pageWidth} ${pageHeight}`}
                         className="w-full h-auto bg-white"
                     >
-                        <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ecfeff" opacity="0.3" />
-
-                        {/* Header */}
-                        <rect x={margin} y={margin} width={pageWidth - margin * 2} height={80} fill="white" rx="10" stroke="#bae6fd" strokeWidth="2" />
-                        <text x={pageWidth / 2} y={margin + 50} textAnchor="middle" fontSize="24" fontFamily="serif" fill="#0891b2">Common Letter Joins</text>
-
-                        {/* Grid of Joins */}
-                        {JOINS.map((join, i) => {
-                            const cols = 3;
-                            const rowH = 120;
-                            const col = i % cols;
-                            const row = Math.floor(i / cols);
-
-                            const x = margin + 50 + col * ((pageWidth - margin * 2) / cols);
-                            const y = 200 + row * rowH;
-
-                            return (
-                                <g key={join}>
-                                    {/* Line Set */}
-                                    <line x1={x - 80} y1={y - 20} x2={x + 80} y2={y - 20} stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
-                                    <line x1={x - 80} y1={y + 20} x2={x + 80} y2={y + 20} stroke="#94a3b8" strokeWidth="2" />
-
-                                    {/* The Join Text */}
-                                    <text
-                                        x={x}
-                                        y={y + 5}
-                                        textAnchor="middle"
-                                        fontFamily="'Cedarville Cursive', cursive"
-                                        fontSize="64"
-                                        fill="#0891b2"
-                                        dominantBaseline="middle"
-                                    >
-                                        {join}
-                                    </text>
-
-                                    {/* Repetition guides */}
-                                    <text x={x} y={y + 50} textAnchor="middle" fontSize="32" fill="#e2e8f0" fontFamily="'Cedarville Cursive', cursive">{join} {join}</text>
-                                </g>
-                            )
-                        })}
+                        {renderContent()}
                     </svg>
                 </div>
 
             </main>
-            {!isPreview && <Footer />}
+            <Footer />
         </div>
     );
 }

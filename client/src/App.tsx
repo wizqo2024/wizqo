@@ -497,12 +497,6 @@ export default function App() {
                   const searchParams = new URLSearchParams(window.location.search);
                   const docId = searchParams.get('doc');
 
-                  // Intercept specific cursive worksheets that have dedicated components
-                  if (docId === 'cursive-writing-alphabet-worksheets') return <CursiveAlphabetWorksheet />;
-                  if (docId === 'cursive-writing-practice-sheets') return <CursivePracticeWorksheet />;
-                  if (docId === 'capital-cursive-writing-worksheets') return <CapitalCursiveWorksheet />;
-                  if (docId === 'joining-cursive-letters-worksheets') return <JoiningCursiveWorksheet />;
-                  if (docId === 'half-print-half-cursive-writing') return <HybridHandwritingWorksheet />;
 
                   return (
                     <>

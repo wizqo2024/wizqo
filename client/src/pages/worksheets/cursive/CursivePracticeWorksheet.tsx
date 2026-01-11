@@ -10,7 +10,7 @@ import jsPDF from 'jspdf';
 import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
 import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
-export default function CursivePracticeWorksheet() {
+export default function CursivePracticeWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
     const { toast } = useToast();
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -67,6 +67,45 @@ export default function CursivePracticeWorksheet() {
         setCurrentSetIndex((prev: number) => (prev + 1) % SENTENCE_SETS.length);
     };
 
+    const renderContent = () => (
+        <>
+            <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ffffff" />
+
+            {/* Header */}
+            <rect x="0" y="0" width="10" height={pageHeight} fill="#ef4444" opacity="0.1" /> {/* Margin Line */}
+            <text x={margin} y={50} fontSize="14" fontFamily="serif" fill="#94a3b8">Name: ______________________</text>
+            <text x={pageWidth - margin - 150} y={50} fontSize="14" fontFamily="serif" fill="#94a3b8">Date: ____________</text>
+
+            {/* Sentences */}
+            {sentences.map((text, i) => {
+                const y = 140 + i * 85;
+                return (
+                    <g key={i}>
+                        {/* Guide Lines */}
+                        <line x1={margin} y1={y - 20} x2={pageWidth - margin} y2={y - 20} stroke="#94a3b8" strokeWidth="1" /> {/* Top */}
+                        <line x1={margin} y1={y} x2={pageWidth - margin} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="5,5" /> {/* Middle */}
+                        <line x1={margin} y1={y + 20} x2={pageWidth - margin} y2={y + 20} stroke="#94a3b8" strokeWidth="1" /> {/* Base */}
+
+                        {/* Traceable Text - Light Gray */}
+                        <text
+                            x={margin + 10}
+                            y={y + 5} // Nudge for cursive baseline visual alignment
+                            fontFamily="'Cedarville Cursive', cursive"
+                            fontSize="48"
+                            fill="#cbd5e1" // Light gray for tracing
+                            dominantBaseline="middle"
+                        >
+                            {text}
+                        </text>
+
+                        {/* Start Here Dot (Subtle) */}
+                        <circle cx={margin + 5} cy={y + 5} r="2" fill="#3b82f6" opacity="0.5" />
+                    </g>
+                )
+            })}
+        </>
+    );
+
     if (isPreview) {
         return (
             <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
@@ -75,40 +114,21 @@ export default function CursivePracticeWorksheet() {
                     className="w-full h-full max-w-full max-h-full"
                     preserveAspectRatio="xMidYMid meet"
                 >
-                    <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ffffff" />
+                    {renderContent()}
+                </svg>
+            </div>
+        );
+    }
 
-                    {/* Header */}
-                    <rect x="0" y="0" width="10" height={pageHeight} fill="#ef4444" opacity="0.1" /> {/* Margin Line */}
-                    <text x={margin} y={50} fontSize="14" fontFamily="serif" fill="#94a3b8">Name: ______________________</text>
-                    <text x={pageWidth - margin - 150} y={50} fontSize="14" fontFamily="serif" fill="#94a3b8">Date: ____________</text>
-
-                    {/* Sentences */}
-                    {sentences.map((text, i) => {
-                        const y = 140 + i * 85;
-                        return (
-                            <g key={i}>
-                                {/* Guide Lines */}
-                                <line x1={margin} y1={y - 20} x2={pageWidth - margin} y2={y - 20} stroke="#94a3b8" strokeWidth="1" /> {/* Top */}
-                                <line x1={margin} y1={y} x2={pageWidth - margin} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="5,5" /> {/* Middle */}
-                                <line x1={margin} y1={y + 20} x2={pageWidth - margin} y2={y + 20} stroke="#94a3b8" strokeWidth="1" /> {/* Base */}
-
-                                {/* Traceable Text - Light Gray */}
-                                <text
-                                    x={margin + 10}
-                                    y={y + 5} // Nudge for cursive baseline visual alignment
-                                    fontFamily="'Cedarville Cursive', cursive"
-                                    fontSize="48"
-                                    fill="#cbd5e1" // Light gray for tracing
-                                    dominantBaseline="middle"
-                                >
-                                    {text}
-                                </text>
-
-                                {/* Start Here Dot (Subtle) */}
-                                <circle cx={margin + 5} cy={y + 5} r="2" fill="#3b82f6" opacity="0.5" />
-                            </g>
-                        )
-                    })}
+    if (isPrintView) {
+        return (
+            <div className="max-w-[842px] mx-auto">
+                <svg
+                    ref={svgRef}
+                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                    className="w-full h-auto bg-white"
+                >
+                    {renderContent()}
                 </svg>
             </div>
         );
@@ -122,7 +142,7 @@ export default function CursivePracticeWorksheet() {
                 keywords={['cursive writing practice sheets', 'cursive sentences', 'handwriting flow', '3rd grade cursive'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/cursive-writing-practice-sheets"
             />
-            {!isPreview && <UnifiedNavigation />}
+            <UnifiedNavigation />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="flex flex-col items-center mb-10 text-center">
@@ -158,45 +178,12 @@ export default function CursivePracticeWorksheet() {
                         viewBox={`0 0 ${pageWidth} ${pageHeight}`}
                         className="w-full h-auto bg-white"
                     >
-                        <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ffffff" />
-
-                        {/* Header */}
-                        <rect x="0" y="0" width="10" height={pageHeight} fill="#ef4444" opacity="0.1" /> {/* Margin Line */}
-                        <text x={margin} y={50} fontSize="14" fontFamily="serif" fill="#94a3b8">Name: ______________________</text>
-                        <text x={pageWidth - margin - 150} y={50} fontSize="14" fontFamily="serif" fill="#94a3b8">Date: ____________</text>
-
-                        {/* Sentences */}
-                        {sentences.map((text, i) => {
-                            const y = 140 + i * 85;
-                            return (
-                                <g key={i}>
-                                    {/* Guide Lines */}
-                                    <line x1={margin} y1={y - 20} x2={pageWidth - margin} y2={y - 20} stroke="#94a3b8" strokeWidth="1" /> {/* Top */}
-                                    <line x1={margin} y1={y} x2={pageWidth - margin} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="5,5" /> {/* Middle */}
-                                    <line x1={margin} y1={y + 20} x2={pageWidth - margin} y2={y + 20} stroke="#94a3b8" strokeWidth="1" /> {/* Base */}
-
-                                    {/* Traceable Text - Light Gray */}
-                                    <text
-                                        x={margin + 10}
-                                        y={y + 5} // Nudge for cursive baseline visual alignment
-                                        fontFamily="'Cedarville Cursive', cursive"
-                                        fontSize="48"
-                                        fill="#cbd5e1" // Light gray for tracing
-                                        dominantBaseline="middle"
-                                    >
-                                        {text}
-                                    </text>
-
-                                    {/* Start Here Dot (Subtle) */}
-                                    <circle cx={margin + 5} cy={y + 5} r="2" fill="#3b82f6" opacity="0.5" />
-                                </g>
-                            )
-                        })}
+                        {renderContent()}
                     </svg>
                 </div>
 
             </main>
-            {!isPreview && <Footer />}
+            <Footer />
         </div>
     );
 }

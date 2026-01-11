@@ -20,6 +20,11 @@ import {
 import { WorksheetSectionWrapper } from '../PrintableShared';
 import ShadowMatchingWorksheetPage from '../../ShadowMatchingWorksheetPage';
 import MatchFeelingWorksheetPage from '../../MatchFeelingWorksheetPage';
+import CursiveAlphabetWorksheet from '../../worksheets/cursive/CursiveAlphabetWorksheet';
+import CursivePracticeWorksheet from '../../worksheets/cursive/CursivePracticeWorksheet';
+import CapitalCursiveWorksheet from '../../worksheets/cursive/CapitalCursiveWorksheet';
+import JoiningCursiveWorksheet from '../../worksheets/cursive/JoiningCursiveWorksheet';
+import HybridHandwritingWorksheet from '../../worksheets/cursive/HybridHandwritingWorksheet';
 
 // Props interface section
 interface EarlyLearnerRendererProps {
@@ -70,6 +75,22 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
 
             {activeDocs.includes('match-the-feeling') && (
                 <MatchFeelingWorksheetPage />
+            )}
+
+            {activeDocs.includes('cursive-writing-alphabet-worksheets') && (
+                <CursiveAlphabetWorksheet isPrintView={true} />
+            )}
+            {activeDocs.includes('cursive-writing-practice-sheets') && (
+                <CursivePracticeWorksheet isPrintView={true} />
+            )}
+            {activeDocs.includes('capital-cursive-writing-worksheets') && (
+                <CapitalCursiveWorksheet isPrintView={true} />
+            )}
+            {activeDocs.includes('joining-cursive-letters-worksheets') && (
+                <JoiningCursiveWorksheet isPrintView={true} />
+            )}
+            {activeDocs.includes('half-print-half-cursive-writing') && (
+                <HybridHandwritingWorksheet isPrintView={true} />
             )}
 
             {activeDocs.includes('directed-drawing-animals') && (
