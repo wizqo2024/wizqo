@@ -163,6 +163,13 @@ export const PRINTABLE_BUNDLE_SECTIONS: Record<string, string[]> = {
     'multi-step-word-problems',
     'spotdiff',
     'time-to-minute',
+    // Cursive & Handwriting
+    'name-tracing',
+    'cursive-writing-alphabet-worksheets',
+    'cursive-writing-practice-sheets',
+    'capital-cursive-writing-worksheets',
+    'joining-cursive-letters-worksheets',
+    'half-print-half-cursive-writing',
   ],
   Creative: [
     'color-by-number',
@@ -375,4 +382,11 @@ export const PRINTABLE_DOC_META: Record<string, { level: PrintableDifficulty }> 
   'factors-multiples': { level: 'Intermediate' },
   'prime-composite': { level: 'Intermediate' },
   'mult-lattice': { level: 'Advanced' },
+  // Cursive & Handwriting
+  'name-tracing': { level: 'Beginner' },
+  'cursive-writing-alphabet-worksheets': { level: 'Beginner' },
+  'cursive-writing-practice-sheets': { level: 'Beginner' },
+  'capital-cursive-writing-worksheets': { level: 'Intermediate' },
+  'joining-cursive-letters-worksheets': { level: 'Intermediate' },
+  'half-print-half-cursive-writing': { level: 'Intermediate' },
 };

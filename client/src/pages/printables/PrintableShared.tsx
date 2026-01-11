@@ -1148,6 +1148,19 @@ export function resolveDocTitle(docId: string, context: { packTime: string; bund
             return getTranslatedWorksheetTitle(docId, t, ' Multiplying Decimals')
         case 'dividing-decimals':
             return getTranslatedWorksheetTitle(docId, t, ' Dividing Decimals')
+        // Cursive & Handwriting
+        case 'name-tracing':
+            return getTranslatedWorksheetTitle(docId, t, ' Name Tracing')
+        case 'cursive-writing-alphabet-worksheets':
+            return getTranslatedWorksheetTitle(docId, t, ' Cursive Alphabet')
+        case 'cursive-writing-practice-sheets':
+            return getTranslatedWorksheetTitle(docId, t, ' Cursive Practice')
+        case 'capital-cursive-writing-worksheets':
+            return getTranslatedWorksheetTitle(docId, t, ' Capital Cursive')
+        case 'joining-cursive-letters-worksheets':
+            return getTranslatedWorksheetTitle(docId, t, ' Joining Cursive Letters')
+        case 'half-print-half-cursive-writing':
+            return getTranslatedWorksheetTitle(docId, t, ' Half Print - Half Cursive')
         case 'fractions-decimals-percents':
             return getTranslatedWorksheetTitle(docId, t, ' Fractions, Decimals, & Percents')
         case 'comparing-ordering-fractions-decimals':
