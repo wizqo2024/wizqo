@@ -15,6 +15,13 @@ export default function JoiningCursiveWorksheet() {
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
 
+    // Check for preview mode
+    const [isPreview, setIsPreview] = React.useState(false);
+    React.useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        setIsPreview(params.get('preview') === '1');
+    }, []);
+
     // Common tricky connections
     const JOINS = ['br', 'os', 've', 'wi', 'on', 'bl', 'ch', 'th', 'sh'];
 
@@ -39,6 +46,59 @@ export default function JoiningCursiveWorksheet() {
             toast({ title: "Error", description: "PDF failed.", variant: "destructive" });
         }
     };
+
+    if (isPreview) {
+        return (
+            <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
+                <svg
+                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                    className="w-full h-full max-w-full max-h-full"
+                    preserveAspectRatio="xMidYMid meet"
+                >
+                    <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ecfeff" opacity="0.3" />
+
+                    {/* Header */}
+                    <rect x={margin} y={margin} width={pageWidth - margin * 2} height={80} fill="white" rx="10" stroke="#bae6fd" strokeWidth="2" />
+                    <text x={pageWidth / 2} y={margin + 50} textAnchor="middle" fontSize="24" fontFamily="serif" fill="#0891b2">Common Letter Joins</text>
+
+                    {/* Grid of Joins */}
+                    {JOINS.map((join, i) => {
+                        const cols = 3;
+                        const rowH = 120;
+                        const col = i % cols;
+                        const row = Math.floor(i / cols);
+
+                        const x = margin + 50 + col * ((pageWidth - margin * 2) / cols);
+                        const y = 200 + row * rowH;
+
+                        return (
+                            <g key={join}>
+                                {/* Line Set */}
+                                <line x1={x - 80} y1={y - 20} x2={x + 80} y2={y - 20} stroke="#94a3b8" strokeWidth="1" strokeDasharray="5,5" />
+                                <line x1={x - 80} y1={y + 20} x2={x + 80} y2={y + 20} stroke="#94a3b8" strokeWidth="2" />
+
+                                {/* The Join Text */}
+                                <text
+                                    x={x}
+                                    y={y + 5}
+                                    textAnchor="middle"
+                                    fontFamily="'Cedarville Cursive', cursive"
+                                    fontSize="64"
+                                    fill="#0891b2"
+                                    dominantBaseline="middle"
+                                >
+                                    {join}
+                                </text>
+
+                                {/* Repetition guides */}
+                                <text x={x} y={y + 50} textAnchor="middle" fontSize="32" fill="#e2e8f0" fontFamily="'Cedarville Cursive', cursive">{join} {join}</text>
+                            </g>
+                        )
+                    })}
+                </svg>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-cyan-50">

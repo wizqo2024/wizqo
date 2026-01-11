@@ -15,6 +15,13 @@ export default function CursivePracticeWorksheet() {
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
 
+    // Check for preview mode
+    const [isPreview, setIsPreview] = React.useState(false);
+    React.useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        setIsPreview(params.get('preview') === '1');
+    }, []);
+
     // Sentence sets
     const SENTENCE_SETS = [
         [
@@ -63,6 +70,53 @@ export default function CursivePracticeWorksheet() {
     const toggleSet = () => {
         setCurrentSetIndex((prev) => (prev + 1) % SENTENCE_SETS.length);
     };
+
+    if (isPreview) {
+        return (
+            <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
+                <svg
+                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                    className="w-full h-full max-w-full max-h-full"
+                    preserveAspectRatio="xMidYMid meet"
+                >
+                    <rect x="0" y="0" width={pageWidth} height={pageHeight} fill="#ffffff" />
+
+                    {/* Header */}
+                    <rect x="0" y="0" width="10" height={pageHeight} fill="#ef4444" opacity="0.1" /> {/* Margin Line */}
+                    <text x={margin} y={50} fontSize="14" fontFamily="serif" fill="#94a3b8">Name: ______________________</text>
+                    <text x={pageWidth - margin - 150} y={50} fontSize="14" fontFamily="serif" fill="#94a3b8">Date: ____________</text>
+
+                    {/* Sentences */}
+                    {sentences.map((text, i) => {
+                        const y = 140 + i * 85;
+                        return (
+                            <g key={i}>
+                                {/* Guide Lines */}
+                                <line x1={margin} y1={y - 20} x2={pageWidth - margin} y2={y - 20} stroke="#94a3b8" strokeWidth="1" /> {/* Top */}
+                                <line x1={margin} y1={y} x2={pageWidth - margin} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="5,5" /> {/* Middle */}
+                                <line x1={margin} y1={y + 20} x2={pageWidth - margin} y2={y + 20} stroke="#94a3b8" strokeWidth="1" /> {/* Base */}
+
+                                {/* Traceable Text - Light Gray */}
+                                <text
+                                    x={margin + 10}
+                                    y={y + 5} // Nudge for cursive baseline visual alignment
+                                    fontFamily="'Cedarville Cursive', cursive"
+                                    fontSize="48"
+                                    fill="#cbd5e1" // Light gray for tracing
+                                    dominantBaseline="middle"
+                                >
+                                    {text}
+                                </text>
+
+                                {/* Start Here Dot (Subtle) */}
+                                <circle cx={margin + 5} cy={y + 5} r="2" fill="#3b82f6" opacity="0.5" />
+                            </g>
+                        )
+                    })}
+                </svg>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-[#f3f4f6]">
