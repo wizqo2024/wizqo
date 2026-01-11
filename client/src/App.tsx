@@ -629,14 +629,7 @@ export default function App() {
                     'decimal-worksheets',
                     'math-maze-worksheets',
                     'data-analysis-worksheets',
-                    'word-problem-worksheets',
-                    'science-worksheets',
-                    'all',
-                    'capital-cursive-writing-worksheets',
-                    'cursive-writing-alphabet-worksheets',
-                    'cursive-writing-practice-sheets',
-                    'half-print-half-cursive-writing',
-                    'joining-cursive-letters-worksheets'
+                    'all'
                   ];
 
                   if (routeSubKey && !categoryPages.includes(routeSubKey)) {
