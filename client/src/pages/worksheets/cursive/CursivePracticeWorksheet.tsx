@@ -15,12 +15,8 @@ export default function CursivePracticeWorksheet() {
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
 
-    // Check for preview mode
-    const [isPreview, setIsPreview] = React.useState(false);
-    React.useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        setIsPreview(params.get('preview') === '1');
-    }, []);
+    // Check for preview mode - check immediately for better iframe rendering
+    const isPreview = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('preview') === '1';
 
     // Sentence sets
     const SENTENCE_SETS = [

@@ -16,12 +16,8 @@ export default function CursiveAlphabetWorksheet() {
     const svgRef = React.useRef<SVGSVGElement>(null);
     const [isPrinting, setIsPrinting] = React.useState(false);
 
-    // Check for preview mode
-    const [isPreview, setIsPreview] = React.useState(false);
-    React.useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        setIsPreview(params.get('preview') === '1');
-    }, []);
+    // Check for preview mode - check immediately for better iframe rendering
+    const isPreview = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('preview') === '1';
 
     // Layout Constants
     const pageWidth = 842; // A4 Landscape
@@ -126,7 +122,7 @@ export default function CursiveAlphabetWorksheet() {
             <SEOMetaTags
                 title="Free Cursive Writing Alphabet Worksheets - Premium Chart | Wizqo"
                 description="Master the cursive alphabet with this elegant, printable reference chart. Perfect for 3rd grade students learning joined-up writing."
-                keywords={['cursive writing alphabet worksheets', 'cursive chart', '3rd grade handwriting', 'printable cursive']}
+                keywords={['cursive writing alphabet worksheets', 'cursive chart', '3rd grade handwriting', 'printable cursive'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/cursive-writing-alphabet-worksheets"
             />
             <UnifiedNavigation />

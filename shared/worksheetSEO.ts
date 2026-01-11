@@ -3522,7 +3522,9 @@ export function initializeWorksheetSEO() {
     'uppercase-lowercase-match', 'uppercase-lowercase-sorting', 'volume-rectangular-prisms', 'vowel-recognition', 'weekly-goals',
     'what-comes-next', 'winter-kindness', 'word-problems-100', 'word-problems-addition-subtraction', 'word-search',
     'writing-expressions', 'writing-numbers-1-100', 'writing-prompts-creative', 'ws-animals', 'ws-sight-words',
-    'ws-space', 'ws-world', 'zigzag-lines'
+    'ws-space', 'ws-world', 'zigzag-lines',
+    'capital-cursive-writing-worksheets', 'cursive-writing-alphabet-worksheets', 'cursive-writing-practice-sheets',
+    'half-print-half-cursive-writing', 'joining-cursive-letters-worksheets'
   ]
 
   // Generate SEO data for each worksheet

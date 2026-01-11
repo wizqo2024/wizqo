@@ -739,7 +739,7 @@ export default function App() {
                       </>
                     );
                   }
-                  if (routeSubKey === 'handwriting-worksheet-maker' || routeSubKey === 'cursive-writing-practice-sheets') {
+                  if (routeSubKey === 'handwriting-worksheet-maker') {
                     const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
                     return (
                       <>
