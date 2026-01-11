@@ -101,37 +101,10 @@ export default function CursivePracticeWorksheet({ isPrintView = false, isEmbedd
         </>
     );
 
-    if (isPreview) {
-        return (
-            <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
-                <svg
-                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
-                    className="w-full h-full max-w-full max-h-full"
-                    preserveAspectRatio="xMidYMid meet"
-                >
-                    {renderContent()}
-                </svg>
-            </div>
-        );
-    }
-
-    if (isPrintView) {
-        return (
-            <div className="max-w-[842px] mx-auto">
-                <svg
-                    ref={svgRef}
-                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
-                    className="w-full h-auto bg-white"
-                >
-                    {renderContent()}
-                </svg>
-            </div>
-        );
-    }
-
+    // Priority check for embedded view
     if (isEmbedded) {
         return (
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col items-center w-full min-h-[500px] justify-center">
                 <div className="flex justify-center gap-4 mb-8">
                     <Button
                         onClick={toggleSet}
@@ -157,6 +130,34 @@ export default function CursivePracticeWorksheet({ isPrintView = false, isEmbedd
                         {renderContent()}
                     </svg>
                 </div>
+            </div>
+        );
+    }
+
+    if (isPreview) {
+        return (
+            <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
+                <svg
+                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                    className="w-full h-full max-w-full max-h-full"
+                    preserveAspectRatio="xMidYMid meet"
+                >
+                    {renderContent()}
+                </svg>
+            </div>
+        );
+    }
+
+    if (isPrintView) {
+        return (
+            <div className="max-w-[842px] mx-auto">
+                <svg
+                    ref={svgRef}
+                    viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                    className="w-full h-auto bg-white"
+                >
+                    {renderContent()}
+                </svg>
             </div>
         );
     }

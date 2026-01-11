@@ -82,6 +82,31 @@ export default function HybridHandwritingWorksheet({ isPrintView = false, isEmbe
         </>
     );
 
+    if (isEmbedded) {
+        return (
+            <div className="flex flex-col items-center w-full min-h-[500px] justify-center">
+                <div className="flex justify-center mb-10">
+                    <Button
+                        onClick={handleDownloadPDF}
+                        className="h-12 px-8 rounded-md bg-stone-800 hover:bg-stone-900 text-stone-50"
+                    >
+                        <Download className="mr-2 h-5 w-5" /> Get Worksheet
+                    </Button>
+                </div>
+
+                <div className="max-w-[842px] mx-auto bg-white shadow-lg rounded-sm overflow-hidden border border-stone-200">
+                    <svg
+                        ref={svgRef}
+                        viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                        className="w-full h-auto bg-[#fffdf5]"
+                    >
+                        {renderContent()}
+                    </svg>
+                </div>
+            </div>
+        );
+    }
+
     if (isPreview) {
         return (
             <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
@@ -106,31 +131,6 @@ export default function HybridHandwritingWorksheet({ isPrintView = false, isEmbe
                 >
                     {renderContent()}
                 </svg>
-            </div>
-        );
-    }
-
-    if (isEmbedded) {
-        return (
-            <div className="flex flex-col items-center w-full">
-                <div className="flex justify-center mb-10">
-                    <Button
-                        onClick={handleDownloadPDF}
-                        className="h-12 px-8 rounded-md bg-stone-800 hover:bg-stone-900 text-stone-50"
-                    >
-                        <Download className="mr-2 h-5 w-5" /> Get Worksheet
-                    </Button>
-                </div>
-
-                <div className="max-w-[842px] mx-auto bg-white shadow-lg rounded-sm overflow-hidden border border-stone-200">
-                    <svg
-                        ref={svgRef}
-                        viewBox={`0 0 ${pageWidth} ${pageHeight}`}
-                        className="w-full h-auto bg-[#fffdf5]"
-                    >
-                        {renderContent()}
-                    </svg>
-                </div>
             </div>
         );
     }
