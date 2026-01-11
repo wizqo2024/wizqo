@@ -257,7 +257,8 @@ export function WorksheetSectionWrapper({
     hideDefaultHeader = false,
     footer,
     hideDownloadButton = false,
-    className = ""
+    className = "",
+    isPreview = false
 }: {
     docId: string
     title: string
@@ -271,6 +272,7 @@ export function WorksheetSectionWrapper({
     footer?: ReactNode
     hideDownloadButton?: boolean
     className?: string
+    isPreview?: boolean
 }) {
     const { t, isRTL, language } = useTranslation()
     const theme = getWorksheetTheme(docId)
@@ -342,7 +344,7 @@ export function WorksheetSectionWrapper({
     return (
         <div className={`relative group w-full ${hideDownloadButton ? '' : 'mb-10'}`}>
             {/* Download Button (Always Visible) */}
-            {!hideDownloadButton && (
+            {!hideDownloadButton && !isPreview && (
                 <PDFDownloadButton
                     onClick={handleDownloadPDF}
                     isGenerating={isGeneratingPdf}
@@ -374,9 +376,9 @@ export function WorksheetSectionWrapper({
                         marginTop: 0
                     } as React.CSSProperties}
                 >
-                    {!hideDefaultHeader && <LocalWorksheetHeader problemCount={problemCount} />}
+                    {!hideDefaultHeader && !isPreview && <LocalWorksheetHeader problemCount={problemCount} />}
                     <h2
-                        className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2`}
+                        className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2 ${isPreview ? 'hidden' : ''}`}
                         style={{
                             pageBreakAfter: 'avoid',
                             breakAfter: 'avoid',
@@ -389,7 +391,7 @@ export function WorksheetSectionWrapper({
                         {emoji && <span className="text-4xl">{emoji}</span>}
                         <span>{translatedTitle}</span>
                     </h2>
-                    {translatedDescription && (
+                    {translatedDescription && !isPreview && (
                         <p
                             className={`text-sm ${theme.text} opacity-70 mb-4`}
                             style={{
@@ -406,7 +408,7 @@ export function WorksheetSectionWrapper({
                         {children}
                     </div>
                     {/* Parent/Teacher Tips - Will appear on page 2 with Self-Assessment */}
-                    {translatedTips && (
+                    {translatedTips && !isPreview && (
                         <div style={{ pageBreakBefore: 'avoid', pageBreakInside: 'avoid' }}>
                             <ParentTeacherTips tips={translatedTips} />
                         </div>

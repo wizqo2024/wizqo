@@ -1435,6 +1435,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
           showAnswersForDoc={showAnswersForDoc}
           t={t}
           getTrans={getTrans}
+          isPreview={isPreview}
         />
         <HolidayRenderer
           activeDocs={activeDocs}
