@@ -493,7 +493,17 @@ export default function App() {
                       <KidsPage />
                     </>
                   );
-                case 'print':
+                case 'print': {
+                  const searchParams = new URLSearchParams(window.location.search);
+                  const docId = searchParams.get('doc');
+
+                  // Intercept specific cursive worksheets that have dedicated components
+                  if (docId === 'cursive-writing-alphabet-worksheets') return <CursiveAlphabetWorksheet />;
+                  if (docId === 'cursive-writing-practice-sheets') return <CursivePracticeWorksheet />;
+                  if (docId === 'capital-cursive-writing-worksheets') return <CapitalCursiveWorksheet />;
+                  if (docId === 'joining-cursive-letters-worksheets') return <JoiningCursiveWorksheet />;
+                  if (docId === 'half-print-half-cursive-writing') return <HybridHandwritingWorksheet />;
+
                   return (
                     <>
                       <SEOMetaTags
@@ -505,6 +515,7 @@ export default function App() {
                       <PrintablesPage />
                     </>
                   );
+                }
                 case 'interactive-worksheets-generator':
                   return (
                     <>
@@ -632,7 +643,12 @@ export default function App() {
                     'data-analysis-worksheets',
                     'word-problem-worksheets',
                     'science-worksheets',
-                    'all'
+                    'all',
+                    'capital-cursive-writing-worksheets',
+                    'cursive-writing-alphabet-worksheets',
+                    'cursive-writing-practice-sheets',
+                    'half-print-half-cursive-writing',
+                    'joining-cursive-letters-worksheets'
                   ];
 
                   if (routeSubKey && !categoryPages.includes(routeSubKey)) {

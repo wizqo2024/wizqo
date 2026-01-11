@@ -1200,14 +1200,14 @@ export default function NameTracingGeneratorPage() {
                       onValueChange={(value: string) => value && setFontSizeMode(value as FontSizeMode)}
                       className="grid grid-cols-3 gap-2"
                     >
-                      <ToggleGroupItem value="small" className="rounded-xl" aria-label={t('pages.nameTracing.small')}>
-                        {t('pages.nameTracing.small')}
+                      <ToggleGroupItem value="small" className="rounded-xl" aria-label={t('pages.nameTracing.fontSizes.small')}>
+                        {t('pages.nameTracing.fontSizes.small')}
                       </ToggleGroupItem>
-                      <ToggleGroupItem value="medium" className="rounded-xl" aria-label={t('pages.nameTracing.medium')}>
-                        {t('pages.nameTracing.medium')}
+                      <ToggleGroupItem value="medium" className="rounded-xl" aria-label={t('pages.nameTracing.fontSizes.medium')}>
+                        {t('pages.nameTracing.fontSizes.medium')}
                       </ToggleGroupItem>
-                      <ToggleGroupItem value="large" className="rounded-xl" aria-label={t('pages.nameTracing.large')}>
-                        {t('pages.nameTracing.large')}
+                      <ToggleGroupItem value="large" className="rounded-xl" aria-label={t('pages.nameTracing.fontSizes.large')}>
+                        {t('pages.nameTracing.fontSizes.large')}
                       </ToggleGroupItem>
                     </ToggleGroup>
                   </div>

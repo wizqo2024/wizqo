@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
 import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
-import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
+import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
 export default function CapitalCursiveWorksheet() {
     const { toast } = useToast();
@@ -36,7 +36,7 @@ export default function CapitalCursiveWorksheet() {
                 doc.addFont("Cedarville-Cursive.ttf", "Cedarville", "normal");
             } catch (e) { console.warn(e); }
 
-            await drawWorksheetOnPDF(doc, svgRef.current, 0, 0, 297, 210);
+            await drawSvgRefOnPDF(doc, svgRef.current, 0, 0, 297, 210);
             doc.save('tricky-cursive-capitals.pdf');
             toast({ title: "Downloaded!", description: "Master those capitals!" });
         } catch (error) {
@@ -112,10 +112,10 @@ export default function CapitalCursiveWorksheet() {
             <SEOMetaTags
                 title="Capital 'Z' Cursive Writing - Difficult Letters Worksheet | Wizqo"
                 description="Master the hardest cursive capital letters like Z, G, F, and Q. Specialized practice worksheet for advanced handwriting."
-                keywords={['capital z cursive writing', 'z in cursive', 'hard cursive letters', 'cursive G', 'cursive F']}
+                keywords={['capital z cursive writing', 'z in cursive', 'hard cursive letters', 'cursive G', 'cursive F'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/capital-cursive-writing-worksheets"
             />
-            <UnifiedNavigation />
+            {!isPreview && <UnifiedNavigation />}
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="text-center mb-10">
@@ -197,7 +197,7 @@ export default function CapitalCursiveWorksheet() {
                 </div>
 
             </main>
-            <Footer />
+            {!isPreview && <Footer />}
         </div>
     );
 }

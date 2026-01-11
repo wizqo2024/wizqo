@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
 import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
-import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
+import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
 export default function HybridHandwritingWorksheet() {
     const { toast } = useToast();
@@ -33,7 +33,7 @@ export default function HybridHandwritingWorksheet() {
                 doc.addFont("Cedarville-Cursive.ttf", "Cedarville", "normal");
             } catch (e) { console.warn(e); }
 
-            await drawWorksheetOnPDF(doc, svgRef.current, 0, 0, 297, 210);
+            await drawSvgRefOnPDF(doc, svgRef.current, 0, 0, 297, 210);
             doc.save('print-to-cursive-practice.pdf');
         } catch (error) {
             console.error(error);
@@ -98,10 +98,10 @@ export default function HybridHandwritingWorksheet() {
             <SEOMetaTags
                 title="Half Print Half Cursive Writing Worksheets - Transition Practice | Wizqo"
                 description="Bridge the gap between print and cursive. Unique 'Translate' worksheets where students see print and write in cursive."
-                keywords={['half print half cursive writing', 'print to cursive', 'handwriting transition', 'cursive practice']}
+                keywords={['half print half cursive writing', 'print to cursive', 'handwriting transition', 'cursive practice'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/half-print-half-cursive-writing"
             />
-            <UnifiedNavigation />
+            {!isPreview && <UnifiedNavigation />}
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="text-center mb-10">
@@ -173,7 +173,7 @@ export default function HybridHandwritingWorksheet() {
                 </div>
 
             </main>
-            <Footer />
+            {!isPreview && <Footer />}
         </div>
     );
 }

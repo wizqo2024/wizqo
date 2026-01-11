@@ -1,4 +1,5 @@
 import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 /**
  * Helper to convert hex to RGB for jsPDF
@@ -238,6 +239,36 @@ export const drawWorksheetOnPDF = (
     doc.setTextColor(footerRGB.r, footerRGB.g, footerRGB.b);
     doc.setFontSize(14 * scale);
     doc.text('Trace slowly and carefully...', margin * scale + xOffset, (pageHeight - margin + 10) * scale + yOffset);
+
+    return doc;
+};
+
+/**
+ * Draws an SVG element onto a jsPDF instance using html2canvas.
+ * This is more robust for complex SVGs than manual jsPDF drawing.
+ */
+export const drawSvgRefOnPDF = async (
+    doc: any,
+    svgElement: SVGSVGElement,
+    x: number,
+    y: number,
+    widthMm: number,
+    heightMm: number
+) => {
+    // 1. Convert SVG to Canvas using html2canvas
+    const canvas = await html2canvas(svgElement, {
+        scale: 4, // High resolution
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null, // Transparent background
+        logging: false,
+    });
+
+    // 2. Convert Canvas to PNG
+    const imgData = canvas.toDataURL('image/png');
+
+    // 3. Add to PDF
+    doc.addImage(imgData, 'PNG', x, y, widthMm, heightMm, undefined, 'FAST');
 
     return doc;
 };

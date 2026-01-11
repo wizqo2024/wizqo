@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
 import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
-import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
+import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
 export default function CursiveAlphabetWorksheet() {
     const { toast } = useToast();
@@ -37,7 +37,7 @@ export default function CursiveAlphabetWorksheet() {
                 doc.addFont("Cedarville-Cursive.ttf", "Cedarville", "normal");
             } catch (e) { console.warn("Font loading skipped", e); }
 
-            await drawWorksheetOnPDF(doc, svgRef.current, 0, 0, 297, 210);
+            await drawSvgRefOnPDF(doc, svgRef.current, 0, 0, 297, 210);
             doc.save('cursive-alphabet-mastery.pdf');
 
             toast({
@@ -125,7 +125,7 @@ export default function CursiveAlphabetWorksheet() {
                 keywords={['cursive writing alphabet worksheets', 'cursive chart', '3rd grade handwriting', 'printable cursive'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/cursive-writing-alphabet-worksheets"
             />
-            <UnifiedNavigation />
+            {!isPreview && <UnifiedNavigation />}
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="text-center mb-12">
@@ -210,7 +210,7 @@ export default function CursiveAlphabetWorksheet() {
                 </div>
 
             </main>
-            <Footer />
+            {!isPreview && <Footer />}
         </div>
     );
 }

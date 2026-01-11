@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
 import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
-import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
+import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
 export default function CursivePracticeWorksheet() {
     const { toast } = useToast();
@@ -54,7 +54,7 @@ export default function CursivePracticeWorksheet() {
                 doc.addFont("Cedarville-Cursive.ttf", "Cedarville", "normal");
             } catch (e) { console.warn(e); }
 
-            await drawWorksheetOnPDF(doc, svgRef.current, 0, 0, 297, 210);
+            await drawSvgRefOnPDF(doc, svgRef.current, 0, 0, 297, 210);
             doc.save(`cursive-practice-set-${currentSetIndex + 1}.pdf`);
             toast({ title: "Downloaded!", description: "Happy practicing." });
         } catch (error) {
@@ -64,7 +64,7 @@ export default function CursivePracticeWorksheet() {
     };
 
     const toggleSet = () => {
-        setCurrentSetIndex((prev) => (prev + 1) % SENTENCE_SETS.length);
+        setCurrentSetIndex((prev: number) => (prev + 1) % SENTENCE_SETS.length);
     };
 
     if (isPreview) {
@@ -119,10 +119,10 @@ export default function CursivePracticeWorksheet() {
             <SEOMetaTags
                 title="Free Cursive Writing Practice Sheets - Sentences | Wizqo"
                 description="Improve cursive flow with these positive affirmation practice sheets. Download free PDF worksheets for 3rd and 4th grade."
-                keywords={['cursive writing practice sheets', 'cursive sentences', 'handwriting flow', '3rd grade cursive']}
+                keywords={['cursive writing practice sheets', 'cursive sentences', 'handwriting flow', '3rd grade cursive'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/cursive-writing-practice-sheets"
             />
-            <UnifiedNavigation />
+            {!isPreview && <UnifiedNavigation />}
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="flex flex-col items-center mb-10 text-center">
@@ -196,7 +196,7 @@ export default function CursivePracticeWorksheet() {
                 </div>
 
             </main>
-            <Footer />
+            {!isPreview && <Footer />}
         </div>
     );
 }

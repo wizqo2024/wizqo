@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
 import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
-import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
+import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
 export default function JoiningCursiveWorksheet() {
     const { toast } = useToast();
@@ -34,7 +34,7 @@ export default function JoiningCursiveWorksheet() {
                 doc.addFont("Cedarville-Cursive.ttf", "Cedarville", "normal");
             } catch (e) { console.warn(e); }
 
-            await drawWorksheetOnPDF(doc, svgRef.current, 0, 0, 297, 210);
+            await drawSvgRefOnPDF(doc, svgRef.current, 0, 0, 297, 210);
             doc.save('cursive-connections.pdf');
             toast({ title: "Downloaded!", description: "Practice those connections." });
         } catch (error) {
@@ -101,10 +101,10 @@ export default function JoiningCursiveWorksheet() {
             <SEOMetaTags
                 title="Joining Cursive Letters Worksheets - Connection Practice | Wizqo"
                 description="Learn how to connect cursive letters correctly. Free worksheet focusing on tricky joins like 'br', 've', and 'os'."
-                keywords={['joining cursive letters', 'cursive connections', 'handwriting joins', 'cursive writing practice']}
+                keywords={['joining cursive letters', 'cursive connections', 'handwriting joins', 'cursive writing practice'].join(', ')}
                 canonicalUrl="https://wizqo.com/printables/joining-cursive-letters-worksheets"
             />
-            <UnifiedNavigation />
+            {!isPreview && <UnifiedNavigation />}
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="flex flex-col items-center mb-10 text-center">
@@ -179,7 +179,7 @@ export default function JoiningCursiveWorksheet() {
                 </div>
 
             </main>
-            <Footer />
+            {!isPreview && <Footer />}
         </div>
     );
 }
