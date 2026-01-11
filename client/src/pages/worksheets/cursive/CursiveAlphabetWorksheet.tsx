@@ -9,7 +9,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
 
 
-export default function CursiveAlphabetWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
+export default function CursiveAlphabetWorksheet({ isPrintView = false, isEmbedded = false }: { isPrintView?: boolean, isEmbedded?: boolean }) {
     const { toast } = useToast();
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -127,6 +127,33 @@ export default function CursiveAlphabetWorksheet({ isPrintView = false }: { isPr
                 >
                     {renderContent()}
                 </svg>
+            </div>
+        );
+    }
+
+    if (isEmbedded) {
+        return (
+            <div className="flex flex-col items-center w-full">
+                <div className="max-w-4xl mx-auto mb-10 flex justify-center gap-4">
+                    <Button
+                        onClick={handleDownloadPDF}
+                        className="h-12 px-8 text-lg rounded-full bg-slate-900 hover:bg-slate-800 text-amber-50 shadow-lg hover:shadow-xl transition-all font-serif"
+                        disabled={isPrinting}
+                    >
+                        <Download className="mr-2 h-5 w-5" /> Download Printable Chart
+                    </Button>
+                </div>
+
+                {/* Live Preview - Premium Card Look */}
+                <div className="max-w-[842px] mx-auto bg-white rounded-sm shadow-2xl overflow-hidden border-[16px] border-[#f1f5f9]">
+                    <svg
+                        ref={svgRef}
+                        viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                        className="w-full h-auto bg-[#fffaf0]" // Very subtle ivory paper
+                    >
+                        {renderContent()}
+                    </svg>
+                </div>
             </div>
         );
     }

@@ -9,7 +9,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
 
 
-export default function CapitalCursiveWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
+export default function CapitalCursiveWorksheet({ isPrintView = false, isEmbedded = false }: { isPrintView?: boolean, isEmbedded?: boolean }) {
     const { toast } = useToast();
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -120,6 +120,31 @@ export default function CapitalCursiveWorksheet({ isPrintView = false }: { isPri
                 >
                     {renderContent()}
                 </svg>
+            </div>
+        );
+    }
+
+    if (isEmbedded) {
+        return (
+            <div className="flex flex-col items-center w-full">
+                <div className="flex justify-center mb-10">
+                    <Button
+                        onClick={handleDownloadPDF}
+                        className="h-14 px-10 text-lg rounded-xl bg-orange-600 hover:bg-orange-700 text-white shadow-orange-200 shadow-xl"
+                    >
+                        <Download className="mr-2 h-5 w-5" /> Download Worksheet
+                    </Button>
+                </div>
+
+                <div className="max-w-[842px] mx-auto bg-white shadow-2xl rounded-lg overflow-hidden border border-slate-200">
+                    <svg
+                        ref={svgRef}
+                        viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                        className="w-full h-auto bg-white"
+                    >
+                        {renderContent()}
+                    </svg>
+                </div>
             </div>
         );
     }

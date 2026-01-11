@@ -9,7 +9,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
 
 
-export default function CursivePracticeWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
+export default function CursivePracticeWorksheet({ isPrintView = false, isEmbedded = false }: { isPrintView?: boolean, isEmbedded?: boolean }) {
     const { toast } = useToast();
     const { t } = useTranslation();
     const svgRef = React.useRef<SVGSVGElement>(null);
@@ -125,6 +125,38 @@ export default function CursivePracticeWorksheet({ isPrintView = false }: { isPr
                 >
                     {renderContent()}
                 </svg>
+            </div>
+        );
+    }
+
+    if (isEmbedded) {
+        return (
+            <div className="flex flex-col items-center w-full">
+                <div className="flex justify-center gap-4 mb-8">
+                    <Button
+                        onClick={toggleSet}
+                        variant="outline"
+                        className="h-12 border-slate-300 text-slate-700 hover:bg-slate-100"
+                    >
+                        <RefreshCw className="mr-2 h-4 w-4" /> Swap Sentences
+                    </Button>
+                    <Button
+                        onClick={handleDownloadPDF}
+                        className="h-12 bg-indigo-900 hover:bg-indigo-800 text-white shadow-md font-serif px-8"
+                    >
+                        <Download className="mr-2 h-5 w-5" /> Download Sheet
+                    </Button>
+                </div>
+
+                <div className="max-w-[842px] mx-auto bg-white shadow-xl rounded-sm overflow-hidden border border-slate-200">
+                    <svg
+                        ref={svgRef}
+                        viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                        className="w-full h-auto bg-white"
+                    >
+                        {renderContent()}
+                    </svg>
+                </div>
             </div>
         );
     }
