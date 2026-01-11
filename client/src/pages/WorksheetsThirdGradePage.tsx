@@ -39,6 +39,7 @@ export default function WorksheetsThirdGradePage() {
     { id: 'word-problems', label: t('pages.thirdGrade.categories.wordProblems'), icon: '🧮' },
     { id: 'geometry', label: t('pages.thirdGrade.categories.geometry'), icon: '📐' },
     { id: 'measurement', label: t('pages.thirdGrade.categories.measurement'), icon: '📏' },
+    { id: 'cursive', label: t('pages.thirdGrade.categories.cursive'), icon: '✍️' },
   ];
 
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
@@ -99,6 +100,12 @@ export default function WorksheetsThirdGradePage() {
     { title: t('pages.thirdGrade.worksheets.metricUnits.title'), description: t('pages.thirdGrade.worksheets.metricUnits.description'), href: getWorksheetURL('metric-units', '3rd-grade'), docId: 'metric-units', categories: ['measurement'], section: 'Measurement' },
     { title: t('pages.thirdGrade.worksheets.liquidMeasurement.title'), description: t('pages.thirdGrade.worksheets.liquidMeasurement.description'), href: getWorksheetURL('liquid-measurement', '3rd-grade'), docId: 'liquid-measurement', categories: ['measurement'], section: 'Measurement' },
     { title: t('pages.thirdGrade.worksheets.massAndWeight.title'), description: t('pages.thirdGrade.worksheets.massAndWeight.description'), href: getWorksheetURL('mass-weight', '3rd-grade'), docId: 'mass-weight', categories: ['measurement'], section: 'Measurement' },
+    // Cursive
+    { title: t('pages.thirdGrade.worksheets.cursiveAlphabet.title'), description: t('pages.thirdGrade.worksheets.cursiveAlphabet.description'), href: getWorksheetURL('cursive-writing-alphabet-worksheets', '3rd-grade'), docId: 'cursive-writing-alphabet-worksheets', categories: ['cursive'], section: 'Cursive Writing' },
+    { title: t('pages.thirdGrade.worksheets.cursivePractice.title'), description: t('pages.thirdGrade.worksheets.cursivePractice.description'), href: getWorksheetURL('cursive-writing-practice-sheets', '3rd-grade'), docId: 'cursive-writing-practice-sheets', categories: ['cursive'], section: 'Cursive Writing' },
+    { title: t('pages.thirdGrade.worksheets.capitalCursive.title'), description: t('pages.thirdGrade.worksheets.capitalCursive.description'), href: getWorksheetURL('capital-cursive-writing-worksheets', '3rd-grade'), docId: 'capital-cursive-writing-worksheets', categories: ['cursive'], section: 'Cursive Writing' },
+    { title: t('pages.thirdGrade.worksheets.joiningCursive.title'), description: t('pages.thirdGrade.worksheets.joiningCursive.description'), href: getWorksheetURL('joining-cursive-letters-worksheets', '3rd-grade'), docId: 'joining-cursive-letters-worksheets', categories: ['cursive'], section: 'Cursive Writing' },
+    { title: t('pages.thirdGrade.worksheets.printToCursive.title'), description: t('pages.thirdGrade.worksheets.printToCursive.description'), href: getWorksheetURL('half-print-half-cursive-writing', '3rd-grade'), docId: 'half-print-half-cursive-writing', categories: ['cursive'], section: 'Cursive Writing' },
   ], [t])
 
   // Filter worksheets based on selected categories
@@ -228,6 +235,7 @@ export default function WorksheetsThirdGradePage() {
                   'Word Problems': `🧮 ${t('pages.thirdGrade.sections.wordProblems')}`,
                   'Geometry': `📐 ${t('pages.thirdGrade.sections.geometry')}`,
                   'Measurement': `📏 ${t('pages.thirdGrade.sections.measurement')}`,
+                  'Cursive Writing': `✍️ ${t('pages.thirdGrade.sections.cursive')}`,
                 }
                 const label = sectionLabels[section] || section
 

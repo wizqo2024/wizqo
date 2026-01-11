@@ -28,6 +28,11 @@ import WorksheetsFifthGradePage from './pages/WorksheetsFifthGradePage';
 import HandwritingMakerPage from './pages/HandwritingMakerPage';
 import NameTracingGeneratorPage from './pages/NameTracingGeneratorPage';
 import InteractiveWorksheetsPage from './pages/InteractiveWorksheetsPage';
+import CursiveAlphabetWorksheet from '@/pages/worksheets/cursive/CursiveAlphabetWorksheet';
+import CursivePracticeWorksheet from '@/pages/worksheets/cursive/CursivePracticeWorksheet';
+import CapitalCursiveWorksheet from '@/pages/worksheets/cursive/CapitalCursiveWorksheet';
+import JoiningCursiveWorksheet from '@/pages/worksheets/cursive/JoiningCursiveWorksheet';
+import HybridHandwritingWorksheet from '@/pages/worksheets/cursive/HybridHandwritingWorksheet';
 import { SEOMetaTags } from './components/SEOMetaTags';
 import CertificateMakerPage from './pages/CertificateMakerPage';
 import KidsPage from './pages/KidsPage';
@@ -141,6 +146,7 @@ export default function App() {
     const finalPath = shouldAddLocale(cleanPath)
       ? addLocaleToPath(cleanPath, localeToUse)
       : cleanPath;
+
 
     const finalUrl = finalPath + url.search;
 
@@ -594,6 +600,13 @@ export default function App() {
                       </>
                     );
                   }
+
+                  // Cursive Routes
+                  if (routeSubKey === 'cursive-writing-alphabet-worksheets') return <CursiveAlphabetWorksheet />;
+                  if (routeSubKey === 'cursive-writing-practice-sheets') return <CursivePracticeWorksheet />;
+                  if (routeSubKey === 'capital-cursive-writing-worksheets') return <CapitalCursiveWorksheet />;
+                  if (routeSubKey === 'joining-cursive-letters-worksheets') return <JoiningCursiveWorksheet />;
+                  if (routeSubKey === 'half-print-half-cursive-writing') return <HybridHandwritingWorksheet />;
 
                   // Check if this is an individual worksheet page (slug-based)
                   // First, check if it's NOT a category page

@@ -2330,6 +2330,7 @@ export const en = {
         wordProblems: 'Word Problems',
         geometry: 'Geometry',
         measurement: 'Measurement',
+        cursive: 'Cursive Writing',
       },
       sections: {
         multiplication: 'Multiplication',
@@ -2338,6 +2339,7 @@ export const en = {
         wordProblems: 'Word Problems',
         geometry: 'Geometry',
         measurement: 'Measurement',
+        cursive: 'Cursive Writing',
       },
       noWorksheets: 'No worksheets match the selected categories.',
       clearFilters: 'Clear filters to show all worksheets',
@@ -2480,6 +2482,26 @@ export const en = {
         massAndWeight: {
           title: '📏 Mass and Weight',
           description: 'Compare ounces, pounds, grams, and kilograms. Understand mass vs. weight.',
+        },
+        cursiveAlphabet: {
+          title: '✍️ Cursive Alphabet Mastery',
+          description: 'Master uppercase and lowercase cursive letters. Elegant A-Z reference chart.',
+        },
+        cursivePractice: {
+          title: '✍️ Cursive Sentence Flow',
+          description: 'Practice full sentences with flow. Connecting letters smoothly.',
+        },
+        capitalCursive: {
+          title: '✍️ Capital Cursive Toolkit',
+          description: 'Master tricky capitals like Z, G, F, and Q. Targeted practice.',
+        },
+        joiningCursive: {
+          title: '✍️ Joining Cursive Letters',
+          description: 'Practice difficult connections: br, os, ve. Improve writing speed.',
+        },
+        printToCursive: {
+          title: '✍️ Print to Cursive Bridge',
+          description: 'Translate print words to cursive. Build fluency between styles.',
         },
       },
     },

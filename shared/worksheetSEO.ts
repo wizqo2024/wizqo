@@ -27,6 +27,36 @@ export interface WorksheetSEO {
  * This helps resolve "Thin Content" and "Crawled - currently not indexed" issues.
  */
 const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
+  'cursive-writing-alphabet-worksheets': {
+    title: 'Free Cursive Writing Alphabet Worksheets - Premium Chart | Wizqo',
+    metaDescription: 'Master the cursive alphabet with this elegant, printable reference chart. Perfect for 3rd grade students learning joined-up writing.',
+    learningObjectives: ['Master uppercase and lowercase cursive letters', 'Visualize correct letter formation and placement', 'Use as a handy reference chart for daily practice'],
+    intro: 'Elegant penmanship starts with mastering the classics. Our Cursive Writing Alphabet Worksheet provides a beautifully designed, academic-style chart that serves as the perfect reference for students learning joined-up writing. With clear guidelines and a premium "ivory paper" look, this printable helps children visualize the flow of every letter from A to Z, ensuring a strong foundation for fluent handwriting.'
+  },
+  'cursive-writing-practice-sheets': {
+    title: 'Free Cursive Writing Practice Sheets - Sentences | Wizqo',
+    metaDescription: 'Improve cursive flow with these positive affirmation practice sheets. Download free PDF worksheets for 3rd and 4th grade.',
+    learningObjectives: ['Practice connecting letters in full sentences', 'Improve handwriting flow and legibility', 'Copy positive affirmations for mindset growth'],
+    intro: 'Move beyond individual letters and start writing with flow! These Cursive Writing Practice Sheets focus on connecting words into meaningful sentences using positive affirmations. Designed for 3rd and 4th graders, these worksheets encourage smooth transitions between letters, helping students develop a personal handwriting style that is both fast and legible.'
+  },
+  'capital-cursive-writing-worksheets': {
+    title: "Capital 'Z' Cursive Writing - Difficult Letters Worksheet | Wizqo",
+    metaDescription: 'Master the hardest cursive capital letters like Z, G, F, and Q. Specialized practice worksheet for advanced handwriting.',
+    learningObjectives: ['Master difficult cursive capitals (Z, G, F, Q)', 'Differentiate between similar-looking uppercase letters', 'Build confidence with complex letter strokes'],
+    intro: 'Some cursive letters are trickier than others! Our Capital Cursive Toolkit is specifically designed to tackle the "troublemakers" of the alphabet—letters like Z, G, F, and Q that often confuse young writers. This targeted practice sheet breaks down these complex shapes, providing ample space for repetition so students can master the unique loops and curves of advanced uppercase cursive.'
+  },
+  'joining-cursive-letters-worksheets': {
+    title: 'Joining Cursive Letters Worksheets - Connection Practice | Wizqo',
+    metaDescription: "Learn how to connect cursive letters correctly. Free worksheet focusing on tricky joins like 'br', 've', and 'os'.",
+    learningObjectives: ['Master difficult letter connections (bi-grams)', 'Understand high and low connection points', 'Improve writing speed through fluid joining'],
+    intro: 'The secret to fast, legible cursive lies in the connections. Our Joining Cursive Letters Worksheet focuses specifically on the "bridge" strokes that link one letter to the next. By practicing common but tricky combinations like "br", "os", and "ve", students learn to maintain a continuous flow without lifting their pen, which is the hallmark of mature, efficient handwriting.'
+  },
+  'half-print-half-cursive-writing': {
+    title: 'Half Print Half Cursive Writing Worksheets - Transition Practice | Wizqo',
+    metaDescription: "Bridge the gap between print and cursive. Unique 'Translate' worksheets where students see print and write in cursive.",
+    learningObjectives: ['Translate print text into cursive script', 'Bridge the gap between reading and writing styles', 'Reinforce letter recognition in both formats'],
+    intro: 'Bridging the gap between print and cursive can be a challenge. Our specialized "Hybrid" worksheet helps students make this cognitive leap by asking them to read a word in standard print and immediately transcribe it into cursive. This unique "translation" exercise strengthens neural pathways, helping children become comfortable switching between the two writing styles fluently.'
+  },
   'sentence-building': {
     title: 'Sentence Building Worksheet - Creative Writing Practice | Wizqo',
     metaDescription: 'Boost early literacy with our Sentence Building worksheet. Students practice structure and grammar by arranging words into logical, descriptive sentences. PDF with answer key.',
