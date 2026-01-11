@@ -74,7 +74,7 @@ export default function HybridHandwritingWorksheet({ isPrintView = false }: { is
                             textAnchor="middle"
                             fontFamily="'Cedarville Cursive', cursive"
                             fontSize="48"
-                            fill="#d6d3d1"
+                            fill="#cbd5e1"
                             dominantBaseline="middle"
                         >
                             {word}

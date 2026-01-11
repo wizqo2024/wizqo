@@ -85,7 +85,7 @@ export default function CapitalCursiveWorksheet({ isPrintView = false }: { isPri
                             textAnchor="middle"
                             fontFamily="'Cedarville Cursive', cursive"
                             fontSize="100"
-                            fill="#ea580c" // Orange for attention
+                            fill="#cbd5e1" // Light gray for tracing
                             dominantBaseline="middle"
                         >
                             {char}

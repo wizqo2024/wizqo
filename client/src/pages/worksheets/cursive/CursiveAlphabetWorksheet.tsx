@@ -94,7 +94,7 @@ export default function CursiveAlphabetWorksheet({ isPrintView = false }: { isPr
                             textAnchor="middle"
                             fontFamily="'Cedarville Cursive', cursive"
                             fontSize="42"
-                            fill="#1e293b" // Navy/Slate ink
+                            fill="#cbd5e1" // Light gray for tracing
                             dominantBaseline="middle"
                         >
                             {pair}

@@ -74,7 +74,7 @@ export default function JoiningCursiveWorksheet({ isPrintView = false }: { isPri
                             textAnchor="middle"
                             fontFamily="'Cedarville Cursive', cursive"
                             fontSize="64"
-                            fill="#0891b2"
+                            fill="#cbd5e1"
                             dominantBaseline="middle"
                         >
                             {join}
