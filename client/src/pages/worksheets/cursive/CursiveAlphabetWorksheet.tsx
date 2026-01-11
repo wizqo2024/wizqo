@@ -7,7 +7,6 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
-import { CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
 import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
 
 export default function CursiveAlphabetWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
