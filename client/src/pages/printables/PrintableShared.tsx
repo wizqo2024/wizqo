@@ -48,8 +48,8 @@ export function getWorksheetTheme(docId: string): {
             cornerAccent2: 'rgba(186, 230, 253, 0.2)',
         }
     }
-    // Writing/Handwriting worksheets
-    if (docId.includes('writing') || docId.includes('handwriting') || docId.includes('tracing') || docId.includes('spelling') || docId.includes('grammar')) {
+    // Writing/Handwriting worksheets (Non-cursive use Emerald)
+    if ((docId.includes('writing') || docId.includes('handwriting') || docId.includes('tracing') || docId.includes('spelling') || docId.includes('grammar')) && !docId.includes('cursive')) {
         return {
             background: 'bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50',
             border: 'border-emerald-300',

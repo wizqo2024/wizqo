@@ -84,9 +84,8 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Cursive Writing Alphabet"
                     description="Practice writing the entire cursive alphabet with these comprehensive worksheets."
                     emoji={String.fromCodePoint(0x270D)}
-                    isPreview={isPreview}
                 >
-                    <CursiveAlphabetWorksheet isEmbedded={true} />
+                    <CursiveAlphabetWorksheet />
                 </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('cursive-writing-practice-sheets') && (
@@ -95,9 +94,8 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Cursive Writing Practice"
                     description="Improve your cursive handwriting with daily practice sheets."
                     emoji={String.fromCodePoint(0x1F4DD)}
-                    isPreview={isPreview}
                 >
-                    <CursivePracticeWorksheet isEmbedded={true} />
+                    <CursivePracticeWorksheet />
                 </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('capital-cursive-writing-worksheets') && (
@@ -106,9 +104,8 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Capital Cursive Writing"
                     description="Master the art of writing capital cursive letters."
                     emoji={String.fromCodePoint(0x1F170)}
-                    isPreview={isPreview}
                 >
-                    <CapitalCursiveWorksheet isEmbedded={true} />
+                    <CapitalCursiveWorksheet />
                 </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('joining-cursive-letters-worksheets') && (
@@ -117,9 +114,8 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Joining Cursive Letters"
                     description="Learn how to connect cursive letters smoothly."
                     emoji={String.fromCodePoint(0x1F517)}
-                    isPreview={isPreview}
                 >
-                    <JoiningCursiveWorksheet isEmbedded={true} />
+                    <JoiningCursiveWorksheet />
                 </WorksheetSectionWrapper>
             )}
             {activeDocs.includes('half-print-half-cursive-writing') && (
@@ -128,9 +124,8 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                     title="Half Print Half Cursive"
                     description="Bridge the gap between print and cursive writing styles."
                     emoji={String.fromCodePoint(0x2ABC)}
-                    isPreview={isPreview}
                 >
-                    <HybridHandwritingWorksheet isEmbedded={true} />
+                    <HybridHandwritingWorksheet />
                 </WorksheetSectionWrapper>
             )}
 
