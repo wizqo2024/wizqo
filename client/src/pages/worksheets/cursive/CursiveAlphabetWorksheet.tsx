@@ -7,7 +7,7 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
-import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
+
 
 export default function CursiveAlphabetWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
     const { toast } = useToast();
@@ -29,9 +29,8 @@ export default function CursiveAlphabetWorksheet({ isPrintView = false }: { isPr
         try {
             if (!svgRef.current) return;
             setIsPrinting(true);
+            const { drawSvgRefOnPDF } = await import('@/utils/pdfHelpers');
             const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
-
 
             await drawSvgRefOnPDF(doc, svgRef.current, 0, 0, 297, 210);
             doc.save('cursive-alphabet-mastery.pdf');

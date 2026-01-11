@@ -7,7 +7,7 @@ import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import jsPDF from 'jspdf';
-import { drawSvgRefOnPDF } from '@/utils/pdfHelpers';
+
 
 export default function HybridHandwritingWorksheet({ isPrintView = false }: { isPrintView?: boolean }) {
     const { toast } = useToast();
@@ -26,6 +26,7 @@ export default function HybridHandwritingWorksheet({ isPrintView = false }: { is
     const handleDownloadPDF = async () => {
         try {
             if (!svgRef.current) return;
+            const { drawSvgRefOnPDF } = await import('@/utils/pdfHelpers');
             const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
 
