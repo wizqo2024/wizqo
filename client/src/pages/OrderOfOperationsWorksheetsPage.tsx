@@ -293,6 +293,11 @@ export default function OrderOfOperationsWorksheetsPage() {
           </section>
         </div>
       </main>
+
+      <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+        <PemdasStrategyGuide />
+      </div>
+
       <Footer />
 
       {/* Preview Modal */}
@@ -465,3 +470,62 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     </article>
   )
 })
+
+function PemdasStrategyGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-amber-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-amber-500 to-orange-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🧩
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.orderOfOperations.wiki.title', 'PEMDAS Hub: Mastering Mathematical Logic')}</h2>
+            <p className="text-amber-100 font-medium italic">Building confidence through sequence, structure & consistency</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-amber-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">⚡</span> {t('pages.orderOfOperations.wiki.logicTitle', 'The Power of the Sequence')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              Order of operations isn't just a set of rules; it's the <strong>universal grammar</strong> of math. Without it, two people could solve the same expression and get different answers. By mastering <strong>PEMDAS</strong>, students learn to approach complex problems with a plan, turning math frustration into logical triumph.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-amber-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🏆</span> {t('pages.orderOfOperations.wiki.milestonesTitle', 'Key Strategy Milestones')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>The Parentheses Priority:</strong> Identifying and "cleaning" operations inside brackets first to maintain the problem's integrity.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Left-to-Right Fluency:</strong> Realizing that multiplication/division and addition/subtraction are equal partners that are solved as they appear.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Multi-Step Patience:</strong> Learning to rewrite the expression after each step—a vital habit for avoiding common arithmetic errors.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "In math, the order you do things is as important as the things you do."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

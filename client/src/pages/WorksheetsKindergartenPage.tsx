@@ -351,6 +351,9 @@ export default function WorksheetsKindergartenPage() {
           </section>
         </div>
       </main>
+      <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+        <EarlyLearningFoundationGuide />
+      </div>
       <Footer />
 
       {/* Preview Modal */}
@@ -425,6 +428,65 @@ export default function WorksheetsKindergartenPage() {
       )}
     </div>
   )
+}
+
+function EarlyLearningFoundationGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-purple-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-purple-500 to-indigo-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🎨
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.kindergarten.wiki.title', 'Kindergarten Hub: The Foundation of Early Numeracy')}</h2>
+            <p className="text-purple-100 font-medium italic">Building confidence through play, patterns & discovery</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-purple-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🧩</span> {t('pages.kindergarten.wiki.patternsTitle', 'From Play to Patterns')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              In Kindergarten, math is about discovery. Students move from simple counting to recognizing <strong>number patterns</strong> and understanding that numbers represent quantities. Our worksheets use visual cues and tactile-friendly designs to help children master <strong>number identification</strong> up to 20 and beyond, ensuring a smooth transition to 1st-grade arithmetic.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-purple-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🌟</span> {t('pages.kindergarten.wiki.standardsTitle', 'Key Early Milestones')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Number Recognition:</strong> Confidently identifying, naming, and writing numbers 0-20.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Cardinality:</strong> Understanding that the last number counted represents the total quantity of objects.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Geometric Logic:</strong> Exploring shapes and their attributes, from simple squares to 3D cylinders and spheres.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "The goal of Kindergarten math is to turn curiosity into mathematical confidence."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {

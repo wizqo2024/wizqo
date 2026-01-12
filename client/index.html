@@ -354,8 +354,26 @@
             keywords = catData.keywords;
             canonicalUrl = 'https://wizqo.com/worksheets/' + worksheetSlug;
 
+            // 🚨 INJECTION 0: The Hub of Hubs (All Worksheets)
+            if (worksheetSlug === 'all') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Printable Worksheets for Kids: The Complete Learning Library</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Wizqo: Empowering Learners Through High-Quality Printables</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">Why Physical Worksheets Matter in a Digital World</h3>' +
+                '<p style="color: #475569; margin-bottom: 1.5rem;">At Wizqo, we believe in the "Print-First" philosophy. Research shows that physically writing and solving problems on paper improves retention, motor skills, and deep focus. Our massive library of <strong>free printable worksheets</strong> is designed to provide teachers and parents with expert-level resources without the noise of digital distractions.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">The Core Learning Pillars</h3>' +
+                '<ul style="color: #475569; line-height: 1.8;">' +
+                '<li><strong>Comprehensive K-5 Math:</strong> Every grade, every standard. From counting 1-20 to intermediate algebra and geometry.</li>' +
+                '<li><strong>Literacy & Discovery:</strong> Reading comprehension passages that build critical thinking and vocabulary at multiple grade levels.</li>' +
+                '<li><strong>Custom Learning Tools:</strong> Interactive generators for handwriting, name tracing, and specialized certificates to celebrate growth.</li>' +
+                '</ul>' +
+                '</section>' +
+                '</article>';
+            }
             // 🚨 INJECTION 1: Rich fallback for Times Tables page (You already had this)
-            if (worksheetSlug === 'times-table-multiplication-worksheets') {
+            else if (worksheetSlug === 'times-table-multiplication-worksheets') {
               fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
                 '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;" > Free Multiplication Worksheets & Times Tables</h1>' +
                 '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
@@ -476,6 +494,96 @@
                 '<li><strong>Counting to 120:</strong> Moving beyond 100 to understand the patterns that continue in higher number ranges.</li>' +
                 '<li><strong>Addition & Subtraction within 20:</strong> Developing fluency and understanding the relationship between addition and subtraction.</li>' +
                 '<li><strong>Introduction to Geometry:</strong> Identifying and drawing 2D and 3D shapes based on their defining attributes.</li>' +
+                '</ul>' +
+                '</section>' +
+                '</article>';
+            }
+            // 🚨 INJECTION 8: Kindergarten Math Hub (Early Foundations)
+            else if (worksheetSlug === 'kindergarten-math-worksheets') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Kindergarten Math Worksheets: Counting, Shapes & Early Logic</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #f5f3ff; padding: 2rem; border-radius: 12px; border: 1px solid #ede9fe;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #5b21b6; margin-bottom: 1.5rem;">Kindergarten: Building the Foundation of Early Numeracy</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #4c1d95; margin-bottom: 0.75rem;">The Journey from Play to Patterns</h3>' +
+                '<p style="color: #5b21b6; margin-bottom: 1.5rem;">In Kindergarten, math is about discovery. Students move from simple counting to recognizing <strong>number patterns</strong> and understanding that numbers represent quantities. Our worksheets use visual cues and tactile-friendly designs to help children master <strong>number identification</strong> and basic operations.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #4c1d95; margin-bottom: 0.75rem;">Essential Kindergarten Milestones</h3>' +
+                '<ul style="color: #5b21b6; line-height: 1.8;">' +
+                '<li><strong>Number Recognition & Writing:</strong> Learning to identify, name, and write numbers 0-20 with confidence.</li>' +
+                '<li><strong>Counting & Cardinality:</strong> Understanding that the last number named tells the number of objects counted.</li>' +
+                '<li><strong>Geometric Attributes:</strong> Identifying and describing common 2D and 3D shapes in the world around them.</li>' +
+                '</ul>' +
+                '</section>' +
+                '</article>';
+            }
+            // 🚨 INJECTION 9: Reading Comprehension Hub (Literacy Discovery)
+            else if (worksheetSlug === 'reading-comprehension') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Reading Comprehension Worksheets: Passages & Q&A</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #ecfeff; padding: 2rem; border-radius: 12px; border: 1px solid #cffafe;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #0891b2; margin-bottom: 1.5rem;">Reading Comprehension: Mastering the Art of Literacy Discovery</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #164e63; margin-bottom: 0.75rem;">Beyond Decoding: Building Meaning</h3>' +
+                '<p style="color: #0891b2; margin-bottom: 1.5rem;">Reading is more than just sounding out words; it\'s about building a bridge to new worlds. Our "Reading Discovery" passages are crafted to help students move from <strong>phonics fluency</strong> to deep <strong>conceptual understanding</strong>. We focus on helping kids identify main ideas and use context clues organically.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #164e63; margin-bottom: 0.75rem;">Core Literacy Milestones</h3>' +
+                '<ul style="color: #0891b2; line-height: 1.8;">' +
+                '<li><strong>Detail Identification:</strong> Learning to find specific proof in the text to answer "Who" and "What" questions.</li>' +
+                '<li><strong>Sequence Mastery:</strong> Developing the ability to order events logically, a critical skill for narrative writing.</li>' +
+                '<li><strong>Context Clue Decoding:</strong> Using surrounding text to unlock the meaning of unfamiliar words without a dictionary.</li>' +
+                '</ul>' +
+                '</section>' +
+                '</article>';
+            }
+            // 🚨 INJECTION 10: Handwriting Center Hub (Fine Motor Skills)
+            else if (worksheetSlug === 'handwriting-worksheet-maker') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Handwriting Practice Worksheets: Letter Formation & Fine Motor</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #fff7ed; padding: 2rem; border-radius: 12px; border: 1px solid #ffedd5;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #9a3412; margin-bottom: 1.5rem;">Handwriting: Mastering the Art of Letter Formation</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #7c2d12; margin-bottom: 0.75rem;">The Cognitive Link: Writing for Better Learning</h3>' +
+                '<p style="color: #9a3412; margin-bottom: 1.5rem;">Handwriting is more than just a motor skill; it\'s a cognitive foundation. Physically forming letters helps students internalize <strong>alphabet recognition</strong> and improves spelling retention. Our handwriting tools focus on proper <strong>stroke order</strong>, consistency, and precision.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #7c2d12; margin-bottom: 0.75rem;">Handwriting Development Milestones</h3>' +
+                '<ul style="color: #9a3412; line-height: 1.8;">' +
+                '<li><strong>Proper Stroke Order:</strong> Learning to start letters at the top and follow standard directional paths for better legibility.</li>' +
+                '<li><strong>Pencil Grip Mastery:</strong> Developing the "tripod grip" to reduce hand fatigue and ensure steady control.</li>' +
+                '<li><strong>Visual-Motor Integration:</strong> Bridging the gap between seeing a letter and physically replicating its shape with consistency.</li>' +
+                '</ul>' +
+                '</section>' +
+                '</article>';
+            }
+            // 🚨 INJECTION 11: Fractions & Decimals Hub (Conversion Mastery)
+            else if (worksheetSlug === 'fractions-to-decimals-worksheets') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Fractions to Decimals Worksheets: Conversion & Visual Models</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #ecfdf5; padding: 2rem; border-radius: 12px; border: 1px solid #d1fae5;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #065f46; margin-bottom: 1.5rem;">Fractions & Decimals: Bridging Two Ways to Represent Parts</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #064e3b; margin-bottom: 0.75rem;">Mastering the Language of Amounts</h3>' +
+                '<p style="color: #065f46; margin-bottom: 1.5rem;">Understanding that fractions and decimals are two sides of the same coin is a critical math milestone. Our worksheets help students visualize this through <strong>base-ten blocks</strong> and <strong>grid models</strong>, moving from the conceptual "part of a whole" to the precision of <strong>decimal notation</strong>.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #064e3b; margin-bottom: 0.75rem;">Core Conversion Competencies</h3>' +
+                '<ul style="color: #065f46; line-height: 1.8;">' +
+                '<li><strong>Tenths & Hundredths Mastery:</strong> Identifying how fractions with denominators of 10 or 100 translate directly to place value columns.</li>' +
+                '<li><strong>Visual Grid Modeling:</strong> Using 10x10 grids to "see" a fraction and color it to represent a decimal value.</li>' +
+                '<li><strong>Mixed Number Logic:</strong> Confidently converting between mixed numbers and their decimal counterparts for real-world application.</li>' +
+                '</ul>' +
+                '</section>' +
+                '</article>';
+            }
+            // 🚨 INJECTION 12: Order of Operations Hub (PEMDAS Mastery)
+            else if (worksheetSlug === 'order-of-operations-worksheets') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Order of Operations Worksheets: PEMDAS & Logical Sequencing</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #fffbeb; padding: 2rem; border-radius: 12px; border: 1px solid #fef3c7;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #92400e; margin-bottom: 1.5rem;">Order of Operations: The Universal Language of Math Logic</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #78350f; margin-bottom: 0.75rem;">Beyond Guessing: The Power of PEMDAS</h3>' +
+                '<p style="color: #92400e; margin-bottom: 1.5rem;">Order of operations is the "grammar" of mathematics. It ensures that regardless of who solves an equation, the result is always consistent. Our worksheets break down <strong>PEMDAS</strong> (Parentheses, Exponents, Multiplication/Division, Addition/Subtraction) into manageable steps, reducing frustration and building systemic confidence.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #78350f; margin-bottom: 0.75rem;">Logical Sequencing Milestones</h3>' +
+                '<ul style="color: #92400e; line-height: 1.8;">' +
+                '<li><strong>The Parentheses Priority:</strong> Learning why internal operations must be cleared first to maintain mathematical integrity.</li>' +
+                '<li><strong>Left-to-Right Fluency:</strong> Mastering the nuance of multiplication and division (and addition/subtraction) as equal partners solved in sequence.</li>' +
+                '<li><strong>Exponent Integration:</strong> Introducing squared and cubed numbers into multi-step problems with clarity and ease.</li>' +
                 '</ul>' +
                 '</section>' +
                 '</article>';

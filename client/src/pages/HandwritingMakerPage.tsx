@@ -886,9 +886,71 @@ export default function HandwritingMakerPage() {
           </ul>
         </section>
 
+        <div className="mt-12">
+          <FineMotorHandwritingGuide />
+        </div>
 
       </main>
       <Footer />
+    </div>
+  );
+}
+
+function FineMotorHandwritingGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-orange-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-orange-500 to-red-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            ✏️
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.handwriting.wiki.title', 'Handwriting Hub: Mastering the Art of Letter Formation')}</h2>
+            <p className="text-orange-100 font-medium italic">Developing precision, pencil control & cognitive foundations</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-orange-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🧠</span> {t('pages.handwriting.wiki.cognitiveLinkTitle', 'The Cognitive Link')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              Handwriting is more than just a motor skill; it's a cognitive foundation. Physically forming letters helps students internalize <strong>alphabet recognition</strong> and improves spelling retention. Our handwriting tools focus on proper <strong>stroke order</strong>, consistency, and the fine motor precision required for lifelong writing success.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-orange-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🏆</span> {t('pages.handwriting.wiki.milestonesTitle', 'Development Milestones')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Proper Stroke Order:</strong> Learning to start letters at the top and follow standard paths for better speed and legibility.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Pencil Grip Mastery:</strong> Developing a steady tripod grip to reduce hand fatigue and ensure consistent control.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Visual-Motor Integration:</strong> Bridging the gap between seeing a letter and physically replicating its shape with scale.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "Handwriting is the physical manifestation of thought."
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

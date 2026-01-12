@@ -593,6 +593,10 @@ export default function ReadingComprehensionPage() {
         </div>
       </main>
 
+      <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+        <LiteracyMasteryGuide />
+      </div>
+
       <Footer />
 
       {/* Preview Modal */}
@@ -664,6 +668,65 @@ export default function ReadingComprehensionPage() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function LiteracyMasteryGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-cyan-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            📖
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.readingComprehension.wiki.title', 'Reading Hub: Mastering the Art of Literacy Discovery')}</h2>
+            <p className="text-cyan-100 font-medium italic">Building meaning, vocabulary & conceptual understanding</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-cyan-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🧠</span> {t('pages.readingComprehension.wiki.beyondDecodingTitle', 'Beyond Decoding: Building Meaning')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              Reading is more than just sounding out words; it's about building a bridge to new worlds. Our "Reading Discovery" passages are crafted to help students move from <strong>phonics fluency</strong> to deep <strong>conceptual understanding</strong>. We focus on helping kids identify <strong>main ideas</strong>, predict outcomes, and use context clues to expand their vocabulary organically.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-cyan-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🏆</span> {t('pages.readingComprehension.wiki.milestonesTitle', 'Core Literacy Milestones')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Detail Identification:</strong> Finding specific proof in the text to answer "Who," "What," and "Where" questions accurately.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Sequence Mastery:</strong> Developing the ability to order events logically, a foundational skill for both reading and narrative writing.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Context Clue Decoding:</strong> Using surrounding text to unlock the meaning of unfamiliar words and build a robust vocabulary.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "Reading is the key that unlocks all other subjects."
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

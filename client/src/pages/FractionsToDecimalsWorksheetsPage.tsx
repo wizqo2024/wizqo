@@ -37,7 +37,7 @@ export default function FractionsToDecimalsWorksheetsPage() {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
 
   const toggleCategory = (categoryId: string) => {
-    setSelectedCategories((prev) => {
+    setSelectedCategories((prev: Set<string>) => {
       const next = new Set(prev)
       const isSelecting = !next.has(categoryId)
       if (isSelecting) {
@@ -95,7 +95,7 @@ export default function FractionsToDecimalsWorksheetsPage() {
   // Group filtered worksheets by grade range
   const groupedWorksheets = useMemo(() => {
     const groups: Record<string, WorksheetItem[]> = {}
-    filteredWorksheets.forEach((ws) => {
+    filteredWorksheets.forEach((ws: WorksheetItem) => {
       const range = ws.gradeRange || 'All'
       if (!groups[range]) groups[range] = []
       groups[range].push(ws)
@@ -179,7 +179,7 @@ export default function FractionsToDecimalsWorksheetsPage() {
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fractionsToDecimals.buildPackAge')}</span>
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fractionsToDecimals.buildPackFocus')}</span>
                 </div>
-                <a href="/print?doc=pack&time=5&age=g3&skill=math&from=fractions-to-decimals" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '3-5' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
+                <a href="/print?doc=pack&time=5&age=g3&skill=math&from=fractions-to-decimals" className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e: React.MouseEvent) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '3-5' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
               </div>
             </div>
           </section>
@@ -210,7 +210,7 @@ export default function FractionsToDecimalsWorksheetsPage() {
                   <div key={gradeRange}>
                     <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
                     <div className="grid sm:grid-cols-2 gap-6">
-                      {worksheets.map((ws) => (
+                      {(worksheets as WorksheetItem[]).map((ws: WorksheetItem) => (
                         <WorksheetThumbnailCard
                           key={ws.docId}
                           title={ws.title}
@@ -285,6 +285,11 @@ export default function FractionsToDecimalsWorksheetsPage() {
           </section>
         </div>
       </main>
+
+      <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+        <FractionDecimalMasteryGuide />
+      </div>
+
       <Footer />
 
       {/* Preview Modal */}
@@ -449,3 +454,62 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
     </article>
   )
 })
+
+function FractionDecimalMasteryGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-emerald-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            📊
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.fractionsToDecimals.wiki.title', 'Conversion Hub: Bridging Fractions & Decimals')}</h2>
+            <p className="text-emerald-100 font-medium italic">Mastering the language of parts, grids & precision</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-emerald-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">👁️</span> {t('pages.fractionsToDecimals.wiki.visualTitle', 'Visual Logic: Seeing the Split')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              Fractions and decimals are simply two ways to describe the same "part of a whole." We use <strong>base-ten blocks</strong> and <strong>100-grids</strong> to help students visualize how 0.7 is the same as 7/10. Once children can see the quantity, the conversion becomes a natural step in their mathematical vocabulary.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-emerald-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">⭐</span> {t('pages.fractionsToDecimals.wiki.milestonesTitle', 'Key Mastery Milestones')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Denominator Discovery:</strong> Recognizing that denominators of 10 and 100 map directly to decimal place value columns.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Equivalent Ratios:</strong> Learning to scale fractions up to have a denominator of 10, 100, or 1000 for instant conversion.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Problem-Solving Precision:</strong> Applying conversions to word problems involving money (cents as hundredths) and measurement.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "Numbers are like a toolbox; fractions and decimals are different tools for the same job."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

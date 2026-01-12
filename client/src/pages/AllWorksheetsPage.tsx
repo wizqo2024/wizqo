@@ -293,6 +293,11 @@ export default function AllWorksheetsPage() {
 
         </div>
 
+        {/* Final SEO Feature: Discovery Guide */}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
+          <FreeLearningDiscoveryGuide />
+        </div>
+
         {/* CTA Section */}
         <section className="bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 border-t border-purple-100">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 text-center">
@@ -320,8 +325,67 @@ export default function AllWorksheetsPage() {
   )
 }
 
+function FreeLearningDiscoveryGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-slate-800 to-slate-900 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-3xl">
+            🏆
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.allWorksheets.wiki.title', 'The Wizqo Library: A Foundation for Every Learner')}</h2>
+            <p className="text-slate-300 font-medium italic">High-quality, low-distraction resources for K-5 mastery</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-slate-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">📖</span> {t('pages.allWorksheets.wiki.philosophyTitle', 'The "Print-First" Philosophy')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              At Wizqo, we believe that the best learning often happens away from a screen. Physically writing, tracing, and solving problems on paper builds <strong>muscle memory</strong> and reduces the "cognitive load" of digital distractions. Our complete collection of worksheets is designed to be clear, professional, and entirely <strong>100% free</strong>—ensuring that every child has access to expert-level practice without barriers.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-slate-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🎯</span> {t('pages.allWorksheets.wiki.hubsTitle', 'Learning Hubs at a Glance')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>The Math Core:</strong> From Kindergarten counting to 5th-grade Pre-Algebra, our math hubs focus on conceptual depth and fluency.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Literacy & Reading:</strong> Engaging passages and comprehension Q&A that help students move from decoding to meaningful discovery.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Creative & Motor Skills:</strong> Handwriting makers, name tracing, and certificates to celebrate every milestone achieved.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "Education is not just about what you know, but the confidence you build while learning it."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Category Card Component
-function CategoryCard({ category }: { category: CategoryCard }) {
+function CategoryCard({ category }: { category: CategoryCard; key?: any }) {
   const { isRTL } = useTranslation()
   return (
     <a
