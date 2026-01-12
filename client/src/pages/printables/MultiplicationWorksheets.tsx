@@ -377,8 +377,7 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
             await generateWorksheetPDF(containerRef.current, {
                 filename,
                 scale: 3.0,
-                showAnswers: false,
-                packSections: true,
+                showAnswers: false
             });
         } catch (error) {
             console.error('PDF generation failed:', error);
@@ -4059,8 +4058,7 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
             await generateWorksheetPDF(containerRef.current, {
                 filename,
                 scale: 3.0,
-                showAnswers: false,
-                packSections: true,
+                showAnswers: false
             });
         } catch (error) {
             console.error('PDF generation failed:', error);
