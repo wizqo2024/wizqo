@@ -891,10 +891,10 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
             />
 
             {/* Strategy Spotlight */}
-            <div className="mb-8 page-break-inside-avoid break-inside-avoid">
-                <div className={`bg-white border-2 ${borderColor} rounded-xl p-6 shadow-sm relative overflow-hidden`}>
-                    <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
-                        <div className={`w-10 h-10 rounded-full ${is1To12 ? 'bg-purple-100' : 'bg-blue-100'} flex items-center justify-center text-xl shadow-inner`}>
+            <div className="mb-4 page-break-inside-avoid break-inside-avoid">
+                <div className={`bg-white border-2 ${borderColor} rounded-xl p-5 shadow-sm relative overflow-hidden`}>
+                    <div className="flex items-center gap-3 mb-3 border-b border-slate-100 pb-2">
+                        <div className={`w-9 h-9 rounded-full ${is1To12 ? 'bg-purple-100' : 'bg-blue-100'} flex items-center justify-center text-lg shadow-inner`}>
                             {String.fromCodePoint(0x1F4A1)}
                         </div>
                         <h3 className={`font-bold text-lg ${is1To12 ? 'text-purple-900' : 'text-blue-900'}`}>
@@ -902,12 +902,12 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
                         </h3>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                        <div className={`p-6 rounded-lg border ${borderColor} ${is1To12 ? 'bg-purple-50' : 'bg-blue-50'} flex flex-col items-center justify-center`}>
-                            <div className="font-mono text-3xl font-bold text-slate-800 mb-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div className={`p-4 rounded-lg border ${borderColor} ${is1To12 ? 'bg-purple-50' : 'bg-blue-50'} flex flex-col items-center justify-center`}>
+                            <div className="font-mono text-3xl font-bold text-slate-800 mb-1">
                                 {is6To12 ? '7' : '3'} × {is6To12 ? '8' : '4'} = <span className={accentColor}>{is6To12 ? '56' : '12'}</span>
                             </div>
-                            <div className="text-sm text-slate-600 text-center">
+                            <div className="text-xs text-slate-600 text-center">
                                 {is6To12 ? '7 groups of 8' : '3 groups of 4'}
                             </div>
                         </div>
@@ -926,9 +926,9 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 gap-3 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                    <div key={i} className="border-2 border-slate-200 rounded-xl p-6 bg-white shadow-sm flex items-center justify-between break-inside-avoid">
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-4 bg-white shadow-sm flex items-center justify-between break-inside-avoid">
                         <div className="flex items-center gap-2 font-mono text-2xl font-bold text-slate-700">
                             <span className="w-8 text-right">{a}</span>
                             <span className="text-slate-400 text-xl">×</span>
@@ -941,20 +941,22 @@ export function TimesTableHorizontal({ seed, variant, showAnswersForDoc, docId, 
             </div>
 
             {/* Answer Key */}
-            {showAnswersForDoc(docId, () => (
-                <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
-                    <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
-                    <div className="grid grid-cols-4 gap-x-8 gap-y-2">
-                        {facts.map(([a, b], i) => (
-                            <div key={i}>
-                                <span className="text-slate-500 mr-2">#{i + 1}:</span>
-                                <strong>{a * b}</strong>
-                            </div>
-                        ))}
+            {
+                showAnswersForDoc(docId, () => (
+                    <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
+                        <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
+                        <div className="grid grid-cols-4 gap-x-8 gap-y-2">
+                            {facts.map(([a, b], i) => (
+                                <div key={i}>
+                                    <span className="text-slate-500 mr-2">#{i + 1}:</span>
+                                    <strong>{a * b}</strong>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            ))}
-        </WorksheetSectionWrapper>
+                ))
+            }
+        </WorksheetSectionWrapper >
     );
 }
 
