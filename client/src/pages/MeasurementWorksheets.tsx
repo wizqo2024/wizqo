@@ -66,12 +66,24 @@ export const MassAndWeight: React.FC<{
         const seed = docId
         const rng = makeRng(seed)
 
+        const estimateItemsPool = [
+            { name: 'Elephant', emoji: '🐘', correct: '4,000 kg', distractor: '4,000 g' },
+            { name: 'Apple', emoji: '🍎', correct: '150 g', distractor: '150 kg' },
+            { name: 'Bicycle', emoji: '🚲', correct: '12 kg', distractor: '12 g' },
+            { name: 'Feather', emoji: '🪶', correct: '1 g', distractor: '1 kg' },
+            { name: 'Car', emoji: '🚗', correct: '1,500 kg', distractor: '1,500 g' },
+            { name: 'Book', emoji: '📚', correct: '500 g', distractor: '500 kg' }
+        ]
+        const shuffledEstimates = shuffleArray([...estimateItemsPool], rng)
+        let estimateIdx = 0
+
         return Array.from({ length: 6 }).map((_, i) => {
             // Comparison problems
             const type = i < 3 ? 'Compare' : 'Estimate'
             let text = ''
             let answer = ''
             let item = ''
+            let icon = ''
 
             if (type === 'Compare') {
                 const val1 = rng.int(2, 50)
@@ -83,25 +95,19 @@ export const MassAndWeight: React.FC<{
                 text = `${val1} ${unit1} vs ${val2} ${unit2}`
                 const total2 = val1 * factor
                 answer = total2 > val2 ? '>' : total2 < val2 ? '<' : '='
+                icon = '⚖️'
             } else {
-                item = getRandomItem(['Elephant', 'Apple', 'Bicycle', 'Feather', 'Car', 'Book'], rng)
-                let correct = ''
-                let distractor = ''
-                switch (item) {
-                    case 'Elephant': correct = '4,000 kg'; distractor = '4,000 g'; break
-                    case 'Apple': correct = '150 g'; distractor = '150 kg'; break
-                    case 'Bicycle': correct = '12 kg'; distractor = '12 g'; break
-                    case 'Feather': correct = '1 g'; distractor = '1 kg'; break
-                    case 'Car': correct = '1,500 kg'; distractor = '1,500 g'; break
-                    case 'Book': correct = '500 g'; distractor = '500 kg'; break
-                }
+                const estItem = shuffledEstimates[estimateIdx++]
+                item = estItem.name
+                icon = estItem.emoji
+                const { correct, distractor } = estItem
                 text = `Best estimate for a ${item}?`
                 answer = correct
                 // Swapping for rendering
                 if (rng() > 0.5) text += ` (${correct} or ${distractor})`
                 else text += ` (${distractor} or ${correct})`
             }
-            return { id: i + 1, type, text, answer, item }
+            return { id: i + 1, type, text, answer, item, icon }
         })
     }, [docId])
 
@@ -150,8 +156,7 @@ export const MassAndWeight: React.FC<{
                                 )}
                                 {prob.type === 'Estimate' && (
                                     <div className="flex justify-center my-2">
-                                        {/* Simple icon placeholder */}
-                                        <div className="text-4xl">🤔</div>
+                                        <div className="text-4xl">{prob.icon}</div>
                                     </div>
                                 )}
                             </div>
@@ -168,7 +173,7 @@ export const MassAndWeight: React.FC<{
                         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                             {problems.map((p) => (
                                 <div key={p.id} className="bg-white p-3 rounded border border-amber-100">
-                                    <div className="font-bold text-amber-800 mb-1">Problem {p.id}</div>
+                                    <div className="font-bold text-amber-800 mb-1">#{p.id} {p.type}: {p.item || 'Compare'}</div>
                                     <div className="text-lg font-mono text-slate-700">{p.answer}</div>
                                 </div>
                             ))}
