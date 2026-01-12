@@ -445,8 +445,9 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6" style={{ pageBreakAfter: 'auto' }}>
-                {arrays.map(([rows, cols], i) => (
+            {/* First part of the grid (stays on page 1) */}
+            <div className="grid grid-cols-2 gap-6 mb-6">
+                {arrays.slice(0, 2).map(([rows, cols], i) => (
                     <div key={i} className="border-2 border-slate-200 rounded-xl p-5 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-16 h-16 bg-slate-50 rounded-br-full -z-10"></div>
                         <div className="absolute top-2 right-2 text-xs font-bold text-slate-400 px-2 py-1 bg-slate-100 rounded-md">#{i + 1}</div>
@@ -469,10 +470,44 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
                                     ))}
                                 </div>
                             </div>
-                            <div className="mt-2 text-xs text-slate-500 font-medium">Array Helper</div>
+                            <div className="mt-2 text-xs text-slate-500 font-medium">{getTrans('arrayHelper', 'Array Helper')}</div>
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* Second part of the grid (starts on page 2) */}
+            <div className="grid grid-cols-2 gap-6 print:page-break-before-always pt-4">
+                {arrays.slice(2).map(([rows, cols], i) => {
+                    const realIndex = i + 2;
+                    return (
+                        <div key={realIndex} className="border-2 border-slate-200 rounded-xl p-5 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-16 h-16 bg-slate-50 rounded-br-full -z-10"></div>
+                            <div className="absolute top-2 right-2 text-xs font-bold text-slate-400 px-2 py-1 bg-slate-100 rounded-md">#{realIndex + 1}</div>
+
+                            <div className="flex flex-col items-center">
+                                {/* Problem */}
+                                <div className="flex items-center gap-2 mb-4 font-mono text-xl font-bold text-slate-800">
+                                    <span>{rows}</span>
+                                    <span>×</span>
+                                    <span>{cols}</span>
+                                    <span>=</span>
+                                    <div className="w-16 h-10 border-b-2 border-slate-400 bg-slate-50"></div>
+                                </div>
+
+                                {/* Array Visual */}
+                                <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 w-full flex justify-center">
+                                    <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, width: 'fit-content' }}>
+                                        {Array.from({ length: rows * cols }).map((_, idx) => (
+                                            <div key={idx} className="w-6 h-6 border-2 border-slate-300 rounded bg-white print:border-slate-400" />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="mt-2 text-xs text-slate-500 font-medium">{getTrans('arrayHelper', 'Array Helper')}</div>
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
             {showAnswersForDoc(docId, () => (
                 <div className="mt-8 p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
