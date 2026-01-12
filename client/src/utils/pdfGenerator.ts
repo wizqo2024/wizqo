@@ -227,7 +227,7 @@ export async function generateWorksheetPDF(
                             if (j < totalSections - 1) {
                                 pdf.addPage()
                             } else {
-                                currentY = imgHeight % contentMaxHeightMm
+                                currentY = (imgHeight % contentMaxHeightMm) + 8 // Added safety margin
                             }
                         }
                     }
@@ -236,10 +236,10 @@ export async function generateWorksheetPDF(
                     if (currentY + imgHeight > contentMaxHeightMm || forcePageBreak) {
                         drawFooter()
                         pdf.addPage()
-                        currentY = 0
+                        currentY = 5 // Initial top margin on new page
                     }
                     pdf.addImage(imgData, 'PNG', 0, currentY, imgWidth, imgHeight, undefined, 'FAST')
-                    currentY += imgHeight + 5 // Add a 5mm gap between packed sections
+                    currentY += imgHeight + 8 // Increased gap between stacked sections
                 }
             } else {
                 // Classic behavior: one section per page
@@ -255,10 +255,13 @@ export async function generateWorksheetPDF(
                     for (let j = 0; j < totalPages; j++) {
                         const yPos = -(j * pageHeightMm)
                         pdf.addImage(imgData, 'PNG', 0, yPos, imgWidth, imgHeight, undefined, 'FAST')
+                        drawFooter() // Added footer per page
                         if (j < totalPages - 1) pdf.addPage()
                     }
                 }
-                drawFooter()
+                if (!(imgHeight > pageHeightMm * fitToPageThreshold)) {
+                    drawFooter()
+                }
                 if (i < sections.length - 1) {
                     pdf.addPage()
                 }
