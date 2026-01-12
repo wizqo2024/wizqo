@@ -294,6 +294,11 @@ export default function MultiplicationWorksheetsPage() {
             </Accordion>
           </section>
         </div>
+
+        {/* Multiplication Concepts Guide (SEO Hub Injection) */}
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <MultiplicationConceptsGuide />
+        </section>
       </main>
       <Footer />
 
@@ -369,6 +374,65 @@ export default function MultiplicationWorksheetsPage() {
       )}
     </div>
   )
+}
+
+function MultiplicationConceptsGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-orange-500 to-rose-500 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🧩
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.multiplication.wiki.title', 'Mastering the Concept: Beyond Memorization')}</h2>
+            <p className="text-orange-500 bg-white/90 px-2 py-0.5 rounded text-xs font-bold inline-block mt-1">Foundational Strategy Guide</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-orange-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">📐</span> {t('pages.multiplication.wiki.powerTitle', 'The Power of Visual Models')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              Multiplication is more than just math facts; it is about <strong>scaling and grouping</strong>. Using <strong>Arrays</strong> and <strong>Area Models</strong> helps students visualize why 3x4 is the same as 3 groups of 4. This conceptual depth is critical for solving complex word problems and understanding multi-digit multiplication later on.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-orange-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">✨</span> {t('pages.multiplication.wiki.stratTitle', 'Key Strategies to Teach First')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Equal Groups:</strong> Start with the basics. 2x6 is simply "2 groups of 6." Drawing circles with dots makes this concrete for young learners.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Array Representation:</strong> Use rows and columns. This transitions perfectly into area and perimeter concepts in 4th and 5th grade.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Repeated Addition:</strong> Help students bridge the gap by showing that multiplication is a faster way to add equal sets (e.g., 4+4+4 = 3x4).</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "Conceptual understanding is the foundation upon which speed and accuracy are built."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'
