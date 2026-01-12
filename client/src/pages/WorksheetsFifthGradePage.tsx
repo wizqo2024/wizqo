@@ -310,6 +310,11 @@ export default function WorksheetsFifthGradePage() {
             </Accordion>
           </section>
         </div>
+
+        {/* Pre-Algebra Readiness Guide (SEO 5th Grade Injection) */}
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <PreAlgebraReadinessGuide />
+        </section>
       </main>
       <Footer />
 
@@ -385,6 +390,65 @@ export default function WorksheetsFifthGradePage() {
       )}
     </div>
   )
+}
+
+function PreAlgebraReadinessGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-emerald-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🚀
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.fifthGrade.wiki.title', '5th Grade Hub: The Bridge to Middle School Math')}</h2>
+            <p className="text-emerald-100 font-medium italic">Mastering pre-algebra foundations & spatial reasoning</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-emerald-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🔢</span> {t('pages.fifthGrade.wiki.algebraTitle', 'Building Algebraic Thinking')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              In 5th grade, math transitions from simple arithmetic to <strong>abstract reasoning</strong>. Students must move beyond "solving for the answer" and start understanding <strong>order of operations (PEMDAS)</strong> and working with <strong>variables</strong>. This shift is the single most important predictor of success in 6th and 7th-grade algebra.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-emerald-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">📐</span> {t('pages.fifthGrade.wiki.standardsTitle', 'Mastering 5th Grade Standards')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Geometric Volume:</strong> Students transition from flat Area to 3D space, mastering the volume formula <em>(V = l &times; w &times; h)</em> for rectangular prisms.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Coordinate Planes:</strong> Plotting (x, y) coordinates is the first step toward visualizing linear relationships and data patterns on a graph.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Decimal Mastery:</strong> 5th graders must become fluent in performing all four operations with decimals, a skill they will use every day in middle school science.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "5th grade isn't just about harder numbers; it's about learning a new way to see how numbers relate to the world."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
