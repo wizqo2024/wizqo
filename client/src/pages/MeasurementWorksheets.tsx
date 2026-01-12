@@ -5,7 +5,7 @@ import {
     PremiumWorksheetBanner,
     StrategySpotlight
 } from './printables/PrintableShared'
-import { makeRng, pick } from '@/utils/printableUtils'
+import { makeRng, pick, shuffleArray } from '@/utils/printableUtils'
 
 // Helper for random items
 const getRandomItem = <T,>(arr: T[], rng: () => number): T => arr[Math.floor(rng() * arr.length)]
