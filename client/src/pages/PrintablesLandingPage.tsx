@@ -138,6 +138,63 @@ function BundleButton({ section, className }: { section: string; className?: str
   );
 }
 
+const PrintableActivityExcellenceGuide = () => {
+  return (
+    <section className="bg-white border-t border-slate-200 py-16 mt-12">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-6">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          Learning Specialist Insights
+        </div>
+
+        <h2 className="text-3xl font-extrabold text-slate-900 mb-6 tracking-tight">
+          The Power of <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Screen-Free Printables</span>
+        </h2>
+
+        <p className="text-lg text-slate-600 mb-10 leading-relaxed">
+          At Wizqo, we curate our printable activity packs to foster deep concentration and tactile mastery. Research indicates that physical interaction with learning materials—coloring, tracing, and cutting—activates different neural pathways than digital interaction, leading to stronger <strong>long-term retention</strong> and better <strong>fine motor control</strong>.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
+            <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-600 text-white text-sm font-mono">SC</span>
+              Spatial Cognition
+            </h3>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              Activities like tangrams and mazes aren't just fun—they build spatial awareness. Navigating a 2D plane on paper translates directly to better geometry skills and structural thinking in later school years.
+            </p>
+          </div>
+          <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
+            <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-teal-600 text-white text-sm font-mono">EI</span>
+              Emotional Intelligence
+            </h3>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              Our unique mindfulness and gratitude printables provide a structured way for children to express complex emotions. These "soft skills" are the foundation of social success and academic confidence.
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-3xl p-8 text-white shadow-xl shadow-emerald-200/50">
+          <h3 className="text-xl font-bold mb-4 italic">Teacher's Strategy: The "Daily Discovery" Method</h3>
+          <p className="text-emerald-50 opacity-90 mb-6 leading-relaxed">
+            Instead of printing a whole book at once, try the "Single Sheet Success" approach. Print one high-interest activity (like a themed word search) and one challenge (like a math maze). This prevents overwhelm and makes each printable feel like a special daily achievement.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <span className="px-3 py-1 rounded-lg bg-white/10 border border-white/20 text-xs font-medium uppercase">Fine Motor Skills</span>
+            <span className="px-3 py-1 rounded-lg bg-white/10 border border-white/20 text-xs font-medium uppercase">Cognitive Focus</span>
+            <span className="px-3 py-1 rounded-lg bg-white/10 border border-white/20 text-xs font-medium uppercase">Tactile Learning</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export function PrintablesLandingPage() {
   const { t, isRTL } = useTranslation();
   const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
@@ -915,6 +972,7 @@ export function PrintablesLandingPage() {
         </div>
       </main>
 
+      <PrintableActivityExcellenceGuide />
       <Footer />
 
       {/* Preview Modal */}

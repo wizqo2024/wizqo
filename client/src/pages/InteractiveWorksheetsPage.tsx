@@ -24,6 +24,64 @@ import type {
   InteractiveWorksheetItem,
   InteractiveWorksheetPack,
 } from '@shared/interactive/generator'
+
+const InteractiveLearningMasteryGuide = () => {
+  return (
+    <section className="bg-white border-t border-slate-200 py-16">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider mb-6">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+          </span>
+          Educator's Guide
+        </div>
+
+        <h2 className="text-3xl font-extrabold text-slate-900 mb-6 tracking-tight">
+          Mastering <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Interactive Learning</span>
+        </h2>
+
+        <p className="text-lg text-slate-600 mb-10 leading-relaxed">
+          The Wizqo Interactive Generator is designed to bridge the gap between static practice and dynamic mastery. By providing customizable, real-time worksheet variants, we ensure that students focus on the <strong>logic of the problem</strong> rather than memorizing the layout.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+            <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-600 text-white text-sm">01</span>
+              Personalization at Scale
+            </h3>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              Use the "Customize" feature to add student-specific instructions or teacher names. This simple touch increases ownership and engagement, making the worksheet feel like a tailored learning tool rather than a generic handout.
+            </p>
+          </div>
+          <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+            <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-600 text-white text-sm">02</span>
+              Randomization Strategy
+            </h3>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              Every time you refresh a generation, the "Seed" changes. Use this to provide two students sitting next to each other with different problem sets that test the same core competency—eliminating copying while encouraging peer discussion of methods.
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl shadow-purple-200/50">
+          <h3 className="text-xl font-bold mb-4">Pro-Tip for Differentiated Instruction</h3>
+          <p className="text-purple-50 opacity-90 mb-6 leading-relaxed">
+            When creating math bundles, try mixing "Visual Models" (like arrays or ten-frames) with "Symbolic" problems. This helps track which students are ready for abstract logic and which still benefit from conceptual visual support.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <span className="px-3 py-1 rounded-lg bg-white/10 border border-white/20 text-xs font-medium">Adaptive Complexity</span>
+            <span className="px-3 py-1 rounded-lg bg-white/10 border border-white/20 text-xs font-medium">Real-time PDF Generation</span>
+            <span className="px-3 py-1 rounded-lg bg-white/10 border border-white/20 text-xs font-medium">Teacher-Curated Bundles</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 import { getDocMeta } from '@shared/interactive/interactiveWorksheets'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 
@@ -1513,6 +1571,7 @@ export function InteractiveWorksheetsPage() {
           </div>
         </section>
       </main>
+      <InteractiveLearningMasteryGuide />
       <Footer />
 
       {/* Preview Side Panel */}

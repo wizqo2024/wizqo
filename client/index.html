@@ -227,7 +227,9 @@
         'kindergarten-math-worksheets',
         '3rd-grade-math-worksheets',
         '4th-grade-math-worksheets',
-        '5th-grade-math-worksheets'
+        '5th-grade-math-worksheets',
+        'interactive-worksheets-generator',
+        'printables'
       ];
 
       var isWorksheetPage = false;
@@ -583,7 +585,40 @@
                 '<ul style="color: #92400e; line-height: 1.8;">' +
                 '<li><strong>The Parentheses Priority:</strong> Learning why internal operations must be cleared first to maintain mathematical integrity.</li>' +
                 '<li><strong>Left-to-Right Fluency:</strong> Mastering the nuance of multiplication and division (and addition/subtraction) as equal partners solved in sequence.</li>' +
-                '<li><strong>Exponent Integration:</strong> Introducing squared and cubed numbers into multi-step problems with clarity and ease.</li>' +
+                '</article>';
+            }
+            // 🚨 INJECTION 13: Interactive Worksheets Generator
+            else if (worksheetSlug === 'interactive-worksheets-generator') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Interactive Worksheets Generator: Custom Learning at Scale</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #fdf4ff; padding: 2rem; border-radius: 12px; border: 1px solid #fae8ff;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #701a75; margin-bottom: 1.5rem;">Dynamic Worksheet Generation: The Future of Personalized Education</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #4a044e; margin-bottom: 0.75rem;">Why Static Worksheets Aren\'t Enough</h3>' +
+                '<p style="color: #701a75; margin-bottom: 1.5rem;">Every student learns at a different pace. Our <strong>interactive worksheet generator</strong> moves beyond "one-size-fits-all" printables by allowing users to create fresh, randomized variants of math, reading, and logic problems. This ensures that practice remains challenging and prevents rote answer memorization.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #4a044e; margin-bottom: 0.75rem;">Interactive Educator Features</h3>' +
+                '<ul style="color: #701a75; line-height: 1.8;">' +
+                '<li><strong>Real-time Personalization:</strong> Add student names and teacher instructions directly into the layout before generating the PDF.</li>' +
+                '<li><strong>Curated Bundle Creation:</strong> Mix and match specific focus skills—like 3-digit addition and reading comprehension—into a single, cohesive learning pack.</li>' +
+                '<li><strong>Adaptive Difficulty:</strong> Quickly toggle between visual models for beginners and symbolic notation for advanced learners.</li>' +
+                '</ul>' +
+                '</section>' +
+                '</article>';
+            }
+            // 🚨 INJECTION 14: Printables Hub (Authoritative Landing)
+            else if (worksheetSlug === 'printables') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">The Wizqo Printables Hub: Expert Activity Packs for Early Learners</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #ecfeff; padding: 2rem; border-radius: 12px; border: 1px solid #cffafe;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #0e7490; margin-bottom: 1.5rem;">Printable Activities: Strengthening the Screen-Free Learning Bridge</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #155e75; margin-bottom: 0.75rem;">The Tactile Advantage in Early Education</h3>' +
+                '<p style="color: #0e7490; margin-bottom: 1.5rem;">While digital tools have their place, the physical act of coloring, cutting, and solving on paper is essential for <strong>fine motor development</strong> and long-term cognitive focus. Our <strong>printable hub</strong> is curated to offer high-quality, screen-free alternatives that keep children engaged without the eye strain or distractions of a tablet.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #155e75; margin-bottom: 0.75rem;">What makes Wizqo Printables Different?</h3>' +
+                '<ul style="color: #0e7490; line-height: 1.8;">' +
+                '<li><strong>Structured STEM Packs:</strong> We don\'t just offer coloring pages. Our "One-pagers" combine science experiments with simple recording sheets to foster curiosity.</li>' +
+                '<li><strong>Emotional Intelligence Tools:</strong> Unique printables like mood trackers and gratitude jars help parents integrate SEL (Social Emotional Learning) into daily routines.</li>' +
+                '<li><strong>Universal Accessibility:</strong> Every printable is optimized for standard home printers, ensuring clarity and crisp lines for no-stress learning.</li>' +
                 '</ul>' +
                 '</section>' +
                 '</article>';
