@@ -1842,17 +1842,17 @@ export function MultiplicationWordProblems({ seed, variant, showAnswersForDoc, d
     );
 }
 
-export function MultiplicationFactFamilies({ seed, variant, showAnswersForDoc, docId, limit = 12, count = 10 }: SpecificWorksheetProps & { docId: string, limit?: number, count?: number }) {
+export function MultiplicationFactFamilies({ seed, variant, showAnswersForDoc, showAnswers, docId, limit = 12, count = 10 }: SpecificWorksheetProps & { docId: string, limit?: number, count?: number }) {
     const { getTrans } = useWorksheetTranslation(docId);
     const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
 
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
-
-    const problems = Array.from({ length: count }, () => {
-        const a = nextInt(2, limit);
-        const b = nextInt(2, limit);
-        return { a, b, p: a * b };
-    });
+    const problems = useMemo(() => {
+        return Array.from({ length: count }, () => {
+            const a = Math.floor(rng() * (limit - 2 + 1)) + 2;
+            const b = Math.floor(rng() * (limit - 2 + 1)) + 2;
+            return { a, b, p: a * b };
+        });
+    }, [seed, variant, docId, limit, count]);
 
     return (
         <WorksheetSectionWrapper
@@ -1945,32 +1945,32 @@ export function MultiplicationFactFamilies({ seed, variant, showAnswersForDoc, d
                         <div className="w-full grid grid-cols-2 gap-x-4 gap-y-3">
                             {/* Multiplication Lines */}
                             <div className="flex items-center gap-1">
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.a : ''}</span>
                                 <span className="text-slate-400">×</span>
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.b : ''}</span>
                                 <span className="text-slate-400">=</span>
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.p : ''}</span>
                             </div>
                             <div className="flex items-center gap-1">
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.p : ''}</span>
                                 <span className="text-slate-400">÷</span>
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.a : ''}</span>
                                 <span className="text-slate-400">=</span>
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.b : ''}</span>
                             </div>
                             <div className="flex items-center gap-1">
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.b : ''}</span>
                                 <span className="text-slate-400">×</span>
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.a : ''}</span>
                                 <span className="text-slate-400">=</span>
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.p : ''}</span>
                             </div>
                             <div className="flex items-center gap-1">
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.p : ''}</span>
                                 <span className="text-slate-400">÷</span>
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.b : ''}</span>
                                 <span className="text-slate-400">=</span>
-                                <div className="w-6 h-6 border-b border-slate-400"></div>
+                                <span className={`min-w-[1.5rem] text-center font-bold ${showAnswers ? 'text-emerald-600' : 'text-slate-400 border-b border-slate-400'}`}>{showAnswers ? p.a : ''}</span>
                             </div>
                         </div>
                     </div>
@@ -1984,8 +1984,9 @@ export function MultiplicationFactFamilies({ seed, variant, showAnswersForDoc, d
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
                         {problems.map((p, i) => (
-                            <div key={i} className="p-2 border border-emerald-200 rounded bg-white">
-                                <div className="font-bold text-emerald-800 mb-1 border-b border-emerald-100">Ex #{i + 1} ({p.a},{p.b},{p.p})</div>
+                            <div key={i} className="p-2 border border-emerald-200 rounded bg-white relative overflow-hidden">
+                                <div className="absolute top-0 right-0 bg-emerald-100 text-emerald-800 text-[8px] px-1 font-black">#{i + 1}</div>
+                                <div className="font-bold text-emerald-800 mb-1 border-b border-emerald-100 pb-0.5">Family: {p.a}, {p.b}, {p.p}</div>
                                 <div className="text-emerald-700">{p.a}×{p.b}={p.p}</div>
                                 <div className="text-emerald-700">{p.b}×{p.a}={p.p}</div>
                                 <div className="text-emerald-700">{p.p}÷{p.a}={p.b}</div>

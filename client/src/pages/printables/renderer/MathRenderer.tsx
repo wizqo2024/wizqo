@@ -223,7 +223,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('mult-fact-fluency') && <MultiplicationFactFluency seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('mult-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('times-table-mixed-review') && <MultiplicationMixedReview seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('mult-fact-families') && <MultiplicationFactFamilies docId="mult-fact-families" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('mult-fact-families') && <MultiplicationFactFamilies docId="mult-fact-families" seed={effectiveSeed} variant={numVariant} showAnswers={showAnswers} showAnswersForDoc={showAnswersForDoc} />}
 
             {activeDocs.includes('times-table-fluency-1-12') && (
                 <MultiplicationFactFluency seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
@@ -391,7 +391,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {activeDocs.includes('mult-by-10-100') && <MultiplicationBy10And100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('div-with-remainders') && <DivisionWithRemainders seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('div-word-problems') && <DivisionWordProblems seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('fact-families-mult-div') && <MultiplicationFactFamilies docId="fact-families-mult-div" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {activeDocs.includes('fact-families-mult-div') && <MultiplicationFactFamilies docId="fact-families-mult-div" seed={effectiveSeed} variant={numVariant} showAnswers={showAnswers} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 3rd Grade Fractions Extras */}
             {(activeDocs.includes('comparing-fractions') || activeDocs.includes('comparing-fractions-4th')) && <ComparingFractions4th seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
