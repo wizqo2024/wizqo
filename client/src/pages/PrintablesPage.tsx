@@ -140,6 +140,7 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'number-line-200',
   'doubles-near-doubles',
   // Multiplication worksheets
+  'mult-fact-families',
   'mult-facts-1-5',
   'mult-arrays-2-5',
   'mult-arrays',
