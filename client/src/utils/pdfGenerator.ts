@@ -168,8 +168,9 @@ export async function generateWorksheetPDF(
                     const clonedSection = clonedDoc.querySelector('.worksheet-section') || clonedDoc.body.firstChild as HTMLElement
                     if (clonedSection instanceof HTMLElement) {
                         // Tighter padding if packing is enabled
-                        const paddingBottom = packSections ? '30px' : '60px'
-                        clonedSection.style.setProperty('padding', `20px 32px ${paddingBottom} 32px`, 'important')
+                        const paddingBottom = packSections ? '20px' : '60px'
+                        const paddingTop = packSections ? '5px' : '20px'
+                        clonedSection.style.setProperty('padding', `${paddingTop} 32px ${paddingBottom} 32px`, 'important')
                         clonedSection.style.setProperty('border-radius', '12px', 'important')
                         clonedSection.style.setProperty('position', 'relative', 'important')
                         clonedSection.style.setProperty('background', 'white', 'important')
@@ -238,7 +239,7 @@ export async function generateWorksheetPDF(
                         currentY = 0
                     }
                     pdf.addImage(imgData, 'PNG', 0, currentY, imgWidth, imgHeight, undefined, 'FAST')
-                    currentY += imgHeight
+                    currentY += imgHeight + 5 // Add a 5mm gap between packed sections
                 }
             } else {
                 // Classic behavior: one section per page
