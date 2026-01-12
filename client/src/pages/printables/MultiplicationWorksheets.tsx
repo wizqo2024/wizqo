@@ -1507,150 +1507,205 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
 export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId: propDocId, range = [1, 12], count, timeLimit }: SpecificWorksheetProps & { docId?: string, range?: [number, number], count: number, timeLimit: string }) {
     const docId = propDocId || 'times-table-timed-1-12';
     const { getTrans, t } = useWorksheetTranslation(docId);
-    const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
-    function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
 
-    const facts: Array<[number, number]> = Array.from({ length: count }).map(() => {
-        const a = nextInt(range[0], range[1]);
-        const b = nextInt(range[0], range[1]);
-        return [a, b];
-    });
+    const facts: Array<[number, number]> = useMemo(() => {
+        const rng = makeRng(`${seed}|v${variant}|doc=${docId}`);
+        function nextInt(min: number, max: number) { return Math.floor(rng() * (max - min + 1)) + min; }
+        return Array.from({ length: count }).map(() => {
+            const a = nextInt(range[0], range[1]);
+            const b = nextInt(range[0], range[1]);
+            return [a, b];
+        });
+    }, [seed, variant, docId, count, range]);
 
     const is1To12 = docId.includes('1-12');
     const is6To12 = docId.includes('6-12');
-    const is1To5 = !is1To12 && !is6To12;
 
     const themeColor = is1To12 ? 'indigo' : (is6To12 ? 'purple' : 'green');
     const accentSymbol = is1To12 ? "⚡" : (is6To12 ? "🚀" : "🏃");
     const bannerTitle = is1To12 ? "Marathon Master" : (is6To12 ? "Velocity Challenge" : "Speed Sprint");
 
-    return (
-        <WorksheetSectionWrapper
-            docId={docId}
-            title={getTrans('title', is1To12 ? 'Complete Timed Test (1-12)' : (is6To12 ? 'Timed Times Table Test (6-12)' : 'Timed Times Table Test (1-5)'))}
-            emoji={accentSymbol}
-            description={getTrans('description', is1To12
-                ? "Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency."
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const [isGeneratingPdf, setIsGeneratingPdf] = React.useState(false);
+    const theme = getWorksheetTheme(docId);
+
+    const handleDownloadAll = async () => {
+        if (!containerRef.current || isGeneratingPdf) return;
+        setIsGeneratingPdf(true);
+        try {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            await generateWorksheetPDF(containerRef.current, {
+                filename: `${docId}.pdf`,
+                scale: 3.0,
+                showAnswers: false,
+                packSections: true
+            });
+        } catch (error) {
+            console.error('PDF generation failed:', error);
+        } finally {
+            setIsGeneratingPdf(false);
+        }
+    };
+
+    const sectionProps = {
+        docId,
+        emoji: accentSymbol,
+        themeColor,
+        problemCount: facts.length,
+        learningObjectives: (() => {
+            const obj = t(`worksheets.${docId}.learningObjectives`)
+            const defaults = is1To12
+                ? ['Build speed and accuracy with all multiplication facts 1-12', 'Practice comprehensive timed multiplication to build fluency', 'Track progress and improve time across all facts']
                 : (is6To12
-                    ? "Master speed with timed multiplication tests for facts 6-12. Build confidence and math fact practice."
-                    : "Practice times tables 1-5 with this timed test. Build speed and accuracy with basic multiplication facts.")
+                    ? ['Build speed and accuracy with advanced multiplication facts 6-12', 'Practice timed multiplication to build fluency', 'Track progress and improve time with challenging facts']
+                    : ['Memorize multiplication facts for numbers 1-5', 'Practice timed multiplication problems', 'Build speed and fluency']);
+            return Array.isArray(obj) && obj.length > 0 ? obj : defaults;
+        })(),
+        parentTeacherTips: (() => {
+            const tips = t(`worksheets.${docId}.parentTeacherTips`)
+            const defaults = is1To12
+                ? ['This is comprehensive practice - allow 5 minutes initially', 'Use all strategies: doubles, patterns, breaking down, known facts', 'Focus on accuracy first, then work on speed']
+                : (is6To12
+                    ? ['These facts are more challenging - allow 3 minutes initially', 'Use strategies: breaking down (8x7 = 8x5 + 8x2), known facts', 'Focus on accuracy first, then work on speed']
+                    : ['Start with a goal of 5 minutes, then try to beat your time', 'If you get stuck, skip it and come back', 'Extension: Graph your time each day to see improvement']);
+            return Array.isArray(tips) && tips.length > 0 ? tips : defaults;
+        })()
+    };
+
+    return (
+        <div className="relative w-full group">
+            {!showAnswersForDoc(docId, () => true) && (
+                <PDFDownloadButton
+                    onClick={handleDownloadAll}
+                    isGenerating={isGeneratingPdf}
+                />
             )}
-            problemCount={facts.length}
-            learningObjectives={(() => {
-                const obj = t(`worksheets.${docId}.learningObjectives`)
-                const defaults = is1To12
-                    ? ['Build speed and accuracy with all multiplication facts 1-12', 'Practice comprehensive timed multiplication to build fluency', 'Track progress and improve time across all facts']
-                    : (is6To12
-                        ? ['Build speed and accuracy with advanced multiplication facts 6-12', 'Practice timed multiplication to build fluency', 'Track progress and improve time with challenging facts']
-                        : ['Memorize multiplication facts for numbers 1-5', 'Practice timed multiplication problems', 'Build speed and fluency']);
-                return Array.isArray(obj) && obj.length > 0 ? obj : defaults;
-            })()}
-            parentTeacherTips={(() => {
-                const tips = t(`worksheets.${docId}.parentTeacherTips`)
-                const defaults = is1To12
-                    ? ['This is comprehensive practice - allow 5 minutes initially', 'Use all strategies: doubles, patterns, breaking down, known facts', 'Focus on accuracy first, then work on speed']
-                    : (is6To12
-                        ? ['These facts are more challenging - allow 3 minutes initially', 'Use strategies: breaking down (8x7 = 8x5 + 8x2), known facts', 'Focus on accuracy first, then work on speed']
-                        : ['Start with a goal of 5 minutes, then try to beat your time', 'If you get stuck, skip it and come back', 'Extension: Graph your time each day to see improvement']);
-                return Array.isArray(tips) && tips.length > 0 ? tips : defaults;
-            })()}
-        >
-            <PremiumWorksheetBanner
-                title={getTrans('banner.title', bannerTitle)}
-                subtitle={getTrans('banner.subtitle', "Race Against the Clock")}
-                icons={{
-                    bg1: "⏱️",
-                    bg2: "🏁",
-                    float1: accentSymbol,
-                    float2: "💨"
-                }}
-                colors={{
-                    bg: `bg-gradient-to-br from-${themeColor}-50 to-white`,
-                    border: `border-${themeColor}-200`,
-                    pillBg: "bg-white/90",
-                    pillBorder: `border-${themeColor}-300`,
-                    pillText: `text-${themeColor}-800`,
-                    accent: `text-${themeColor}-300`
-                }}
-            />
 
-            {/* Scoreboard */}
-            <div className={`mb-8 p-4 bg-${themeColor}-50 border-2 border-${themeColor}-200 rounded-2xl flex justify-between items-center`}>
-                <div className="flex items-center gap-2">
-                    <span className="text-2xl">⏳</span>
-                    <div>
-                        <span className={`text-xs font-bold text-${themeColor}-600 uppercase tracking-wider`}>Time Target</span>
-                        <div className={`text-xl font-black text-${themeColor}-900`}>{timeLimit}</div>
-                    </div>
-                </div>
-                <div className="h-8 w-px bg-slate-300" />
-                <div className="flex items-center gap-2">
-                    <div>
-                        <span className={`text-xs font-bold text-${themeColor}-600 uppercase tracking-wider`}>My Time</span>
-                        <div className="w-24 h-8 border-b-2 border-slate-300"></div>
-                    </div>
-                </div>
-                <div className="h-8 w-px bg-slate-300" />
-                <div className="flex items-center gap-2">
-                    <span className="text-2xl">🏆</span>
-                    <div>
-                        <span className={`text-xs font-bold text-${themeColor}-600 uppercase tracking-wider`}>Score</span>
-                        <div className="flex items-baseline gap-1">
-                            <div className="w-16 h-8 border-b-2 border-slate-300"></div>
-                            <span className="text-slate-400 font-bold">/ {count}</span>
+            <div
+                ref={containerRef}
+                className={`rounded-xl border-2 ${theme.border} ${theme.background} shadow-lg overflow-hidden`}
+            >
+                <WorksheetSectionWrapper
+                    {...sectionProps}
+                    title={getTrans('title', is1To12 ? 'Complete Timed Test (1-12)' : (is6To12 ? 'Timed Times Table Test (6-12)' : 'Timed Times Table Test (1-5)'))}
+                    description={getTrans('description', is1To12
+                        ? "Comprehensive timed multiplication test covering all facts 1-12. Perfect for building multiplication fluency."
+                        : (is6To12
+                            ? "Master speed with timed multiplication tests for facts 6-12. Build confidence and math fact practice."
+                            : "Practice times tables 1-5 with this timed test. Build speed and accuracy with basic multiplication facts.")
+                    )}
+                    hideDownloadButton
+                    hideBorders
+                >
+                    <PremiumWorksheetBanner
+                        title={getTrans('banner.title', bannerTitle)}
+                        subtitle={getTrans('banner.subtitle', "Race Against the Clock")}
+                        icons={{ bg1: "⏱️", bg2: "🏁", float1: accentSymbol, float2: "💨" }}
+                        colors={{
+                            bg: `bg-gradient-to-br from-${themeColor}-50 to-white`,
+                            border: `border-${themeColor}-200`,
+                            pillBg: "bg-white/90",
+                            pillBorder: `border-${themeColor}-300`,
+                            pillText: `text-${themeColor}-800`,
+                            accent: `text-${themeColor}-300`
+                        }}
+                    />
+
+                    {/* Scoreboard */}
+                    <div className={`mb-8 p-4 bg-${themeColor}-50 border-2 border-${themeColor}-200 rounded-2xl flex justify-between items-center`}>
+                        <div className="flex items-center gap-2">
+                            <span className="text-2xl">⏳</span>
+                            <div>
+                                <span className={`text-xs font-bold text-${themeColor}-600 uppercase tracking-wider`}>Time Target</span>
+                                <div className={`text-xl font-black text-${themeColor}-900`}>{timeLimit}</div>
+                            </div>
+                        </div>
+                        <div className="h-8 w-px bg-slate-300" />
+                        <div className="flex items-center gap-2">
+                            <div>
+                                <span className={`text-xs font-bold text-${themeColor}-600 uppercase tracking-wider`}>My Time</span>
+                                <div className="w-24 h-8 border-b-2 border-slate-300"></div>
+                            </div>
+                        </div>
+                        <div className="h-8 w-px bg-slate-300" />
+                        <div className="flex items-center gap-2">
+                            <span className="text-2xl">🏆</span>
+                            <div>
+                                <span className={`text-xs font-bold text-${themeColor}-600 uppercase tracking-wider`}>Score</span>
+                                <div className="flex items-baseline gap-1">
+                                    <div className="w-16 h-8 border-b-2 border-slate-300"></div>
+                                    <span className="text-slate-400 font-bold">/ {count}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <StrategySpotlight
-                title="Speed Zone"
-                icon="⚡"
-                steps={[
-                    { label: "Focus", text: "Accuracy is better than speed. Get it right first!" },
-                    { label: "Skip", text: "If you get stuck on a tricky one, skip it and come back later." },
-                    { label: "Breathe", text: "Take a deep breath. You got this!" }
-                ]}
-                color={themeColor}
-            />
+                    <StrategySpotlight
+                        title="Speed Zone"
+                        icon="⚡"
+                        steps={[
+                            { label: "Focus", text: "Accuracy is better than speed. Get it right first!" },
+                            { label: "Skip", text: "If you get stuck on a tricky one, skip it and come back later." },
+                            { label: "Breathe", text: "Take a deep breath. You got this!" }
+                        ]}
+                        color={themeColor}
+                    />
+                </WorksheetSectionWrapper>
 
-            <div className={`grid grid-cols-2 md:grid-cols-${count > 30 ? '4' : '3'} gap-x-8 gap-y-6 mt-8`} style={{ pageBreakInside: 'avoid' }}>
-                {facts.map(([a, b], i) => (
-                    <div key={i} className="flex items-center justify-end gap-2 text-xl font-black text-slate-700">
-                        <span className="w-6 text-right">{i + 1}.</span>
-                        <div className="flex items-center gap-2 min-w-[120px]">
-                            <span className="w-8 text-right">{a}</span>
-                            <span className={`text-${themeColor}-400 text-base`}>×</span>
-                            <span className="w-8 text-left">{b}</span>
-                            <span className="text-slate-300 text-base">=</span>
-                            <div className={`w-16 h-10 border-b-2 border-${themeColor}-200 bg-${themeColor}-50/30 rounded flex items-center justify-center`} />
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {showAnswersForDoc(docId, () => (
-                <div className={`mt-10 p-6 bg-${themeColor}-50 rounded-3xl border-2 border-${themeColor}-200/50 break-inside-avoid`}>
-                    <div className="flex items-center gap-3 mb-6 border-b border-black/5 pb-4">
-                        <div className={`w-10 h-10 rounded-xl bg-${themeColor}-500 flex items-center justify-center text-white text-xl shadow-lg shadow-${themeColor}-500/20`}>
-                            {String.fromCodePoint(0x2714)}
-                        </div>
-                        <h3 className={`text-lg font-black text-${themeColor}-900 uppercase tracking-tight`}>Answer Key</h3>
-                    </div>
-                    <div className={`grid grid-cols-4 md:grid-cols-5 gap-y-2 gap-x-4`}>
+                <WorksheetSectionWrapper
+                    {...sectionProps}
+                    title={getTrans('contentTitle', 'Multiplication Problems')}
+                    hideDefaultHeader
+                    isSubSection
+                    className="mt-6"
+                >
+                    <div className={`grid grid-cols-2 md:grid-cols-${count > 30 ? '4' : '3'} gap-x-8 gap-y-6 mt-4`}>
                         {facts.map(([a, b], i) => (
-                            <div key={i} className="flex items-center gap-2 text-xs">
-                                <span className={`font-bold text-${themeColor}-400/70 w-5`}>{i + 1}.</span>
-                                <div className="font-mono text-slate-600">
-                                    <span className="opacity-50">{a}×{b}=</span>
-                                    <span className={`font-black text-${themeColor}-700`}>{a * b}</span>
+                            <div key={i} className="flex items-center justify-end gap-2 text-xl font-black text-slate-700 break-inside-avoid">
+                                <span className="w-6 text-right">{i + 1}.</span>
+                                <div className="flex items-center gap-2 min-w-[120px]">
+                                    <span className="w-8 text-right">{a}</span>
+                                    <span className={`text-${themeColor}-400 text-base`}>×</span>
+                                    <span className="w-8 text-left">{b}</span>
+                                    <span className="text-slate-300 text-base">=</span>
+                                    <div className={`w-16 h-10 border-b-2 border-${themeColor}-200 bg-${themeColor}-50/30 rounded flex items-center justify-center`} />
                                 </div>
                             </div>
                         ))}
                     </div>
-                </div>
-            ))}
-        </WorksheetSectionWrapper>
+                </WorksheetSectionWrapper>
+
+                {showAnswersForDoc(docId, () => (
+                    <WorksheetSectionWrapper
+                        {...sectionProps}
+                        title={getTrans('answerKey.title', String.fromCharCode(0x2705) + ' Answer Key')}
+                        hideDefaultHeader
+                        isSubSection
+                        className="mt-6 pdf-force-page-break"
+                    >
+                        <div className={`p-6 bg-${themeColor}-50 rounded-3xl border-2 border-${themeColor}-200/50`}>
+                            <div className="flex items-center gap-3 mb-6 border-b border-black/5 pb-4">
+                                <div className={`w-10 h-10 rounded-xl bg-${themeColor}-500 flex items-center justify-center text-white text-xl shadow-lg shadow-${themeColor}-500/20`}>
+                                    {String.fromCodePoint(0x2714)}
+                                </div>
+                                <h3 className={`text-lg font-black text-${themeColor}-900 uppercase tracking-tight`}>Answer Key</h3>
+                            </div>
+                            <div className={`grid grid-cols-4 md:grid-cols-5 gap-y-2 gap-x-4`}>
+                                {facts.map(([a, b], i) => (
+                                    <div key={i} className="flex items-center gap-2 text-xs">
+                                        <span className={`font-bold text-${themeColor}-400/70 w-5`}>{i + 1}.</span>
+                                        <div className="font-mono text-slate-600">
+                                            <span className="opacity-50">{a}×{b}=</span>
+                                            <span className={`font-black text-${themeColor}-700`}>{a * b}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </WorksheetSectionWrapper>
+                ))}
+            </div>
+        </div>
     );
 }
 
