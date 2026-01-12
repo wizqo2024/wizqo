@@ -1117,10 +1117,10 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
             />
 
             {/* Strategy Spotlight */}
-            <div className="mb-8 page-break-inside-avoid break-inside-avoid">
-                <div className={`bg-white border-2 ${range[0] === 1 ? 'border-teal-200' : 'border-orange-200'} rounded-xl p-6 shadow-sm relative overflow-hidden`}>
-                    <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
-                        <div className={`w-10 h-10 rounded-full ${range[0] === 1 ? 'bg-teal-100' : 'bg-orange-100'} flex items-center justify-center text-xl shadow-inner`}>
+            <div className="mb-4 page-break-inside-avoid break-inside-avoid">
+                <div className={`bg-white border-2 ${range[0] === 1 ? 'border-teal-200' : 'border-orange-200'} rounded-xl p-5 shadow-sm relative overflow-hidden`}>
+                    <div className="flex items-center gap-3 mb-3 border-b border-slate-100 pb-2">
+                        <div className={`w-9 h-9 rounded-full ${range[0] === 1 ? 'bg-teal-100' : 'bg-orange-100'} flex items-center justify-center text-lg shadow-inner`}>
                             {String.fromCodePoint(0x1F4A1)}
                         </div>
                         <h3 className={`font-bold text-lg ${range[0] === 1 ? 'text-teal-900' : 'text-orange-900'}`}>
@@ -1128,8 +1128,8 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
                         </h3>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                        <div className={`p-6 rounded-lg border ${range[0] === 1 ? 'border-teal-200 bg-teal-50' : 'border-orange-200 bg-orange-50'} flex flex-col items-center justify-center`}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div className={`p-4 rounded-lg border ${range[0] === 1 ? 'border-teal-200 bg-teal-50' : 'border-orange-200 bg-orange-50'} flex flex-col items-center justify-center`}>
                             <div className="font-mono text-4xl font-bold text-slate-800 flex flex-col items-end leading-none">
                                 <div className="pr-2">{range[1] > 9 ? '12' : '4'}</div>
                                 <div className="flex items-center gap-2">
@@ -1141,7 +1141,7 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
                             </div>
                         </div>
 
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                             <div className="flex items-start gap-3">
                                 <div className={`w-6 h-6 rounded-full ${range[0] === 1 ? 'bg-teal-600' : 'bg-orange-600'} text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5`}>1</div>
                                 <div className="text-sm text-slate-700"><strong>Stack it up:</strong> <br />Make sure the numbers are lined up on the right side (ones place).</div>
@@ -1155,18 +1155,18 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {facts.map(([a, b], i) => (
-                    <div key={i} className="border-2 border-slate-200 rounded-xl p-6 bg-white shadow-sm flex flex-col items-center justify-center break-inside-avoid">
-                        <div className="absolute top-2 left-2 text-xs font-bold text-slate-300">#{i + 1}</div>
-                        <div className="font-mono text-3xl font-bold text-slate-800 flex flex-col items-end leading-snug">
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-4 bg-white shadow-sm flex flex-col items-center justify-center break-inside-avoid">
+                        <div className="absolute top-2 left-2 text-[10px] font-bold text-slate-300">#{i + 1}</div>
+                        <div className="font-mono text-2xl font-bold text-slate-800 flex flex-col items-end leading-snug">
                             <div className="pr-2">{a}</div>
                             <div className="flex items-center gap-3">
                                 <span className="text-xl text-slate-400">×</span>
                                 <span className="pr-2">{b}</span>
                             </div>
-                            <div className="w-24 h-1 bg-slate-700 mt-1 mb-2"></div>
-                            <div className="w-24 h-10 border-2 border-dashed border-slate-200 bg-slate-50 rounded"></div>
+                            <div className="w-16 h-1 bg-slate-700 mt-1 mb-2"></div>
+                            <div className="w-16 h-8 border-2 border-dashed border-slate-200 bg-slate-50 rounded"></div>
                         </div>
                     </div>
                 ))}
@@ -1246,10 +1246,10 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
             />
 
             {/* Strategy Spotlight */}
-            <div className="mb-8 page-break-inside-avoid break-inside-avoid">
-                <div className={`bg-white border-2 ${range[0] === 1 ? 'border-amber-200' : 'border-indigo-200'} rounded-xl p-6 shadow-sm relative overflow-hidden`}>
-                    <div className="flex items-center gap-3 mb-4 border-b border-slate-100 pb-3">
-                        <div className={`w-10 h-10 rounded-full ${range[0] === 1 ? 'bg-amber-100' : 'bg-indigo-100'} flex items-center justify-center text-xl shadow-inner`}>
+            <div className="mb-4 page-break-inside-avoid break-inside-avoid">
+                <div className={`bg-white border-2 ${range[0] === 1 ? 'border-amber-200' : 'border-indigo-200'} rounded-xl p-5 shadow-sm relative overflow-hidden`}>
+                    <div className="flex items-center gap-3 mb-3 border-b border-slate-100 pb-2">
+                        <div className={`w-9 h-9 rounded-full ${range[0] === 1 ? 'bg-amber-100' : 'bg-indigo-100'} flex items-center justify-center text-lg shadow-inner`}>
                             {String.fromCodePoint(0x1F575)}
                         </div>
                         <h3 className={`font-bold text-lg ${range[0] === 1 ? 'text-amber-900' : 'text-indigo-900'}`}>
@@ -1286,9 +1286,9 @@ export function TimesTableMissing({ seed, variant, showAnswersForDoc, docId, ran
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                    <div key={i} className="border-2 border-slate-200 rounded-xl p-8 bg-white shadow-sm flex items-center justify-center break-inside-avoid min-h-[140px]">
+                    <div key={i} className="border-2 border-slate-200 rounded-xl p-4 bg-white shadow-sm flex items-center justify-center break-inside-avoid min-h-[120px]">
                         <div className="absolute top-2 left-3 text-[10px] font-black text-slate-300">#{i + 1}</div>
                         <div className="font-mono text-2xl font-bold text-slate-700 flex items-center justify-center gap-2">
                             {p.missingType === 'a' ? (
@@ -2316,13 +2316,13 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
             />
 
             {/* Worked Example */}
-            <div className={`my-8 p-6 bg-${is2x2 ? 'orange' : 'blue'}-50/50 border-2 border-${is2x2 ? 'orange' : 'blue'}-100 rounded-2xl relative overflow-hidden group shadow-sm`}>
+            <div className={`my-4 p-5 bg-${is2x2 ? 'orange' : 'blue'}-50/50 border-2 border-${is2x2 ? 'orange' : 'blue'}-100 rounded-2xl relative overflow-hidden group shadow-sm`}>
                 <div className={`absolute -right-4 -bottom-4 text-8xl opacity-5 text-${is2x2 ? 'orange' : 'blue'}-500 group-hover:scale-110 transition-transform`}>{is2x2 ? '🌟' : '💡'}</div>
-                <div className={`font-black text-${is2x2 ? 'orange' : 'blue'}-900 mb-4 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
+                <div className={`font-black text-${is2x2 ? 'orange' : 'blue'}-900 mb-2 text-xs uppercase tracking-[0.2em] flex items-center gap-2`}>
                     <span className={`w-8 h-8 rounded-lg bg-${is2x2 ? 'orange' : 'blue'}-500 text-white flex items-center justify-center text-sm`}>{is2x2 ? '🌟' : '💡'}</span>
                     {getTrans('example.title', "Strategy Spotlight")}
                 </div>
-                <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
+                <div className="flex flex-col md:flex-row gap-6 items-start relative z-10">
                     <div className="space-y-4 text-sm flex-1">
                         <div className="font-bold text-slate-800 text-lg mb-2">{getTrans('example.header', 'Standard Algorithm Mastery:')}</div>
                         {is2x2 ? (
@@ -2372,9 +2372,9 @@ export function MultiplicationVertical({ seed, variant, showAnswersForDoc, docId
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 break-inside-avoid" style={{ pageBreakAfter: 'auto' }}>
                 {problems.map((p, i) => (
-                    <div key={i} className={`relative border-2 border-slate-100 rounded-2xl p-6 bg-white hover:border-${is2x2 ? 'orange' : 'blue'}-200 transition-all group break-inside-avoid shadow-sm flex flex-col items-center justify-center min-h-[180px]`}>
+                    <div key={i} className={`relative border-2 border-slate-100 rounded-2xl p-4 bg-white hover:border-${is2x2 ? 'orange' : 'blue'}-200 transition-all group break-inside-avoid shadow-sm flex flex-col items-center justify-center min-h-[160px]`}>
                         <div className="absolute top-2 left-3 text-[10px] font-black text-slate-300">{i + 1}</div>
                         {renderVerticalProblem(p.a, p.b, false)}
                     </div>

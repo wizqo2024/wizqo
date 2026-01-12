@@ -65,6 +65,10 @@ export async function generateWorksheetPDF(
             const footerY = pageHeightMm - 12 // Lowered from 15 to 12
             const xCenter = pageWidthMm / 2
 
+            // Mask any content bleeding into the footer zone
+            pdf.setFillColor(255, 255, 255)
+            pdf.rect(0, pageHeightMm - footerHeightMm, pageWidthMm, footerHeightMm, 'F')
+
             // Draw Logo using vector commands (safer than SVG/PNG data URLs in some browsers)
             const logoX = xCenter - 25
             const logoY = footerY - 5
