@@ -314,6 +314,12 @@ export default function WorksheetsFirstGradePage() {
           </Accordion>
         </section>
       </main>
+
+      {/* 1st Grade Confidence Guide (SEO Injection) */}
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+        <BuildingFirstGradeConfidenceGuide />
+      </section>
+
       <Footer />
 
       {/* Preview Modal */}
@@ -392,6 +398,65 @@ export default function WorksheetsFirstGradePage() {
       )}
     </div>
   )
+}
+
+function BuildingFirstGradeConfidenceGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-sky-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-sky-500 to-blue-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            ☀️
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.firstGrade.wiki.title', '1st Grade Hub: Building Math Confidence')}</h2>
+            <p className="text-sky-100 font-medium italic">Establishing the foundations of counting, grouping & operations</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-sky-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🌱</span> {t('pages.firstGrade.wiki.countingTitle', 'The Journey Beyond 100')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              1st grade is a pivotal year for <strong>mathematical confidence</strong>. Students move beyond simple counting to understanding the patterns in numbers up to 120. Our worksheets are designed to nurture this growth, helping students see the logic in <strong>base-ten systems</strong> and how numbers relate to one another as parts of a larger whole.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-sky-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">⭐</span> {t('pages.firstGrade.wiki.standardsTitle', 'Key 1st Grade Milestones')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Addition Relationships:</strong> Moving beyond tasks to understanding addition and subtraction as inverse operations within 20.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Conceptual Grouping:</strong> Learning to "make a ten" to solve larger addition problems, the foundation for all future mental math.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Geometric Attributes:</strong> Distinguishing between defining attributes (like number of sides) and non-defining attributes (like color or size).</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "We aren't just teaching kids to count; we're teaching them to see the rhythm and logic of the world."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'

@@ -286,6 +286,12 @@ export default function WorksheetsSecondGradePage() {
           </Accordion>
         </section>
       </main>
+
+      {/* 2nd Grade Growth Guide (SEO Injection) */}
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+        <SecondGradeGrowthGuide />
+      </section>
+
       <Footer />
 
       {/* Preview Modal */}
@@ -365,6 +371,65 @@ export default function WorksheetsSecondGradePage() {
       )}
     </div>
   )
+}
+
+function SecondGradeGrowthGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-rose-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-rose-500 to-pink-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🌱
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.secondGrade.wiki.title', '2nd Grade Hub: The Bridge to Fluency')}</h2>
+            <p className="text-rose-100 font-medium italic">Mastering the logic of two-digit numbers & base-ten systems</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-rose-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🔢</span> {t('pages.secondGrade.wiki.placeValueTitle', 'The Logic of Place Value')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              In 2nd grade, math moves from simple counting to a sophisticated understanding of <strong>place value</strong>. Students learn to see \"100\" not just as a number, but as a bundle of ten tens. Our worksheets focus on building this conceptual bridge, helping students gain confidence with <strong>expanded form</strong> and comparing values up to 1,000.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-rose-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🏆</span> {t('pages.secondGrade.wiki.standardsTitle', 'Core 2nd Grade Milestones')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Calculated Addition:</strong> Mastering multi-digit addition and subtraction using strategies like \"adding on\" and partial sums.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Money & Time:</strong> Real-world logic through counting bill/coin combinations and telling time to the nearest 5 minutes.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Foundational Arrays:</strong> Introducing the concept of repeated addition through equal groups, laying the groundwork for 3rd-grade multiplication.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "2nd grade is where numbers stop being things you count and start being things you manipulate."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const CARD_CLASS = 'bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all overflow-hidden p-4'
