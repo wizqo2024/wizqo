@@ -369,6 +369,11 @@ const ANSWERABLE_BASE_DOC_IDS = [
   'fraction-mult-whole',
   'fraction-mult',
   'div-fractions',
+  // Geography worksheets
+  'geo-continents-k2',
+  'geo-compass-rose',
+  'geo-landforms',
+  'geo-latlong',
 ]
 
 
