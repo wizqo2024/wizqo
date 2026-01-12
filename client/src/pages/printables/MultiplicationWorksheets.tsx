@@ -3867,34 +3867,40 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
     };
 
     const validProducts = Object.keys(colorMap).map(Number);
-    const facts: Array<[number, number, number]> = [];
-
     // Generate valid facts
-    for (let attempts = 0; attempts < 100 && facts.length < 12; attempts++) {
-        const a = nextInt(range[0], range[1]);
-        const b = nextInt(range[0], range[1]);
-        const p = a * b;
-        if (validProducts.includes(p)) {
-            facts.push([a, b, p]);
-        }
-    }
-
-    // Fallback if not enough facts
-    while (facts.length < 12) {
-        const p = validProducts[nextInt(0, validProducts.length - 1)];
-        // Find factors
-        for (let a = range[0]; a <= range[1]; a++) {
-            if (p % a === 0) {
-                const b = p / a;
-                if (b >= range[0] && b <= range[1]) {
-                    facts.push([a, b, p]);
-                    break;
-                }
+    const facts: Array<[number, number, number]> = useMemo(() => {
+        const generatedFacts: Array<[number, number, number]> = [];
+        for (let attempts = 0; attempts < 100 && generatedFacts.length < 12; attempts++) {
+            const a = Math.floor(rng() * (range[1] - range[0] + 1)) + range[0];
+            const b = Math.floor(rng() * (range[1] - range[0] + 1)) + range[0];
+            const p = a * b;
+            if (validProducts.includes(p)) {
+                generatedFacts.push([a, b, p]);
             }
         }
-        if (facts.length < 12 && facts.length > 0) facts.push(facts[0]); // Duplicate as last resort
-        else if (facts.length === 0) break;
-    }
+
+        // Fallback if not enough facts
+        while (generatedFacts.length < 12) {
+            const p = validProducts[Math.floor(rng() * validProducts.length)];
+            // Find factors
+            let found = false;
+            for (let a = range[0]; a <= range[1]; a++) {
+                if (p % a === 0) {
+                    const b = p / a;
+                    if (b >= range[0] && b <= range[1]) {
+                        generatedFacts.push([a, b, p]);
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found) {
+                if (generatedFacts.length > 0) generatedFacts.push(generatedFacts[0]);
+                else break;
+            }
+        }
+        return generatedFacts;
+    }, [seed, variant, docId, range]);
 
     return (
         <WorksheetSectionWrapper
@@ -3925,7 +3931,7 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
 
             {/* Color Legend */}
             <div className="mb-8 p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-sm">
-                <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 text-center">Color Legend</div>
+                <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 text-center">{getTrans('colorLegend', 'Color Legend')}</div>
                 <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {Object.entries(colorMap).map(([num, info]) => (
                         <div key={num} className="flex flex-col items-center gap-2">
@@ -3939,8 +3945,9 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6" style={{ pageBreakAfter: 'auto' }}>
-                {facts.map(([a, b, p], i) => (
+            {/* First section - stays on page 1 */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+                {facts.slice(0, 2).map(([a, b, p], i) => (
                     <div key={i} className="relative group break-inside-avoid">
                         <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
                         <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
@@ -3951,15 +3958,69 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
                             {/* Shape to color */}
                             <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
                                 <div className="absolute inset-0 bg-slate-50 opacity-20" />
-                                <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">Color Me</span>
+                                <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
                             </div>
 
                             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
-                                Shape #{i + 1}
+                                {getTrans('shapeNumber', 'Shape #')}{i + 1}
                             </div>
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* Second section - starts on page 2 */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6 print:page-break-before-always pt-4">
+                {facts.slice(2, 8).map(([a, b, p], i) => {
+                    const realIndex = i + 2;
+                    return (
+                        <div key={realIndex} className="relative group break-inside-avoid">
+                            <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
+                            <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
+                                <div className="text-xl font-black text-slate-700">
+                                    {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
+                                </div>
+
+                                {/* Shape to color */}
+                                <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-slate-50 opacity-20" />
+                                    <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
+                                </div>
+
+                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
+                                    {getTrans('shapeNumber', 'Shape #')}{realIndex + 1}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Third section - starts on page 3 */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 print:page-break-before-always pt-4">
+                {facts.slice(8).map(([a, b, p], i) => {
+                    const realIndex = i + 8;
+                    return (
+                        <div key={realIndex} className="relative group break-inside-avoid">
+                            <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
+                            <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
+                                <div className="text-xl font-black text-slate-700">
+                                    {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
+                                </div>
+
+                                {/* Shape to color */}
+                                <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-slate-50 opacity-20" />
+                                    <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
+                                </div>
+
+                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
+                                    {getTrans('shapeNumber', 'Shape #')}{realIndex + 1}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
 
             {showAnswersForDoc(docId, () => (
