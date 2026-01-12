@@ -75,6 +75,7 @@ export async function generateWorksheetPDF(
             pdf.roundedRect(logoX + 1, logoY + 1, 7, 3, 0.5, 0.5, 'F')
             pdf.setFillColor(0, 0, 0)
             pdf.circle(logoX + 2.5, logoY + 2.5, 0.5, 'F')
+            pdf.circle(logoX + 6.5, logoY + 2.5, 0.5, 'F') // Restored second eye
 
             pdf.setFont('helvetica', 'bold')
             pdf.setFontSize(10)
