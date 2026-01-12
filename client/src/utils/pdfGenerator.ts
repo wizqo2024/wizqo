@@ -64,41 +64,58 @@ export async function generateWorksheetPDF(
 
             // Capture each section
             const canvas = await html2canvas(section, {
-                scale: scale,
+                scale: 4.5, // Increased for maximum sharpness to match live view
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: '#ffffff',
                 logging: false,
-                imageTimeout: 30000, // Increase timeout for complex rendering
+                imageTimeout: 60000, // Double timeout for complex font rendering
                 onclone: (clonedDoc: Document) => {
-                    // 1. Inject custom fonts into the cloned document so html2canvas can use them
+                    // 1. Inject custom fonts into the cloned document
                     const style = clonedDoc.createElement('style');
                     style.innerHTML = `
                         @font-face {
                             font-family: 'Cedarville Cursive';
                             src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                            font-display: block;
                         }
                         @font-face {
                             font-family: 'Codystar';
                             src: url(data:font/ttf;base64,${CODYSTAR_TTF_BASE64}) format('truetype');
+                            font-display: block;
+                        }
+                        @font-face {
+                            font-family: 'Inter';
+                            src: local('Inter'), local('sans-serif');
+                        }
+                        body, text, span, div {
+                            font-smoothing: antialiased !important;
+                            -webkit-font-smoothing: antialiased !important;
                         }
                     `;
                     clonedDoc.getElementsByTagName('head')[0].appendChild(style);
 
-                    // 2. Adjust cloned section styles for better PDF look
+                    // 2. Force-trigger font loading by adding invisible text
+                    const fontForceLoad = clonedDoc.createElement('div');
+                    fontForceLoad.style.cssText = 'position: absolute !important; opacity: 0 !important; pointer-events: none !important; top: 0 !important; left: 0 !important; z-index: -1 !important;';
+                    fontForceLoad.innerHTML = `
+                        <span style="font-family: 'Cedarville Cursive' !important;">force load</span>
+                        <span style="font-family: 'Codystar' !important;">force load</span>
+                    `;
+                    clonedDoc.body.appendChild(fontForceLoad);
+
+                    // 3. Adjust cloned section styles for better PDF look
                     const clonedSection = clonedDoc.querySelector('.worksheet-section') || clonedDoc.body.firstChild as HTMLElement
                     if (clonedSection instanceof HTMLElement) {
                         clonedSection.style.setProperty('padding', '20px 32px 80px 32px', 'important')
                         clonedSection.style.setProperty('border-radius', '12px', 'important')
                         clonedSection.style.setProperty('position', 'relative', 'important')
                         clonedSection.style.setProperty('background', 'white', 'important')
-                        // Improve text/image rendering in the clone
                         clonedSection.style.setProperty('image-rendering', 'auto', 'important')
-                        clonedSection.style.setProperty('-webkit-font-smoothing', 'antialiased', 'important')
+                        clonedSection.style.setProperty('border', 'none', 'important')
                         clonedSection.style.setProperty('box-shadow', 'none', 'important')
 
-                        // Remove corner accents and other decorative elements that cause artifacts in PDF
-                        // They have print:hidden but html2canvas captures what's on screen
+                        // Remove corner accents and other decorative elements
                         const accents = clonedSection.querySelectorAll('[class*="rounded-bl-full"], [class*="rounded-tr-full"], [class*="animate-gradient-x"]');
                         accents.forEach(el => {
                             if (el instanceof HTMLElement) {
@@ -113,9 +130,9 @@ export async function generateWorksheetPDF(
                         footer.innerHTML = `
               <div style="display: flex !important; align-items: center !important; gap: 8px !important; justify-content: center !important;">
                 <img src="${logoBase64}" style="width: 42px !important; height: 24px !important; opacity: 0.8 !important;" />
-                <span style="font-size: 12pt !important; font-weight: 700 !important; color: #4845D2 !important; font-family: system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
+                <span style="font-size: 12pt !important; font-weight: 700 !important; color: #4845D2 !important; font-family: Inter, system-ui, -apple-system, sans-serif !important;">www.wizqo.com</span>
               </div>
-              <div style="font-size: 10pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: system-ui, -apple-system, sans-serif !important;">
+              <div style="font-size: 10pt !important; color: #64748b !important; opacity: 0.7 !important; font-family: Inter, system-ui, -apple-system, sans-serif !important;">
                 Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.
               </div>
             `
