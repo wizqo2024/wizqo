@@ -353,6 +353,25 @@
             description = catData.description;
             keywords = catData.keywords;
             canonicalUrl = 'https://wizqo.com/worksheets/' + worksheetSlug;
+
+            // SPECIAL INJECTION: Rich fallback for Times Tables page
+            if (worksheetSlug === 'times-table-multiplication-worksheets') {
+              fallbackContent = '<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">' +
+                '<h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Multiplication Worksheets & Times Tables</h1>' +
+                '<p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">' + description + '</p>' +
+                '<section style="margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;">' +
+                '<h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">How to Teach Multiplication (Grades 2-5)</h2>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">Why memorize the Times Tables?</h3>' +
+                '<p style="color: #475569; margin-bottom: 1.5rem;">Multiplication fluency is the bridge to advanced math. Without automatic recall of facts 0-12, students struggle with long division and fractions in 4th grade and beyond. Building a strong foundation now prevents "math anxiety" later.</p>' +
+                '<h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">3 Expert Tips for Using These Worksheets</h3>' +
+                '<ul style="color: #475569; line-height: 1.8;">' +
+                '<li><strong>Start with Skip Counting:</strong> Before memorizing 5x3, practice counting by 5s (5, 10, 15). This builds number sense and makes multiplication intuitive.</li>' +
+                '<li><strong>Master the "9s" Trick:</strong> Teach students that the digits of any multiple of 9 add up to 9 (e.g., 9x2=18, 1+8=9). This simple pattern builds massive confidence.</li>' +
+                '<li><strong>Timed Drills for Fluency:</strong> Use our "Fluency" PDFs for 1-minute sprints to build speed, but only after accuracy is firmly established.</li>' +
+                '</ul>' +
+                '</section>' +
+                '</article>';
+            }
           } else {
             return;
           }

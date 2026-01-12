@@ -310,6 +310,11 @@ export default function TimesTableMultiplicationWorksheetsPage() {
             </Accordion>
           </section>
         </div>
+
+        {/* Math Strategy Guide (SEO Wiki Injection) */}
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <MathStrategyGuide />
+        </section>
       </main>
       <Footer />
 
@@ -384,6 +389,65 @@ export default function TimesTableMultiplicationWorksheetsPage() {
       )}
     </div>
   )
+}
+
+function MathStrategyGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🎓
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.timesTable.wiki.title', 'Teacher\'s Corner: Master Multiplication')}</h2>
+            <p className="text-purple-100 font-medium">Expert strategies for grades 2-5</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-purple-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🧠</span> {t('pages.timesTable.wiki.whyTitle', 'Why Memorize Times Tables?')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              Multiplication fluency is the <strong>bridge to advanced math</strong>. Without automatic recall of facts 0-12, students often struggle with <strong>long division</strong> and <strong>fractions</strong> in 4th grade and beyond. Building a strong foundation now prevents "math anxiety" and allows students to focus on complex problem-solving rather than basic calculations.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-purple-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">💡</span> {t('pages.timesTable.wiki.tipsTitle', '3 Expert Teaching Tips')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Start with Skip Counting:</strong> Before memorizing 5x3, practice counting by 5s (5, 10, 15). This builds number sense and makes multiplication intuitive.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Master the "9s" Trick:</strong> Teach students that the digits of any multiple of 9 add up to 9 (e.g., 9x2=18, 1+8=9). This simple pattern builds massive confidence.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Timed Drills for Fluency:</strong> Use our "Fluency" PDFs for 1-minute sprints to build speed, but only after accuracy is firmly established.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "The goal isn't just speed; it's the confidence that comes from knowing the numbers."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
