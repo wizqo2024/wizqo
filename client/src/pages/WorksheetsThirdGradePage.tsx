@@ -316,6 +316,11 @@ export default function WorksheetsThirdGradePage() {
             </Accordion>
           </section>
         </div>
+
+        {/* 3rd Grade Foundational Guide (SEO Injection) */}
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <FoundationalNumberSenseGuide />
+        </section>
       </main>
       <Footer />
 
@@ -391,6 +396,65 @@ export default function WorksheetsThirdGradePage() {
       )}
     </div>
   )
+}
+
+function FoundationalNumberSenseGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-blue-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🧩
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.thirdGrade.wiki.title', '3rd Grade Hub: The "Golden Year" of Math')}</h2>
+            <p className="text-blue-100 font-medium italic">Mastering multiplication, fractions & the logic of groups</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-blue-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">✖️</span> {t('pages.thirdGrade.wiki.multiplicationTitle', 'The Shift to Multiplicative Thinking')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              3rd grade marks the most important shift in elementary mathematics: the transition from <strong>additive</strong> (adding things one by one) to <strong>multiplicative</strong> thinking (thinking in groups). Mastering multiplication is not just about memorization; it's about understanding <strong>scaling, arrays, and area</strong>. This foundation is what allows students to eventually master division and proportions.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-blue-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🍕</span> {t('pages.thirdGrade.wiki.standardsTitle', 'Core 3rd Grade Horizons')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Fractions as Numbers:</strong> Shifting from seeing fractions as just "pizza slices" to seeing them as actual points on a 1D number line.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Division as Shared Logic:</strong> Understanding division as the inverse of multiplication (grouping vs. sharing) to solve real-world partition problems.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Measurement Clarity:</strong> Learning to measure to the nearest 1/4 inch and calculating area by tiling, connecting geometry to multiplication.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "A strong 3rd-grade foundation transforms math from a series of rules into a powerful language of logic."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {

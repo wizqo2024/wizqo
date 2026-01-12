@@ -310,6 +310,11 @@ export default function WorksheetsFourthGradePage() {
             </Accordion>
           </section>
         </div>
+
+        {/* 4th Grade Mastery Guide (SEO Injection) */}
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <FourthGradeMasteryGuide />
+        </section>
       </main>
       <Footer />
 
@@ -385,6 +390,65 @@ export default function WorksheetsFourthGradePage() {
       )}
     </div>
   )
+}
+
+function FourthGradeMasteryGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-yellow-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-amber-500 to-yellow-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🌟
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.fourthGrade.wiki.title', '4th Grade Hub: Mastering New Complexity')}</h2>
+            <p className="text-amber-100 font-medium italic">Introduction to decimals, multi-digit operations & geometry</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-yellow-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🔢</span> {t('pages.fourthGrade.wiki.decimalsTitle', 'Understanding Decimal Foundations')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              In 4th grade, students encounter <strong>decimals</strong> for the first time. This is a critical transition where they learn how the base-ten system extends below one. Mastering <strong>tenths and hundredths</strong> through visual models helps students bridge the gap between fractions and decimals, setting the stage for financial literacy and scientific measurement.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-yellow-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">📐</span> {t('pages.fourthGrade.wiki.standardsTitle', 'Key 4th Grade Math Standards')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Equivalent Fractions:</strong> Students learn to use multiplication and division to find equivalent fractions and compare fractions with different denominators.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Multi-Digit multiplication:</strong> Moving beyond rote facts to multiplying up to four digits by one digit, or two-digit by two-digit numbers using area models.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Geometric Symmetry:</strong> Identifying lines of symmetry in two-dimensional figures and understanding properties of rays, segments, and angles.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "4th grade is the year where math becomes a tool for solving multi-step, real-world problems."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
