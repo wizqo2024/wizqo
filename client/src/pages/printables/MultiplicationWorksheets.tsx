@@ -585,8 +585,6 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
         </div>
     );
 }
-    );
-}
 
 
 export function SkipCountingMultiplication({ seed, variant, showAnswersForDoc }: SpecificWorksheetProps) {
