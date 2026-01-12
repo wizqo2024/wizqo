@@ -293,7 +293,7 @@ export function PatternWorksheet({ docId, showAnswersForDoc, seed, variant }: Sp
                                 if (p.missingIndex !== undefined && j === p.missingIndex) {
                                     return (
                                         <div key={j} className="relative w-16 h-14 bg-indigo-50 border-2 border-dashed border-indigo-300 rounded-lg flex items-center justify-center shrink-0">
-                                            <span className="text-2xl opacity-50">?</span>
+                                            {docId !== 'color-patterns' && <span className="text-2xl opacity-50">?</span>}
                                             <div className="absolute -bottom-2 left-2 w-4 h-4 bg-slate-300 rounded-full"></div>
                                             <div className="absolute -bottom-2 right-2 w-4 h-4 bg-slate-300 rounded-full"></div>
                                             <div className="absolute top-1/2 -right-3 w-3 h-1 bg-slate-400"></div>
@@ -313,7 +313,7 @@ export function PatternWorksheet({ docId, showAnswersForDoc, seed, variant }: Sp
                             {/* Mystery Carriage (Next) */}
                             {p.missingIndex === undefined && (
                                 <div className="relative w-16 h-14 bg-indigo-50 border-2 border-dashed border-indigo-300 rounded-lg flex items-center justify-center shrink-0">
-                                    <span className="text-2xl opacity-50">?</span>
+                                    {docId !== 'color-patterns' && <span className="text-2xl opacity-50">?</span>}
                                     <div className="absolute -bottom-2 left-2 w-4 h-4 bg-slate-300 rounded-full"></div>
                                     <div className="absolute -bottom-2 right-2 w-4 h-4 bg-slate-300 rounded-full"></div>
                                 </div>
