@@ -1650,12 +1650,28 @@ export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId: p
                         ]}
                         color={themeColor}
                     />
+
+                    {/* First few problems to ensure they pack on Page 1 */}
+                    <div className={`grid grid-cols-2 md:grid-cols-${count > 30 ? '4' : '3'} gap-x-8 gap-y-6 mt-8 border-t border-slate-100 pt-6`}>
+                        {facts.slice(0, 12).map(([a, b], i) => (
+                            <div key={i} className="flex items-center justify-end gap-2 text-xl font-black text-slate-700 break-inside-avoid">
+                                <span className="w-6 text-right">{i + 1}.</span>
+                                <div className="flex items-center gap-2 min-w-[120px]">
+                                    <span className="w-8 text-right">{a}</span>
+                                    <span className={`text-${themeColor}-400 text-base`}>×</span>
+                                    <span className="w-8 text-left">{b}</span>
+                                    <span className="text-slate-300 text-base">=</span>
+                                    <div className={`w-16 h-10 border-b-2 border-${themeColor}-200 bg-${themeColor}-50/30 rounded flex items-center justify-center`} />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </WorksheetSectionWrapper>
 
-                {/* Chunked Problems to ensure clean PDF pagination */}
-                {Array.from({ length: Math.ceil(facts.length / 20) }).map((_, chunkIndex) => {
-                    const chunkFacts = facts.slice(chunkIndex * 20, (chunkIndex + 1) * 20);
-                    const isFirstChunk = chunkIndex === 0;
+                {/* Remaining Chunked Problems */}
+                {Array.from({ length: Math.ceil((facts.length - 12) / 20) }).map((_, chunkIndex) => {
+                    const startIndex = 12 + chunkIndex * 20;
+                    const chunkFacts = facts.slice(startIndex, startIndex + 20);
 
                     return (
                         <WorksheetSectionWrapper
@@ -1664,11 +1680,11 @@ export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId: p
                             title={getTrans('contentTitle', 'Multiplication Problems')}
                             hideDefaultHeader
                             isSubSection
-                            className={isFirstChunk ? "mt-6" : "mt-8"}
+                            className="mt-8"
                         >
                             <div className={`grid grid-cols-2 md:grid-cols-${count > 30 ? '4' : '3'} gap-x-8 gap-y-6 mt-4`}>
                                 {chunkFacts.map(([a, b], i) => {
-                                    const realIndex = chunkIndex * 20 + i;
+                                    const realIndex = startIndex + i;
                                     return (
                                         <div key={realIndex} className="flex items-center justify-end gap-2 text-xl font-black text-slate-700 break-inside-avoid">
                                             <span className="w-6 text-right">{realIndex + 1}.</span>
