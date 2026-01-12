@@ -28,7 +28,7 @@ export async function generateWorksheetPDF(
     }
     const {
         filename = 'worksheet.pdf',
-        scale = 4, // Increased from 3 to 4 for better quality
+        scale = 3.5, // Reduced slightly from 4.5 to 3.5 for better stability/memory
         docTitle = '',
         orientation = 'p',
         packSections = false
@@ -60,21 +60,31 @@ export async function generateWorksheetPDF(
         const footerHeightMm = 25 // Space reserved for footer at bottom
         const contentMaxHeightMm = pageHeightMm - footerHeightMm
 
-        // Wizqo Logo SVG (Cleaned)
-        const logoBase64 = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3NCA0MyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgMSkiPjxwYXRoIGQ9Ik0wLjQ1IDIwLjgxQzAuNDUgOS43NiA5LjQxIDAuODEgMjAuNDUgMC44MUg0Ni43QzU3Ljc1IDAuODEgNjYuNyA5Ljc2IDY2LjcgMjAuODFWNDAuODFIMjAuNDVDOS40MSA0MC44MSAwLjQ1IDMxLjg2IDAuNDUgMjAuODFaIiBmaWxsPSIjNDg0NUQyIi8+PHBhdGggZD0iTTQ2LjcgOC4zMUgyMC40NUMxMy41NSA4LjMxIDcuOTUgMTMuOTEgNy45NSAyMC44MUM3Ljk1IDI3LjcxIDEzLjU1IDMzLjMxIDIwLjQ1IDMzLjMxSDQ2LjdDNTMuNjEgMzMuMzEgNTkuMiAyNy43MSA1OS4yIDIwLjgxQzU5LjIgMTMuOTEgNTMuNjEgOC4zMSA0Ni43IDguMzFaIiBmaWxsPSIjQTVCNEZDIi8+PHBhdGggZD0iTTIwLjQ1IDI3LjA2QzIzLjkgMjcuMDYgMjYuNyAyNC4yNiAyNi43IDIwLjgxQzI2LjcgMTcuMzYgMjMuOSAxNC41NiAyMC40NSAxNC41NkMxNyAxNC41NiAxNC4yIDE3LjM2IDE0LjIgMjAuODFDMTQuMiAyNC4yNiAxNyAyNy4wNiAyMC40NSAyNy4wNloiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTE3Ljk1IDE5LjU2QzE4LjY0IDE5LjU2IDE5LjIgMTkgMTkuMiAxOC4zMUMxOS4yIDE3LjYyIDE4LjY0IDE3LjA2IDE3Ljk1IDE3LjA2QzE3LjI2IDE3LjA2IDE2LjcgMTcuNjIgMTY7IDE4LjMxQzE2LjcgMTkgMTcuMjYgMTkuNTYgMTcuOTUgMTkuNTZaIiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik00Ny45NSAyNy4wNloiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTUwLjcgMTguMzFIMTcuOTVaIiBmaWxsPSJ3aGl0ZSIvPjwvZz48L3N2Zz4=`
-
         // Helper to draw footer on current PDF page
         const drawFooter = () => {
             const footerY = pageHeightMm - 15
-            pdf.addImage(logoBase64, 'PNG', pageWidthMm / 2 - 25, footerY - 5, 10, 6)
+            const xCenter = pageWidthMm / 2
+
+            // Draw Logo using vector commands (safer than SVG/PNG data URLs in some browsers)
+            const logoX = xCenter - 25
+            const logoY = footerY - 5
+
+            pdf.setFillColor(72, 69, 210) // #4845D2
+            pdf.roundedRect(logoX, logoY, 9, 5, 1, 1, 'F')
+            pdf.setFillColor(165, 180, 252) // #A5B4FC
+            pdf.roundedRect(logoX + 1, logoY + 1, 7, 3, 0.5, 0.5, 'F')
+            pdf.setFillColor(0, 0, 0)
+            pdf.circle(logoX + 2.5, logoY + 2.5, 0.5, 'F')
+
             pdf.setFont('helvetica', 'bold')
             pdf.setFontSize(10)
             pdf.setTextColor(72, 69, 210) // #4845D2
-            pdf.text('www.wizqo.com', pageWidthMm / 2 - 13, footerY)
+            pdf.text('www.wizqo.com', xCenter - 13, footerY)
+
             pdf.setFont('helvetica', 'normal')
             pdf.setFontSize(8)
             pdf.setTextColor(100, 116, 139) // #64748b
-            pdf.text(`Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.`, pageWidthMm / 2, footerY + 5, { align: 'center' })
+            pdf.text(`Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.`, xCenter, footerY + 5, { align: 'center' })
         }
 
         // 2. Wait for fonts to be loaded in the main document first
@@ -90,7 +100,7 @@ export async function generateWorksheetPDF(
 
             // Capture each section
             const canvas = await html2canvas(section, {
-                scale: 4.5,
+                scale: scale,
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: '#ffffff',
@@ -158,7 +168,7 @@ export async function generateWorksheetPDF(
                     const clonedSection = clonedDoc.querySelector('.worksheet-section') || clonedDoc.body.firstChild as HTMLElement
                     if (clonedSection instanceof HTMLElement) {
                         // Tighter padding if packing is enabled
-                        const paddingBottom = packSections ? '30px' : '80px'
+                        const paddingBottom = packSections ? '30px' : '60px'
                         clonedSection.style.setProperty('padding', `20px 32px ${paddingBottom} 32px`, 'important')
                         clonedSection.style.setProperty('border-radius', '12px', 'important')
                         clonedSection.style.setProperty('position', 'relative', 'important')
@@ -178,8 +188,8 @@ export async function generateWorksheetPDF(
                 }
             })
 
-            // Use PNG for lossless quality
-            const imgData = canvas.toDataURL('image/png')
+            // Use JPEG for better stability and smaller file sizes while maintaining quality
+            const imgData = canvas.toDataURL('image/jpeg', 0.95)
             const imgWidth = pageWidthMm
             const imgHeight = (canvas.height * imgWidth) / canvas.width
 
@@ -199,7 +209,7 @@ export async function generateWorksheetPDF(
                         const scaleFactor = contentMaxHeightMm / imgHeight
                         const finalWidth = imgWidth * scaleFactor
                         const xPos = (pageWidthMm - finalWidth) / 2
-                        pdf.addImage(imgData, 'PNG', xPos, 0, finalWidth, contentMaxHeightMm, undefined, 'FAST')
+                        pdf.addImage(imgData, 'JPEG', xPos, 0, finalWidth, contentMaxHeightMm, undefined, 'FAST')
                         currentY = contentMaxHeightMm
                     } else {
                         // Split across multiple pages
@@ -211,7 +221,7 @@ export async function generateWorksheetPDF(
                         const totalSections = Math.ceil(imgHeight / contentMaxHeightMm)
                         for (let j = 0; j < totalSections; j++) {
                             const ySource = -(j * contentMaxHeightMm)
-                            pdf.addImage(imgData, 'PNG', 0, ySource, imgWidth, imgHeight, undefined, 'FAST')
+                            pdf.addImage(imgData, 'JPEG', 0, ySource, imgWidth, imgHeight, undefined, 'FAST')
                             drawFooter()
                             if (j < totalSections - 1) {
                                 pdf.addPage()
@@ -227,23 +237,23 @@ export async function generateWorksheetPDF(
                         pdf.addPage()
                         currentY = 0
                     }
-                    pdf.addImage(imgData, 'PNG', 0, currentY, imgWidth, imgHeight, undefined, 'FAST')
+                    pdf.addImage(imgData, 'JPEG', 0, currentY, imgWidth, imgHeight, undefined, 'FAST')
                     currentY += imgHeight
                 }
             } else {
                 // Classic behavior: one section per page
                 if (imgHeight <= pageHeightMm) {
-                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST')
+                    pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight, undefined, 'FAST')
                 } else if (imgHeight <= pageHeightMm * fitToPageThreshold) {
                     const scaleFactor = pageHeightMm / imgHeight
                     const finalWidth = imgWidth * scaleFactor
                     const xPos = (pageWidthMm - finalWidth) / 2
-                    pdf.addImage(imgData, 'PNG', xPos, 0, finalWidth, pageHeightMm, undefined, 'FAST')
+                    pdf.addImage(imgData, 'JPEG', xPos, 0, finalWidth, pageHeightMm, undefined, 'FAST')
                 } else {
                     const totalPages = Math.ceil(imgHeight / pageHeightMm)
                     for (let j = 0; j < totalPages; j++) {
                         const yPos = -(j * pageHeightMm)
-                        pdf.addImage(imgData, 'PNG', 0, yPos, imgWidth, imgHeight, undefined, 'FAST')
+                        pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight, undefined, 'FAST')
                         if (j < totalPages - 1) pdf.addPage()
                     }
                 }
