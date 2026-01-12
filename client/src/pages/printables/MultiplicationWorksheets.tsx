@@ -378,6 +378,7 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
                 filename,
                 scale: 3.0,
                 showAnswers: false,
+                packSections: true,
             });
         } catch (error) {
             console.error('PDF generation failed:', error);
@@ -566,7 +567,7 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
                         title={getTrans('answerKey.title', String.fromCharCode(0x2705) + ' Answer Key')}
                         hideDefaultHeader
                         isSubSection
-                        className="mt-6"
+                        className="mt-6 pdf-force-page-break"
                     >
                         <div className="p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
                             <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
@@ -3976,6 +3977,7 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
                 filename,
                 scale: 3.0,
                 showAnswers: false,
+                packSections: true,
             });
         } catch (error) {
             console.error('PDF generation failed:', error);
@@ -4145,7 +4147,7 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
                         title={getTrans('answerKey.title', String.fromCharCode(0x2705) + ' Artist\'s Key')}
                         hideDefaultHeader
                         isSubSection
-                        className="mt-6"
+                        className="mt-6 pdf-force-page-break"
                     >
                         <div className={`p-8 bg-slate-900 rounded-3xl border-2 border-slate-700 text-white relative overflow-hidden`}>
                             <div className="absolute top-0 right-0 p-4 text-white/5 text-8xl tracking-widest rotate-12">🎨</div>
