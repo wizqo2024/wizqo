@@ -2,7 +2,9 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from '@/context/TranslationContext';
 import { makeRng } from '@/utils/printableUtils';
-import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight } from './PrintableShared';
+import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight, getWorksheetTheme } from './PrintableShared';
+import { generateWorksheetPDF } from '@/utils/pdfGenerator';
+import { PDFDownloadButton } from '@/components/common/PDFDownloadButton';
 
 type ReactNode = React.ReactNode;
 
@@ -362,139 +364,132 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
         const rows = nextInt(2, 5); const cols = nextInt(2, 5); return [rows, cols];
     });
 
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const [isGeneratingPdf, setIsGeneratingPdf] = React.useState(false);
+    const theme = getWorksheetTheme(docId);
+
+    const handleDownloadAll = async () => {
+        if (!containerRef.current || isGeneratingPdf) return;
+        setIsGeneratingPdf(true);
+        try {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            const filename = `${docId}.pdf`;
+            await generateWorksheetPDF(containerRef.current, {
+                filename,
+                scale: 3.0,
+                showAnswers: false,
+            });
+        } catch (error) {
+            console.error('PDF generation failed:', error);
+        } finally {
+            setIsGeneratingPdf(false);
+        }
+    };
+
     return (
-        <>
-            <WorksheetSectionWrapper
-                docId={docId}
-                title={getTrans('title', 'Multiplication Arrays (2-5)')}
-                emoji={String.fromCharCode(0x2716, 0xFE0F)}
-                description={getTrans('description', "Find the product for each multiplication problem. Use the array to help you count.")}
-                problemCount={arrays.length} // Show total count for scoring
-                learningObjectives={t('learningObjectives', [
-                    'Use arrays to visualize multiplication',
-                    'Count rows and columns to find the product',
-                    'Understand multiplication as equal groups'
-                ])}
-                parentTeacherTips={t('parentTeacherTips', [
-                    'Arrays help students see multiplication visually',
-                    'Count rows first, then columns, or count all objects',
-                    'Encourage students to count the total number of boxes',
-                    'Extension: Draw your own arrays for different problems'
-                ])}
-            >
-                <PremiumWorksheetBanner
-                    title={getTrans('title', 'Array Builder')}
-                    subtitle={getTrans('subtitle', 'Draw and solve with equal groups')}
-                    icons={{
-                        bg1: String.fromCharCode(0x2716, 0xFE0F),
-                        bg2: String.fromCodePoint(0x1F4CF),
-                        float1: String.fromCodePoint(0x1F3A8),
-                        float2: String.fromCodePoint(0x1F4D0)
-                    }}
-                    colors={{
-                        bg: 'bg-gradient-to-br from-blue-50 to-indigo-50',
-                        border: 'border-blue-200',
-                        pillBg: 'bg-white/80',
-                        pillBorder: 'border-blue-300',
-                        pillText: 'text-blue-800',
-                        accent: 'text-blue-300'
-                    }}
+        <div className="relative w-full group">
+            {/* Unified Download Button */}
+            {!showAnswersForDoc(docId, () => true) && (
+                <PDFDownloadButton
+                    onClick={handleDownloadAll}
+                    isGenerating={isGeneratingPdf}
                 />
+            )}
 
-                {/* Strategy Spotlight: Worked Example */}
-                <div className="mb-8 page-break-inside-avoid break-inside-avoid">
-                    <div className="bg-white border-2 border-blue-200 rounded-xl p-6 shadow-sm relative overflow-hidden">
-                        {/* Decorative Elements */}
-                        <div className="absolute top-0 right-0 w-24 h-24 bg-blue-100 rounded-bl-full opacity-50 -z-10"></div>
-                        <div className="flex items-center gap-3 mb-4 border-b border-blue-100 pb-3">
-                            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-xl shadow-inner">
-                                {String.fromCodePoint(0x1F4A1)}
+            <div
+                ref={containerRef}
+                className={`rounded-xl border-2 ${theme.border} ${theme.background} shadow-lg overflow-hidden`}
+            >
+                <WorksheetSectionWrapper
+                    docId={docId}
+                    title={getTrans('title', 'Multiplication Arrays (2-5)')}
+                    emoji={String.fromCharCode(0x2716, 0xFE0F)}
+                    description={getTrans('description', "Find the product for each multiplication problem. Use the array to help you count.")}
+                    problemCount={arrays.length} // Show total count for scoring
+                    learningObjectives={t('learningObjectives', [
+                        'Use arrays to visualize multiplication',
+                        'Count rows and columns to find the product',
+                        'Understand multiplication as equal groups'
+                    ])}
+                    parentTeacherTips={t('parentTeacherTips', [
+                        'Arrays help students see multiplication visually',
+                        'Count rows first, then columns, or count all objects',
+                        'Encourage students to count the total number of boxes',
+                        'Extension: Draw your own arrays for different problems'
+                    ])}
+                    hideDownloadButton
+                    hideBorders
+                >
+                    <PremiumWorksheetBanner
+                        title={getTrans('title', 'Array Builder')}
+                        subtitle={getTrans('subtitle', 'Draw and solve with equal groups')}
+                        icons={{
+                            bg1: String.fromCharCode(0x2716, 0xFE0F),
+                            bg2: String.fromCodePoint(0x1F4CF),
+                            float1: String.fromCodePoint(0x1F3A8),
+                            float2: String.fromCodePoint(0x1F4D0)
+                        }}
+                        colors={{
+                            bg: 'bg-gradient-to-br from-blue-50 to-indigo-50',
+                            border: 'border-blue-200',
+                            pillBg: 'bg-white/80',
+                            pillBorder: 'border-blue-300',
+                            pillText: 'text-blue-800',
+                            accent: 'text-blue-300'
+                        }}
+                    />
+
+                    {/* Strategy Spotlight: Worked Example */}
+                    <div className="mb-8 page-break-inside-avoid break-inside-avoid">
+                        <div className="bg-white border-2 border-blue-200 rounded-xl p-6 shadow-sm relative overflow-hidden">
+                            {/* Decorative Elements */}
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-100 rounded-bl-full opacity-50 -z-10"></div>
+                            <div className="flex items-center gap-3 mb-4 border-b border-blue-100 pb-3">
+                                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-xl shadow-inner">
+                                    {String.fromCodePoint(0x1F4A1)}
+                                </div>
+                                <h3 className="font-bold text-lg text-blue-900">{getTrans('example.title', "Strategy Spotlight: Using Arrays")}</h3>
                             </div>
-                            <h3 className="font-bold text-lg text-blue-900">{getTrans('example.title', "Strategy Spotlight: Using Arrays")}</h3>
-                        </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            {/* Visual Representation */}
-                            <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100 flex flex-col items-center">
-                                <div className="mb-2 font-mono text-xl font-bold text-blue-800">3 × 4 = ?</div>
-                                <div className="grid gap-1 mb-2" style={{ gridTemplateColumns: `repeat(4, 1fr)`, width: '120px' }}>
-                                    {Array.from({ length: 12 }).map((_, i) => (
-                                        <div key={i} className="aspect-square bg-blue-400 rounded-sm border border-blue-500 shadow-sm relative group cursor-help">
-                                            <span className="absolute inset-0 flex items-center justify-center text-[8px] text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity">{i + 1}</span>
-                                        </div>
-                                    ))}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                                {/* Visual Representation */}
+                                <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100 flex flex-col items-center">
+                                    <div className="mb-2 font-mono text-xl font-bold text-blue-800">3 × 4 = ?</div>
+                                    <div className="grid gap-1 mb-2" style={{ gridTemplateColumns: `repeat(4, 1fr)`, width: '120px' }}>
+                                        {Array.from({ length: 12 }).map((_, i) => (
+                                            <div key={i} className="aspect-square bg-blue-400 rounded-sm border border-blue-500 shadow-sm relative group cursor-help">
+                                                <span className="absolute inset-0 flex items-center justify-center text-[8px] text-white font-bold opacity-0 group-hover:opacity-100 transition-opacity">{i + 1}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="text-xs text-blue-600 font-medium">3 rows of 4</div>
                                 </div>
-                                <div className="text-xs text-blue-600 font-medium">3 rows of 4</div>
-                            </div>
 
-                            {/* Text Explanation */}
-                            <div className="space-y-3">
-                                <div className="flex items-start gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">1</div>
-                                    <div className="text-sm text-slate-700"><strong>Draw rows and columns:</strong> <br />Make 3 rows (down) and 4 columns (across).</div>
-                                </div>
-                                <div className="flex items-start gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">2</div>
-                                    <div className="text-sm text-slate-700"><strong>Count the objects:</strong> <br />Count all the boxes to find the total.</div>
-                                </div>
-                                <div className="flex items-center gap-2 mt-2 bg-blue-100 px-3 py-2 rounded-lg border border-blue-200">
-                                    <span className="text-sm font-bold text-blue-800">Answer:</span>
-                                    <span className="font-mono font-bold text-lg text-blue-900">12</span>
+                                {/* Text Explanation */}
+                                <div className="space-y-3">
+                                    <div className="flex items-start gap-3">
+                                        <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">1</div>
+                                        <div className="text-sm text-slate-700"><strong>Draw rows and columns:</strong> <br />Make 3 rows (down) and 4 columns (across).</div>
+                                    </div>
+                                    <div className="flex items-start gap-3">
+                                        <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">2</div>
+                                        <div className="text-sm text-slate-700"><strong>Count the objects:</strong> <br />Count all the boxes to find the total.</div>
+                                    </div>
+                                    <div className="flex items-center gap-2 mt-2 bg-blue-100 px-3 py-2 rounded-lg border border-blue-200">
+                                        <span className="text-sm font-bold text-blue-800">Answer:</span>
+                                        <span className="font-mono font-bold text-lg text-blue-900">12</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* First part of the grid (stays on page 1) */}
-                <div className="grid grid-cols-2 gap-6">
-                    {arrays.slice(0, 2).map(([rows, cols], i) => (
-                        <div key={i} className="border-2 border-slate-200 rounded-xl p-5 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-16 h-16 bg-slate-50 rounded-br-full -z-10"></div>
-                            <div className="absolute top-2 right-2 text-xs font-bold text-slate-400 px-2 py-1 bg-slate-100 rounded-md">#{i + 1}</div>
-
-                            <div className="flex flex-col items-center">
-                                {/* Problem */}
-                                <div className="flex items-center gap-2 mb-4 font-mono text-xl font-bold text-slate-800">
-                                    <span>{rows}</span>
-                                    <span>×</span>
-                                    <span>{cols}</span>
-                                    <span>=</span>
-                                    <div className="w-16 h-10 border-b-2 border-slate-400 bg-slate-50"></div>
-                                </div>
-
-                                {/* Array Visual */}
-                                <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 w-full flex justify-center">
-                                    <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, width: 'fit-content' }}>
-                                        {Array.from({ length: rows * cols }).map((_, idx) => (
-                                            <div key={idx} className="w-6 h-6 border-2 border-slate-300 rounded bg-white print:border-slate-400" />
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="mt-2 text-xs text-slate-500 font-medium">{getTrans('arrayHelper', 'Array Helper')}</div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </WorksheetSectionWrapper>
-
-            <WorksheetSectionWrapper
-                docId={docId}
-                title={getTrans('title', 'Multiplication Arrays (Continued)')}
-                emoji={String.fromCharCode(0x2716, 0xFE0F)}
-                description={getTrans('description', "Find the product for each multiplication problem. Use the array to help you count.")}
-                problemCount={arrays.slice(2).length} // Remaining problems
-                hideDefaultHeader
-                className="mt-6"
-            >
-                {/* Second part of the grid (starts on page 2) */}
-                <div className="grid grid-cols-2 gap-6 print:page-break-before-always pt-4">
-                    {arrays.slice(2).map(([rows, cols], i) => {
-                        const realIndex = i + 2;
-                        return (
-                            <div key={realIndex} className="border-2 border-slate-200 rounded-xl p-5 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors relative overflow-hidden">
+                    {/* First part of the grid (stays on page 1) */}
+                    <div className="grid grid-cols-2 gap-6">
+                        {arrays.slice(0, 2).map(([rows, cols], i) => (
+                            <div key={i} className="border-2 border-slate-200 rounded-xl p-5 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-16 h-16 bg-slate-50 rounded-br-full -z-10"></div>
-                                <div className="absolute top-2 right-2 text-xs font-bold text-slate-400 px-2 py-1 bg-slate-100 rounded-md">#{realIndex + 1}</div>
+                                <div className="absolute top-2 right-2 text-xs font-bold text-slate-400 px-2 py-1 bg-slate-100 rounded-md">#{i + 1}</div>
 
                                 <div className="flex flex-col items-center">
                                     {/* Problem */}
@@ -517,31 +512,79 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
                                     <div className="mt-2 text-xs text-slate-500 font-medium">{getTrans('arrayHelper', 'Array Helper')}</div>
                                 </div>
                             </div>
-                        );
-                    })}
-                </div>
-            </WorksheetSectionWrapper>
-            {showAnswersForDoc(docId, () => (
-                <WorksheetSectionWrapper
-                    docId={docId}
-                    title={getTrans('answerKey.title', String.fromCharCode(0x2705) + ' Answer Key')}
-                    hideDefaultHeader
-                    className="mt-6"
-                >
-                    <div className="p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
-                        <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
-                        <div className="grid grid-cols-3 gap-x-8 gap-y-2">
-                            {arrays.map(([rows, cols], i) => (
-                                <div key={i}>
-                                    <span className="text-slate-500 mr-2">#{i + 1}:</span>
-                                    <strong>{rows * cols}</strong>
-                                </div>
-                            ))}
-                        </div>
+                        ))}
                     </div>
                 </WorksheetSectionWrapper>
-            ))}
-        </>
+
+                <WorksheetSectionWrapper
+                    docId={docId}
+                    title={getTrans('title', 'Multiplication Arrays (Continued)')}
+                    emoji={String.fromCharCode(0x2716, 0xFE0F)}
+                    description={getTrans('description', "Find the product for each multiplication problem. Use the array to help you count.")}
+                    problemCount={arrays.slice(2).length} // Remaining problems
+                    hideDefaultHeader
+                    isSubSection
+                    className="mt-6"
+                >
+                    {/* Second part of the grid (starts on page 2) */}
+                    <div className="grid grid-cols-2 gap-6 print:page-break-before-always pt-4">
+                        {arrays.slice(2).map(([rows, cols], i) => {
+                            const realIndex = i + 2;
+                            return (
+                                <div key={realIndex} className="border-2 border-slate-200 rounded-xl p-5 bg-white break-inside-avoid shadow-sm hover:border-blue-300 transition-colors relative overflow-hidden">
+                                    <div className="absolute top-0 left-0 w-16 h-16 bg-slate-50 rounded-br-full -z-10"></div>
+                                    <div className="absolute top-2 right-2 text-xs font-bold text-slate-400 px-2 py-1 bg-slate-100 rounded-md">#{realIndex + 1}</div>
+
+                                    <div className="flex flex-col items-center">
+                                        {/* Problem */}
+                                        <div className="flex items-center gap-2 mb-4 font-mono text-xl font-bold text-slate-800">
+                                            <span>{rows}</span>
+                                            <span>×</span>
+                                            <span>{cols}</span>
+                                            <span>=</span>
+                                            <div className="w-16 h-10 border-b-2 border-slate-400 bg-slate-50"></div>
+                                        </div>
+
+                                        {/* Array Visual */}
+                                        <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 w-full flex justify-center">
+                                            <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, width: 'fit-content' }}>
+                                                {Array.from({ length: rows * cols }).map((_, idx) => (
+                                                    <div key={idx} className="w-6 h-6 border-2 border-slate-300 rounded bg-white print:border-slate-400" />
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="mt-2 text-xs text-slate-500 font-medium">{getTrans('arrayHelper', 'Array Helper')}</div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </WorksheetSectionWrapper>
+                {showAnswersForDoc(docId, () => (
+                    <WorksheetSectionWrapper
+                        docId={docId}
+                        title={getTrans('answerKey.title', String.fromCharCode(0x2705) + ' Answer Key')}
+                        hideDefaultHeader
+                        isSubSection
+                        className="mt-6"
+                    >
+                        <div className="p-4 bg-slate-50 border border-slate-200 rounded text-sm font-mono break-inside-avoid">
+                            <div className="font-bold mb-2 text-slate-700">{String.fromCodePoint(0x1F4DD)} Answer Key</div>
+                            <div className="grid grid-cols-3 gap-x-8 gap-y-2">
+                                {arrays.map(([rows, cols], i) => (
+                                    <div key={i}>
+                                        <span className="text-slate-500 mr-2">#{i + 1}:</span>
+                                        <strong>{rows * cols}</strong>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </WorksheetSectionWrapper>
+                ))}
+            </div>
+        </div>
+    );
+}
     );
 }
 
@@ -3921,177 +3964,217 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
         return generatedFacts;
     }, [seed, variant, docId, range]);
 
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const [isGeneratingPdf, setIsGeneratingPdf] = React.useState(false);
+    const theme = getWorksheetTheme(docId);
+
+    const handleDownloadAll = async () => {
+        if (!containerRef.current || isGeneratingPdf) return;
+        setIsGeneratingPdf(true);
+        try {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            const filename = `${docId}.pdf`;
+            await generateWorksheetPDF(containerRef.current, {
+                filename,
+                scale: 3.0,
+                showAnswers: false,
+            });
+        } catch (error) {
+            console.error('PDF generation failed:', error);
+        } finally {
+            setIsGeneratingPdf(false);
+        }
+    };
+
     return (
-        <>
-            <WorksheetSectionWrapper
-                docId={docId}
-                title={getTrans('title', isAdvanced ? 'Color-by-Number Times Table (6-12)' : 'Color-by-Number Times Table (1-5)')}
-                emoji={String.fromCodePoint(0x1F58D)}
-                description={getTrans('description', 'Solve multiplication problems and color based on the results! A creative way to master your times tables.')}
-                problemCount={facts.length}
-            >
-                <PremiumWorksheetBanner
-                    title={getTrans('banner.title', "Math Art Discovery")}
-                    subtitle={getTrans('banner.subtitle', "Color your way to mastery")}
-                    icons={{
-                        bg1: "🎨",
-                        bg2: "🖍️",
-                        float1: "✨",
-                        float2: "🌈"
-                    }}
-                    colors={{
-                        bg: `bg-gradient-to-br from-pink-50 to-white`,
-                        border: `border-pink-200`,
-                        pillBg: "bg-white/80",
-                        pillBorder: `border-pink-300`,
-                        pillText: `text-pink-800`,
-                        accent: `text-pink-300`
-                    }}
+        <div className="relative w-full group">
+            {/* Unified Download Button */}
+            {!showAnswersForDoc(docId, () => true) && (
+                <PDFDownloadButton
+                    onClick={handleDownloadAll}
+                    isGenerating={isGeneratingPdf}
                 />
+            )}
 
-                {/* Color Legend */}
-                <div className="mb-8 p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-sm">
-                    <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 text-center">{getTrans('colorLegend', 'Color Legend')}</div>
-                    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                        {Object.entries(colorMap).map(([num, info]) => (
-                            <div key={num} className="flex flex-col items-center gap-2">
-                                <div className={`w-10 h-10 rounded-xl ${info.color} shadow-lg border-2 border-white`} />
-                                <div className="text-center">
-                                    <div className="text-xs font-black text-slate-800">{num}</div>
-                                    <div className="text-[10px] text-slate-500 font-bold">{info.name}</div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* First section - stays on page 1 */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    {facts.slice(0, 2).map(([a, b, p], i) => (
-                        <div key={i} className="relative group break-inside-avoid">
-                            <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
-                            <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
-                                <div className="text-xl font-black text-slate-700">
-                                    {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
-                                </div>
-
-                                {/* Shape to color */}
-                                <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-slate-50 opacity-20" />
-                                    <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
-                                </div>
-
-                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
-                                    {getTrans('shapeNumber', 'Shape #')}{i + 1}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </WorksheetSectionWrapper>
-
-            <WorksheetSectionWrapper
-                docId={docId}
-                title={getTrans('title', 'Color-by-Number (Continued)')}
-                emoji={String.fromCodePoint(0x1F58D)}
-                hideDefaultHeader
-                className="mt-6"
+            <div
+                ref={containerRef}
+                className={`rounded-xl border-2 ${theme.border} ${theme.background} shadow-lg overflow-hidden`}
             >
-                {/* Second section - starts on page 2 */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-4">
-                    {facts.slice(2, 8).map(([a, b, p], i) => {
-                        const realIndex = i + 2;
-                        return (
-                            <div key={realIndex} className="relative group break-inside-avoid">
-                                <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
-                                <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
-                                    <div className="text-xl font-black text-slate-700">
-                                        {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
-                                    </div>
-
-                                    {/* Shape to color */}
-                                    <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
-                                        <div className="absolute inset-0 bg-slate-50 opacity-20" />
-                                        <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
-                                    </div>
-
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
-                                        {getTrans('shapeNumber', 'Shape #')}{realIndex + 1}
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </WorksheetSectionWrapper>
-
-            <WorksheetSectionWrapper
-                docId={docId}
-                title={getTrans('title', 'Color-by-Number (Continued)')}
-                emoji={String.fromCodePoint(0x1F58D)}
-                hideDefaultHeader
-                className="mt-6"
-            >
-                {/* Third section - starts on page 3 */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-4">
-                    {facts.slice(8).map(([a, b, p], i) => {
-                        const realIndex = i + 8;
-                        return (
-                            <div key={realIndex} className="relative group break-inside-avoid">
-                                <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
-                                <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
-                                    <div className="text-xl font-black text-slate-700">
-                                        {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
-                                    </div>
-
-                                    {/* Shape to color */}
-                                    <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
-                                        <div className="absolute inset-0 bg-slate-50 opacity-20" />
-                                        <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
-                                    </div>
-
-                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
-                                        {getTrans('shapeNumber', 'Shape #')}{realIndex + 1}
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </WorksheetSectionWrapper>
-
-            {showAnswersForDoc(docId, () => (
                 <WorksheetSectionWrapper
                     docId={docId}
-                    title={getTrans('answerKey.title', String.fromCharCode(0x2705) + ' Artist\'s Key')}
-                    hideDefaultHeader
-                    className="mt-6"
+                    title={getTrans('title', isAdvanced ? 'Color-by-Number Times Table (6-12)' : 'Color-by-Number Times Table (1-5)')}
+                    emoji={String.fromCodePoint(0x1F58D)}
+                    description={getTrans('description', 'Solve multiplication problems and color based on the results! A creative way to master your times tables.')}
+                    problemCount={facts.length}
+                    hideDownloadButton
+                    hideBorders
                 >
-                    <div className={`p-8 bg-slate-900 rounded-3xl border-2 border-slate-700 text-white relative overflow-hidden`}>
-                        <div className="absolute top-0 right-0 p-4 text-white/5 text-8xl tracking-widest rotate-12">🎨</div>
-                        <div className="flex items-center gap-4 mb-8">
-                            <div className="w-12 h-12 rounded-2xl bg-pink-500 flex items-center justify-center text-white text-2xl shadow-xl shadow-pink-500/20">
-                                🎨
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-black uppercase tracking-tighter">Artist's Key</h3>
-                                <p className="text-slate-400 text-xs italic">Verify your colors before you finish!</p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-4">
-                            {facts.map(([a, b, p], i) => (
-                                <div key={i} className="flex items-center gap-2 border-b border-slate-800 pb-1">
-                                    <span className="text-[10px] font-black text-slate-500">{i + 1}</span>
-                                    <div className="text-xs font-mono">
-                                        {a} × {b} = <span className={`font-black ${colorMap[p]?.color.replace('bg-', 'text-')}`}>{p}</span>
+                    <PremiumWorksheetBanner
+                        title={getTrans('banner.title', "Math Art Discovery")}
+                        subtitle={getTrans('banner.subtitle', "Color your way to mastery")}
+                        icons={{
+                            bg1: "🎨",
+                            bg2: "🖍️",
+                            float1: "✨",
+                            float2: "🌈"
+                        }}
+                        colors={{
+                            bg: `bg-gradient-to-br from-pink-50 to-white`,
+                            border: `border-pink-200`,
+                            pillBg: "bg-white/80",
+                            pillBorder: `border-pink-300`,
+                            pillText: `text-pink-800`,
+                            accent: `text-pink-300`
+                        }}
+                    />
+
+                    {/* Color Legend */}
+                    <div className="mb-8 p-6 bg-white border-2 border-slate-100 rounded-3xl shadow-sm">
+                        <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 text-center">{getTrans('colorLegend', 'Color Legend')}</div>
+                        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                            {Object.entries(colorMap).map(([num, info]) => (
+                                <div key={num} className="flex flex-col items-center gap-2">
+                                    <div className={`w-10 h-10 rounded-xl ${info.color} shadow-lg border-2 border-white`} />
+                                    <div className="text-center">
+                                        <div className="text-xs font-black text-slate-800">{num}</div>
+                                        <div className="text-[10px] text-slate-500 font-bold">{info.name}</div>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
+
+                    {/* First section - stays on page 1 */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        {facts.slice(0, 2).map(([a, b, p], i) => (
+                            <div key={i} className="relative group break-inside-avoid">
+                                <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
+                                <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
+                                    <div className="text-xl font-black text-slate-700">
+                                        {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
+                                    </div>
+
+                                    {/* Shape to color */}
+                                    <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
+                                        <div className="absolute inset-0 bg-slate-50 opacity-20" />
+                                        <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
+                                    </div>
+
+                                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
+                                        {getTrans('shapeNumber', 'Shape #')}{i + 1}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </WorksheetSectionWrapper>
-            ))}
-        </>
+
+                <WorksheetSectionWrapper
+                    docId={docId}
+                    title={getTrans('title', 'Color-by-Number (Continued)')}
+                    emoji={String.fromCodePoint(0x1F58D)}
+                    hideDefaultHeader
+                    isSubSection
+                    className="mt-6"
+                >
+                    {/* Second section - starts on page 2 */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-4">
+                        {facts.slice(2, 8).map(([a, b, p], i) => {
+                            const realIndex = i + 2;
+                            return (
+                                <div key={realIndex} className="relative group break-inside-avoid">
+                                    <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
+                                    <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
+                                        <div className="text-xl font-black text-slate-700">
+                                            {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
+                                        </div>
+
+                                        {/* Shape to color */}
+                                        <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
+                                            <div className="absolute inset-0 bg-slate-50 opacity-20" />
+                                            <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
+                                        </div>
+
+                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
+                                            {getTrans('shapeNumber', 'Shape #')}{realIndex + 1}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </WorksheetSectionWrapper>
+
+                <WorksheetSectionWrapper
+                    docId={docId}
+                    title={getTrans('title', 'Color-by-Number (Continued)')}
+                    emoji={String.fromCodePoint(0x1F58D)}
+                    hideDefaultHeader
+                    isSubSection
+                    className="mt-6"
+                >
+                    {/* Third section - starts on page 3 */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 pt-4">
+                        {facts.slice(8).map(([a, b, p], i) => {
+                            const realIndex = i + 8;
+                            return (
+                                <div key={realIndex} className="relative group break-inside-avoid">
+                                    <div className="absolute inset-0 bg-slate-50 rounded-3xl -rotate-1 group-hover:rotate-0 transition-transform" />
+                                    <div className="relative bg-white border-2 border-slate-100 rounded-3xl p-6 flex flex-col items-center gap-4 shadow-sm group-hover:border-pink-200 transition-colors">
+                                        <div className="text-xl font-black text-slate-700">
+                                            {a} × {b} = <span className="inline-block w-12 h-6 border-b-2 border-slate-200" />
+                                        </div>
+
+                                        {/* Shape to color */}
+                                        <div className="w-24 h-24 border-4 border-dashed border-slate-200 rounded-full flex items-center justify-center relative overflow-hidden">
+                                            <div className="absolute inset-0 bg-slate-50 opacity-20" />
+                                            <span className="text-[10px] font-black text-slate-300 uppercase rotate-45 tracking-widest">{getTrans('colorMe', 'Color Me')}</span>
+                                        </div>
+
+                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic pt-2 border-t border-slate-50 w-full text-center">
+                                            {getTrans('shapeNumber', 'Shape #')}{realIndex + 1}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </WorksheetSectionWrapper>
+
+                {showAnswersForDoc(docId, () => (
+                    <WorksheetSectionWrapper
+                        docId={docId}
+                        title={getTrans('answerKey.title', String.fromCharCode(0x2705) + ' Artist\'s Key')}
+                        hideDefaultHeader
+                        isSubSection
+                        className="mt-6"
+                    >
+                        <div className={`p-8 bg-slate-900 rounded-3xl border-2 border-slate-700 text-white relative overflow-hidden`}>
+                            <div className="absolute top-0 right-0 p-4 text-white/5 text-8xl tracking-widest rotate-12">🎨</div>
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="w-12 h-12 rounded-2xl bg-pink-500 flex items-center justify-center text-white text-2xl shadow-xl shadow-pink-500/20">
+                                    🎨
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-black uppercase tracking-tighter">Artist's Key</h3>
+                                    <p className="text-slate-400 text-xs italic">Verify your colors before you finish!</p>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-4">
+                                {facts.map(([a, b, p], i) => (
+                                    <div key={i} className="flex items-center gap-2 border-b border-slate-800 pb-1">
+                                        <span className="text-[10px] font-black text-slate-500">{i + 1}</span>
+                                        <div className="text-xs font-mono">
+                                            {a} × {b} = <span className={`font-black ${colorMap[p]?.color.replace('bg-', 'text-')}`}>{p}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </WorksheetSectionWrapper>
+                ))}
+            </div>
+        </div>
     );
 }
 

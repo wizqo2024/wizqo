@@ -259,7 +259,9 @@ export function WorksheetSectionWrapper({
     hideDownloadButton = false,
     className = "",
     isPreview = false,
-    orientation = 'p'
+    orientation = 'p',
+    isSubSection = false,
+    hideBorders = false
 }: {
     docId: string
     title: string
@@ -275,6 +277,8 @@ export function WorksheetSectionWrapper({
     className?: string
     isPreview?: boolean
     orientation?: 'p' | 'l'
+    isSubSection?: boolean
+    hideBorders?: boolean
 }) {
     const { t, isRTL, language } = useTranslation()
     const theme = getWorksheetTheme(docId)
@@ -345,9 +349,9 @@ export function WorksheetSectionWrapper({
     }
 
     return (
-        <div className={`relative group w-full ${hideDownloadButton ? '' : 'mb-10'}`}>
+        <div className={`relative group w-full ${hideDownloadButton || isSubSection ? '' : 'mb-10'}`}>
             {/* Download Button (Always Visible) */}
-            {!hideDownloadButton && !isPreview && (
+            {!hideDownloadButton && !isPreview && !isSubSection && (
                 <PDFDownloadButton
                     onClick={handleDownloadPDF}
                     isGenerating={isGeneratingPdf}
@@ -355,7 +359,7 @@ export function WorksheetSectionWrapper({
             )}
             <section
                 ref={sectionRef}
-                className={`break-inside-auto ${isPreview ? 'p-0 border-0 shadow-none bg-white' : `rounded-xl border-2 ${theme.border} ${theme.background} p-6 shadow-lg`} print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 relative overflow-hidden print:overflow-visible worksheet-section ${className}`}
+                className={`break-inside-auto ${isPreview ? 'p-0 border-0 shadow-none bg-white' : isSubSection || hideBorders ? 'p-0 border-0 shadow-none bg-transparent' : `rounded-xl border-2 ${theme.border} ${theme.background} p-6 shadow-lg`} print:border-0 print:p-0 print:bg-white print:mt-0 print:mb-0 print:pt-0 relative overflow-hidden print:overflow-visible worksheet-section ${className}`}
                 dir={isRTL ? 'rtl' : 'ltr'}
                 style={{
                     pageBreakInside: 'auto',
@@ -379,9 +383,9 @@ export function WorksheetSectionWrapper({
                         marginTop: 0
                     } as React.CSSProperties}
                 >
-                    {!hideDefaultHeader && !isPreview && <LocalWorksheetHeader problemCount={problemCount} />}
+                    {!hideDefaultHeader && !isPreview && !isSubSection && <LocalWorksheetHeader problemCount={problemCount} />}
                     <h2
-                        className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2 ${isPreview ? 'hidden' : ''}`}
+                        className={`text-xl font-bold ${theme.text} mb-2 flex items-center gap-2 ${isPreview || isSubSection ? 'hidden' : ''}`}
                         style={{
                             pageBreakAfter: 'avoid',
                             breakAfter: 'avoid',
@@ -394,7 +398,7 @@ export function WorksheetSectionWrapper({
                         {emoji && <span className="text-4xl">{emoji}</span>}
                         <span>{translatedTitle}</span>
                     </h2>
-                    {translatedDescription && !isPreview && (
+                    {translatedDescription && !isPreview && !isSubSection && (
                         <p
                             className={`text-sm ${theme.text} opacity-70 mb-4`}
                             style={{
