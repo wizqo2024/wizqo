@@ -57,12 +57,12 @@ export async function generateWorksheetPDF(
         })
         const pageWidthMm = orientation === 'p' ? 210 : 297
         const pageHeightMm = orientation === 'p' ? 297 : 210
-        const footerHeightMm = 25 // Space reserved for footer at bottom
+        const footerHeightMm = 35 // Increased to 35 for better breathing room
         const contentMaxHeightMm = pageHeightMm - footerHeightMm
 
         // Helper to draw footer on current PDF page
         const drawFooter = () => {
-            const footerY = pageHeightMm - 15
+            const footerY = pageHeightMm - 12 // Lowered from 15 to 12
             const xCenter = pageWidthMm / 2
 
             // Draw Logo using vector commands (safer than SVG/PNG data URLs in some browsers)
@@ -209,7 +209,7 @@ export async function generateWorksheetPDF(
                         const scaleFactor = contentMaxHeightMm / imgHeight
                         const finalWidth = imgWidth * scaleFactor
                         const xPos = (pageWidthMm - finalWidth) / 2
-                        pdf.addImage(imgData, 'JPEG', xPos, 0, finalWidth, contentMaxHeightMm, undefined, 'FAST')
+                        pdf.addImage(imgData, 'PNG', xPos, 0, finalWidth, contentMaxHeightMm, undefined, 'FAST')
                         currentY = contentMaxHeightMm
                     } else {
                         // Split across multiple pages
@@ -221,7 +221,7 @@ export async function generateWorksheetPDF(
                         const totalSections = Math.ceil(imgHeight / contentMaxHeightMm)
                         for (let j = 0; j < totalSections; j++) {
                             const ySource = -(j * contentMaxHeightMm)
-                            pdf.addImage(imgData, 'JPEG', 0, ySource, imgWidth, imgHeight, undefined, 'FAST')
+                            pdf.addImage(imgData, 'PNG', 0, ySource, imgWidth, imgHeight, undefined, 'FAST')
                             drawFooter()
                             if (j < totalSections - 1) {
                                 pdf.addPage()
@@ -237,23 +237,23 @@ export async function generateWorksheetPDF(
                         pdf.addPage()
                         currentY = 0
                     }
-                    pdf.addImage(imgData, 'JPEG', 0, currentY, imgWidth, imgHeight, undefined, 'FAST')
+                    pdf.addImage(imgData, 'PNG', 0, currentY, imgWidth, imgHeight, undefined, 'FAST')
                     currentY += imgHeight
                 }
             } else {
                 // Classic behavior: one section per page
                 if (imgHeight <= pageHeightMm) {
-                    pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight, undefined, 'FAST')
+                    pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight, undefined, 'FAST')
                 } else if (imgHeight <= pageHeightMm * fitToPageThreshold) {
                     const scaleFactor = pageHeightMm / imgHeight
                     const finalWidth = imgWidth * scaleFactor
                     const xPos = (pageWidthMm - finalWidth) / 2
-                    pdf.addImage(imgData, 'JPEG', xPos, 0, finalWidth, pageHeightMm, undefined, 'FAST')
+                    pdf.addImage(imgData, 'PNG', xPos, 0, finalWidth, pageHeightMm, undefined, 'FAST')
                 } else {
                     const totalPages = Math.ceil(imgHeight / pageHeightMm)
                     for (let j = 0; j < totalPages; j++) {
                         const yPos = -(j * pageHeightMm)
-                        pdf.addImage(imgData, 'JPEG', 0, yPos, imgWidth, imgHeight, undefined, 'FAST')
+                        pdf.addImage(imgData, 'PNG', 0, yPos, imgWidth, imgHeight, undefined, 'FAST')
                         if (j < totalPages - 1) pdf.addPage()
                     }
                 }
