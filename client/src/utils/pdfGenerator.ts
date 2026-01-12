@@ -28,7 +28,7 @@ export async function generateWorksheetPDF(
     }
     const {
         filename = 'worksheet.pdf',
-        scale = 3.5, // Reduced slightly from 4.5 to 3.5 for better stability/memory
+        scale = 4.0, // Increased to 4.0 for higher quality
         docTitle = '',
         orientation = 'p',
         packSections = false
@@ -188,8 +188,8 @@ export async function generateWorksheetPDF(
                 }
             })
 
-            // Use JPEG for better stability and smaller file sizes while maintaining quality
-            const imgData = canvas.toDataURL('image/jpeg', 0.95)
+            // Use PNG for lossless text and sharp lines
+            const imgData = canvas.toDataURL('image/png')
             const imgWidth = pageWidthMm
             const imgHeight = (canvas.height * imgWidth) / canvas.width
 

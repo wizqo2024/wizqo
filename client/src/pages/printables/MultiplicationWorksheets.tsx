@@ -376,7 +376,7 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
             const filename = `${docId}.pdf`;
             await generateWorksheetPDF(containerRef.current, {
                 filename,
-                scale: 3.0,
+                scale: 4.0,
                 showAnswers: false
             });
         } catch (error) {
@@ -1535,7 +1535,7 @@ export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId: p
             await new Promise(resolve => setTimeout(resolve, 100));
             await generateWorksheetPDF(containerRef.current, {
                 filename: `${docId}.pdf`,
-                scale: 3.0,
+                scale: 4.0,
                 showAnswers: false,
                 packSections: true
             });
@@ -4057,7 +4057,7 @@ export function MultiplicationColorByNumber({ seed, variant, showAnswersForDoc, 
             const filename = `${docId}.pdf`;
             await generateWorksheetPDF(containerRef.current, {
                 filename,
-                scale: 3.0,
+                scale: 4.0,
                 showAnswers: false
             });
         } catch (error) {

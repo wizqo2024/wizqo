@@ -335,7 +335,7 @@ export function WorksheetSectionWrapper({
             // Use the unified utility for high-quality, paginated PDF
             await generateWorksheetPDF(sectionRef.current, {
                 filename,
-                scale: 3.0,
+                scale: 4.0,
                 showAnswers: false, // Individual handouts typically don't show answers in the hover PDF
                 orientation: orientation
             })
