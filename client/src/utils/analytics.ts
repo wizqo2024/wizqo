@@ -89,13 +89,6 @@ export function trackWorksheetDownload(docId: string, docTitle: string, source: 
     event_label: 'Worksheet Download',
     value: 1, // Conversion value
   });
-
-  // Also track as conversion
-  trackConversion('worksheet_download', {
-    doc_id: docId,
-    source: source,
-    grade: grade,
-  });
 }
 
 /**
@@ -288,11 +281,5 @@ export function trackPackGeneration(time: number, age: string, skill: string, co
     event_category: 'conversion',
     event_label: 'Print Pack Generated',
     value: count,
-  });
-
-  trackConversion('pack_generated', {
-    time: time,
-    age: age,
-    skill: skill,
   });
 }
