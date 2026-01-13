@@ -1388,6 +1388,7 @@ export const en = {
       readingWorksheets: 'Reading Worksheets',
       writingWorksheets: 'Writing Worksheets',
       scienceWorksheets: 'Science Worksheets',
+      allWorksheets: 'All Worksheets',
     },
     kidsHubGames: {
       memory: 'Memory',

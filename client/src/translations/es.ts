@@ -496,7 +496,7 @@ export const es = {
           'Crea tu propio problema de multiplicación: ___ × ___ = ?',
           'Resuelve: 5 × 5 = ? (¡la operación más grande en esta hoja de trabajo!)',
           'Escribe todas las operaciones que igualan 12: ___ × ___ = 12',
-            'Cronométrate: ¿Puedes completar los {count} problemas en menos de 2 minutos?',
+          'Cronométrate: ¿Puedes completar los {count} problemas en menos de 2 minutos?',
         ],
       },
       selfAssessment: {
@@ -551,7 +551,7 @@ export const es = {
           'Crea tu propio problema de multiplicación: ___ × ___ = ?',
           'Resuelve: 5 × 5 = ? (¡la operación más grande en esta hoja de trabajo!)',
           'Escribe todas las operaciones que igualan 12: ___ × ___ = 12',
-            'Cronométrate: ¿Puedes completar los {count} problemas en menos de 2 minutos?',
+          'Cronométrate: ¿Puedes completar los {count} problemas en menos de 2 minutos?',
         ],
       },
       selfAssessment: {
@@ -827,67 +827,67 @@ export const es = {
   },
   home: {
     hero: {
-      badge: 'Gratis • Imprimible • Claves de Respuestas Incluidas',
-      headline: 'Hojas de Trabajo de Matemáticas Gratis para K-5 | Multiplicación y Más',
-      subheading: 'Crea hojas de trabajo imprimibles gratis ilimitadas para matemáticas, lectura, escritura, ciencias y más. Descarga PDFs al instante con claves de respuestas incluidas. Perfecto para maestros, padres y educadores en casa. ¡No se requiere registro - comienza a generar hojas de trabajo para jardín de infantes hasta 5to grado ahora mismo!',
-      ctaMultiplication: 'Hojas de Trabajo de Multiplicación',
-      ctaBrowse: 'Ver Todas las Hojas de Trabajo',
+      badge: 'Gratis • Imprimible • Respuestas Incluidas',
+      headline: 'Hojas de Trabajo Gratis para Niños (K-5) | Matemáticas, Lectura y Más',
+      subheading: 'Crea hojas de trabajo imprimibles gratuitas e ilimitadas para matemáticas, lectura, escritura, ciencias y más. Descarga PDFs al instante con claves de respuestas incluidas. Perfecto para maestros, padres y educación en el hogar. Sin necesidad de registrarse — ¡empieza a generar hojas de trabajo para jardín de infantes hasta 5º grado de inmediato!',
+      ctaMultiplication: 'Hojas de Multiplicación',
+      ctaBrowse: 'Ver Todas las Hojas',
     },
     features: {
       lovedBy: 'Amado por padres y maestros',
-      printableAwards: 'Premios imprimibles y hojas de escritura',
+      printableAwards: 'Premios imprimibles y hojas de caligrafía',
       allGrades: 'Hojas de trabajo para todos los grados K-5',
     },
     gradeCards: {
       kindergarten: {
-        title: 'Matemáticas de Kindergarten',
+        title: 'Matemáticas Jardín',
         description: 'Conteo, formas, patrones',
       },
       firstGrade: {
-        title: 'Matemáticas de 1er Grado',
+        title: 'Matemáticas 1º Grado',
         description: 'Suma, resta, conteo',
       },
       secondGrade: {
-        title: 'Matemáticas de 2do Grado',
-        description: 'Multiplicación, división, problemas de palabras',
+        title: 'Matemáticas 2º Grado',
+        description: 'Multiplicación, división, problemas verbales',
       },
       thirdGrade: {
-        title: 'Matemáticas de 3er Grado',
-        description: 'Fracciones, división, problemas de palabras',
+        title: 'Matemáticas 3º Grado',
+        description: 'Fracciones, división, problemas verbales',
       },
       fourthGrade: {
-        title: 'Matemáticas de 4to Grado',
+        title: 'Matemáticas 4º Grado',
         description: 'Decimales, geometría, medición',
       },
       fifthGrade: {
-        title: 'Matemáticas de 5to Grado',
+        title: 'Matemáticas 5º Grado',
         description: 'Álgebra, operaciones avanzadas',
       },
     },
     gradeGridCards: {
       kindergarten: {
-        title: 'Hojas de Trabajo de Matemáticas de Kindergarten',
-        description: 'Hojas de trabajo de matemáticas de kindergarten imprimibles gratis con claves de respuestas',
+        title: 'Hojas de Jardín de Infantes',
+        description: 'Hojas de matemáticas para jardín gratis con respuestas',
       },
       firstGrade: {
-        title: 'Hojas de Trabajo de Matemáticas de 1er Grado',
-        description: 'Hojas de trabajo de matemáticas de 1er grado PDF gratis con claves de respuestas',
+        title: 'Hojas de 1º Grado',
+        description: 'Hojas de matemáticas de 1º grado en PDF con respuestas',
       },
       secondGrade: {
-        title: 'Hojas de Trabajo de Matemáticas de 2do Grado',
-        description: 'Hojas de trabajo de multiplicación gratis para 2do grado con claves de respuestas',
+        title: 'Hojas de 2º Grado',
+        description: 'Multiplicación para 2º grado gratis con respuestas',
       },
       thirdGrade: {
-        title: 'Hojas de Trabajo de Matemáticas de 3er Grado',
-        description: 'Hojas de trabajo de matemáticas de 3er grado PDF gratis con claves de respuestas',
+        title: 'Hojas de 3º Grado',
+        description: 'Hojas de matemáticas de 3º grado en PDF con respuestas',
       },
       fourthGrade: {
-        title: 'Hojas de Trabajo de Matemáticas de 4to Grado',
-        description: 'Hojas de trabajo de matemáticas de 4to grado PDF gratis con claves de respuestas',
+        title: 'Hojas de 4º Grado',
+        description: 'Hojas de matemáticas de 4º grado en PDF con respuestas',
       },
       fifthGrade: {
-        title: 'Hojas de Trabajo de Matemáticas de 5to Grado',
-        description: 'Hojas de trabajo de matemáticas de 5to grado PDF gratis con claves de respuestas',
+        title: 'Hojas de 5º Grado',
+        description: 'Hojas de matemáticas de 5º grado en PDF con respuestas',
       },
     },
     subjects: {
@@ -895,16 +895,17 @@ export const es = {
       reading: 'Lectura',
       writing: 'Escritura',
       science: 'Ciencias',
-      mathWorksheets: 'Hojas de Trabajo de Matemáticas',
-      readingWorksheets: 'Hojas de Trabajo de Lectura',
-      writingWorksheets: 'Hojas de Trabajo de Escritura',
-      scienceWorksheets: 'Hojas de Trabajo de Ciencias',
+      mathWorksheets: 'Hojas de Matemáticas',
+      readingWorksheets: 'Hojas de Lectura',
+      writingWorksheets: 'Hojas de Escritura',
+      scienceWorksheets: 'Hojas de Ciencias',
+      allWorksheets: 'Todas las Hojas',
     },
     kidsHubGames: {
       memory: 'Memoria',
-      wordSearch: 'Búsqueda de Palabras',
+      wordSearch: 'Sopa de Letras',
       puzzle: 'Rompecabezas',
-      typing: 'Escritura',
+      typing: 'Mecanografía',
       printables: 'Imprimibles',
       coloring: 'Colorear',
     },
@@ -4265,4 +4266,4 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de rasgos de carácter, capacidad de identificar formas de demostrar rasgos y reconocimiento de rasgos en otros.',
     },
   },
-}
+};
