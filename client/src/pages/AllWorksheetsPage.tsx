@@ -469,15 +469,18 @@ function WorksheetThumbnail({ thumbnailUrl, title }: { iconType?: string; thumbn
             />
           </div>
         ) : (
-          <div className="p-1 sm:p-2 h-full flex flex-col">
+          <div className="p-1 sm:p-2 h-full flex flex-col bg-white">
             {/* Branded Header Area */}
-            <div className="w-full h-2 bg-slate-50 border-b border-slate-100/50 flex items-center px-1 mb-2 shrink-0">
+            <div className="w-full h-2 bg-slate-50 border-b border-slate-100/50 flex items-center px-1 mb-1.5 shrink-0">
               <div className="w-1.5 h-1.5 bg-purple-100 rounded-full" />
             </div>
 
-            {/* Clean placeholder until unique image is ready */}
-            <div className="flex-1 flex items-center justify-center min-h-0">
-              <div className="w-full h-full bg-slate-50/20" />
+            {/* Label Aesthetic - Clear text fallback while waiting for images */}
+            <div className="flex-1 flex flex-col items-center justify-center text-center px-1 overflow-hidden min-h-0">
+              <div className="text-[7px] font-black text-slate-300 uppercase tracking-widest mb-1">WIZQO</div>
+              <div className="text-[10px] font-bold text-slate-500 uppercase leading-none line-clamp-3">
+                {title.replace(' Worksheets', '')}
+              </div>
             </div>
 
             {/* Footer Branding Area (Simulated) */}
