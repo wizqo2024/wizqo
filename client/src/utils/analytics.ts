@@ -10,88 +10,23 @@ declare global {
   }
 }
 
-const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-MLYT7Y9EVY';
-
-let analyticsLoaded = false;
-let analyticsQueue: any[] = [];
+const GA_MEASUREMENT_ID = 'G-MLYT7Y9EVY';
 
 export function initAnalytics() {
-  if (typeof window === 'undefined' || analyticsLoaded) return;
-
-  // Only load analytics if measurement ID is provided
-  if (!GA_MEASUREMENT_ID) {
-    logger.debug('Analytics: No measurement ID provided, skipping initialization');
-    return;
-  }
-
-  // Set up the standard gtag queue before the script loads
-  window.dataLayer = window.dataLayer || [];
-  if (!window.gtag) {
-    window.gtag = function () {
-      // Use the arguments object as expected by gtag.js
-      window.dataLayer!.push(arguments);
-    };
-    window.gtag('js', new Date());
-  }
-
-  // Load Google Analytics asynchronously
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    loadAnalytics();
-  } else {
-    document.addEventListener('DOMContentLoaded', loadAnalytics, { once: true });
-  }
-}
-
-function loadAnalytics() {
-  if (analyticsLoaded || typeof window === 'undefined' || !GA_MEASUREMENT_ID) return;
-
-  try {
-    // Initial config - send_page_view is true by default
-    // We keep this to catch the very first landing page
-    window.gtag!('config', GA_MEASUREMENT_ID, {
-      page_path: window.location.pathname,
-      transport_type: 'beacon'
-    });
-
-    // Load gtag.js script
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    script.onload = () => {
-      analyticsLoaded = true;
-      logger.info('Analytics: Script loaded and initialized');
-
-      // Process queued events
-      if (analyticsQueue.length > 0) {
-        logger.debug(`Analytics: Processing ${analyticsQueue.length} queued events`);
-        analyticsQueue.forEach((args) => {
-          if (window.gtag) {
-            // Re-verify it's a function as gtag.js might have initialized
-            window.gtag.apply(null, args as any);
-          }
-        });
-        analyticsQueue = [];
-      }
-    };
-    document.head.appendChild(script);
-  } catch (error) {
-    logger.error('Analytics initialization error:', error);
+  // Script is already in index.html, so we just log readiness
+  if (typeof window !== 'undefined' && window.gtag) {
+    logger.info('Analytics: Global gtag detected');
   }
 }
 
 export function trackPageView(path: string) {
   if (typeof window === 'undefined') return;
 
-  // If we're on the very same path as initial load, don't send another config immediately
-  // unless analytics is already loaded (meaning it's a navigation)
-  if (analyticsLoaded && window.gtag) {
+  if (window.gtag) {
     window.gtag('config', GA_MEASUREMENT_ID, {
       page_path: path,
       transport_type: 'beacon'
     });
-  } else if (!analyticsLoaded) {
-    // Queue if not loaded
-    analyticsQueue.push(['config', GA_MEASUREMENT_ID, { page_path: path, transport_type: 'beacon' }]);
   }
 }
 
@@ -100,14 +35,18 @@ export function trackEvent(eventName: string, eventParams?: Record<string, any>)
 
   const params = {
     ...eventParams,
-    transport_type: 'beacon' // Use beacon to ensure it fires before page nav
+    transport_type: 'beacon'
   };
 
-  if (analyticsLoaded && window.gtag) {
+  if (window.gtag) {
     window.gtag('event', eventName, params);
   } else {
-    // Stage the event
-    analyticsQueue.push(['event', eventName, params]);
+    // Stage if gtag isn't ready yet (unlikely with index.html script)
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: eventName,
+      ...params
+    });
   }
 }
 
@@ -271,7 +210,7 @@ export function trackConversion(conversionName: string, params?: Record<string, 
   });
 
   // Also send as conversion event for GA4
-  if (analyticsLoaded && window.gtag) {
+  if (window.gtag) {
     window.gtag('event', 'conversion', {
       conversion_name: conversionName,
       ...params,
