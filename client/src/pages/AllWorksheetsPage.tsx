@@ -475,13 +475,9 @@ function WorksheetThumbnail({ thumbnailUrl, title }: { iconType?: string; thumbn
               <div className="w-1.5 h-1.5 bg-purple-100 rounded-full" />
             </div>
 
-            {/* Clean minimalist center */}
+            {/* Clean placeholder until unique image is ready */}
             <div className="flex-1 flex items-center justify-center min-h-0">
-              <div className="w-8 h-10 border border-slate-100 rounded-sm bg-slate-50/30 flex flex-col p-1 gap-1.5">
-                <div className="w-full h-0.5 bg-white rounded-full shadow-sm" />
-                <div className="w-2/3 h-0.5 bg-white rounded-full shadow-sm" />
-                <div className="w-full h-0.5 bg-white rounded-full shadow-sm" />
-              </div>
+              <div className="w-full h-full bg-slate-50/20" />
             </div>
 
             {/* Footer Branding Area (Simulated) */}
