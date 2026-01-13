@@ -477,46 +477,40 @@ function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: strin
           </div>
         ) : (
           <div className="p-1 sm:p-2 h-full flex flex-col">
-            {/* Header Area */}
-            <div className="w-full h-1 bg-slate-100 rounded-full mb-1 sm:mb-2"></div>
+            {/* Branded Header Area */}
+            <div className="w-full h-2 bg-slate-50 border-b border-slate-100/50 flex items-center px-1 mb-2">
+              <div className="w-1.5 h-1.5 bg-purple-100 rounded-full" />
+            </div>
 
-            {/* Content Area (Mini Mockup) */}
-            <div className="flex-1 flex flex-col gap-1 sm:gap-1.5 opacity-60">
-              {isMath ? (
-                // Math Grid Pattern
-                <div className="grid grid-cols-2 gap-1 h-full">
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} className="border border-slate-50 rounded bg-slate-50/50 flex items-center justify-center">
-                      <CategoryIcon iconType={iconType} /> {/* Tiny icon as a watermark */}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                // Reading/Language Lines Pattern
-                <div className="flex flex-col gap-1.5 py-1">
-                  <div className="w-full h-0.5 bg-slate-100"></div>
-                  <div className="w-3/4 h-0.5 bg-slate-100"></div>
-                  <div className="w-full h-0.5 bg-slate-100"></div>
-                  <div className="w-1/2 h-0.5 bg-slate-100"></div>
-                  <div className="flex items-center justify-center mt-2">
-                    <CategoryIcon iconType={iconType} />
-                  </div>
-                </div>
-              )}
+            {/* Clean minimalist center */}
+            <div className="flex-1 flex items-center justify-center">
+              <div className="w-8 h-10 border border-slate-100 rounded-sm bg-slate-50/30 flex flex-col p-1 gap-1.5">
+                <div className="w-full h-1 bg-white rounded-full shadow-sm" />
+                <div className="w-2/3 h-1 bg-white rounded-full shadow-sm" />
+                <div className="w-full h-1 bg-white rounded-full shadow-sm" />
+              </div>
             </div>
 
             {/* Footer Branding Area (Simulated) */}
-            <div className="mt-auto h-2 flex items-center justify-between">
-              <div className="w-2 h-0.5 bg-slate-100 rounded-full"></div>
-              <div className="w-1 h-1 bg-purple-100 rounded-full"></div>
+            <div className="mt-auto h-2 flex items-center justify-between border-t border-slate-50 pt-1">
+              <div className="w-3 h-1 bg-slate-50 rounded-full" />
+              <div className="w-1.5 h-1.5 bg-purple-50 rounded-full" />
             </div>
           </div>
         )}
-      </div>
 
-      {/* Hover overlay shine */}
-      <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-white/0 via-white/20 to-white/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+        {/* Footer Branding Area (Simulated) */}
+        <div className="mt-auto h-2 flex items-center justify-between">
+          <div className="w-2 h-0.5 bg-slate-100 rounded-full"></div>
+          <div className="w-1 h-1 bg-purple-100 rounded-full"></div>
+        </div>
+      </div>
+        )}
     </div>
+
+      {/* Hover overlay shine */ }
+  <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-white/0 via-white/20 to-white/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+    </div >
   )
 }
 
