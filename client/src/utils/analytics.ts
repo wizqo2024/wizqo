@@ -17,14 +17,24 @@ let analyticsQueue: any[] = [];
 
 export function initAnalytics() {
   if (typeof window === 'undefined' || analyticsLoaded) return;
-  
+
   // Only load analytics if measurement ID is provided
   if (!GA_MEASUREMENT_ID) {
     logger.debug('Analytics: No measurement ID provided, skipping initialization');
     return;
   }
 
-  // Load Google Analytics asynchronously after page load
+  // Set up the standard gtag queue before the script loads
+  window.dataLayer = window.dataLayer || [];
+  if (!window.gtag) {
+    window.gtag = function () {
+      // Use the arguments object as expected by gtag.js
+      window.dataLayer!.push(arguments);
+    };
+    window.gtag('js', new Date());
+  }
+
+  // Load Google Analytics asynchronously
   if (document.readyState === 'complete') {
     loadAnalytics();
   } else {
@@ -33,35 +43,37 @@ export function initAnalytics() {
 }
 
 function loadAnalytics() {
-  if (analyticsLoaded || typeof window === 'undefined') return;
+  if (analyticsLoaded || typeof window === 'undefined' || !GA_MEASUREMENT_ID) return;
 
   try {
-    // Initialize dataLayer
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function(...args: any[]) {
-      window.dataLayer!.push(args);
-    };
-    window.gtag('js', new Date());
-    window.gtag('config', GA_MEASUREMENT_ID, {
+    // Initial config - send_page_view is true by default
+    // We keep this to catch the very first landing page
+    window.gtag!('config', GA_MEASUREMENT_ID, {
       page_path: window.location.pathname,
-      send_page_view: true,
+      transport_type: 'beacon'
     });
 
-    // Load gtag.js script asynchronously
+    // Load gtag.js script
     const script = document.createElement('script');
     script.async = true;
-    script.defer = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
     script.onload = () => {
       analyticsLoaded = true;
+      logger.info('Analytics: Script loaded and initialized');
+
       // Process queued events
-      analyticsQueue.forEach((args) => window.gtag?.(...args));
-      analyticsQueue = [];
+      if (analyticsQueue.length > 0) {
+        logger.debug(`Analytics: Processing ${analyticsQueue.length} queued events`);
+        analyticsQueue.forEach((args) => {
+          if (window.gtag) {
+            // Re-verify it's a function as gtag.js might have initialized
+            window.gtag.apply(null, args as any);
+          }
+        });
+        analyticsQueue = [];
+      }
     };
     document.head.appendChild(script);
-
-    // Track page view
-    trackPageView(window.location.pathname);
   } catch (error) {
     logger.error('Analytics initialization error:', error);
   }
@@ -69,25 +81,33 @@ function loadAnalytics() {
 
 export function trackPageView(path: string) {
   if (typeof window === 'undefined') return;
-  
+
+  // If we're on the very same path as initial load, don't send another config immediately
+  // unless analytics is already loaded (meaning it's a navigation)
   if (analyticsLoaded && window.gtag) {
     window.gtag('config', GA_MEASUREMENT_ID, {
       page_path: path,
+      transport_type: 'beacon'
     });
-  } else {
-    // Queue the event if analytics isn't loaded yet
-    analyticsQueue.push(['config', GA_MEASUREMENT_ID, { page_path: path }]);
+  } else if (!analyticsLoaded) {
+    // Queue if not loaded
+    analyticsQueue.push(['config', GA_MEASUREMENT_ID, { page_path: path, transport_type: 'beacon' }]);
   }
 }
 
 export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
   if (typeof window === 'undefined') return;
-  
+
+  const params = {
+    ...eventParams,
+    transport_type: 'beacon' // Use beacon to ensure it fires before page nav
+  };
+
   if (analyticsLoaded && window.gtag) {
-    window.gtag('event', eventName, eventParams);
+    window.gtag('event', eventName, params);
   } else {
-    // Queue the event if analytics isn't loaded yet
-    analyticsQueue.push(['event', eventName, eventParams]);
+    // Stage the event
+    analyticsQueue.push(['event', eventName, params]);
   }
 }
 
@@ -130,7 +150,7 @@ export function trackWorksheetDownload(docId: string, docTitle: string, source: 
     event_label: 'Worksheet Download',
     value: 1, // Conversion value
   });
-  
+
   // Also track as conversion
   trackConversion('worksheet_download', {
     doc_id: docId,
@@ -209,7 +229,7 @@ export function trackWorksheetGeneration(grade: string, categories: string[], co
     event_label: 'Worksheet Generated',
     value: count,
   });
-  
+
   // Track as conversion
   trackConversion('worksheet_generated', {
     grade: grade,
@@ -249,7 +269,7 @@ export function trackConversion(conversionName: string, params?: Record<string, 
     ...params,
     event_category: 'conversion',
   });
-  
+
   // Also send as conversion event for GA4
   if (analyticsLoaded && window.gtag) {
     window.gtag('event', 'conversion', {
@@ -330,7 +350,7 @@ export function trackPackGeneration(time: number, age: string, skill: string, co
     event_label: 'Print Pack Generated',
     value: count,
   });
-  
+
   trackConversion('pack_generated', {
     time: time,
     age: age,
