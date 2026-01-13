@@ -35,10 +35,10 @@ export function initAnalytics() {
   }
 
   // Load Google Analytics asynchronously
-  if (document.readyState === 'complete') {
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
     loadAnalytics();
   } else {
-    window.addEventListener('load', loadAnalytics, { once: true });
+    document.addEventListener('DOMContentLoaded', loadAnalytics, { once: true });
   }
 }
 
