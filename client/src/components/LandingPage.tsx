@@ -113,7 +113,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 sm:mb-8 leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 sm:mb-8 leading-tight">
                 <GradientText
                   colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
                   animationSpeed={8}
@@ -123,7 +123,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </h1>
 
               {/* Subheading */}
-              <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-8 sm:mb-12 max-w-2xl lg:mx-0 mx-auto leading-relaxed">
+              <p className="text-lg sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-2xl lg:mx-0 mx-auto leading-relaxed">
                 {t('home.hero.subheading')}
               </p>
 
