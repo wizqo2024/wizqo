@@ -561,10 +561,10 @@ export default function HandwritingMakerPage() {
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
-        title="Free Cursive Writing Practice Sheets (PDF) | Build Writing Confidence"
-        description="Watch their confidence soar! Create personalized cursive writing practice sheets in seconds. Free PDF download designed for frustration-free learning and beautiful handwriting results."
-        keywords="cursive handwriting worksheets, cursive writing practice, printable cursive sheets, tracing cursive letters, cursive handwriting PDF, kids cursive practice, handwriting worksheet maker"
-        canonicalUrl="https://wizqo.com/worksheets/cursive-writing-practice-sheets"
+        title="Free Name Tracing & Cursive Writing Worksheet Maker | Wizqo"
+        description="Create personalized Name Tracing and Cursive Writing worksheets in seconds. Perfect for kids learning handwriting. Download your custom PDF instantly for free."
+        keywords="name tracing generator, cursive handwriting worksheets, cursive writing practice, printable cursive sheets, tracing cursive letters, handwriting worksheet maker"
+        canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
       />
       <UnifiedNavigation currentPage="kids" />
       {(() => {
@@ -583,9 +583,9 @@ export default function HandwritingMakerPage() {
         const webPageLd = {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: "Free Cursive Writing Practice Sheets for Kids | Printable Tracing Worksheets",
-          url: "https://wizqo.com/worksheets/cursive-writing-practice-sheets",
-          description: "Watch their confidence soar! Create personalized cursive writing practice sheets in seconds. Free PDF download designed for frustration-free learning and beautiful handwriting results.",
+          name: "Free Name Tracing & Cursive Writing Practice Sheets for Kids | Wizqo",
+          url: "https://wizqo.com/worksheets/handwriting-worksheet-maker",
+          description: "Create personalized Name Tracing and Cursive Writing worksheets in seconds. Perfect for kids learning handwriting. Download your custom PDF instantly for free.",
           breadcrumb: { "@id": breadcrumbId }
         } as const;
         const faqLd = {
@@ -637,7 +637,7 @@ export default function HandwritingMakerPage() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         <header>
-          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Turn Frustration into Pride: Custom Cursive Writing Practice Sheets</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Custom Name Tracing & Cursive Writing Practice Sheets</h1>
           <div className="h-1 w-16 rounded-full bg-gradient-to-r from-yellow-300 to-pink-400 mt-3 mb-3" />
           <p className="text-slate-700 text-sm max-w-3xl">{t('pages.handwriting.subtitle')}</p>
         </header>
