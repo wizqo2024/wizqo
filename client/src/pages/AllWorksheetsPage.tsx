@@ -26,8 +26,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/kindergarten-math-worksheets',
       iconType: 'kindergarten',
       gradeRange: 'Kindergarten',
-      badge: 'Early Learning',
-      thumbnailUrl: '/images/thumbs/kindergarten.png'
+      badge: 'Early Learning'
     },
     {
       title: '1st Grade Math Worksheets',
@@ -35,8 +34,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/1st-grade-math-worksheets',
       iconType: 'first-grade',
       gradeRange: '1st Grade',
-      badge: 'Foundations',
-      thumbnailUrl: '/images/thumbs/first-grade.png'
+      badge: 'Foundations'
     },
     {
       title: '2nd Grade Math Worksheets',
@@ -77,8 +75,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/multiplication-worksheets',
       iconType: 'multiplication',
       gradeRange: '2nd-5th',
-      badge: 'Popular',
-      thumbnailUrl: '/images/thumbs/multiplication.png'
+      badge: 'Popular'
     },
     {
       title: 'Times Table Multiplication Worksheets',
@@ -112,8 +109,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/reading-comprehension',
       iconType: 'reading',
       gradeRange: '1st-3rd',
-      badge: 'Language Arts',
-      thumbnailUrl: '/images/thumbs/reading.png'
+      badge: 'Language Arts'
     },
     // Creative Tools
     {
@@ -128,8 +124,7 @@ export default function AllWorksheetsPage() {
       description: 'Personalized sheets',
       href: '/printables/name-tracing-generator',
       iconType: 'tracing',
-      badge: 'Create Something Magical',
-      thumbnailUrl: '/images/thumbs/tracing.png'
+      badge: 'Create Something Magical'
     },
     {
       title: 'Handwriting Maker',
