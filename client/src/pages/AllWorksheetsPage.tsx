@@ -128,8 +128,7 @@ export default function AllWorksheetsPage() {
       description: 'Editable name/date',
       href: '/printables/certificate-maker',
       iconType: 'certificate',
-      badge: 'Create Something Magical',
-      thumbnailUrl: '/images/thumbs/tracing.png'
+      badge: 'Create Something Magical'
     },
     {
       title: 'Name Tracing',
@@ -144,8 +143,7 @@ export default function AllWorksheetsPage() {
       description: 'Letters, words, sentences',
       href: '/worksheets/handwriting-worksheet-maker',
       iconType: 'handwriting',
-      badge: 'Create Something Magical',
-      thumbnailUrl: '/images/thumbs/tracing.png'
+      badge: 'Create Something Magical'
     },
     // Quick Access
     {
