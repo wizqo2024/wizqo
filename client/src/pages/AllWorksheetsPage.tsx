@@ -44,8 +44,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/2nd-grade-math-worksheets',
       iconType: 'second-grade',
       gradeRange: '2nd Grade',
-      badge: 'Building Skills',
-      thumbnailUrl: '/images/thumbs/math-generic.png'
+      badge: 'Building Skills'
     },
     {
       title: '3rd Grade Math Worksheets',
@@ -53,8 +52,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/3rd-grade-math-worksheets',
       iconType: 'third-grade',
       gradeRange: '3rd Grade',
-      badge: 'Growing Strong',
-      thumbnailUrl: '/images/thumbs/math-generic.png'
+      badge: 'Growing Strong'
     },
     {
       title: '4th Grade Math Worksheets',
@@ -62,8 +60,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/4th-grade-math-worksheets',
       iconType: 'fourth-grade',
       gradeRange: '4th Grade',
-      badge: 'Mastering Concepts',
-      thumbnailUrl: '/images/thumbs/math-generic.png'
+      badge: 'Mastering Concepts'
     },
     {
       title: '5th Grade Math Worksheets',
@@ -71,8 +68,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/5th-grade-math-worksheets',
       iconType: 'fifth-grade',
       gradeRange: '5th Grade',
-      badge: 'Advanced',
-      thumbnailUrl: '/images/thumbs/math-generic.png'
+      badge: 'Advanced'
     },
     // Multiplication Focus
     {
@@ -90,8 +86,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/times-table-multiplication-worksheets',
       iconType: 'times-table',
       gradeRange: '1st-5th',
-      badge: 'Essential',
-      thumbnailUrl: '/images/thumbs/multiplication.png'
+      badge: 'Essential'
     },
     // Specialized Math
     {
@@ -100,8 +95,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/fractions-to-decimals-worksheets',
       iconType: 'fractions',
       gradeRange: '3rd-5th',
-      badge: 'Specialized',
-      thumbnailUrl: '/images/thumbs/math-generic.png'
+      badge: 'Specialized'
     },
     {
       title: 'Order of Operations Worksheets (PEMDAS)',
@@ -109,8 +103,7 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/order-of-operations-worksheets',
       iconType: 'operations',
       gradeRange: '4th-6th',
-      badge: 'Advanced',
-      thumbnailUrl: '/images/thumbs/math-generic.png'
+      badge: 'Advanced'
     },
     // Reading & Language
     {
@@ -151,16 +144,14 @@ export default function AllWorksheetsPage() {
       description: 'Create custom worksheets instantly',
       href: '/interactive-worksheets-generator',
       iconType: 'generator',
-      badge: 'Worksheets & Quick Packs',
-      thumbnailUrl: '/images/thumbs/math-generic.png'
+      badge: 'Worksheets & Quick Packs'
     },
     {
       title: 'Printables',
       description: 'Puzzles, coloring, packs',
       href: '/printables',
       iconType: 'printables',
-      badge: 'Worksheets & Quick Packs',
-      thumbnailUrl: '/images/thumbs/math-generic.png'
+      badge: 'Worksheets & Quick Packs'
     }
   ]
 
