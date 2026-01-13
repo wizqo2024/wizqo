@@ -103,182 +103,180 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
-          <div className="text-center">
-            {/* Trendy Badge */}
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
-              <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
-              <span className="text-sm font-medium"><span aria-hidden="true">✨</span> {t('home.hero.badge')}</span>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* LEFT COLUMN: Text & CTA */}
+            <div className="text-center lg:text-left">
+              {/* Trendy Badge */}
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white mb-8">
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                <span className="text-sm font-medium"><span aria-hidden="true">✨</span> {t('home.hero.badge')}</span>
+              </div>
+
+              {/* Main Headline */}
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black mb-6 sm:mb-8 leading-tight">
+                <GradientText
+                  colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
+                  animationSpeed={8}
+                >
+                  {t('home.hero.headline')}
+                </GradientText>
+              </h1>
+
+              {/* Subheading */}
+              <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-2xl lg:mx-0 mx-auto leading-relaxed">
+                {t('home.hero.subheading')}
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-12">
+                <a
+                  href="/worksheets/all"
+                  className="inline-flex items-center gap-2 justify-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:bg-white/20 transform hover:scale-105 transition-all duration-300 shadow-xl"
+                >
+                  {t('home.hero.ctaBrowse')}
+                </a>
+              </div>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black mb-6 sm:mb-8 leading-tight px-2 sm:px-0">
-              <GradientText
-                colors={['#a855f7', '#ec4899', '#8b5cf6', '#f472b6', '#a855f7']}
-                animationSpeed={8}
-              >
-                {t('home.hero.headline')}
-              </GradientText>
-            </h1>
+            {/* RIGHT COLUMN: Eye-Catchy Visual / Image */}
+            <div className="hidden lg:block relative">
+              {/* Decorative Glow */}
+              <div className="absolute -inset-10 bg-purple-500/20 blur-[100px] rounded-full animate-pulse"></div>
 
-            {/* Subheading */}
-            <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
-              {t('home.hero.subheading')}
-            </p>
+              {/* Mockup / Image Placeholder with premium styling */}
+              <div className="relative z-10 p-8 bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-white/10 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700">
+                <div className="aspect-[4/5] w-full bg-gradient-to-br from-white/10 to-transparent rounded-2xl overflow-hidden flex items-center justify-center border border-white/5">
+                  <div className="text-center p-8">
+                    <span className="text-6xl mb-4 block" aria-hidden="true">📑</span>
+                    <h3 className="text-xl font-bold text-white mb-2">{t('home.subjects.allWorksheets')}</h3>
+                    <p className="text-gray-400 text-sm">{t('home.hero.badge')}</p>
+                    <div className="mt-8 space-y-4">
+                      <div className="h-2 w-32 bg-white/10 rounded-full mx-auto"></div>
+                      <div className="h-2 w-24 bg-white/5 rounded-full mx-auto"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-12 sm:mb-16 px-4">
+              {/* Repositioned floating elements for better composition */}
+              <div className="absolute -top-6 -right-6 lg:block hidden">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 transition-transform duration-300">
+                  <span className="text-2xl" aria-hidden="true">🔢</span>
+                </div>
+              </div>
+              <div className="absolute -bottom-6 -left-6 lg:block hidden">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 transition-transform duration-300">
+                  <span className="text-2xl" aria-hidden="true">📖</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating Background Elements (Adjusted) */}
+        <div className="absolute bottom-1/4 left-1/4 hidden lg:block opacity-20 pointer-events-none">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 animate-float">
+            <span className="text-2xl" aria-hidden="true">✍️</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Grade Links Section (Moved immediately below Hero but above Kids Hub) */}
+      <section className="relative z-10 -mt-20 lg:-mt-32 pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav aria-label={t('home.popularWorksheets')}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
               <a
-                href="/worksheets/all"
-                className="inline-flex items-center gap-2 justify-center bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-2xl hover:bg-white/20 transform hover:scale-105 transition-all duration-300 shadow-xl"
+                href="/worksheets/kindergarten-math-worksheets"
+                className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
               >
-                {t('home.hero.ctaBrowse')}
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                    <span className="text-3xl">👶</span>
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">{t('home.gradeCards.kindergarten.title')}</h3>
+                  <p className="text-xs text-gray-600">{t('home.gradeCards.kindergarten.description')}</p>
+                </div>
+              </a>
+              <a
+                href="/worksheets/1st-grade-math-worksheets"
+                className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                    <AnimatedIcon
+                      animationUrl="https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json"
+                      className="w-full h-full"
+                      fallback={
+                        <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                        </svg>
+                      }
+                    />
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{t('home.gradeCards.firstGrade.title')}</h3>
+                  <p className="text-xs text-gray-600">{t('home.gradeCards.firstGrade.description')}</p>
+                </div>
+              </a>
+              <a
+                href="/worksheets/2nd-grade-math-worksheets"
+                className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                    <AnimatedIcon
+                      animationUrl="https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json"
+                      className="w-full h-full"
+                      fallback={
+                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                        </svg>
+                      }
+                    />
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">{t('home.gradeCards.secondGrade.title')}</h3>
+                  <p className="text-xs text-gray-600">{t('home.gradeCards.secondGrade.description')}</p>
+                </div>
+              </a>
+              <a
+                href="/worksheets/3rd-grade-math-worksheets"
+                className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                    <span className="text-3xl">3️⃣</span>
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">{t('home.gradeCards.thirdGrade.title')}</h3>
+                  <p className="text-xs text-gray-600">{t('home.gradeCards.thirdGrade.description')}</p>
+                </div>
+              </a>
+              <a
+                href="/worksheets/4th-grade-math-worksheets"
+                className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-teal-100 to-cyan-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                    <span className="text-3xl">4️⃣</span>
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">{t('home.gradeCards.fourthGrade.title')}</h3>
+                  <p className="text-xs text-gray-600">{t('home.gradeCards.fourthGrade.description')}</p>
+                </div>
+              </a>
+              <a
+                href="/worksheets/5th-grade-math-worksheets"
+                className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                    <span className="text-3xl">5️⃣</span>
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">{t('home.gradeCards.fifthGrade.title')}</h3>
+                  <p className="text-xs text-gray-600">{t('home.gradeCards.fifthGrade.description')}</p>
+                </div>
               </a>
             </div>
-            {/* Above-the-fold internal links to worksheets (SEO-safe) - Card Layout */}
-            <nav aria-label={t('home.popularWorksheets')} className="px-4 sm:px-0 mb-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 max-w-7xl mx-auto">
-                <a
-                  href="/worksheets/kindergarten-math-worksheets"
-                  className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <span className="text-3xl">👶</span>
-                    </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">{t('home.gradeCards.kindergarten.title')}</h3>
-                    <p className="text-xs text-gray-600">{t('home.gradeCards.kindergarten.description')}</p>
-                  </div>
-                </a>
-                <a
-                  href="/worksheets/1st-grade-math-worksheets"
-                  className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <AnimatedIcon
-                        animationUrl="https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json"
-                        className="w-full h-full"
-                        fallback={
-                          <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
-                          </svg>
-                        }
-                      />
-                    </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{t('home.gradeCards.firstGrade.title')}</h3>
-                    <p className="text-xs text-gray-600">{t('home.gradeCards.firstGrade.description')}</p>
-                  </div>
-                </a>
-                <a
-                  href="/worksheets/2nd-grade-math-worksheets"
-                  className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <AnimatedIcon
-                        animationUrl="https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json"
-                        className="w-full h-full"
-                        fallback={
-                          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                          </svg>
-                        }
-                      />
-                    </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">{t('home.gradeCards.secondGrade.title')}</h3>
-                    <p className="text-xs text-gray-600">{t('home.gradeCards.secondGrade.description')}</p>
-                  </div>
-                </a>
-                <a
-                  href="/worksheets/3rd-grade-math-worksheets"
-                  className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <span className="text-3xl">3️⃣</span>
-                    </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">{t('home.gradeCards.thirdGrade.title')}</h3>
-                    <p className="text-xs text-gray-600">{t('home.gradeCards.thirdGrade.description')}</p>
-                  </div>
-                </a>
-                <a
-                  href="/worksheets/4th-grade-math-worksheets"
-                  className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-teal-100 to-cyan-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <span className="text-3xl">4️⃣</span>
-                    </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">{t('home.gradeCards.fourthGrade.title')}</h3>
-                    <p className="text-xs text-gray-600">{t('home.gradeCards.fourthGrade.description')}</p>
-                  </div>
-                </a>
-                <a
-                  href="/worksheets/5th-grade-math-worksheets"
-                  className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-indigo-100 to-blue-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                      <span className="text-3xl">5️⃣</span>
-                    </div>
-                    <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">{t('home.gradeCards.fifthGrade.title')}</h3>
-                    <p className="text-xs text-gray-600">{t('home.gradeCards.fifthGrade.description')}</p>
-                  </div>
-                </a>
-              </div>
-            </nav>
+          </nav>
 
-            {/* Feature highlights */}
-            <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-12 text-gray-200 px-4 mt-8">
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-2 border-white/60"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-green-400 rounded-full border-2 border-white/60"></div>
-                  <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-red-400 rounded-full border-2 border-white/60"></div>
-                </div>
-                <span className="text-sm font-medium whitespace-nowrap">{t('home.features.lovedBy')}</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                </svg>
-                <span className="whitespace-nowrap">{t('home.features.printableAwards')}</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm font-medium">
-                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-                <span className="whitespace-nowrap">{t('home.features.allGrades')}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Floating Elements */}
-        <div className="absolute top-1/4 left-10 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-12 hover:rotate-6 transition-transform duration-300" aria-label="Math worksheets example">
-            <span className="text-2xl" aria-hidden="true">🔢</span>
-            <p className="text-white text-sm mt-1">{t('home.subjects.math')}</p>
-          </div>
-        </div>
-        <div className="absolute top-1/3 right-16 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-12 hover:-rotate-6 transition-transform duration-300" aria-label="Reading worksheets example">
-            <span className="text-2xl" aria-hidden="true">📖</span>
-            <p className="text-white text-sm mt-1">{t('home.subjects.reading')}</p>
-          </div>
-        </div>
-        <div className="absolute bottom-1/4 left-1/4 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform rotate-6 hover:rotate-12 transition-transform duration-300" aria-label="Writing worksheets example">
-            <span className="text-2xl" aria-hidden="true">✍️</span>
-            <p className="text-white text-sm mt-1">{t('home.subjects.writing')}</p>
-          </div>
-        </div>
-        <div className="absolute bottom-1/3 right-1/4 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 transform -rotate-6 hover:-rotate-12 transition-transform duration-300" aria-label="Science worksheets example">
-            <span className="text-2xl" aria-hidden="true">🔬</span>
-            <p className="text-white text-sm mt-1">{t('home.subjects.science')}</p>
-          </div>
-        </div>
       </section>
 
       {/* Kids Hub Teaser */}
