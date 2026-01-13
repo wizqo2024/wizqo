@@ -143,18 +143,20 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               {/* Decorative Glow */}
               <div className="absolute -inset-10 bg-purple-500/20 blur-[100px] rounded-full animate-pulse"></div>
 
-              {/* Mockup / Image Placeholder with premium styling */}
-              <div className="relative z-10 p-8 bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-white/10 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700">
-                <div className="aspect-[4/5] w-full bg-gradient-to-br from-white/10 to-transparent rounded-2xl overflow-hidden flex items-center justify-center border border-white/5">
-                  <div className="text-center p-8">
-                    <span className="text-6xl mb-4 block" aria-hidden="true">📑</span>
-                    <h3 className="text-xl font-bold text-white mb-2">{t('home.subjects.allWorksheets')}</h3>
-                    <p className="text-gray-400 text-sm">{t('home.hero.badge')}</p>
-                    <div className="mt-8 space-y-4">
-                      <div className="h-2 w-32 bg-white/10 rounded-full mx-auto"></div>
-                      <div className="h-2 w-24 bg-white/5 rounded-full mx-auto"></div>
-                    </div>
-                  </div>
+              {/* Hero Image Container with premium styling */}
+              <div className="relative z-10 p-4 sm:p-8 bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-white/10 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700 overflow-hidden">
+                <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-white/10 relative">
+                  <img
+                    src="/images/hero-real.png"
+                    alt="Free Worksheets for Kids K-5 - Child learning happily with Wizqo printables"
+                    className="w-full h-full object-cover"
+                    fetchpriority="high"
+                    loading="eager"
+                    width="800"
+                    height="600"
+                  />
+                  {/* Subtle overlay to blend with dark theme */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/20 to-transparent pointer-events-none"></div>
                 </div>
               </div>
 
