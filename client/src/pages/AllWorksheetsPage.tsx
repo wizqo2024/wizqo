@@ -447,9 +447,7 @@ function CategoryCard({ category }: { category: CategoryCard; key?: any }) {
 }
 
 // Micro-Preview Thumbnail Component
-function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: string; thumbnailUrl?: string; title: string }) {
-  const isMath = iconType.includes('grade') || ['multiplication', 'times-table', 'fractions', 'operations'].includes(iconType)
-
+function WorksheetThumbnail({ thumbnailUrl, title }: { iconType?: string; thumbnailUrl?: string; title: string }) {
   return (
     <div className="relative w-16 h-20 sm:w-20 sm:h-24 flex-shrink-0 group-hover:scale-105 transition-transform duration-500">
       {/* Background Sheets (Stacked Effect) */}
@@ -457,7 +455,7 @@ function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: strin
       <div className="absolute inset-0 bg-white rounded-md border border-slate-200 translate-x-1 translate-y-1 shadow-sm -rotate-1"></div>
 
       {/* Top Sheet - Premium Pack Cover */}
-      <div className={`absolute inset-0 rounded-md border-[3px] border-white bg-white shadow-xl overflow-hidden flex flex-col ring-1 ring-slate-200 ${getThumbBorderClass(iconType)}`}>
+      <div className="absolute inset-0 rounded-md border-[3px] border-white bg-white shadow-xl overflow-hidden flex flex-col ring-1 ring-slate-200">
         {thumbnailUrl ? (
           <div className="relative w-full h-full flex flex-col">
             {/* Professional Header Bar */}
@@ -498,19 +496,11 @@ function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: strin
             </div>
           </div>
         )}
-
-        {/* Footer Branding Area (Simulated) */}
-        <div className="mt-auto h-2 flex items-center justify-between">
-          <div className="w-2 h-0.5 bg-slate-100 rounded-full"></div>
-          <div className="w-1 h-1 bg-purple-100 rounded-full"></div>
-        </div>
       </div>
-        )}
-    </div>
 
-      {/* Hover overlay shine */ }
-  <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-white/0 via-white/20 to-white/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-    </div >
+      {/* Hover overlay shine */}
+      <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-white/0 via-white/20 to-white/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+    </div>
   )
 }
 
