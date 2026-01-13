@@ -276,7 +276,7 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               </a>
             </div>
           </nav>
-
+        </div>
       </section>
 
       {/* Kids Hub Teaser */}
