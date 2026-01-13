@@ -459,7 +459,7 @@ function WorksheetThumbnail({ thumbnailUrl, title }: { iconType?: string; thumbn
         {thumbnailUrl ? (
           <div className="relative w-full h-full flex flex-col">
             {/* Professional Header Bar */}
-            <div className="h-2 w-full bg-slate-50 border-b border-slate-100 flex items-center px-1">
+            <div className="h-2 w-full bg-slate-50 border-b border-slate-100 flex items-center px-1 shrink-0">
               <div className="w-1 h-1 rounded-full bg-purple-400 mr-1" />
               <div className="w-4 h-0.5 bg-slate-200 rounded-full" />
             </div>
@@ -476,22 +476,22 @@ function WorksheetThumbnail({ thumbnailUrl, title }: { iconType?: string; thumbn
         ) : (
           <div className="p-1 sm:p-2 h-full flex flex-col">
             {/* Branded Header Area */}
-            <div className="w-full h-2 bg-slate-50 border-b border-slate-100/50 flex items-center px-1 mb-2">
+            <div className="w-full h-2 bg-slate-50 border-b border-slate-100/50 flex items-center px-1 mb-2 shrink-0">
               <div className="w-1.5 h-1.5 bg-purple-100 rounded-full" />
             </div>
 
             {/* Clean minimalist center */}
-            <div className="flex-1 flex items-center justify-center">
+            <div className="flex-1 flex items-center justify-center min-h-0">
               <div className="w-8 h-10 border border-slate-100 rounded-sm bg-slate-50/30 flex flex-col p-1 gap-1.5">
-                <div className="w-full h-1 bg-white rounded-full shadow-sm" />
-                <div className="w-2/3 h-1 bg-white rounded-full shadow-sm" />
-                <div className="w-full h-1 bg-white rounded-full shadow-sm" />
+                <div className="w-full h-0.5 bg-white rounded-full shadow-sm" />
+                <div className="w-2/3 h-0.5 bg-white rounded-full shadow-sm" />
+                <div className="w-full h-0.5 bg-white rounded-full shadow-sm" />
               </div>
             </div>
 
             {/* Footer Branding Area (Simulated) */}
-            <div className="mt-auto h-2 flex items-center justify-between border-t border-slate-50 pt-1">
-              <div className="w-3 h-1 bg-slate-50 rounded-full" />
+            <div className="mt-auto h-2 flex items-center justify-between border-t border-slate-50 pt-1 shrink-0">
+              <div className="w-3 h-0.5 bg-slate-50 rounded-full" />
               <div className="w-1.5 h-1.5 bg-purple-50 rounded-full" />
             </div>
           </div>
