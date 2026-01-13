@@ -453,23 +453,30 @@ function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: strin
   return (
     <div className="relative w-16 h-20 sm:w-20 sm:h-24 flex-shrink-0 group-hover:scale-105 transition-transform duration-500">
       {/* Background Sheets (Stacked Effect) */}
-      <div className="absolute inset-0 bg-white rounded-md border border-slate-200 translate-x-2 translate-y-2 shadow-sm"></div>
-      <div className="absolute inset-0 bg-white rounded-md border border-slate-200 translate-x-1 translate-y-1 shadow-sm"></div>
+      <div className="absolute inset-0 bg-white rounded-md border border-slate-200 translate-x-1.5 translate-y-1.5 shadow-sm rotate-2"></div>
+      <div className="absolute inset-0 bg-white rounded-md border border-slate-200 translate-x-1 translate-y-1 shadow-sm -rotate-1"></div>
 
-      {/* Top Sheet */}
-      <div className={`absolute inset-0 rounded-md border-2 border-slate-200 bg-white shadow-md overflow-hidden flex flex-col ${thumbnailUrl ? '' : 'p-1.5 sm:p-2'} ${getThumbBorderClass(iconType)}`}>
+      {/* Top Sheet - Premium Pack Cover */}
+      <div className={`absolute inset-0 rounded-md border-[3px] border-white bg-white shadow-xl overflow-hidden flex flex-col ring-1 ring-slate-200 ${getThumbBorderClass(iconType)}`}>
         {thumbnailUrl ? (
-          <img
-            src={thumbnailUrl}
-            alt={`${title} Preview`}
-            className="w-full h-full object-cover"
-            style={{ imageRendering: '-webkit-optimize-contrast' }}
-            loading="lazy"
-            width={80}
-            height={96}
-          />
+          <div className="relative w-full h-full flex flex-col">
+            {/* Professional Header Bar */}
+            <div className="h-2 w-full bg-slate-50 border-b border-slate-100 flex items-center px-1">
+              <div className="w-1 h-1 rounded-full bg-purple-400 mr-1" />
+              <div className="w-4 h-0.5 bg-slate-200 rounded-full" />
+            </div>
+            <img
+              src={thumbnailUrl}
+              alt={`${title} Preview`}
+              className="flex-1 w-full h-full object-cover"
+              style={{ imageRendering: '-webkit-optimize-contrast' }}
+              loading="lazy"
+              width={80}
+              height={96}
+            />
+          </div>
         ) : (
-          <>
+          <div className="p-1 sm:p-2 h-full flex flex-col">
             {/* Header Area */}
             <div className="w-full h-1 bg-slate-100 rounded-full mb-1 sm:mb-2"></div>
 
@@ -479,7 +486,7 @@ function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: strin
                 // Math Grid Pattern
                 <div className="grid grid-cols-2 gap-1 h-full">
                   {Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} className="border border-slate-100 rounded bg-slate-50 flex items-center justify-center">
+                    <div key={i} className="border border-slate-50 rounded bg-slate-50/50 flex items-center justify-center">
                       <CategoryIcon iconType={iconType} /> {/* Tiny icon as a watermark */}
                     </div>
                   ))}
@@ -498,11 +505,17 @@ function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: strin
               )}
             </div>
 
-            {/* Bottom Footer Accent */}
-            <div className={`w-1/2 h-1 rounded-full mt-auto ${getThumbAccentClass(iconType)} opacity-40`}></div>
-          </>
+            {/* Footer Branding Area (Simulated) */}
+            <div className="mt-auto h-2 flex items-center justify-between">
+              <div className="w-2 h-0.5 bg-slate-100 rounded-full"></div>
+              <div className="w-1 h-1 bg-purple-100 rounded-full"></div>
+            </div>
+          </div>
         )}
       </div>
+
+      {/* Hover overlay shine */}
+      <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-white/0 via-white/20 to-white/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
     </div>
   )
 }
