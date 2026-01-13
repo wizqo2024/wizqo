@@ -8,6 +8,7 @@ import { trackCategoryFilter } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
+import { trackWorksheetDownload } from '@/utils/analytics'
 
 // Categories will be defined inside component to use translation
 
@@ -522,10 +523,12 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <button
             onClick={() => {
               if (customDownloadUrl) {
+                trackWorksheetDownload(docId, translatedTitle, '5th-grade-hub', '5th Grade')
                 window.open(customDownloadUrl, '_blank')
                 return
               }
               const printUrl = getWorksheetPrintURL(docId, '5th-grade')
+              trackWorksheetDownload(docId, translatedTitle, '5th-grade-hub', '5th Grade')
               window.open(printUrl, '_blank')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"

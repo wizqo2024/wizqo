@@ -1293,7 +1293,13 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={(e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); window.print(); }}
+                  onClick={(e: React.MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.print();
+                    // Track print as download intent
+                    trackWorksheetDownload(primaryDoc || doc || 'unknown', docTitle || 'Worksheet', `print-view-${from || 'direct'}`, grade || 'Mixed')
+                  }}
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium shadow-sm transition-colors"
                 >
                   <span>{String.fromCodePoint(0x1F5A8)}</span> Print
@@ -1343,6 +1349,9 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                           link.href = imgData;
                           link.click();
                           setIsDownloadingPNG(false);
+
+                          // Track PNG download
+                          trackWorksheetDownload(primaryDoc || doc || 'unknown', docTitle || 'Worksheet', `print-view-png-${from || 'direct'}`, grade || 'Mixed')
                         }).catch((error: unknown) => {
                           console.error('PNG capture failed:', error);
                           setIsDownloadingPNG(false);

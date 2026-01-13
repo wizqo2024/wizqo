@@ -14,6 +14,7 @@ import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
 import { CODYSTAR_TTF_BASE64 } from '@/lib/fonts';
 import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
+import { trackWorksheetDownload } from '@/utils/analytics';
 
 type LetterCase = 'original' | 'title' | 'upper' | 'lower';
 type FontStyle = 'classic' | 'dotted' | 'bubble' | 'script';
@@ -584,6 +585,9 @@ export default function NameTracingGeneratorPage() {
             variant: 'destructive',
           });
         } finally {
+          // Track print intent as download
+          trackWorksheetDownload('name-tracing', batchMode === 'batch' ? 'batch-print' : childName, 'name-tracing', 'Kindergarten')
+
           // 3. Reset state after printing started
           // Small delay to ensure the print dialog is fully independent of the DOM state
           setTimeout(() => setIsPrinting(false), 500);
@@ -667,6 +671,9 @@ export default function NameTracingGeneratorPage() {
                   const safeName = formatName(name, letterCase).replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase() || 'name-tracing';
                   link.download = `${safeName}.png`;
                   link.click();
+
+                  // Track batch item download
+                  trackWorksheetDownload('name-tracing', `batch-${name}`, 'name-tracing', 'Kindergarten')
                 }
                 URL.revokeObjectURL(url);
               };
@@ -726,6 +733,9 @@ export default function NameTracingGeneratorPage() {
             title: t('pages.nameTracing.downloadComplete'),
             description: t('pages.nameTracing.downloadCompleteDesc'),
           });
+
+          // Track single download
+          trackWorksheetDownload('name-tracing', childName, 'name-tracing', 'Kindergarten')
         }
         URL.revokeObjectURL(url);
       };
@@ -850,6 +860,9 @@ export default function NameTracingGeneratorPage() {
 
       const safeFilename = names.length > 1 ? 'name-tracing-batch.pdf' : `${safeFileName}.pdf`;
       doc.save(safeFilename);
+
+      // Track PDF download
+      trackWorksheetDownload('name-tracing', batchMode === 'batch' ? 'batch-pdf' : childName, 'name-tracing', 'Kindergarten')
 
       toast({
         title: t('pages.nameTracing.downloadComplete'),

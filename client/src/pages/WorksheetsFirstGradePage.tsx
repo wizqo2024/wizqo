@@ -9,6 +9,7 @@ import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
+import { trackWorksheetDownload } from '@/utils/analytics'
 
 // Categories will be defined inside component to use translation
 
@@ -472,6 +473,7 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="mt-3 flex items-center gap-2">
         <PDFDownloadButton
           onClick={() => {
+            trackWorksheetDownload('item-card', title, '1st-grade-hub', '1st Grade')
             window.open(href, '_blank')
           }}
           isGenerating={false}
@@ -555,10 +557,12 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <PDFDownloadButton
             onClick={() => {
               if (customDownloadUrl) {
+                trackWorksheetDownload(docId, translatedTitle, '1st-grade-hub', '1st Grade')
                 window.open(customDownloadUrl, '_blank');
                 return;
               }
               const printUrl = getWorksheetPrintURL(docId, '1st-grade')
+              trackWorksheetDownload(docId, translatedTitle, '1st-grade-hub', '1st Grade')
               window.open(printUrl, '_blank')
             }}
             isGenerating={false}

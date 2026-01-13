@@ -5,6 +5,7 @@ import { makeRng } from '@/utils/printableUtils';
 import { WorksheetSectionWrapper, PremiumWorksheetBanner, StrategySpotlight, getWorksheetTheme } from './PrintableShared';
 import { generateWorksheetPDF } from '@/utils/pdfGenerator';
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton';
+import { trackWorksheetDownload } from '@/utils/analytics';
 
 type ReactNode = React.ReactNode;
 
@@ -1541,6 +1542,14 @@ export function MultiplicationTimed({ seed, variant, showAnswersForDoc, docId: p
                 showAnswers: false,
                 packSections: true
             });
+
+            // Track successful download
+            trackWorksheetDownload(
+                docId,
+                bannerTitle || 'Timed Multiplication',
+                window.location.pathname,
+                'multiple'
+            );
         } catch (error) {
             console.error('PDF generation failed:', error);
         } finally {

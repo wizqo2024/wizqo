@@ -6,7 +6,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
-import { trackCategoryFilter, trackThumbnailClick } from '@/utils/analytics'
+import { trackCategoryFilter, trackThumbnailClick, trackWorksheetDownload } from '@/utils/analytics'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 // Categories will be translated in the component
@@ -557,10 +557,12 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         <button
           onClick={() => {
             if (customDownloadUrl) {
+              trackWorksheetDownload(docId, title, 'kindergarten-hub', 'Kindergarten')
               window.open(customDownloadUrl, '_blank');
               return;
             }
             const printUrl = getWorksheetPrintURL(docId, 'kindergarten')
+            trackWorksheetDownload(docId, title, 'kindergarten-hub', 'Kindergarten')
             window.open(printUrl, '_blank')
           }}
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-purple-50 px-4 py-2.5 text-sm font-bold text-purple-700 transition-all hover:bg-purple-600 hover:text-white hover:shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 active:scale-95"

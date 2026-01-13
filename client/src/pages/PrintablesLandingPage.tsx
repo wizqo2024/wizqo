@@ -5,6 +5,7 @@ import { useTranslation } from '@/context/TranslationContext';
 import { PRINTABLE_BUNDLE_SECTIONS, PRINTABLE_DOC_META } from '@/data/printableBundles';
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks';
 import { getWorksheetSEO } from '@shared/worksheetSEO';
+import { trackWorksheetDownload, trackPackGeneration, trackThumbnailClick } from '@/utils/analytics';
 
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
@@ -58,9 +59,9 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
         </div>
       )}
 
-      {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
       <a
         href={href}
+        onClick={() => trackThumbnailClick(docId || href, 'printables')}
         className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-shadow block"
         aria-label={`View ${translatedTitle} worksheet`}
         style={{
@@ -101,6 +102,8 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
             onClick={() => {
               const printUrl = docId ? getWorksheetPrintURL(docId, 'printables') : finalHref
               window.open(printUrl, '_blank')
+              // Track download
+              trackWorksheetDownload(docId || href, translatedTitle, 'printables', level || 'Mixed')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
             aria-label={`Download ${title} as PDF`}
@@ -109,7 +112,7 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           </button>
         </div>
       </div>
-    </article>
+    </article >
   );
 });
 
@@ -128,6 +131,8 @@ function BundleButton({ section, className }: { section: string; className?: str
     <button
       onClick={() => {
         window.open(url, '_blank')
+        // Track bundle download
+        trackWorksheetDownload(`bundle-${section}`, `${section} Bundle`, 'printables', 'Mixed')
       }}
       className={`${BUTTON_CLASS} focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 ${className ?? ''}`.trim()}
       aria-label={`Download the ${section} printable bundle`}
@@ -544,7 +549,11 @@ export function PrintablesLandingPage() {
                 <button
                   onClick={() => {
                     const url = `/print?doc=pack&time=${packTime}&age=${packAge}&skill=${packSkill}`;
-                    try { window.location.href = url; } catch { }
+                    try {
+                      window.location.href = url;
+                      // Track pack generation
+                      trackPackGeneration(parseInt(packTime), packAge, packSkill, 5); // Assuming 5 worksheets per pack
+                    } catch { }
                   }}
                   className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
                   aria-label="Build printable pack"

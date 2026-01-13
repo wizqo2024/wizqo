@@ -3,6 +3,7 @@ import { useTranslation } from '@/context/TranslationContext'
 // Download and Loader2 removed as they are now used within PDFDownloadButton
 import { generateWorksheetPDF } from '@/utils/pdfGenerator'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
+import { trackWorksheetDownload } from '@/utils/analytics'
 
 // Helper function to get theme for regular worksheets based on docId
 export function getWorksheetTheme(docId: string): {
@@ -339,6 +340,14 @@ export function WorksheetSectionWrapper({
                 showAnswers: false, // Individual handouts typically don't show answers in the hover PDF
                 orientation: orientation
             })
+
+            // Track successful download
+            trackWorksheetDownload(
+                docId,
+                translatedTitle || 'Unknown Worksheet',
+                window.location.pathname,
+                'multiple' // Could be refined based on docId analysis
+            )
 
         } catch (error) {
             console.error('PDF generation failed:', error)

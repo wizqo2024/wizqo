@@ -1153,6 +1153,9 @@ export function InteractiveWorksheetsPage() {
       return
     }
 
+    // Track download intent
+    trackWorksheetDownload(item.docId, item.title, 'interactive-generator', item.gradeLabel)
+
     // Open in new tab without download=1 (user prefers to see the page first)
     // The "Download PDF" button on the print page is now always visible and functional
     const url = new URL(baseUrl, window.location.origin)

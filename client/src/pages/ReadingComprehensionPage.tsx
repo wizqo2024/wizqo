@@ -7,6 +7,7 @@ import { CategoryFilter, type Category } from '@/components/CategoryFilter';
 import { trackCategoryFilter } from '@/utils/analytics';
 import { useTranslation } from '@/context/TranslationContext';
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
+import { trackWorksheetDownload } from '@/utils/analytics'
 
 // READING_CATEGORIES will be created inside component to use translations
 
@@ -743,6 +744,7 @@ function ItemCard({ title, description, href }: { title: string; description: st
       <div className="mt-3 flex items-center gap-2">
         <button
           onClick={() => {
+            trackWorksheetDownload('item-card', title, 'reading-hub', 'Reading')
             window.open(href, '_blank')
           }}
           className={BUTTON_CLASS}
@@ -825,10 +827,12 @@ const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ titl
           <button
             onClick={() => {
               if (customDownloadUrl) {
+                trackWorksheetDownload(docId, translatedTitle, 'reading-hub', 'Reading')
                 window.open(customDownloadUrl, '_blank');
                 return;
               }
               const printUrl = getWorksheetPrintURL(docId, 'reading-comprehension')
+              trackWorksheetDownload(docId, translatedTitle, 'reading-hub', 'Reading')
               window.open(printUrl, '_blank')
             }}
             className="text-xs font-medium text-purple-600 hover:text-purple-700 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"

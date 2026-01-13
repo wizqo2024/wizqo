@@ -11,6 +11,7 @@ import { Download, Printer } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
+import { trackWorksheetDownload } from '@/utils/analytics';
 
 export default function CertificateMakerPage() {
   const { toast } = useToast();
@@ -215,6 +216,9 @@ export default function CertificateMakerPage() {
       link.download = `certificate-${recipient ? recipient.replace(/\s+/g, '-') : 'award'}.png`;
       link.click();
 
+      // Track download
+      trackWorksheetDownload('certificate-maker', `certificate-${theme}`, 'certificate-maker', 'Creative')
+
       toast({
         title: t('pages.certificate.downloadComplete'),
         description: t('pages.certificate.downloadCompleteDesc'),
@@ -305,6 +309,9 @@ export default function CertificateMakerPage() {
 
       pdf.addImage(imgData, 'JPEG', 0, 0, width, height);
       pdf.save(`certificate-${recipient ? recipient.replace(/\s+/g, '-') : 'award'}.pdf`);
+
+      // Track download
+      trackWorksheetDownload('certificate-maker', `certificate-${theme}`, 'certificate-maker', 'Creative')
 
       toast({
         title: t('Downloaded'),

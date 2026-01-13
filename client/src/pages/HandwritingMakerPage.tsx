@@ -11,6 +11,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import jsPDF from 'jspdf';
 import { CODYSTAR_TTF_BASE64, CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
 import { hexToRgb } from '@/utils/pdfHelpers';
+import { trackWorksheetDownload } from '@/utils/analytics';
 
 type Mode = 'letters' | 'words' | 'sentences';
 type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset';
@@ -111,6 +112,9 @@ export default function HandwritingMakerPage() {
       };
       if (iframe.contentWindow?.document.readyState === 'complete') doPrint();
       else iframe.onload = doPrint;
+
+      // Track print intent as download
+      trackWorksheetDownload('handwriting-maker', `${mode}-worksheet`, 'handwriting-maker', 'handwriting')
     } catch { }
   }
 
@@ -343,6 +347,10 @@ export default function HandwritingMakerPage() {
 
     const fileNameText = (pdfRows[0] || 'worksheet').substring(0, 15).replace(/\s+/g, '-');
     doc.save(`handwriting-${fileNameText}.pdf`);
+
+    // Track download
+    trackWorksheetDownload('handwriting-maker', `${mode}-pdf`, 'handwriting-maker', 'handwriting')
+
     toast({
       title: t('Downloaded'),
       description: t('Your handwriting worksheet has been saved as PDF.'),
