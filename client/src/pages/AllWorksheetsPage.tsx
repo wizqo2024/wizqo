@@ -12,6 +12,7 @@ interface CategoryCard {
   iconType: string
   gradeRange?: string
   badge?: string
+  thumbnailUrl?: string
 }
 
 export default function AllWorksheetsPage() {
@@ -25,7 +26,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/kindergarten-math-worksheets',
       iconType: 'kindergarten',
       gradeRange: 'Kindergarten',
-      badge: 'Early Learning'
+      badge: 'Early Learning',
+      thumbnailUrl: '/images/thumbs/kindergarten.png'
     },
     {
       title: '1st Grade Math Worksheets',
@@ -33,7 +35,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/1st-grade-math-worksheets',
       iconType: 'first-grade',
       gradeRange: '1st Grade',
-      badge: 'Foundations'
+      badge: 'Foundations',
+      thumbnailUrl: '/images/thumbs/first-grade.png'
     },
     {
       title: '2nd Grade Math Worksheets',
@@ -41,7 +44,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/2nd-grade-math-worksheets',
       iconType: 'second-grade',
       gradeRange: '2nd Grade',
-      badge: 'Building Skills'
+      badge: 'Building Skills',
+      thumbnailUrl: '/images/thumbs/math-generic.png'
     },
     {
       title: '3rd Grade Math Worksheets',
@@ -49,7 +53,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/3rd-grade-math-worksheets',
       iconType: 'third-grade',
       gradeRange: '3rd Grade',
-      badge: 'Growing Strong'
+      badge: 'Growing Strong',
+      thumbnailUrl: '/images/thumbs/math-generic.png'
     },
     {
       title: '4th Grade Math Worksheets',
@@ -57,7 +62,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/4th-grade-math-worksheets',
       iconType: 'fourth-grade',
       gradeRange: '4th Grade',
-      badge: 'Mastering Concepts'
+      badge: 'Mastering Concepts',
+      thumbnailUrl: '/images/thumbs/math-generic.png'
     },
     {
       title: '5th Grade Math Worksheets',
@@ -65,7 +71,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/5th-grade-math-worksheets',
       iconType: 'fifth-grade',
       gradeRange: '5th Grade',
-      badge: 'Advanced'
+      badge: 'Advanced',
+      thumbnailUrl: '/images/thumbs/math-generic.png'
     },
     // Multiplication Focus
     {
@@ -74,7 +81,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/multiplication-worksheets',
       iconType: 'multiplication',
       gradeRange: '2nd-5th',
-      badge: 'Popular'
+      badge: 'Popular',
+      thumbnailUrl: '/images/thumbs/multiplication.png'
     },
     {
       title: 'Times Table Multiplication Worksheets',
@@ -82,7 +90,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/times-table-multiplication-worksheets',
       iconType: 'times-table',
       gradeRange: '1st-5th',
-      badge: 'Essential'
+      badge: 'Essential',
+      thumbnailUrl: '/images/thumbs/multiplication.png'
     },
     // Specialized Math
     {
@@ -91,7 +100,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/fractions-to-decimals-worksheets',
       iconType: 'fractions',
       gradeRange: '3rd-5th',
-      badge: 'Specialized'
+      badge: 'Specialized',
+      thumbnailUrl: '/images/thumbs/math-generic.png'
     },
     {
       title: 'Order of Operations Worksheets (PEMDAS)',
@@ -99,7 +109,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/order-of-operations-worksheets',
       iconType: 'operations',
       gradeRange: '4th-6th',
-      badge: 'Advanced'
+      badge: 'Advanced',
+      thumbnailUrl: '/images/thumbs/math-generic.png'
     },
     // Reading & Language
     {
@@ -108,7 +119,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/reading-comprehension',
       iconType: 'reading',
       gradeRange: '1st-3rd',
-      badge: 'Language Arts'
+      badge: 'Language Arts',
+      thumbnailUrl: '/images/thumbs/reading.png'
     },
     // Creative Tools
     {
@@ -116,21 +128,24 @@ export default function AllWorksheetsPage() {
       description: 'Editable name/date',
       href: '/printables/certificate-maker',
       iconType: 'certificate',
-      badge: 'Create Something Magical'
+      badge: 'Create Something Magical',
+      thumbnailUrl: '/images/thumbs/tracing.png'
     },
     {
       title: 'Name Tracing',
       description: 'Personalized sheets',
       href: '/printables/name-tracing-generator',
       iconType: 'tracing',
-      badge: 'Create Something Magical'
+      badge: 'Create Something Magical',
+      thumbnailUrl: '/images/thumbs/tracing.png'
     },
     {
       title: 'Handwriting Maker',
       description: 'Letters, words, sentences',
       href: '/worksheets/handwriting-worksheet-maker',
       iconType: 'handwriting',
-      badge: 'Create Something Magical'
+      badge: 'Create Something Magical',
+      thumbnailUrl: '/images/thumbs/tracing.png'
     },
     // Quick Access
     {
@@ -138,14 +153,16 @@ export default function AllWorksheetsPage() {
       description: 'Create custom worksheets instantly',
       href: '/interactive-worksheets-generator',
       iconType: 'generator',
-      badge: 'Worksheets & Quick Packs'
+      badge: 'Worksheets & Quick Packs',
+      thumbnailUrl: '/images/thumbs/math-generic.png'
     },
     {
       title: 'Printables',
       description: 'Puzzles, coloring, packs',
       href: '/printables',
       iconType: 'printables',
-      badge: 'Worksheets & Quick Packs'
+      badge: 'Worksheets & Quick Packs',
+      thumbnailUrl: '/images/thumbs/math-generic.png'
     }
   ]
 
@@ -401,7 +418,11 @@ function CategoryCard({ category }: { category: CategoryCard; key?: any }) {
 
       {/* Thumbnail & Title */}
       <div className="flex items-start gap-5 mb-4">
-        <WorksheetThumbnail iconType={category.iconType} />
+        <WorksheetThumbnail
+          iconType={category.iconType}
+          thumbnailUrl={category.thumbnailUrl}
+          title={category.title}
+        />
         <div className="flex-1 min-w-0">
           <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
             {category.title}
@@ -437,7 +458,7 @@ function CategoryCard({ category }: { category: CategoryCard; key?: any }) {
 }
 
 // Micro-Preview Thumbnail Component
-function WorksheetThumbnail({ iconType }: { iconType: string }) {
+function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: string; thumbnailUrl?: string; title: string }) {
   const isMath = iconType.includes('grade') || ['multiplication', 'times-table', 'fractions', 'operations'].includes(iconType)
 
   return (
@@ -447,37 +468,50 @@ function WorksheetThumbnail({ iconType }: { iconType: string }) {
       <div className="absolute inset-0 bg-white rounded-md border border-slate-200 translate-x-1 translate-y-1 shadow-sm"></div>
 
       {/* Top Sheet */}
-      <div className={`absolute inset-0 rounded-md border-2 border-slate-200 bg-white shadow-md overflow-hidden flex flex-col p-1.5 sm:p-2 ${getThumbBorderClass(iconType)}`}>
-        {/* Header Area */}
-        <div className="w-full h-1 bg-slate-100 rounded-full mb-1 sm:mb-2"></div>
+      <div className={`absolute inset-0 rounded-md border-2 border-slate-200 bg-white shadow-md overflow-hidden flex flex-col ${thumbnailUrl ? '' : 'p-1.5 sm:p-2'} ${getThumbBorderClass(iconType)}`}>
+        {thumbnailUrl ? (
+          <img
+            src={thumbnailUrl}
+            alt={`${title} Preview`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            width={80}
+            height={96}
+          />
+        ) : (
+          <>
+            {/* Header Area */}
+            <div className="w-full h-1 bg-slate-100 rounded-full mb-1 sm:mb-2"></div>
 
-        {/* Content Area (Mini Mockup) */}
-        <div className="flex-1 flex flex-col gap-1 sm:gap-1.5 opacity-60">
-          {isMath ? (
-            // Math Grid Pattern
-            <div className="grid grid-cols-2 gap-1 h-full">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="border border-slate-100 rounded bg-slate-50 flex items-center justify-center">
-                  <CategoryIcon iconType={iconType} /> {/* Tiny icon as a watermark */}
+            {/* Content Area (Mini Mockup) */}
+            <div className="flex-1 flex flex-col gap-1 sm:gap-1.5 opacity-60">
+              {isMath ? (
+                // Math Grid Pattern
+                <div className="grid grid-cols-2 gap-1 h-full">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="border border-slate-100 rounded bg-slate-50 flex items-center justify-center">
+                      <CategoryIcon iconType={iconType} /> {/* Tiny icon as a watermark */}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                // Reading/Language Lines Pattern
+                <div className="flex flex-col gap-1.5 py-1">
+                  <div className="w-full h-0.5 bg-slate-100"></div>
+                  <div className="w-3/4 h-0.5 bg-slate-100"></div>
+                  <div className="w-full h-0.5 bg-slate-100"></div>
+                  <div className="w-1/2 h-0.5 bg-slate-100"></div>
+                  <div className="flex items-center justify-center mt-2">
+                    <CategoryIcon iconType={iconType} />
+                  </div>
+                </div>
+              )}
             </div>
-          ) : (
-            // Reading/Language Lines Pattern
-            <div className="flex flex-col gap-1.5 py-1">
-              <div className="w-full h-0.5 bg-slate-100"></div>
-              <div className="w-3/4 h-0.5 bg-slate-100"></div>
-              <div className="w-full h-0.5 bg-slate-100"></div>
-              <div className="w-1/2 h-0.5 bg-slate-100"></div>
-              <div className="flex items-center justify-center mt-2">
-                <CategoryIcon iconType={iconType} />
-              </div>
-            </div>
-          )}
-        </div>
 
-        {/* Bottom Footer Accent */}
-        <div className={`w-1/2 h-1 rounded-full mt-auto ${getThumbAccentClass(iconType)} opacity-40`}></div>
+            {/* Bottom Footer Accent */}
+            <div className={`w-1/2 h-1 rounded-full mt-auto ${getThumbAccentClass(iconType)} opacity-40`}></div>
+          </>
+        )}
       </div>
     </div>
   )
