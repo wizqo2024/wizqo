@@ -474,6 +474,7 @@ function WorksheetThumbnail({ iconType, thumbnailUrl, title }: { iconType: strin
             src={thumbnailUrl}
             alt={`${title} Preview`}
             className="w-full h-full object-cover"
+            style={{ imageRendering: '-webkit-optimize-contrast' }}
             loading="lazy"
             width={80}
             height={96}
