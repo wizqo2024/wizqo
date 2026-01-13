@@ -504,26 +504,6 @@ function WorksheetThumbnail({ thumbnailUrl, title }: { iconType?: string; thumbn
   )
 }
 
-function getThumbBorderClass(iconType: string): string {
-  if (iconType.includes('kindergarten')) return 'border-pink-200'
-  if (iconType.includes('first')) return 'border-blue-200'
-  if (iconType.includes('second')) return 'border-green-200'
-  if (iconType.includes('third')) return 'border-yellow-200'
-  if (iconType.includes('fourth')) return 'border-purple-200'
-  if (iconType.includes('fifth')) return 'border-orange-200'
-  return 'border-indigo-200'
-}
-
-function getThumbAccentClass(iconType: string): string {
-  if (iconType.includes('kindergarten')) return 'bg-pink-500'
-  if (iconType.includes('first')) return 'bg-blue-500'
-  if (iconType.includes('second')) return 'bg-green-500'
-  if (iconType.includes('third')) return 'bg-yellow-500'
-  if (iconType.includes('fourth')) return 'bg-purple-500'
-  if (iconType.includes('fifth')) return 'bg-orange-500'
-  return 'bg-indigo-500'
-}
-
 // Keep icon helper for usage inside thumbnails or elsewhere
 function getIconBgClass(iconType: string): string {
   switch (iconType) {
