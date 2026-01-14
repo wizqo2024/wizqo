@@ -14,14 +14,20 @@ const GA_MEASUREMENT_ID = 'G-MLYT7Y9EVY';
 
 export function initAnalytics() {
   if (typeof window !== 'undefined') {
+    const params = {
+      send_to: GA_MEASUREMENT_ID,
+      debug_mode: true
+    };
+
     const gtag = window.gtag;
     if (typeof gtag === 'function') {
-      gtag('config', GA_MEASUREMENT_ID, {
-        send_to: GA_MEASUREMENT_ID,
-        debug_mode: true
-      });
-      console.log(`[Wizqo Analytics] Initialized with Debug Mode: ${GA_MEASUREMENT_ID}`);
+      gtag('config', GA_MEASUREMENT_ID, params);
+    } else {
+      // Fallback for early initialization
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(['config', GA_MEASUREMENT_ID, params]);
     }
+    console.log(`[Wizqo Analytics] Initialized: ${GA_MEASUREMENT_ID}`);
   }
 }
 

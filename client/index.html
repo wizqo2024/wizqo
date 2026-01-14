@@ -8,8 +8,11 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    // Use beacon transport for all events by default
-    gtag('config', 'G-MLYT7Y9EVY', { transport_type: 'beacon' });
+    // Use beacon transport for all events by default + force debug mode
+    gtag('config', 'G-MLYT7Y9EVY', { 
+      transport_type: 'beacon',
+      debug_mode: true 
+    });
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
