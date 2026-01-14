@@ -200,8 +200,8 @@ export default function NameTracingInfographic() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Problem 1: Long Name */}
-                        <div className="bg-white rounded-xl p-6 border-b-4 border-purple-500 shadow-md">
-                            <h4 className="font-bold text-slate-900 mb-2">The "Long Name" Problem</h4>
+                        <div className="bg-white rounded-xl p-6 border-b-4 border-purple-500 shadow-md flex flex-col h-full">
+                            <h4 className="font-bold text-slate-900 mb-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">The "Long Name" Problem</h4>
                             <p className="text-sm text-slate-500 mb-4">Generic boxes are too small for longer names, causing frustration.</p>
 
                             <div className="bg-slate-100 p-4 rounded-lg">
@@ -221,7 +221,7 @@ export default function NameTracingInfographic() {
 
                             <div className="bg-blue-50 p-4 rounded-lg space-y-3">
                                 <p className="text-xs text-blue-400 mb-1">Custom Dynamic Layout:</p>
-                                <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-10 flex items-center justify-center font-mono font-bold w-full rounded text-sm">
+                                <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-10 flex items-center justify-center font-mono font-bold w-full rounded text-[10px] sm:text-xs text-center whitespace-nowrap overflow-hidden px-1">
                                     C H R I S T O P H E R
                                 </div>
                                 <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-14 flex items-center justify-center font-mono font-bold text-2xl w-full rounded">
@@ -232,8 +232,8 @@ export default function NameTracingInfographic() {
                         </div>
 
                         {/* Problem 2: Short Name */}
-                        <div className="bg-white rounded-xl p-6 border-b-4 border-purple-500 shadow-md">
-                            <h4 className="font-bold text-slate-900 mb-2">The "Short Name" Problem</h4>
+                        <div className="bg-white rounded-xl p-6 border-b-4 border-purple-500 shadow-md flex flex-col h-full">
+                            <h4 className="font-bold text-slate-900 mb-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">The "Short Name" Problem</h4>
                             <p className="text-sm text-slate-500 mb-4">Short names in standard lines leave awkward gaps.</p>
 
                             <div className="bg-slate-100 p-4 rounded-lg">
