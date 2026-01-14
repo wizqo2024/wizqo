@@ -97,9 +97,9 @@ export default function NameTracingInfographic() {
                         <h4 className="font-bold text-slate-400 text-sm uppercase tracking-wide mb-4">Cognitive Engagement Metrics</h4>
                         <div className="w-full h-[300px]">
                             <ResponsiveContainer width="100%" height="100%">
-                                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={RADAR_DATA}>
+                                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={RADAR_DATA} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                                     <PolarGrid />
-                                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748B', fontSize: 12 }} />
+                                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748B', fontSize: 11 }} />
                                     <Radar name="Generic Workbook" dataKey="A" stroke="#9CA3AF" fill="#9CA3AF" fillOpacity={0.2} />
                                     <Radar name="Name Tracing" dataKey="B" stroke={COLORS.pink} fill={COLORS.pink} fillOpacity={0.4} />
                                     <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }} />

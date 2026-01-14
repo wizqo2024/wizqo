@@ -858,39 +858,7 @@ But there is one word that lights up every child's brain like a firework: **Thei
 
 If you are trying to teach your kindergartener or preschooler to write, switching to Custom Name Tracing isn't just a "fun trick"—it is scientifically proven to help them learn faster. Here is why.
 
-### 1. The "Cocktail Party Effect" for Kids
-Psychologists have a term called the **Cocktail Party Effect**. It basically means that even in a noisy, crowded room, your brain will instantly snap to attention if someone says your name.
-
-Your name is your identity. For a child, their name is the most important word in the world.
-
-When you give a child a worksheet that says their name:
-*   **They pay attention.** It’s not just "homework" anymore; it’s about them.
-*   **They feel ownership.** They aren't tracing a random word; they are "signing their autograph."
-*   **Focus increases.** Teachers report that students spend 2-3x longer on tasks that involve their own names compared to generic words.
-
 <NameTracingInfographic />
-
-### 2. It Builds "Writing Confidence" Early
-Writing is hard work. It requires complex hand-eye coordination and fine motor strength. When a child fails repeatedly, they get discouraged.
-
-Standard workbooks often start with letters that are "easy to draw" (like T or L), but those letters might not be interesting.
-
-When a child masters writing their own name, they get a massive dopamine hit. They can look at a piece of paper and say, "I did that. That says ME." This early win builds the confidence they need to tackle harder words later.
-
-### 3. Letter Recognition Happens Automatically
-Most parents try to teach the alphabet in order: A, B, C, D...
-
-But that’s a lot of abstract information to memorize. Name tracing "hacks" this process. By focusing on the specific letters in their name (e.g., O-L-I-V-I-A), a child learns to identify shapes, curves, and lines in a meaningful context.
-
-Once they master the letters in their name, they have "anchor letters" to help them learn the rest of the alphabet. "Look mom, that sign has an 'O' like in my name!"
-
-### 4. Why "Generic" Workbooks Fail
-The problem with store-bought workbooks is that they are "One Size Fits All."
-
-*   If your child has a long name (e.g., "Christopher"), generic boxes are too small.
-*   If your child has a short name (e.g., "Ava"), generic lines are too long.
-
-They don't teach the specific muscle memory your child needs right now.
 
 ### How to Get Started (For Free)
 You don't need to buy expensive software or spend hours drawing dotted lines by hand.
