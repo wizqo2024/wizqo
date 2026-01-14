@@ -44,9 +44,6 @@ export function trackEvent(eventName: string, eventParams?: Record<string, any>)
     transport_type: 'beacon'
   };
 
-  // ALERT - ABSOLUTE CONFIRMATION
-  window.alert(`[Wizqo Analytics] Event: ${eventName}\nSee console for details.`);
-
   // Log to console - ALWAYS visible for debugging this task
   console.log(`[Wizqo Analytics] Event: ${eventName}`, params);
 
