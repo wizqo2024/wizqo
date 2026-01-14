@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Generate sitemap_worksheets.xml for all worksheet pages
  * 

@@ -1650,8 +1650,8 @@ export const en = {
     },
     multiplication: {
       title: 'Free Multiplication Worksheets',
-      subtitle: 'Printable PDFs with Answer Keys',
-      description: 'Download printable multiplication worksheets with answer keys. Perfect for 2nd grade, 3rd grade, and beyond!',
+      subtitle: 'Download printable multiplication worksheets with answer keys. Perfect for 2nd grade, 3rd grade, and beyond!',
+      description: 'Build multiplication mastery with our comprehensive collection of math worksheets. Designed to support learners from 2nd to 5th grade.',
       filterByCategory: 'Filter by Category',
       noResults: 'No worksheets match the selected categories.',
       clearFilters: 'Clear filters to show all worksheets',
@@ -1669,6 +1669,20 @@ export const en = {
         fluency: 'Fluency & Practice',
         skipCounting: 'Skip Counting',
         factFamilies: 'Fact Families',
+      },
+      wiki: {
+        title: 'Mastering the Concept: Beyond Memorization',
+        strategyGuide: 'Foundational Strategy Guide',
+        powerTitle: 'The Power of Visual Models',
+        powerContent: 'Multiplication is more than just math facts; it is about scaling and grouping. Using Arrays and Area Models helps students visualize why 3x4 is the same as 3 groups of 4. This conceptual depth is critical for solving complex word problems and understanding multi-digit multiplication later on.',
+        stratTitle: 'Key Strategies to Teach First',
+        strat1Title: 'Equal Groups',
+        strat1Content: 'Start with the basics. 2x6 is simply "2 groups of 6." Drawing circles with dots makes this concrete for young learners.',
+        strat2Title: 'Array Representation',
+        strat2Content: 'Use rows and columns. This transitions perfectly into area and perimeter concepts in 4th and 5th grade.',
+        strat3Title: 'Repeated Addition',
+        strat3Content: 'Help students bridge the gap by showing that multiplication is a faster way to add equal sets (e.g., 4+4+4 = 3x4).',
+        quote: '"Conceptual understanding is the foundation upon which speed and accuracy are built."'
       },
       worksheets: {
         basicFacts1_5: {

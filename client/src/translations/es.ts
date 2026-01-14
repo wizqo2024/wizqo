@@ -1161,8 +1161,8 @@ export const es = {
     },
     multiplication: {
       title: 'Hojas de Trabajo de Multiplicación Gratis',
-      subtitle: 'PDFs imprimibles con claves de respuestas',
-      description: 'Descarga hojas de trabajo de multiplicación imprimibles con claves de respuestas. ¡Perfecto para 2do grado, 3er grado y más!',
+      subtitle: 'Descarga hojas de trabajo de multiplicación imprimibles con claves de respuestas. ¡Perfecto para 2do grado, 3er grado y más!',
+      description: 'Domina la multiplicación con nuestra colección completa de hojas de trabajo de matemáticas. Diseñado para estudiantes de 2do a 5to grado.',
       filterByCategory: 'Filtrar por Categoría',
       noResults: 'No hay hojas de trabajo que coincidan con las categorías seleccionadas.',
       clearFilters: 'Limpiar filtros para mostrar todas las hojas de trabajo',
@@ -1173,13 +1173,27 @@ export const es = {
         all: 'Fluidez y Práctica de Multiplicación',
       },
       categories: {
-        facts: 'Datos de Multiplicación',
+        facts: 'Hechos de Multiplicación',
         arrays: 'Matrices y Modelos',
         wordProblems: 'Problemas de Palabras',
-        multiDigit: 'Múltiples Dígitos',
+        multiDigit: 'Varios Dígitos',
         fluency: 'Fluidez y Práctica',
-        skipCounting: 'Conteo de Saltos',
-        factFamilies: 'Familias de Datos',
+        skipCounting: 'Conteo Saltado',
+        factFamilies: 'Familias de Operaciones',
+      },
+      wiki: {
+        title: 'Dominio del Concepto: Más Allá de la Memorización',
+        strategyGuide: 'Guía de Estrategia Fundamental',
+        powerTitle: 'El Poder de los Modelos Visuales',
+        powerContent: 'La multiplicación es más que solo operaciones matemáticas; se trata de escalar y agrupar. El uso de matrices y modelos de área ayuda a los estudiantes a visualizar por qué 3x4 es lo mismo que 3 grupos de 4. Esta profundidad conceptual es crítica para resolver problemas de palabras complejos y comprender la multiplicación de varios dígitos más adelante.',
+        stratTitle: 'Estrategias Clave para Enseñar Primero',
+        strat1Title: 'Grupos Iguales',
+        strat1Content: 'Comience con lo básico. 2x6 es simplemente "2 grupos de 6". Dibujar círculos con puntos hace que esto sea concreto para los estudiantes jóvenes.',
+        strat2Title: 'Representación en Matriz',
+        strat2Content: 'Use filas y columnas. Esto hace la transición perfecta a los conceptos de área y perímetro en 4to y 5to grado.',
+        strat3Title: 'Suma Repetida',
+        strat3Content: 'Ayude a los estudiantes a cerrar la brecha mostrando que la multiplicación es una forma más rápida de sumar conjuntos iguales (por ejemplo, 4+4+4 = 3x4).',
+        quote: '"La comprensión conceptual es la base sobre la cual se construyen la velocidad y la precisión."'
       },
       worksheets: {
         basicFacts1_5: {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'

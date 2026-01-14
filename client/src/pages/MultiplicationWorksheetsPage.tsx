@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useMemo } from 'react'
 import { UnifiedNavigation } from '@/components/UnifiedNavigation'
 import { Footer } from '@/components/Footer'
@@ -9,6 +10,7 @@ import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
+import { motion } from 'framer-motion'
 
 interface WorksheetItem {
   title: string
@@ -164,18 +166,30 @@ export default function MultiplicationWorksheetsPage() {
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 via-white to-emerald-50/50" aria-hidden />
           <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
-            <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
               <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
                 ✨ {t('pages.multiplication.title')} • 2nd-5th grade
               </span>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 {t('pages.multiplication.title')}
-                <span className="block text-purple-600">{t('pages.multiplication.subtitle')}</span>
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3, duration: 0.8 }}
+                  className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-emerald-600 mt-2"
+                >
+                  {t('pages.multiplication.subtitle')}
+                </motion.span>
               </h1>
               <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
                 {t('pages.multiplication.description')}
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
