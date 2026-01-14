@@ -1161,7 +1161,8 @@ export const es = {
     },
     multiplication: {
       title: 'Hojas de Trabajo de Multiplicación Gratis',
-      subtitle: 'Descarga hojas de trabajo de multiplicación imprimibles con claves de respuestas. ¡Perfecto para 2do grado, 3er grado y más!',
+      subtitle: 'PDFs imprimibles con claves de respuestas',
+      description: 'Descarga hojas de trabajo de multiplicación imprimibles con claves de respuestas. ¡Perfecto para 2do grado, 3er grado y más!',
       filterByCategory: 'Filtrar por Categoría',
       noResults: 'No hay hojas de trabajo que coincidan con las categorías seleccionadas.',
       clearFilters: 'Limpiar filtros para mostrar todas las hojas de trabajo',

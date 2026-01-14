@@ -1650,7 +1650,8 @@ export const en = {
     },
     multiplication: {
       title: 'Free Multiplication Worksheets',
-      subtitle: 'Download printable multiplication worksheets with answer keys. Perfect for 2nd grade, 3rd grade, and beyond!',
+      subtitle: 'Printable PDFs with Answer Keys',
+      description: 'Download printable multiplication worksheets with answer keys. Perfect for 2nd grade, 3rd grade, and beyond!',
       filterByCategory: 'Filter by Category',
       noResults: 'No worksheets match the selected categories.',
       clearFilters: 'Clear filters to show all worksheets',

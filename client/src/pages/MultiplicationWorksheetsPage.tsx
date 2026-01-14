@@ -173,7 +173,7 @@ export default function MultiplicationWorksheetsPage() {
                 <span className="block text-purple-600">{t('pages.multiplication.subtitle')}</span>
               </h1>
               <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
-                {t('pages.multiplication.subtitle')}
+                {t('pages.multiplication.description')}
               </p>
             </div>
           </div>
