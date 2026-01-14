@@ -51,7 +51,7 @@ export default function NameTracingInfographic() {
             </div>
 
             {/* Main Content */}
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20 pb-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20 pb-12">
 
                 {/* Intro Card */}
                 <div className="bg-white rounded-2xl p-8 mb-12 shadow-xl border-t-4 border-pink-500">
@@ -201,7 +201,7 @@ export default function NameTracingInfographic() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* Problem 1: Long Name */}
                         <div className="bg-white rounded-xl p-6 border-b-4 border-purple-500 shadow-md flex flex-col h-full">
-                            <h4 className="font-bold text-slate-900 mb-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">The "Long Name" Problem</h4>
+                            <h4 className="font-bold text-slate-900 mb-2 text-lg leading-tight">The "Long Name" Problem</h4>
                             <p className="text-sm text-slate-500 mb-4">Generic boxes are too small for longer names, causing frustration.</p>
 
                             <div className="bg-slate-100 p-4 rounded-lg">
@@ -221,7 +221,7 @@ export default function NameTracingInfographic() {
 
                             <div className="bg-blue-50 p-4 rounded-lg space-y-3">
                                 <p className="text-xs text-blue-400 mb-1">Custom Dynamic Layout:</p>
-                                <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-10 flex items-center justify-center font-mono font-bold w-full rounded text-[10px] sm:text-xs text-center whitespace-nowrap overflow-hidden px-1">
+                                <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-10 flex items-center justify-center font-mono font-bold w-full rounded text-[9px] sm:text-[10px] tracking-tight text-center whitespace-nowrap overflow-hidden px-1">
                                     C H R I S T O P H E R
                                 </div>
                                 <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-14 flex items-center justify-center font-mono font-bold text-2xl w-full rounded">
@@ -233,7 +233,7 @@ export default function NameTracingInfographic() {
 
                         {/* Problem 2: Short Name */}
                         <div className="bg-white rounded-xl p-6 border-b-4 border-purple-500 shadow-md flex flex-col h-full">
-                            <h4 className="font-bold text-slate-900 mb-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">The "Short Name" Problem</h4>
+                            <h4 className="font-bold text-slate-900 mb-2 text-lg leading-tight">The "Short Name" Problem</h4>
                             <p className="text-sm text-slate-500 mb-4">Short names in standard lines leave awkward gaps.</p>
 
                             <div className="bg-slate-100 p-4 rounded-lg">
