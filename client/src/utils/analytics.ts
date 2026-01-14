@@ -14,11 +14,16 @@ const GA_MEASUREMENT_ID = 'G-MLYT7Y9EVY';
 
 export function initAnalytics() {
   if (typeof window !== 'undefined') {
-    // Log initialization for debugging
-    console.log(`[Wizqo Analytics] Initializing with ID: ${GA_MEASUREMENT_ID}`);
+    const gtag = window.gtag;
+    const hasGtag = typeof gtag === 'function';
+    console.log(`[Wizqo Analytics] Init. ID: ${GA_MEASUREMENT_ID} | gtag ready: ${hasGtag}`);
 
-    if (window.gtag) {
-      logger.info('Analytics: Global gtag detected');
+    if (hasGtag && gtag) {
+      // Set debug mode globally to help troubleshooting in GA4 DebugView
+      gtag('config', GA_MEASUREMENT_ID, {
+        debug_mode: true,
+        send_to: GA_MEASUREMENT_ID
+      });
     }
   }
 }
@@ -26,9 +31,11 @@ export function initAnalytics() {
 export function trackPageView(path: string) {
   if (typeof window === 'undefined') return;
 
-  if (window.gtag) {
-    window.gtag('config', GA_MEASUREMENT_ID, {
+  const gtag = window.gtag;
+  if (typeof gtag === 'function') {
+    gtag('config', GA_MEASUREMENT_ID, {
       page_path: path,
+      debug_mode: true,
       transport_type: 'beacon',
       send_to: GA_MEASUREMENT_ID
     });
@@ -40,15 +47,19 @@ export function trackEvent(eventName: string, eventParams?: Record<string, any>)
 
   const params = {
     ...eventParams,
+    debug_mode: true, // Enable for DebugView in GA console
     send_to: GA_MEASUREMENT_ID,
     transport_type: 'beacon'
   };
 
-  // Log to console - ALWAYS visible for debugging this task
-  console.log(`[Wizqo Analytics] Event: ${eventName}`, params);
+  const gtag = window.gtag;
+  const hasGtag = typeof gtag === 'function';
 
-  if (window.gtag) {
-    window.gtag('event', eventName, params);
+  // Diagnostic log
+  console.log(`[Wizqo Analytics] ${hasGtag ? 'Firing' : 'Staging'} Event: ${eventName}`, params);
+
+  if (hasGtag && gtag) {
+    gtag('event', eventName, params);
   } else {
     // Stage if gtag isn't ready yet
     window.dataLayer = window.dataLayer || [];
