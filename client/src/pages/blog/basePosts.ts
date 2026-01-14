@@ -853,7 +853,7 @@ Take 15 minutes today. Grab your brush. See where the paint takes you. You don't
     date: "2026-01-14",
     readTime: "4 min read",
     category: "Learning Tips",
-    imageUrl: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80",
+    imageUrl: "/images/blog/name-tracing-hero-image.png",
     imageAlt: "Child writing their name with focus",
     keywords: "custom name tracing, name tracing worksheets, teach child to write name, free name tracing generator, kindergarten writing practice, preschool handwriting, personalized worksheets"
   }
