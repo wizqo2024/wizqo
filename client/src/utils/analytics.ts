@@ -14,10 +14,12 @@ const GA_MEASUREMENT_ID = 'G-MLYT7Y9EVY';
 
 export function initAnalytics() {
   if (typeof window !== 'undefined') {
+    const isProd = window.location.hostname === 'wizqo.com';
     const params = {
       send_to: GA_MEASUREMENT_ID,
-      debug_mode: true,
-      send_page_view: false // Don't send page view during config re-init
+      send_page_view: false,
+      // Debug mode only enabled in non-production environments
+      debug_mode: !isProd
     };
 
     const gtag = window.gtag;
@@ -28,18 +30,19 @@ export function initAnalytics() {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push(['config', GA_MEASUREMENT_ID, params]);
     }
-    console.log(`[Wizqo Analytics] Initialized: ${GA_MEASUREMENT_ID}`);
+    console.log(`[Wizqo Analytics] Initialized: ${GA_MEASUREMENT_ID} (Prod: ${isProd})`);
   }
 }
 
 export function trackPageView(path: string) {
   if (typeof window === 'undefined') return;
 
+  const isProd = window.location.hostname === 'wizqo.com';
   const params = {
     page_path: path,
     page_location: window.location.href,
     send_to: GA_MEASUREMENT_ID,
-    debug_mode: true
+    debug_mode: !isProd
   };
 
   const gtag = window.gtag;
@@ -65,10 +68,11 @@ export function trackBuildPackClick(grade: string) {
 export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
   if (typeof window === 'undefined') return;
 
+  const isProd = window.location.hostname === 'wizqo.com';
   const params = {
     ...eventParams,
     send_to: GA_MEASUREMENT_ID,
-    debug_mode: true
+    debug_mode: !isProd
   };
 
   const gtag = window.gtag;
@@ -238,11 +242,12 @@ export function trackConversion(conversionName: string, params?: Record<string, 
   });
 
   // Also send as conversion event for GA4
+  const isProd = window.location.hostname === 'wizqo.com';
   const gtag = window.gtag;
   if (typeof gtag === 'function') {
     gtag('event', 'conversion', {
       conversion_name: conversionName,
-      debug_mode: true,
+      debug_mode: !isProd,
       ...params,
     });
   }
