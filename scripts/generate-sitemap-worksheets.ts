@@ -13,7 +13,8 @@ import { fileURLToPath } from 'url'
 import { getAllWorksheetSEO } from '../shared/worksheetSEO'
 
 function generateSitemap() {
-  const worksheets = getAllWorksheetSEO()
+  const allWorksheets = getAllWorksheetSEO()
+  const worksheets = allWorksheets.filter(w => w.slug !== 'why-custom-name-tracing-works')
 
   if (worksheets.length === 0) {
     console.error('No worksheets found. Make sure worksheetSEO.ts is properly initialized.')
