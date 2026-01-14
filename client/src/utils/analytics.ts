@@ -14,12 +14,13 @@ const GA_MEASUREMENT_ID = 'G-MLYT7Y9EVY';
 
 export function initAnalytics() {
   if (typeof window !== 'undefined') {
-    // Only verify gtag availability internally
     const gtag = window.gtag;
     if (typeof gtag === 'function') {
       gtag('config', GA_MEASUREMENT_ID, {
-        send_to: GA_MEASUREMENT_ID
+        send_to: GA_MEASUREMENT_ID,
+        debug_mode: true
       });
+      console.log(`[Wizqo Analytics] Initialized with Debug Mode: ${GA_MEASUREMENT_ID}`);
     }
   }
 }
@@ -27,13 +28,22 @@ export function initAnalytics() {
 export function trackPageView(path: string) {
   if (typeof window === 'undefined') return;
 
+  const params = {
+    page_path: path,
+    send_to: GA_MEASUREMENT_ID,
+    debug_mode: true
+  };
+
   const gtag = window.gtag;
   if (typeof gtag === 'function') {
-    gtag('config', GA_MEASUREMENT_ID, {
-      page_path: path,
-      send_to: GA_MEASUREMENT_ID
-    });
+    gtag('config', GA_MEASUREMENT_ID, params);
+  } else {
+    // Stage fallback for page views
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(['config', GA_MEASUREMENT_ID, params]);
   }
+
+  console.log(`[Wizqo Analytics] Page View tracked: ${path}`);
 }
 
 export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
@@ -41,7 +51,8 @@ export function trackEvent(eventName: string, eventParams?: Record<string, any>)
 
   const params = {
     ...eventParams,
-    send_to: GA_MEASUREMENT_ID
+    send_to: GA_MEASUREMENT_ID,
+    debug_mode: true
   };
 
   const gtag = window.gtag;
@@ -52,6 +63,8 @@ export function trackEvent(eventName: string, eventParams?: Record<string, any>)
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push(['event', eventName, params]);
   }
+
+  console.log(`[Wizqo Analytics] Event tracked: ${eventName}`, params);
 }
 
 export function trackWorksheetGenerated(grade: string, categories: string[]) {
