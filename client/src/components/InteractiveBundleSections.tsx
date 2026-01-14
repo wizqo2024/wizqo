@@ -12,6 +12,7 @@ import { formatNumber, formatNumberRange } from '@/utils/numbers'
 import { generateWorksheetPDF } from '@/utils/pdfGenerator'
 import { Download } from 'lucide-react'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
+import { trackWorksheetDownload } from '@/utils/analytics'
 // Explicitly import interactive translations to prevent tree-shaking
 // This ensures the translations are included in the bundle
 if (false) {
@@ -5327,9 +5328,7 @@ const renderers: Record<string, Renderer> = {
       if (!container || isGeneratingPdf) return
 
       // Track download
-      import('@/utils/analytics').then(m => {
-        m.trackWorksheetDownload(doc.id, t(`interactive.${doc.id}.title`) || doc.title, isPrintMode ? 'print-page' : 'generator', doc.grades.join('/'))
-      })
+      trackWorksheetDownload(doc.id, t(`interactive.${doc.id}.title`) || doc.title, isPrintMode ? 'print-page' : 'generator', doc.grades.join('/'))
 
       setIsGeneratingPdf?.(true)
       try {
@@ -7590,7 +7589,7 @@ function getWorksheetSections(docId: string): { objectives: string[]; challenges
     },
     'interactive-science-ecology': {
       objectives: ['Understand ecosystems', 'Learn about food chains', 'Explore environmental science'],
-      challenges: ['Observe an ecosystem', 'Create a food chain diagram', 'Research an environmental issue']
+      challenges: ['Observe an ecosystem', 'Create a food chain diagram', 'Research an in environmental issue']
     },
     // SEL worksheets
     'interactive-sel-friendship': {
@@ -8063,9 +8062,9 @@ function InteractiveWorksheetSection({
     if (!sectionRef.current || isGeneratingPdf) return
 
     // Track download
-    import('@/utils/analytics').then(m => {
-      m.trackWorksheetDownload(doc.id, t(`interactive.${doc.id}.title`) || doc.title, isPrintMode ? 'print-page' : 'generator', doc.grades.join('/'))
-    })
+    if (!isPrintMode) {
+      trackWorksheetDownload(doc.id, t(`interactive.${doc.id}.title`) || doc.title, 'generator', doc.grades.join('/'))
+    }
 
     setIsGeneratingPdf(true)
 

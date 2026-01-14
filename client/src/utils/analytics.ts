@@ -33,19 +33,18 @@ export function trackPageView(path: string) {
 export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
   if (typeof window === 'undefined') return;
 
-  const params = {
-    ...eventParams,
-    transport_type: 'beacon'
-  };
+  if (process.env.NODE_ENV === 'development') {
+    logger.info(`Analytics Event: ${eventName}`, eventParams);
+  }
 
   if (window.gtag) {
-    window.gtag('event', eventName, params);
+    window.gtag('event', eventName, eventParams);
   } else {
-    // Stage if gtag isn't ready yet (unlikely with index.html script)
+    // Stage if gtag isn't ready yet
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       event: eventName,
-      ...params
+      ...eventParams
     });
   }
 }
@@ -85,6 +84,8 @@ export function trackWorksheetDownload(docId: string, docTitle: string, source: 
     doc_title: docTitle,
     source_page: source,
     grade: grade || 'unknown',
+    content_type: 'pdf',
+    file_extension: 'pdf',
     event_category: 'conversion',
     event_label: 'Worksheet Download',
     value: 1, // Conversion value
