@@ -4585,6 +4585,8 @@ export const en = {
     patternBuilderDesc: 'Color sequences',
     handwritingWorksheetMaker: 'Handwriting Worksheet Maker',
     nameTracingGenerator: 'Name Tracing Generator',
+    allWorksheets: '✨ All Worksheet Categories',
+    allWorksheetsDesc: 'Access all categories',
     wordSearchGame: 'Word Search Game',
   },
   grades: {

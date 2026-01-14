@@ -6260,6 +6260,8 @@ Zentangle، زراعة الأعشاب، تصميم الألعاب اللوحية
     patternBuilderDesc: 'تسلسلات الألوان',
     handwritingWorksheetMaker: 'صانع أوراق عمل الخط',
     nameTracingGenerator: 'مولد تتبع الأسماء',
+    allWorksheets: '✨ جميع فئات أوراق العمل',
+    allWorksheetsDesc: 'الوصول إلى جميع الفئات',
     wordSearchGame: 'لعبة البحث عن الكلمات',
   },
   grades: {

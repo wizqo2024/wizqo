@@ -3953,6 +3953,8 @@ export const es = {
     patternBuilderDesc: 'Secuencias de colores',
     handwritingWorksheetMaker: 'Creador de Hojas de Trabajo de Caligrafía',
     nameTracingGenerator: 'Generador de Trazado de Nombres',
+    allWorksheets: '✨ Todas las Categorías de Hojas de Trabajo',
+    allWorksheetsDesc: 'Acceder a todas las categorías',
     wordSearchGame: 'Juego de Búsqueda de Palabras',
   },
   grades: {

@@ -4,6 +4,8 @@ import { Footer } from '@/components/Footer'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { useTranslation } from '@/context/TranslationContext'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
+import { Search, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface CategoryCard {
   title: string
@@ -17,6 +19,8 @@ interface CategoryCard {
 
 export default function AllWorksheetsPage() {
   const { t, isRTL } = useTranslation()
+  const [searchQuery, setSearchQuery] = React.useState('')
+  const [activeFilter, setActiveFilter] = React.useState('All')
 
   const categories: CategoryCard[] = [
     // Math Worksheets by Grade
@@ -155,7 +159,30 @@ export default function AllWorksheetsPage() {
     }
   ]
 
-  // Group categories by type
+
+  const filterOptions = [
+    { id: 'All', label: 'All', icon: '✨' },
+    { id: 'Math', label: 'Math', icon: '📐' },
+    { id: 'Multiplication', label: 'Multiplication', icon: '✖️' },
+    { id: 'Reading', label: 'Reading', icon: '📚' },
+    { id: 'Creative', label: 'Creative', icon: '🎨' },
+  ]
+
+  const filteredCategories = categories.filter(c => {
+    const matchesSearch = c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+    if (activeFilter === 'All') return matchesSearch;
+    if (activeFilter === 'Math') return matchesSearch && (c.title.includes('Math') || c.gradeRange?.includes('Grade') || c.gradeRange === 'Kindergarten');
+    if (activeFilter === 'Multiplication') return matchesSearch && c.title.includes('Multiplication');
+    if (activeFilter === 'Reading') return matchesSearch && c.title.includes('Reading');
+    if (activeFilter === 'Creative') return matchesSearch && c.badge === 'Create Something Magical';
+    return matchesSearch;
+  });
+
+  const isSearching = searchQuery.length > 0;
+
+  // Group categories by type for the sectioned view
   const mathByGrade = categories.filter(c => c.gradeRange && ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade'].includes(c.gradeRange))
   const multiplication = categories.filter(c => c.title.includes('Multiplication'))
   const specializedMath = categories.filter(c => ['Converting Fractions to Decimals', 'Order of Operations'].some(t => c.title.includes(t)))
@@ -210,87 +237,170 @@ export default function AllWorksheetsPage() {
           </div>
         </section>
 
+        {/* Filter Controls */}
+        <div className="sticky top-16 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 py-4 shadow-sm">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              {/* Category Pills */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-hide">
+                {filterOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => setActiveFilter(option.id)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap ${activeFilter === option.id
+                      ? 'bg-purple-600 text-white shadow-lg shadow-purple-200 scale-105'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      }`}
+                  >
+                    <span>{option.icon}</span>
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search Bar */}
+              <div className="relative group min-w-[300px]">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-4 w-4 text-slate-400 group-focus-within:text-purple-500 transition-colors" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search worksheets..."
+                  value={searchQuery}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+                  className="block w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Categories Grid */}
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 -mt-8 sm:-mt-12 lg:-mt-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+          <AnimatePresence mode="popLayout">
+            {isSearching || activeFilter !== 'All' ? (
+              <motion.div
+                key="filtered-grid"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
+                {filteredCategories.length > 0 ? (
+                  filteredCategories.map((category) => (
+                    <CategoryCard key={category.href} category={category} />
+                  ))
+                ) : (
+                  <div className="col-span-full py-20 text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-100 rounded-full mb-4">
+                      <Search className="w-8 h-8 text-slate-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900">No results found</h3>
+                    <p className="text-slate-600">Try adjusting your search or filter to find what you're looking for.</p>
+                    <button
+                      onClick={() => { setSearchQuery(''); setActiveFilter('All'); }}
+                      className="mt-6 font-bold text-purple-600 hover:text-purple-700"
+                    >
+                      Clear all filters
+                    </button>
+                  </div>
+                )}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="sectioned-view"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                {/* Math by Grade */}
+                <section className="mb-20">
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="h-8 w-1.5 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></div>
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Math Worksheets by Grade</h2>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {mathByGrade.map((category) => (
+                      <CategoryCard key={category.href} category={category} />
+                    ))}
+                  </div>
+                </section>
 
-          {/* Math by Grade */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="h-1 w-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Math Worksheets by Grade</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {mathByGrade.map((category) => (
-                <CategoryCard key={category.href} category={category} />
-              ))}
-            </div>
-          </section>
+                {/* Multiplication Focus */}
+                <section className="mb-20">
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="h-8 w-1.5 bg-gradient-to-b from-orange-500 to-red-500 rounded-full"></div>
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Multiplication Mastery</h2>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {multiplication.map((category) => (
+                      <CategoryCard key={category.href} category={category} />
+                    ))}
+                  </div>
+                </section>
 
-          {/* Multiplication Focus */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="h-1 w-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Multiplication Mastery</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {multiplication.map((category) => (
-                <CategoryCard key={category.href} category={category} />
-              ))}
-            </div>
-          </section>
+                {/* Specialized Math */}
+                <section className="mb-20">
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="h-8 w-1.5 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full"></div>
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Specialized Math Topics</h2>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {specializedMath.map((category) => (
+                      <CategoryCard key={category.href} category={category} />
+                    ))}
+                  </div>
+                </section>
 
-          {/* Specialized Math */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Specialized Math Topics</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {specializedMath.map((category) => (
-                <CategoryCard key={category.href} category={category} />
-              ))}
-            </div>
-          </section>
+                {/* Reading & Language */}
+                <section className="mb-20">
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="h-8 w-1.5 bg-gradient-to-b from-green-500 to-emerald-500 rounded-full"></div>
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Reading & Language Arts</h2>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {reading.map((category) => (
+                      <CategoryCard key={category.href} category={category} />
+                    ))}
+                  </div>
+                </section>
 
-          {/* Reading & Language */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="h-1 w-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full"></div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Reading & Language Arts</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {reading.map((category) => (
-                <CategoryCard key={category.href} category={category} />
-              ))}
-            </div>
-          </section>
+                {/* Create Something Magical */}
+                <section className="mb-20">
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="h-8 w-1.5 bg-gradient-to-b from-yellow-500 to-amber-500 rounded-full"></div>
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Create Something Magical</h2>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {creativeTools.map((category) => (
+                      <CategoryCard key={category.href} category={category} />
+                    ))}
+                  </div>
+                </section>
 
-          {/* Create Something Magical */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="h-1 w-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full"></div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Create Something Magical</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {creativeTools.map((category) => (
-                <CategoryCard key={category.href} category={category} />
-              ))}
-            </div>
-          </section>
-
-          {/* Quick Access */}
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="h-1 w-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Worksheets & Quick Packs</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {quickAccess.map((category) => (
-                <CategoryCard key={category.href} category={category} />
-              ))}
-            </div>
-          </section>
-
+                {/* Quick Access */}
+                <section>
+                  <div className="flex items-center gap-3 mb-8">
+                    <div className="h-8 w-1.5 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-full"></div>
+                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">Worksheets & Quick Packs</h2>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {quickAccess.map((category) => (
+                      <CategoryCard key={category.href} category={category} />
+                    ))}
+                  </div>
+                </section>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Final SEO Feature: Discovery Guide */}

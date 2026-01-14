@@ -194,15 +194,15 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                   <div className="grid gap-0 min-w-[320px] md:grid-cols-3 w-full md:gap-0">
                     {/* First Column: Free Worksheet PDFs */}
                     <div className="-mx-1">
-                      <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent border-b border-blue-100">Free Worksheet PDFs</div>
+                      <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent border-b border-blue-100">{t('navigation.freeWorksheetPDFs')}</div>
                       <a href={addLocaleToPath("/worksheets/all", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-purple-50 transition-colors border border-purple-200 bg-purple-50/50 mb-2">
                         <svg className="w-4 h-4 text-purple-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                           <path d="M9 22V12h6v10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-bold text-purple-700 whitespace-nowrap">✨ All Worksheet Categories</div>
-                          <div className="text-[10px] text-purple-600 truncate">Browse complete collection</div>
+                          <div className="text-xs font-bold text-purple-700 whitespace-nowrap">{t('navigation.allWorksheets')}</div>
+                          <div className="text-[10px] text-purple-600 truncate">{t('navigation.allWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/multiplication-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -210,8 +210,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Multiplication Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">2nd-5th grade free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.multiplicationWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.multiplicationWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/times-table-multiplication-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -219,8 +219,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Times Table Multiplication Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">1-12 tables, confidence building free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.timesTableMultiplicationWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.timesTableMultiplicationWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/kindergarten-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -228,8 +228,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Kindergarten Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Counting, shapes, patterns free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.kindergartenMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.kindergartenMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/1st-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -237,8 +237,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">1st Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Ten-frames, add/sub free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.firstGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.firstGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/2nd-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -246,8 +246,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">2nd Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Place value, add/sub free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.secondGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.secondGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/3rd-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -255,8 +255,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">3rd Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Fractions, division, word problems free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.thirdGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.thirdGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/4th-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -264,8 +264,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">4th Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Decimals, geometry, measurement free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.fourthGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.fourthGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/5th-grade-math-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -273,8 +273,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">5th Grade Math Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">Algebra, advanced operations free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.fifthGradeMathWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.fifthGradeMathWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/reading-comprehension", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -282,8 +282,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Reading Comprehension Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">G1-G3 passages free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.readingComprehensionWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.readingComprehensionWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/fractions-to-decimals-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -291,8 +291,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M4 19h16M4 5h16M7 12h10" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Converting Fractions to Decimals Worksheets</div>
-                          <div className="text-[10px] text-slate-600 truncate">3rd-5th grade free PDF</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.fractionsToDecimalsWorksheets')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.fractionsToDecimalsWorksheetsDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/order-of-operations-worksheets", getLocaleFromURL())} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -308,14 +308,14 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
                     {/* Second Column: Create Something Magical */}
                     <div className="-mx-1">
-                      <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent border-b border-purple-100">Create Something Magical</div>
+                      <div className="px-2 py-1.5 mb-2 text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent border-b border-purple-100">{t('navigation.createSomethingMagical')}</div>
                       <a href={addLocaleToPath("/printables/certificate-maker", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 17l-5 3 1.9-5.9L4 9h6l2-6 2 6h6l-4.9 5.1L17 20z" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Certificate Maker</div>
-                          <div className="text-[10px] text-slate-600 truncate">Editable name/date</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.certificateMaker')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.certificateMakerDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/printables/name-tracing-generator", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -324,8 +324,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Name Tracing</div>
-                          <div className="text-[10px] text-slate-600 truncate">Personalized sheets</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.nameTracing')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.nameTracingDesc')}</div>
                         </div>
                       </a>
                       <a href={addLocaleToPath("/worksheets/handwriting-worksheet-maker", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
@@ -334,8 +334,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4 12.5-12.5z" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Handwriting Maker</div>
-                          <div className="text-[10px] text-slate-600 truncate">Letters, words, sentences</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.handwritingMaker')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.handwritingMakerDesc')}</div>
                         </div>
                       </a>
                     </div>
@@ -343,7 +343,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                     {/* Third Column: Worksheets & Quick Packs */}
                     <div className="-mx-1">
                       <div className="px-2 py-1.5 mb-2">
-                        <span className="text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent border-b border-green-100 pb-1.5 inline-block">Worksheets & Quick Packs</span>
+                        <span className="text-xs uppercase tracking-wide font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent border-b border-green-100 pb-1.5 inline-block">{t('navigation.worksheetsQuickPacks')}</span>
                       </div>
                       <a href={addLocaleToPath("/interactive-worksheets-generator", getLocaleFromURL())} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
                         <svg className="w-4 h-4 text-slate-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -361,8 +361,8 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
                           <rect x="6" y="14" width="12" height="8" rx="1" />
                         </svg>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">Printables</div>
-                          <div className="text-[10px] text-slate-600 truncate">Puzzles, coloring, packs</div>
+                          <div className="text-xs font-semibold text-slate-800 whitespace-nowrap">{t('navigation.printables')}</div>
+                          <div className="text-[10px] text-slate-600 truncate">{t('navigation.printablesDesc')}</div>
                         </div>
                       </a>
                     </div>
@@ -608,7 +608,7 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
             <div>
               <button
                 onClick={() => {
-                  window.location.href = addLocaleToPath('/interactive-worksheets-generator', getLocaleFromURL());
+                  window.location.href = addLocaleToPath('/worksheets/all', getLocaleFromURL());
                   setShowMobileMenu(false);
                 }}
                 className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md transition-colors text-left ${currentPage === 'interactive-worksheets-generator' ? 'text-purple-600 bg-purple-50' : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'}`}
@@ -651,6 +651,15 @@ export function UnifiedNavigation({ showBackButton = false, onBackClick, current
 
                 <div className="pt-3 mt-2">
                   <div className="px-3 pb-2 text-[11px] uppercase tracking-wide font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent border-b border-blue-100">{t('navigation.freeWorksheetPDFs')}</div>
+                  <button
+                    onClick={() => {
+                      window.location.href = addLocaleToPath('/worksheets/all', getLocaleFromURL());
+                      setShowMobileMenu(false);
+                    }}
+                    className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-left text-purple-700 bg-purple-50 hover:bg-purple-100 active:bg-purple-200 mb-2 border border-purple-200 shadow-sm"
+                  >
+                    <span className="text-sm font-bold">{t('navigation.allWorksheets')}</span>
+                  </button>
                   <button
                     onClick={() => {
                       window.location.href = addLocaleToPath('/worksheets/multiplication-worksheets', getLocaleFromURL());
