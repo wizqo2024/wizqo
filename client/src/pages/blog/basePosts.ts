@@ -868,7 +868,7 @@ When you give a child a worksheet that says their name:
 *   **They feel ownership.** They aren't tracing a random word; they are "signing their autograph."
 *   **Focus increases.** Teachers report that students spend 2-3x longer on tasks that involve their own names compared to generic words.
 
-![Child confidently holding a pencil](https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=1600&q=80 "Child proud of writing their name")
+<NameTracingInfographic />
 
 ### 2. It Builds "Writing Confidence" Early
 Writing is hard work. It requires complex hand-eye coordination and fine motor strength. When a child fails repeatedly, they get discouraged.

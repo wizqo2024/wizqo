@@ -7,6 +7,7 @@ import MultiplicationWorksheetsBlog from '@/components/blog/MultiplicationWorksh
 import CognitiveSkillsBlog from '@/components/blog/CognitiveSkillsBlog';
 import Grade2MathWorksheetsBlog from '@/components/blog/Grade2MathWorksheetsBlog';
 import MicroJournalingBlog from '@/components/blog/MicroJournalingBlog';
+import NameTracingInfographic from '@/components/blog/NameTracingInfographic';
 import { BlogPost } from '../types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 
@@ -177,9 +178,9 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
                 ? 'w-full h-auto max-h-[24rem] object-contain rounded-xl border border-slate-200 bg-white'
                 : 'w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200';
               return (
-                <img 
-                  src={finalUrl} 
-                  alt={alt || post.title} 
+                <img
+                  src={finalUrl}
+                  alt={alt || post.title}
                   loading="lazy"
                   width={1600}
                   height={720}
@@ -217,7 +218,7 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
     const line = lines[i];
     const trimmed = line.trim();
     if (trimmed === '') continue;
-    
+
     if (post.id === 'gentle-parenting-techniques' && trimmed === '<GentleParentingFull />') {
       elements.push(
         <ErrorBoundary key={`gp-full-${i}`}>
@@ -266,7 +267,15 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
       );
       continue;
     }
-    
+    if (post.id === 'why-custom-name-tracing-works' && trimmed === '<NameTracingInfographic />') {
+      elements.push(
+        <ErrorBoundary key={`name-tracing-infographic-${i}`}>
+          <NameTracingInfographic />
+        </ErrorBoundary>
+      );
+      continue;
+    }
+
     if (/^❓\s*FAQs/i.test(trimmed) || /^##\s*.*FAQs/i.test(trimmed) || /^FAQs\b/i.test(trimmed) || (/faq/i.test(trimmed) && !/^\d+\./.test(trimmed))) {
       elements.push(
         <h2 key={`faq-h-${i}`} className="text-2xl font-bold text-slate-900 mt-8 mb-4">❓ FAQs</h2>
@@ -384,12 +393,12 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
               ? 'w-full h-auto max-h-[24rem] object-contain rounded-xl border border-slate-200 bg-white'
               : 'w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200';
             return (
-              <img 
-                src={finalUrl} 
-                alt={alt || post.title} 
-                loading="lazy" 
-                width={1600} 
-                height={720} 
+              <img
+                src={finalUrl}
+                alt={alt || post.title}
+                loading="lazy"
+                width={1600}
+                height={720}
                 referrerPolicy="no-referrer"
                 className={imgClass}
                 onError={(e) => {
@@ -416,7 +425,7 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
                       usedImageUrls.add(picked);
                     }
                   }
-                }} 
+                }}
               />
             );
           })()}
@@ -457,18 +466,18 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
             <figure key={`num-img-${j}`} className="my-4">
               {(() => {
                 const needsContain = (post.id === 'quiet-time') && (
-                  finalUrl.includes('photo-1758471995115-81c662cf949f') || (String(alt||'').toLowerCase().includes('quiet'))
+                  finalUrl.includes('photo-1758471995115-81c662cf949f') || (String(alt || '').toLowerCase().includes('quiet'))
                 );
                 const imgClass = needsContain
                   ? 'w-full h-auto max-h-[24rem] object-contain rounded-xl border border-slate-200 bg-white'
                   : 'w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200';
                 return (
-                  <img 
-                    src={finalUrl} 
-                    alt={alt || post.title} 
-                    loading="lazy" 
-                    width={1600} 
-                    height={720} 
+                  <img
+                    src={finalUrl}
+                    alt={alt || post.title}
+                    loading="lazy"
+                    width={1600}
+                    height={720}
                     referrerPolicy="no-referrer"
                     className={imgClass}
                     onError={(e) => {
@@ -564,8 +573,8 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
       elements.push(
         <div key={`cta-${i}`} className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-xl p-6 my-6 text-center">
           <p className="text-lg font-semibold text-slate-900 mb-4">{line}</p>
-          <button 
-            onClick={(e) => { e.stopPropagation(); window.location.href = '/generate'; }} 
+          <button
+            onClick={(e) => { e.stopPropagation(); window.location.href = '/generate'; }}
             className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
             aria-label="Generate your personalized hobby plan"
           >
