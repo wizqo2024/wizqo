@@ -66,28 +66,28 @@ export function BlogPostView({
 
   const canonical = `https://wizqo.com/blog/${post.id}`;
   const image = post.imageUrl || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
-  
+
   // Track blog post view (doesn't affect SEO)
   useEffect(() => {
     trackBlogPostView(post.id, post.title);
   }, [post.id, post.title]);
-  
+
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
     image: [image],
-    author: { 
-      "@type": "Organization", 
+    author: {
+      "@type": "Organization",
       name: "Wizqo",
       logo: {
         "@type": "ImageObject",
         "url": "https://wizqo.com/logo.svg"
       }
     },
-    publisher: { 
-      "@type": "Organization", 
+    publisher: {
+      "@type": "Organization",
       name: "Wizqo",
       logo: {
         "@type": "ImageObject",
@@ -109,7 +109,7 @@ export function BlogPostView({
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <SEOMetaTags 
+      <SEOMetaTags
         title={post.id ? `${post.title}` : post.title}
         description={post.excerpt}
         keywords={post.keywords}
@@ -119,8 +119,8 @@ export function BlogPostView({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <UnifiedNavigation currentPage="blog" />
-      
-      <div className={`${post.id === 'what-are-cognitive-skills' ? 'max-w-7xl' : 'max-w-4xl'} mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
+
+      <div className={`${['what-are-cognitive-skills', 'why-custom-name-tracing-works'].includes(post.id) ? 'max-w-7xl' : 'max-w-4xl'} mx-auto px-4 sm:px-6 lg:px-8 py-16`}>
         <div className="mb-8 flex items-center justify-between">
           <button
             onClick={onBack}
@@ -139,7 +139,7 @@ export function BlogPostView({
             </button>
           </div>
         </div>
-        
+
         <nav aria-label={t('pages.blog.popularWorksheets')} className="mb-4">
           <ul className="flex flex-wrap gap-2 text-sm">
             <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.handwriting')}</a></li>
@@ -171,7 +171,7 @@ export function BlogPostView({
               <h1 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 leading-tight">
                 {post.title.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\s]+/gu, '').trim() || post.title}
               </h1>
-              {(['easy-hobbies-that-make-you-smarter','easy-watercolor-paintings'].includes(post.id)) && (
+              {(['easy-hobbies-that-make-you-smarter', 'easy-watercolor-paintings'].includes(post.id)) && (
                 <nav aria-label={t('pages.blog.quickWorksheetLinks')} className="mb-4">
                   <ul className="flex flex-wrap gap-2 text-sm">
                     <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.handwriting')}</a></li>
@@ -182,11 +182,11 @@ export function BlogPostView({
               )}
               <figure className="mb-6">
                 <picture>
-                  <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?': '') + 'auto=format&fit=crop&q=70&w=1600&fm=avif')} type="image/avif" />
-                  <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?': '') + 'auto=format&fit=crop&q=75&w=1600&fm=webp')} type="image/webp" />
-                  <img 
-                    src={coverUrl} 
-                    alt={post.imageAlt || post.title} 
+                  <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?' : '') + 'auto=format&fit=crop&q=70&w=1600&fm=avif')} type="image/avif" />
+                  <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?' : '') + 'auto=format&fit=crop&q=75&w=1600&fm=webp')} type="image/webp" />
+                  <img
+                    src={coverUrl}
+                    alt={post.imageAlt || post.title}
                     width={1600}
                     height={640}
                     referrerPolicy="no-referrer"
@@ -226,7 +226,7 @@ export function BlogPostView({
                 <p className="text-lg text-slate-600">{t('pages.blog.byAuthor')} {post.author || 'Wizqo Team'} • {t('pages.blog.lastUpdated')} {post.date}</p>
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1 text-yellow-500" role="img" aria-label={t('pages.blog.ratingLabel').replace('{{rating}}', String(getPostRating(post)))}>
-                    {[1,2,3,4,5].map(star => (
+                    {[1, 2, 3, 4, 5].map(star => (
                       <svg key={star} className="w-4 h-4 fill-current" viewBox="0 0 20 20" aria-hidden="true">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
@@ -235,14 +235,14 @@ export function BlogPostView({
                   <span className="text-sm text-slate-500">({getPostRating(post)})</span>
                 </div>
               </div>
-              
+
               <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-4 mb-6">
                 <p className="text-slate-700 font-medium leading-relaxed">
                   {post.excerpt}
                 </p>
               </div>
             </div>
-            
+
             <ErrorBoundary>
               <MarkdownRenderer post={post} usedImageUrls={usedImageUrls} pickFallback={pickFallback} />
             </ErrorBoundary>
@@ -279,7 +279,7 @@ export function BlogPostView({
           onClick={() => {
             try {
               window.scrollTo({ top: 0, behavior: 'smooth' });
-            } catch {}
+            } catch { }
           }}
           aria-label={t('pages.blog.scrollToTop')}
           className="fixed bottom-6 left-6 z-40 print:hidden inline-flex items-center gap-2 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 px-4 py-3"

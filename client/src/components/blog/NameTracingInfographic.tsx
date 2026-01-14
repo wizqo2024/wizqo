@@ -198,7 +198,7 @@ export default function NameTracingInfographic() {
                 <section className="mb-16">
                     <h3 className="text-3xl font-bold text-center text-slate-900 mb-8">4. Why Generic Workbooks Fail</h3>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Problem 1: Long Name */}
                         <div className="bg-white rounded-xl p-6 border-b-4 border-purple-500 shadow-md flex flex-col h-full">
                             <h4 className="font-bold text-slate-900 mb-2 text-lg leading-tight">The "Long Name" Problem</h4>
@@ -206,11 +206,11 @@ export default function NameTracingInfographic() {
 
                             <div className="bg-slate-100 p-4 rounded-lg">
                                 <p className="text-xs text-slate-400 mb-1">Standard Workbook Box:</p>
-                                <div className="border-2 border-red-400 bg-red-50 text-red-500 h-16 flex items-center justify-center font-mono font-bold text-lg relative overflow-hidden w-48 mx-auto whitespace-nowrap">
+                                <div className="border-2 border-red-400 bg-red-50 text-red-500 h-16 flex items-center justify-center font-mono font-bold text-lg relative overflow-hidden w-full max-w-[200px] mx-auto whitespace-nowrap">
                                     CHRISTOPHER
                                     <span className="absolute right-0 top-0 bg-red-500 text-white text-[10px] px-1">OVERFLOW</span>
                                 </div>
-                                <p className="text-center text-xs text-red-500 mt-2 font-bold flex items-center justify-center gap-1"><X className="w-3 h-3" /> Cramped & Messy</p>
+                                <p className="text-center text-xs text-red-500 mt-2 font-bold flex items-center justify-center gap-1"><X className="w-4 h-4" /> Cramped & Messy</p>
                             </div>
                         </div>
 
@@ -221,13 +221,13 @@ export default function NameTracingInfographic() {
 
                             <div className="bg-blue-50 p-4 rounded-lg space-y-3">
                                 <p className="text-xs text-blue-400 mb-1">Custom Dynamic Layout:</p>
-                                <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-10 flex items-center justify-center font-mono font-bold w-full rounded text-[10px] sm:text-xs md:text-sm tracking-tighter text-center whitespace-nowrap overflow-hidden px-0.5">
+                                <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-10 flex items-center justify-center font-mono font-bold w-full rounded text-xs sm:text-sm tracking-tight text-center whitespace-nowrap overflow-hidden px-2">
                                     CHRISTOPHER
                                 </div>
                                 <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-14 flex items-center justify-center font-mono font-bold text-2xl w-full rounded">
                                     A V A
                                 </div>
-                                <p className="text-center text-xs text-blue-600 mt-1 font-bold flex items-center justify-center gap-1"><Check className="w-3 h-3" /> Perfect Fit Every Time</p>
+                                <p className="text-center text-xs text-blue-600 mt-1 font-bold flex items-center justify-center gap-1"><Check className="w-4 h-4" /> Perfect Fit Every Time</p>
                             </div>
                         </div>
 
@@ -238,11 +238,11 @@ export default function NameTracingInfographic() {
 
                             <div className="bg-slate-100 p-4 rounded-lg">
                                 <p className="text-xs text-slate-400 mb-1">Standard Workbook Box:</p>
-                                <div className="border-2 border-red-400 bg-red-50 text-red-500 h-16 flex items-center justify-start pl-4 font-mono font-bold text-lg relative w-48 mx-auto">
+                                <div className="border-2 border-red-400 bg-red-50 text-red-500 h-16 flex items-center justify-start pl-4 font-mono font-bold text-lg relative w-full max-w-[200px] mx-auto">
                                     AVA
                                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 text-xl">???</span>
                                 </div>
-                                <p className="text-center text-xs text-red-500 mt-2 font-bold flex items-center justify-center gap-1"><X className="w-3 h-3" /> Awkward Empty Space</p>
+                                <p className="text-center text-xs text-red-500 mt-2 font-bold flex items-center justify-center gap-1"><X className="w-4 h-4" /> Awkward Empty Space</p>
                             </div>
                         </div>
                     </div>
