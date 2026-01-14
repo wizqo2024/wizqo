@@ -182,8 +182,12 @@ export function BlogPostView({
               )}
               <figure className="mb-6">
                 <picture>
-                  <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?' : '') + 'auto=format&fit=crop&q=70&w=1600&fm=avif')} type="image/avif" />
-                  <source srcSet={(coverUrl || '').replace(/(\?|$)/, (m) => (m ? '?' : '') + 'auto=format&fit=crop&q=75&w=1600&fm=webp')} type="image/webp" />
+                  {coverUrl.startsWith('http') ? (
+                    <>
+                      <source srcSet={coverUrl.replace(/(\?|$)/, (m) => (m ? '?' : '') + 'auto=format&fit=crop&q=70&w=1600&fm=avif')} type="image/avif" />
+                      <source srcSet={coverUrl.replace(/(\?|$)/, (m) => (m ? '?' : '') + 'auto=format&fit=crop&q=75&w=1600&fm=webp')} type="image/webp" />
+                    </>
+                  ) : null}
                   <img
                     src={coverUrl}
                     alt={post.imageAlt || post.title}
