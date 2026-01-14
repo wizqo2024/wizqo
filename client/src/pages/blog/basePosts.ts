@@ -860,20 +860,6 @@ If you are trying to teach your kindergartener or preschooler to write, switchin
 
 <NameTracingInfographic />
 
-### How to Get Started (For Free)
-You don't need to buy expensive software or spend hours drawing dotted lines by hand.
-
-At Wizqo, we built a tool specifically for this moment.
-
-Our **Custom Name Tracing Generator** allows you to type your child’s name and instantly create a professional, printable worksheet. You can customize the font size, the style, and the layout to fit exactly what your child needs.
-
-The best part?
-*   It is 100% Free.
-*   No sign-up is required.
-*   You get the PDF instantly.
-
-**[Click Here to Create Your Child's Custom Worksheet Now ➜](/worksheets/handwriting-worksheet-maker)**
-
 Don't force your child to trace "Apples" until they are ready. Start with the word they love the most—their own name—and watch their love for writing grow.`,
     author: "Wizqo Team",
     date: "2026-01-14",
