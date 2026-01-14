@@ -14,14 +14,10 @@ const GA_MEASUREMENT_ID = 'G-MLYT7Y9EVY';
 
 export function initAnalytics() {
   if (typeof window !== 'undefined') {
+    // Only verify gtag availability internally
     const gtag = window.gtag;
-    const hasGtag = typeof gtag === 'function';
-    console.log(`[Wizqo Analytics] Init. ID: ${GA_MEASUREMENT_ID} | gtag ready: ${hasGtag}`);
-
-    if (hasGtag && gtag) {
-      // Set debug mode globally to help troubleshooting in GA4 DebugView
+    if (typeof gtag === 'function') {
       gtag('config', GA_MEASUREMENT_ID, {
-        debug_mode: true,
         send_to: GA_MEASUREMENT_ID
       });
     }
@@ -35,8 +31,6 @@ export function trackPageView(path: string) {
   if (typeof gtag === 'function') {
     gtag('config', GA_MEASUREMENT_ID, {
       page_path: path,
-      debug_mode: true,
-      transport_type: 'beacon',
       send_to: GA_MEASUREMENT_ID
     });
   }
@@ -47,18 +41,11 @@ export function trackEvent(eventName: string, eventParams?: Record<string, any>)
 
   const params = {
     ...eventParams,
-    debug_mode: true, // Enable for DebugView in GA console
-    send_to: GA_MEASUREMENT_ID,
-    transport_type: 'beacon'
+    send_to: GA_MEASUREMENT_ID
   };
 
   const gtag = window.gtag;
-  const hasGtag = typeof gtag === 'function';
-
-  // Diagnostic log
-  console.log(`[Wizqo Analytics] ${hasGtag ? 'Firing' : 'Staging'} Event: ${eventName}`, params);
-
-  if (hasGtag && gtag) {
+  if (typeof gtag === 'function') {
     gtag('event', eventName, params);
   } else {
     // Stage if gtag isn't ready yet
