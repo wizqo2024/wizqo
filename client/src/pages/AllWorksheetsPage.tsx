@@ -195,11 +195,11 @@ export default function AllWorksheetsPage() {
             <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
             <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
           </div>
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 pb-24 sm:pt-16 sm:pb-32 lg:pt-20 lg:pb-40">
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24">
             <div className="text-center">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-3 leading-tight">
                 All Worksheet Categories
-                <span className="block text-2xl sm:text-3xl lg:text-4xl font-bold mt-3 text-white/90">
+                <span className="block text-2xl sm:text-3xl lg:text-4xl font-bold mt-1.5 text-white/90">
                   Discover Every Learning Tool
                 </span>
               </h1>
@@ -211,7 +211,7 @@ export default function AllWorksheetsPage() {
         </section>
 
         {/* Categories Grid */}
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 -mt-12 sm:-mt-20 lg:-mt-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 -mt-8 sm:-mt-12 lg:-mt-16">
 
           {/* Math by Grade */}
           <section className="mb-16">
