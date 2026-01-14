@@ -13,9 +13,13 @@ declare global {
 const GA_MEASUREMENT_ID = 'G-MLYT7Y9EVY';
 
 export function initAnalytics() {
-  // Script is already in index.html, so we just log readiness
-  if (typeof window !== 'undefined' && window.gtag) {
-    logger.info('Analytics: Global gtag detected');
+  if (typeof window !== 'undefined') {
+    // Log initialization for debugging
+    console.log(`[Wizqo Analytics] Initializing with ID: ${GA_MEASUREMENT_ID}`);
+
+    if (window.gtag) {
+      logger.info('Analytics: Global gtag detected');
+    }
   }
 }
 
@@ -25,7 +29,8 @@ export function trackPageView(path: string) {
   if (window.gtag) {
     window.gtag('config', GA_MEASUREMENT_ID, {
       page_path: path,
-      transport_type: 'beacon'
+      transport_type: 'beacon',
+      send_to: GA_MEASUREMENT_ID
     });
   }
 }
@@ -33,19 +38,21 @@ export function trackPageView(path: string) {
 export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
   if (typeof window === 'undefined') return;
 
-  if (process.env.NODE_ENV === 'development') {
-    logger.info(`Analytics Event: ${eventName}`, eventParams);
-  }
+  const params = {
+    ...eventParams,
+    send_to: GA_MEASUREMENT_ID,
+    transport_type: 'beacon'
+  };
+
+  // Log to console - ALWAYS visible for debugging this task
+  console.log(`[Wizqo Analytics] Event: ${eventName}`, params);
 
   if (window.gtag) {
-    window.gtag('event', eventName, eventParams);
+    window.gtag('event', eventName, params);
   } else {
     // Stage if gtag isn't ready yet
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: eventName,
-      ...eventParams
-    });
+    window.dataLayer.push(['event', eventName, params]);
   }
 }
 
