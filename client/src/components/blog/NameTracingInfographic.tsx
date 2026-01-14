@@ -221,7 +221,7 @@ export default function NameTracingInfographic() {
 
                             <div className="bg-blue-50 p-4 rounded-lg space-y-3">
                                 <p className="text-xs text-blue-400 mb-1">Custom Dynamic Layout:</p>
-                                <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-10 flex items-center justify-center font-mono font-bold w-full rounded text-[11px] sm:text-xs tracking-tighter text-center whitespace-nowrap overflow-hidden px-1">
+                                <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-10 flex items-center justify-center font-mono font-bold w-full rounded text-[10px] sm:text-xs md:text-sm tracking-tighter text-center whitespace-nowrap overflow-hidden px-0.5">
                                     CHRISTOPHER
                                 </div>
                                 <div className="border-2 border-blue-500 bg-indigo-50 text-blue-600 h-14 flex items-center justify-center font-mono font-bold text-2xl w-full rounded">
