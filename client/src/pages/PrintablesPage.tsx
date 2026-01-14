@@ -709,10 +709,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
       })
 
       // Track download
-      if (doc && primaryDoc) {
+      if (doc || primaryDoc) {
         const from = params.get('from') || 'unknown'
-        const grade = from.includes('grade') ? from.replace('-grade', '') : undefined
-        trackWorksheetDownload(primaryDoc, docTitle, from, grade)
+        const gradeStr = from.includes('grade') ? from.replace('-grade', '') : (packAge || 'Mixed')
+        trackWorksheetDownload(primaryDoc || doc || 'unknown', docTitle || 'Worksheet', `print-page-auto-${from}`, gradeStr)
       }
 
     } catch (error) {
@@ -733,9 +733,10 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
     if (!autoDownload) return
 
     // Only allow auto-download if we are in an iframe (headless/background download)
-    // This prevents unwanted downloads when user visits the page directly
+    // OR if explicitly requested via download=1 in a new tab
     const isInIframe = window.self !== window.top
-    if (!isInIframe) return
+    const isExplicitDownload = params.get('download') === '1'
+    if (!isInIframe && !isExplicitDownload) return
 
     // Defer a bit to let the view render fully
     const t = setTimeout(async () => {
@@ -1298,7 +1299,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                     e.stopPropagation();
                     window.print();
                     // Track print as download intent
-                    trackWorksheetDownload(primaryDoc || doc || 'unknown', docTitle || 'Worksheet', `print-view-${from || 'direct'}`, grade || 'Mixed')
+                    trackWorksheetDownload(primaryDoc || doc || 'unknown', docTitle || 'Worksheet', `print-view-${fromParam || 'direct'}`, packAge || 'Mixed')
                   }}
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium shadow-sm transition-colors"
                 >
@@ -1351,7 +1352,7 @@ export function PrintablesPage({ docId: propDocId }: { docId?: string } = {}) {
                           setIsDownloadingPNG(false);
 
                           // Track PNG download
-                          trackWorksheetDownload(primaryDoc || doc || 'unknown', docTitle || 'Worksheet', `print-view-png-${from || 'direct'}`, grade || 'Mixed')
+                          trackWorksheetDownload(primaryDoc || doc || 'unknown', docTitle || 'Worksheet', `print-view-png-${fromParam || 'direct'}`, packAge || 'Mixed')
                         }).catch((error: unknown) => {
                           console.error('PNG capture failed:', error);
                           setIsDownloadingPNG(false);

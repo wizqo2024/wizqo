@@ -148,6 +148,9 @@ export default function CertificateMakerPage() {
       };
       if (iframe.contentWindow?.document.readyState === 'complete') doPrint();
       else iframe.onload = doPrint;
+
+      // Track print intent
+      trackWorksheetDownload('certificate-maker', `certificate-${theme}`, 'certificate-maker', 'Creative')
     } catch { }
   }
 

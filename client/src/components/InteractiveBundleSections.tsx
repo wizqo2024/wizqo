@@ -10,6 +10,7 @@ import { getTranslation, translations, interactiveTranslations } from '@/transla
 import { formatNumber, formatNumberRange } from '@/utils/numbers'
 
 import { generateWorksheetPDF } from '@/utils/pdfGenerator'
+import { Download } from 'lucide-react'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 // Explicitly import interactive translations to prevent tree-shaking
 // This ensures the translations are included in the bundle
@@ -5325,6 +5326,11 @@ const renderers: Record<string, Renderer> = {
       const container = document.getElementById(`color-by-number-container-${seed}-${variant}`)
       if (!container || isGeneratingPdf) return
 
+      // Track download
+      import('@/utils/analytics').then(m => {
+        m.trackWorksheetDownload(doc.id, t(`interactive.${doc.id}.title`) || doc.title, isPrintMode ? 'print-page' : 'generator', doc.grades.join('/'))
+      })
+
       setIsGeneratingPdf?.(true)
       try {
         await generateWorksheetPDF(`color-by-number-container-${seed}-${variant}`, {
@@ -8055,6 +8061,11 @@ function InteractiveWorksheetSection({
 
   const handleDownloadPDF = async () => {
     if (!sectionRef.current || isGeneratingPdf) return
+
+    // Track download
+    import('@/utils/analytics').then(m => {
+      m.trackWorksheetDownload(doc.id, t(`interactive.${doc.id}.title`) || doc.title, isPrintMode ? 'print-page' : 'generator', doc.grades.join('/'))
+    })
 
     setIsGeneratingPdf(true)
 
