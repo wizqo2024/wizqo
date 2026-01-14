@@ -20,6 +20,8 @@ export interface WorksheetSEO {
   section: string
   learningObjectives: string[]
   relatedDocIds: string[]
+  author?: string
+  date?: string
 }
 
 /**
@@ -27,6 +29,15 @@ export interface WorksheetSEO {
  * This helps resolve "Thin Content" and "Crawled - currently not indexed" issues.
  */
 const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
+  'why-custom-name-tracing-works': {
+    title: 'Why Custom Name Tracing is the "Secret Code" to Teaching Your Child to Write | Wizqo',
+    h1: 'The "Secret Code" of Name Tracing',
+    metaDescription: 'Struggling to get your kindergartener to practice writing? Discover why "Custom Name Tracing" builds confidence and motor skills faster than generic worksheets. Create yours for free on Wizqo!',
+    learningObjectives: ['Understand the psychological benefits of "name ownership"', 'Learn why tracing custom names builds confidence faster', 'Discover how to use Wizqo\'s free tool to create personalized sheets'],
+    intro: 'Tracing "A is for Apple" is fine, but for a child, the most important word in the world is their own name. This simple connection—writing the word that represents *them*—can be the magical key that unlocks a love for handwriting. In this post, we explore why custom name tracing is the "secret code" to early literacy and how you can create your own personalized practice sheets in seconds.',
+    author: 'Wizqo Team',
+    date: '2026-01-14'
+  },
   'cursive-writing-alphabet-worksheets': {
     title: 'Free Cursive Writing Alphabet Worksheets - Premium Chart | Wizqo',
     h1: 'Cursive Writing Alphabet Chart',
