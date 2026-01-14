@@ -26,7 +26,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/kindergarten-math-worksheets',
       iconType: 'kindergarten',
       gradeRange: 'Kindergarten',
-      badge: 'Early Learning'
+      badge: 'Early Learning',
+      thumbnailUrl: '/images/thumbs/kindergarten.png'
     },
     {
       title: '1st Grade Math Worksheets',
@@ -34,7 +35,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/1st-grade-math-worksheets',
       iconType: 'first-grade',
       gradeRange: '1st Grade',
-      badge: 'Foundations'
+      badge: 'Foundations',
+      thumbnailUrl: '/images/thumbs/first-grade.png'
     },
     {
       title: '2nd Grade Math Worksheets',
@@ -42,7 +44,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/2nd-grade-math-worksheets',
       iconType: 'second-grade',
       gradeRange: '2nd Grade',
-      badge: 'Building Skills'
+      badge: 'Building Skills',
+      thumbnailUrl: '/images/thumbs/second-grade.png'
     },
     {
       title: '3rd Grade Math Worksheets',
@@ -50,7 +53,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/3rd-grade-math-worksheets',
       iconType: 'third-grade',
       gradeRange: '3rd Grade',
-      badge: 'Growing Strong'
+      badge: 'Growing Strong',
+      thumbnailUrl: '/images/thumbs/third-grade.png'
     },
     {
       title: '4th Grade Math Worksheets',
@@ -58,7 +62,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/4th-grade-math-worksheets',
       iconType: 'fourth-grade',
       gradeRange: '4th Grade',
-      badge: 'Mastering Concepts'
+      badge: 'Mastering Concepts',
+      thumbnailUrl: '/images/thumbs/fourth-grade.png'
     },
     {
       title: '5th Grade Math Worksheets',
