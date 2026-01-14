@@ -75,7 +75,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/5th-grade-math-worksheets',
       iconType: 'fifth-grade',
       gradeRange: '5th Grade',
-      badge: 'Advanced'
+      badge: 'Advanced',
+      thumbnailUrl: '/images/thumbs/fifth-grade.png'
     },
     // Multiplication Focus
     {
@@ -84,7 +85,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/multiplication-worksheets',
       iconType: 'multiplication',
       gradeRange: '2nd-5th',
-      badge: 'Popular'
+      badge: 'Popular',
+      thumbnailUrl: '/images/thumbs/multiplication.png'
     },
     {
       title: 'Times Table Multiplication Worksheets',
@@ -92,7 +94,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/times-table-multiplication-worksheets',
       iconType: 'times-table',
       gradeRange: '1st-5th',
-      badge: 'Essential'
+      badge: 'Essential',
+      thumbnailUrl: '/images/thumbs/times-table.png'
     },
     // Specialized Math
     {
@@ -101,7 +104,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/fractions-to-decimals-worksheets',
       iconType: 'fractions',
       gradeRange: '3rd-5th',
-      badge: 'Specialized'
+      badge: 'Specialized',
+      thumbnailUrl: '/images/thumbs/fractions.png'
     },
     {
       title: 'Order of Operations Worksheets (PEMDAS)',
@@ -109,7 +113,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/order-of-operations-worksheets',
       iconType: 'operations',
       gradeRange: '4th-6th',
-      badge: 'Advanced'
+      badge: 'Advanced',
+      thumbnailUrl: '/images/thumbs/operations.png'
     },
     // Reading & Language
     {
@@ -118,7 +123,8 @@ export default function AllWorksheetsPage() {
       href: '/worksheets/reading-comprehension',
       iconType: 'reading',
       gradeRange: '1st-3rd',
-      badge: 'Language Arts'
+      badge: 'Language Arts',
+      thumbnailUrl: '/images/thumbs/reading.png'
     },
     // Creative Tools
     {
@@ -126,21 +132,24 @@ export default function AllWorksheetsPage() {
       description: 'Editable name/date',
       href: '/printables/certificate-maker',
       iconType: 'certificate',
-      badge: 'Create Something Magical'
+      badge: 'Create Something Magical',
+      thumbnailUrl: '/images/thumbs/certificate.png'
     },
     {
       title: 'Name Tracing',
       description: 'Personalized sheets',
       href: '/printables/name-tracing-generator',
       iconType: 'tracing',
-      badge: 'Create Something Magical'
+      badge: 'Create Something Magical',
+      thumbnailUrl: '/images/thumbs/tracing.png'
     },
     {
       title: 'Handwriting Maker',
       description: 'Letters, words, sentences',
       href: '/worksheets/handwriting-worksheet-maker',
       iconType: 'handwriting',
-      badge: 'Create Something Magical'
+      badge: 'Create Something Magical',
+      thumbnailUrl: '/images/thumbs/handwriting.png'
     },
     // Quick Access
     {
@@ -148,14 +157,16 @@ export default function AllWorksheetsPage() {
       description: 'Create custom worksheets instantly',
       href: '/interactive-worksheets-generator',
       iconType: 'generator',
-      badge: 'Worksheets & Quick Packs'
+      badge: 'Worksheets & Quick Packs',
+      thumbnailUrl: '/images/thumbs/generator.png'
     },
     {
       title: 'Printables',
       description: 'Puzzles, coloring, packs',
       href: '/printables',
       iconType: 'printables',
-      badge: 'Worksheets & Quick Packs'
+      badge: 'Worksheets & Quick Packs',
+      thumbnailUrl: '/images/thumbs/printables.png'
     }
   ]
 
