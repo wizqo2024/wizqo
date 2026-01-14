@@ -4,7 +4,7 @@ import { Footer } from '@/components/Footer'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
-import { trackCategoryFilter } from '@/utils/analytics'
+import { trackCategoryFilter, trackBuildPackClick } from '@/utils/analytics'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
@@ -212,7 +212,7 @@ export default function WorksheetsFirstGradePage() {
               <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackAge')}</span>
               <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.firstGrade.buildPackFocus')}</span>
             </div>
-            <a href={addLocaleToPath("/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: '1' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
+            <a href={addLocaleToPath("/print?doc=pack&time=5&age=g1&skill=math&from=1st-grade", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={() => trackBuildPackClick('1')}>{t('pages.printables.buildPackButton')}</a>
           </div>
         </section>
 

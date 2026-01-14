@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { trackException } from '@/utils/analytics';
 
 interface Props {
   children: ReactNode;
@@ -42,16 +43,7 @@ export class ErrorBoundary extends Component<Props, State> {
     });
 
     // Optional: Send error to analytics/monitoring service
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      try {
-        (window as any).gtag('event', 'exception', {
-          description: error.toString(),
-          fatal: false,
-        });
-      } catch (e) {
-        // Ignore analytics errors
-      }
-    }
+    trackException(error.toString(), false);
   }
 
   render() {

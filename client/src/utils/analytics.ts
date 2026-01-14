@@ -16,7 +16,8 @@ export function initAnalytics() {
   if (typeof window !== 'undefined') {
     const params = {
       send_to: GA_MEASUREMENT_ID,
-      debug_mode: true
+      debug_mode: true,
+      send_page_view: false // Don't send page view during config re-init
     };
 
     const gtag = window.gtag;
@@ -36,20 +37,29 @@ export function trackPageView(path: string) {
 
   const params = {
     page_path: path,
+    page_location: window.location.href,
     send_to: GA_MEASUREMENT_ID,
     debug_mode: true
   };
 
   const gtag = window.gtag;
   if (typeof gtag === 'function') {
-    gtag('config', GA_MEASUREMENT_ID, params);
+    // GA4 recommended way for SPA page views is using events, not config
+    gtag('event', 'page_view', params);
   } else {
     // Stage fallback for page views
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(['config', GA_MEASUREMENT_ID, params]);
+    window.dataLayer.push(['event', 'page_view', params]);
   }
 
   console.log(`[Wizqo Analytics] Page View tracked: ${path}`);
+}
+
+/**
+ * Tracks when a user clicks to build a worksheet pack
+ */
+export function trackBuildPackClick(grade: string) {
+  trackEvent('build_pack_click', { grade });
 }
 
 export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
@@ -228,9 +238,11 @@ export function trackConversion(conversionName: string, params?: Record<string, 
   });
 
   // Also send as conversion event for GA4
-  if (window.gtag) {
-    window.gtag('event', 'conversion', {
+  const gtag = window.gtag;
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
       conversion_name: conversionName,
+      debug_mode: true,
       ...params,
     });
   }
@@ -273,6 +285,17 @@ export function trackError(errorType: string, errorMessage: string, page: string
 }
 
 /**
+ * Track exceptions (errors caught by ErrorBoundary)
+ */
+export function trackException(description: string, fatal: boolean = false) {
+  trackEvent('exception', {
+    description,
+    fatal,
+    event_category: 'error',
+  });
+}
+
+/**
  * Track scroll depth (engagement metric)
  */
 export function trackScrollDepth(page: string, depth: number) {
@@ -286,9 +309,10 @@ export function trackScrollDepth(page: string, depth: number) {
 /**
  * Track thumbnail/preview clicks
  */
-export function trackThumbnailClick(docId: string, source: string) {
+export function trackThumbnailClick(docId: string, docTitle: string, source: string) {
   trackEvent('thumbnail_click', {
     doc_id: docId,
+    doc_title: docTitle,
     source_page: source,
     event_category: 'engagement',
   });

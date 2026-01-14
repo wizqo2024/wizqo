@@ -399,11 +399,6 @@ export default function App() {
     initAnalytics();
   }, []);
 
-  // Track page views on route change (doesn't affect SEO)
-  useEffect(() => {
-    trackPageView(route);
-  }, [route]);
-
   // Signal that React has hydrated/mounted to hide the SEO fallback content
   // This replaces the aggressive inline script in index.html to ensure crawlers see content if JS fails
   React.useLayoutEffect(() => {

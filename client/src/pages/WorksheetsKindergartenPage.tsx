@@ -6,7 +6,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags'
 import { CategoryFilter, type Category } from '@/components/CategoryFilter'
 import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
-import { trackCategoryFilter, trackThumbnailClick, trackWorksheetDownload } from '@/utils/analytics'
+import { trackCategoryFilter, trackThumbnailClick, trackWorksheetDownload, trackBuildPackClick } from '@/utils/analytics'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 
 // Categories will be translated in the component
@@ -223,7 +223,7 @@ export default function WorksheetsKindergartenPage() {
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackAge')}</span>
                   <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.grades.kindergarten.buildPackFocus')}</span>
                 </div>
-                <a href={addLocaleToPath("/print?doc=pack&time=5&age=k&skill=math&from=kindergarten", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={(e) => { try { (window as any).gtag?.('event', 'build_pack_click', { grade: 'K' }); } catch { } }}>{t('pages.printables.buildPackButton')}</a>
+                <a href={addLocaleToPath("/print?doc=pack&time=5&age=k&skill=math&from=kindergarten", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={() => trackBuildPackClick('K')}>{t('pages.printables.buildPackButton')}</a>
               </div>
             </div>
           </section>
