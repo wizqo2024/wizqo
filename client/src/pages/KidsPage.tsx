@@ -32,11 +32,11 @@ const KID_SAFE = {
 
 export default function KidsPage() {
   const { t, isRTL } = useTranslation();
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
-  
+
   const usedImageUrlsRef = useRef<Set<string>>(new Set());
   const KIDS_GENERIC_IMAGE = KID_SAFE.coloringCrayons;
   const KIDS_IMAGE_POOL = useMemo(
@@ -118,7 +118,7 @@ export default function KidsPage() {
 
   // Support game subpages: /kids/games/<slug>
   const path = (typeof window !== 'undefined' ? window.location.pathname : '/kids');
-  const parts = path.replace(/^\/+/,'').split('/');
+  const parts = path.replace(/^\/+/, '').split('/');
   const sub1 = parts[1] || '';
   const sub2 = parts[2] || '';
   if (sub1 === 'games') {
@@ -146,7 +146,7 @@ export default function KidsPage() {
             <a className={OUTLINE_BUTTON} href="/kids">{t('pages.kids.backToHub')}</a>
           </div>
           {gameSlug === 'word-search' ? <WordSearch /> : gameSlug === 'puzzle' ? <PuzzleGame /> : gameSlug === 'typing' ? <TypingSafari /> : gameSlug === 'pattern' ? <PatternBuilder /> : <MemoryMatch />}
-          
+
           {/* Explore More */}
           <section className="mt-8 bg-white border border-slate-200 rounded-2xl p-5">
             <h2 className="text-xl font-bold text-slate-900">{t('pages.kids.exploreMore.title')}</h2>
@@ -317,7 +317,7 @@ export default function KidsPage() {
               <li>{t('pages.kids.games.puzzle')}</li>
               <li>{t('pages.kids.games.typing')}</li>
             </ul>
-            
+
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
@@ -509,30 +509,30 @@ export default function KidsPage() {
               </div>
             </article>
 
-          <article className={CARD_CLASS}>
-            <SmartImage
-              primary="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80"
-              alts={[KID_SAFE.planetsModel, KID_SAFE.childStudyDesk, KID_SAFE.childWriting]}
-              alt="Interactive worksheets generator preview"
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-5">
-              <div className="flex gap-2 mb-2">
-                {Array.isArray(t('pages.kids.generators.interactive.tags')) && (t('pages.kids.generators.interactive.tags') as string[]).map((tag: string, idx: number) => (
-                  <span key={idx} className={CHIP_CLASS}>{tag}</span>
-                ))}
+            <article className={CARD_CLASS}>
+              <SmartImage
+                primary="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80"
+                alts={[KID_SAFE.planetsModel, KID_SAFE.childStudyDesk, KID_SAFE.childWriting]}
+                alt="Interactive worksheets generator preview"
+                className="w-full h-40 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex gap-2 mb-2">
+                  {Array.isArray(t('pages.kids.generators.interactive.tags')) && (t('pages.kids.generators.interactive.tags') as string[]).map((tag: string, idx: number) => (
+                    <span key={idx} className={CHIP_CLASS}>{tag}</span>
+                  ))}
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.generators.interactive.title')}</h3>
+                <p className="text-slate-600 text-sm mb-4">
+                  {t('pages.kids.generators.interactive.description')}
+                </p>
+                <a href="/interactive-worksheets-generator" className={BUTTON_CLASS} aria-label={t('pages.kids.generators.interactive.button')}>
+                  {t('pages.kids.generators.interactive.button')}
+                </a>
               </div>
-              <h3 className="font-semibold text-slate-900 mb-1">{t('pages.kids.generators.interactive.title')}</h3>
-              <p className="text-slate-600 text-sm mb-4">
-                {t('pages.kids.generators.interactive.description')}
-              </p>
-              <a href="/interactive-worksheets-generator" className={BUTTON_CLASS} aria-label={t('pages.kids.generators.interactive.button')}>
-                {t('pages.kids.generators.interactive.button')}
-              </a>
-            </div>
-          </article>
-        </div>
-      </section>
+            </article>
+          </div>
+        </section>
 
         {/* 7‑Day Fun Skills to Learn */}
         <section id="skills">
@@ -665,7 +665,7 @@ const PRINTABLES = [
     href: getWorksheetURL('coloring', 'kids'),
     cover: KID_SAFE.coloringCrayons
   },
-  
+
 ];
 
 const HELPERS = [
@@ -708,12 +708,6 @@ const KIDS_BLOGS = [
     href: '/blog/free-printable-coloring-pages-for-kids',
     cover: 'https://images.unsplash.com/photo-1617117206620-b01f2919ff86?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
   },
-  {
-    id: 'outdoor-hobbies-for-students',
-    title: 'Outdoor Hobbies for Students',
-    subtitle: 'Move, explore, and learn outside',
-    href: '/blog/outdoor-hobbies-for-students',
-    cover: KID_SAFE.classroomHands,
-  },
+
 ];
 

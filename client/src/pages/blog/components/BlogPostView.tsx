@@ -171,15 +171,7 @@ export function BlogPostView({
               <h1 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 leading-tight">
                 {post.title.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\s]+/gu, '').trim() || post.title}
               </h1>
-              {(['easy-hobbies-that-make-you-smarter', 'easy-watercolor-paintings'].includes(post.id)) && (
-                <nav aria-label={t('pages.blog.quickWorksheetLinks')} className="mb-4">
-                  <ul className="flex flex-wrap gap-2 text-sm">
-                    <li><a href="/worksheets/handwriting-worksheet-maker" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.handwriting')}</a></li>
-                    <li><a href="/worksheets/1st-grade-math-worksheets" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.firstGradeMath')}</a></li>
-                    <li><a href="/worksheets/reading-comprehension" className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">{t('pages.blog.popularLinks.readingComprehension')}</a></li>
-                  </ul>
-                </nav>
-              )}
+
               <figure className="mb-6">
                 <picture>
                   {coverUrl.startsWith('http') ? (

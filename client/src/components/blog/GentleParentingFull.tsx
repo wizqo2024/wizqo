@@ -199,7 +199,7 @@ export function GentleParentingFull() {
       mounted = false;
       try {
         Object.values(chartsRef.current).forEach((c: any) => c?.destroy?.());
-      } catch {}
+      } catch { }
     };
   }, [t]);
 
@@ -219,7 +219,7 @@ export function GentleParentingFull() {
       <section aria-labelledby="toc-title" className="max-w-4xl mx-auto w-full">
         <div className="bg-slate-50 border border-slate-200 rounded-lg p-5">
           <h3 id="toc-title" className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/></svg>
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
             {t('pages.blog.components.gentleParentingFull.tocTitle')}
           </h3>
           <nav className="flex flex-wrap gap-3">
@@ -418,7 +418,7 @@ export function GentleParentingFull() {
           <a href="/kids" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Kids Hub – Play, Print, and Learn</a>
           <a href="/worksheets/reading-comprehension" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Reading Comprehension Worksheets</a>
           <a href="/worksheets/handwriting-worksheet-maker" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Handwriting Worksheet Maker (Free PDF)</a>
-          <a href="/blog/easy-hobbies-that-make-you-smarter" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Easy Hobbies That Make You Smarter</a>
+
           <a href="/printables" className="block p-4 rounded-lg border border-slate-200 bg-white hover:bg-slate-50">Printables for Kids</a>
         </div>
       </section>
