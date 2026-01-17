@@ -906,7 +906,7 @@ export default function HandwritingMakerPage() {
                 <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-3">Save for Later</p>
                 <div className="flex justify-center gap-4">
                   <a
-                    href={`https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent('https://wizqo.com/worksheets/handwriting-worksheet-maker')}&media=${encodeURIComponent('https://wizqo.com/og-handwriting.png')}&description=${encodeURIComponent('Free Personalized Name Tracing & Cursive Handwriting Maker - Create custom worksheets for kids in seconds! #education #handwriting #parenting')}`}
+                    href={`https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent('https://wizqo.com/worksheets/handwriting-worksheet-maker')}&media=${encodeURIComponent('https://wizqo.com/logo-720x720.png')}&description=${encodeURIComponent('Free Personalized Name Tracing & Cursive Handwriting Maker - Create custom worksheets for kids in seconds! #education #handwriting #parenting')}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-6 py-2 rounded-full bg-[#E60023] text-white text-xs font-bold hover:bg-[#ad001a] transition-all hover:scale-105 shadow-sm shadow-red-200"
