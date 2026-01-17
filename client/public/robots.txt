@@ -38,6 +38,15 @@ Disallow: /dashboard
 Disallow: /privacy
 Disallow: /terms
 Disallow: /cookies
+Disallow: /blog/cheap-hobbies-at-home
+Disallow: /blog/relaxing-hobbies
+Disallow: /blog/outdoor-hobbies-for-students
+Disallow: /blog/productive-hobbies-for-students
+Disallow: /blog/easy-hobbies-that-make-you-smarter
+Disallow: /blog/how-long-to-build-a-habit
+Disallow: /blog/find-hobby-that-sticks
+Disallow: /blog/micro-journaling-habit
+Disallow: /blog/easy-watercolor-paintings
 
 # Sitemaps
 Sitemap: https://wizqo.com/sitemap.xml
