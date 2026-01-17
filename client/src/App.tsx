@@ -440,7 +440,7 @@ export default function App() {
                     <>
                       <SEOMetaTags
                         title="My Learning Plan Generator - Free AI-Powered 7-Day Plans | Wizqo"
-                        description="Create personalized 7-day learning plans with AI! Generate daily lessons, videos, and practice prompts. Free tool for teachers, students, and hobby learners."
+                        description="Create personalized learning resources with AI! Free educational tools, worksheets, and guides for teachers, students, and parents."
                         keywords="my learning plan, learning plan generator, create learning plan, personalized learning plan, 7-day learning plan, AI learning plan, free learning plan generator"
                         canonicalUrl={`https://wizqo.com${addLocaleToPath('/generate', currentLocale)}`}
                       />
@@ -471,7 +471,7 @@ export default function App() {
                       <SEOMetaTags
                         title="Free Printable Worksheet Ideas, Teaching Tips & Learning Blog | Wizqo"
                         description="Explore Wizqo's free educational blog with printable worksheet ideas, teaching tips, learning strategies, and classroom inspiration for teachers and parents."
-                        keywords="free printable worksheets, learning blog, educational tips, teaching ideas, classroom resources, student hobbies, homeschool worksheets"
+                        keywords="free printable worksheets, learning blog, educational tips, teaching ideas, classroom resources, student learning, homeschool worksheets"
                         canonicalUrl={`https://wizqo.com${addLocaleToPath('/blog', currentLocale)}`}
                       />
                       <BlogPage initialSlug={window.location.pathname.replace(/^\/?/, '').split('/')[1]} />

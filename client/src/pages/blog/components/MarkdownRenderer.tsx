@@ -6,7 +6,6 @@ import HWTInfographic from '@/components/blog/HWTInfographic';
 import MultiplicationWorksheetsBlog from '@/components/blog/MultiplicationWorksheetsBlog';
 import CognitiveSkillsBlog from '@/components/blog/CognitiveSkillsBlog';
 import Grade2MathWorksheetsBlog from '@/components/blog/Grade2MathWorksheetsBlog';
-import MicroJournalingBlog from '@/components/blog/MicroJournalingBlog';
 import NameTracingInfographic from '@/components/blog/NameTracingInfographic';
 import { BlogPost } from '../types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
@@ -37,15 +36,7 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
   const isSectionHeading = (s: string) => {
     return (
       /^#{1,6}\s+/.test(s) ||
-      s.includes('Day 1:') || s.includes('Day 2') || s.includes('Day 3') || s.includes('Day 4') || s.includes('Day 5') || s.includes('Day 6') || s.includes('Day 7') ||
-      s.includes('Why Students Need Productive Hobbies') || s.includes('10 Easy Hobbies') || s.includes('How to Pick the Right Hobby for You') || s.includes('Final Thoughts') || s.includes('FAQs About Easy Hobbies') ||
-      s.includes('Why Most Hobbies Fail') || s.includes('How AI Makes Hobbies') || s.includes('Your 7-Day Plan') ||
-      s.includes('What Is Micro Journaling') || s.includes('Why It Works') || s.includes('5 Micro Journaling Prompts') ||
-      s.includes('Why Watercolor Is') || s.includes('10 Easy Watercolor') || s.includes('Beginner Watercolor Supplies') ||
-      s.includes('Common Mistakes') || s.includes('FREE 7-Day') || s.includes('Just Start!') ||
-      s.includes('The Science:') || s.includes('What Hobby Have You') || s.includes('Ready to Find') ||
-      s.includes('Bonus: Pair Micro') || s.includes('Micro Journaling =') || s.includes('Ready to Try') ||
-      s.includes('Why We Get Bored So Easily') || s.includes('Why Cheap Hobbies Work Better Than Expensive Ones') || s.includes('FAQs on Cheap Hobbies') || s.includes('FAQs on Cheap Hobbies at Home')
+      s.includes('Final Thoughts')
     );
   };
 
@@ -98,120 +89,6 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
     return out;
   };
 
-  // Special simple render for relaxing-hobbies
-  if (post.id === 'relaxing-hobbies') {
-    const simple: JSX.Element[] = [];
-    for (let idx = 0; idx < lines.length; idx++) {
-      const raw = lines[idx];
-      const t = raw.trim();
-      if (t === '') continue;
-      if (/^❓\s*FAQs/i.test(t) || /^##\s*.*FAQs/i.test(t) || /^FAQs\b/i.test(t) || (/faq/i.test(t) && !/^\d+\./.test(t))) {
-        simple.push(<h2 key={`simp-faq-h-${idx}`} className="text-2xl font-bold text-slate-900 mt-8 mb-4">❓ FAQs</h2>);
-        const items: { q: string; a: string[] }[] = [];
-        let j = idx + 1;
-        while (j < lines.length) {
-          const l = lines[j].trim();
-          if (l === '') { j++; continue; }
-          if (
-            /^#{1,6}\s+/.test(l) ||
-            /^❓\s*FAQs/i.test(l) ||
-            /^FAQs\b/i.test(l) ||
-            (/faq/i.test(l) && !/^\d+\./.test(l)) ||
-            /^🔗/.test(l) ||
-            /^👉/.test(l) ||
-            /^📌/.test(l)
-          ) break;
-          const mQ = l.match(/^\d+\.\s*(.+)$/);
-          if (mQ) {
-            items.push({ q: mQ[1].trim().replace(/\*\*(.*?)\*\*/g, '$1'), a: [] });
-            j++;
-            while (j < lines.length) {
-              const l2 = lines[j].trim();
-              if (l2 === '') { j++; continue; }
-              if (
-                /^\d+\./.test(l2) ||
-                /^#{1,6}\s+/.test(l2) ||
-                /^❓\s*FAQs/i.test(l2) ||
-                /^FAQs\b/i.test(l2) ||
-                (/faq/i.test(l2) && !/^\d+\./.test(l2)) ||
-                /^🔗/.test(l2) ||
-                /^👉/.test(l2) ||
-                /^📌/.test(l2)
-              ) break;
-              items[items.length - 1].a.push(l2);
-              j++;
-            }
-            continue;
-          }
-          j++;
-        }
-        simple.push(
-          <Accordion key={`simp-faq-${idx}`} type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
-            {items.map((it, iIdx) => (
-              <AccordionItem key={`simp-faq-item-${iIdx}`} value={`item-${iIdx}`}>
-                <AccordionTrigger className="px-4" aria-expanded="false">{it.q}</AccordionTrigger>
-                <AccordionContent className="px-4 text-slate-700">
-                  {it.a.map((p, pIdx) => (
-                    <p key={`simp-faq-a-${iIdx}-${pIdx}`} className="mb-3" dangerouslySetInnerHTML={{ __html: convertInlineLinks(p).replace(/\*\*(.*?)\*\*/g, '$1') }} />
-                  ))}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        );
-        idx = j - 1;
-        continue;
-      }
-      if (isMdImage(raw)) {
-        const m = t.match(/^!\[(.*?)\]\((\S+?)(?:\s+\"(.*?)\")?\)$/);
-        let alt = post.title, url = '', caption = '';
-        if (m) { alt = m[1] || alt; url = m[2] || ''; caption = m[3] || ''; }
-        if (!alt || !alt.trim()) alt = post.title;
-        const finalUrl = url || CATEGORY_IMAGES[post.category] || GENERIC_BLOG_IMAGE;
-        simple.push(
-          <figure key={`simp-img-${idx}`} className="my-6">
-            {(() => {
-              const needsContain = (post.id === 'quiet-time') && (
-                finalUrl.includes('photo-1758471995115-81c662cf949f')
-              );
-              const imgClass = needsContain
-                ? 'w-full h-auto max-h-[24rem] object-contain rounded-xl border border-slate-200 bg-white'
-                : 'w-full h-44 sm:h-52 md:h-64 lg:h-72 object-cover rounded-xl border border-slate-200';
-              return (
-                <img
-                  src={finalUrl}
-                  alt={alt || post.title}
-                  loading="lazy"
-                  width={1600}
-                  height={720}
-                  className={imgClass}
-                />
-              );
-            })()}
-          </figure>
-        );
-        continue;
-      }
-      if (/^\d+\./.test(t)) {
-        const hId = t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-        simple.push(<h3 key={`simp-h-${idx}`} id={hId} className="font-bold text-purple-900 mb-2">{t}</h3>);
-        continue;
-      }
-      if (t.startsWith('•')) {
-        const bulletHtml = convertInlineLinks(t.slice(1).trim());
-        simple.push(
-          <div key={`simp-b-${idx}`} className="flex items-start mb-3">
-            <span className="text-purple-500 text-xl mr-3 mt-1" aria-hidden="true">•</span>
-            <p className="text-slate-700 leading-relaxed flex-1" dangerouslySetInnerHTML={{ __html: bulletHtml }} />
-          </div>
-        );
-        continue;
-      }
-      const paraHtml = convertInlineLinks(raw);
-      simple.push(<p key={`simp-p-${idx}`} className="mb-4 text-slate-700 leading-relaxed text-lg" dangerouslySetInnerHTML={{ __html: paraHtml }} />);
-    }
-    return <div className="prose prose-lg max-w-none">{simple}</div>;
-  }
 
   const elements: JSX.Element[] = [];
   for (let i = 0; i < lines.length; i++) {
@@ -255,14 +132,6 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
       elements.push(
         <ErrorBoundary key={`grade2-math-blog-${i}`}>
           <Grade2MathWorksheetsBlog />
-        </ErrorBoundary>
-      );
-      continue;
-    }
-    if (post.id === 'micro-journaling-habit' && trimmed === '<MicroJournalingBlog />') {
-      elements.push(
-        <ErrorBoundary key={`micro-journaling-blog-${i}`}>
-          <MicroJournalingBlog />
         </ErrorBoundary>
       );
       continue;
@@ -540,19 +409,9 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
     if (isSectionHeading(line)) {
       const cleanLine = line.replace(/\*\*(.*?)\*\*/g, '$1');
       const headingId = cleanLine.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-      const AUTOLINKS: { term: string; slug: string }[] = [
-        { term: 'journaling', slug: 'micro-journaling-habit' },
-        { term: 'watercolor', slug: 'easy-watercolor-paintings' },
-        { term: 'AI', slug: 'find-hobby-that-sticks' }
-      ];
-      let contentHtml = cleanLine;
-      for (const { term, slug } of AUTOLINKS) {
-        const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
-        contentHtml = contentHtml.replace(re, `<a href="/blog/${slug}" class="text-purple-600 hover:underline">$1</a>`);
-      }
       elements.push(
         <h2 key={`h-${i}`} id={headingId} className="text-2xl font-bold text-slate-900 mt-8 mb-4 border-b-2 border-purple-200 pb-2 scroll-mt-8">
-          <span dangerouslySetInnerHTML={{ __html: contentHtml }} />
+          {cleanLine}
         </h2>
       );
       continue;
@@ -569,32 +428,8 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
       continue;
     }
 
-    if (line.includes('Ready to') || line.includes('Stop waiting') || line.includes('Let AI do') || line.includes('Don\'t wait')) {
-      elements.push(
-        <div key={`cta-${i}`} className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-xl p-6 my-6 text-center">
-          <p className="text-lg font-semibold text-slate-900 mb-4">{line}</p>
-          <button
-            onClick={(e) => { e.stopPropagation(); window.location.href = '/generate'; }}
-            className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-            aria-label="Generate your personalized hobby plan"
-          >
-            Generate My Plan
-          </button>
-        </div>
-      );
-      continue;
-    }
 
-    const AUTOLINKS_BODY: { term: string; slug: string }[] = [
-      { term: 'journaling', slug: 'micro-journaling-habit' },
-      { term: 'watercolor', slug: 'easy-watercolor-paintings' },
-      { term: 'AI', slug: 'find-hobby-that-sticks' }
-    ];
-    let bodyHtml = convertInlineLinks(line).replace(/\*\*(.*?)\*\*/g, '$1');
-    for (const { term, slug } of AUTOLINKS_BODY) {
-      const re = new RegExp(`(\\b${term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b)`, 'gi');
-      bodyHtml = bodyHtml.replace(re, `<a href="/blog/${slug}" class="text-purple-600 hover:underline">$1</a>`);
-    }
+    const bodyHtml = convertInlineLinks(line).replace(/\*\*(.*?)\*\*/g, '$1');
     elements.push(
       <p key={`p-${i}`} className="mb-4 text-slate-700 leading-relaxed text-lg" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
     );

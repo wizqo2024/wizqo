@@ -7,7 +7,7 @@ import { useTranslation } from '@/context/TranslationContext';
 
 export function ContactPage() {
   const { t, language, isRTL } = useTranslation()
-  React.useEffect(() => {}, [language])
+  React.useEffect(() => { }, [language])
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,7 +27,7 @@ export function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: t('pages.contact.toast.missingInfo'),
@@ -55,7 +55,7 @@ export function ContactPage() {
           title: t('pages.contact.toast.thanks'),
           description: t('pages.contact.toast.thanksDesc'),
         });
-        
+
         // Reset form
         setFormData({
           name: '',
@@ -89,7 +89,7 @@ export function ContactPage() {
         canonicalUrl="https://wizqo.com/contact"
       />
       <UnifiedNavigation currentPage="contact" />
-      
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
           <h1 className="text-4xl lg:text-5xl font-black text-slate-900 mb-6">
@@ -137,14 +137,14 @@ export function ContactPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">{t('pages.contact.form.topic')}</label>
-                <select 
+                <select
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
                   <option value="General">{t('pages.contact.subjects.general')}</option>
-                  <option value="Suggest a Hobby">{t('pages.contact.subjects.suggestHobby')}</option>
+                  <option value="Suggest a Worksheet">{t('pages.contact.subjects.suggestHobby')}</option>
                   <option value="Report an Issue">{t('pages.contact.subjects.reportIssue')}</option>
                   <option value="Other">{t('pages.contact.subjects.other')}</option>
                 </select>
@@ -187,7 +187,7 @@ export function ContactPage() {
                   <p className="text-sm text-slate-500">{t('pages.contact.email.responseTime')}</p>
                 </div>
               </div>
-              
+
               <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
                 <div className="flex items-center mb-2">
                   <svg className="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
