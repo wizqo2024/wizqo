@@ -6,12 +6,13 @@ import { basePosts } from './blog/basePosts';
 import { loadMarkdownPosts, translateBlogPost, translateCategory } from './blog/utils';
 import { BlogPostView } from './blog/components/BlogPostView';
 import { BlogList } from './blog/components/BlogList';
+import NotFoundPage from './NotFoundPage';
 
 export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; onNavigate?: (path: string) => void }) {
   const { t, language } = useTranslation();
   const routeRefreshKey = () => (typeof window !== 'undefined' ? window.location.pathname : '');
   const mdPosts = useMemo(() => loadMarkdownPosts(), [routeRefreshKey()]);
-  
+
   React.useEffect(() => {
     // Ensure re-render on language change
   }, [t]);
@@ -93,13 +94,13 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     const alt = allPosts.find(p => p.id !== 'best-teacher');
     return alt || base;
   }, [visibleFeaturePost, allPosts]);
-  
+
   const navigateTo = (path: string) => {
     try {
       window.history.pushState({}, '', path);
-    } catch {}
+    } catch { }
   };
-  
+
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
   const { toast } = useToast();
@@ -111,19 +112,19 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         const y =
           typeof window !== 'undefined'
             ? window.scrollY ||
-              (typeof document !== 'undefined'
-                ? document.documentElement.scrollTop || document.body.scrollTop || 0
-                : 0)
+            (typeof document !== 'undefined'
+              ? document.documentElement.scrollTop || document.body.scrollTop || 0
+              : 0)
             : 0;
         setShowBackToTop(y > 180);
-      } catch {}
+      } catch { }
     };
     try {
       window.addEventListener('scroll', onScroll, { passive: true } as any);
-    } catch {}
+    } catch { }
     onScroll();
     return () => {
-      try { window.removeEventListener('scroll', onScroll); } catch {}
+      try { window.removeEventListener('scroll', onScroll); } catch { }
     };
   }, []);
 
@@ -135,7 +136,7 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
       if (!pid) return;
       const found = allPosts.find(p => p.id === pid);
       if (found) setSelectedPost(found);
-    } catch {}
+    } catch { }
   }, [allPosts]);
 
   // Preselect post from pretty URL slug (/blog/:slug)
@@ -144,10 +145,22 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     const found = allPosts.find(p => p.id === initialSlug);
     if (found) setSelectedPost(found);
   }, [initialSlug, allPosts]);
-  
+
+  const isNotFound = useMemo(() => {
+    if (!initialSlug) return false;
+    // initialSlug can come from window.location.pathname.split('/')[1]
+    // which might be empty string or blog index.
+    if (initialSlug === '' || initialSlug === '/') return false;
+    return !allPosts.some(p => p.id === initialSlug);
+  }, [initialSlug, allPosts]);
+
+  if (isNotFound) {
+    return <NotFoundPage />;
+  }
+
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!newsletterEmail || !newsletterEmail.includes('@')) {
       toast({
         title: t('pages.blog.newsletter.invalidEmail'),
@@ -158,17 +171,17 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     }
 
     setIsSubscribing(true);
-    
+
     try {
       // Simulate API call - in real implementation, this would integrate with email service
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       toast({
         title: t('pages.blog.newsletter.success'),
         description: t('pages.blog.newsletter.successDesc'),
         variant: "default"
       });
-      
+
       setNewsletterEmail('');
     } catch (error) {
       toast({
