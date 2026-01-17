@@ -235,7 +235,6 @@ export default function HandwritingMakerPage() {
 
     const letterSpacing = (() => {
       if (!autoSpaceLetters) return 0;
-      if (textStyle === 'cursive') return 0;
       const base = (mode === 'letters' ? fontSizeVal * 0.18 : fontSizeVal * 0.25);
       return textStyle === 'bubble' ? base + fontSizeVal * 0.05 : base;
     })();
@@ -435,7 +434,6 @@ export default function HandwritingMakerPage() {
     const availableWidth = pageW - (margin + 16) - margin - 20; // Added 20px safety margin
     const letterSpacing = (() => {
       if (!autoSpaceLetters) return 0;
-      if (textStyle === 'cursive') return 0;
       // bubble needs a little extra space for stroke outline
       const base = (mode === 'letters' ? fontSize * 0.18 : fontSize * 0.25);
       return textStyle === 'bubble' ? base + fontSize * 0.05 : base;
