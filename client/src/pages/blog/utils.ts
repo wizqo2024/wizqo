@@ -67,7 +67,7 @@ export function loadMarkdownPosts(): BlogPost[] {
 export function translateCategory(category: string, language: 'en' | 'es' | 'ar' = 'en'): string {
   if (!category || typeof category !== 'string') return category;
   if (language === 'en') return category;
-  
+
   try {
     const langTranslations = translations[language];
     if (langTranslations && typeof langTranslations === 'object') {
@@ -95,7 +95,7 @@ export function translateCategory(category: string, language: 'en' | 'es' | 'ar'
 export function translateReadTime(readTime: string, language: 'en' | 'es' | 'ar' = 'en'): string {
   if (!readTime || typeof readTime !== 'string') return readTime;
   if (language === 'en') return readTime;
-  
+
   try {
     const langTranslations = translations[language];
     if (langTranslations && typeof langTranslations === 'object') {
@@ -132,6 +132,7 @@ export function translateBlogPost(post: BlogPost, language: 'en' | 'es' | 'ar' =
       if (pages && typeof pages === 'object') {
         const blog = pages.blog;
         if (blog && typeof blog === 'object') {
+          const blocks = (blog as any).blocks;
           const posts = blog.posts;
           if (posts && typeof posts === 'object') {
             const postTranslation = (posts as any)[post.id];
@@ -153,7 +154,7 @@ export function translateBlogPost(post: BlogPost, language: 'en' | 'es' | 'ar' =
     // If translation fails, return original post
     console.warn(`Translation failed for blog post ${post.id}:`, error);
   }
-  
+
   return {
     ...post,
     category: translateCategory(post.category, language),
