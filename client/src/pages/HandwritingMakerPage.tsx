@@ -651,15 +651,15 @@ export default function HandwritingMakerPage() {
                 type="single"
                 value={mode}
                 onValueChange={(v: string) => v && setMode(v as Mode)}
-                className="justify-start border border-slate-200 rounded-lg overflow-hidden"
+                className="w-full justify-start border border-slate-200 rounded-lg overflow-hidden"
               >
-                <ToggleGroupItem value="letters" className="px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0">
+                <ToggleGroupItem value="letters" className="flex-1 px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0">
                   {t('pages.handwriting.mode.letters')}
                 </ToggleGroupItem>
-                <ToggleGroupItem value="words" className="px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0 border-l border-slate-200">
+                <ToggleGroupItem value="words" className="flex-1 px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0 border-l border-slate-200">
                   {t('pages.handwriting.mode.words')}
                 </ToggleGroupItem>
-                <ToggleGroupItem value="sentences" className="px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0 border-l border-slate-200">
+                <ToggleGroupItem value="sentences" className="flex-1 px-4 py-2 text-sm data-[state=on]:bg-purple-600 data-[state=on]:text-white rounded-none border-0 border-l border-slate-200">
                   {t('pages.handwriting.mode.sentences')}
                 </ToggleGroupItem>
               </ToggleGroup>
@@ -746,6 +746,7 @@ export default function HandwritingMakerPage() {
                           }`}
                         style={{ background: THEMES[tKey].primary }}
                         title={THEMES[tKey].name}
+                        aria-label={THEMES[tKey].name}
                       />
                     ))}
                   </div>
@@ -782,9 +783,10 @@ export default function HandwritingMakerPage() {
               {/* Standard Options */}
               <div className="mt-4 border-t pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.fontSize')}</Label>
+                  <Label htmlFor="fontSizeSlider" className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.fontSize')}</Label>
                   <div className="flex items-center gap-2">
                     <input
+                      id="fontSizeSlider"
                       type="range"
                       min={28}
                       max={72}
@@ -900,7 +902,7 @@ export default function HandwritingMakerPage() {
 
       </main>
       <Footer />
-    </div>
+    </div >
   );
 }
 
