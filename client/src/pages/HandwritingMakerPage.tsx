@@ -900,6 +900,27 @@ export default function HandwritingMakerPage() {
                   <li>Say letter strokes out loud (e.g., “down, around, close”).</li>
                 </ul>
               </div>
+
+              {/* Pinterest Growth Section - SEO Safe */}
+              <div className="mt-6 pt-4 border-t border-slate-100 print:hidden text-center">
+                <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-3">Save for Later</p>
+                <div className="flex justify-center gap-4">
+                  <a
+                    href={`https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent('https://wizqo.com/worksheets/handwriting-worksheet-maker')}&media=${encodeURIComponent('https://wizqo.com/og-handwriting.png')}&description=${encodeURIComponent('Free Personalized Name Tracing & Cursive Handwriting Maker - Create custom worksheets for kids in seconds! #education #handwriting #parenting')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-6 py-2 rounded-full bg-[#E60023] text-white text-xs font-bold hover:bg-[#ad001a] transition-all hover:scale-105 shadow-sm shadow-red-200"
+                  >
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.966 1.406-5.966s-.359-.72-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.654 2.568-.994 3.993-.284 1.194.593 2.167 1.77 2.167 2.124 0 3.756-2.241 3.756-5.476 0-2.863-2.056-4.865-4.997-4.865-3.399 0-5.395 2.551-5.395 5.186 0 1.027.395 2.127.889 2.727.098.119.112.224.083.345-.091.377-.293 1.191-.333 1.353-.053.214-.174.26-.401.154-1.49-.693-2.422-2.869-2.422-4.616 0-3.759 2.731-7.213 7.877-7.213 4.136 0 7.351 2.947 7.351 6.89 0 4.11-2.591 7.416-6.185 7.416-1.207 0-2.343-.627-2.731-1.369 0 0-.599 2.282-.744 2.84-.269 1.038-1.001 2.34-1.492 3.138 1.066.31 2.195.477 3.361.477 6.611 0 11.988-5.365 11.988-11.988C23.995 5.367 18.628 0 12.017 0z" />
+                    </svg>
+                    Pin to Pinterest
+                  </a>
+                </div>
+                <p className="mt-3 text-[9px] text-slate-400 leading-relaxed italic">
+                  Show your worksheet some love! 🌸<br />Pining helps other parents find this free tool.
+                </p>
+              </div>
             </div>
           </div>
           {/* Right: Preview */}
