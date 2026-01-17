@@ -2573,7 +2573,7 @@ export function Probability5th({ seed, variant, showAnswersForDoc }: SpecificWor
             <div className="flex flex-col md:flex-row gap-8 mt-10">
                 <div className="w-full md:w-1/3 bg-white border-2 border-slate-200 rounded-3xl p-8 shadow-md">
                     <h4 className="text-sm font-bold text-slate-400 uppercase mb-6 text-center">The Marble Jar</h4>
-                    <div className="aspect-square bg-slate-50 border-4 border-slate-100 rounded-[4rem] relative p-10 flex flex-wrap gap-2 justify-center content-center overflow-hidden">
+                    <div className="aspect-square bg-slate-50 border-4 border-slate-100 rounded-[4rem] relative p-10 grid grid-cols-4 gap-4 place-content-center place-items-center overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-200/50 to-transparent"></div>
                         {marbles.map(m => Array.from({ length: m.count }).map((_, j) => (
                             <div key={`${m.color}-${j}`} className={`w-8 h-8 rounded-full ${m.bg} border-2 border-white/30 shadow-sm animate-bounce`} style={{ animationDelay: `${(j + 1) * 100}ms` }}></div>
