@@ -2546,6 +2546,7 @@ export function Probability5th({ seed, variant, showAnswersForDoc }: SpecificWor
                 'Identify probabilities for compound events (OR/NOT events)'
             ]}
             parentTeacherTips={[
+                'P stands for Probability (How likely an event is to happen).',
                 'Probability is a fraction: (Wanted Outcomes) / (Total Outcomes).',
                 'Impossible = 0. Certain = 1.',
                 'The sum of all probabilities in a set always equals 1.'
