@@ -351,6 +351,32 @@ export default function HandwritingMakerPage() {
     // Track download
     trackWorksheetDownload('handwriting-maker', `${mode}-pdf`, 'handwriting-maker', 'handwriting')
 
+    // CREATIVE UPGRADE: Confetti Celebration
+    const colors = theme.rainbow ? RAINBOW_COLORS : [theme.primary, theme.text, theme.dots];
+    for (let i = 0; i < 40; i++) {
+      const conf = document.createElement('div');
+      conf.style.position = 'fixed';
+      conf.style.zIndex = '9999';
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.top = '-5vh';
+      conf.style.width = '10px';
+      conf.style.height = '10px';
+      conf.style.pointerEvents = 'none';
+      conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      conf.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(conf);
+
+      const animation = conf.animate([
+        { top: '-5vh', transform: `rotate(0deg) translateX(0px)`, opacity: 1 },
+        { top: '105vh', transform: `rotate(${Math.random() * 1000}deg) translateX(${Math.random() * 200 - 100}px)`, opacity: 0 }
+      ], {
+        duration: 2000 + Math.random() * 3000,
+        easing: 'cubic-bezier(0, .9, .57, 1)'
+      });
+      animation.onfinish = () => conf.remove();
+    }
+
     toast({
       title: t('Downloaded'),
       description: t('Your handwriting worksheet has been saved as PDF.'),
@@ -559,7 +585,7 @@ export default function HandwritingMakerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen transition-all duration-700 bg-dotted-pattern" style={{ backgroundColor: THEMES[colorTheme as ColorTheme].bg }} dir={isRTL ? 'rtl' : 'ltr'}>
       <SEOMetaTags
         title="Free Name Tracing & Cursive Writing Worksheet Maker | Wizqo"
         description="Create personalized Name Tracing and Cursive Writing worksheets in seconds. Perfect for kids learning handwriting. Download your custom PDF instantly for free."
@@ -633,6 +659,9 @@ export default function HandwritingMakerPage() {
           }
           #handwriting-sheet svg { width: 8in !important; height: 10.5in !important; break-inside: avoid-page; }
         }
+        .bg-dotted-pattern {
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M36 34v1h-3v-1h3zm10 2v1h-3v-1h3zm-10 2v1h-3v-1h3zm10 2v1h-3v-1h3zm-10 2v1h-3v-1h3zm10 2v1h-3v-1h3zm-10 2v1h-3v-1h3zm10 2v1h-3v-1h3zm-10 2v1h-3v-1h3zm10 2v1h-3v-1h3zM6 34v1H3v-1h3zm10 2v1h-3v-1h3zM6 38v1H3v-1h3zm10 2v1h-3v-1h3zM6 42v1H3v-1h3zm10 4v1h-3v-1h3zM6 46v1H3v-1h3zm10 4v1h-3v-1h3zM6 50v1H3v-1h3zm10 4v1h-3v-1h3zM6 54v1H3v-1h3zm10 4v1h-3v-1h3zM6 58v1H3v-1h3zm10 0v1h-3v-1h3z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
       `}</style>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
@@ -643,8 +672,8 @@ export default function HandwritingMakerPage() {
         </header>
 
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-          {/* Left: Controls */}
-          <div className="order-2 md:order-1 md:col-span-5 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm w-full whitespace-normal">
+          {/* Left: Controls - PREMIUM UPGRADE: Glassmorphism */}
+          <div className="order-2 md:order-1 md:col-span-5 bg-white/70 backdrop-blur-md border border-white/40 rounded-3xl p-6 shadow-xl w-full whitespace-normal">
             {/* Mode segmented control */}
             <div className="mb-4">
               <ToggleGroup
