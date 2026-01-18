@@ -901,8 +901,51 @@ export default function HandwritingMakerPage() {
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
           {/* Left: Controls - PREMIUM UPGRADE: Glassmorphism */}
           <div className="order-2 md:order-1 md:col-span-5 bg-white/70 backdrop-blur-md border border-white/40 rounded-3xl p-6 shadow-xl w-full whitespace-normal">
+            {/* Handwriting Style Selector - NEW PLACEMENT */}
+            <div className="mb-6">
+              <Label className="text-[10px] font-bold uppercase text-slate-400 mb-2.5 block tracking-widest flex items-center gap-2">
+                <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                Handwriting Style
+              </Label>
+              <ToggleGroup
+                type="single"
+                value={textStyle}
+                onValueChange={(v: string) => v && setTextStyle(v as any)}
+                className="grid grid-cols-2 gap-2 bg-slate-50/50 p-2 rounded-2xl border border-slate-200/50 shadow-inner"
+              >
+                <ToggleGroupItem value="true-monoline" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
+                  <span className="text-lg">✨</span>
+                  <span>Monoline</span>
+                </ToggleGroupItem>
+                <ToggleGroupItem value="monoline-cursive" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
+                  <span className="text-lg">🎨</span>
+                  <span>Kids Cursive</span>
+                </ToggleGroupItem>
+                <ToggleGroupItem value="school-cursive" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
+                  <span className="text-lg">🏫</span>
+                  <span>School</span>
+                </ToggleGroupItem>
+                <ToggleGroupItem value="cursive" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
+                  <span className="text-lg">🖋️</span>
+                  <span>Classic</span>
+                </ToggleGroupItem>
+                <ToggleGroupItem value="print" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
+                  <span className="text-lg">✍️</span>
+                  <span>Print</span>
+                </ToggleGroupItem>
+                <ToggleGroupItem value="bubble" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
+                  <span className="text-lg">🫧</span>
+                  <span>Bubble</span>
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+
             {/* Mode segmented control */}
-            <div className="mb-4">
+            <div className="mb-6">
+              <Label className="text-[10px] font-bold uppercase text-slate-400 mb-2.5 block tracking-widest flex items-center gap-2">
+                <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
+                Practice Mode
+              </Label>
               <ToggleGroup
                 type="single"
                 value={mode}
@@ -1090,21 +1133,6 @@ export default function HandwritingMakerPage() {
                   </div>
                 </div>
 
-                <div className="space-y-1.5">
-                  <Label className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.textStyle')}</Label>
-                  <select
-                    value={textStyle}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTextStyle(e.target.value as any)}
-                    className="w-full text-xs px-2 py-1.5 border border-slate-200 rounded-lg bg-slate-50 focus:ring-2 focus:ring-purple-500 outline-none"
-                  >
-                    <option value="print">✍️ {t('pages.handwriting.options.print')}</option>
-                    <option value="cursive">🖋️ {t('pages.handwriting.options.cursive')} (Classic)</option>
-                    <option value="school-cursive">🏫 School Cursive (Modern)</option>
-                    <option value="monoline-cursive">✨ Single Path Cursive (Best for Kids)</option>
-                    <option value="true-monoline">➖ True Monoline (Dotted)</option>
-                    <option value="bubble">🫧 {t('pages.handwriting.options.bubble')}</option>
-                  </select>
-                </div>
 
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.lineType')}</Label>
