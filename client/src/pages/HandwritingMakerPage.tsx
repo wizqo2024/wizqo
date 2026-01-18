@@ -284,18 +284,28 @@ export default function HandwritingMakerPage() {
     let current = '';
     const availableWidth = pageW - margin * 2 - 20;
 
+    const letterSpacingAdjustment = (() => {
+      if (textStyle === 'school-cursive') return 20; // Match Playwrite wide kerning
+      if (textStyle === 'monoline-cursive') return 10;
+      return 0;
+    })();
+
     const measure = (txt: string) => {
-      if (dotted) doc.setFont('Codystar', 'normal');
+      if (textStyle === 'true-monoline') doc.setFont('LearningCurve-Dashed', 'normal');
+      else if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal');
+      else if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
       else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
+      else if (dotted) doc.setFont('Codystar', 'normal');
       else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
       doc.setFontSize(fontSizeVal);
-      return doc.getTextWidth(txt);
+      return doc.getTextWidth(txt) + (txt.length * letterSpacingAdjustment);
     };
 
     const letterSpacing = (() => {
       if (!autoSpaceLetters) {
-        // Add a tiny sub-pixel gap for cursive to prevent overcrowded loops in long strings
-        return textStyle === 'cursive' ? fontSizeVal * 0.02 : 0;
+        // Match PreviewSVG: 0.02em for cursives, 0 for others (including monoline)
+        const isCursive = textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive';
+        return isCursive ? fontSizeVal * 0.02 : 0;
       }
       const base = (mode === 'letters' ? fontSizeVal * 0.18 : fontSizeVal * 0.25);
       return textStyle === 'bubble' ? base + fontSizeVal * 0.05 : base;
@@ -348,6 +358,9 @@ export default function HandwritingMakerPage() {
       const y = startY + rowInPage * lineGap;
       const mid = y - fontSizeVal * 0.35;
       const top = y - fontSizeVal * 0.7;
+
+      // Ensure footer-style adjustments for kerning are applied consistently during drawing
+      doc.setCharSpace(letterSpacing + letterSpacingAdjustment);
       const baselineY = y;
 
       const secondaryRGB = hexToRgb(theme.secondary);
@@ -404,12 +417,11 @@ export default function HandwritingMakerPage() {
           let textColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
           const rowTextRGB = hexToRgb(textColor);
           doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
-          doc.setCharSpace(letterSpacing);
           doc.setLineDashPattern([], 0);
           doc.setLineWidth(0);
 
           doc.text(firstChar, currentX, baselineY - 6, { renderingMode: 0 });
-          currentX += doc.getTextWidth(firstChar) + letterSpacing;
+          currentX += doc.getTextWidth(firstChar);
 
           // Now draw the TRACING rest of the word
           if (textStyle === 'true-monoline') doc.setFont('LearningCurve-Dashed', 'normal');
@@ -438,7 +450,7 @@ export default function HandwritingMakerPage() {
           }
 
           doc.text(restOfWord, currentX, baselineY - 6, { renderingMode: renderingMode as any });
-          currentX += doc.getTextWidth(restOfWord) + (restOfWord.length > 0 ? (restOfWord.length - 1) * letterSpacing : 0);
+          currentX += doc.getTextWidth(restOfWord);
         } else {
           // Standard full-word model or full-word tracing
           if (textStyle === 'true-monoline') doc.setFont('LearningCurve-Dashed', 'normal');
@@ -454,7 +466,6 @@ export default function HandwritingMakerPage() {
           const rowTextRGB = hexToRgb(textColor);
           doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
           doc.setDrawColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
-          doc.setCharSpace(letterSpacing);
 
           const isTracing = isDotted && textStyle !== 'bubble' && textStyle !== 'true-monoline';
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
@@ -473,7 +484,7 @@ export default function HandwritingMakerPage() {
           }
 
           doc.text(wordToDraw, currentX, baselineY - 6, { renderingMode: renderingMode as any });
-          currentX += doc.getTextWidth(wordToDraw) + (wordToDraw.length - 1) * letterSpacing;
+          currentX += doc.getTextWidth(wordToDraw);
         }
       });
 
