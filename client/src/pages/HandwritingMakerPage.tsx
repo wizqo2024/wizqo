@@ -53,7 +53,7 @@ export default function HandwritingMakerPage() {
   const [lineType, setLineType] = React.useState<'primary' | 'baseline'>('primary');
   const [dotted, setDotted] = React.useState<boolean>(true);
   const [startDots, setStartDots] = React.useState<boolean>(true);
-  const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(true);
+  const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(false);
   const [colorTheme, setColorTheme] = React.useState<ColorTheme>('forest');
   const [decoration, setDecoration] = React.useState<DecorationType>('flowers');
   const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('cursive');
