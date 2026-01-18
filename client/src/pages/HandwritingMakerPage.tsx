@@ -322,44 +322,89 @@ export default function HandwritingMakerPage() {
       let currentX = margin + 16;
 
       wordsInRow.forEach((word, wordIdx) => {
-        // Apply Model Word to the first word/letter/token in the row
+        // Only model the first token in the row
         const isModel = showModelWord && wordIdx === 0;
         const isFaint = tracingStyle === 'faint' && !isModel;
         const isDotted = tracingStyle === 'dotted' && !isModel;
 
-        // Apply Font logic explicitly inside the word loop
-        if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
-        else if (isDotted) doc.setFont('Codystar', 'normal');
-        else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
+        const wordToDraw = word + (wordIdx < wordsInRow.length - 1 ? ' ' : '');
 
-        let textColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
-        if (isFaint) textColor = '#cbd5e1'; // Slate-300 equivalent for PDF faintness
+        // If it's a model word, we might still want to only solidify the first letter
+        // if it's "Letters" mode or a very long continuous string (like "ffff...")
+        const onlyFirstCharModel = isModel && (mode === 'letters' || word.length > 5);
 
-        const rowTextRGB = hexToRgb(textColor);
-        doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
-        doc.setDrawColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
-        doc.setCharSpace(letterSpacing);
+        if (onlyFirstCharModel) {
+          const firstChar = wordToDraw.substring(0, 1);
+          const restOfWord = wordToDraw.substring(1);
 
-        const isTracing = isDotted && textStyle !== 'bubble';
-        const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
+          // Draw the SOLID first character
+          if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
+          else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
 
-        if (isTracing) {
-          doc.setLineWidth(0.8);
-          doc.setLineDashPattern([3, 3], 0);
-        } else if (textStyle === 'bubble') {
-          doc.setLineWidth(1);
-          if (isDotted) doc.setLineDashPattern([4, 6], 0);
-          else doc.setLineDashPattern([], 0);
-        } else {
+          let textColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
+          const rowTextRGB = hexToRgb(textColor);
+          doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
+          doc.setCharSpace(letterSpacing);
           doc.setLineDashPattern([], 0);
           doc.setLineWidth(0);
+
+          doc.text(firstChar, currentX, baselineY - 6, { renderingMode: 0 });
+          currentX += doc.getTextWidth(firstChar) + letterSpacing;
+
+          // Now draw the TRACING rest of the word
+          if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
+          else if (tracingStyle === 'dotted') doc.setFont('Codystar', 'normal');
+          else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
+
+          if (tracingStyle === 'faint') {
+            doc.setTextColor(203, 213, 225); // Slate-300
+          } else {
+            doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
+          }
+
+          const isTracing = tracingStyle === 'dotted' && textStyle !== 'bubble';
+          const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
+          if (isTracing) {
+            doc.setLineWidth(0.8);
+            doc.setLineDashPattern([3, 3], 0);
+          } else if (textStyle === 'bubble') {
+            doc.setLineWidth(1);
+            doc.setLineDashPattern(tracingStyle === 'dotted' ? [4, 6] : [], 0);
+          }
+
+          doc.text(restOfWord, currentX, baselineY - 6, { renderingMode: renderingMode as any });
+          currentX += doc.getTextWidth(restOfWord) + (restOfWord.length > 0 ? (restOfWord.length - 1) * letterSpacing : 0);
+        } else {
+          // Standard full-word model or full-word tracing
+          if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
+          else if (isDotted) doc.setFont('Codystar', 'normal');
+          else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
+
+          let textColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
+          if (isFaint) textColor = '#cbd5e1';
+
+          const rowTextRGB = hexToRgb(textColor);
+          doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
+          doc.setDrawColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
+          doc.setCharSpace(letterSpacing);
+
+          const isTracing = isDotted && textStyle !== 'bubble';
+          const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
+
+          if (isTracing) {
+            doc.setLineWidth(0.8);
+            doc.setLineDashPattern([3, 3], 0);
+          } else if (textStyle === 'bubble') {
+            doc.setLineWidth(1);
+            doc.setLineDashPattern(isDotted ? [4, 6] : [], 0);
+          } else {
+            doc.setLineDashPattern([], 0);
+            doc.setLineWidth(0);
+          }
+
+          doc.text(wordToDraw, currentX, baselineY - 6, { renderingMode: renderingMode as any });
+          currentX += doc.getTextWidth(wordToDraw) + (wordToDraw.length - 1) * letterSpacing;
         }
-
-        const wordToDraw = word + (wordIdx < wordsInRow.length - 1 ? ' ' : '');
-        doc.text(wordToDraw, currentX, baselineY - 6, { renderingMode: renderingMode as any });
-
-        // Advance X
-        currentX += doc.getTextWidth(wordToDraw) + (wordToDraw.length - 1) * letterSpacing;
       });
 
       // Reset dash pattern and line width for next elements
@@ -587,10 +632,48 @@ export default function HandwritingMakerPage() {
                 {(() => {
                   const parts = text.split(' ');
                   return parts.map((part, pIdx) => {
-                    // Same logic for preview: model the first word/letter/token
                     const isModel = showModelWord && pIdx === 0;
                     const isFaint = tracingStyle === 'faint' && !isModel;
                     const isDotted = tracingStyle === 'dotted' && !isModel;
+
+                    const word = part + (pIdx < parts.length - 1 ? ' ' : '');
+                    const onlyFirstCharModel = isModel && (mode === 'letters' || part.length > 5);
+
+                    if (onlyFirstCharModel) {
+                      const firstChar = word.substring(0, 1);
+                      const rest = word.substring(1);
+                      return (
+                        <React.Fragment key={pIdx}>
+                          <tspan fill={theme.text} stroke="none" strokeWidth={0}>{firstChar}</tspan>
+                          <tspan
+                            fill={(() => {
+                              if (textStyle === 'bubble') return 'none';
+                              if (tracingStyle === 'faint') return '#cbd5e1';
+                              if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
+                              return tracingStyle === 'dotted' ? 'none' : theme.text;
+                            })()}
+                            stroke={(() => {
+                              if (textStyle === 'bubble') return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
+                              if (tracingStyle === 'faint') return 'none';
+                              if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
+                              return tracingStyle === 'dotted' ? theme.text : 'none';
+                            })()}
+                            strokeWidth={(() => {
+                              if (textStyle === 'bubble') return 3;
+                              if (tracingStyle === 'faint') return 0;
+                              return tracingStyle === 'dotted' ? 2 : 0;
+                            })()}
+                            strokeDasharray={(() => {
+                              if (tracingStyle === 'faint') return undefined;
+                              if (textStyle === 'bubble') return tracingStyle === 'dotted' ? '4 6' : undefined;
+                              return tracingStyle === 'dotted' ? '3 5' : undefined;
+                            })()}
+                          >
+                            {rest}
+                          </tspan>
+                        </React.Fragment>
+                      );
+                    }
 
                     return (
                       <tspan
@@ -622,7 +705,7 @@ export default function HandwritingMakerPage() {
                         })()}
                         strokeLinecap={isDotted ? 'round' as any : undefined}
                       >
-                        {part}{pIdx < parts.length - 1 ? ' ' : ''}
+                        {word}
                       </tspan>
                     );
                   });
