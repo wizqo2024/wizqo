@@ -40,9 +40,9 @@ export default function HandwritingMakerPage() {
   const { t, isRTL } = useTranslation();
 
   React.useEffect(() => {
-    // Add Playwrite Font
+    // Add Fonts
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
     return () => { document.head.removeChild(link); };
@@ -85,7 +85,7 @@ export default function HandwritingMakerPage() {
       const html = `<!doctype html><html><head><meta charset=\"utf-8\"/>
 <title>Print</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap');
   @page { size: 8.5in 11in; margin: 0; }
   html, body { margin: 0; padding: 0; width: 8.5in; height: 11in; }
   #frame { position: relative; width: 8.5in; height: 11in; overflow: hidden; background: #fff; }
@@ -346,7 +346,8 @@ export default function HandwritingMakerPage() {
           const restOfWord = wordToDraw.substring(1);
 
           // Draw the SOLID first character
-          if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
+          if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal'); // Use helvetica as proxy for width if Sacramento not embedded
+          else if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
           else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
 
@@ -361,7 +362,8 @@ export default function HandwritingMakerPage() {
           currentX += doc.getTextWidth(firstChar) + letterSpacing;
 
           // Now draw the TRACING rest of the word
-          if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
+          if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal');
+          else if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
           else if (tracingStyle === 'dotted') doc.setFont('Codystar', 'normal');
           else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
@@ -376,7 +378,7 @@ export default function HandwritingMakerPage() {
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
           if (isTracing) {
             // Extreme thinning for cursive in model-split rest-of-word PDF
-            const isSinglePath = textStyle === 'cursive' || textStyle === 'school-cursive';
+            const isSinglePath = textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive';
             doc.setLineWidth(isSinglePath ? 0.2 : 0.8);
             doc.setLineDashPattern(isSinglePath ? [1.5, 1.5] : [3, 3], 0);
           } else if (textStyle === 'bubble') {
@@ -388,7 +390,8 @@ export default function HandwritingMakerPage() {
           currentX += doc.getTextWidth(restOfWord) + (restOfWord.length > 0 ? (restOfWord.length - 1) * letterSpacing : 0);
         } else {
           // Standard full-word model or full-word tracing
-          if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
+          if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal');
+          else if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
           else if (isDotted) doc.setFont('Codystar', 'normal');
           else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
@@ -406,7 +409,7 @@ export default function HandwritingMakerPage() {
 
           if (isTracing) {
             // Extreme thinning for cursive in PDF too
-            const isSinglePath = textStyle === 'cursive' || textStyle === 'school-cursive';
+            const isSinglePath = textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive';
             doc.setLineWidth(isSinglePath ? 0.2 : 0.8);
             doc.setLineDashPattern(isSinglePath ? [1.5, 1.5] : [3, 3], 0);
           } else if (textStyle === 'bubble') {
@@ -512,7 +515,9 @@ export default function HandwritingMakerPage() {
     const fontStackPrint = "'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial";
     const fontStackCursive = "'Cedarville Cursive', 'Brush Script MT', 'Segoe Script', 'Snell Roundhand', 'Dancing Script', 'Pacifico', cursive";
     const fontStackSchool = "'Playwrite GB S', 'Segoe UI', cursive";
+    const fontStackMonoline = "'Sacramento', cursive";
     const fontFamily = (() => {
+      if (textStyle === 'monoline-cursive') return fontStackMonoline;
       if (textStyle === 'school-cursive') return fontStackSchool;
       if (textStyle === 'cursive') return fontStackCursive;
       return fontStackPrint;
@@ -521,6 +526,7 @@ export default function HandwritingMakerPage() {
     if (ctx) ctx.font = `${fontWeight}${fontSize}px ${fontFamily}`;
     const letterSpacingAdjustment = (() => {
       if (textStyle === 'school-cursive') return 20; // Match Playwrite wide kerning
+      if (textStyle === 'monoline-cursive') return 10;
       return 0;
     })();
     const measure = (t: string) => (ctx ? ctx.measureText(t).width + (t.length * letterSpacingAdjustment) : t.length * (fontSize * 0.6));
@@ -650,7 +656,7 @@ export default function HandwritingMakerPage() {
                   paintOrder: 'stroke fill',
                   letterSpacing: autoSpaceLetters
                     ? `${letterSpacing}px`
-                    : (textStyle === 'cursive' || textStyle === 'school-cursive' ? '0.02em' : undefined)
+                    : (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive' ? '0.02em' : undefined)
                 } as any}
               >
                 {(() => {
@@ -686,13 +692,13 @@ export default function HandwritingMakerPage() {
                               if (textStyle === 'bubble') return 3;
                               if (tracingStyle === 'faint') return 0;
                               // Ultra-thin collapse for cursive to simulate a single-path monoline look
-                              return (tracingStyle === 'dotted' && (textStyle === 'cursive' || textStyle === 'school-cursive')) ? 0.4 : 2;
+                              return (tracingStyle === 'dotted' && (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive')) ? 0.4 : 2;
                             })()}
                             strokeDasharray={(() => {
                               if (tracingStyle === 'faint') return undefined;
                               if (textStyle === 'bubble') return tracingStyle === 'dotted' ? '4 6' : undefined;
                               // Even denser dots for the ultra-thin collapsed path
-                              return (tracingStyle === 'dotted' && (textStyle === 'cursive' || textStyle === 'school-cursive')) ? '1.5 2.5' : '3 5';
+                              return (tracingStyle === 'dotted' && (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive')) ? '1.5 2.5' : '3 5';
                             })()}
                             strokeLinecap={tracingStyle === 'dotted' ? 'round' as any : undefined}
                             strokeLinejoin={tracingStyle === 'dotted' ? 'round' as any : undefined}
@@ -724,12 +730,12 @@ export default function HandwritingMakerPage() {
                           if (isModel) return 0;
                           if (textStyle === 'bubble') return 3;
                           if (isFaint) return 0;
-                          return (isDotted && (textStyle === 'cursive' || textStyle === 'school-cursive')) ? 0.4 : 2;
+                          return (isDotted && (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive')) ? 0.4 : 2;
                         })()}
                         strokeDasharray={(() => {
                           if (isModel || isFaint) return undefined;
                           if (textStyle === 'bubble') return isDotted ? '4 6' : undefined;
-                          return (isDotted && (textStyle === 'cursive' || textStyle === 'school-cursive')) ? '1.5 2.5' : '3 5';
+                          return (isDotted && (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive')) ? '1.5 2.5' : '3 5';
                         })()}
                         strokeLinecap={isDotted ? 'round' as any : undefined}
                         strokeLinejoin={isDotted ? 'round' as any : undefined}
@@ -1035,7 +1041,8 @@ export default function HandwritingMakerPage() {
                   >
                     <option value="print">✍️ {t('pages.handwriting.options.print')}</option>
                     <option value="cursive">🖋️ {t('pages.handwriting.options.cursive')} (Classic)</option>
-                    <option value="school-cursive">🏫 School Cursive (Single Path)</option>
+                    <option value="school-cursive">🏫 School Cursive (Modern)</option>
+                    <option value="monoline-cursive">✨ Single Path Cursive (Best for Kids)</option>
                     <option value="bubble">🫧 {t('pages.handwriting.options.bubble')}</option>
                   </select>
                 </div>
