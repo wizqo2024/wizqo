@@ -1,6 +1,5 @@
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
-import { CEDARVILLE_CURSIVE_TTF_BASE64, CODYSTAR_TTF_BASE64 } from '@/lib/fonts'
 
 export interface PDFOptions {
     filename?: string
@@ -92,8 +91,22 @@ export async function generateWorksheetPDF(
             pdf.text(`Copyright © ${new Date().getFullYear()} Wizqo. All rights reserved.`, xCenter, footerY + 5, { align: 'center' })
         }
 
-        // 2. Wait for fonts to be loaded in the main document first
-        await (document as any).fonts?.ready;
+        // Helper to fetch font as Base64
+        const fetchFontBase64 = async (path: string) => {
+            const res = await fetch(path)
+            const buffer = await res.arrayBuffer()
+            const bytes = new Uint8Array(buffer)
+            let binary = ''
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i])
+            }
+            return window.btoa(binary)
+        }
+
+        const [cedarvilleB64, codystarB64] = await Promise.all([
+            fetchFontBase64('/fonts/cedarville_cursive.ttf'),
+            fetchFontBase64('/fonts/codystar.ttf')
+        ])
 
         let currentY = 0
 
@@ -117,12 +130,12 @@ export async function generateWorksheetPDF(
                     style.innerHTML = `
                         @font-face {
                             font-family: 'Cedarville Cursive';
-                            src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                            src: url(data:font/ttf;base64,${cedarvilleB64}) format('truetype');
                             font-display: block;
                         }
                         @font-face {
                             font-family: 'Codystar';
-                            src: url(data:font/ttf;base64,${CODYSTAR_TTF_BASE64}) format('truetype');
+                            src: url(data:font/ttf;base64,${codystarB64}) format('truetype');
                             font-display: block;
                         }
                         @font-face {
@@ -148,12 +161,12 @@ export async function generateWorksheetPDF(
                         svgStyle.innerHTML = `
                             @font-face {
                                 font-family: 'Cedarville Cursive';
-                                src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                                src: url(data:font/ttf;base64,${cedarvilleB64}) format('truetype');
                                 font-display: block;
                             }
                             @font-face {
                                 font-family: 'Codystar';
-                                src: url(data:font/ttf;base64,${CODYSTAR_TTF_BASE64}) format('truetype');
+                                src: url(data:font/ttf;base64,${codystarB64}) format('truetype');
                                 font-display: block;
                             }
                         `;

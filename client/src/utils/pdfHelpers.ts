@@ -1,5 +1,4 @@
 import jsPDF from 'jspdf';
-import { CEDARVILLE_CURSIVE_TTF_BASE64, CODYSTAR_TTF_BASE64 } from '@/lib/fonts';
 import html2canvas from 'html2canvas';
 
 /**
@@ -39,7 +38,8 @@ export const drawWorksheetOnPDF = (
         colorTheme?: string;
         decoration?: string;
     },
-    formatName: (n: string, c: any) => string
+    formatName: (n: string, c: any) => string,
+    fontData?: { CODYSTAR_TTF_BASE64?: string }
 ) => {
     const {
         pageWidth,
@@ -254,7 +254,8 @@ export const drawSvgRefOnPDF = async (
     x: number,
     y: number,
     widthMm: number,
-    heightMm: number
+    heightMm: number,
+    fontData: { CEDARVILLE_CURSIVE_TTF_BASE64?: string, CODYSTAR_TTF_BASE64?: string }
 ) => {
     // 1. Convert SVG to Canvas using html2canvas
     const canvas = await html2canvas(svgElement, {
@@ -263,17 +264,17 @@ export const drawSvgRefOnPDF = async (
         allowTaint: true,
         backgroundColor: null, // Transparent background
         logging: false,
-        onclone: (clonedDoc) => {
+        onclone: (clonedDoc: Document) => {
             // Inject the font into the cloned document so html2canvas can use it
             const style = clonedDoc.createElement('style');
             style.innerHTML = `
                 @font-face {
                     font-family: 'Cedarville Cursive';
-                    src: url(data:font/ttf;base64,${CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                    src: url(data:font/ttf;base64,${fontData.CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
                 }
                 @font-face {
                     font-family: 'Codystar';
-                    src: url(data:font/ttf;base64,${CODYSTAR_TTF_BASE64}) format('truetype');
+                    src: url(data:font/ttf;base64,${fontData.CODYSTAR_TTF_BASE64}) format('truetype');
                 }
             `;
             clonedDoc.getElementsByTagName('head')[0].appendChild(style);

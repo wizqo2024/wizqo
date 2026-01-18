@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import jsPDF from 'jspdf';
-import { CODYSTAR_TTF_BASE64, CEDARVILLE_CURSIVE_TTF_BASE64, LEARNING_CURVE_DASHED_TTF_BASE64 } from '@/lib/fonts';
 import { hexToRgb } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
 
@@ -45,7 +44,35 @@ export default function HandwritingMakerPage() {
     link.href = 'https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
-    return () => { document.head.removeChild(link); };
+
+    // Add Local Fonts for preview
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @font-face {
+        font-family: 'Codystar';
+        src: url('/fonts/codystar.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Cedarville Cursive';
+        src: url('/fonts/cedarville_cursive.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Learning Curve Dashed';
+        src: url('/fonts/learning_curve_dashed.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(link);
+      document.head.removeChild(style);
+    };
   }, []);
 
   const { toast } = useToast();
@@ -144,16 +171,34 @@ export default function HandwritingMakerPage() {
     const rowsPerPage = Math.floor((pageH - startY - margin) / lineGap);
     const theme = THEMES[colorTheme as ColorTheme] || THEMES.classic;
 
+    // Load Fonts Asynchronously for PDF
+    const fetchFontBase64 = async (path: string) => {
+      const response = await fetch(path);
+      const buffer = await response.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      let binary = '';
+      for (let i = 0; i < bytes.byteLength; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return window.btoa(binary);
+    };
+
+    const [codystarB64, cedarvilleB64, learningCurveB64] = await Promise.all([
+      fetchFontBase64('/fonts/codystar.ttf'),
+      fetchFontBase64('/fonts/cedarville_cursive.ttf'),
+      fetchFontBase64('/fonts/learning_curve_dashed.ttf')
+    ]);
+
     // Load Codystar for dotted print
-    doc.addFileToVFS('Codystar-Regular.ttf', CODYSTAR_TTF_BASE64);
+    doc.addFileToVFS('Codystar-Regular.ttf', codystarB64);
     doc.addFont('Codystar-Regular.ttf', 'Codystar', 'normal');
 
     // Load Cedarville Cursive for cursive style
-    doc.addFileToVFS('Cedarville-Cursive.ttf', CEDARVILLE_CURSIVE_TTF_BASE64);
+    doc.addFileToVFS('Cedarville-Cursive.ttf', cedarvilleB64);
     doc.addFont('Cedarville-Cursive.ttf', 'Cedarville-Cursive', 'normal');
 
     // Load Learning Curve Dashed for true-monoline style
-    doc.addFileToVFS('LearningCurve-Dashed.ttf', LEARNING_CURVE_DASHED_TTF_BASE64);
+    doc.addFileToVFS('LearningCurve-Dashed.ttf', learningCurveB64);
     doc.addFont('LearningCurve-Dashed.ttf', 'LearningCurve-Dashed', 'normal');
 
     const drawHeader = () => {

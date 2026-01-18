@@ -12,7 +12,6 @@ import { Download, FileText, Printer, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
-import { CODYSTAR_TTF_BASE64 } from '@/lib/fonts';
 import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
 
@@ -127,47 +126,59 @@ export default function NameTracingGeneratorPage() {
     return [childName.trim() || t('pages.nameTracing.yourName')];
   }, [batchMode, multipleNames, childName, batchLayout, t]);
 
-  // Use the imported TTF base64 directly for PDF and PNG embedding
-  // This avoids network fetch issues and ensures the font is always available synchronously
-  // Prepend data URI prefix since the raw constant doesn't have it
-  const codystarFontBase64 = `data:font/ttf;base64,${CODYSTAR_TTF_BASE64}`;
-
   // Register the font for the browser's Canvas/DOM usage if not already done by CSS
   React.useEffect(() => {
-    if (codystarFontBase64) {
-      // Pre-warm the font cache for the browser
-      // This helps ensure the font is ready when we eventually draw to canvas
-      try {
-        // Note: FontFace API supports 'url(data:...)'
-        const font = new FontFace('Codystar', `url(${codystarFontBase64})`);
-        font.load().then((loadedFont) => {
-          document.fonts.add(loadedFont);
-        }).catch(err => {
-          console.warn('FontFace load failed', err);
-        });
-      } catch (e) {
-        console.warn('FontFace pre-load failed', e);
+    // Add Fonts to document via CSS for preview
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @font-face {
+        font-family: 'Codystar';
+        src: url('/fonts/codystar.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
       }
+    `;
+    document.head.appendChild(style);
+
+    // Pre-warm the font cache for the browser
+    try {
+      const font = new FontFace('Codystar', "url('/fonts/codystar.ttf')");
+      font.load().then((loadedFont) => {
+        document.fonts.add(loadedFont);
+      }).catch(err => {
+        console.warn('FontFace load failed', err);
+      });
+    } catch (e) {
+      console.warn('FontFace pre-load failed', e);
     }
+
+    return () => {
+      document.head.removeChild(style);
+    };
   }, []); // Run once on mount
 
-
   // Helper to embed font in SVG string
-  const embedFontInSVG = React.useCallback((svgContent: string) => {
-    if (!codystarFontBase64) return svgContent;
+  const embedFontInSVG = React.useCallback(async (svgContent: string) => {
+    const response = await fetch('/fonts/codystar.ttf');
+    const buffer = await response.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    for (let i = 0; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    const b64 = window.btoa(binary);
+    const fontUri = `data:font/ttf;base64,${b64}`;
 
-    // Embed the font directly in the SVG style
-    // Use format('truetype') as our bundled constant is TTF
     const styleBlock = `<defs><style type="text/css"><![CDATA[
       @font-face { 
         font-family: 'Codystar'; 
-        src: url('${codystarFontBase64}') format('truetype'); 
+        src: url('${fontUri}') format('truetype'); 
         font-weight: normal; 
         font-style: normal; 
       }
     ]]></style></defs>`;
     return svgContent.replace(/<svg[^>]*>/, (match) => `${match}${styleBlock}`);
-  }, [codystarFontBase64]);
+  }, []);
 
 
 
@@ -605,7 +616,7 @@ export default function NameTracingGeneratorPage() {
     }
   }, [batchMode, multipleNames, childName, t, toast]);
 
-  const handleDownloadPNG = React.useCallback(() => {
+  const handleDownloadPNG = React.useCallback(async () => {
     try {
       if (batchMode === 'batch') {
         const names = multipleNames
@@ -640,10 +651,10 @@ export default function NameTracingGeneratorPage() {
 
         // Download each name as a separate PNG
         names.forEach((name: string, index: number) => {
-          setTimeout(() => {
+          setTimeout(async () => {
             try {
               const svgStringRaw = generateFn(name);
-              const svgString = embedFontInSVG(svgStringRaw);
+              const svgString = await embedFontInSVG(svgStringRaw);
               const parser = new DOMParser();
               const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
               const svgElement = svgDoc.documentElement as unknown as SVGSVGElement;
@@ -709,7 +720,7 @@ export default function NameTracingGeneratorPage() {
       const cloned = svgElement.cloneNode(true) as SVGSVGElement;
       cloned.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
       let data = new XMLSerializer().serializeToString(cloned);
-      data = embedFontInSVG(data);
+      data = await embedFontInSVG(data);
       const blob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
       const url = URL.createObjectURL(blob);
       const image = new Image();
@@ -777,8 +788,22 @@ export default function NameTracingGeneratorPage() {
         hotfixes: ['px_scaling'],
       });
 
+      // Fetch Font Asynchronously
+      const fetchFontBase64 = async (path: string) => {
+        const res = await fetch(path);
+        const buffer = await res.arrayBuffer();
+        const bytes = new Uint8Array(buffer);
+        let binary = '';
+        for (let i = 0; i < bytes.byteLength; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+      };
+
+      const codystarB64 = await fetchFontBase64('/fonts/codystar.ttf');
+
       // Embed the Codystar TTF font natively
-      doc.addFileToVFS('Codystar-Regular.ttf', CODYSTAR_TTF_BASE64);
+      doc.addFileToVFS('Codystar-Regular.ttf', codystarB64);
       doc.addFont('Codystar-Regular.ttf', 'Codystar', 'normal');
 
       const pageWidth = doc.internal.pageSize.getWidth();
