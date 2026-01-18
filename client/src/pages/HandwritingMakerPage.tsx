@@ -458,10 +458,10 @@ export default function HandwritingMakerPage() {
             doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
           }
 
-          const isTracing = tracingStyle === 'dotted' && !isMonoline && textStyle !== 'bubble';
+          const isTracing = tracingStyle === 'dotted' && textStyle !== 'true-monoline' && textStyle !== 'bubble';
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
           if (isTracing) {
-            const isCursiveStyle = textStyle === 'cursive';
+            const isCursiveStyle = textStyle === 'cursive' || textStyle === 'monoline-cursive' || textStyle === 'school-cursive';
             doc.setLineWidth(isCursiveStyle ? 0.2 : 0.8);
             doc.setLineDashPattern(isCursiveStyle ? [1.5, 1.5] : [3, 3], 0);
           } else if (textStyle === 'bubble') {
@@ -488,11 +488,11 @@ export default function HandwritingMakerPage() {
           doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
           doc.setDrawColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
 
-          const isTracing = isDotted && !isMonoline && textStyle !== 'bubble';
+          const isTracing = isDotted && textStyle !== 'true-monoline' && textStyle !== 'bubble';
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
 
           if (isTracing) {
-            const isCursiveStyle = textStyle === 'cursive';
+            const isCursiveStyle = textStyle === 'cursive' || textStyle === 'monoline-cursive' || textStyle === 'school-cursive';
             doc.setLineWidth(isCursiveStyle ? 0.2 : 0.8);
             doc.setLineDashPattern(isCursiveStyle ? [1.5, 1.5] : [3, 3], 0);
           } else if (textStyle === 'bubble') {
@@ -764,16 +764,14 @@ export default function HandwritingMakerPage() {
                           <tspan fill={theme.text} stroke="none" strokeWidth={0}>{firstChar}</tspan>
                           <tspan
                             fill={(() => {
-                              const isMonoline = textStyle === 'true-monoline' || textStyle === 'monoline-cursive' || textStyle === 'school-cursive';
-                              if (isMonoline) return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
+                              if (textStyle === 'true-monoline') return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
                               if (textStyle === 'bubble') return 'none';
                               if (tracingStyle === 'faint') return '#cbd5e1';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                               return tracingStyle === 'dotted' ? 'none' : theme.text;
                             })()}
                             stroke={(() => {
-                              const isMonoline = textStyle === 'true-monoline' || textStyle === 'monoline-cursive' || textStyle === 'school-cursive';
-                              if (isMonoline) return 'none';
+                              if (textStyle === 'true-monoline') return 'none';
                               if (textStyle === 'bubble') return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
                               if (tracingStyle === 'faint') return 'none';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
@@ -804,20 +802,18 @@ export default function HandwritingMakerPage() {
                       <tspan
                         key={pIdx}
                         fill={(() => {
-                          const isMonoline = textStyle === 'true-monoline' || textStyle === 'monoline-cursive' || textStyle === 'school-cursive';
                           if (textStyle === 'bubble') return 'none';
-                          if (isMonoline) return isFaint ? '#cbd5e1' : theme.text;
-                          if (isModel) return theme.text; // Solid model word
-                          if (isFaint) return '#cbd5e1'; // Faint solid path (standardized)
+                          if (textStyle === 'true-monoline') return isFaint ? '#cbd5e1' : theme.text;
+                          if (isModel) return theme.text;
+                          if (isFaint) return '#cbd5e1';
                           if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                           return isDotted ? 'none' : theme.text;
                         })()}
                         stroke={(() => {
-                          const isMonoline = textStyle === 'true-monoline' || textStyle === 'monoline-cursive' || textStyle === 'school-cursive';
-                          if (isMonoline) return 'none';
-                          if (isModel) return 'none'; // No stroke for model
+                          if (textStyle === 'true-monoline') return 'none';
+                          if (isModel) return 'none';
                           if (textStyle === 'bubble') return isFaint ? '#cbd5e1' : theme.text;
-                          if (isFaint) return 'none'; // No stroke for faint print/cursive
+                          if (isFaint) return 'none';
                           if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                           return isDotted ? theme.text : 'none';
                         })()}
