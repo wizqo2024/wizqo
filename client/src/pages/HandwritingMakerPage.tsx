@@ -98,10 +98,10 @@ export default function HandwritingMakerPage() {
   const [dotted, setDotted] = React.useState<boolean>(true);
   const [startDots, setStartDots] = React.useState<boolean>(true);
   const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(false);
-  const [colorTheme, setColorTheme] = React.useState<ColorTheme>('forest');
+  const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
   const [decoration, setDecoration] = React.useState<DecorationType>('flowers');
   const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble' | 'true-monoline' | 'monoline-cursive' | 'school-cursive'>('true-monoline');
-  const [tracingStyle, setTracingStyle] = React.useState<'dotted' | 'faint'>('faint');
+  const [tracingStyle, setTracingStyle] = React.useState<'dotted' | 'faint'>('dotted');
   const [showModelWord, setShowModelWord] = React.useState<boolean>(true);
 
   // Quick-fill helpers for nicer UX
