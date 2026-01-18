@@ -365,8 +365,9 @@ export default function HandwritingMakerPage() {
           const isTracing = tracingStyle === 'dotted' && textStyle !== 'bubble';
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
           if (isTracing) {
-            doc.setLineWidth(0.8);
-            doc.setLineDashPattern([3, 3], 0);
+            // Thinner stroke for cursive in model-split rest-of-word PDF too
+            doc.setLineWidth(textStyle === 'cursive' ? 0.3 : 0.8);
+            doc.setLineDashPattern(textStyle === 'cursive' ? [2, 2] : [3, 3], 0);
           } else if (textStyle === 'bubble') {
             doc.setLineWidth(1);
             doc.setLineDashPattern(tracingStyle === 'dotted' ? [4, 6] : [], 0);
@@ -392,8 +393,9 @@ export default function HandwritingMakerPage() {
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
 
           if (isTracing) {
-            doc.setLineWidth(0.8);
-            doc.setLineDashPattern([3, 3], 0);
+            // Thinner stroke for cursive in PDF too
+            doc.setLineWidth(textStyle === 'cursive' ? 0.3 : 0.8);
+            doc.setLineDashPattern(textStyle === 'cursive' ? [2, 2] : [3, 3], 0);
           } else if (textStyle === 'bubble') {
             doc.setLineWidth(1);
             doc.setLineDashPattern(isDotted ? [4, 6] : [], 0);
@@ -661,12 +663,14 @@ export default function HandwritingMakerPage() {
                             strokeWidth={(() => {
                               if (textStyle === 'bubble') return 3;
                               if (tracingStyle === 'faint') return 0;
-                              return tracingStyle === 'dotted' ? 2 : 0;
+                              // Thinner stroke for cursive to reduce "double outline" effect
+                              return (tracingStyle === 'dotted' && textStyle === 'cursive') ? 1.2 : 2;
                             })()}
                             strokeDasharray={(() => {
                               if (tracingStyle === 'faint') return undefined;
                               if (textStyle === 'bubble') return tracingStyle === 'dotted' ? '4 6' : undefined;
-                              return tracingStyle === 'dotted' ? '3 5' : undefined;
+                              // Denser dots for cursive
+                              return (tracingStyle === 'dotted' && textStyle === 'cursive') ? '2 3' : '3 5';
                             })()}
                           >
                             {rest}
@@ -696,12 +700,12 @@ export default function HandwritingMakerPage() {
                           if (isModel) return 0;
                           if (textStyle === 'bubble') return 3;
                           if (isFaint) return 0;
-                          return isDotted ? 2 : 0;
+                          return (isDotted && textStyle === 'cursive') ? 1.2 : 2;
                         })()}
                         strokeDasharray={(() => {
                           if (isModel || isFaint) return undefined;
                           if (textStyle === 'bubble') return isDotted ? '4 6' : undefined;
-                          return isDotted ? '3 5' : undefined;
+                          return (isDotted && textStyle === 'cursive') ? '2 3' : '3 5';
                         })()}
                         strokeLinecap={isDotted ? 'round' as any : undefined}
                       >
