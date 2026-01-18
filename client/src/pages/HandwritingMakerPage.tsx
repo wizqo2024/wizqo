@@ -449,7 +449,7 @@ export default function HandwritingMakerPage() {
 
           // Draw the SOLID first character
           // Draw the SOLID first character
-          if (textStyle === 'true-monoline') doc.setFont('ABeeZee', 'normal');
+          if (textStyle === 'true-monoline') doc.setFont('LearningCurve', 'normal');
           else if (textStyle === 'monoline-cursive') doc.setFont('LearningCurve', 'normal');
           else if (textStyle === 'school-cursive') doc.setFont('ABeeZee', 'normal');
           else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
@@ -467,10 +467,10 @@ export default function HandwritingMakerPage() {
           // Now draw the rest of the word
           const isDotted = tracingStyle === 'dotted';
           const font = (() => {
-            if (textStyle === 'true-monoline') return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
+            if (textStyle === 'true-monoline') return isDotted ? 'LearningCurve-Dashed' : 'LearningCurve';
             if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurve-Dashed' : 'LearningCurve';
             if (textStyle === 'school-cursive') return isDotted ? 'FoundationDots' : 'ABeeZee';
-            if (textStyle === 'cursive') return isDotted ? 'KGPrimaryDots' : 'Cedarville-Cursive';
+            if (textStyle === 'cursive') return isDotted ? 'LearningCurve-Dashed' : 'Cedarville-Cursive';
             if (textStyle === 'bubble') return 'Codystar';
             return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
           })();
@@ -498,10 +498,10 @@ export default function HandwritingMakerPage() {
           // Standard full-word model or full-word tracing
           const isDotted = tracingStyle === 'dotted';
           const font = (() => {
-            if (textStyle === 'true-monoline') return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
+            if (textStyle === 'true-monoline') return isDotted ? 'LearningCurve-Dashed' : 'LearningCurve';
             if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurve-Dashed' : 'LearningCurve';
             if (textStyle === 'school-cursive') return isDotted ? 'FoundationDots' : 'ABeeZee';
-            if (textStyle === 'cursive') return isDotted ? 'KGPrimaryDots' : 'Cedarville-Cursive';
+            if (textStyle === 'cursive') return isDotted ? 'LearningCurve-Dashed' : 'Cedarville-Cursive';
             if (textStyle === 'bubble') return 'Codystar';
             return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
           })();
@@ -628,17 +628,9 @@ export default function HandwritingMakerPage() {
     const fontStackSchoolDotted = "FoundationDots";
     const fontStackKidsDashed = "LearningCurveDashed";
 
-    const fontFamily = (() => {
-      const isDotted = tracingStyle === 'dotted';
-      if (textStyle === 'true-monoline') return isDotted ? fontStackPrimaryDots : fontStackPrint;
-      if (textStyle === 'monoline-cursive') return isDotted ? fontStackKidsDashed : fontStackKidsMonoline;
-      if (textStyle === 'school-cursive') return isDotted ? fontStackSchoolDotted : fontStackSchoolMonoline;
-      if (textStyle === 'cursive') return isDotted ? fontStackPrimaryDots : fontStackCursive;
-      if (textStyle === 'bubble') return "Codystar";
-      return isDotted ? fontStackPrimaryDots : fontStackPrint;
-    })();
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
-    if (ctx) ctx.font = `${fontWeight}${fontSize}px ${fontFamily}`;
+    // We'll set the font per-tspan to allow mixing solid (model) and dotted (practice)
+    if (ctx) ctx.font = `${fontWeight}${fontSize}px ${fontStackPrint}`; // Generic measurement
     const letterSpacingAdjustment = (() => {
       if (textStyle === 'school-cursive') return 20; // Match Playwrite wide kerning
       if (textStyle === 'monoline-cursive') return 10;
@@ -766,7 +758,6 @@ export default function HandwritingMakerPage() {
                 x={margin + 16}
                 y={baselineY - 6}
                 fontSize={fontSize}
-                fontFamily={fontFamily}
                 style={{
                   vectorEffect: 'non-scaling-stroke',
                   paintOrder: 'stroke fill',
@@ -785,15 +776,34 @@ export default function HandwritingMakerPage() {
                     const word = part + (pIdx < parts.length - 1 ? ' ' : '');
                     const onlyFirstCharModel = isModel && (mode === 'letters' || part.length > 5);
 
+                    const getFontFamily = (isDottedWord: boolean, isCursiveStyle: boolean) => {
+                      if (textStyle === 'true-monoline') return isDottedWord ? fontStackKidsDashed : fontStackKidsMonoline;
+                      if (textStyle === 'monoline-cursive') return isDottedWord ? fontStackKidsDashed : fontStackKidsMonoline;
+                      if (textStyle === 'school-cursive') return isDottedWord ? fontStackSchoolDotted : fontStackSchoolMonoline;
+                      if (textStyle === 'cursive') return isDottedWord ? fontStackKidsDashed : fontStackCursive;
+                      if (textStyle === 'bubble') return "Codystar";
+                      return isDottedWord ? fontStackPrimaryDots : fontStackPrint;
+                    };
+
                     if (onlyFirstCharModel) {
                       const firstChar = word.substring(0, 1);
                       const rest = word.substring(1);
                       return (
                         <React.Fragment key={pIdx}>
-                          <tspan fill={theme.text} stroke="none" strokeWidth={0}>{firstChar}</tspan>
                           <tspan
+                            fill={theme.text}
+                            stroke="none"
+                            strokeWidth={0}
+                            fontFamily={getFontFamily(false, false)}
+                          >
+                            {firstChar}
+                          </tspan>
+                          <tspan
+                            fontFamily={getFontFamily(isDotted, true)}
                             fill={(() => {
-                              if (tracingStyle === 'faint') return '#cbd5e1';
+                              const isNativeDotted = isDotted && textStyle !== 'bubble';
+                              if (isNativeDotted) return theme.text;
+                              if (isFaint) return '#cbd5e1';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                               return theme.text;
                             })()}
@@ -814,7 +824,10 @@ export default function HandwritingMakerPage() {
                     return (
                       <tspan
                         key={pIdx}
+                        fontFamily={getFontFamily(isDotted, true)}
                         fill={(() => {
+                          const isNativeDotted = isDotted && textStyle !== 'bubble';
+                          if (isNativeDotted) return theme.text;
                           if (isFaint) return '#cbd5e1';
                           if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                           return theme.text;
