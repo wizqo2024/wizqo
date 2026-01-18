@@ -704,7 +704,25 @@ export default function HandwritingMakerPage() {
     };
 
     return (
-      <svg viewBox={`0 0 ${pageW} ${pageH}`} className="w-full h-auto border border-slate-300 rounded transition-colors duration-300" style={{ background: theme.bg }} role="img" aria-label="Handwriting sheet preview">
+      <svg id="handwriting-sheet" viewBox={`0 0 ${pageW} ${pageH}`} className="w-full h-auto bg-white shadow-2xl rounded-sm" role="img" aria-label="Handwriting sheet preview">
+        <defs>
+          <pattern
+            id="dotPattern"
+            x="0"
+            y="0"
+            width={fontSize * 0.12}
+            height={fontSize * 0.12}
+            patternUnits="userSpaceOnUse"
+          >
+            <circle
+              cx={fontSize * 0.06}
+              cy={fontSize * 0.06}
+              r={fontSize * 0.035}
+              fill={theme.text}
+            />
+          </pattern>
+        </defs>
+        <rect width={pageW} height={pageH} fill={theme.bg} />
         <rect x={margin / 2} y={margin / 2} width={pageW - margin} height={pageH - margin} fill="none" stroke={theme.secondary} strokeWidth={1} opacity="0.3" />
 
         {decoration !== 'none' && (
@@ -768,22 +786,14 @@ export default function HandwritingMakerPage() {
                               const isNativeDotted = textStyle === 'true-monoline' || (textStyle === 'monoline-cursive' && tracingStyle === 'dotted');
                               if (isNativeDotted) return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
                               if (textStyle === 'bubble') return 'none';
-                              // FOR MONOLINE STYLES WITHOUT NATIVE DOTS:
-                              // Use faint solid path when 'dotted' is selected to avoid hollow double-lines.
-                              const isSolidMonoline = textStyle === 'school-cursive' || textStyle === 'print' || textStyle === 'cursive' || textStyle === 'monoline-cursive';
-                              if (tracingStyle === 'dotted' && isSolidMonoline) return '#cbd5e1';
-
+                              if (tracingStyle === 'dotted') return 'url(#dotPattern)';
                               if (tracingStyle === 'faint') return '#cbd5e1';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
-                              return tracingStyle === 'dotted' ? 'none' : theme.text;
+                              return theme.text;
                             })()}
                             stroke={(() => {
-                              const isNativeDotted = textStyle === 'true-monoline' || (textStyle === 'monoline-cursive' && tracingStyle === 'dotted');
-                              if (isNativeDotted) return 'none';
                               if (textStyle === 'bubble') return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
-                              if (tracingStyle === 'faint') return 'none';
-                              if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
-                              return tracingStyle === 'dotted' ? theme.text : 'none';
+                              return 'none'; // No strokes for monoline/solid styles to avoid outline
                             })()}
                             strokeWidth={(() => {
                               if (textStyle === 'bubble') return 3;
@@ -813,24 +823,15 @@ export default function HandwritingMakerPage() {
                           const isNativeDotted = textStyle === 'true-monoline' || (textStyle === 'monoline-cursive' && isDotted);
                           if (textStyle === 'bubble') return 'none';
                           if (isNativeDotted) return isFaint ? '#cbd5e1' : theme.text;
-
-                          // FOR MONOLINE STYLES WITHOUT NATIVE DOTS:
-                          const isSolidMonoline = textStyle === 'school-cursive' || textStyle === 'print' || textStyle === 'cursive' || textStyle === 'monoline-cursive';
-                          if (isDotted && isSolidMonoline) return '#cbd5e1';
-
+                          if (isDotted) return 'url(#dotPattern)';
                           if (isModel) return theme.text;
                           if (isFaint) return '#cbd5e1';
                           if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
-                          return isDotted ? 'none' : theme.text;
+                          return theme.text;
                         })()}
                         stroke={(() => {
-                          const isNativeDotted = textStyle === 'true-monoline' || (textStyle === 'monoline-cursive' && isDotted);
-                          if (isNativeDotted) return 'none';
-                          if (isModel) return 'none';
                           if (textStyle === 'bubble') return isFaint ? '#cbd5e1' : theme.text;
-                          if (isFaint) return 'none';
-                          if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
-                          return isDotted ? theme.text : 'none';
+                          return 'none';
                         })()}
                         strokeWidth={(() => {
                           if (isModel) return 0;
