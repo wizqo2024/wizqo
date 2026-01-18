@@ -236,7 +236,10 @@ export default function HandwritingMakerPage() {
     };
 
     const letterSpacing = (() => {
-      if (!autoSpaceLetters) return 0;
+      if (!autoSpaceLetters) {
+        // Add a tiny sub-pixel gap for cursive to prevent overcrowded loops in long strings
+        return textStyle === 'cursive' ? fontSizeVal * 0.02 : 0;
+      }
       const base = (mode === 'letters' ? fontSizeVal * 0.18 : fontSizeVal * 0.25);
       return textStyle === 'bubble' ? base + fontSizeVal * 0.05 : base;
     })();
@@ -319,11 +322,12 @@ export default function HandwritingMakerPage() {
       let currentX = margin + 16;
 
       wordsInRow.forEach((word, wordIdx) => {
+        // Apply Model Word to the first word/letter/token in the row
         const isModel = showModelWord && wordIdx === 0;
         const isFaint = tracingStyle === 'faint' && !isModel;
         const isDotted = tracingStyle === 'dotted' && !isModel;
 
-        // Apply Font logic
+        // Apply Font logic explicitly inside the word loop
         if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
         else if (isDotted) doc.setFont('Codystar', 'normal');
         else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
@@ -572,11 +576,18 @@ export default function HandwritingMakerPage() {
                 y={baselineY - 6}
                 fontSize={fontSize}
                 fontFamily={fontFamily}
-                style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: autoSpaceLetters ? `${letterSpacing}px` : undefined } as any}
+                style={{
+                  vectorEffect: 'non-scaling-stroke',
+                  paintOrder: 'stroke fill',
+                  letterSpacing: autoSpaceLetters
+                    ? `${letterSpacing}px`
+                    : (textStyle === 'cursive' ? '0.02em' : undefined)
+                } as any}
               >
                 {(() => {
                   const parts = text.split(' ');
                   return parts.map((part, pIdx) => {
+                    // Same logic for preview: model the first word/letter/token
                     const isModel = showModelWord && pIdx === 0;
                     const isFaint = tracingStyle === 'faint' && !isModel;
                     const isDotted = tracingStyle === 'dotted' && !isModel;
@@ -763,26 +774,6 @@ export default function HandwritingMakerPage() {
                     }}
                     className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm"
                   />
-                  <div className="mt-3 flex flex-wrap items-center gap-4 py-2 border-t border-slate-100">
-                    <label className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase text-slate-500 cursor-pointer hover:text-slate-700 transition-colors">
-                      <input type="checkbox" className="rounded border-slate-300 text-purple-600 focus:ring-purple-500" checked={autoSpaceLetters} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAutoSpaceLetters(e.target.checked)} /> Auto Space
-                    </label>
-                    <label className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase text-slate-500 cursor-pointer hover:text-slate-700 transition-colors">
-                      <input type="checkbox" className="rounded border-slate-300 text-purple-600 focus:ring-purple-500" checked={showModelWord} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setShowModelWord(e.target.checked)} /> Model Word
-                    </label>
-                    <div className="flex items-center gap-1.5 ml-auto">
-                      <span className="text-[10px] font-bold uppercase text-slate-500">Style:</span>
-                      <ToggleGroup
-                        type="single"
-                        value={tracingStyle}
-                        onValueChange={(v: string) => v && setTracingStyle(v as 'dotted' | 'faint')}
-                        className="gap-1 bg-slate-100/50 p-0.5 rounded-md"
-                      >
-                        <ToggleGroupItem value="dotted" className="px-2 py-0.5 h-auto text-[9px] font-bold uppercase rounded border-0 data-[state=on]:bg-white data-[state=on]:shadow-sm data-[state=on]:text-purple-700">Dotted</ToggleGroupItem>
-                        <ToggleGroupItem value="faint" className="px-2 py-0.5 h-auto text-[9px] font-bold uppercase rounded border-0 data-[state=on]:bg-white data-[state=on]:shadow-sm data-[state=on]:text-purple-700">Faint</ToggleGroupItem>
-                      </ToggleGroup>
-                    </div>
-                  </div>
                 </div>
               )}
               {mode === 'words' && (
@@ -795,26 +786,6 @@ export default function HandwritingMakerPage() {
                     </div>
                   </div>
                   <textarea value={words} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setWords(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
-                  <div className="mt-3 flex flex-wrap items-center gap-4 py-2 border-t border-slate-100">
-                    <label className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase text-slate-500 cursor-pointer hover:text-slate-700 transition-colors">
-                      <input type="checkbox" className="rounded border-slate-300 text-purple-600 focus:ring-purple-500" checked={autoSpaceLetters} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAutoSpaceLetters(e.target.checked)} /> Auto Space
-                    </label>
-                    <label className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase text-slate-500 cursor-pointer hover:text-slate-700 transition-colors">
-                      <input type="checkbox" className="rounded border-slate-300 text-purple-600 focus:ring-purple-500" checked={showModelWord} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setShowModelWord(e.target.checked)} /> Model Word
-                    </label>
-                    <div className="flex items-center gap-1.5 ml-auto">
-                      <span className="text-[10px] font-bold uppercase text-slate-500">Style:</span>
-                      <ToggleGroup
-                        type="single"
-                        value={tracingStyle}
-                        onValueChange={(v: string) => v && setTracingStyle(v as 'dotted' | 'faint')}
-                        className="gap-1 bg-slate-100/50 p-0.5 rounded-md"
-                      >
-                        <ToggleGroupItem value="dotted" className="px-2 py-0.5 h-auto text-[9px] font-bold uppercase rounded border-0 data-[state=on]:bg-white data-[state=on]:shadow-sm data-[state=on]:text-purple-700">Dotted</ToggleGroupItem>
-                        <ToggleGroupItem value="faint" className="px-2 py-0.5 h-auto text-[9px] font-bold uppercase rounded border-0 data-[state=on]:bg-white data-[state=on]:shadow-sm data-[state=on]:text-purple-700">Faint</ToggleGroupItem>
-                      </ToggleGroup>
-                    </div>
-                  </div>
                 </div>
               )}
               {mode === 'sentences' && (
@@ -827,28 +798,52 @@ export default function HandwritingMakerPage() {
                     </div>
                   </div>
                   <textarea value={sentences} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSentences(e.target.value)} className="w-full h-24 px-3 py-2 border border-slate-300 rounded-lg text-sm" />
-                  <div className="mt-3 flex flex-wrap items-center gap-4 py-2 border-t border-slate-100">
-                    <label className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase text-slate-500 cursor-pointer hover:text-slate-700 transition-colors">
-                      <input type="checkbox" className="rounded border-slate-300 text-purple-600 focus:ring-purple-500" checked={autoSpaceLetters} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAutoSpaceLetters(e.target.checked)} /> Auto Space
-                    </label>
-                    <label className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase text-slate-500 cursor-pointer hover:text-slate-700 transition-colors">
-                      <input type="checkbox" className="rounded border-slate-300 text-purple-600 focus:ring-purple-500" checked={showModelWord} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setShowModelWord(e.target.checked)} /> Model Word
-                    </label>
-                    <div className="flex items-center gap-1.5 ml-auto">
-                      <span className="text-[10px] font-bold uppercase text-slate-500">Style:</span>
-                      <ToggleGroup
-                        type="single"
-                        value={tracingStyle}
-                        onValueChange={(v: string) => v && setTracingStyle(v as 'dotted' | 'faint')}
-                        className="gap-1 bg-slate-100/50 p-0.5 rounded-md"
-                      >
-                        <ToggleGroupItem value="dotted" className="px-2 py-0.5 h-auto text-[9px] font-bold uppercase rounded border-0 data-[state=on]:bg-white data-[state=on]:shadow-sm data-[state=on]:text-purple-700">Dotted</ToggleGroupItem>
-                        <ToggleGroupItem value="faint" className="px-2 py-0.5 h-auto text-[9px] font-bold uppercase rounded border-0 data-[state=on]:bg-white data-[state=on]:shadow-sm data-[state=on]:text-purple-700">Faint</ToggleGroupItem>
-                      </ToggleGroup>
-                    </div>
-                  </div>
                 </div>
               )}
+
+              {/* Grouped Learning Aids (Auto Space, Model Word, Tracing Style) */}
+              <div className="flex flex-wrap items-center gap-4 py-3 px-4 bg-slate-50/50 rounded-xl border border-slate-100 shadow-sm mt-2">
+                <label className="inline-flex items-center gap-2 text-[10px] font-bold uppercase text-slate-500 cursor-pointer hover:text-slate-700 transition-colors group">
+                  <input
+                    type="checkbox"
+                    className="rounded border-slate-300 text-purple-600 focus:ring-purple-500 w-3.5 h-3.5"
+                    checked={autoSpaceLetters}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAutoSpaceLetters(e.target.checked)}
+                  />
+                  <span>Auto Space</span>
+                </label>
+                <label className="inline-flex items-center gap-2 text-[10px] font-bold uppercase text-slate-500 cursor-pointer hover:text-slate-700 transition-colors group">
+                  <input
+                    type="checkbox"
+                    className="rounded border-slate-300 text-purple-600 focus:ring-purple-500 w-3.5 h-3.5"
+                    checked={showModelWord}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setShowModelWord(e.target.checked)}
+                  />
+                  <span>Model Word</span>
+                </label>
+                <div className="flex items-center gap-2 ml-auto">
+                  <span className="text-[10px] font-bold uppercase text-slate-400">Tracing:</span>
+                  <ToggleGroup
+                    type="single"
+                    value={tracingStyle}
+                    onValueChange={(v: string) => v && setTracingStyle(v as 'dotted' | 'faint')}
+                    className="gap-1 bg-white p-0.5 rounded-lg border border-slate-200"
+                  >
+                    <ToggleGroupItem
+                      value="dotted"
+                      className="px-2.5 py-1 h-auto text-[9px] font-bold uppercase rounded-md border-0 data-[state=on]:bg-purple-600 data-[state=on]:text-white transition-all"
+                    >
+                      Dotted
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value="faint"
+                      className="px-2.5 py-1 h-auto text-[9px] font-bold uppercase rounded-md border-0 data-[state=on]:bg-purple-600 data-[state=on]:text-white transition-all"
+                    >
+                      Faint
+                    </ToggleGroupItem>
+                  </ToggleGroup>
+                </div>
+              </div>
 
               {/* Premium Aesthetics Section */}
               <div className="mt-4 border-t pt-4 space-y-4">
