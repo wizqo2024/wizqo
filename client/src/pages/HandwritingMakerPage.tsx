@@ -694,6 +694,8 @@ export default function HandwritingMakerPage() {
                               // Even denser dots for the ultra-thin collapsed path
                               return (tracingStyle === 'dotted' && (textStyle === 'cursive' || textStyle === 'school-cursive')) ? '1.5 2.5' : '3 5';
                             })()}
+                            strokeLinecap={tracingStyle === 'dotted' ? 'round' as any : undefined}
+                            strokeLinejoin={tracingStyle === 'dotted' ? 'round' as any : undefined}
                           >
                             {rest}
                           </tspan>
@@ -730,6 +732,7 @@ export default function HandwritingMakerPage() {
                           return (isDotted && (textStyle === 'cursive' || textStyle === 'school-cursive')) ? '1.5 2.5' : '3 5';
                         })()}
                         strokeLinecap={isDotted ? 'round' as any : undefined}
+                        strokeLinejoin={isDotted ? 'round' as any : undefined}
                       >
                         {word}
                       </tspan>
