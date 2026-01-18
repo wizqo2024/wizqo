@@ -603,8 +603,9 @@ export default function HandwritingMakerPage() {
     const fontStackKidsMonoline = "'Learning Curve', 'Sacramento', cursive";
     const fontStackSchoolMonoline = "'ABeeZee', 'Segoe UI', sans-serif";
     const fontFamily = (() => {
+      const isDotted = tracingStyle === 'dotted';
       if (textStyle === 'true-monoline') return fontStackTrueMonoline;
-      if (textStyle === 'monoline-cursive') return fontStackKidsMonoline;
+      if (textStyle === 'monoline-cursive') return isDotted ? fontStackTrueMonoline : fontStackKidsMonoline;
       if (textStyle === 'school-cursive') return fontStackSchoolMonoline;
       if (textStyle === 'cursive') return fontStackCursive;
       return fontStackPrint;
@@ -764,14 +765,21 @@ export default function HandwritingMakerPage() {
                           <tspan fill={theme.text} stroke="none" strokeWidth={0}>{firstChar}</tspan>
                           <tspan
                             fill={(() => {
-                              if (textStyle === 'true-monoline') return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
+                              const isNativeDotted = textStyle === 'true-monoline' || (textStyle === 'monoline-cursive' && tracingStyle === 'dotted');
+                              if (isNativeDotted) return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
                               if (textStyle === 'bubble') return 'none';
+                              // FOR MONOLINE STYLES WITHOUT NATIVE DOTS:
+                              // Use faint solid path when 'dotted' is selected to avoid hollow double-lines.
+                              const isSolidMonoline = textStyle === 'school-cursive' || textStyle === 'print' || textStyle === 'cursive' || textStyle === 'monoline-cursive';
+                              if (tracingStyle === 'dotted' && isSolidMonoline) return '#cbd5e1';
+
                               if (tracingStyle === 'faint') return '#cbd5e1';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                               return tracingStyle === 'dotted' ? 'none' : theme.text;
                             })()}
                             stroke={(() => {
-                              if (textStyle === 'true-monoline') return 'none';
+                              const isNativeDotted = textStyle === 'true-monoline' || (textStyle === 'monoline-cursive' && tracingStyle === 'dotted');
+                              if (isNativeDotted) return 'none';
                               if (textStyle === 'bubble') return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
                               if (tracingStyle === 'faint') return 'none';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
@@ -802,15 +810,22 @@ export default function HandwritingMakerPage() {
                       <tspan
                         key={pIdx}
                         fill={(() => {
+                          const isNativeDotted = textStyle === 'true-monoline' || (textStyle === 'monoline-cursive' && isDotted);
                           if (textStyle === 'bubble') return 'none';
-                          if (textStyle === 'true-monoline') return isFaint ? '#cbd5e1' : theme.text;
+                          if (isNativeDotted) return isFaint ? '#cbd5e1' : theme.text;
+
+                          // FOR MONOLINE STYLES WITHOUT NATIVE DOTS:
+                          const isSolidMonoline = textStyle === 'school-cursive' || textStyle === 'print' || textStyle === 'cursive' || textStyle === 'monoline-cursive';
+                          if (isDotted && isSolidMonoline) return '#cbd5e1';
+
                           if (isModel) return theme.text;
                           if (isFaint) return '#cbd5e1';
                           if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                           return isDotted ? 'none' : theme.text;
                         })()}
                         stroke={(() => {
-                          if (textStyle === 'true-monoline') return 'none';
+                          const isNativeDotted = textStyle === 'true-monoline' || (textStyle === 'monoline-cursive' && isDotted);
+                          if (isNativeDotted) return 'none';
                           if (isModel) return 'none';
                           if (textStyle === 'bubble') return isFaint ? '#cbd5e1' : theme.text;
                           if (isFaint) return 'none';
