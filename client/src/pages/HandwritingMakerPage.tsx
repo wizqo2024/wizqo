@@ -57,6 +57,8 @@ export default function HandwritingMakerPage() {
   const [colorTheme, setColorTheme] = React.useState<ColorTheme>('forest');
   const [decoration, setDecoration] = React.useState<DecorationType>('flowers');
   const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('cursive');
+  const [tracingStyle, setTracingStyle] = React.useState<'dotted' | 'faint'>('dotted');
+  const [showModelWord, setShowModelWord] = React.useState<boolean>(false);
 
   // Quick-fill helpers for nicer UX
   const applyLettersSample = (variant: 'lower' | 'upper' | 'mixed') => {
@@ -552,28 +554,49 @@ export default function HandwritingMakerPage() {
                 y={baselineY - 6}
                 fontSize={fontSize}
                 fontFamily={fontFamily}
-                fill={(() => {
-                  if (textStyle === 'bubble') return 'none';
-                  if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
-                  return dotted ? 'none' : theme.text;
-                })()}
-                stroke={(() => {
-                  if (textStyle === 'bubble') return theme.text;
-                  if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
-                  return dotted ? theme.text : 'none';
-                })()}
-                strokeWidth={(() => {
-                  if (textStyle === 'bubble') return 3;
-                  return dotted ? 2 : 0;
-                })()}
-                strokeDasharray={(() => {
-                  if (textStyle === 'bubble') return dotted ? '4 6' : undefined;
-                  return dotted ? '3 5' : undefined;
-                })()}
-                strokeLinecap={dotted ? 'round' as any : undefined}
                 style={{ vectorEffect: 'non-scaling-stroke', paintOrder: 'stroke fill', letterSpacing: autoSpaceLetters ? `${letterSpacing}px` : undefined } as any}
               >
-                {text}
+                {(() => {
+                  const parts = text.split(' ');
+                  return parts.map((part, pIdx) => {
+                    const isModel = showModelWord && pIdx === 0;
+                    const isFaint = tracingStyle === 'faint' && !isModel;
+                    const isDotted = tracingStyle === 'dotted' && !isModel;
+
+                    return (
+                      <tspan
+                        key={pIdx}
+                        fill={(() => {
+                          if (textStyle === 'bubble') return 'none';
+                          if (isModel) return theme.text; // Solid model word
+                          if (isFaint) return '#e2e8f0'; // Faint single path
+                          if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
+                          return isDotted ? 'none' : theme.text;
+                        })()}
+                        stroke={(() => {
+                          if (isModel) return 'none'; // No stroke for model
+                          if (isFaint) return 'none'; // No stroke for faint
+                          if (textStyle === 'bubble') return theme.text;
+                          if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
+                          return isDotted ? theme.text : 'none';
+                        })()}
+                        strokeWidth={(() => {
+                          if (isModel || isFaint) return 0;
+                          if (textStyle === 'bubble') return 3;
+                          return isDotted ? 2 : 0;
+                        })()}
+                        strokeDasharray={(() => {
+                          if (isModel || isFaint) return undefined;
+                          if (textStyle === 'bubble') return isDotted ? '4 6' : undefined;
+                          return isDotted ? '3 5' : undefined;
+                        })()}
+                        strokeLinecap={isDotted ? 'round' as any : undefined}
+                      >
+                        {part}{pIdx < parts.length - 1 ? ' ' : ''}
+                      </tspan>
+                    );
+                  });
+                })()}
               </text>
             </g>
           );
@@ -864,12 +887,20 @@ export default function HandwritingMakerPage() {
 
                 <div className="flex flex-col justify-end space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label className="text-[10px] font-bold uppercase text-slate-500">{t('pages.handwriting.options.dotted')}</Label>
-                    <Switch checked={dotted} onCheckedChange={(checked: boolean) => setDotted(checked)} />
+                    <Label className="text-[10px] font-bold uppercase text-slate-500">Show Model Word</Label>
+                    <Switch checked={showModelWord} onCheckedChange={(checked: boolean) => setShowModelWord(checked)} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <Label className="text-[10px] font-bold uppercase text-slate-500">{t('pages.handwriting.options.startDots')}</Label>
-                    <Switch checked={startDots} onCheckedChange={(checked: boolean) => setStartDots(checked)} />
+                    <Label className="text-[10px] font-bold uppercase text-slate-500">Tracing Style</Label>
+                    <ToggleGroup
+                      type="single"
+                      value={tracingStyle}
+                      onValueChange={(v: string) => v && setTracingStyle(v as 'dotted' | 'faint')}
+                      className="gap-2"
+                    >
+                      <ToggleGroupItem value="dotted" className="px-2 py-1 h-auto text-[9px] font-bold uppercase rounded-lg border data-[state=on]:bg-purple-600 data-[state=on]:text-white">Dotted</ToggleGroupItem>
+                      <ToggleGroupItem value="faint" className="px-2 py-1 h-auto text-[9px] font-bold uppercase rounded-lg border data-[state=on]:bg-purple-600 data-[state=on]:text-white">Faint</ToggleGroupItem>
+                    </ToggleGroup>
                   </div>
                 </div>
               </div>
