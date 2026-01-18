@@ -103,9 +103,10 @@ export async function generateWorksheetPDF(
             return window.btoa(binary)
         }
 
-        const [cedarvilleB64, codystarB64] = await Promise.all([
+        const [cedarvilleB64, codystarB64, learningCurveB64] = await Promise.all([
             fetchFontBase64('/fonts/cedarville_cursive.ttf'),
-            fetchFontBase64('/fonts/codystar.ttf')
+            fetchFontBase64('/fonts/codystar.ttf'),
+            fetchFontBase64('/fonts/learning_curve_dashed.ttf')
         ])
 
         let currentY = 0
@@ -139,6 +140,11 @@ export async function generateWorksheetPDF(
                             font-display: block;
                         }
                         @font-face {
+                            font-family: 'Learning Curve Dashed';
+                            src: url(data:font/ttf;base64,${learningCurveB64}) format('truetype');
+                            font-display: block;
+                        }
+                        @font-face {
                             font-family: 'Inter';
                             src: local('Inter'), local('sans-serif');
                         }
@@ -159,6 +165,11 @@ export async function generateWorksheetPDF(
                         }
                         const svgStyle = clonedDoc.createElementNS('http://www.w3.org/2000/svg', 'style');
                         svgStyle.innerHTML = `
+                            @font-face {
+                                font-family: 'Learning Curve Dashed';
+                                src: url(data:font/ttf;base64,${learningCurveB64}) format('truetype');
+                                font-display: block;
+                            }
                             @font-face {
                                 font-family: 'Cedarville Cursive';
                                 src: url(data:font/ttf;base64,${cedarvilleB64}) format('truetype');

@@ -425,7 +425,7 @@ export default function HandwritingMakerPage() {
             doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
           }
 
-          const isTracing = tracingStyle === 'dotted' && textStyle !== 'bubble';
+          const isTracing = tracingStyle === 'dotted' && textStyle !== 'bubble' && textStyle !== 'true-monoline';
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
           if (isTracing) {
             // Extreme thinning for cursive in model-split rest-of-word PDF
@@ -456,7 +456,7 @@ export default function HandwritingMakerPage() {
           doc.setDrawColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
           doc.setCharSpace(letterSpacing);
 
-          const isTracing = isDotted && textStyle !== 'bubble';
+          const isTracing = isDotted && textStyle !== 'bubble' && textStyle !== 'true-monoline';
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
 
           if (isTracing) {
@@ -710,7 +710,7 @@ export default function HandwritingMakerPage() {
                   paintOrder: 'stroke fill',
                   letterSpacing: autoSpaceLetters
                     ? `${letterSpacing}px`
-                    : (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive' || textStyle === 'true-monoline' ? '0.02em' : undefined)
+                    : (textStyle === 'true-monoline' ? '0' : (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive' ? '0.02em' : undefined))
                 } as any}
               >
                 {(() => {
@@ -731,12 +731,14 @@ export default function HandwritingMakerPage() {
                           <tspan fill={theme.text} stroke="none" strokeWidth={0}>{firstChar}</tspan>
                           <tspan
                             fill={(() => {
+                              if (textStyle === 'true-monoline') return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
                               if (textStyle === 'bubble') return 'none';
                               if (tracingStyle === 'faint') return '#cbd5e1';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                               return tracingStyle === 'dotted' ? 'none' : theme.text;
                             })()}
                             stroke={(() => {
+                              if (textStyle === 'true-monoline') return 'none';
                               if (textStyle === 'bubble') return tracingStyle === 'faint' ? '#cbd5e1' : theme.text;
                               if (tracingStyle === 'faint') return 'none';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
@@ -768,12 +770,14 @@ export default function HandwritingMakerPage() {
                         key={pIdx}
                         fill={(() => {
                           if (textStyle === 'bubble') return 'none';
+                          if (textStyle === 'true-monoline') return isFaint ? '#cbd5e1' : theme.text;
                           if (isModel) return theme.text; // Solid model word
                           if (isFaint) return '#cbd5e1'; // Faint solid path (standardized)
                           if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                           return isDotted ? 'none' : theme.text;
                         })()}
                         stroke={(() => {
+                          if (textStyle === 'true-monoline') return 'none';
                           if (isModel) return 'none'; // No stroke for model
                           if (textStyle === 'bubble') return isFaint ? '#cbd5e1' : theme.text;
                           if (isFaint) return 'none'; // No stroke for faint print/cursive

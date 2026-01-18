@@ -255,7 +255,7 @@ export const drawSvgRefOnPDF = async (
     y: number,
     widthMm: number,
     heightMm: number,
-    fontData: { CEDARVILLE_CURSIVE_TTF_BASE64?: string, CODYSTAR_TTF_BASE64?: string }
+    fontData: { CEDARVILLE_CURSIVE_TTF_BASE64?: string, CODYSTAR_TTF_BASE64?: string, LEARNING_CURVE_DASHED_TTF_BASE64?: string }
 ) => {
     // 1. Convert SVG to Canvas using html2canvas
     const canvas = await html2canvas(svgElement, {
@@ -271,6 +271,10 @@ export const drawSvgRefOnPDF = async (
                 @font-face {
                     font-family: 'Cedarville Cursive';
                     src: url(data:font/ttf;base64,${fontData.CEDARVILLE_CURSIVE_TTF_BASE64}) format('truetype');
+                }
+                @font-face {
+                    font-family: 'Learning Curve Dashed';
+                    src: url(data:font/ttf;base64,${fontData.LEARNING_CURVE_DASHED_TTF_BASE64}) format('truetype');
                 }
                 @font-face {
                     font-family: 'Codystar';
