@@ -90,6 +90,12 @@ export default function HandwritingMakerPage() {
         font-weight: normal;
         font-style: normal;
       }
+      @font-face {
+        font-family: 'DNManuscriptDotted';
+        src: url('/fonts/DNManuscriptDotted.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
     `;
     document.head.appendChild(style);
 
@@ -213,7 +219,7 @@ export default function HandwritingMakerPage() {
       fetchFontBase64('/fonts/learning_curve_dashed.ttf'),
       fetchFontBase64('/fonts/learning_curve.ttf'),
       fetchFontBase64('/fonts/abeezee_regular.ttf'),
-      fetchFontBase64('/fonts/SchoolHandDotted.ttf'),
+      fetchFontBase64('/fonts/DNManuscriptDotted.ttf'),
       fetchFontBase64('/fonts/kg_primary_dots.ttf')
     ]);
 
@@ -236,8 +242,8 @@ export default function HandwritingMakerPage() {
     doc.addFont('ABeeZee-Regular.ttf', 'ABeeZee', 'normal');
 
     // Load new true single-stroke dotted fonts
-    doc.addFileToVFS('SchoolHandDotted.ttf', schoolDottedB64);
-    doc.addFont('SchoolHandDotted.ttf', 'SchoolHandDotted', 'normal');
+    doc.addFileToVFS('DNManuscriptDotted.ttf', schoolDottedB64);
+    doc.addFont('DNManuscriptDotted.ttf', 'DNManuscriptDotted', 'normal');
     doc.addFileToVFS('KGPrimaryDots.ttf', kgPrimaryDotsB64);
     doc.addFont('KGPrimaryDots.ttf', 'KGPrimaryDots', 'normal');
 
@@ -469,8 +475,8 @@ export default function HandwritingMakerPage() {
           const font = (() => {
             if (textStyle === 'true-monoline') return isDotted ? 'LearningCurve-Dashed' : 'LearningCurve';
             if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurve-Dashed' : 'LearningCurve';
-            if (textStyle === 'school-cursive') return isDotted ? 'SchoolHandDotted' : 'ABeeZee';
-            if (textStyle === 'cursive') return isDotted ? 'KGPrimaryDots' : 'Cedarville-Cursive';
+            if (textStyle === 'school-cursive') return isDotted ? 'DNManuscriptDotted' : 'ABeeZee';
+            if (textStyle === 'cursive') return isDotted ? 'LearningCurve-Dashed' : 'Cedarville-Cursive';
             if (textStyle === 'bubble') return 'Codystar';
             return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
           })();
@@ -500,8 +506,8 @@ export default function HandwritingMakerPage() {
           const font = (() => {
             if (textStyle === 'true-monoline') return isDotted ? 'LearningCurve-Dashed' : 'LearningCurve';
             if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurve-Dashed' : 'LearningCurve';
-            if (textStyle === 'school-cursive') return isDotted ? 'SchoolHandDotted' : 'ABeeZee';
-            if (textStyle === 'cursive') return isDotted ? 'KGPrimaryDots' : 'Cedarville-Cursive';
+            if (textStyle === 'school-cursive') return isDotted ? 'DNManuscriptDotted' : 'ABeeZee';
+            if (textStyle === 'cursive') return isDotted ? 'LearningCurve-Dashed' : 'Cedarville-Cursive';
             if (textStyle === 'bubble') return 'Codystar';
             return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
           })();
@@ -625,7 +631,7 @@ export default function HandwritingMakerPage() {
     const fontStackKidsMonoline = "'Learning Curve', cursive";
     const fontStackSchoolMonoline = "ABeeZee, sans-serif";
     const fontStackPrimaryDots = "KGPrimaryDots";
-    const fontStackSchoolDotted = "SchoolHandDotted";
+    const fontStackSchoolDotted = "DNManuscriptDotted";
     const fontStackKidsDashed = "LearningCurveDashed";
 
     const fontFamily = (() => {
@@ -633,7 +639,7 @@ export default function HandwritingMakerPage() {
       if (textStyle === 'true-monoline') return isDotted ? fontStackKidsDashed : fontStackKidsMonoline;
       if (textStyle === 'monoline-cursive') return isDotted ? fontStackKidsDashed : fontStackKidsMonoline;
       if (textStyle === 'school-cursive') return isDotted ? fontStackSchoolDotted : fontStackSchoolMonoline;
-      if (textStyle === 'cursive') return isDotted ? fontStackPrimaryDots : fontStackCursive;
+      if (textStyle === 'cursive') return isDotted ? fontStackKidsDashed : fontStackCursive;
       if (textStyle === 'bubble') return "Codystar";
       return isDotted ? fontStackPrimaryDots : fontStackPrint;
     })();
