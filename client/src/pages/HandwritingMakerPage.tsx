@@ -598,20 +598,21 @@ export default function HandwritingMakerPage() {
                         fill={(() => {
                           if (textStyle === 'bubble') return 'none';
                           if (isModel) return theme.text; // Solid model word
-                          if (isFaint) return '#e2e8f0'; // Faint single path
+                          if (isFaint) return '#cbd5e1'; // Faint solid path (standardized)
                           if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                           return isDotted ? 'none' : theme.text;
                         })()}
                         stroke={(() => {
                           if (isModel) return 'none'; // No stroke for model
-                          if (isFaint) return 'none'; // No stroke for faint
-                          if (textStyle === 'bubble') return theme.text;
+                          if (textStyle === 'bubble') return isFaint ? '#cbd5e1' : theme.text;
+                          if (isFaint) return 'none'; // No stroke for faint print/cursive
                           if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                           return isDotted ? theme.text : 'none';
                         })()}
                         strokeWidth={(() => {
-                          if (isModel || isFaint) return 0;
+                          if (isModel) return 0;
                           if (textStyle === 'bubble') return 3;
+                          if (isFaint) return 0;
                           return isDotted ? 2 : 0;
                         })()}
                         strokeDasharray={(() => {
