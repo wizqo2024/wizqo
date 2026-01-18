@@ -57,8 +57,8 @@ export default function HandwritingMakerPage() {
   const [colorTheme, setColorTheme] = React.useState<ColorTheme>('forest');
   const [decoration, setDecoration] = React.useState<DecorationType>('flowers');
   const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('cursive');
-  const [tracingStyle, setTracingStyle] = React.useState<'dotted' | 'faint'>('dotted');
-  const [showModelWord, setShowModelWord] = React.useState<boolean>(false);
+  const [tracingStyle, setTracingStyle] = React.useState<'dotted' | 'faint'>('faint');
+  const [showModelWord, setShowModelWord] = React.useState<boolean>(true);
 
   // Quick-fill helpers for nicer UX
   const applyLettersSample = (variant: 'lower' | 'upper' | 'mixed') => {
@@ -322,6 +322,11 @@ export default function HandwritingMakerPage() {
         const isModel = showModelWord && wordIdx === 0;
         const isFaint = tracingStyle === 'faint' && !isModel;
         const isDotted = tracingStyle === 'dotted' && !isModel;
+
+        // Apply Font logic
+        if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
+        else if (isDotted) doc.setFont('Codystar', 'normal');
+        else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
 
         let textColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
         if (isFaint) textColor = '#cbd5e1'; // Slate-300 equivalent for PDF faintness
