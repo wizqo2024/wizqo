@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import jsPDF from 'jspdf';
-import { CODYSTAR_TTF_BASE64, CEDARVILLE_CURSIVE_TTF_BASE64 } from '@/lib/fonts';
+import { CODYSTAR_TTF_BASE64, CEDARVILLE_CURSIVE_TTF_BASE64, LEARNING_CURVE_DASHED_TTF_BASE64 } from '@/lib/fonts';
 import { hexToRgb } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
 
@@ -61,7 +61,7 @@ export default function HandwritingMakerPage() {
   const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(false);
   const [colorTheme, setColorTheme] = React.useState<ColorTheme>('forest');
   const [decoration, setDecoration] = React.useState<DecorationType>('flowers');
-  const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble'>('cursive');
+  const [textStyle, setTextStyle] = React.useState<'print' | 'cursive' | 'bubble' | 'true-monoline'>('cursive');
   const [tracingStyle, setTracingStyle] = React.useState<'dotted' | 'faint'>('faint');
   const [showModelWord, setShowModelWord] = React.useState<boolean>(true);
 
@@ -151,6 +151,10 @@ export default function HandwritingMakerPage() {
     // Load Cedarville Cursive for cursive style
     doc.addFileToVFS('Cedarville-Cursive.ttf', CEDARVILLE_CURSIVE_TTF_BASE64);
     doc.addFont('Cedarville-Cursive.ttf', 'Cedarville-Cursive', 'normal');
+
+    // Load Learning Curve Dashed for true-monoline style
+    doc.addFileToVFS('LearningCurve-Dashed.ttf', LEARNING_CURVE_DASHED_TTF_BASE64);
+    doc.addFont('LearningCurve-Dashed.ttf', 'LearningCurve-Dashed', 'normal');
 
     const drawHeader = () => {
       // Sheet Background
@@ -346,7 +350,8 @@ export default function HandwritingMakerPage() {
           const restOfWord = wordToDraw.substring(1);
 
           // Draw the SOLID first character
-          if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal'); // Use helvetica as proxy for width if Sacramento not embedded
+          if (textStyle === 'true-monoline') doc.setFont('LearningCurve-Dashed', 'normal');
+          else if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
           else doc.setFont('helvetica', textStyle === 'bubble' ? 'bold' : 'normal');
@@ -362,7 +367,8 @@ export default function HandwritingMakerPage() {
           currentX += doc.getTextWidth(firstChar) + letterSpacing;
 
           // Now draw the TRACING rest of the word
-          if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal');
+          if (textStyle === 'true-monoline') doc.setFont('LearningCurve-Dashed', 'normal');
+          else if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
           else if (tracingStyle === 'dotted') doc.setFont('Codystar', 'normal');
@@ -390,7 +396,8 @@ export default function HandwritingMakerPage() {
           currentX += doc.getTextWidth(restOfWord) + (restOfWord.length > 0 ? (restOfWord.length - 1) * letterSpacing : 0);
         } else {
           // Standard full-word model or full-word tracing
-          if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal');
+          if (textStyle === 'true-monoline') doc.setFont('LearningCurve-Dashed', 'normal');
+          else if (textStyle === 'monoline-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'school-cursive') doc.setFont('helvetica', 'normal');
           else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
           else if (isDotted) doc.setFont('Codystar', 'normal');
@@ -516,7 +523,9 @@ export default function HandwritingMakerPage() {
     const fontStackCursive = "'Cedarville Cursive', 'Brush Script MT', 'Segoe Script', 'Snell Roundhand', 'Dancing Script', 'Pacifico', cursive";
     const fontStackSchool = "'Playwrite GB S', 'Segoe UI', cursive";
     const fontStackMonoline = "'Sacramento', cursive";
+    const fontStackTrueMonoline = "'Learning Curve Dashed', 'Segoe UI', system-ui, sans-serif";
     const fontFamily = (() => {
+      if (textStyle === 'true-monoline') return fontStackTrueMonoline;
       if (textStyle === 'monoline-cursive') return fontStackMonoline;
       if (textStyle === 'school-cursive') return fontStackSchool;
       if (textStyle === 'cursive') return fontStackCursive;
@@ -656,7 +665,7 @@ export default function HandwritingMakerPage() {
                   paintOrder: 'stroke fill',
                   letterSpacing: autoSpaceLetters
                     ? `${letterSpacing}px`
-                    : (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive' ? '0.02em' : undefined)
+                    : (textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive' || textStyle === 'true-monoline' ? '0.02em' : undefined)
                 } as any}
               >
                 {(() => {
@@ -1043,6 +1052,7 @@ export default function HandwritingMakerPage() {
                     <option value="cursive">🖋️ {t('pages.handwriting.options.cursive')} (Classic)</option>
                     <option value="school-cursive">🏫 School Cursive (Modern)</option>
                     <option value="monoline-cursive">✨ Single Path Cursive (Best for Kids)</option>
+                    <option value="true-monoline">➖ True Monoline (Dotted)</option>
                     <option value="bubble">🫧 {t('pages.handwriting.options.bubble')}</option>
                   </select>
                 </div>
