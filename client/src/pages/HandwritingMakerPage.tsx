@@ -950,28 +950,28 @@ export default function HandwritingMakerPage() {
                 onValueChange={(v: string) => v && setTextStyle(v as any)}
                 className="grid grid-cols-2 gap-2 bg-slate-50/50 p-2 rounded-2xl border border-slate-200/50 shadow-inner"
               >
-                <ToggleGroupItem value="true-monoline" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
-                  <span className="text-lg">✨</span>
+                <ToggleGroupItem value="true-monoline" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
+                  <span className="text-base">✨</span>
                   <span>Monoline</span>
                 </ToggleGroupItem>
-                <ToggleGroupItem value="monoline-cursive" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
-                  <span className="text-lg">🎨</span>
+                <ToggleGroupItem value="monoline-cursive" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
+                  <span className="text-base">🎨</span>
                   <span>Kids Cursive</span>
                 </ToggleGroupItem>
-                <ToggleGroupItem value="school-cursive" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
-                  <span className="text-lg">🏫</span>
+                <ToggleGroupItem value="school-cursive" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
+                  <span className="text-base">🏫</span>
                   <span>School</span>
                 </ToggleGroupItem>
-                <ToggleGroupItem value="cursive" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
-                  <span className="text-lg">🖋️</span>
+                <ToggleGroupItem value="cursive" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
+                  <span className="text-base">🖋️</span>
                   <span>Classic</span>
                 </ToggleGroupItem>
-                <ToggleGroupItem value="print" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
-                  <span className="text-lg">✍️</span>
+                <ToggleGroupItem value="print" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
+                  <span className="text-base">✍️</span>
                   <span>Print</span>
                 </ToggleGroupItem>
-                <ToggleGroupItem value="bubble" className="px-2 py-3 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-1 h-auto">
-                  <span className="text-lg">🫧</span>
+                <ToggleGroupItem value="bubble" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
+                  <span className="text-base">🫧</span>
                   <span>Bubble</span>
                 </ToggleGroupItem>
               </ToggleGroup>
