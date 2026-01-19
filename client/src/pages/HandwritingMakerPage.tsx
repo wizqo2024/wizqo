@@ -611,9 +611,9 @@ export default function HandwritingMakerPage() {
     const fontStackCursive = "CedarvilleCursive, cursive";
     const fontStackKidsMonoline = "LearningCurve, cursive";
     const fontStackSchoolMonoline = "ABeeZee, sans-serif";
-    const fontStackPrimaryDots = "KGPrimaryDots";
-    const fontStackSchoolDotted = "SchoolHandDotted";
-    const fontStackKidsDashed = "LearningCurveDashed";
+    const fontStackPrimaryDots = "'KGPrimaryDots', sans-serif";
+    const fontStackSchoolDotted = "'SchoolHandDotted', 'ABeeZee', sans-serif";
+    const fontStackKidsDashed = "'LearningCurveDashed', cursive";
 
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
     // We'll set the font per-tspan to allow mixing solid (model) and dotted (practice)
