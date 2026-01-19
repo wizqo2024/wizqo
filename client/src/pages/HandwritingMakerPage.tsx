@@ -41,7 +41,7 @@ export default function HandwritingMakerPage() {
   React.useEffect(() => {
     // Add Fonts
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=ABeeZee&family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
 
@@ -1242,7 +1242,7 @@ export default function HandwritingMakerPage() {
           <div className="order-1 md:order-2 md:col-span-7 w-full min-w-0" id="handwriting-preview">
             <div className="mb-2 text-slate-700 text-sm font-medium print:hidden">Preview</div>
             <div id="handwriting-sheet" className="bg-white border border-slate-200 rounded-2xl p-2 shadow-sm print:border-0 print:shadow-none print:rounded-none print:p-0">
-              <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}-${textStyle}-${colorTheme}-${decoration}`} />
+              <PreviewSVG key={`${mode}-${lineType}-${fontSize}-${dotted}-${startDots}-${autoSpaceLetters}-${textStyle}-${colorTheme}-${decoration}-${tracingStyle}`} />
             </div>
             <div className="text-xs text-slate-500 mt-2 print:hidden">Tip: Long text wraps to the next line automatically.</div>
           </div>
