@@ -1,7 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;600;700&family=Dancing+Script:wght@400;600&family=Handlee&family=Pacifico&family=Patrick+Hand&family=Playfair+Display:wght@400;600&family=Cedarville+Cursive&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;600;700&family=Dancing+Script:wght@400;600&family=Handlee&family=Pacifico&family=Patrick+Hand&family=Playfair+Display:wght@400;600&family=Cedarville+Cursive&family=ABeeZee&family=Codystar&family=Sacramento&family=Playwrite+GB+S:wght@100..400&display=swap');
 /* Arabic font support */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;600;700&display=swap');
+
+/* Handwriting Fonts */
+@font-face {
+  font-family: 'Codystar';
+  src: url('/fonts/codystar.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CedarvilleCursive';
+  src: url('/fonts/cedarville_cursive.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LearningCurve';
+  src: url('/fonts/learning_curve.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ABeeZee';
+  src: url('/fonts/abeezee_regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LearningCurveDashed';
+  src: url('/fonts/learning_curve_dashed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SchoolHandDotted';
+  src: url('/fonts/SchoolHandDotted.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KGPrimaryDots';
+  src: url('/fonts/kg_primary_dots.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Import RTL support */
 @import './styles/rtl.css';
 

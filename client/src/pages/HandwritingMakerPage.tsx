@@ -39,56 +39,7 @@ export default function HandwritingMakerPage() {
   const { t, isRTL } = useTranslation();
 
   React.useEffect(() => {
-    // Add Fonts
-    const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=ABeeZee&family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @font-face {
-        font-family: 'Codystar';
-        src: url('/fonts/codystar.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'CedarvilleCursive';
-        src: url('/fonts/cedarville_cursive.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'LearningCurve';
-        src: url('/fonts/learning_curve.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'ABeeZee';
-        src: url('/fonts/abeezee_regular.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'LearningCurveDashed';
-        src: url('/fonts/learning_curve_dashed.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'SchoolHandDotted';
-        src: url('/fonts/SchoolHandDotted.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-    `;
-    document.head.appendChild(style);
-
-    return () => {
-      document.head.removeChild(style);
-    };
+    // Fonts are now handled in index.css for better reliability
   }, []);
 
   const { toast } = useToast();
@@ -611,9 +562,9 @@ export default function HandwritingMakerPage() {
     const fontStackCursive = "CedarvilleCursive, cursive";
     const fontStackKidsMonoline = "LearningCurve, cursive";
     const fontStackSchoolMonoline = "ABeeZee, sans-serif";
-    const fontStackPrimaryDots = "'KGPrimaryDots', sans-serif";
-    const fontStackSchoolDotted = "'SchoolHandDotted', 'ABeeZee', sans-serif";
-    const fontStackKidsDashed = "'LearningCurveDashed', cursive";
+    const fontStackPrimaryDots = "KGPrimaryDots, sans-serif";
+    const fontStackSchoolDotted = "SchoolHandDotted, ABeeZee, sans-serif";
+    const fontStackKidsDashed = "LearningCurveDashed, cursive";
 
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
     // We'll set the font per-tspan to allow mixing solid (model) and dotted (practice)
