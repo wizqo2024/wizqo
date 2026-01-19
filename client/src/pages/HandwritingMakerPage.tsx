@@ -78,14 +78,8 @@ export default function HandwritingMakerPage() {
         font-style: normal;
       }
       @font-face {
-        font-family: 'KGPrimaryDots';
-        src: url('/fonts/kg_primary_dots.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'FoundationDots';
-        src: url('/fonts/FoundationDots-Regular.ttf') format('truetype');
+        font-family: 'SchoolHandDotted';
+        src: url('/fonts/SchoolHandDotted.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
       }
@@ -205,13 +199,13 @@ export default function HandwritingMakerPage() {
       return window.btoa(binary);
     };
 
-    const [codystarB64, cedarvilleB64, learningCurveDashedB64, learningCurveSolidB64, abeezeeB64, foundationDotsB64, kgPrimaryDotsB64] = await Promise.all([
+    const [codystarB64, cedarvilleB64, learningCurveDashedB64, learningCurveSolidB64, abeezeeB64, schoolHandDottedB64, kgPrimaryDotsB64] = await Promise.all([
       fetchFontBase64('/fonts/codystar.ttf'),
       fetchFontBase64('/fonts/cedarville_cursive.ttf'),
       fetchFontBase64('/fonts/learning_curve_dashed.ttf'),
       fetchFontBase64('/fonts/learning_curve.ttf'),
       fetchFontBase64('/fonts/abeezee_regular.ttf'),
-      fetchFontBase64('/fonts/FoundationDots-Regular.ttf'),
+      fetchFontBase64('/fonts/SchoolHandDotted.ttf'),
       fetchFontBase64('/fonts/kg_primary_dots.ttf')
     ]);
 
@@ -228,8 +222,8 @@ export default function HandwritingMakerPage() {
     doc.addFont('ABeeZee-Regular.ttf', 'ABeeZee', 'normal');
 
     // Load new true single-stroke dotted fonts
-    doc.addFileToVFS('FoundationDots.ttf', foundationDotsB64);
-    doc.addFont('FoundationDots.ttf', 'FoundationDots', 'normal');
+    doc.addFileToVFS('SchoolHandDotted.ttf', schoolHandDottedB64);
+    doc.addFont('SchoolHandDotted.ttf', 'SchoolHandDotted', 'normal');
     doc.addFileToVFS('KGPrimaryDots.ttf', kgPrimaryDotsB64);
     doc.addFont('KGPrimaryDots.ttf', 'KGPrimaryDots', 'normal');
 
@@ -461,7 +455,7 @@ export default function HandwritingMakerPage() {
           const font = (() => {
             if (textStyle === 'true-monoline') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
             if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
-            if (textStyle === 'school-cursive') return isDotted ? 'FoundationDots' : 'ABeeZee';
+            if (textStyle === 'school-cursive') return isDotted ? 'SchoolHandDotted' : 'ABeeZee';
             if (textStyle === 'cursive') return isDotted ? 'LearningCurveDashed' : 'CedarvilleCursive';
             if (textStyle === 'bubble') return 'Codystar';
             return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
@@ -492,7 +486,7 @@ export default function HandwritingMakerPage() {
           const font = (() => {
             if (textStyle === 'true-monoline') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
             if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
-            if (textStyle === 'school-cursive') return isDotted ? 'FoundationDots' : 'ABeeZee';
+            if (textStyle === 'school-cursive') return isDotted ? 'SchoolHandDotted' : 'ABeeZee';
             if (textStyle === 'cursive') return isDotted ? 'LearningCurveDashed' : 'CedarvilleCursive';
             if (textStyle === 'bubble') return 'Codystar';
             return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
@@ -618,7 +612,7 @@ export default function HandwritingMakerPage() {
     const fontStackKidsMonoline = "LearningCurve, cursive";
     const fontStackSchoolMonoline = "ABeeZee, sans-serif";
     const fontStackPrimaryDots = "KGPrimaryDots";
-    const fontStackSchoolDotted = "FoundationDots";
+    const fontStackSchoolDotted = "SchoolHandDotted";
     const fontStackKidsDashed = "LearningCurveDashed";
 
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
