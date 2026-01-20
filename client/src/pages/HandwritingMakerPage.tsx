@@ -441,7 +441,7 @@ export default function HandwritingMakerPage() {
           const font = (() => {
             if (textStyle === 'true-monoline') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
             if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
-            if (textStyle === 'school-cursive') return isDotted ? 'FoundationDots' : 'ABeeZee';
+            if (textStyle === 'school-cursive') return isDotted ? 'SchoolHandDotted' : 'ABeeZee';
             if (textStyle === 'cursive') return isDotted ? 'LearningCurveDashed' : 'CedarvilleCursive';
             if (textStyle === 'bubble') return 'Codystar';
             return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
