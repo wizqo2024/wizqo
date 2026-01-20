@@ -41,7 +41,7 @@ export default function HandwritingMakerPage() {
   React.useEffect(() => {
     // Add Fonts
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=ABeeZee&family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
 
@@ -85,7 +85,7 @@ export default function HandwritingMakerPage() {
       }
       @font-face {
         font-family: 'FoundationDots';
-        src: url('/fonts/FoundationDots-Regular.ttf') format('truetype');
+        src: url('/fonts/SchoolHandDotted.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
       }
@@ -211,7 +211,7 @@ export default function HandwritingMakerPage() {
       fetchFontBase64('/fonts/learning_curve_dashed.ttf'),
       fetchFontBase64('/fonts/learning_curve.ttf'),
       fetchFontBase64('/fonts/abeezee_regular.ttf'),
-      fetchFontBase64('/fonts/FoundationDots-Regular.ttf'),
+      fetchFontBase64('/fonts/SchoolHandDotted.ttf'),
       fetchFontBase64('/fonts/kg_primary_dots.ttf')
     ]);
 
@@ -613,10 +613,10 @@ export default function HandwritingMakerPage() {
     })();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const fontStackPrint = "ABeeZee, sans-serif";
+    const fontStackPrint = "ABeeZee, Inter, system-ui, sans-serif";
     const fontStackCursive = "CedarvilleCursive, cursive";
     const fontStackKidsMonoline = "LearningCurve, cursive";
-    const fontStackSchoolMonoline = "ABeeZee, sans-serif";
+    const fontStackSchoolMonoline = "ABeeZee, Inter, system-ui, sans-serif";
     const fontStackPrimaryDots = "KGPrimaryDots";
     const fontStackSchoolDotted = "FoundationDots";
     const fontStackKidsDashed = "LearningCurveDashed";
@@ -883,12 +883,12 @@ export default function HandwritingMakerPage() {
             {
               "@type": "Question",
               name: "How do I download the worksheet as PDF?",
-              acceptedAnswer: { "@type": "Answer", text: "Click ‘Print / Save as PDF’ and use your browser’s Print → Save as PDF." }
+              acceptedAnswer: { "@type": "Answer", text: "Click â€˜Print / Save as PDFâ€™ and use your browserâ€™s Print â†’ Save as PDF." }
             },
             {
               "@type": "Question",
               name: "Can I adjust font size and letter spacing?",
-              acceptedAnswer: { "@type": "Answer", text: "Yes. Use Font size and the Auto‑space letters toggle to increase spacing for letters, words, or sentences." }
+              acceptedAnswer: { "@type": "Answer", text: "Yes. Use Font size and the Autoâ€‘space letters toggle to increase spacing for letters, words, or sentences." }
             },
             {
               "@type": "Question",
@@ -949,27 +949,27 @@ export default function HandwritingMakerPage() {
                 className="grid grid-cols-2 gap-2 bg-slate-50/50 p-2 rounded-2xl border border-slate-200/50 shadow-inner"
               >
                 <ToggleGroupItem value="true-monoline" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
-                  <span className="text-base">✨</span>
+                  <span className="text-base">âœ¨</span>
                   <span>Monoline</span>
                 </ToggleGroupItem>
                 <ToggleGroupItem value="monoline-cursive" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
-                  <span className="text-base">🎨</span>
+                  <span className="text-base">ðŸŽ¨</span>
                   <span>Kids Cursive</span>
                 </ToggleGroupItem>
                 <ToggleGroupItem value="school-cursive" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
-                  <span className="text-base">🏫</span>
+                  <span className="text-base">ðŸ«</span>
                   <span>School</span>
                 </ToggleGroupItem>
                 <ToggleGroupItem value="cursive" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
-                  <span className="text-base">🖋️</span>
+                  <span className="text-base">ðŸ–‹ï¸</span>
                   <span>Classic</span>
                 </ToggleGroupItem>
                 <ToggleGroupItem value="print" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
-                  <span className="text-base">✍️</span>
+                  <span className="text-base">âœï¸</span>
                   <span>Print</span>
                 </ToggleGroupItem>
                 <ToggleGroupItem value="bubble" className="px-2 py-2 text-[10px] font-bold uppercase data-[state=on]:bg-white data-[state=on]:text-purple-600 data-[state=on]:shadow-md rounded-xl border-0 transition-all duration-300 flex flex-col items-center gap-0.5 h-auto">
-                  <span className="text-base">🫧</span>
+                  <span className="text-base">ðŸ«§</span>
                   <span>Bubble</span>
                 </ToggleGroupItem>
               </ToggleGroup>
@@ -1132,10 +1132,10 @@ export default function HandwritingMakerPage() {
                     className="justify-start gap-2"
                   >
                     {[
-                      { id: 'none', label: 'None', icon: '🚫' },
-                      { id: 'stars', label: 'Stars', icon: '⭐' },
-                      { id: 'hearts', label: 'Hearts', icon: '❤️' },
-                      { id: 'flowers', label: 'Flowers', icon: '🌸' },
+                      { id: 'none', label: 'None', icon: 'ðŸš«' },
+                      { id: 'stars', label: 'Stars', icon: 'â­' },
+                      { id: 'hearts', label: 'Hearts', icon: 'â¤ï¸' },
+                      { id: 'flowers', label: 'Flowers', icon: 'ðŸŒ¸' },
                     ].map(dec => (
                       <ToggleGroupItem
                         key={dec.id}
@@ -1215,10 +1215,10 @@ export default function HandwritingMakerPage() {
               <div className="mt-4 print:hidden">
                 <h2 className="text-sm font-semibold text-slate-900">Tips for better handwriting</h2>
                 <ul className="mt-2 list-disc list-inside text-xs text-slate-700 space-y-1">
-                  <li>Use short sessions (5–10 minutes) with frequent praise.</li>
+                  <li>Use short sessions (5â€“10 minutes) with frequent praise.</li>
                   <li>Model one clean letter, then let your child trace and copy.</li>
                   <li>Keep wrist straight, grip relaxed; paper slightly tilted.</li>
-                  <li>Say letter strokes out loud (e.g., “down, around, close”).</li>
+                  <li>Say letter strokes out loud (e.g., â€œdown, around, closeâ€).</li>
                 </ul>
               </div>
 
@@ -1239,7 +1239,7 @@ export default function HandwritingMakerPage() {
                   </a>
                 </div>
                 <p className="mt-3 text-[9px] text-slate-400 leading-relaxed italic">
-                  Show your worksheet some love! 🌸<br />Pining helps other parents find this free tool.
+                  Show your worksheet some love! ðŸŒ¸<br />Pining helps other parents find this free tool.
                 </p>
               </div>
             </div>
@@ -1258,9 +1258,9 @@ export default function HandwritingMakerPage() {
         <section className="bg-white border border-slate-200 rounded-2xl p-4 print:hidden">
           <h2 className="text-xl font-bold text-slate-900">Explore More Worksheets</h2>
           <ul className="mt-2 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
-            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets – Free PDF</a></li>
-            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets – Printable</a></li>
-            <li><a className="hover:underline" href="/worksheets/reading-comprehension">Reading Comprehension Worksheets – Free PDF</a></li>
+            <li><a className="hover:underline" href="/worksheets/1st-grade-math-worksheets">1st Grade Math Worksheets â€“ Free PDF</a></li>
+            <li><a className="hover:underline" href="/worksheets/2nd-grade-math-worksheets">2nd Grade Math Worksheets â€“ Printable</a></li>
+            <li><a className="hover:underline" href="/worksheets/reading-comprehension">Reading Comprehension Worksheets â€“ Free PDF</a></li>
             <li><a className="hover:underline" href="/printables">Printable Fun Learning Activities</a></li>
           </ul>
         </section>
@@ -1283,7 +1283,7 @@ function FineMotorHandwritingGuide() {
       <div className="bg-gradient-to-r from-orange-500 to-red-600 px-8 py-10 text-white">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
-            ✏️
+            âœï¸
           </div>
           <div>
             <h2 className="text-2xl sm:text-3xl font-black">{t('pages.handwriting.wiki.title', 'Handwriting Hub: Mastering the Art of Letter Formation')}</h2>
@@ -1296,7 +1296,7 @@ function FineMotorHandwritingGuide() {
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-slate-900 border-b-2 border-orange-100 pb-2 flex items-center gap-2">
-              <span className="text-2xl">🧠</span> {t('pages.handwriting.wiki.cognitiveLinkTitle', 'The Cognitive Link')}
+              <span className="text-2xl">ðŸ§ </span> {t('pages.handwriting.wiki.cognitiveLinkTitle', 'The Cognitive Link')}
             </h3>
             <p className="text-slate-600 leading-relaxed">
               Handwriting is more than just a motor skill; it's a cognitive foundation. Physically forming letters helps students internalize <strong>alphabet recognition</strong> and improves spelling retention. Our handwriting tools focus on proper <strong>stroke order</strong>, consistency, and the fine motor precision required for lifelong writing success.
@@ -1305,7 +1305,7 @@ function FineMotorHandwritingGuide() {
 
           <div className="space-y-6">
             <h3 className="text-xl font-bold text-slate-900 border-b-2 border-orange-100 pb-2 flex items-center gap-2">
-              <span className="text-2xl">🏆</span> {t('pages.handwriting.wiki.milestonesTitle', 'Development Milestones')}
+              <span className="text-2xl">ðŸ†</span> {t('pages.handwriting.wiki.milestonesTitle', 'Development Milestones')}
             </h3>
             <ul className="space-y-4">
               <li className="flex gap-3 text-slate-600">
