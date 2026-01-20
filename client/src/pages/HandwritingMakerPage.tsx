@@ -41,7 +41,7 @@ export default function HandwritingMakerPage() {
   React.useEffect(() => {
     // Add Fonts
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=ABeeZee&family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
 
@@ -85,7 +85,7 @@ export default function HandwritingMakerPage() {
       }
       @font-face {
         font-family: 'FoundationDots';
-        src: url('/fonts/FoundationDots-Regular.ttf') format('truetype');
+        src: url('/fonts/SchoolHandDotted.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
       }
@@ -211,7 +211,7 @@ export default function HandwritingMakerPage() {
       fetchFontBase64('/fonts/learning_curve_dashed.ttf'),
       fetchFontBase64('/fonts/learning_curve.ttf'),
       fetchFontBase64('/fonts/abeezee_regular.ttf'),
-      fetchFontBase64('/fonts/FoundationDots-Regular.ttf'),
+      fetchFontBase64('/fonts/SchoolHandDotted.ttf'),
       fetchFontBase64('/fonts/kg_primary_dots.ttf')
     ]);
 
@@ -613,10 +613,10 @@ export default function HandwritingMakerPage() {
     })();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const fontStackPrint = "ABeeZee, sans-serif";
+    const fontStackPrint = "ABeeZee, Inter, system-ui, sans-serif";
     const fontStackCursive = "CedarvilleCursive, cursive";
     const fontStackKidsMonoline = "LearningCurve, cursive";
-    const fontStackSchoolMonoline = "ABeeZee, sans-serif";
+    const fontStackSchoolMonoline = "ABeeZee, Inter, system-ui, sans-serif";
     const fontStackPrimaryDots = "KGPrimaryDots";
     const fontStackSchoolDotted = "FoundationDots";
     const fontStackKidsDashed = "LearningCurveDashed";
