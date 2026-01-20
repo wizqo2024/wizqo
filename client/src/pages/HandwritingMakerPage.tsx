@@ -40,6 +40,10 @@ export default function HandwritingMakerPage() {
 
   React.useEffect(() => {
     // Fonts are now loaded via index.css for better reliability
+    document.fonts.ready.then(() => {
+      const families = Array.from(document.fonts).map(f => f.family);
+      console.log('HandwritingMaker: Fonts Ready', families);
+    });
   }, []);
 
   const { toast } = useToast();
@@ -562,9 +566,9 @@ export default function HandwritingMakerPage() {
     const fontStackCursive = "CedarvilleCursive, cursive";
     const fontStackKidsMonoline = "LearningCurve, cursive";
     const fontStackSchoolMonoline = "ABeeZee, ABeeZeeLocal, Inter, system-ui, sans-serif";
-    const fontStackPrimaryDots = "KGPrimaryDots";
-    const fontStackSchoolDotted = "SchoolHandDotted";
-    const fontStackKidsDashed = "LearningCurveDashed";
+    const fontStackPrimaryDots = "KGPrimaryDots, sans-serif";
+    const fontStackSchoolDotted = "SchoolHandDotted, KGPrimaryDots, sans-serif";
+    const fontStackKidsDashed = "LearningCurveDashed, KGPrimaryDots, sans-serif";
 
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
     // We'll set the font per-tspan to allow mixing solid (model) and dotted (practice)
