@@ -410,7 +410,7 @@ export default function HandwritingMakerPage() {
           const font = (() => {
             if (textStyle === 'true-monoline') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
             if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
-            if (textStyle === 'school-cursive') return isDotted ? 'FoundationDots' : 'ABeeZee';
+            if (textStyle === 'school-cursive') return isDotted ? 'SchoolHandDotted' : 'ABeeZee';
             if (textStyle === 'cursive') return isDotted ? 'LearningCurveDashed' : 'CedarvilleCursive';
             if (textStyle === 'bubble') return 'Codystar';
             return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
@@ -666,6 +666,38 @@ export default function HandwritingMakerPage() {
 
     return (
       <svg id="handwriting-sheet" viewBox={`0 0 ${pageW} ${pageH}`} className="w-full h-auto bg-white shadow-2xl rounded-sm" role="img" aria-label="Handwriting sheet preview">
+        <defs>
+          <style type="text/css">{`
+            @font-face {
+              font-family: 'SchoolHandDotted';
+              src: url('/fonts/SchoolHandDotted.ttf') format('truetype');
+            }
+            @font-face {
+              font-family: 'KGPrimaryDots';
+              src: url('/fonts/kg_primary_dots.ttf') format('truetype');
+            }
+            @font-face {
+              font-family: 'LearningCurveDashed';
+              src: url('/fonts/learning_curve_dashed.ttf') format('truetype');
+            }
+            @font-face {
+              font-family: 'LearningCurve';
+              src: url('/fonts/learning_curve.ttf') format('truetype');
+            }
+            @font-face {
+              font-family: 'ABeeZeeLocal';
+              src: url('/fonts/abeezee_regular.ttf') format('truetype');
+            }
+            @font-face {
+              font-family: 'Codystar';
+              src: url('/fonts/codystar.ttf') format('truetype');
+            }
+            @font-face {
+              font-family: 'CedarvilleCursive';
+              src: url('/fonts/cedarville_cursive.ttf') format('truetype');
+            }
+          `}</style>
+        </defs>
         <rect width={pageW} height={pageH} fill={theme.bg} />
         <rect x={margin / 2} y={margin / 2} width={pageW - margin} height={pageH - margin} fill="none" stroke={theme.secondary} strokeWidth={1} opacity="0.3" />
 
