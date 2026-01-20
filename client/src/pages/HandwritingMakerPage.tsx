@@ -39,62 +39,7 @@ export default function HandwritingMakerPage() {
   const { t, isRTL } = useTranslation();
 
   React.useEffect(() => {
-    // Add Fonts
-    const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Playwrite+GB+S:wght@100..400&family=Sacramento&display=swap';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @font-face {
-        font-family: 'Codystar';
-        src: url('/fonts/codystar.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'CedarvilleCursive';
-        src: url('/fonts/cedarville_cursive.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'LearningCurve';
-        src: url('/fonts/learning_curve.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'ABeeZee';
-        src: url('/fonts/abeezee_regular.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'LearningCurveDashed';
-        src: url('/fonts/learning_curve_dashed.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'KGPrimaryDots';
-        src: url('/fonts/kg_primary_dots.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'FoundationDots';
-        src: url('/fonts/FoundationDots-Regular.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-      }
-    `;
-    document.head.appendChild(style);
-
-    return () => {
-      document.head.removeChild(style);
-    };
+    // Fonts are now loaded via index.css for better reliability
   }, []);
 
   const { toast } = useToast();
@@ -205,13 +150,13 @@ export default function HandwritingMakerPage() {
       return window.btoa(binary);
     };
 
-    const [codystarB64, cedarvilleB64, learningCurveDashedB64, learningCurveSolidB64, abeezeeB64, foundationDotsB64, kgPrimaryDotsB64] = await Promise.all([
+    const [codystarB64, cedarvilleB64, learningCurveDashedB64, learningCurveSolidB64, abeezeeB64, schoolHandDottedB64, kgPrimaryDotsB64] = await Promise.all([
       fetchFontBase64('/fonts/codystar.ttf'),
       fetchFontBase64('/fonts/cedarville_cursive.ttf'),
       fetchFontBase64('/fonts/learning_curve_dashed.ttf'),
       fetchFontBase64('/fonts/learning_curve.ttf'),
       fetchFontBase64('/fonts/abeezee_regular.ttf'),
-      fetchFontBase64('/fonts/FoundationDots-Regular.ttf'),
+      fetchFontBase64('/fonts/SchoolHandDotted.ttf'),
       fetchFontBase64('/fonts/kg_primary_dots.ttf')
     ]);
 
@@ -228,8 +173,8 @@ export default function HandwritingMakerPage() {
     doc.addFont('ABeeZee-Regular.ttf', 'ABeeZee', 'normal');
 
     // Load new true single-stroke dotted fonts
-    doc.addFileToVFS('FoundationDots.ttf', foundationDotsB64);
-    doc.addFont('FoundationDots.ttf', 'FoundationDots', 'normal');
+    doc.addFileToVFS('SchoolHandDotted.ttf', schoolHandDottedB64);
+    doc.addFont('SchoolHandDotted.ttf', 'SchoolHandDotted', 'normal');
     doc.addFileToVFS('KGPrimaryDots.ttf', kgPrimaryDotsB64);
     doc.addFont('KGPrimaryDots.ttf', 'KGPrimaryDots', 'normal');
 
@@ -613,12 +558,12 @@ export default function HandwritingMakerPage() {
     })();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const fontStackPrint = "ABeeZee, sans-serif";
+    const fontStackPrint = "ABeeZee, ABeeZeeLocal, Inter, system-ui, sans-serif";
     const fontStackCursive = "CedarvilleCursive, cursive";
     const fontStackKidsMonoline = "LearningCurve, cursive";
-    const fontStackSchoolMonoline = "ABeeZee, sans-serif";
+    const fontStackSchoolMonoline = "ABeeZee, ABeeZeeLocal, Inter, system-ui, sans-serif";
     const fontStackPrimaryDots = "KGPrimaryDots";
-    const fontStackSchoolDotted = "FoundationDots";
+    const fontStackSchoolDotted = "SchoolHandDotted";
     const fontStackKidsDashed = "LearningCurveDashed";
 
     const fontWeight = textStyle === 'bubble' ? '800 ' : '';
