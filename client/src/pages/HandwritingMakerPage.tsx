@@ -593,38 +593,56 @@ export default function HandwritingMakerPage() {
       const extra = Math.max(0, charCount - 1) * letterSpacing;
       return base + extra;
     };
-    const tokens = src ? src.split(' ') : [];
-    const lines: string[] = [];
+    const lines: { text: string; isContinuation: boolean }[] = [];
     let current = '';
-    const pushCurrent = () => { if (current) { lines.push(current); current = ''; } };
+    let isCurrentLineContinuation = false;
+
+    const pushLine = (text: string, isCont: boolean) => {
+      if (text) lines.push({ text, isContinuation: isCont });
+    };
+
+    const tokens = src ? src.split(' ') : [];
     for (let ti = 0; ti < tokens.length && lines.length < rowsCount; ti++) {
       const token = tokens[ti];
-      if (token === '<br>') { pushCurrent(); continue; }
+      if (token === '<br>') {
+        pushLine(current, isCurrentLineContinuation);
+        current = '';
+        isCurrentLineContinuation = false;
+        continue;
+      }
       const next = current ? `${current} ${token}` : token;
       if (measureWithSpacing(next) <= availableWidth) {
         current = next;
         continue;
       }
       if (!current) {
-        // token itself too long: split by characters
+        // Token itself too long: split by characters
         let part = '';
+        let isFirstSegmentOfToken = true;
         for (const ch of token) {
           const test = part + ch;
           if (measureWithSpacing(test) <= availableWidth) {
             part = test;
           } else {
-            if (part) lines.push(part);
+            if (part) {
+              // Only the very first segment of the token on its first line is NOT a continuation
+              pushLine(part, isCurrentLineContinuation || !isFirstSegmentOfToken);
+              isFirstSegmentOfToken = false;
+            }
             part = ch;
             if (lines.length >= rowsCount) break;
           }
         }
         current = part;
+        isCurrentLineContinuation = !isFirstSegmentOfToken;
       } else {
-        pushCurrent();
-        ti--; // reprocess token on next line
+        pushLine(current, isCurrentLineContinuation);
+        current = '';
+        isCurrentLineContinuation = false;
+        ti--; // reprocess token
       }
     }
-    if (lines.length < rowsCount && current) lines.push(current);
+    if (lines.length < rowsCount && current) pushLine(current, isCurrentLineContinuation);
     const rows = lines.slice(0, rowsCount);
     const theme = THEMES[colorTheme as ColorTheme] || THEMES.classic;
     const baselineColor = theme.primary;
@@ -710,7 +728,8 @@ export default function HandwritingMakerPage() {
           </>
         )}
 
-        {rows.map((text, idx) => {
+        {rows.map((rowObj, idx) => {
+          const { text, isContinuation } = rowObj;
           const y = startY + idx * lineGap;
           const mid = y - fontSize * 0.35;
           const top = y - fontSize * 0.7;
@@ -743,7 +762,7 @@ export default function HandwritingMakerPage() {
                 {(() => {
                   const parts = text.split(' ');
                   return parts.map((part, pIdx) => {
-                    const isModel = showModelWord && pIdx === 0;
+                    const isModel = showModelWord && pIdx === 0 && !isContinuation;
                     const isFaint = tracingStyle === 'faint' && !isModel;
                     const isDotted = tracingStyle === 'dotted' && !isModel;
 
@@ -773,11 +792,10 @@ export default function HandwritingMakerPage() {
                             {firstChar}
                           </tspan>
                           <tspan
-                            fontFamily={getFontFamily(isDotted)}
+                            fontFamily={getFontFamily(tracingStyle === 'dotted')}
                             fill={(() => {
-                              const isNativeDotted = isDotted && textStyle !== 'bubble';
-                              if (isNativeDotted) return theme.text;
-                              if (isFaint) return '#cbd5e1';
+                              if (tracingStyle === 'dotted' && textStyle !== 'bubble') return theme.text;
+                              if (tracingStyle === 'faint') return '#cbd5e1';
                               if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                               return theme.text;
                             })()}
