@@ -259,12 +259,6 @@ export default function HandwritingMakerPage() {
       return parts.join(' ');
     })();
 
-    // Wrapping logic
-    const tokens = srcText ? srcText.split(' ') : [];
-    const pdfRows: string[] = [];
-    let current = '';
-    const availableWidth = pageW - margin * 2 - 20;
-
     const letterSpacingAdjustment = (() => {
       if (textStyle === 'school-cursive') return 20; // Match Playwrite wide kerning
       if (textStyle === 'monoline-cursive') return 10;
@@ -297,37 +291,62 @@ export default function HandwritingMakerPage() {
       return measure(txt) + Math.max(0, charCount - 1) * letterSpacing;
     };
 
-    const pushCurrent = () => { if (current) { pdfRows.push(current); current = ''; } };
+    // Wrapping logic synced with PreviewSVG
+    const tokens = srcText ? srcText.split(' ') : [];
+    const pdfRows: { text: string; isContinuation: boolean }[] = [];
+    let current = '';
+    let isCurrentLineContinuation = false;
+    const availableWidth = pageW - margin * 2 - 20;
+
+    const pushLine = (text: string, isCont: boolean) => {
+      if (text) pdfRows.push({ text, isContinuation: isCont });
+    };
+
     for (let ti = 0; ti < tokens.length; ti++) {
       const token = tokens[ti];
-      if (token === '<br>') { pushCurrent(); continue; }
+      if (token === '<br>') {
+        pushLine(current, isCurrentLineContinuation);
+        current = '';
+        isCurrentLineContinuation = false;
+        continue;
+      }
       const next = current ? `${current} ${token}` : token;
       if (measureWithSpacing(next) <= availableWidth) {
         current = next;
       } else {
         if (current) {
-          pushCurrent();
-          ti--;
+          pushLine(current, isCurrentLineContinuation);
+          current = '';
+          isCurrentLineContinuation = false;
+          ti--; // reprocess token
         } else {
+          // Token itself too long: split by characters
           let part = '';
+          let isFirstSegmentOfToken = true;
           for (const ch of token) {
-            if (measureWithSpacing(part + ch) <= availableWidth) {
-              part += ch;
+            const test = part + ch;
+            if (measureWithSpacing(test) <= availableWidth) {
+              part = test;
             } else {
-              pdfRows.push(part);
+              if (part) {
+                pushLine(part, isCurrentLineContinuation || !isFirstSegmentOfToken);
+                isFirstSegmentOfToken = false;
+              }
               part = ch;
             }
           }
           current = part;
+          isCurrentLineContinuation = !isFirstSegmentOfToken;
         }
       }
     }
-    if (current) pdfRows.push(current);
+    if (current) pushLine(current, isCurrentLineContinuation);
 
     // Initial page header
     drawHeader();
 
-    pdfRows.forEach((txt, idx) => {
+    pdfRows.forEach((rowObj, idx) => {
+      const { text, isContinuation } = rowObj;
       const pageIdx = Math.floor(idx / rowsPerPage);
       const rowInPage = idx % rowsPerPage;
 
@@ -369,12 +388,12 @@ export default function HandwritingMakerPage() {
       doc.setFontSize(fontSizeVal);
 
       // Rendering word by word to support per-word styles (Model Word)
-      const wordsInRow = txt.split(' ');
+      const wordsInRow = text.split(' ');
       let currentX = margin + 16;
 
       wordsInRow.forEach((word, wordIdx) => {
-        // Only model the first token in the row
-        const isModel = showModelWord && wordIdx === 0;
+        // Only model the first token in the row IF it's not a continuation line
+        const isModel = showModelWord && wordIdx === 0 && !isContinuation;
         const isFaint = tracingStyle === 'faint' && !isModel;
         const isDotted = tracingStyle === 'dotted' && !isModel;
 
@@ -406,14 +425,13 @@ export default function HandwritingMakerPage() {
           currentX += doc.getTextWidth(firstChar);
 
           // Now draw the rest of the word
-          const isDotted = tracingStyle === 'dotted';
           const font = (() => {
-            if (textStyle === 'true-monoline') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
-            if (textStyle === 'monoline-cursive') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
-            if (textStyle === 'school-cursive') return isDotted ? 'SchoolHandDotted' : 'ABeeZee';
-            if (textStyle === 'cursive') return isDotted ? 'LearningCurveDashed' : 'CedarvilleCursive';
+            if (textStyle === 'true-monoline') return tracingStyle === 'dotted' ? 'LearningCurveDashed' : 'LearningCurve';
+            if (textStyle === 'monoline-cursive') return tracingStyle === 'dotted' ? 'LearningCurveDashed' : 'LearningCurve';
+            if (textStyle === 'school-cursive') return tracingStyle === 'dotted' ? 'SchoolHandDotted' : 'ABeeZee';
+            if (textStyle === 'cursive') return tracingStyle === 'dotted' ? 'LearningCurveDashed' : 'CedarvilleCursive';
             if (textStyle === 'bubble') return 'Codystar';
-            return isDotted ? 'KGPrimaryDots' : 'ABeeZee';
+            return tracingStyle === 'dotted' ? 'KGPrimaryDots' : 'ABeeZee';
           })();
           doc.setFont(font, textStyle === 'bubble' ? 'bold' : 'normal');
 
@@ -480,7 +498,8 @@ export default function HandwritingMakerPage() {
       doc.setCharSpace(0);
     });
 
-    const fileNameText = (pdfRows[0] || 'worksheet').substring(0, 15).replace(/\s+/g, '-');
+    const firstRowText = pdfRows[0]?.text || 'worksheet';
+    const fileNameText = firstRowText.substring(0, 15).replace(/\s+/g, '-');
     doc.save(`handwriting-${fileNameText}.pdf`);
 
     // Track download
