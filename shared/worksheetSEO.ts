@@ -161,6 +161,15 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     learningObjectives: ['Recall simple scientific facts from the text', 'Identify the main topic of a reading passage', 'Practice decoding informational text'],
     richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Grade 1 Literacy: 'All About Ants' Reading Passage</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Explore the natural world while building reading fluency with our 'All About Ants' comprehension worksheet. Designed for 1st grade, this informational passage blends simple phonics with fascinating biological facts to keep young readers engaged and curious. Free PDF download for home or school.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Reading to Learn Science</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">One of the most exciting shifts in Grade 1 is when children begin <strong>reading to learn</strong>. Our informational passage on ants uses <strong>high-frequency words</strong> and short sentences to build literacy confidence while teaching basic zoology. By identifying the queen ant, workers, and tunnel systems, students practice <strong>factual recall</strong>—a critical skill for future science and social studies success. This dual-track learning makes literacy practice feel meaningful and fun.</p></section><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Foundational Skills Featured</h2><ul style=\"color: #475569; line-height: 1.6; padding-left: 1.5rem;\"><li style=\"margin-bottom: 0.5rem;\"><strong>Decoding Sprints:</strong> Practicing smooth reading of simple phonetic words in a narrative context.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Fact Identification:</strong> Scanning the text specifically to find the answers to directed questions.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Vocabulary Growth:</strong> Introducing scientific terms like 'colony' and 'insect' in an accessible way.</li></ul></section><section><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Premium Elementary Literacy PDFs</h2><p style=\"color: #475569; line-height: 1.6;\">Wizqo produces professional grade educational resources that are free and instantly accessible. Our reading passages are distraction-free and educator-aligned to support standard primary outcomes. Every download includes a clear answer key for instant feedback. Start your scientific reading journey today!</p></section></article>"
   },
+  'sub-2digit-100': {
+    title: '2-Digit Subtraction Within 100 Worksheets - Free PDF | Wizqo',
+    metaDescription: 'Free printable 2-digit subtraction worksheets without regrouping. Perfect for 1st and 2nd grade math practice. Download PDF with answer keys.',
+    h1: '2-Digit Subtraction Within 100: Math Practice',
+    richContent: "<p>Mastering <strong>2-digit subtraction</strong> is a major milestone for 1st and 2nd grade students. This worksheet focuses on subtracting double-digit numbers within 100, helping children transition from simple facts to more complex calculation strategies.</p><h3>Key Math Skills Covered</h3><ul><li><strong>Place Value Awareness:</strong> Understanding how to align tens and ones columns correctly.</li><li><strong>Mental Math Fluency:</strong> Developing speed and accuracy with larger numbers without needing finger counting.</li><li><strong>Problem Solving:</strong> Building the confidence to tackle more complex multi-step subtraction problems independently.</li></ul><h3>How to Use This Worksheet</h3><p>This printable PDF is designed for daily practice. Encourage students to solve the problems column by column, starting with the ones place. For beginners, using physical manipulatives (like base-ten blocks) alongside this worksheet can reinforce the concept of 'taking away' larger quantities.</p><p><strong>Teacher Tip:</strong> Use these sheets as timed drills to build speed, or as homework to reinforce classroom lessons on subtraction strategies.</p>",
+    keywords: '2 digit subtraction worksheets, subtraction within 100, double digit subtraction, 2nd grade math worksheets, free printable math pdf',
+    grade: ['1st Grade', '2nd Grade'],
+    category: ['Math', 'Subtraction']
+  },
   'add-2digit-100': {
     title: 'Adding 2-Digit Numbers within 100 - Vertical Addition | Wizqo',
     metaDescription: 'Practice vertical addition within 100 without regrouping. Build accuracy and speed with our 2-digit addition worksheet. Free printable PDF for 1st-2nd grade.',
@@ -2964,9 +2973,20 @@ function createTitle(docId: string): string {
   return docId
     .split('-')
     .map(word => {
-      // Handle numbers
+      // Handle common abbreviations and numbers
       if (/^\d+$/.test(word)) return word
       if (word === 'mult') return 'Multiplication'
+      if (word === 'sub') return 'Subtraction'
+      if (word === 'add') return 'Addition'
+      if (word === 'div') return 'Division'
+      if (word === '2digit') return '2-Digit'
+      if (word === '3digit') return '3-Digit'
+      if (word === 'pto') return 'PTO'
+      if (word === 'hto') return 'HTO'
+      if (word === 'az') return 'A-Z'
+      if (word === 'k2') return 'K-2'
+      if (word === 'id') return 'Identification'
+
       // Capitalize first letter
       return word.charAt(0).toUpperCase() + word.slice(1)
     })
