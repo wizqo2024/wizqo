@@ -1,0 +1,99 @@
+[LaunchDarkly] LaunchDarkly client initialized
+/usage:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+12Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'battery'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+framework-bef28564ea6cb849.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-bef28564ea6cb849.js:1Understand this warning
+HobbyPlanGen:1 Access to fetch at 'https://sp.replit.com/v1/m' from origin 'https://replit.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+sp.replit.com/v1/m:1 
+            
+            
+           Failed to load resource: net::ERR_FAILEDUnderstand this error
+_app-1245c501402b6aae.js:13 Error sending segment performance metrics TypeError: Failed to fetch
+    at _app-1245c501402b6aae.js:13:9046
+    at _app-1245c501402b6aae.js:1:131351
+    at o (_app-1245c501402b6aae.js:20:43442)
+    at o (sdk.min.js:1:23763)
+    at t.<anonymous> (remote-metrics.ts:138:12)
+    at tslib.es6.js:103:23
+    at Object.next (tslib.es6.js:108:37)
+    at tslib.es6.js:80:8
+    at new Promise (<anonymous>)
+    at u (tslib.es6.js:72:27)
+    at t.send (sdk.min.js:1:22021)
+    at t.<anonymous> (remote-metrics.ts:125:16)
+    at tslib.es6.js:103:23
+    at Object.next (tslib.es6.js:108:37)
+    at tslib.es6.js:80:8
+    at new Promise (<anonymous>)
+    at u (tslib.es6.js:72:27)
+    at t.flush (sdk.min.js:1:21754)
+    at l (remote-metrics.ts:83:14)
+    at n (_app-1245c501402b6aae.js:13:2959)
+(anonymous) @ _app-1245c501402b6aae.js:13Understand this error
+The service worker navigation preload request was cancelled before 'preloadResponse' settled. If you intend to use 'preloadResponse', use waitUntil() or respondWith() to wait for the promise to settle.Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+2Console.js:61 Auth timeout - setting loading to false
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 DashboardPage: Auth still loading, waiting...
+Console.js:61 Auth timeout - setting loading to false
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 DashboardPage: No user found, redirecting to home
+2Console.js:61 Auth timeout - setting loading to false
+Console.js:61 Auth form submitted: Object
+Console.js:61 Attempting sign-in...
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2

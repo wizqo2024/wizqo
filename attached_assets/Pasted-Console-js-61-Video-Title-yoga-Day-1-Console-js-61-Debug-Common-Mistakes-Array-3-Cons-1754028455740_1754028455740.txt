@@ -1,0 +1,55 @@
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: 
+Array(3)
+Console.js:61 🐛 Full current day data: 
+Object
+jerhbtrgwrlyoimhxqta…/v1/user_progress:1 
+ Failed to load resource: the server responded with a status of 400 ()
+Console.js:61 📝 PROGRESS: Initialize completed with status: 400
+Console.js:61 📝 PROGRESS: HTTP Error: 400 {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'last_accessed_at' column of 'user_progress' in the schema cache"}
+Console.js:61 ❌ PROGRESS: Error initializing progress: Error: HTTP 400: {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'last_accessed_at' column of 'user_progress' in the schema cache"}
+    at HobbyPlanService.initializeProgress (hobbyPlanService.ts:163:15)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:473:11)
+    at async handleOptionSelect (SplitPlanInterface.tsx:493:7)
+Console.js:61 Error saving surprise plan to Supabase: Error: HTTP 400: {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'last_accessed_at' column of 'user_progress' in the schema cache"}
+    at HobbyPlanService.initializeProgress (hobbyPlanService.ts:163:15)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:473:11)
+    at async handleOptionSelect (SplitPlanInterface.tsx:493:7)
+Console.js:61 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: 
+Array(3)
+Console.js:61 🐛 Full current day data: 
+Object
+Console.js:61 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: 
+Array(3)
+Console.js:61 🐛 Full current day data: 
+Object
+Console.js:61 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: 
+Array(3)
+Console.js:61 🐛 Full current day data: 
+Object
+Console.js:61 📝 DATABASE SAVE: Marking day COMPLETE via API: 1 for plan ID: b650e0f1-bc9f-4940-ab23-e6a2eb96dc1e
+Console.js:61 📝 PROGRESS: Completing day 1 for plan: b650e0f1-bc9f-4940-ab23-e6a2eb96dc1e
+Console.js:61 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+Console.js:61 🐛 Video Title: yoga - Day 1
+Console.js:61 🐛 Debug Common Mistakes: 
+Array(3)
+Console.js:61 🐛 Full current day data: 
+Object
+Console.js:61 🔧 Route change detected - pathname: / hash: #/dashboard
+Console.js:61 DashboardPage: useEffect triggered 
+Object
+Console.js:61 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+Console.js:61 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: Starting plans query via direct API...
+Console.js:61 📖 SUPABASE: Plans query completed via API. Result: 8 plans
+Console.js:61 📖 SUPABASE: Starting progress query via direct API...
+Console.js:61 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+Console.js:61 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+﻿
+

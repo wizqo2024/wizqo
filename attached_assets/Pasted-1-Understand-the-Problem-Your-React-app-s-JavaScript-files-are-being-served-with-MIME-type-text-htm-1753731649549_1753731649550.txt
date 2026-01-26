@@ -1,0 +1,129 @@
+1. Understand the Problem
+Your React app’s JavaScript files are being served with MIME type text/html instead of application/javascript.
+
+This usually happens because the server responds with your index.html page (HTML) instead of the JS file.
+
+Causes: wrong routing, static assets missing, or headers misconfigured.
+
+2. Confirm Build Output Structure
+You have this in your vercel.json:
+
+json
+Copy
+Edit
+"builds": [
+  {
+    "src": "package.json",
+    "use": "@vercel/static-build",
+    "config": {
+      "distDir": "dist/public"
+    }
+  },
+  {
+    "src": "server/index.ts",
+    "use": "@vercel/node"
+  }
+]
+Your build output should be inside dist/public folder.
+
+Your React build typically puts static JS and CSS files inside dist/public/assets/.
+
+Verify this locally:
+
+bash
+Copy
+Edit
+ls dist/public/assets
+Should list your .js and .css files.
+
+3. Correct vercel.json Configuration
+Here is a correct and complete example for vercel.json that:
+
+Serves static files correctly
+
+Routes API calls to your Node server
+
+Serves index.html fallback for client routing
+
+Sets proper MIME headers for JS and CSS files
+
+json
+Copy
+Edit
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist/public" }
+    },
+    {
+      "src": "server/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/api/(.*)", "dest": "/server/index.ts" },
+    { "src": "/assets/(.*)", "dest": "/dist/public/assets/$1" },
+    { "src": "/(.*)", "dest": "/dist/public/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*).js",
+      "headers": [{ "key": "Content-Type", "value": "application/javascript" }]
+    },
+    {
+      "source": "/assets/(.*).css",
+      "headers": [{ "key": "Content-Type", "value": "text/css" }]
+    }
+  ]
+}
+Explanation:
+
+{ "handle": "filesystem" } tries to serve any file directly if it exists.
+
+API calls to /api/... go to your server function.
+
+Static assets (/assets/...) are served explicitly from dist/public/assets/.
+
+All other requests fallback to your SPA's index.html.
+
+Headers enforce correct MIME types on JS and CSS assets.
+
+4. Update package.json Scripts
+Make sure your package.json scripts include:
+
+json
+Copy
+Edit
+"scripts": {
+  "dev": "NODE_ENV=development tsx server/index.ts",
+  "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+  "vercel-build": "npm run build",
+  "start": "NODE_ENV=production node dist/index.js",
+  "check": "tsc",
+  "db:push": "drizzle-kit push"
+}
+vercel-build tells Vercel how to build your app during deployment.
+
+5. Deployment Steps (Shell Commands)
+Run these commands in your project root:
+
+bash
+Copy
+Edit
+# 1. Remove git lock if present
+rm -f .git/index.lock
+
+# 2. Stage changes (vercel.json, package.json, etc.)
+git add .
+
+# 3. Commit with a clear message and author info
+git commit -m "fix: add vercel-build script and vercel.json MIME fix for assets
+- Enables correct MIME types for JS/CSS on Vercel
+- Fixes white screen deployment issue" --author="wizqo <wizqo2024@gmail.com>"
+
+# 4. Push to trigger Vercel deployment
+git push origin main

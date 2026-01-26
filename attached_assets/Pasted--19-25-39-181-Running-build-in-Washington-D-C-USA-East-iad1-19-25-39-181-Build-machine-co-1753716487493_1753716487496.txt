@@ -1,0 +1,119 @@
+[19:25:39.181] Running build in Washington, D.C., USA (East) – iad1
+[19:25:39.181] Build machine configuration: 2 cores, 8 GB
+[19:25:39.194] Cloning github.com/wizqo2024/HobbyPlanGen (Branch: main, Commit: ad6511b)
+[19:25:39.203] Skipping build cache, deployment was triggered without cache.
+[19:25:39.720] Cloning completed: 525.000ms
+[19:25:41.573] Running "vercel build"
+[19:25:42.388] Vercel CLI 44.5.0
+[19:25:42.569] WARN! Due to `builds` existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply. Learn More: https://vercel.link/unused-build-settings
+[19:25:43.127] Installing dependencies...
+[19:25:48.040] npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+[19:25:48.634] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[19:25:48.674] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[19:25:53.893] 
+[19:25:53.893] added 517 packages in 10s
+[19:25:53.894] 
+[19:25:53.894] 71 packages are looking for funding
+[19:25:53.894]   run `npm fund` for details
+[19:25:53.959] Running "npm run build"
+[19:25:54.569] 
+[19:25:54.569] > rest-express@1.0.0 build
+[19:25:54.570] > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+[19:25:54.570] 
+[19:25:54.826] [36mvite v5.4.19 [32mbuilding for production...[36m[39m
+[19:25:54.877] transforming...
+[19:25:55.165] Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
+[19:25:55.166]   npx update-browserslist-db@latest
+[19:25:55.167]   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[19:25:59.600] [32m✓[39m 1689 modules transformed.
+[19:25:59.920] rendering chunks...
+[19:25:59.927] computing gzip size...
+[19:25:59.947] [2m../dist/public/[22m[32mindex.html                 [39m[1m[2m  2.01 kB[22m[1m[22m[2m │ gzip:   0.74 kB[22m
+[19:25:59.947] [2m../dist/public/[22m[2massets/[22m[35mindex-CtSdy7v_.css  [39m[1m[2m107.02 kB[22m[1m[22m[2m │ gzip:  16.66 kB[22m
+[19:25:59.948] [2m../dist/public/[22m[2massets/[22m[36mindex-G9WQI6ms.js   [39m[1m[2m395.41 kB[22m[1m[22m[2m │ gzip: 112.74 kB[22m
+[19:25:59.948] [32m✓ built in 5.10s[39m
+[19:26:00.023] ▲ [WARNING] Duplicate key "guitar" in object literal [duplicate-object-key]
+[19:26:00.023] 
+[19:26:00.023]     server/routes.ts:1365:4:
+[19:26:00.023]       1365 │     guitar: {
+[19:26:00.024]            ╵     ~~~~~~
+[19:26:00.024] 
+[19:26:00.024]   The original key "guitar" is here:
+[19:26:00.024] 
+[19:26:00.024]     server/routes.ts:267:4:
+[19:26:00.024]       267 │     guitar: {
+[19:26:00.025]           ╵     ~~~~~~
+[19:26:00.025] 
+[19:26:00.026] 1 warning
+[19:26:00.026] 
+[19:26:00.026]   dist/index.js  83.3kb
+[19:26:00.026] 
+[19:26:00.026] ⚡ Done in 9ms
+[19:26:00.264] Using TypeScript 5.6.3 (local user-provided)
+[19:26:04.535] server/routes.ts(301,52): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.536] server/routes.ts(311,27): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.536] server/routes.ts(348,52): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.536] server/routes.ts(358,27): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.537] server/routes.ts(395,52): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.537] server/routes.ts(405,27): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.537] server/routes.ts(442,52): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.537] server/routes.ts(452,27): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.538] server/routes.ts(489,52): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.538] server/routes.ts(499,27): error TS2552: Cannot find name 'youtubeVideos'. Did you mean 'getYouTubeVideos'?
+[19:26:04.538] server/routes.ts(536,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.538] server/routes.ts(546,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.538] server/routes.ts(583,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.538] server/routes.ts(593,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.539] server/routes.ts(634,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.539] server/routes.ts(644,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.539] server/routes.ts(681,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.539] server/routes.ts(691,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.540] server/routes.ts(733,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.540] server/routes.ts(743,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.540] server/routes.ts(780,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.540] server/routes.ts(790,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.540] server/routes.ts(827,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.541] server/routes.ts(837,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.541] server/routes.ts(874,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.541] server/routes.ts(884,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.541] server/routes.ts(921,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.541] server/routes.ts(931,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.541] server/routes.ts(968,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.542] server/routes.ts(978,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.542] server/routes.ts(1015,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.542] server/routes.ts(1025,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.542] server/routes.ts(1066,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.542] server/routes.ts(1076,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.542] server/routes.ts(1113,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.542] server/routes.ts(1123,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.545] server/routes.ts(1160,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.545] server/routes.ts(1170,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.546] server/routes.ts(1207,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.546] server/routes.ts(1217,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.546] server/routes.ts(1254,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.546] server/routes.ts(1264,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.546] server/routes.ts(1301,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.546] server/routes.ts(1311,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.553] server/routes.ts(1348,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.553] server/routes.ts(1358,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.553] server/routes.ts(1365,5): error TS1117: An object literal cannot have multiple properties with the same name.
+[19:26:04.553] server/routes.ts(1446,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.554] server/routes.ts(1456,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.554] server/routes.ts(1493,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.554] server/routes.ts(1503,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.554] server/routes.ts(1540,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.554] server/routes.ts(1550,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.554] server/routes.ts(1587,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.555] server/routes.ts(1597,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.555] server/routes.ts(1634,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.555] server/routes.ts(1644,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.555] server/routes.ts(1681,52): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.555] server/routes.ts(1691,27): error TS2304: Cannot find name 'youtubeVideos'.
+[19:26:04.555] 
+[19:26:13.291] Build Completed in /vercel/output [30s]
+[19:26:13.455] Deploying outputs...
+[19:26:20.595] 
+[19:26:20.727] Deployment completed
+[19:26:40.254] Uploading build cache [87.66 MB]...
+[19:26:41.255] Build cache uploaded: 1.007s
+[19:26:43.516] Exiting build container

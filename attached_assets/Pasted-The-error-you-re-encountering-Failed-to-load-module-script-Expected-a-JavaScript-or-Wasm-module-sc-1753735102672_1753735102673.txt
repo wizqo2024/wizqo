@@ -1,0 +1,104 @@
+The error you're encountering, Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html", indicates that the browser is expecting a JavaScript file (index-G9WQI6ms.js) but Vercel is serving an HTML file (likely index.html) with a text/html MIME type. This is consistent with the earlier issue you described, where Vercel is incorrectly serving HTML for JavaScript file requests, likely due to a misconfigured vercel.json or caching issue. Let’s address this systematically and provide a corrected vercel.json configuration to fix the MIME type issue.
+
+Root Cause Recap
+The browser is requesting /assets/index-G9WQI6ms.js, but Vercel responds with index.html and a text/html MIME type.
+This is likely caused by:
+A catch-all rewrite rule in vercel.json redirecting all requests (including .js files) to index.html.
+Stale cache entries serving the wrong content (x-vercel-cache: HIT from your previous curl -I output).
+Incorrect asset path resolution in the build output or deployment configuration.
+Solution
+To fix this, you need to ensure that Vercel serves JavaScript files with the correct application/javascript MIME type and avoids rewriting static asset requests to index.html. Below is a corrected vercel.json configuration that prioritizes serving static assets correctly and sets proper headers for .js files.
+
+vercel.json
+json
+Edit in files
+•
+Show inline
+Explanation of the Artifact
+Headers:
+The headers section explicitly sets the Content-Type for .js files to application/javascript and for .css files to text/css.
+The Cache-Control header with max-age=31536000, immutable ensures that static assets are cached for a year, as they are unlikely to change (especially with hashed filenames like index-G9WQI6ms.js).
+Rewrites:
+The first rewrite rule (/assets/(.*)) ensures that requests to /assets/* are served from the assets directory without being redirected to index.html.
+The second rewrite rule (/(.*)) acts as a catch-all for SPA routing, serving index.html only for non-asset requests.
+Order Matters: The /assets/(.*) rewrite is placed before the catch-all to ensure asset requests are handled first.
+Steps to Apply the Fix
+Update vercel.json:
+Replace your existing vercel.json with the one provided above.
+Ensure it’s in the root of your project directory.
+Verify Build Output:
+Check that index-G9WQI6ms.js exists in your build output under dist/public/assets/ (or the equivalent directory for your framework).
+Run ls -la dist/public/assets/index-G9WQI6ms.js to confirm the file’s presence and size.
+Redeploy to Vercel:
+Redeploy your project to clear the cache and apply the new configuration:
+bash
+
+
+
+
+vercel --prod
+This ensures Vercel uses the updated vercel.json and invalidates stale cache entries.
+Test the JavaScript File:
+Run the following command to verify the MIME type:
+bash
+
+
+
+
+curl -I https://www.wizqo.com/assets/index-G9WQI6ms.js
+Expected output:
+text
+
+
+
+HTTP/2 200
+content-type: application/javascript
+cache-control: public, max-age=31536000, immutable
+If it still shows text/html, double-check the vercel.json syntax and deployment.
+Check index.html Asset References:
+Open your deployed index.html and verify the script tag:
+html
+
+
+
+<script type="module" src="/assets/index-G9WQI6ms.js"></script>
+Ensure the src path matches the file’s location and that type="module" is present (since the error mentions module scripts).
+Clear Browser Cache:
+Clear your browser’s cache or test in an incognito window to avoid stale client-side responses.
+Alternatively, use the browser’s DevTools Network tab to confirm the response for index-G9WQI6ms.js has Content-Type: application/javascript.
+Framework-Specific Checks:
+If using Vite, ensure the base configuration in vite.config.js is set correctly:
+javascript
+
+
+
+
+export default {
+  base: '/',
+}
+For Next.js, ensure the assetPrefix (if used) aligns with your deployment structure.
+Verify that your build command (e.g., vite build or next build) generates assets in the expected assets directory.
+If the Issue Persists
+Check for Conflicting Rules: Ensure no other configuration files (e.g., .htaccess, or framework-specific routing) are overriding vercel.json.
+Inspect Build Logs: In the Vercel dashboard, check the deployment logs to confirm that index-G9WQI6ms.js is uploaded to the correct path (/assets/).
+Test Locally: Use vercel dev to simulate the production environment locally and check if the issue reproduces.
+Contact Vercel Support: If the MIME type remains incorrect, share the following with Vercel support:
+Deployment URL
+vercel.json content
+Output of curl -I https://www.wizqo.com/assets/index-G9WQI6ms.js
+Build logs from the Vercel dashboard
+Additional Notes
+The error specifically mentions "module scripts," which enforces strict MIME type checking (application/javascript or application/wasm). The provided vercel.json addresses this by explicitly setting the correct MIME type.
+The Cache-Control headers in the artifact optimize performance by caching static assets, but you can temporarily set Cache-Control: no-cache for debugging:
+json
+
+Collapse
+
+Wrap
+
+Copy
+{
+  "key": "Cache-Control",
+  "value": "no-cache, no-store, must-revalidate"
+}
+If you’re using a CDN or proxy in front of Vercel, ensure it’s not overriding the Content-Type header.

@@ -1,0 +1,955 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: 
+index-BU2JrqJP.js:52 🔑 Initial session: none
+index-BU2JrqJP.js:52 🔄 Auth context state change: INITIAL_SESSION none
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+index-BU2JrqJP.js:193 🎯 Setting plan data in SplitPlanInterface: Coding
+index-BU2JrqJP.js:193 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Coding",
+  "title": "Learn Coding in 7 Days",
+  "overview": "Master Coding in 7 days with this personalized plan.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Coding Basics & Setup - Day 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in coding. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basics & setup fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical coding scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Coding equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Coding Basics & Setup - Day 1",
+          "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Coding Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Coding Core Techniques - Day 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in coding. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical coding scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Coding equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Coding Core Techniques - Day 2",
+          "link": "https://youtube.com/watch?v=oBu-pQG6sTY"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Coding Beginner Kit",
+          "link": "https://amazon.com/dp/B2334?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Coding Building Skills - Day 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in coding. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with building skills fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical coding scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Coding equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials available",
+        "Timer set for focused building skills practice",
+        "Progress tracking system ready for Day 3"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Coding Building Skills - Day 3",
+          "link": "https://youtube.com/watch?v=VaoV1PrYft4"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Coding Beginner Kit",
+          "link": "https://amazon.com/dp/B3434?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "title": "Coding Practical Application - Day 4",
+      "mainTask": "Apply what you've learned in real-w
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day youtubeVideoId: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Coding - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754092017589-6dltusnl7 Coding
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Coding - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Coding - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+index-BU2JrqJP.js:182 Auth form submitted: Object
+index-BU2JrqJP.js:182 Attempting sign-in...
+jerhbtrgwrlyoimhxqta.supabase.co/auth/v1/token?grant_type=password:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-BU2JrqJP.js:182 Sign-in result: Object
+index-BU2JrqJP.js:182 Sign-in error: AuthApiError: Invalid login credentials
+    at od (index-BU2JrqJP.js:51:8269)
+    at async Pv (index-BU2JrqJP.js:51:9257)
+    at async q (index-BU2JrqJP.js:51:8918)
+    at async Fv.signInWithPassword (index-BU2JrqJP.js:51:22738)
+    at async signIn (index-BU2JrqJP.js:52:38834)
+    at async f (index-BU2JrqJP.js:182:5091)
+f @ index-BU2JrqJP.js:182Understand this error
+index-BU2JrqJP.js:182 Auth error: AuthApiError: Invalid login credentials
+    at od (index-BU2JrqJP.js:51:8269)
+    at async Pv (index-BU2JrqJP.js:51:9257)
+    at async q (index-BU2JrqJP.js:51:8918)
+    at async Fv.signInWithPassword (index-BU2JrqJP.js:51:22738)
+    at async signIn (index-BU2JrqJP.js:52:38834)
+    at async f (index-BU2JrqJP.js:182:5091)
+f @ index-BU2JrqJP.js:182Understand this error
+index-BU2JrqJP.js:182 Error details - code: invalid_credentials message: Invalid login credentials
+index-BU2JrqJP.js:182 Auth form submitted: Object
+index-BU2JrqJP.js:182 Attempting sign-in...
+index-BU2JrqJP.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-BU2JrqJP.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 🔐 User authenticated, auto-closing modal
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/user_profiles?on_conflict=user_id&select=*:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-BU2JrqJP.js:52 ❌ Error creating/updating profile: Object
+createOrUpdateProfile @ index-BU2JrqJP.js:52Understand this error
+index-BU2JrqJP.js:52 ❌ UserProfileService createOrUpdateProfile error: Object
+createOrUpdateProfile @ index-BU2JrqJP.js:52Understand this error
+index-BU2JrqJP.js:52 Failed to sync user profile in auth context: Object
+(anonymous) @ index-BU2JrqJP.js:52Understand this error
+index-BU2JrqJP.js:182 Sign-in result: Object
+index-BU2JrqJP.js:182 Sign-in successful
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 5 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 2 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 0 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 0 entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 0 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🗑️ Deleting plan: 4344fad8-3040-4f08-8a76-768c0b95a746 Learn cooking in 7 Days
+index-BU2JrqJP.js:182 🗑️ DELETING PLAN: Starting delete for plan: 4344fad8-3040-4f08-8a76-768c0b95a746 user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 🗑️ DELETE: Fetch completed with status: 204
+index-BU2JrqJP.js:182 ✅ DELETE SUCCESS: Plan deleted successfully
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 4 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 2 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 0 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 0 entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 0 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🗑️ Deleting plan: 2795d485-c735-43be-b7d4-9294c1114859 Learn yoga in 7 Days
+index-BU2JrqJP.js:182 🗑️ DELETING PLAN: Starting delete for plan: 2795d485-c735-43be-b7d4-9294c1114859 user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 🗑️ DELETE: Fetch completed with status: 204
+index-BU2JrqJP.js:182 ✅ DELETE SUCCESS: Plan deleted successfully
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 3 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 2 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 0 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 0 entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 0 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🗑️ Deleting plan: c6e36eda-6a96-4c44-b14d-ac4d67285061 Learn guitar in 7 Days
+index-BU2JrqJP.js:182 🗑️ DELETING PLAN: Starting delete for plan: c6e36eda-6a96-4c44-b14d-ac4d67285061 user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 🗑️ DELETE: Fetch completed with status: 204
+index-BU2JrqJP.js:182 ✅ DELETE SUCCESS: Plan deleted successfully
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 2 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 2 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 0 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 0 entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 0 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🗑️ Deleting plan: 563d99cd-97a2-4920-83b9-48b917ffbe55 Learn quran in 7 Days
+index-BU2JrqJP.js:182 🗑️ DELETING PLAN: Starting delete for plan: 563d99cd-97a2-4920-83b9-48b917ffbe55 user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 🗑️ DELETE: Fetch completed with status: 204
+index-BU2JrqJP.js:182 ✅ DELETE SUCCESS: Plan deleted successfully
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 1 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 2 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 0 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 0 entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 0 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🗑️ Deleting plan: f8bdbe44-02a3-4621-a179-6108d111b2e3 Learn photography in 7 Days
+index-BU2JrqJP.js:182 🗑️ DELETING PLAN: Starting delete for plan: f8bdbe44-02a3-4621-a179-6108d111b2e3 user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 🗑️ DELETE: Fetch completed with status: 204
+index-BU2JrqJP.js:182 ✅ DELETE SUCCESS: Plan deleted successfully
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 0 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 2 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 0 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 0 entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 0 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+index-BU2JrqJP.js:193 🎯 Setting plan data in SplitPlanInterface: Drawing
+index-BU2JrqJP.js:193 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Drawing",
+  "title": "Learn Drawing in 7 Days",
+  "overview": "Master Drawing in 7 days with this personalized plan.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Drawing Basics & Setup - Day 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in drawing. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basics & setup fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical drawing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Drawing equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Drawing Basics & Setup - Day 1",
+          "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Drawing Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Drawing Core Techniques - Day 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in drawing. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical drawing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Drawing equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Drawing Core Techniques - Day 2",
+          "link": "https://youtube.com/watch?v=oBu-pQG6sTY"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Drawing Beginner Kit",
+          "link": "https://amazon.com/dp/B2334?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Drawing Building Skills - Day 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in drawing. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with building skills fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical drawing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Drawing equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials available",
+        "Timer set for focused building skills practice",
+        "Progress tracking system ready for Day 3"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Drawing Building Skills - Day 3",
+          "link": "https://youtube.com/watch?v=VaoV1PrYft4"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Drawing Beginner Kit",
+          "link": "https://amazon.com/dp/B3434?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "title": "Drawing Practical Application - Day 4",
+      "mainTask": "Apply what yo
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day youtubeVideoId: v7AYKMP6rOE
+index-BU2JrqJP.js:193 Saving surprise plan to Supabase for authenticated user...
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:193 🔧 FIXED plan data - first day commonMistakes: Array(3)
+index-BU2JrqJP.js:193 🔧 FIXED plan data - first day youtubeVideoId: v7AYKMP6rOE
+index-BU2JrqJP.js:182 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 💾 SUPABASE SAVE: Plan data: Object
+index-BU2JrqJP.js:182 🔍 CHECKING: Looking for existing plan for hobby: drawing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754092876497-5qswl60zv Drawing
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:182 🔍 CHECKING: Found 0 existing plans for hobby: drawing
+index-BU2JrqJP.js:182 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+index-BU2JrqJP.js:182 💾 SUPABASE SAVE: Fetch completed with status: 201
+index-BU2JrqJP.js:182 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+index-BU2JrqJP.js:193 ✅ Plan saved successfully, setting plan ID: 38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: Marking day COMPLETE via API: 1 for plan ID: 38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Completing day 1 for plan: 38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Updated completed days: Array(1)
+index-BU2JrqJP.js:182 📝 PROGRESS: Updating progress via API for plan: 38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: RLS cache issue - saving to session storage until resolved
+index-BU2JrqJP.js:182 ✅ PROGRESS: Day completed successfully (saved to session storage)
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: Successfully saved progress to database
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: Marking day COMPLETE via API: 2 for plan ID: 38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Completing day 2 for plan: 38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Found existing session progress: Array(2)
+index-BU2JrqJP.js:182 📝 PROGRESS: Updated completed days: Array(2)
+index-BU2JrqJP.js:182 📝 PROGRESS: Updating progress via API for plan: 38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:182 📝 PROGRESS: RLS cache issue - saving to session storage until resolved
+index-BU2JrqJP.js:182 ✅ PROGRESS: Day completed successfully (saved to session storage)
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: Successfully saved progress to database
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 1 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 3 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Navigating to plan: Drawing
+index-BU2JrqJP.js:397 📍 Dashboard: Available plan fields: Array(10)
+index-BU2JrqJP.js:397 📍 Dashboard: Plan data structure: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Found days array with length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: Days array length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: First day sample: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Storing complete plan data: Object
+index-BU2JrqJP.js:397 🔄 handleBackToPlan called with: specific plan
+index-BU2JrqJP.js:397 📍 Navigating to specific plan: Learn Drawing in 7 Days
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/plan
+index-BU2JrqJP.js:397 📍 Loading plan from session: Drawing
+index-BU2JrqJP.js:397 ✅ Using plan data from state: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Drawing
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:193 🔍 User authenticated, searching for existing plan ID...
+index-BU2JrqJP.js:193 📍 Database-only progress tracking - no localStorage used
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754092907943-jxplgz192 Drawing
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Drawing
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Drawing
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?select=id&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&hobby=eq.Drawing&order=created_at.desc&limit=1:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-BU2JrqJP.js:193 ⚠️ No existing plan found for this hobby
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 1 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 4 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: currentPlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Navigating to plan: Drawing
+index-BU2JrqJP.js:397 📍 Dashboard: Available plan fields: Array(10)
+index-BU2JrqJP.js:397 📍 Dashboard: Plan data structure: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Found days array with length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: Days array length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: First day sample: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Storing complete plan data: Object
+index-BU2JrqJP.js:397 🔄 handleBackToPlan called with: specific plan
+index-BU2JrqJP.js:397 📍 Navigating to specific plan: Learn Drawing in 7 Days
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/plan
+index-BU2JrqJP.js:397 📍 Loading plan from session: Drawing
+index-BU2JrqJP.js:397 ✅ Using plan data from state: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Drawing
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:193 🔍 User authenticated, searching for existing plan ID...
+index-BU2JrqJP.js:193 📍 Database-only progress tracking - no localStorage used
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754092922900-g1erzgz8l Drawing
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Drawing
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Drawing
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?select=id&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&hobby=eq.Drawing&order=created_at.desc&limit=1:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-BU2JrqJP.js:193 ⚠️ No existing plan found for this hobby
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 1 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 4 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: currentPlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Navigating to plan: Drawing
+index-BU2JrqJP.js:397 📍 Dashboard: Available plan fields: Array(10)
+index-BU2JrqJP.js:397 📍 Dashboard: Plan data structure: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Found days array with length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: Days array length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: First day sample: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Storing complete plan data: Object
+index-BU2JrqJP.js:397 🔄 handleBackToPlan called with: specific plan
+index-BU2JrqJP.js:397 📍 Navigating to specific plan: Learn Drawing in 7 Days
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/plan
+index-BU2JrqJP.js:397 📍 Loading plan from session: Drawing
+index-BU2JrqJP.js:397 ✅ Using plan data from state: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Drawing
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:193 🔍 User authenticated, searching for existing plan ID...
+index-BU2JrqJP.js:193 📍 Database-only progress tracking - no localStorage used
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754092931594-awjpjc18q Drawing
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Drawing
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Drawing
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?select=id&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&hobby=eq.Drawing&order=created_at.desc&limit=1:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-BU2JrqJP.js:193 ⚠️ No existing plan found for this hobby
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: oBu-pQG6sTY
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: VaoV1PrYft4
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 3
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: VaoV1PrYft4
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 3
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: VaoV1PrYft4
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 3
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: VaoV1PrYft4
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 3
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 1 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 4 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: currentPlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Navigating to plan: Drawing
+index-BU2JrqJP.js:397 📍 Dashboard: Available plan fields: Array(10)
+index-BU2JrqJP.js:397 📍 Dashboard: Plan data structure: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Found days array with length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: Days array length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: First day sample: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Storing complete plan data: Object
+index-BU2JrqJP.js:397 🔄 handleBackToPlan called with: specific plan
+index-BU2JrqJP.js:397 📍 Navigating to specific plan: Learn Drawing in 7 Days
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/plan
+index-BU2JrqJP.js:397 📍 Loading plan from session: Drawing
+index-BU2JrqJP.js:397 ✅ Using plan data from state: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Drawing
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:193 🔍 User authenticated, searching for existing plan ID...
+index-BU2JrqJP.js:193 📍 Database-only progress tracking - no localStorage used
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754092950708-ha13akgin Drawing
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Drawing
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Drawing
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?select=id&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&hobby=eq.Drawing&order=created_at.desc&limit=1:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-BU2JrqJP.js:193 ⚠️ No existing plan found for this hobby
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/blog
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/blog
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/blog
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 1 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 4 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: currentPlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_38cf1e49-123a-4a34-a39f-96765611edef Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Navigating to plan: Drawing
+index-BU2JrqJP.js:397 📍 Dashboard: Available plan fields: Array(10)
+index-BU2JrqJP.js:397 📍 Dashboard: Plan data structure: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Found days array with length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: Days array length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: First day sample: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Storing complete plan data: Object
+index-BU2JrqJP.js:397 🔄 handleBackToPlan called with: specific plan
+index-BU2JrqJP.js:397 📍 Navigating to specific plan: Learn Drawing in 7 Days
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/plan
+index-BU2JrqJP.js:397 📍 Loading plan from session: Drawing
+index-BU2JrqJP.js:397 ✅ Using plan data from state: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Drawing
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Drawing
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Drawing
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:193 🔍 User authenticated, searching for existing plan ID...
+index-BU2JrqJP.js:193 📍 Database-only progress tracking - no localStorage used
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754092981827-j2cnlijt1 Drawing
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Drawing
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Drawing
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?select=id&user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&hobby=eq.Drawing&order=created_at.desc&limit=1:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-BU2JrqJP.js:193 ⚠️ No existing plan found for this hobby
+index-BU2JrqJP.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-BU2JrqJP.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-BU2JrqJP.js:199 🐛 Video Title: Drawing - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Drawing
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Drawing
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Drawing
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Drawing

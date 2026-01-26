@@ -1,0 +1,78 @@
+    /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-72a3d6261d93b6f0.js:13 [LaunchDarkly] LaunchDarkly client initialized
+/@djameer1953/HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+framework-dd942f0276655939.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-dd942f0276655939.js:1Understand this error
+framework-dd942f0276655939.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'battery'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+framework-dd942f0276655939.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-dd942f0276655939.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+framework-dd942f0276655939.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-dd942f0276655939.js:1Understand this error
+workspace_iframe.html:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔑 Initial session: none
+Console.js:61 🔄 Auth context state change: INITIAL_SESSION none
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔑 Initial session: none
+Console.js:61 🔄 Auth context state change: INITIAL_SESSION none
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message

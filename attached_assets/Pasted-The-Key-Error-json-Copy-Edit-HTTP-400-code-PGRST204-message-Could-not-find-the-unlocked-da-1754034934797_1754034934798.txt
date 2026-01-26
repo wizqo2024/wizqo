@@ -1,0 +1,58 @@
+The Key Error
+json
+Copy
+Edit
+HTTP 400: {"code":"PGRST204","message":"Could not find the 'unlocked_days' column of 'user_progress' in the schema cache"}
+This means that your code is trying to read/write to a column named unlocked_days in the user_progress table, but Supabase doesn’t recognize that column. The most common causes:
+
+✅ How to Fix It
+1. Check if the unlocked_days column exists
+Log into Supabase → go to the user_progress table:
+
+If unlocked_days is missing, you need to add it.
+
+Type: Likely should be integer[] (array of ints) or jsonb, depending on your logic.
+
+sql
+Copy
+Edit
+-- Example if you're using integer arrays
+ALTER TABLE user_progress ADD COLUMN unlocked_days integer[];
+
+-- Or if using JSON
+-- ALTER TABLE user_progress ADD COLUMN unlocked_days jsonb;
+📌 Choose the correct type that matches how your frontend/backend expects to use it.
+
+2. Refresh Supabase Schema Cache
+Sometimes, even after adding a column, the PostgREST layer may not pick it up. To force a refresh:
+
+Go to Project Settings → API → Regenerate API Cache.
+
+Or: make a dummy schema change (e.g., rename a column temporarily) and revert it.
+
+3. Check for Supabase Row-Level Security (RLS)
+Make sure you have RLS policies that allow read/write access to the unlocked_days column:
+
+sql
+Copy
+Edit
+-- Basic example policy
+CREATE POLICY "Allow access to user_progress" ON user_progress
+FOR ALL
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
+🧪 Optional: Log the payload
+Also confirm that your frontend is sending a valid payload. Console logs mention:
+
+js
+Copy
+Edit
+HobbyPlanService.updateProgress(...)
+You might want to console.log the updatePayload or inspect the network request to ensure unlocked_days is part of the body and matches the expected structure.
+
+⚠️ Other Minor Warnings (Can Ignore for Now)
+CSP errors (Refused to frame 'https://www.google.com/') — browser security policy, not critical.
+
+Unrecognized feature: 'ambient-light-sensor' — warning, harmless.
+
+allow-downloads-without-user-activation — typo or invalid sandbox attribute flag.

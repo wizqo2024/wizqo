@@ -1,0 +1,2214 @@
+stallwart: failed ping 1
+_app-d5721402a0753ca4.js:13 [LaunchDarkly] LaunchDarkly client initialized
+stallwart.build.js:1 stallwart: failed ping 1
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+25Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'battery'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+framework-9c40cea28e5a102c.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-9c40cea28e5a102c.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+2stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+stallwart.build.js:1 stallwart: failed ping 1
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:13 onClick is deprecated, please use onPress
+(anonymous) @ _app-d5721402a0753ca4.js:13Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509
+t @ _app-d5721402a0753ca4.js:1
+(anonymous) @ _app-d5721402a0753ca4.js:28
+r @ _app-d5721402a0753ca4.js:28
+(anonymous) @ _app-d5721402a0753ca4.js:28
+then @ _app-d5721402a0753ca4.js:28
+(anonymous) @ _app-d5721402a0753ca4.js:28
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:15
+n @ _app-d5721402a0753ca4.js:15
+next @ _app-d5721402a0753ca4.js:28
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+onNext @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+next @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:40
+(anonymous) @ _app-d5721402a0753ca4.js:40
+next @ _app-d5721402a0753ca4.js:40
+v @ _app-d5721402a0753ca4.js:23
+y @ _app-d5721402a0753ca4.js:23
+t.next @ _app-d5721402a0753ca4.js:23
+(anonymous) @ _app-d5721402a0753ca4.js:40Understand this error
+4_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+6_app-d5721402a0753ca4.js:13 An aria-label or aria-labelledby prop is required for accessibility.
+(anonymous) @ _app-d5721402a0753ca4.js:13Understand this warning
+7_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔧 Found existing plan in session storage for generate route: hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556794352-bt7mcl9yw hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔧 Found existing plan in session storage for generate route: hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556810634-ej8ed449h hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556878920-18sqxi18b hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556878930-1ic6b1kjy hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔧 Found existing plan in session storage for generate route: hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556898136-0q1xhlqul hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔧 Route change detected - pathname: / hash: #/blog
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔧 Found existing plan in session storage for generate route: hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556899582-q757d2rok hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔧 Found existing plan in session storage for generate route: hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556901836-nrtklgf9y hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+_app-d5721402a0753ca4.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-d5721402a0753ca4.js:1:132261)
+    at _app-d5721402a0753ca4.js:28:58884
+    at r (_app-d5721402a0753ca4.js:28:43219)
+    at _app-d5721402a0753ca4.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-d5721402a0753ca4.js:28:43112)
+    at Object.next (_app-d5721402a0753ca4.js:28:43229)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:15:109536
+    at Array.forEach (<anonymous>)
+    at n (_app-d5721402a0753ca4.js:15:109505)
+    at Object.next (_app-d5721402a0753ca4.js:28:44340)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.onNext [as next] (_app-d5721402a0753ca4.js:40:250945)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at Object.next (_app-d5721402a0753ca4.js:40:250067)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-d5721402a0753ca4.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-d5721402a0753ca4.js:40:246849)
+    at v (_app-d5721402a0753ca4.js:23:5666)
+    at y (_app-d5721402a0753ca4.js:23:6188)
+    at t.next (_app-d5721402a0753ca4.js:23:6689)
+    at _app-d5721402a0753ca4.js:40:249509Understand this error
+Console.js:61 ✅ YouTube video loaded successfully: kJQP7kiw5Fk
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔧 Found existing plan in session storage for generate route: hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556929480-3bvbf5rnj hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔧 Route change detected - pathname: / hash: #/blog
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔧 Found existing plan in session storage for generate route: hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556933590-8yepdh9w1 hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔧 Found existing plan in session storage for generate route: hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: false
+Console.js:61 🔍 RENDER DEBUG: planData.days length: undefined
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: false
+Console.js:61 🔍 RENDER DEBUG: currentStep: hobby
+Console.js:61 🔍 RENDER DEBUG: will show plan: false
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 Checking for fresh plan marker: NOT FOUND
+Console.js:61 🔍 User authenticated, looking for plan ID for existing hobby: hiking
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: hiking
+Console.js:61 🔄 Initializing with existing plan data: hiking
+Console.js:61 🔍 fixPlanDataFields - Examining data structure:
+Console.js:61 🔍 plan.days length: 7
+Console.js:61 🔍 plan.plan_data?.days length: 0
+Console.js:61 🔍 plan.plan_data?.plan_data?.days length: 0
+Console.js:61 🔍 First day youtubeVideoId from different paths:
+Console.js:61 🔍   plan.days?.[0]?.youtubeVideoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.days?.[0]?.videoId: kJQP7kiw5Fk
+Console.js:61 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+Console.js:61 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Introduction to Hiking",
+  "mainTask": "Learn the basics of hiking and gear essentials.",
+  "explanation": "This day introduces you to hiking, its benefits, and the essential gear you'll need.",
+  "howTo": [
+    "Research the benefits of hiking for physical and mental health.",
+    "Identify essential hiking gear: sturdy shoes, backpack, water bottle, and weather-appropriate clothing.",
+    "Watch a beginner's guide to hiking video.",
+    "Create a checklist of gear you already own and what you need to buy.",
+    "Plan a short walk in your neighborhood to test your gear."
+  ],
+  "checklist": [
+    "Sturdy shoes",
+    "Backpack",
+    "Water bottle",
+    "Weather-appropriate clothing",
+    "Notebook for notes"
+  ],
+  "tips": [
+    "Start with comfortable shoes to avoid blisters.",
+    "Hydrate before, during, and after your hike.",
+    "Dress in layers to adjust to changing weather."
+  ],
+  "mistakesToAvoid": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ],
+  "freeResources": [],
+  "affiliateProducts": [
+    {
+      "title": "Hiking Starter Kit Day 1",
+      "link": "https://www.amazon.com/s?k=hiking+starter+kit&tag=wizqohobby-20",
+      "price": "$24.99"
+    }
+  ],
+  "youtubeVideoId": "kJQP7kiw5Fk",
+  "videoId": "kJQP7kiw5Fk",
+  "videoTitle": "Introduction to Hiking - hiking Tutorial",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Wearing new shoes without breaking them in.",
+    "Overpacking your backpack.",
+    "Ignoring weather forecasts."
+  ]
+}
+Console.js:61 🔍 FRONTEND - All keys in first day: Array(16)
+Console.js:61 🔍 FRONTEND - youtubeVideoId value type: string
+Console.js:61 🔍 FRONTEND - videoId value type: string
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🧹 Clearing any stale plan markers for old plan
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Plan data loaded, resetting selectedDay to 1
+Console.js:61 🔍 Direct Supabase session check: plan-1754556947823-0mkmfhgby hiking
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(1)
+Console.js:61 🔍 Filtered plans for hobby: Array(0)
+Console.js:61 🔍 Search comparison - extractedHobby vs initialPlanData.hobby: Object
+Console.js:61 🚨 No plans found for hobby: hiking
+Console.js:61 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: hiking
+Console.js:61 🚨 Available plan titles: Array(1)
+Console.js:61 🚨 This indicates a plan lookup issue - checking if plan exists with different title format
+Console.js:61 🔍 RENDER DEBUG: planData exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days exists: true
+Console.js:61 🔍 RENDER DEBUG: planData.days length: 7
+Console.js:61 🔍 RENDER DEBUG: planData.days is array: true
+Console.js:61 🔍 RENDER DEBUG: currentStep: plan
+Console.js:61 🔍 RENDER DEBUG: will show plan: true
+Console.js:61 🔍 DEBUG: selectedDay: 1
+Console.js:61 🔍 DEBUG: planData.days length: 7
+Console.js:61 🔍 DEBUG: currentDay found: true Introduction to Hiking
+Console.js:61 🔍 DEBUG: day status: unlocked
+Console.js:61 🎨 Plan AUTO-IMAGE: "hiking" -> category-based generation
+Console.js:61 🎨 Plan AUTO-GENERATED: "hiking" -> unique category-based image
+Console.js:61 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487376
+Console.js:61 🐛 Debug YouTube Video ID: kJQP7kiw5Fk
+Console.js:61 🐛 Video Title: Introduction to Hiking - hiking Tutorial
+Console.js:61 TIP 0: Using icon at index 0
+Console.js:61 TIP 1: Using icon at index 1
+Console.js:61 TIP 2: Using icon at index 2
+Console.js:61 🐛 Debug Common Mistakes: (3) ['Wearing new shoes without breaking them in.', 'Overpacking your backpack.', 'Ignoring weather forecasts.']
+Console.js:61 🐛 Full current day data: {day: 1, title: 'Introduction to Hiking', mainTask: 'Learn the basics of hiking and gear essentials.', explanation: "This day introduces you to hiking, its benefits, and the essential gear you'll need.", howTo: Array(5), …}
+Console.js:61 MISTAKE 0: Using icon at index 0
+Console.js:61 MISTAKE 1: Using icon at index 1
+Console.js:61 MISTAKE 2: Using icon at index 2

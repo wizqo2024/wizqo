@@ -1,0 +1,234 @@
+stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+_app-a5e2be32b56f0efa.js:18 [LaunchDarkly] LaunchDarkly client initialized
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+stallwart.build.js:1 stallwart: failed ping 5
+stallwart.build.js:1 stallwart: session stalled
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+21Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'battery'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+framework-bbcfeb8144d32693.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-bbcfeb8144d32693.js:1Understand this warning
+logs.browser-intake-us5-datadoghq.com/api/v2/logs?ddsource=browser&ddtags=sdk_version%3A4.46.0%2Capi%3Abeacon%2Cenv%3Aproduction%2Cservice%3Awebsite%2Cversion%3Ad67ad732&dd-api-key=pub31a5047a3a4692afb84a423db984dc57&dd-evp-origin-version=4.46.0&dd-evp-origin=browser&dd-request-id=aff412be-9040-48a7-821a-217d7d9f8761:1 
+            
+            
+           Failed to load resource: net::ERR_CONNECTION_CLOSEDUnderstand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Auth state changed: SIGNED_IN Object
+Console.js:61 User signed in successfully: Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 Initial session: Object
+Console.js:61 Auth state changed: INITIAL_SESSION Object
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: drawing
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "drawing",
+  "title": "Learn drawing in 7 Days",
+  "overview": "A comprehensive drawing learning plan tailored for beginner learners",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Drawing Fundamentals",
+      "mainTask": "Learn essential drawing techniques and practice hands-on exercises with detailed instruction.",
+      "explanation": "Day 1 focuses on building your foundation in drawing with practical exercises that build on previous learning.",
+      "howTo": [
+        "Start with basic drawing concepts and terminology",
+        "Practice fundamental techniques with step-by-step guidance",
+        "Complete hands-on exercises designed for beginner level",
+        "Review and refine your skills through deliberate practice",
+        "Document your progress and identify areas for improvement"
+      ],
+      "checklist": [
+        "All necessary drawing equipment and materials ready",
+        "Comfortable practice space set up appropriately",
+        "Reference materials and guides easily accessible",
+        "Timer for focused practice sessions",
+        "Method to track progress and take notes"
+      ],
+      "tips": [
+        "Take your time with each exercise - quality over speed",
+        "Don't be afraid to repeat difficult parts multiple times",
+        "Practice regularly in short sessions rather than long marathons"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Drawing Day 1 Tutorial",
+          "link": "https://youtube.com/watch?v=rf5_MPSNAtU"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Drawing Essential Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqo-20",
+          "price": "$19.99"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Drawing Fundamentals",
+      "mainTask": "Learn essential drawing techniques and practice hands-on exercises with detailed instruction.",
+      "explanation": "Day 2 focuses on building your foundation in drawing with practical exercises that build on previous learning.",
+      "howTo": [
+        "Start with basic drawing concepts and terminology",
+        "Practice fundamental techniques with step-by-step guidance",
+        "Complete hands-on exercises designed for beginner level",
+        "Review and refine your skills through deliberate practice",
+        "Document your progress and identify areas for improvement"
+      ],
+      "checklist": [
+        "All necessary drawing equipment and materials ready",
+        "Comfortable practice space set up appropriately",
+        "Reference materials and guides easily accessible",
+        "Timer for focused practice sessions",
+        "Method to track progress and take notes"
+      ],
+      "tips": [
+        "Take your time with each exercise - quality over speed",
+        "Don't be afraid to repeat difficult parts multiple times",
+        "Practice regularly in short sessions rather than long marathons"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Drawing Day 2 Tutorial",
+          "link": "https://youtube.com/watch?v=UScm9O2YaMM"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Drawing Essential Kit",
+          "link": "https://amazon.com/dp/B2234?tag=wizqo-20",
+          "price": "$24.99"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Drawing Fundamentals",
+      "mainTask": "Learn essential drawing techniques and practice hands-on exercises with detailed instruction.",
+      "explanation": "Day 3 focuses on building your foundation in drawing with practical exercises that build on previous learning.",
+      "howTo": [
+        "Start with basic drawing concepts and terminology",
+        "Practice fundamental techniques with step-by-step guidance",
+        "Complete hands-on exercises designed for beginner level",
+        "Review and refine your skills through deliberate practice",
+        "Document your progress and identify areas for improvement"
+      ],
+      "checklist": [
+        "All necessary drawing equipment and materials ready",
+        "Comfortable practice space set up appropriately",
+        "Reference materials and guides easily accessible",
+        "Timer for focused practice sessions",
+        "Method to track progress and take notes"
+      ],
+      "tips": [
+        "Take your time with each exercise - quality over speed",
+        "Don't be afraid to repeat difficult parts multiple times",
+        "Practice regularly in short sessions rather than long marathons"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Drawing Day 3 Tutorial",
+          "link": "https://youtube.com/watch?v=V3WmrWUEIJo"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Drawing Essential Kit",
+          "link": "https://amazon.com/dp/B3234?tag=wizqo-20",
+          "price": "$29.99"
+        }
+      ]
+ 
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 Saving plan to database for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📝 API SERVICE: Creating hobby plan for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 hobby: drawing
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: undefined
+Console.js:61 🐛 Debug Common Mistakes: undefined
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔍 IMMEDIATE STORING plan for navigation (SplitPlanInterface): plan-1753889676454-d2178dba9 drawing
+Console.js:61 📝 API SERVICE: Created plan with ID: 17
+Console.js:61 Plan saved successfully to database: 17
+Console.js:61 Initializing progress for plan: 17
+Console.js:61 📝 API SERVICE: Creating/updating user progress for: 773c3f18-025a-432d-ae3d-fa13be3faef8 plan: 17
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: undefined
+Console.js:61 🐛 Debug Common Mistakes: undefined
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 📝 API SERVICE: Updated progress for plan: 17
+Console.js:61 Progress initialized successfully
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: undefined
+Console.js:61 🐛 Debug Common Mistakes: undefined
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: undefined
+Console.js:61 🐛 Debug Common Mistakes: undefined
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: undefined
+Console.js:61 🐛 Video Title: undefined
+Console.js:61 🐛 Debug Common Mistakes: undefined
+Console.js:61 🐛 Full current day data: Object

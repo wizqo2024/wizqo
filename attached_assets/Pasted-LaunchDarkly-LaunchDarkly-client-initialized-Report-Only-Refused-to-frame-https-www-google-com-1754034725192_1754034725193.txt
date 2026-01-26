@@ -1,0 +1,200 @@
+LaunchDarkly] LaunchDarkly client initialized
+[Report Only] Refused to frame 'https://www.google.com/' because an ancestor violates the following Content Security Policy directive: "frame-ancestors 'self'".
+Understand this error
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+stallwart.build.js:1 stallwart: failed ping 1
+62Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'battery'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+2stallwart.build.js:1 stallwart: failed ping 1
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: /generate hash: #/dashboard
+Console.js:61 DashboardPage: useEffect triggered [object Object]
+Console.js:61 DashboardPage: Auth still loading, waiting...
+Console.js:61 🔑 Initial session: none
+Console.js:61 DashboardPage: useEffect triggered [object Object]
+Console.js:61 DashboardPage: No user found, will show please sign in message
+Console.js:61 🔄 Auth context state change: INITIAL_SESSION none
+Console.js:61 Auth form submitted: [object Object]
+Console.js:61 Attempting sign-in...
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔐 User authenticated, auto-closing modal
+Console.js:61 DashboardPage: useEffect triggered [object Object]
+Console.js:61 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+Console.js:61 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: Starting plans query via direct API...
+Console.js:61 📖 SUPABASE: Plans query completed via API. Result: 11 plans
+Console.js:61 📖 SUPABASE: Starting progress query via direct API...
+Console.js:61 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+Console.js:61 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: All data fetched, setting loading to false
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/user_profiles?on_conflict=user_id&select=*:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+Console.js:61 ❌ Error creating/updating profile: [object Object]
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 ❌ UserProfileService createOrUpdateProfile error: [object Object]
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Failed to sync user profile in auth context: [object Object]
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Sign-in result: [object Object]
+Console.js:61 Sign-in successful
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: #/blog
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/dashboard
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+Console.js:61 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: Starting plans query via direct API...
+Console.js:61 📖 SUPABASE: Plans query completed via API. Result: 11 plans
+Console.js:61 📖 SUPABASE: Starting progress query via direct API...
+Console.js:61 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+Console.js:61 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: All data fetched, setting loading to false
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔧 Route change detected - pathname: / hash: #/dashboard
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+Console.js:61 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: Starting plans query via direct API...
+Console.js:61 📖 SUPABASE: Plans query completed via API. Result: 11 plans
+Console.js:61 📖 SUPABASE: Starting progress query via direct API...
+Console.js:61 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+Console.js:61 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: All data fetched, setting loading to false
+Console.js:61 📍 Dashboard: Navigating to plan: gardening
+Console.js:61 📍 Dashboard: Available plan fields: Array(10)
+Console.js:61 📍 Dashboard: Plan data structure: Object
+Console.js:61 📍 Dashboard: Found days array with length: 7
+Console.js:61 📍 Dashboard: Days array length: 7
+Console.js:61 📍 Dashboard: First day sample: Object
+Console.js:61 📍 Dashboard: Storing complete plan data: Object
+Console.js:61 🔄 handleBackToPlan called with: specific plan
+Console.js:61 📍 Navigating to specific plan: Learn gardening in 7 Days
+Console.js:61 🔧 Route change detected - pathname: / hash: #/plan
+Console.js:61 📍 Loading plan from session: gardening
+Console.js:61 ✅ Using plan data from state: gardening
+Console.js:61 🔄 Initializing with existing plan data: gardening
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 User authenticated, looking for plan ID for hobby: gardening
+Console.js:61 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔍 Using direct API to find plans for hobby: gardening
+Console.js:61 🔄 Initializing with existing plan data: gardening
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 Applied field mapping fix to initial plan data
+Console.js:61 🔍 User authenticated, searching for existing plan ID...
+Console.js:61 📍 Database-only progress tracking - no localStorage used
+Console.js:61 🐛 Debug YouTube Video ID: wKOeJOfMQX4
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔍 Direct Supabase session check: plan-1754034705726-5q5gi3dfw gardening
+Console.js:61 🔍 Direct API query result: Object
+Console.js:61 🔍 All user plans: Array(11)
+Console.js:61 🔍 Filtered plans for hobby: Array(3)
+Console.js:61 🎯 Found plan via auth context: d96283b5-2fc0-4a49-acf2-40f1c10db5a8 for title: Learn gardening in 7 Days
+Console.js:61 🐛 Debug YouTube Video ID: wKOeJOfMQX4
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔍 Progress query result: Object
+Console.js:61 📝 DATABASE SAVE: Marking day COMPLETE via API: 1 for plan ID: d96283b5-2fc0-4a49-acf2-40f1c10db5a8
+Console.js:61 📝 PROGRESS: Completing day 1 for plan: d96283b5-2fc0-4a49-acf2-40f1c10db5a8
+Console.js:61 🐛 Debug YouTube Video ID: wKOeJOfMQX4
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 📝 PROGRESS: Updating progress via API for plan: d96283b5-2fc0-4a49-acf2-40f1c10db5a8
+jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/user_progress:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+Console.js:61 ❌ PROGRESS: Failed to update progress: 400 {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'last_accessed_at' column of 'user_progress' in the schema cache"}
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error updating progress: Error: HTTP 400: {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'last_accessed_at' column of 'user_progress' in the schema cache"}
+    at HobbyPlanService.updateProgress (hobbyPlanService.ts:274:15)
+    at async HobbyPlanService.completeDay (hobbyPlanService.ts:311:14)
+    at async toggleDayCompletion (SplitPlanInterface.tsx:934:13)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 ❌ PROGRESS: Error completing day: Error: HTTP 400: {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'last_accessed_at' column of 'user_progress' in the schema cache"}
+    at HobbyPlanService.updateProgress (hobbyPlanService.ts:274:15)
+    at async HobbyPlanService.completeDay (hobbyPlanService.ts:311:14)
+    at async toggleDayCompletion (SplitPlanInterface.tsx:934:13)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 📝 DATABASE SAVE: Failed to save progress to database: Error: HTTP 400: {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'last_accessed_at' column of 'user_progress' in the schema cache"}
+    at HobbyPlanService.updateProgress (hobbyPlanService.ts:274:15)
+    at async HobbyPlanService.completeDay (hobbyPlanService.ts:311:14)
+    at async toggleDayCompletion (SplitPlanInterface.tsx:934:13)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error updating day completion: Error: HTTP 400: {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'last_accessed_at' column of 'user_progress' in the schema cache"}
+    at HobbyPlanService.updateProgress (hobbyPlanService.ts:274:15)
+    at async HobbyPlanService.completeDay (hobbyPlanService.ts:311:14)
+    at async toggleDayCompletion (SplitPlanInterface.tsx:934:13)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🐛 Debug YouTube Video ID: wKOeJOfMQX4
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: wKOeJOfMQX4
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: wKOeJOfMQX4
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object

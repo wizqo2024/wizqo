@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <defs>
+    <style>
+      .favicon-bg { fill: #4845D2; }
+      .favicon-inner { fill: #A5B4FC; }
+      .favicon-eyes { fill: #000; }
+      .favicon-highlights { fill: #fff; }
+    </style>
+  </defs>
+  
+  <!-- Main container -->
+  <rect x="0.5" y="3" width="15" height="10" rx="5" ry="5" class="favicon-bg"/>
+  
+  <!-- Inner area -->
+  <rect x="1.5" y="4.5" width="13" height="7" rx="3.5" ry="3.5" class="favicon-inner"/>
+  
+  <!-- Left eye -->
+  <circle cx="5" cy="8" r="2" class="favicon-eyes"/>
+  <circle cx="4.5" cy="7.25" r="0.5" class="favicon-highlights"/>
+  
+  <!-- Right eye -->
+  <circle cx="11" cy="8" r="2" class="favicon-eyes"/>
+  <circle cx="10.5" cy="7.25" r="0.5" class="favicon-highlights"/>
+</svg>

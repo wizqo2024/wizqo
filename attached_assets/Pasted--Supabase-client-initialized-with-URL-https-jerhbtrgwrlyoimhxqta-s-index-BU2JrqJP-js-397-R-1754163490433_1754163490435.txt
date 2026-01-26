@@ -1,0 +1,709 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: 
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/blog
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+index-BU2JrqJP.js:193 🎯 Setting plan data in SplitPlanInterface: Gardening
+index-BU2JrqJP.js:193 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Gardening",
+  "title": "Learn Gardening in 7 Days",
+  "overview": "Master Gardening in 7 days with this personalized plan.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Gardening Basics & Setup - Day 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in gardening. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basics & setup fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical gardening scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Gardening equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Gardening Basics & Setup - Day 1",
+          "link": "https://youtube.com/watch?v=BO8yuSTc3fo"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Gardening Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Gardening Core Techniques - Day 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in gardening. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical gardening scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Gardening equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Gardening Core Techniques - Day 2",
+          "link": "https://youtube.com/watch?v=BxAYBBAnUEI"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Gardening Beginner Kit",
+          "link": "https://amazon.com/dp/B2334?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Gardening Building Skills - Day 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in gardening. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with building skills fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical gardening scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Gardening equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials available",
+        "Timer set for focused building skills practice",
+        "Progress tracking system ready for Day 3"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Gardening Building Skills - Day 3",
+          "link": "https://youtube.com/watch?v=e-A_Ir5Hb2Y"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Gardening Beginner Kit",
+          "link": "https://amazon.com/dp/B3434?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "title": "Gardening Practical Applicatio
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day youtubeVideoId: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754162789648-4c50orpjq Gardening
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:182 Auth form submitted: Object
+index-BU2JrqJP.js:182 Attempting sign-in...
+jerhbtrgwrlyoimhxqta.supabase.co/auth/v1/token?grant_type=password:1 
+            
+            
+           Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-BU2JrqJP.js:182 Sign-in result: Object
+index-BU2JrqJP.js:182 Sign-in error: AuthApiError: Invalid login credentials
+    at od (index-BU2JrqJP.js:51:8269)
+    at async Pv (index-BU2JrqJP.js:51:9257)
+    at async q (index-BU2JrqJP.js:51:8918)
+    at async Fv.signInWithPassword (index-BU2JrqJP.js:51:22738)
+    at async signIn (index-BU2JrqJP.js:52:38834)
+    at async f (index-BU2JrqJP.js:182:5091)
+f @ index-BU2JrqJP.js:182Understand this error
+index-BU2JrqJP.js:182 Auth error: AuthApiError: Invalid login credentials
+    at od (index-BU2JrqJP.js:51:8269)
+    at async Pv (index-BU2JrqJP.js:51:9257)
+    at async q (index-BU2JrqJP.js:51:8918)
+    at async Fv.signInWithPassword (index-BU2JrqJP.js:51:22738)
+    at async signIn (index-BU2JrqJP.js:52:38834)
+    at async f (index-BU2JrqJP.js:182:5091)
+f @ index-BU2JrqJP.js:182Understand this error
+index-BU2JrqJP.js:182 Error details - code: invalid_credentials message: Invalid login credentials
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:182 Auth form submitted: Object
+index-BU2JrqJP.js:182 Attempting sign-in...
+index-BU2JrqJP.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-BU2JrqJP.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:182 🔐 User authenticated, auto-closing modal
+index-BU2JrqJP.js:184 🔐 User signed in, closing auth modal
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BO8yuSTc3fo
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BxAYBBAnUEI
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BxAYBBAnUEI
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BxAYBBAnUEI
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: BxAYBBAnUEI
+index-BU2JrqJP.js:199 🐛 Video Title: Gardening - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 2 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 2 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 0 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 0 entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 0 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/generate
+index-BU2JrqJP.js:182 🔄 Initializing messages state with welcome message
+index-BU2JrqJP.js:193 🎯 Setting plan data in SplitPlanInterface: Guitar
+index-BU2JrqJP.js:193 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Guitar",
+  "title": "Learn Guitar in 7 Days",
+  "overview": "Master Guitar in 7 days with this personalized plan.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Guitar Basics & Setup - Day 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in guitar. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basics & setup fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical guitar scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Guitar equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Guitar Basics & Setup - Day 1",
+          "link": "https://youtube.com/watch?v=XUf_xWZVpZ8"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Guitar Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Guitar Core Techniques - Day 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in guitar. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical guitar scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Guitar equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Guitar Core Techniques - Day 2",
+          "link": "https://youtube.com/watch?v=NkeM-Qv3jdY"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Guitar Beginner Kit",
+          "link": "https://amazon.com/dp/B2334?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Guitar Building Skills - Day 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in guitar. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with building skills fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical guitar scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Guitar equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials available",
+        "Timer set for focused building skills practice",
+        "Progress tracking system ready for Day 3"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Guitar Building Skills - Day 3",
+          "link": "https://youtube.com/watch?v=Zw0lAATAEr4"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Guitar Beginner Kit",
+          "link": "https://amazon.com/dp/B3434?tag=wizqo-20"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "title": "Guitar Practical Application - Day 4",
+      "mainTask": "Apply what you've learned in real-w
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-BU2JrqJP.js:193 🔧 CORRECTED plan data - first day youtubeVideoId: XUf_xWZVpZ8
+index-BU2JrqJP.js:193 Saving surprise plan to Supabase for authenticated user...
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:193 🔧 FIXED plan data - first day commonMistakes: Array(3)
+index-BU2JrqJP.js:193 🔧 FIXED plan data - first day youtubeVideoId: XUf_xWZVpZ8
+index-BU2JrqJP.js:182 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 💾 SUPABASE SAVE: Plan data: Object
+index-BU2JrqJP.js:182 🔍 CHECKING: Looking for existing plan for hobby: guitar user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754162876626-p2pxug4sb Guitar
+index-BU2JrqJP.js:182 🔍 CHECKING: Found 0 existing plans for hobby: guitar
+index-BU2JrqJP.js:182 💾 SUPABASE SAVE: Making direct fetch request to Supabase API
+index-BU2JrqJP.js:182 💾 SUPABASE SAVE: Fetch completed with status: 201
+index-BU2JrqJP.js:182 ✅ SUPABASE SAVE SUCCESS: Plan saved successfully: Object
+index-BU2JrqJP.js:193 ✅ Plan saved successfully, setting plan ID: 6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: Skipping progress initialization - RLS issues resolved later
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: Marking day COMPLETE via API: 1 for plan ID: 6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: Completing day 1 for plan: 6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Updated completed days: Array(1)
+index-BU2JrqJP.js:182 📝 PROGRESS: Updating progress via API for plan: 6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: RLS cache issue - saving to session storage until resolved
+index-BU2JrqJP.js:182 ✅ PROGRESS: Day completed successfully (saved to session storage)
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: Successfully saved progress to database
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: Marking day COMPLETE via API: 2 for plan ID: 6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: Completing day 2 for plan: 6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: Found existing session progress: Array(2)
+index-BU2JrqJP.js:182 📝 PROGRESS: Updated completed days: Array(2)
+index-BU2JrqJP.js:182 📝 PROGRESS: Updating progress via API for plan: 6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:182 📝 PROGRESS: RLS cache issue - saving to session storage until resolved
+index-BU2JrqJP.js:182 ✅ PROGRESS: Day completed successfully (saved to session storage)
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: Successfully saved progress to database
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 3 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 3 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_6c92e9b9-26de-4782-b545-403549b94ed8 Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 🗑️ Deleting plan: 3763148d-2881-48bb-8b22-77162c8b9f16 Learn Yoga in 7 Days
+index-BU2JrqJP.js:182 🗑️ DELETING PLAN: Starting delete for plan: 3763148d-2881-48bb-8b22-77162c8b9f16 user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 🗑️ DELETE: Fetch completed with status: 204
+index-BU2JrqJP.js:182 ✅ DELETE SUCCESS: Plan deleted successfully
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 2 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 3 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_6c92e9b9-26de-4782-b545-403549b94ed8 Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 🗑️ Deleting plan: b8379d38-49b3-45bc-8e85-2e876b7ac7e0 Learn Cooking in 7 Days
+index-BU2JrqJP.js:182 🗑️ DELETING PLAN: Starting delete for plan: b8379d38-49b3-45bc-8e85-2e876b7ac7e0 user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 🗑️ DELETE: Fetch completed with status: 204
+index-BU2JrqJP.js:182 ✅ DELETE SUCCESS: Plan deleted successfully
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 1 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 3 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_6c92e9b9-26de-4782-b545-403549b94ed8 Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Navigating to plan: Guitar
+index-BU2JrqJP.js:397 📍 Dashboard: Available plan fields: Array(10)
+index-BU2JrqJP.js:397 📍 Dashboard: Plan data structure: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Found days array with length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: Days array length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: First day sample: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Storing complete plan data: Object
+index-BU2JrqJP.js:397 🔄 handleBackToPlan called with: specific plan
+index-BU2JrqJP.js:397 📍 Navigating to specific plan: Learn Guitar in 7 Days
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/plan
+index-BU2JrqJP.js:397 📍 Loading plan from session: Guitar
+index-BU2JrqJP.js:397 ✅ Using plan data from state: Guitar
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Guitar
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Guitar
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Guitar
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Guitar
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:193 🔍 User authenticated, searching for existing plan ID...
+index-BU2JrqJP.js:193 📍 Database-only progress tracking - no localStorage used
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754162896290-k133flnih Guitar
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Guitar
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Guitar
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-BU2JrqJP.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Guitar
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Guitar
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Guitar
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Guitar
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: NkeM-Qv3jdY
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 2
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/dashboard
+index-BU2JrqJP.js:397 DashboardPage: useEffect triggered Object
+index-BU2JrqJP.js:397 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+index-BU2JrqJP.js:397 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting plans query via direct API...
+index-BU2JrqJP.js:397 📖 SUPABASE: Plans query completed via API. Result: 1 plans
+index-BU2JrqJP.js:397 📖 SUPABASE: Starting progress query with session storage fallback...
+index-BU2JrqJP.js:182 📖 SUPABASE: Starting progress query via direct API...
+index-BU2JrqJP.js:182 📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Scanning sessionStorage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:182 📝 PROGRESS: SessionStorage has 4 total items
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: currentPlanData
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: activePlanId
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_6c92e9b9-26de-4782-b545-403549b94ed8
+index-BU2JrqJP.js:182 📝 PROGRESS: Found session progress for key: progress_773c3f18-025a-432d-ae3d-fa13be3faef8_6c92e9b9-26de-4782-b545-403549b94ed8 Object
+index-BU2JrqJP.js:182 📝 PROGRESS: Session progress scan complete. Found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Checking session storage for user: 773c3f18-025a-432d-ae3d-fa13be3faef8 found: 1 entries
+index-BU2JrqJP.js:182 📝 PROGRESS: Adding 1 session storage progress entries
+index-BU2JrqJP.js:397 📖 SUPABASE: Progress query completed via service. Result: 1 progress entries
+index-BU2JrqJP.js:397 📖 Fetching user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:397 📖 SUPABASE: All data fetched, setting loading to false
+index-BU2JrqJP.js:397 🎯 Dashboard calculating progress: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Navigating to plan: Guitar
+index-BU2JrqJP.js:397 📍 Dashboard: Available plan fields: Array(10)
+index-BU2JrqJP.js:397 📍 Dashboard: Plan data structure: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Found days array with length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: Days array length: 7
+index-BU2JrqJP.js:397 📍 Dashboard: First day sample: Object
+index-BU2JrqJP.js:397 📍 Dashboard: Storing complete plan data: Object
+index-BU2JrqJP.js:397 🔄 handleBackToPlan called with: specific plan
+index-BU2JrqJP.js:397 📍 Navigating to specific plan: Learn Guitar in 7 Days
+index-BU2JrqJP.js:397 🔧 Route change detected - pathname: / hash: #/plan
+index-BU2JrqJP.js:397 📍 Loading plan from session: Guitar
+index-BU2JrqJP.js:397 ✅ Using plan data from state: Guitar
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Guitar
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:184 🔍 User authenticated, looking for plan ID for hobby: Guitar
+index-BU2JrqJP.js:184 🔍 User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-BU2JrqJP.js:184 🔍 Using direct API to find plans for hobby: Guitar
+index-BU2JrqJP.js:184 🔄 Initializing with existing plan data: Guitar
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Input plan structure: Object
+index-BU2JrqJP.js:182 🔧 fixPlanDataFields - Output plan days count: 7
+index-BU2JrqJP.js:184 🔧 Applied field mapping fix to initial plan data
+index-BU2JrqJP.js:193 🔍 User authenticated, searching for existing plan ID...
+index-BU2JrqJP.js:193 📍 Database-only progress tracking - no localStorage used
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:184 🔍 Direct Supabase session check: plan-1754163441724-jp6nkmyj3 Guitar
+index-BU2JrqJP.js:184 🔍 Direct API query result: Object
+index-BU2JrqJP.js:184 🔍 All user plans: Array(1)
+index-BU2JrqJP.js:184 🔍 Filtered plans for hobby: Array(0)
+index-BU2JrqJP.js:184 🚨 No plans found for hobby: Guitar
+index-BU2JrqJP.js:184 🚨 Query details - User ID: 773c3f18-025a-432d-ae3d-fa13be3faef8 Hobby: Guitar
+index-BU2JrqJP.js:199 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Wr @ index-BU2JrqJP.js:199Understand this warning
+index-BU2JrqJP.js:199 📝 DEBUG: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object
+index-BU2JrqJP.js:199 🐛 Debug YouTube Video ID: XUf_xWZVpZ8
+index-BU2JrqJP.js:199 🐛 Video Title: Guitar - Day 1
+index-BU2JrqJP.js:199 🐛 Debug Common Mistakes: Array(3)
+index-BU2JrqJP.js:199 🐛 Full current day data: Object

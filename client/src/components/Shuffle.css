@@ -1,0 +1,19 @@
+.shuffle-parent {
+  display: inline-block;
+}
+
+.shuffle-parent.is-ready {
+  /* Component is ready */
+}
+
+.shuffle-char {
+  display: inline-block;
+}
+
+.shuffle-word {
+  display: inline-block;
+}
+
+.shuffle-line {
+  display: block;
+}

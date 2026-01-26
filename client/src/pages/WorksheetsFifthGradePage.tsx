@@ -1,0 +1,543 @@
+import React, { useState, useMemo } from 'react'
+import { UnifiedNavigation } from '@/components/UnifiedNavigation'
+import { Footer } from '@/components/Footer'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { SEOMetaTags } from '@/components/SEOMetaTags'
+import { CategoryFilter, type Category } from '@/components/CategoryFilter'
+import { trackCategoryFilter, trackBuildPackClick } from '@/utils/analytics'
+import { useTranslation } from '@/context/TranslationContext'
+import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
+import { trackWorksheetDownload } from '@/utils/analytics'
+
+// Categories will be defined inside component to use translation
+
+interface WorksheetItem {
+  title: string
+  description: string
+  href: string
+  docId: string
+  categories: string[]
+  section?: string
+  customPreviewUrl?: string
+  customDownloadUrl?: string
+}
+
+// Worksheets will be defined inside component to use translation
+
+export default function WorksheetsFifthGradePage() {
+  const { t, isRTL } = useTranslation();
+  const [previewItem, setPreviewItem] = React.useState<WorksheetItem | null>(null);
+
+  React.useEffect(() => {
+    // Ensure re-render on language change
+  }, [t]);
+
+  const FIFTH_GRADE_CATEGORIES: Category[] = [
+    { id: 'operations', label: t('pages.fifthGrade.categories.operations'), icon: '🔢' },
+    { id: 'fractions-decimals', label: t('pages.fifthGrade.categories.fractionsDecimals'), icon: '🍕' },
+    { id: 'algebra', label: t('pages.fifthGrade.categories.algebra'), icon: '📐' },
+    { id: 'geometry', label: t('pages.fifthGrade.categories.geometry'), icon: '📐' },
+    { id: 'word-problems', label: t('pages.fifthGrade.categories.wordProblems'), icon: '🧮' },
+    { id: 'data-analysis', label: t('pages.fifthGrade.categories.dataAnalysis'), icon: '📊' },
+  ];
+
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev: Set<string>) => {
+      const next = new Set(prev)
+      const isSelecting = !next.has(categoryId)
+      if (isSelecting) {
+        next.add(categoryId)
+        trackCategoryFilter(categoryId, 'select', '5th-grade-math-worksheets')
+      } else {
+        next.delete(categoryId)
+        trackCategoryFilter(categoryId, 'deselect', '5th-grade-math-worksheets')
+      }
+      return next
+    })
+  }
+
+  const clearCategories = () => {
+    setSelectedCategories(new Set())
+  }
+
+  // Define all worksheets with their categories - using translation keys
+  const FIFTH_GRADE_WORKSHEETS: WorksheetItem[] = useMemo(() => [
+    // Advanced Operations
+    { title: t('pages.fifthGrade.worksheets.mult3x2Digit.title'), description: t('pages.fifthGrade.worksheets.mult3x2Digit.description'), href: getWorksheetURL('mult-3x2-digit', '5th-grade'), docId: 'mult-3x2-digit', categories: ['operations'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.longDivisionMultidigit.title'), description: t('pages.fifthGrade.worksheets.longDivisionMultidigit.description'), href: getWorksheetURL('long-division-multidigit', '5th-grade'), docId: 'long-division-multidigit', categories: ['operations'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.orderOfOperations.title'), description: t('pages.fifthGrade.worksheets.orderOfOperations.description'), href: getWorksheetURL('order-of-operations', '5th-grade'), docId: 'order-of-operations', categories: ['operations'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.powersOf10.title'), description: t('pages.fifthGrade.worksheets.powersOf10.description'), href: getWorksheetURL('powers-of-10', '5th-grade'), docId: 'powers-of-10', categories: ['operations'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.roundingDecimals.title'), description: t('pages.fifthGrade.worksheets.roundingDecimals.description'), href: getWorksheetURL('rounding-decimals', '5th-grade'), docId: 'rounding-decimals', categories: ['operations', 'fractions-decimals'], section: 'Advanced Operations' },
+    { title: t('pages.fifthGrade.worksheets.estimatingSumsDifferences.title'), description: t('pages.fifthGrade.worksheets.estimatingSumsDifferences.description'), href: getWorksheetURL('estimating-sums-differences', '5th-grade'), docId: 'estimating-sums-differences', categories: ['operations'], section: 'Advanced Operations' },
+    // Fractions & Decimals
+    { title: t('pages.fifthGrade.worksheets.addingSubtractingMixedNumbers.title'), description: t('pages.fifthGrade.worksheets.addingSubtractingMixedNumbers.description'), href: getWorksheetURL('add-sub-mixed-numbers', '5th-grade'), docId: 'add-sub-mixed-numbers', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.multiplyingFractions.title'), description: t('pages.fifthGrade.worksheets.multiplyingFractions.description'), href: getWorksheetURL('multiplying-fractions', '5th-grade'), docId: 'multiplying-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.dividingFractions.title'), description: t('pages.fifthGrade.worksheets.dividingFractions.description'), href: getWorksheetURL('dividing-fractions', '5th-grade'), docId: 'dividing-fractions', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.multiplyingDecimals.title'), description: t('pages.fifthGrade.worksheets.multiplyingDecimals.description'), href: getWorksheetURL('multiplying-decimals', '5th-grade'), docId: 'multiplying-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.dividingDecimals.title'), description: t('pages.fifthGrade.worksheets.dividingDecimals.description'), href: getWorksheetURL('dividing-decimals', '5th-grade'), docId: 'dividing-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.fractionsDecimalsPercents.title'), description: t('pages.fifthGrade.worksheets.fractionsDecimalsPercents.description'), href: getWorksheetURL('fractions-decimals-percents', '5th-grade'), docId: 'fractions-decimals-percents', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: t('pages.fifthGrade.worksheets.comparingOrderingFractionsDecimals.title'), description: t('pages.fifthGrade.worksheets.comparingOrderingFractionsDecimals.description'), href: getWorksheetURL('comparing-ordering-fractions-decimals', '5th-grade'), docId: 'comparing-ordering-fractions-decimals', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    { title: "Adding Decimals Challenge", description: "Master decimal addition with this visually engaging challenge. Includes carry-over practice.", href: getWorksheetURL('adding-decimals-challenge', '5th-grade'), docId: 'adding-decimals-challenge', categories: ['fractions-decimals'], section: 'Fractions & Decimals' },
+    // Algebra Basics
+    { title: t('pages.fifthGrade.worksheets.evaluatingExpressions.title'), description: t('pages.fifthGrade.worksheets.evaluatingExpressions.description'), href: getWorksheetURL('evaluating-expressions', '5th-grade'), docId: 'evaluating-expressions', categories: ['algebra'], section: 'Algebra Basics' },
+    { title: t('pages.fifthGrade.worksheets.writingExpressions.title'), description: t('pages.fifthGrade.worksheets.writingExpressions.description'), href: getWorksheetURL('writing-expressions', '5th-grade'), docId: 'writing-expressions', categories: ['algebra'], section: 'Algebra Basics' },
+    { title: t('pages.fifthGrade.worksheets.solvingOneStepEquations.title'), description: t('pages.fifthGrade.worksheets.solvingOneStepEquations.description'), href: getWorksheetURL('solving-one-step-equations', '5th-grade'), docId: 'solving-one-step-equations', categories: ['algebra'], section: 'Algebra Basics' },
+    { title: t('pages.fifthGrade.worksheets.patternsRules.title'), description: t('pages.fifthGrade.worksheets.patternsRules.description'), href: getWorksheetURL('patterns-rules', '5th-grade'), docId: 'patterns-rules', categories: ['algebra'], section: 'Algebra Basics' },
+    { title: t('pages.fifthGrade.worksheets.coordinateGraphing.title'), description: t('pages.fifthGrade.worksheets.coordinateGraphing.description'), href: getWorksheetURL('coordinate-graphing', '5th-grade'), docId: 'coordinate-graphing', categories: ['algebra', 'geometry'], section: 'Algebra Basics' },
+    // Geometry
+    { title: t('pages.fifthGrade.worksheets.volumeRectangularPrisms.title'), description: t('pages.fifthGrade.worksheets.volumeRectangularPrisms.description'), href: getWorksheetURL('volume-rectangular-prisms', '5th-grade'), docId: 'volume-rectangular-prisms', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fifthGrade.worksheets.areaTrianglesParallelograms.title'), description: t('pages.fifthGrade.worksheets.areaTrianglesParallelograms.description'), href: getWorksheetURL('area-triangles-parallelograms', '5th-grade'), docId: 'area-triangles-parallelograms', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fifthGrade.worksheets.classifyingShapes.title'), description: t('pages.fifthGrade.worksheets.classifyingShapes.description'), href: getWorksheetURL('classifying-shapes', '5th-grade'), docId: 'classifying-shapes', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fifthGrade.worksheets.nets3dShapes.title'), description: t('pages.fifthGrade.worksheets.nets3dShapes.description'), href: getWorksheetURL('nets-3d-shapes', '5th-grade'), docId: 'nets-3d-shapes', categories: ['geometry'], section: 'Geometry' },
+    { title: t('pages.fifthGrade.worksheets.transformations5th.title'), description: t('pages.fifthGrade.worksheets.transformations5th.description'), href: getWorksheetURL('transformations-5th', '5th-grade'), docId: 'transformations-5th', categories: ['geometry'], section: 'Geometry' },
+    // Word Problems
+    { title: t('pages.fifthGrade.worksheets.multiStepWord5th.title'), description: t('pages.fifthGrade.worksheets.multiStepWord5th.description'), href: getWorksheetURL('multi-step-word-5th', '5th-grade'), docId: 'multi-step-word-5th', categories: ['word-problems'], section: 'Word Problems' },
+    { title: t('pages.fifthGrade.worksheets.fractionWordProblems5th.title'), description: t('pages.fifthGrade.worksheets.fractionWordProblems5th.description'), href: getWorksheetURL('fraction-word-problems-5th', '5th-grade'), docId: 'fraction-word-problems-5th', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    { title: t('pages.fifthGrade.worksheets.decimalWordProblems5th.title'), description: t('pages.fifthGrade.worksheets.decimalWordProblems5th.description'), href: getWorksheetURL('decimal-word-problems-5th', '5th-grade'), docId: 'decimal-word-problems-5th', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    { title: t('pages.fifthGrade.worksheets.ratioProportionWordProblems.title'), description: t('pages.fifthGrade.worksheets.ratioProportionWordProblems.description'), href: getWorksheetURL('ratio-proportion-word-problems', '5th-grade'), docId: 'ratio-proportion-word-problems', categories: ['word-problems'], section: 'Word Problems' },
+    { title: t('pages.fifthGrade.worksheets.percentWordProblems.title'), description: t('pages.fifthGrade.worksheets.percentWordProblems.description'), href: getWorksheetURL('percent-word-problems', '5th-grade'), docId: 'percent-word-problems', categories: ['word-problems', 'fractions-decimals'], section: 'Word Problems' },
+    // Data & Analysis
+    { title: t('pages.fifthGrade.worksheets.lineGraphs.title'), description: t('pages.fifthGrade.worksheets.lineGraphs.description'), href: getWorksheetURL('line-graphs', '5th-grade'), docId: 'line-graphs', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: t('pages.fifthGrade.worksheets.meanMedianModeRange.title'), description: t('pages.fifthGrade.worksheets.meanMedianModeRange.description'), href: getWorksheetURL('mean-median-mode-range', '5th-grade'), docId: 'mean-median-mode-range', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: t('pages.fifthGrade.worksheets.stemLeafPlots.title'), description: t('pages.fifthGrade.worksheets.stemLeafPlots.description'), href: getWorksheetURL('stem-leaf-plots', '5th-grade'), docId: 'stem-leaf-plots', categories: ['data-analysis'], section: 'Data & Analysis' },
+    { title: t('pages.fifthGrade.worksheets.probability.title'), description: t('pages.fifthGrade.worksheets.probability.description'), href: getWorksheetURL('probability', '5th-grade'), docId: 'probability', categories: ['data-analysis'], section: 'Data & Analysis' },
+  ], [t])
+
+  // Filter worksheets based on selected categories
+  const filteredWorksheets = useMemo(() => {
+    // Reverse the array to show newly added worksheets (at the bottom of the list) first
+    const newestFirst = [...FIFTH_GRADE_WORKSHEETS].reverse()
+    if (selectedCategories.size === 0) return newestFirst
+    return newestFirst.filter((ws: WorksheetItem) =>
+      ws.categories.some((cat: string) => selectedCategories.has(cat))
+    )
+  }, [selectedCategories, FIFTH_GRADE_WORKSHEETS])
+
+  // Group filtered worksheets by section
+  const groupedWorksheets = useMemo(() => {
+    const groups: Record<string, WorksheetItem[]> = {}
+    filteredWorksheets.forEach((ws: WorksheetItem) => {
+      const section = ws.section || 'Other'
+      if (!groups[section]) groups[section] = []
+      groups[section].push(ws)
+    })
+    return groups
+  }, [filteredWorksheets])
+
+  return (
+    <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
+      <SEOMetaTags
+        title={t('pages.fifthGrade.seoTitle')}
+        description={t('pages.fifthGrade.seoDescription')}
+        keywords={t('pages.fifthGrade.seoKeywords')}
+        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/5th-grade-math-worksheets', getLocaleFromURL())}`}
+      />
+      {(() => {
+        const currentLocale = getLocaleFromURL();
+        const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/5th-grade-math-worksheets', currentLocale)}`;
+        const homeUrl = `https://wizqo.com${addLocaleToPath('/', currentLocale)}`;
+        const allWorksheetsUrl = `https://wizqo.com${addLocaleToPath('/worksheets/all', currentLocale)}`;
+        const breadcrumbId = `${canonical}#breadcrumbs`;
+        const breadcrumbLd = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "@id": breadcrumbId,
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: homeUrl },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: allWorksheetsUrl },
+            { "@type": "ListItem", position: 3, name: "5th Grade Math Worksheets", item: canonical }
+          ]
+        } as const;
+        const webPageLd = {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "5th Grade Math Worksheets – Free Printable PDF",
+          url: canonical,
+          description: "Free 5th grade math worksheets covering advanced multiplication, division, fractions, decimals, and algebra basics.",
+          breadcrumb: { "@id": breadcrumbId }
+        } as const;
+        return (
+          <>
+            <script id="breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />
+          </>
+        );
+      })()}
+      <UnifiedNavigation />
+      <main>
+        <section className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-white to-emerald-50">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 via-white to-emerald-50/50" aria-hidden />
+          <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 lg:px-8">
+            <div className="space-y-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-3 py-1 text-sm font-medium text-purple-700 shadow-sm">
+                {t('pages.fifthGrade.badge')}
+              </span>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                {t('pages.fifthGrade.title')}
+                <span className="block text-purple-600">{t('pages.fifthGrade.subtitle')}</span>
+              </h1>
+              <p className="max-w-2xl text-lg text-slate-600 leading-relaxed">
+                {t('pages.fifthGrade.description')}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8 space-y-10">
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">{t('pages.fifthGrade.whatsInside')}</h2>
+            <p className="text-slate-700 text-sm max-w-3xl">
+              {t('pages.fifthGrade.whatsInsideDesc')}
+            </p>
+            <div className="mt-4">
+              <div className="border border-slate-200 rounded-xl p-4 bg-white">
+                <div className="text-slate-900 font-semibold mb-1">{t('pages.fifthGrade.buildPack')}</div>
+                <p className="text-slate-700 text-sm mb-3">{t('pages.fifthGrade.buildPackDesc')}</p>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-700 mb-3">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fifthGrade.buildPackTime')}</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fifthGrade.buildPackAge')}</span>
+                  <span className="inline-flex items-center px-2 py-1 rounded-full bg-slate-100 border border-slate-200">{t('pages.fifthGrade.buildPackFocus')}</span>
+                </div>
+                <a href={addLocaleToPath("/print?doc=pack&time=5&age=g5&skill=math&from=5th-grade", getLocaleFromURL())} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors" onClick={() => trackBuildPackClick('5')}>{t('pages.printables.buildPackButton')}</a>
+              </div>
+            </div>
+          </section>
+
+          {/* Main content with sidebar layout */}
+          <section className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+            {/* Left sidebar - Category Filter */}
+            <aside className="space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div>
+                <CategoryFilter
+                  categories={FIFTH_GRADE_CATEGORIES}
+                  selectedCategories={selectedCategories}
+                  onToggleCategory={toggleCategory}
+                  onClearAll={clearCategories}
+                  title={t('pages.fifthGrade.filterByCategory')}
+                />
+              </div>
+            </aside>
+
+            {/* Right side - Worksheets grouped by section */}
+            <div className="space-y-8">
+              {Object.entries(groupedWorksheets).map(([section, worksheets]) => {
+                const sectionLabels: Record<string, string> = {
+                  'Advanced Operations': `🔢 ${t('pages.fifthGrade.sections.advancedOperations')}`,
+                  'Fractions & Decimals': `🍕 ${t('pages.fifthGrade.sections.fractionsDecimals')}`,
+                  'Algebra Basics': `📐 ${t('pages.fifthGrade.sections.algebraBasics')}`,
+                  'Geometry': `📐 ${t('pages.fifthGrade.sections.geometry')}`,
+                  'Word Problems': `🧮 ${t('pages.fifthGrade.sections.wordProblems')}`,
+                  'Data & Analysis': `📊 ${t('pages.fifthGrade.sections.dataAnalysis')}`,
+                }
+                const label = sectionLabels[section] || section
+
+                return (
+                  <div key={section}>
+                    <h2 className="text-xl font-bold text-slate-900 mb-2">{label}</h2>
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      {worksheets.map((ws: WorksheetItem) => (
+                        <WorksheetThumbnailCard
+                          key={ws.docId}
+                          title={ws.title}
+                          description={ws.description}
+                          href={ws.href}
+                          docId={ws.docId}
+                          onPreview={setPreviewItem}
+                          customPreviewUrl={ws.customPreviewUrl}
+                          customDownloadUrl={ws.customDownloadUrl}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+              {filteredWorksheets.length === 0 && (
+                <div className="text-center py-12 text-slate-500">
+                  <p className="text-lg">{t('pages.fifthGrade.noWorksheets')}</p>
+                  <button
+                    onClick={clearCategories}
+                    className="mt-4 text-purple-600 hover:text-purple-700 font-medium"
+                  >
+                    {t('pages.fifthGrade.clearFilters')}
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Explore More Worksheets */}
+          <section className="bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900">{t('pages.fifthGrade.exploreMore')}</h2>
+            <ul className="mt-3 grid sm:grid-cols-2 gap-2 text-sm text-purple-700">
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/4th-grade-math-worksheets", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.fourthGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/3rd-grade-math-worksheets", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.thirdGrade')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/multiplication-worksheets", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.multiplication')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/times-table-multiplication-worksheets", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.timesTable')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/worksheets/reading-comprehension", getLocaleFromURL())}>{t('pages.fifthGrade.exploreLinks.readingComprehension')}</a></li>
+              <li><a className="hover:underline" href={addLocaleToPath("/printables", getLocaleFromURL())}>{t('pages.printables.title')}</a></li>
+            </ul>
+          </section>
+
+          <section className="mb-10 bg-white border border-slate-200 rounded-2xl p-5">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">{t('pages.fifthGrade.faqs')}</h2>
+            <Accordion type="single" collapsible className="divide-y rounded-xl border border-slate-200 bg-white">
+              <AccordionItem value="q1">
+                <AccordionTrigger className="px-4">{t('pages.fifthGrade.faq1Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.fifthGrade.faq1Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q2">
+                <AccordionTrigger className="px-4">{t('pages.fifthGrade.faq2Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.fifthGrade.faq2Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q3">
+                <AccordionTrigger className="px-4">{t('pages.fifthGrade.faq3Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.fifthGrade.faq3Answer')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="q4">
+                <AccordionTrigger className="px-4">{t('pages.fifthGrade.faq4Question')}</AccordionTrigger>
+                <AccordionContent className="px-4 text-slate-700">
+                  {t('pages.fifthGrade.faq4Answer')}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </section>
+        </div>
+
+        {/* Pre-Algebra Readiness Guide (SEO 5th Grade Injection) */}
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+          <PreAlgebraReadinessGuide />
+        </section>
+      </main>
+      <Footer />
+
+      {/* Preview Modal */}
+      {previewItem && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50 transition-opacity"
+            onClick={() => setPreviewItem(null)}
+          />
+
+          {/* Side Panel */}
+          <div className="absolute right-0 top-0 h-full w-full max-w-4xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
+            <div className="flex h-full flex-col">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold text-slate-900">{previewItem.title}</h2>
+                  <p className="text-sm text-slate-600 mt-1">{previewItem.description}</p>
+                </div>
+                <button
+                  onClick={() => setPreviewItem(null)}
+                  className="ml-4 p-2 text-slate-400 hover:text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 rounded-lg hover:bg-slate-100 transition-colors"
+                  aria-label="Close preview"
+                >
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Scrollable Content */}
+              <div className="flex-1 overflow-y-auto bg-slate-50">
+                <div className="mx-auto max-w-3xl px-6 py-8">
+                  {/* Worksheet Preview */}
+                  <div className="bg-white shadow-lg rounded-lg p-8 print:shadow-none">
+                    <iframe
+                      src={previewItem.href}
+                      className="w-full h-full min-h-[600px] border-0"
+                      title={previewItem.title}
+                      aria-label={`Preview of ${previewItem.title} worksheet`}
+                    />
+                  </div>
+
+                  {/* Info Footer */}
+                  <div className="mt-6 rounded-xl border border-purple-200 bg-purple-50 p-4 text-sm text-purple-800">
+                    <p className="font-semibold mb-2">📄 Preview</p>
+                    <p>Click the Download button below to download as PDF or use your browser's print function.</p>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="mt-6 flex items-center gap-3">
+                    <button
+                      onClick={() => {
+                        const newWindow = window.open(previewItem.href, '_blank')
+                        if (newWindow) {
+                          setTimeout(() => {
+                          }, 500)
+                        }
+                      }}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-purple-200 bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-white text-sm font-medium shadow-sm"
+                      aria-label={`Download ${previewItem.title} as PDF`}
+                    >
+                      Download
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function PreAlgebraReadinessGuide() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-white border border-emerald-100 rounded-3xl overflow-hidden shadow-sm">
+      <div className="bg-gradient-to-r from-emerald-600 to-teal-600 px-8 py-10 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl">
+            🚀
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-black">{t('pages.fifthGrade.wiki.title', '5th Grade Hub: The Bridge to Middle School Math')}</h2>
+            <p className="text-emerald-100 font-medium italic">Mastering pre-algebra foundations & spatial reasoning</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-8 sm:p-12">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-emerald-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">🔢</span> {t('pages.fifthGrade.wiki.algebraTitle', 'Building Algebraic Thinking')}
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              In 5th grade, math transitions from simple arithmetic to <strong>abstract reasoning</strong>. Students must move beyond "solving for the answer" and start understanding <strong>order of operations (PEMDAS)</strong> and working with <strong>variables</strong>. This shift is the single most important predictor of success in 6th and 7th-grade algebra.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 border-b-2 border-emerald-100 pb-2 flex items-center gap-2">
+              <span className="text-2xl">📐</span> {t('pages.fifthGrade.wiki.standardsTitle', 'Mastering 5th Grade Standards')}
+            </h3>
+            <ul className="space-y-4">
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">1</span>
+                <span><strong>Geometric Volume:</strong> Students transition from flat Area to 3D space, mastering the volume formula <em>(V = l &times; w &times; h)</em> for rectangular prisms.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">2</span>
+                <span><strong>Coordinate Planes:</strong> Plotting (x, y) coordinates is the first step toward visualizing linear relationships and data patterns on a graph.</span>
+              </li>
+              <li className="flex gap-3 text-slate-600">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold mt-0.5">3</span>
+                <span><strong>Decimal Mastery:</strong> 5th graders must become fluent in performing all four operations with decimals, a skill they will use every day in middle school science.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-slate-100 text-center">
+          <p className="text-slate-500 text-sm italic">
+            "5th grade isn't just about harder numbers; it's about learning a new way to see how numbers relate to the world."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const WorksheetThumbnailCard = React.memo(function WorksheetThumbnailCard({ title, description, href, docId, onPreview, customPreviewUrl, customDownloadUrl }: { title: string; description: string; href: string; docId: string; onPreview?: (item: WorksheetItem) => void; customPreviewUrl?: string; customDownloadUrl?: string }) {
+  const { t, language } = useTranslation();
+  // Use print URL for preview (not SEO URL) to show actual worksheet content
+  const printUrl = getWorksheetPrintURL(docId, '5th-grade')
+  const previewUrl = customPreviewUrl || (printUrl + (printUrl.includes('?') ? '&preview=1' : '?preview=1'))
+
+  // Use translations if available (fallback to provided title/description) - memoize to prevent re-renders
+  // Use language instead of t in dependencies to avoid re-renders when t function reference changes
+  const translatedTitle = React.useMemo(() => {
+    if (!docId) return title;
+    const translated = t(`worksheets.${docId}.title`);
+    return translated && translated !== `worksheets.${docId}.title` ? translated : title;
+  }, [docId, title, language, t]);
+
+  const translatedDescription = React.useMemo(() => {
+    if (!docId) return description;
+    const translated = t(`worksheets.${docId}.description`);
+    return translated && translated !== `worksheets.${docId}.description` ? translated : description;
+  }, [docId, description, language, t]);
+
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-lg transition-all duration-200 p-5 flex flex-col gap-3">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-slate-900">{translatedTitle}</h3>
+        </div>
+      </div>
+
+      <p className="text-sm text-slate-600 leading-relaxed">{translatedDescription}</p>
+
+      {/* Worksheet Thumbnail Preview - Clickable to SEO page */}
+      <a
+        href={href}
+        className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg border border-slate-200 overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow block"
+        style={{
+          height: '140px',
+          aspectRatio: '2.5/1',
+        }}
+      >
+        {/* Thumbnail content using iframe with preview mode */}
+        <iframe
+          src={previewUrl}
+          className="w-full h-full border-0"
+          style={{
+            transform: 'scale(0.25)',
+            transformOrigin: 'top left',
+            width: '400%',
+            height: '400%',
+            pointerEvents: 'none',
+          }}
+          title={`${t('pages.fifthGrade.previewOf')} ${title}`}
+          aria-label={`Preview thumbnail of ${title} worksheet`}
+          loading="lazy"
+        />
+        {/* Gradient fade at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50 pointer-events-none" />
+        {/* Overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center pointer-events-none">
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-xs font-semibold text-purple-700 border-2 border-purple-300 shadow-lg pointer-events-none">
+            {t('pages.fifthGrade.clickToView')}
+          </div>
+        </div>
+        {/* Corner fold effect */}
+        <div className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-br from-slate-200/50 to-transparent pointer-events-none" />
+      </a>
+
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              if (customDownloadUrl) {
+                trackWorksheetDownload(docId, translatedTitle, '5th-grade-hub', '5th Grade')
+                window.open(customDownloadUrl, '_blank')
+                return
+              }
+              const printUrl = getWorksheetPrintURL(docId, '5th-grade')
+              trackWorksheetDownload(docId, translatedTitle, '5th-grade-hub', '5th Grade')
+              window.open(printUrl, '_blank')
+            }}
+            className="text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 px-3 py-1 rounded-full border border-purple-200 hover:border-purple-300 transition-colors"
+            aria-label={`${t('pages.fifthGrade.downloadButton')} ${title}`}
+          >
+            {t('pages.fifthGrade.downloadButton')}
+          </button>
+        </div>
+      </div>
+    </article>
+  )
+})

@@ -1,0 +1,63 @@
+This error means your browser is trying to load a JS module but the server responded with an HTML page (usually your index.html), causing the MIME type mismatch.
+
+Common causes & fixes for this on Vercel:
+1. Static file routing issue
+Your JS file’s URL is serving your main HTML page instead of the actual .js file.
+
+Check your vercel.json routes:
+
+Make sure static assets (JS, CSS) are served from the correct folder (dist/public/assets).
+
+Your catch-all route for /(.*) should fallback only after static assets are handled.
+
+Static file serving should handle requests to /assets/* and not redirect them to index.html
+
+Example vercel.json snippet:
+json
+Copy
+Edit
+{
+  "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist/public" } },
+    { "src": "dist/index.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "handle": "filesystem" },        // Serve static files from /dist/public/assets automatically
+    { "src": "/api/(.*)", "dest": "/dist/index.js" },
+    { "src": "/(.*)", "dest": "/dist/public/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*\\.js)$",
+      "headers": [{ "key": "Content-Type", "value": "application/javascript; charset=utf-8" }]
+    },
+    {
+      "source": "/assets/(.*\\.css)$",
+      "headers": [{ "key": "Content-Type", "value": "text/css; charset=utf-8" }]
+    }
+  ]
+}
+2. Double-check your build output
+Confirm the .js file actually exists at dist/public/assets/index-G9WQI6ms.js (or whatever your bundle is named).
+
+The browser should be requesting /assets/index-G9WQI6ms.js and getting that JS file, not your HTML.
+
+3. Clear cache / force reload
+Sometimes browsers cache erroneous responses. Do a hard refresh or clear cache when testing.
+
+4. Test URL directly
+Open your deployed URL in browser:
+
+Navigate directly to your JS file URL, e.g. https://your-domain.com/assets/index-G9WQI6ms.js
+
+Confirm it serves JS, not HTML.
+
+Summary
+Your MIME error means the JS file URL is serving your HTML (index.html) instead of JS.
+
+Fix your routing so static assets are served correctly (use "handle": "filesystem" route first).
+
+Add explicit headers for JS and CSS for correct MIME types.
+
+Confirm your build outputs the files where Vercel expects them.

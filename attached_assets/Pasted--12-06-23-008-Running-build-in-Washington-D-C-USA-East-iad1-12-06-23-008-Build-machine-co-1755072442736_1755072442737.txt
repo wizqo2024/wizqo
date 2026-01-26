@@ -1,0 +1,56 @@
+[12:06:23.008] Running build in Washington, D.C., USA (East) – iad1
+[12:06:23.008] Build machine configuration: 2 cores, 8 GB
+[12:06:23.020] Cloning github.com/wizqo2024/wizqo (Branch: main, Commit: 868a8dc)
+[12:06:23.204] Previous build caches not available
+[12:06:25.846] Cloning completed: 2.826s
+[12:06:25.945] Found .vercelignore
+[12:06:26.014] Removed 656 ignored files defined in .vercelignore
+[12:06:26.014]   /.env.example
+[12:06:26.014]   /.git/config
+[12:06:26.014]   /.git/description
+[12:06:26.014]   /.git/FETCH_HEAD
+[12:06:26.014]   /.git/HEAD
+[12:06:26.014]   /.git/hooks/applypatch-msg.sample
+[12:06:26.014]   /.git/hooks/commit-msg.sample
+[12:06:26.014]   /.git/hooks/fsmonitor-watchman.sample
+[12:06:26.015]   /.git/hooks/post-update.sample
+[12:06:26.015]   /.git/hooks/pre-applypatch.sample
+[12:06:28.278] Running "vercel build"
+[12:06:28.700] Vercel CLI 44.7.3
+[12:06:28.875] WARN! Due to `builds` existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply. Learn More: https://vercel.link/unused-build-settings
+[12:06:29.262] > Installing Builder: @vercel/node@3.0.0
+[12:06:38.373] Installing dependencies...
+[12:06:42.526] npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+[12:06:42.861] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[12:06:42.876] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[12:06:48.282] 
+[12:06:48.283] added 538 packages in 10s
+[12:06:48.283] 
+[12:06:48.283] 72 packages are looking for funding
+[12:06:48.284]   run `npm fund` for details
+[12:06:48.370] Running "npm run vercel-build"
+[12:06:48.480] 
+[12:06:48.481] > rest-express@1.0.0 vercel-build
+[12:06:48.481] > npm run build
+[12:06:48.481] 
+[12:06:48.592] 
+[12:06:48.594] > rest-express@1.0.0 build
+[12:06:48.595] > tsc && vite build
+[12:06:48.595] 
+[12:07:00.038] client/src/components/SplitPlanInterface.tsx(1131,58): error TS2345: Argument of type 'Partial<QuizAnswers>' is not assignable to parameter of type 'QuizAnswers'.
+[12:07:00.039]   Types of property 'experience' are incompatible.
+[12:07:00.039]     Type 'string | undefined' is not assignable to type 'string'.
+[12:07:00.039]       Type 'undefined' is not assignable to type 'string'.
+[12:07:00.039] client/src/components/SplitPlanInterface.tsx(1342,13): error TS2322: Type '{ specificGoal: string; experience?: string | undefined; timeCommitment?: string | undefined; hobby?: string | undefined; }' is not assignable to type 'QuizAnswers'.
+[12:07:00.040]   Types of property 'experience' are incompatible.
+[12:07:00.040]     Type 'string | undefined' is not assignable to type 'string'.
+[12:07:00.040]       Type 'undefined' is not assignable to type 'string'.
+[12:07:00.040] client/src/components/SplitPlanInterface.tsx(1540,76): error TS2345: Argument of type 'string | true | null' is not assignable to parameter of type 'boolean | undefined'.
+[12:07:00.040]   Type 'null' is not assignable to type 'boolean | undefined'.
+[12:07:00.040] client/src/components/SplitPlanInterface.tsx(1692,13): error TS2322: Type '{ specificGoal: string; experience?: string | undefined; timeCommitment?: string | undefined; hobby?: string | undefined; }' is not assignable to type 'QuizAnswers'.
+[12:07:00.041]   Types of property 'experience' are incompatible.
+[12:07:00.041]     Type 'string | undefined' is not assignable to type 'string'.
+[12:07:00.041]       Type 'undefined' is not assignable to type 'string'.
+[12:07:00.041] client/src/components/SplitPlanInterface.tsx(2752,17): error TS2339: Property 'type' does not exist on type '({ ...props }: Toast) => { id: string; dismiss: () => void; update: (props: ToasterToast) => void; }'.
+[12:07:00.041] client/src/components/SplitPlanInterface.tsx(2754,18): error TS2339: Property 'message' does not exist on type '({ ...props }: Toast) => { id: string; dismiss: () => void; update: (props: ToasterToast) => void; }'.
+[12:07:00.078] Error: Command "npm run vercel-build" exited with 2

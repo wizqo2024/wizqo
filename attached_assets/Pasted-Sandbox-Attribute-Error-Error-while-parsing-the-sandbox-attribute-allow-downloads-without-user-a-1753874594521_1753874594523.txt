@@ -1,0 +1,72 @@
+Sandbox Attribute Error
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+
+Explanation:
+The sandbox attribute on an iframe has a limited list of allowed values.
+allow-downloads-without-user-activation is not a valid flag, which causes the parser to throw this error.
+
+Fix:
+Replace or remove the invalid flag. Use only supported flags such as:
+
+html
+Copy
+Edit
+sandbox="allow-scripts allow-same-origin allow-downloads"
+⚠️ Unrecognized Feature Policy Warnings
+e.g., 'ambient-light-sensor', 'battery', 'execution-while-not-rendered', etc.
+
+Explanation:
+These are Feature Policy (now called Permissions Policy) features that are not recognized or supported by all browsers.
+
+Fix:
+You can safely ignore these unless you’re explicitly using them. If you're setting them in headers or meta tags, remove them if unused.
+
+⚠️ Supabase API Errors: 404 Not Found
+e.g.,
+
+pgsql
+Copy
+Edit
+Failed to load resource: the server responded with a status of 404 ()
+relation "public.hobby_plans" does not exist
+Explanation:
+Supabase is trying to access a table (hobby_plans, user_progress) that does not exist in your database schema.
+
+Fix:
+
+Go to Supabase Dashboard
+
+Open your project → Table Editor
+
+Create the missing tables:
+
+hobby_plans
+
+user_progress
+
+Define appropriate schema (columns, types, etc.)
+
+⚠️ PWA Banner Not Shown
+beforeinstallprompt.preventDefault() called but not .prompt()
+
+Explanation:
+This warning means the "Add to Home Screen" prompt was blocked but never shown. It only appears if you’re building a Progressive Web App.
+
+Fix:
+Call .prompt() when the user takes a clear action (like clicking a button).
+
+✅ Sign-In Status Logs (Safe)
+Auth state changed: SIGNED_IN, etc.
+
+These are normal logs indicating your app’s authentication state is working.
+
+🧠 Final Notes:
+To fully resolve errors:
+
+✅ Remove unsupported sandbox and permission policies.
+
+✅ Check headers or <iframe> usage for unsupported values.
+
+✅ Create required Supabase tables or adjust your API queries.
+
+✅ Only use permissions-policy features supported by browsers.

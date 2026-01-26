@@ -1,0 +1,61 @@
+The error referenced in the deployment guide is the white screen on page load at https://www.wizqo.com/, caused by incorrect MIME types for JavaScript and CSS assets. Below is a detailed explanation of the error's cause and how the changes in the diff resolve it, tailored to the provided context.
+
+Reason for the Error
+Incorrect MIME Types:
+Problem: The browser received JavaScript (index-CWH0ADpq.js) and CSS (index-CtSdy7v_.css) files with a Content-Type: text/html header instead of application/javascript and text/css, respectively.
+Impact: Browsers expect application/javascript for JS files to execute them as scripts and text/css for CSS files to apply styles. When served as text/html, the browser treats these files as HTML documents, leading to parsing errors and a failure to load the application’s scripts and styles. This results in a white screen because the page cannot render properly.
+Routing Misconfiguration in vercel.json:
+Original Issue: The vercel.json routes used unescaped regex patterns like /assets/(.*).js and /assets/(.*).css. Without proper escaping (e.g., \\.js), Vercel might misinterpret file extensions, causing assets to be routed incorrectly or served with the default text/html MIME type.
+Fallback Route: The catch-all route (src: "/(.*)", dest: "/dist/public/index.html") likely intercepted asset requests incorrectly, serving index.html (with text/html) instead of the intended JS or CSS files.
+Lack of Framework Detection:
+Issue: Without a vercel-build script in package.json, Vercel might not have properly detected the framework or executed the build process, leading to issues with generating or serving the dist/public directory containing index-CWH0ADpq.js (395KB) and index-CtSdy7v_.css (107KB).
+How the Changes Fix the Error
+The diff modifies the deployment guide and vercel.json to address these issues systematically:
+
+Updated vercel.json:
+Escaped Regex Patterns:
+Changed src: "/assets/(.*).js" to src: "/assets/(.*)\\.js" and src: "/assets/(.*).css" to src: "/assets/(.*)\\.css".
+Fix: Properly escaping the dot (\.) ensures Vercel matches JS and CSS files accurately, preventing misrouting.
+Explicit MIME Types:
+Sets Content-Type: application/javascript for JS files and Content-Type: text/css for CSS files in the headers section.
+Fix: Ensures browsers receive the correct MIME types, allowing proper parsing and execution of assets.
+Cache Control:
+Adds Cache-Control: no-cache to JS and CSS routes.
+Fix: Prevents browsers from using cached versions of assets with incorrect MIME types during deployment.
+Route Destinations:
+Maps asset requests to /dist/public/assets/$1.js and /dist/public/assets/$1.css.
+Fix: Ensures assets are served from the correct location in the dist/public/assets/ directory.
+Removed Redundant Static Config:
+Deleted "static": { "public": "dist/public" }.
+Fix: Avoids potential conflicts, as distDir: "dist/public" in the builds section already specifies the static asset directory.
+Added vercel-build Script:
+Added "vercel-build": "npm run build" to package.json scripts.
+Fix: Ensures Vercel triggers the build command (vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist), generating the correct dist/public structure with assets like index-CWH0ADpq.js and index-CtSdy7v_.css.
+Build Configuration:
+Builds Section:
+Configures @vercel/static-build for static assets (src: "package.json", distDir: "dist/public").
+Configures @vercel/node for server-side logic (src: "server/index.ts").
+Fix: Ensures Vercel handles both static assets and serverless functions correctly, preventing build-time errors.
+Routes Order:
+Specific routes for JS/CSS precede the catch-all route (/(.*) → index.html), ensuring assets are served before falling back to the HTML file.
+Fix: Prevents the catch-all route from incorrectly serving index.html for asset requests.
+Deployment Commands:
+Commands like git add ., git commit, and git push origin main ensure all changes (including vercel.json and dist/public) are deployed.
+Fix: Overwrites previous misconfigurations on Vercel, applying the corrected setup.
+Verification of the Fix
+Test Command:
+curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js
+Expected Output: HTTP/2 200 with Content-Type: application/javascript.
+Similarly, for CSS: curl -I https://www.wizqo.com/assets/index-CtSdy7v_.css should return Content-Type: text/css.
+Purpose: Confirms that assets are served with the correct MIME types, resolving the white screen issue.
+Site Check:
+Visiting https://www.wizqo.com/ should load the platform (with AI generation, Supabase auth, and user dashboard) without a white screen.
+Browser console should show no errors related to asset loading (e.g., Failed to load module script).
+Additional Notes
+Potential Residual Issues:
+If the white screen persists, check:
+Browser Console: Look for errors like MIME type mismatch or 404 for assets.
+Vercel Logs: Use vercel logs or the Vercel dashboard to check for build/deployment errors.
+Asset Paths: Ensure dist/public/index.html references index-CWH0ADpq.js and index-CtSdy7v_.css correctly.
+Supabase/Auth: Verify Supabase configuration in server/index.ts if platform features fail.
+Cache: Cache-Control: no-cache is good for debugging but consider max-age=31536000, immutable for production to optimize performance.

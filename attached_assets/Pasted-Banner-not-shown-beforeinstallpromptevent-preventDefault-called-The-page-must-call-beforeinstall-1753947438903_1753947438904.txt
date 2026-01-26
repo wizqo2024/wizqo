@@ -1,0 +1,80 @@
+Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+15Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'battery'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 🔥 GENERATING PLAN FOR: gardening Object
+Console.js:61 🔥 PLAN GENERATED: Object
+Console.js:61 🔧 Applied field mapping fix to standard plan
+Console.js:61 🐛 Debug YouTube Video ID: 3jWRrafhO7M
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔍 IMMEDIATE STORING plan for navigation (SplitPlanInterface): plan-1753947415773-nnupciy4w gardening
+Console.js:61 🐛 Debug YouTube Video ID: 3jWRrafhO7M
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: 3jWRrafhO7M
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: 3jWRrafhO7M
+Console.js:61 🐛 Video Title: gardening - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object

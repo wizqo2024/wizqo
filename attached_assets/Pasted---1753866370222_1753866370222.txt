@@ -1,0 +1,89 @@
+/////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-4a8ba4289f8c8026.js:13 [LaunchDarkly] LaunchDarkly client initialized
+framework-b78d8f0f1215c812.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-b78d8f0f1215c812.js:1Understand this error
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'battery'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+framework-b78d8f0f1215c812.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-b78d8f0f1215c812.js:1Understand this warning
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+framework-b78d8f0f1215c812.js:1 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-b78d8f0f1215c812.js:1Understand this error
+workspace_iframe.html:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Initial session: null
+Console.js:61 Auth state changed: INITIAL_SESSION null
+Console.js:61 Auth form submitted: Object
+Console.js:61 Attempting sign-up...
+jerhbtrgwrlyoimhxqta.supabase.co/auth/v1/signup:1  Failed to load resource: the server responded with a status of 422 ()Understand this error
+Console.js:61 Sign-up result: Object
+Console.js:61 Sign-up error: AuthWeakPasswordError: Password should be at least 6 characters.
+    at handleError2 (@supabase_supabase-js.js?v=450e8bd1:4603:11)
+    at async _handleRequest2 (@supabase_supabase-js.js?v=450e8bd1:4648:5)
+    at async _request (@supabase_supabase-js.js?v=450e8bd1:4632:16)
+    at async SupabaseAuthClient.signUp (@supabase_supabase-js.js?v=450e8bd1:5373:15)
+    at async signUp (useAuth.ts:56:29)
+    at async handleSubmit (AuthModal.tsx:38:33)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Auth error: AuthWeakPasswordError: Password should be at least 6 characters.
+    at handleError2 (@supabase_supabase-js.js?v=450e8bd1:4603:11)
+    at async _handleRequest2 (@supabase_supabase-js.js?v=450e8bd1:4648:5)
+    at async _request (@supabase_supabase-js.js?v=450e8bd1:4632:16)
+    at async SupabaseAuthClient.signUp (@supabase_supabase-js.js?v=450e8bd1:5373:15)
+    at async signUp (useAuth.ts:56:29)
+    at async handleSubmit (AuthModal.tsx:38:33)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error

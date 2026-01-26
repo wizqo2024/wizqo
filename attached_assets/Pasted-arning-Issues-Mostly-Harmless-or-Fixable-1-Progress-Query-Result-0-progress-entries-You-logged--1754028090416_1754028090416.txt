@@ -1,0 +1,87 @@
+arning/Issues (Mostly Harmless or Fixable)
+1. ❗Progress Query Result: 0 progress entries
+You logged:
+
+plaintext
+Copy
+Edit
+📖 SUPABASE: Progress query completed via API. Result: 0 progress entries
+However, earlier you logged:
+
+plaintext
+Copy
+Edit
+📝 DATABASE SAVE: Marking day COMPLETE via API: 1 for plan ID: ...
+This means your progress data was likely not saved successfully. Double-check:
+
+🔍 Suggestion:
+Ensure you’re using the correct table name and user ID in the insert query.
+
+Confirm your progress table has:
+
+A user_id column
+
+A plan_id column
+
+A day or completed_day column
+
+Example:
+
+ts
+Copy
+Edit
+await supabase
+  .from("progress")
+  .insert([{ user_id: user.id, plan_id, day: 1 }]);
+Also check for Row-Level Security (RLS) — if enabled, make sure policies allow inserting for the signed-in user.
+
+2. ⚠️ Invalid Sandbox Flag
+pgsql
+Copy
+Edit
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+✅ Solution: Remove this flag — it’s not supported.
+
+3. ⚠️ Unrecognized Browser Features
+These warnings:
+
+nginx
+Copy
+Edit
+Unrecognized feature: 'ambient-light-sensor'
+Unrecognized feature: 'battery'
+...
+🟢 These are harmless unless you’re building a PWA using these niche APIs. If not, ignore.
+
+If you want to suppress them:
+
+Remove unneeded features from your feature-policy or permissions-policy headers.
+
+4. ❗ HTTPS Certificate Errors
+arduino
+Copy
+Edit
+dotdevproxy.worf.repl.co/__reachability: net::ERR_CERT_AUTHORITY_INVALID
+This is a failed call to a third-party Replit-hosted proxy. If you're not using these intentionally (e.g. as CORS proxies), you can ignore or remove them.
+
+If you are using these as API intermediaries, switch to a host with valid SSL (e.g. Vercel, Netlify, Render, etc.) or fix the SSL cert.
+
+5. ⚠️ Missing PWA Install Prompt
+css
+Copy
+Edit
+Banner not shown: beforeinstallpromptevent.preventDefault() called.
+This just means your app prevented the browser from auto-showing the install prompt. If you're building a Progressive Web App and want the prompt, you must later call:
+
+js
+Copy
+Edit
+beforeInstallPromptEvent.prompt();
+Otherwise, ignore.
+
+✅ Summary: What to Fix (Ranked)
+Priority	Issue	Action Needed
+🔴 High	0 progress entries returned	Double-check your Supabase insert logic & RLS rules for the progress table
+🟠 Medium	Sandbox attribute error	Remove allow-downloads-without-user-activation from <iframe sandbox>
+🟡 Low	Cert errors from dotdevproxy URLs	Either remove usage or host API on secure (valid HTTPS) provider
+🟢 Ignore	CSP frame refusal + unsupported features	These are not breaking your core app behavior

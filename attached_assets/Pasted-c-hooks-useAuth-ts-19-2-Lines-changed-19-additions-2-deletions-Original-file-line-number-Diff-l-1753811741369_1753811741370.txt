@@ -1,0 +1,193 @@
+c/hooks/useAuth.ts
++19
+-2
+Lines changed: 19 additions & 2 deletions
+Original file line number	Diff line number	Diff line change
+@@ -112,8 +112,25 @@ export function useAuth() {
+  }
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut()
+    return { error }
+    try {
+      console.log('Signing out user...')
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        console.error('Signout error:', error)
+        return { error }
+      }
+      
+      console.log('Signout successful')
+      // Clear local state
+      setUser(null)
+      setSession(null)
+      setLoading(false)
+      
+      return { error: null }
+    } catch (err) {
+      console.error('Signout exception:', err)
+      return { error: err }
+    }
+  }
+
+  return {
+‎client/src/pages/DashboardPage.tsx
++39
+-6
+Lines changed: 39 additions & 6 deletions
+Original file line number	Diff line number	Diff line change
+@@ -17,34 +17,61 @@ export function DashboardPage() {
+  useEffect(() => {
+    if (user) {
+      fetchUserPlans()
+    } else if (!user && !loading) {
+      // If no user and not loading, redirect to home
+      window.location.hash = '#/'
+    }
+  }, [user])
+  }, [user, loading])
+
+  const fetchUserPlans = async () => {
+    try {
+      console.log('Fetching user plans for user ID:', user?.id)
+      
+      // Fetch user's hobby plans
+      const { data: plansData, error: plansError } = await supabase
+        .from('hobby_plans')
+        .select('*')
+        .eq('user_id', user?.id)
+        .order('created_at', { ascending: false })
+
+      if (plansError) throw plansError
+      if (plansError) {
+        console.error('Plans error:', plansError)
+        // If table doesn't exist, just set empty data
+        if (plansError.message?.includes('relation') || plansError.message?.includes('does not exist')) {
+          setPlans([])
+          setProgress([])
+          setLoading(false)
+          return
+        }
+        throw plansError
+      }
+
+      // Fetch user's progress
+      const { data: progressData, error: progressError } = await supabase
+        .from('user_progress')
+        .select('*')
+        .eq('user_id', user?.id)
+
+      if (progressError) throw progressError
+      if (progressError) {
+        console.error('Progress error:', progressError)
+        // If table doesn't exist, just set empty data
+        if (progressError.message?.includes('relation') || progressError.message?.includes('does not exist')) {
+          setProgress([])
+        } else {
+          throw progressError
+        }
+      }
+
+      console.log('Fetched plans:', plansData?.length || 0)
+      console.log('Fetched progress:', progressData?.length || 0)
+      
+      setPlans(plansData || [])
+      setProgress(progressData || [])
+    } catch (error: any) {
+      console.error('Dashboard fetch error:', error)
+      toast({
+        title: "Error",
+        description: "Failed to load your dashboard data.",
+        description: error.message || "Failed to load your dashboard data.",
+        variant: "destructive",
+      })
+    } finally {
+@@ -54,15 +81,21 @@ export function DashboardPage() {
+
+  const handleSignOut = async () => {
+    try {
+      await signOut()
+      const { error } = await signOut()
+      if (error) throw error
+      
+      toast({
+        title: "Signed out",
+        description: "You've been successfully signed out.",
+      })
+      
+      // Redirect to home page after successful signout
+      window.location.hash = '#/'
+    } catch (error: any) {
+      console.error('Signout error:', error)
+      toast({
+        title: "Error",
+        description: "Failed to sign out.",
+        description: error.message || "Failed to sign out.",
+        variant: "destructive",
+      })
+    }
+
+
+ChatGPT said:
+Thanks for the detailed diff — you're nearly there, but there's a critical logic bug in your signOut function in useAuth.ts. You're still returning early, which prevents the try block from ever running.
+
+❌ Here's the broken signOut function (as per your patch):
+ts
+Copy
+Edit
+const signOut = async () => {
+  const { error } = await supabase.auth.signOut()
+  return { error } // <- This exits the function BEFORE the try block below!
+
+  try {
+    ...
+  } catch (err) {
+    ...
+  }
+}
+🔥 Problem:
+The return { error } at the top causes the function to exit early.
+
+The try { ... } block never runs, so the state (setUser, setSession, setLoading) never gets cleared.
+
+✅ Correct signOut Function:
+Replace your current one with this:
+
+ts
+Copy
+Edit
+const signOut = async () => {
+  try {
+    console.log('Signing out user...')
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+      console.error('Signout error:', error)
+      return { error }
+    }
+
+    console.log('Signout successful')
+    
+    // Clear local state
+    setUser(null)
+    setSession(null)
+    setLoading(false)
+
+    return { error: null }
+  } catch (err) {
+    console.error('Signout exception:', err)
+    return { error: err }
+  }
+}
+✅ Your DashboardPage.tsx changes look good:
+You now check for errors in signOut() properly.
+
+You show appropriate toasts and redirect on success.
+
+You’ve added logic for handling missing tables during plan fetching — nice touch!
+
+✅ Final Checklist:
+✅ Item	Description
+signOut fixed	Remove early return { error }
+DashboardPage.tsx	Updated handleSignOut() with error handling
+fetchUserPlans()	Defensive handling for missing tables

@@ -1,0 +1,123 @@
+Final A–Z Solution (Tested Fix)
+We’ll now:
+
+🧹 Clean and correct vercel.json
+
+📁 Ensure assets are actually deployed
+
+🚀 Deploy fresh with cache busted
+
+✅ Test curl with proper result
+
+✅ Step 1: Use This Clean vercel.json
+Replace your entire vercel.json with:
+
+json
+Copy
+Edit
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/public"
+      }
+    },
+    {
+      "src": "server/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/assets/(.*)\\.js",
+      "headers": {
+        "Content-Type": "application/javascript",
+        "Cache-Control": "no-cache"
+      },
+      "dest": "/assets/$1.js"
+    },
+    {
+      "src": "/assets/(.*)\\.css",
+      "headers": {
+        "Content-Type": "text/css",
+        "Cache-Control": "no-cache"
+      },
+      "dest": "/assets/$1.css"
+    },
+    { "handle": "filesystem" },
+    {
+      "src": "/api/(.*)",
+      "dest": "/server/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/public/index.html"
+    }
+  ]
+}
+📌 We simplified dest paths to avoid redundant /dist/public repetition — Vercel handles it.
+
+✅ Step 2: Make Sure Build Artifacts Exist
+Run build:
+
+bash
+Copy
+Edit
+npm run build
+Then confirm this file exists in Git:
+
+pgsql
+Copy
+Edit
+dist/public/assets/index-CWH0ADpq.js
+If it's in .gitignore, remove dist/ from .gitignore, then:
+
+bash
+Copy
+Edit
+git add dist/public/assets
+git commit -m "Include built assets for correct MIME serving"
+git push origin main
+✅ Step 3: Force Fresh Deployment (Clear Cache)
+You must now bust the Vercel cache:
+
+✳️ Go to vercel.com/dashboard → Your Project → Deployments → Click current → Press “Redeploy” → choose “Clear Build Cache”
+
+OR:
+
+Trigger a new clean commit:
+
+bash
+Copy
+Edit
+git commit --allow-empty -m "Force redeploy with cache clear"
+git push origin main
+✅ Step 4: Final Test
+Wait ~30–60 sec, then:
+
+bash
+Copy
+Edit
+curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js
+✅ Expected:
+
+bash
+Copy
+Edit
+HTTP/2 200
+content-type: application/javascript
+🛑 If You Still Get text/html:
+It means Vercel could not find the file at build time, so it returned the fallback index.html.
+
+📌 Root Cause in that case: The build output was never committed to Git, or the route destination/path mismatched.
+
+✅ Summary
+Step	Goal	Status
+✅ vercel.json cleaned up	🆗 Done	
+✅ Assets exist in dist/public/assets/	🔄 Check Git	
+✅ .gitignore updated	🔄 Make sure dist/ is committed	
+✅ Deployed with cache cleared	🔄 Redeploy via Vercel	
+✅ curl returns correct Content-Type	⏳ Await result

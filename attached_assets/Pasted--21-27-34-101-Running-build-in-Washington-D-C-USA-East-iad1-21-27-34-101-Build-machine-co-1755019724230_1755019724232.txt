@@ -1,0 +1,60 @@
+[21:27:34.101] Running build in Washington, D.C., USA (East) – iad1
+[21:27:34.101] Build machine configuration: 2 cores, 8 GB
+[21:27:34.114] Cloning github.com/wizqo2024/wizqo (Branch: main, Commit: 761fdf3)
+[21:27:34.290] Previous build caches not available
+[21:27:36.995] Cloning completed: 2.881s
+[21:27:37.128] Found .vercelignore
+[21:27:37.191] Removed 636 ignored files defined in .vercelignore
+[21:27:37.191]   /.env.example
+[21:27:37.191]   /.git/config
+[21:27:37.192]   /.git/description
+[21:27:37.192]   /.git/FETCH_HEAD
+[21:27:37.192]   /.git/HEAD
+[21:27:37.192]   /.git/hooks/applypatch-msg.sample
+[21:27:37.193]   /.git/hooks/commit-msg.sample
+[21:27:37.193]   /.git/hooks/fsmonitor-watchman.sample
+[21:27:37.193]   /.git/hooks/post-update.sample
+[21:27:37.193]   /.git/hooks/pre-applypatch.sample
+[21:27:39.396] Running "vercel build"
+[21:27:39.876] Vercel CLI 44.7.3
+[21:27:40.083] WARN! Due to `builds` existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply. Learn More: https://vercel.link/unused-build-settings
+[21:27:40.469] > Installing Builder: @vercel/node@3.0.0
+[21:27:50.647] Installing dependencies...
+[21:27:54.795] npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+[21:27:55.471] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[21:27:55.472] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[21:28:01.030] 
+[21:28:01.031] added 538 packages in 10s
+[21:28:01.032] 
+[21:28:01.032] 72 packages are looking for funding
+[21:28:01.032]   run `npm fund` for details
+[21:28:01.087] Running "npm run vercel-build"
+[21:28:01.200] 
+[21:28:01.201] > rest-express@1.0.0 vercel-build
+[21:28:01.201] > npm run build
+[21:28:01.201] 
+[21:28:01.315] 
+[21:28:01.319] > rest-express@1.0.0 build
+[21:28:01.319] > tsc && vite build
+[21:28:01.319] 
+[21:28:05.510] client/src/components/PlanDisplayOld.tsx(658,21): error TS17002: Expected corresponding JSX closing tag for 'div'.
+[21:28:05.510] client/src/components/PlanDisplayOld.tsx(659,18): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+[21:28:05.510] client/src/components/PlanDisplayOld.tsx(660,17): error TS17002: Expected corresponding JSX closing tag for 'div'.
+[21:28:05.510] client/src/components/PlanDisplayOld.tsx(662,12): error TS1128: Declaration or statement expected.
+[21:28:05.510] client/src/components/PlanDisplayOld.tsx(662,13): error TS1128: Declaration or statement expected.
+[21:28:05.510] client/src/components/PlanDisplayOld.tsx(663,9): error TS1128: Declaration or statement expected.
+[21:28:05.511] client/src/components/PlanDisplayOld.tsx(701,7): error TS1128: Declaration or statement expected.
+[21:28:05.511] client/src/components/PlanDisplayOld.tsx(702,5): error TS1109: Expression expected.
+[21:28:05.511] client/src/components/PlanDisplayOld.tsx(703,3): error TS1109: Expression expected.
+[21:28:05.511] client/src/components/PlanDisplayOld.tsx(704,1): error TS1128: Declaration or statement expected.
+[21:28:05.511] client/src/components/SplitPlanInterface_clean.tsx(1305,9): error TS1005: ')' expected.
+[21:28:05.511] client/src/components/SplitPlanInterface_clean.tsx(1823,7): error TS1128: Declaration or statement expected.
+[21:28:05.511] client/src/components/SplitPlanInterface_clean.tsx(1828,18): error TS1136: Property assignment expected.
+[21:28:05.511] client/src/components/SplitPlanInterface_clean.tsx(1828,21): error TS1005: ';' expected.
+[21:28:05.511] client/src/components/SplitPlanInterface_clean.tsx(1829,7): error TS1161: Unterminated regular expression literal.
+[21:28:05.511] client/src/components/SplitPlanInterface_clean.tsx(1830,5): error TS1128: Declaration or statement expected.
+[21:28:05.511] client/src/components/SplitPlanInterface_clean.tsx(1831,3): error TS1109: Expression expected.
+[21:28:05.511] client/src/components/SplitPlanInterface_clean.tsx(1832,1): error TS1128: Declaration or statement expected.
+[21:28:05.511] server/routes_broken.ts(398,1): error TS1128: Declaration or statement expected.
+[21:28:05.511] server/routes_broken.ts(453,6): error TS1005: ';' expected.
+[21:28:05.545] Error: Command "npm run vercel-build" exited with 2

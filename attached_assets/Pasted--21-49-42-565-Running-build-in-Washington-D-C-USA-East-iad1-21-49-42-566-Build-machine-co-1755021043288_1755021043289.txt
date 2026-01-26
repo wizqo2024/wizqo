@@ -1,0 +1,84 @@
+[21:49:42.565] Running build in Washington, D.C., USA (East) – iad1
+[21:49:42.566] Build machine configuration: 2 cores, 8 GB
+[21:49:42.587] Cloning github.com/wizqo2024/wizqo (Branch: main, Commit: c8b47cc)
+[21:49:42.723] Previous build caches not available
+[21:49:45.808] Cloning completed: 3.221s
+[21:49:45.920] Found .vercelignore
+[21:49:45.989] Removed 639 ignored files defined in .vercelignore
+[21:49:45.989]   /.env.example
+[21:49:45.989]   /.git/config
+[21:49:45.989]   /.git/description
+[21:49:45.989]   /.git/FETCH_HEAD
+[21:49:45.989]   /.git/HEAD
+[21:49:45.989]   /.git/hooks/applypatch-msg.sample
+[21:49:45.989]   /.git/hooks/commit-msg.sample
+[21:49:45.989]   /.git/hooks/fsmonitor-watchman.sample
+[21:49:45.989]   /.git/hooks/post-update.sample
+[21:49:45.989]   /.git/hooks/pre-applypatch.sample
+[21:49:48.832] Running "vercel build"
+[21:49:49.331] Vercel CLI 44.7.3
+[21:49:49.520] WARN! Due to `builds` existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply. Learn More: https://vercel.link/unused-build-settings
+[21:49:49.940] > Installing Builder: @vercel/node@3.0.0
+[21:49:59.825] Installing dependencies...
+[21:50:03.949] npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+[21:50:04.627] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[21:50:04.628] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[21:50:10.199] 
+[21:50:10.200] added 538 packages in 10s
+[21:50:10.200] 
+[21:50:10.200] 72 packages are looking for funding
+[21:50:10.200]   run `npm fund` for details
+[21:50:10.259] Running "npm run vercel-build"
+[21:50:10.371] 
+[21:50:10.371] > rest-express@1.0.0 vercel-build
+[21:50:10.371] > npm run build
+[21:50:10.371] 
+[21:50:10.485] 
+[21:50:10.486] > rest-express@1.0.0 build
+[21:50:10.486] > tsc && vite build
+[21:50:10.486] 
+[21:50:21.938] client/src/components/PlanDisplayOld.tsx(41,17): error TS2339: Property 'isSignedIn' does not exist on type 'AuthContextType'.
+[21:50:21.939] client/src/components/SplitChatInterface.tsx(339,7): error TS2304: Cannot find name 'setPlanData'.
+[21:50:21.939] client/src/components/SplitPlanInterface.tsx(404,26): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'SetStateAction<string | null>'.
+[21:50:21.939]   Type 'undefined' is not assignable to type 'SetStateAction<string | null>'.
+[21:50:21.939] client/src/components/SplitPlanInterface.tsx(448,61): error TS7006: Parameter 'p' implicitly has an 'any' type.
+[21:50:21.940] client/src/components/SplitPlanInterface.tsx(460,76): error TS7006: Parameter 'p' implicitly has an 'any' type.
+[21:50:21.940] client/src/components/SplitPlanInterface.tsx(463,42): error TS7006: Parameter 'p' implicitly has an 'any' type.
+[21:50:21.940] client/src/components/SplitPlanInterface.tsx(508,70): error TS7006: Parameter 'p' implicitly has an 'any' type.
+[21:50:21.940] client/src/components/SplitPlanInterface.tsx(585,65): error TS7006: Parameter 'p' implicitly has an 'any' type.
+[21:50:21.940] client/src/components/SplitPlanInterface.tsx(588,56): error TS7006: Parameter 'p' implicitly has an 'any' type.
+[21:50:21.940] client/src/components/SplitPlanInterface.tsx(596,90): error TS7006: Parameter 'p' implicitly has an 'any' type.
+[21:50:21.940] client/src/components/SplitPlanInterface.tsx(693,54): error TS7006: Parameter 'plan' implicitly has an 'any' type.
+[21:50:21.940] client/src/components/SplitPlanInterface.tsx(699,60): error TS7006: Parameter 'a' implicitly has an 'any' type.
+[21:50:21.941] client/src/components/SplitPlanInterface.tsx(699,63): error TS7006: Parameter 'b' implicitly has an 'any' type.
+[21:50:21.941] client/src/components/SplitPlanInterface.tsx(1267,58): error TS2345: Argument of type 'Partial<QuizAnswers>' is not assignable to parameter of type 'QuizAnswers'.
+[21:50:21.941]   Types of property 'experience' are incompatible.
+[21:50:21.941]     Type 'string | undefined' is not assignable to type 'string'.
+[21:50:21.941]       Type 'undefined' is not assignable to type 'string'.
+[21:50:21.941] client/src/components/SplitPlanInterface.tsx(2458,33): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+[21:50:21.941]   Type 'undefined' is not assignable to type 'string'.
+[21:50:21.941] client/src/components/SplitPlanInterface.tsx(2540,38): error TS18048: 'currentDay.commonMistakes' is possibly 'undefined'.
+[21:50:21.942] client/src/services/hobbyPlanService.ts(122,31): error TS7006: Parameter 'a' implicitly has an 'any' type.
+[21:50:21.942] client/src/services/hobbyPlanService.ts(122,34): error TS7006: Parameter 'b' implicitly has an 'any' type.
+[21:50:21.942] server/deployment-check.ts(4,9): error TS7034: Variable 'routes' implicitly has type 'any[]' in some locations where its type cannot be determined.
+[21:50:21.943] server/deployment-check.ts(25,6): error TS7005: Variable 'routes' implicitly has an 'any[]' type.
+[21:50:21.943] server/deployment-check.ts(36,29): error TS7005: Variable 'routes' implicitly has an 'any[]' type.
+[21:50:21.943] server/index.ts(77,9): error TS7034: Variable 'routes' implicitly has type 'any[]' in some locations where its type cannot be determined.
+[21:50:21.943] server/index.ts(83,35): error TS7005: Variable 'routes' implicitly has an 'any[]' type.
+[21:50:21.943] server/routes.ts(424,18): error TS2769: No overload matches this call.
+[21:50:21.943]   Overload 1 of 2, '(timeoutId: string | number | Timeout | undefined): void', gave the following error.
+[21:50:21.943]     Argument of type 'Timeout | null' is not assignable to parameter of type 'string | number | Timeout | undefined'.
+[21:50:21.943]       Type 'null' is not assignable to type 'string | number | Timeout | undefined'.
+[21:50:21.943]   Overload 2 of 2, '(id: number | undefined): void', gave the following error.
+[21:50:21.944]     Argument of type 'Timeout | null' is not assignable to parameter of type 'number | undefined'.
+[21:50:21.944]       Type 'null' is not assignable to type 'number | undefined'.
+[21:50:21.944] server/routes.ts(507,33): error TS2769: No overload matches this call.
+[21:50:21.944]   Overload 1 of 2, '(timeoutId: string | number | Timeout | undefined): void', gave the following error.
+[21:50:21.944]     Argument of type 'Timeout | null' is not assignable to parameter of type 'string | number | Timeout | undefined'.
+[21:50:21.944]       Type 'null' is not assignable to type 'string | number | Timeout | undefined'.
+[21:50:21.944]   Overload 2 of 2, '(id: number | undefined): void', gave the following error.
+[21:50:21.944]     Argument of type 'Timeout | null' is not assignable to parameter of type 'number | undefined'.
+[21:50:21.945]       Type 'null' is not assignable to type 'number | undefined'.
+[21:50:21.945] server/routes.ts(2063,11): error TS7034: Variable 'routes' implicitly has type 'any[]' in some locations where its type cannot be determined.
+[21:50:21.945] server/routes.ts(2072,16): error TS7005: Variable 'routes' implicitly has an 'any[]' type.
+[21:50:21.986] Error: Command "npm run vercel-build" exited with 2

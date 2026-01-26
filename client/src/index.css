@@ -1,0 +1,1144 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;600;700&family=Dancing+Script:wght@400;600&family=Handlee&family=Pacifico&family=Patrick+Hand&family=Playfair+Display:wght@400;600&family=Cedarville+Cursive&display=swap');
+/* Arabic font support */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;600;700&display=swap');
+/* Import RTL support */
+@import './styles/rtl.css';
+
+/* Custom Fonts */
+@font-face {
+  font-family: 'Codystar';
+  src: url('/fonts/codystar.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CedarvilleCursive';
+  src: url('/fonts/cedarville_cursive.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LearningCurve';
+  src: url('/fonts/learning_curve.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ABeeZeeLocal';
+  src: url('/fonts/abeezee_regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LearningCurveDashed';
+  src: url('/fonts/learning_curve_dashed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KGPrimaryDots';
+  src: url('/fonts/kg_primary_dots.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SchoolHandDotted';
+  src: url('/fonts/SchoolHandDotted.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbar on mobile day selector */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile-First Responsive Improvements */
+@layer base {
+  * {
+    /* Better touch targets for mobile */
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+  }
+
+  html {
+    /* Prevent horizontal scroll on mobile */
+    @apply overflow-x-hidden;
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    /* Prevent horizontal scroll and improve mobile experience */
+    @apply overflow-x-hidden font-sans;
+    /* Better font rendering on mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+}
+
+@layer components {
+
+  /* Mobile-optimized line clamping */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Better mobile card hover states */
+  .mobile-card {
+    @apply transition-all duration-300 ease-out;
+    @apply active:scale-95 sm:hover:scale-105;
+    @apply will-change-transform;
+  }
+
+  /* Mobile-friendly button states */
+  .mobile-button {
+    @apply active:scale-95 transition-transform duration-150;
+    @apply min-h-[44px] min-w-[44px];
+    /* WCAG AA touch target size */
+    @apply will-change-transform;
+  }
+
+  /* Responsive text sizes */
+  .text-responsive-sm {
+    @apply text-xs sm:text-sm;
+  }
+
+  .text-responsive-base {
+    @apply text-sm sm:text-base;
+  }
+
+  .text-responsive-lg {
+    @apply text-base sm:text-lg;
+  }
+
+  .text-responsive-xl {
+    @apply text-lg sm:text-xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-xl sm:text-2xl;
+  }
+
+  /* Performance optimizations */
+  .gpu-accelerated {
+    @apply transform-gpu;
+    will-change: transform;
+  }
+
+  /* Loading states */
+  .loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Smooth animations */
+  .smooth-animation {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Image loading optimization */
+  .lazy-image {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .lazy-image[data-loaded="false"] {
+    opacity: 0;
+  }
+
+  .lazy-image[data-loaded="true"] {
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+
+  /* Safe area insets for mobile devices */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Mobile-optimized shadows */
+  .shadow-mobile {
+    @apply shadow-sm sm:shadow-md;
+  }
+
+  /* Responsive spacing utilities */
+  .spacing-mobile {
+    @apply p-3 sm:p-4 lg:p-6;
+  }
+
+  /* Mobile-first grid improvements */
+  .grid-mobile-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  }
+
+  /* Better focus states for accessibility */
+  .focus-mobile {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+    @apply dark:focus:ring-blue-400 dark:focus:ring-offset-gray-900;
+  }
+}
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(222.2, 84%, 4.9%);
+  --muted: hsl(210, 40%, 98%);
+  --muted-foreground: hsl(215.4, 16.3%, 46.9%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(222.2, 84%, 4.9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(222.2, 84%, 4.9%);
+  --border: hsl(214.3, 31.8%, 91.4%);
+  --input: hsl(214.3, 31.8%, 91.4%);
+  --primary: hsl(221.2, 83.2%, 53.3%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(262.1, 83.3%, 57.8%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --accent: hsl(210, 40%, 98%);
+  --accent-foreground: hsl(222.2, 84%, 4.9%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(222.2, 84%, 4.9%);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: hsl(222.2, 84%, 4.9%);
+  --foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217.2, 32.6%, 17.5%);
+  --muted-foreground: hsl(215, 20.2%, 65.1%);
+  --popover: hsl(222.2, 84%, 4.9%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --card: hsl(222.2, 84%, 4.9%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217.2, 32.6%, 17.5%);
+  --input: hsl(217.2, 32.6%, 17.5%);
+  --primary: hsl(221.2, 83.2%, 53.3%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(262.1, 83.3%, 57.8%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --accent: hsl(217.2, 32.6%, 17.5%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(212.7, 26.8%, 83.9%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    /* Prevent flash of unstyled content */
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* Ensure content is styled immediately */
+  html {
+    background-color: hsl(210, 40%, 98%);
+  }
+
+  /* Smooth page transitions */
+  #root {
+    min-height: 100vh;
+    transition: opacity 0.2s ease-in-out;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes gradient-x {
+
+  0%,
+  100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Smooth transitions for interactive elements */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom gradient backgrounds */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, hsl(221.2, 83.2%, 53.3%) 0%, hsl(262.1, 83.3%, 57.8%) 100%);
+}
+
+/* Progress bar styling */
+.progress-bar {
+  transition: width 0.5s ease-in-out;
+}
+
+/* Card hover effects */
+.hover-lift {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Typography improvements */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Loading spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Glass morphism effect for modals */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Success and error states */
+.success-state {
+  background: linear-gradient(135deg, hsl(142.1, 76.2%, 36.3%) 0%, hsl(142.1, 70.6%, 45.3%) 100%);
+}
+
+.error-state {
+  background: linear-gradient(135deg, hsl(0, 84.2%, 60.2%) 0%, hsl(0, 72.2%, 50.6%) 100%);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .mobile-padding {
+    padding: 1rem;
+  }
+
+  .mobile-text {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+/* Focus states for accessibility */
+.focus-visible:focus-visible {
+  outline: 2px solid hsl(221.2, 83.2%, 53.3%);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(210, 40%, 98%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(215.4, 16.3%, 46.9%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(215.3, 19.3%, 34.5%);
+}
+
+/* Worksheet visual layout fixes - prevent text/block overlap */
+.worksheet-example {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.worksheet-visual {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.worksheet-text {
+  margin-left: 12px;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* ============================================================================
+ * UNIVERSAL PRINT/PDF STYLES FOR ALL WORKSHEETS
+ * ============================================================================
+ * These styles apply to ALL worksheets across the entire application.
+ * - Default: No page margins (margin: 0) for maximum content space
+ * - Consistent across all browsers (Chrome, Firefox, Safari, Edge)
+ * - Works for both browser print and PDF download
+ * - Future worksheets will automatically inherit these styles
+ * - Prevents worksheet sections from breaking across pages
+ * ============================================================================ */
+@media print {
+
+  /* ============================================================================
+   * DEFAULT PRINT MARGINS: NONE (0) - Applies to ALL browsers and ALL pages
+   * ============================================================================
+   * This ensures that when users press Ctrl+P (or Cmd+P on Mac), the print
+   * layout defaults to NO margins across all browsers (Chrome, Firefox, Safari, Edge).
+   * Users get maximum content space by default.
+   * ============================================================================ */
+  @page {
+    size: A4;
+    margin: 0 !important;
+    /* Default: no margins - applies to all browsers */
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  /* CRITICAL: Ensure all pages have white background - fix black pages */
+  html,
+  body,
+  #root,
+  [data-worksheet-content="true"] {
+    background-color: white !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Override dark backgrounds that cause black pages - target common dark classes */
+  [class*="bg-black"],
+  [class*="bg-slate-900"],
+  [class*="bg-gray-900"],
+  [class*="bg-zinc-900"],
+  [class*="bg-neutral-900"],
+  [class*="bg-stone-900"],
+  [class*="dark"],
+  .bg-black,
+  .bg-slate-900,
+  .bg-gray-900 {
+    background-color: white !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Ensure worksheet content has white background */
+  [data-worksheet-content="true"],
+  [data-worksheet-content="true"] section,
+  [data-worksheet-content="true"] div,
+  .worksheet-section {
+    background-color: white !important;
+    background: white !important;
+  }
+
+  /* Fix blank first page - remove margins and padding */
+  body,
+  html {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Remove top margin/padding from first page content - ensure content starts at top */
+  [data-worksheet-content="true"]>*:first-child,
+  [data-worksheet-content="true"]>section:first-child,
+  .worksheet-section:first-child {
+    margin-top: 0.25rem !important;
+    padding-top: 0.25rem !important;
+    background-color: white !important;
+  }
+
+  /* Compact header on first page - keep header and content together */
+  .worksheet-section:first-child .worksheet-header,
+  .worksheet-section:first-child>div:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    page-break-after: avoid !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  /* Ensure first section content flows immediately after header */
+  .worksheet-section:first-child>div:not(.worksheet-header) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* CRITICAL: Ensure content inside first section flows immediately after header */
+  .worksheet-section:first-child .worksheet-header+*,
+  section:first-child .worksheet-header+* {
+    margin-top: 0.25rem !important;
+    padding-top: 0 !important;
+  }
+
+  /* Ensure LearningObjectives and other content appear on first page */
+  .worksheet-section:first-child .learning-objectives,
+  section:first-child .learning-objectives {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Ensure title and description appear on first page */
+  .worksheet-section:first-child h2,
+  .worksheet-section:first-child h3,
+  section:first-child h2,
+  section:first-child h3 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .worksheet-section:first-child p,
+  section:first-child p {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* CRITICAL: Ensure worksheet problems/content appear on first page immediately after learning objectives */
+  .worksheet-section:first-child .learning-objectives+*,
+  section:first-child .learning-objectives+*,
+  .worksheet-section:first-child h2+*,
+  .worksheet-section:first-child h3+*,
+  section:first-child h2+*,
+  section:first-child h3+* {
+    margin-top: 0.5rem !important;
+    padding-top: 0 !important;
+    page-break-before: auto !important;
+  }
+
+  /* Ensure all content inside first section flows on first page */
+  .worksheet-section:first-child>div>*:not(.worksheet-header):not(.learning-objectives),
+  section:first-child>div>*:not(.worksheet-header):not(.learning-objectives) {
+    page-break-before: auto !important;
+    break-before: auto !important;
+  }
+
+  /* Remove any page breaks from first section content */
+  .worksheet-section:first-child [style*="page-break-before"],
+  section:first-child [style*="page-break-before"] {
+    page-break-before: auto !important;
+  }
+
+  /* Prevent root from forcing page break */
+  #root {
+    page-break-before: auto !important;
+    background-color: white !important;
+  }
+
+  /* Prevent first element from being pushed off-page */
+  #root>*:first-child {
+    page-break-before: avoid !important;
+  }
+
+  /* CRITICAL: Ensure sections and high-level wrappers allow breaking internally */
+  body,
+  html,
+  #root,
+  [data-worksheet-content="true"],
+  .min-h-screen {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  section.worksheet-section,
+  section[class*="worksheet-section"],
+  .worksheet-section,
+  [data-worksheet-content="true"] section {
+    display: block !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    -webkit-region-break-inside: auto !important;
+    -webkit-column-break-inside: auto !important;
+    orphans: 2 !important;
+    widows: 2 !important;
+    overflow: visible !important;
+  }
+
+  /* Apply to specific content blocks that MUST stay together as a single unit */
+  .break-inside-avoid,
+  /* Individual items/cards */
+  .worksheet-item,
+  .problem-card,
+  .shape-card,
+  .question-item,
+  /* Worked examples and specific UI blocks */
+  .worked-example,
+  .parent-teacher-tips,
+  .learning-objectives,
+  .worksheet-header,
+  /* Figures and media */
+  table,
+  figure,
+  img,
+  svg,
+  canvas {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    -webkit-region-break-inside: avoid !important;
+    -webkit-column-break-inside: avoid !important;
+    orphans: 999 !important;
+    widows: 999 !important;
+  }
+
+  /* Keep worked examples together - header and content */
+  .worked-example,
+  .worked-example>* {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Keep example headers with their content */
+  .worked-example>div:first-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Prevent images, SVGs, and visual elements from breaking */
+  img,
+  svg,
+  picture,
+  canvas,
+  video {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    max-height: 100vh !important;
+  }
+
+  /* Keep images with their captions/descriptions */
+  img+*,
+  svg+*,
+  picture+* {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+
+  /* Prevent cards and blocks from breaking */
+  [class*="card"],
+  [class*="Card"],
+  [class*="block"],
+  [class*="Block"] {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Keep math problems together */
+  .math-problem,
+  .math-problem+* {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+
+  /* Keep example blocks together */
+  [class*="example"],
+  [class*="Example"] {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Keep visual content blocks together */
+  .bg-white.p-4,
+  .bg-white.rounded-lg,
+  div[class*="bg-"].p-4 {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Keep headings with following content - STRONG rules (consolidated) */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Keep content immediately after headings */
+  h1+*,
+  h2+*,
+  h3+*,
+  h4+*,
+  h5+*,
+  h6+* {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+
+  /* Keep paragraphs and divs after headings together */
+  h1+p,
+  h2+p,
+  h3+p,
+  h4+p,
+  h5+p,
+  h6+p,
+  h1+div,
+  h2+div,
+  h3+div,
+  h4+div,
+  h5+div,
+  h6+div {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Allow page breaks between sections when needed - but keep sections intact */
+  section.worksheet-section+section.worksheet-section,
+  section[class*="worksheet-section"]+section[class*="worksheet-section"],
+  .worksheet-section+.worksheet-section,
+  [class*="worksheet-section"]+[class*="worksheet-section"] {
+    page-break-before: auto;
+    break-before: auto;
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* Ensure sections can start on new page if they don't fit */
+  section.worksheet-section,
+  .worksheet-section {
+    page-break-before: auto;
+    break-before: auto;
+  }
+
+  /* Prevent breaks inside table rows and cells */
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Fix blank first page - ensure first element starts at top with no forced breaks */
+  [data-worksheet-content="true"]>*:first-child,
+  [data-worksheet-content="true"]>section:first-child {
+    page-break-before: auto !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Remove all top margins from first section */
+  section.worksheet-section:first-child,
+  .worksheet-section:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Better spacing for print - readable and clean (matching Interactive Worksheets Generator) */
+  section {
+    margin-bottom: 1.5rem !important;
+    margin-top: 0 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    background-color: white !important;
+    background: white !important;
+    /* Ensure sections don't overflow container width */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  /* First section should have NO top padding/margin to fit on first page - matching Interactive Worksheets Generator */
+  section:first-of-type {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    background-color: white !important;
+  }
+
+  /* Add spacing between worksheet sections */
+  .worksheet-section {
+    margin-bottom: 1.5rem !important;
+    padding: 0.5rem 0.5rem !important;
+    background-color: white !important;
+    /* Ensure sections don't overflow container width */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  /* First worksheet section should have NO top padding/margin - content starts immediately after header */
+  .worksheet-section:first-of-type {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    background-color: white !important;
+  }
+
+  /* Add spacing between problems/equations */
+  .worksheet-section>div>* {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .worksheet-section>div>*:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Add spacing between math problems */
+  [class*="math-problem"],
+  [class*="problem"],
+  .equation,
+  .puzzle {
+    margin-bottom: 1rem !important;
+    padding: 0.5rem 0 !important;
+  }
+
+  /* Make header compact */
+  .worksheet-header {
+    margin-bottom: 0.5rem !important;
+    padding-bottom: 0.25rem !important;
+    line-height: 1.2 !important;
+  }
+
+  /* First section header should be more compact */
+  .worksheet-section:first-of-type .worksheet-header {
+    margin-bottom: 0.25rem !important;
+    padding-bottom: 0.125rem !important;
+  }
+
+  /* Make title/description more compact in first section */
+  .worksheet-section:first-of-type h2,
+  .worksheet-section:first-of-type h3 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.375rem !important;
+  }
+
+  .worksheet-section:first-of-type p {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.375rem !important;
+  }
+
+  /* Compact learning objectives */
+  .learning-objectives {
+    margin-bottom: 0.75rem !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Prevent text merging and improve readability - comfortable spacing */
+  p {
+    line-height: 1.5 !important;
+    margin: 0.5rem 0 !important;
+  }
+
+  div,
+  span {
+    line-height: 1.4 !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid !important;
+    margin-bottom: 0.75rem !important;
+    margin-top: 1rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* First section headings should be more compact */
+  .worksheet-section:first-of-type h1,
+  .worksheet-section:first-of-type h2,
+  .worksheet-section:first-of-type h3 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.375rem !important;
+  }
+
+  /* Add padding to content container for proper spacing since @page has no margin */
+  [data-worksheet-content="true"]>div:first-child {
+    margin: 0.5in !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+    page-break-before: auto !important;
+    overflow: visible !important;
+    background-color: white !important;
+    background: white !important;
+    /* Account for left and right margins: 794px (A4 width) - 1in (0.5in * 2) = 698px */
+    width: calc(100% - 1in) !important;
+    max-width: calc(100% - 1in) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure all divs inside worksheet content have white background */
+  [data-worksheet-content="true"]>div:first-child>* {
+    background-color: white !important;
+    background: white !important;
+  }
+
+  /* Preserve worksheet section borders and styling for readability */
+  section[class*="break-inside-avoid"],
+  section.worksheet-section,
+  .worksheet-section {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 4px !important;
+    background: white !important;
+    background-color: white !important;
+  }
+
+  /* Preserve content borders within worksheets */
+  section[class*="break-inside-avoid"] div[class*="border"],
+  section[class*="break-inside-avoid"] div[class*="rounded"] {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 4px !important;
+  }
+
+  /* Hide URLs in print */
+  a[href]::after {
+    content: none !important;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+
+  /* Remove backgrounds and borders in print for cleaner look - but preserve worksheet content */
+  * {
+    box-shadow: none !important;
+  }
+
+  /* Remove borders from navigation and UI elements, but keep worksheet content borders */
+  header,
+  .print\\:hidden,
+  nav,
+  button {
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* ============================================================================
+   * UNIVERSAL WORKSHEET COMPONENTS - OPTIONAL HEADER, FOOTER, PROBLEM BOXES
+   * ============================================================================ */
+
+  /* Optional Header Component */
+  .worksheet-header-optional {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    margin-bottom: 20px !important;
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    font-size: 13pt !important;
+    line-height: 1.4 !important;
+    color: #333 !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Optional Footer Component */
+  .worksheet-footer-optional {
+    padding-top: 12px !important;
+    border-top: 1px solid #e2e8f0 !important;
+    text-align: center !important;
+    font-size: 10pt !important;
+    color: #666 !important;
+    page-break-before: auto !important;
+    break-before: auto !important;
+    margin-top: 60px !important;
+  }
+
+  /* Ensure footer appears at bottom of last page in print */
+  @media print {
+
+    /* Make the content container a flex column to push footer down */
+    .worksheet-section .relative {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    /* All content except footer should not grow */
+    .worksheet-section .relative>*:not(.worksheet-footer-optional) {
+      flex: 0 0 auto !important;
+    }
+
+    /* Footer should be pushed to bottom and stay on last page */
+    .worksheet-section .worksheet-footer-optional {
+      margin-top: auto !important;
+      margin-bottom: 0 !important;
+      padding-bottom: 0.5in !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+  }
+
+  /* Problem Box Component */
+  .problem-box {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background-color: white !important;
+    margin-bottom: 20px !important;
+  }
+
+  .problem-box-default {
+    border: 1px solid #d5d5d5 !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+  }
+
+  .problem-box-highlight {
+    border: 1px solid #b3d9ff !important;
+    border-radius: 10px !important;
+    padding: 16px !important;
+    background-color: #eaf4ff !important;
+  }
+
+  .problem-box-minimal {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    background-color: transparent !important;
+  }
+
+  /* Layout Components */
+  .worksheet-layout-1col {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .worksheet-layout-2col {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* On small screens or print, 2col becomes 1col */
+  @media (max-width: 600px) {
+    .worksheet-layout-2col {
+      grid-template-columns: 1fr !important;
+    }
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0 !important;
+    /* Default: no margins - applies to all browsers */
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    background-color: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Ensure main container takes full width */
+  #root, main, article {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

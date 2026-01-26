@@ -1,0 +1,108 @@
+The service worker navigation preload request was cancelled before 'preloadResponse' settled. If you intend to use 'preloadResponse', use waitUntil() or respondWith() to wait for the promise to settle.Understand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+r.stripe.com/b:1 
+            
+            
+           Failed to load resource: net::ERR_INTERNET_DISCONNECTEDUnderstand this error
+_app-9a81c81fb1a2430b.js:13 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-9a81c81fb1a2430b.js:13 [LaunchDarkly] LaunchDarkly client initialized
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+14Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'battery'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+framework-7f1dd993e6a413b3.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-7f1dd993e6a413b3.js:1Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'battery'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'layout-animations'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'navigation-override'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'oversized-images'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Unrecognized feature: 'unsized-media'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+b00d0a12-21d7-40d2-af14-3372251d82ea-00-1ocff0dj9w45b.picard.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar2kj%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+util.js:25 Uncaught TypeError: Cannot read properties of null (reading 'appendChild')
+    at util.js:25:19
+    at DevTools.js:262:9
+(anonymous) @ util.js:25
+(anonymous) @ DevTools.js:262Understand this error

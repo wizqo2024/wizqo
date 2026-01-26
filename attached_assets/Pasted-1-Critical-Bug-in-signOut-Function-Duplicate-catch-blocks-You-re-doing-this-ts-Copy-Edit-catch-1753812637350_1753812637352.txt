@@ -1,0 +1,97 @@
+1. Critical Bug in signOut Function: Duplicate catch blocks
+You're doing this:
+
+ts
+Copy
+Edit
+} catch (err: any) {
+  console.error('useAuth: signOut exception:', err)
+} catch (err) {
+  console.error('Signout exception:', err)
+  return { error: err }
+}
+❌ Problem:
+You cannot have two catch blocks for one try.
+
+The first one catches the error and does nothing (no return), which causes the function to return undefined instead of { error }, potentially breaking your downstream logic.
+
+✅ Fix the signOut Function Like This:
+ts
+Copy
+Edit
+const signOut = async () => {
+  try {
+    console.log('useAuth: signOut called, current user:', user?.email);
+    console.log('useAuth: calling supabase.auth.signOut()...');
+
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error('useAuth: Supabase signout error:', error);
+      return { error };
+    }
+
+    console.log('useAuth: Supabase signout successful, clearing local state...');
+    setUser(null);
+    setSession(null);
+    setLoading(false);
+    console.log('useAuth: Local state cleared successfully');
+
+    return { error: null };
+  } catch (err: any) {
+    console.error('useAuth: signOut exception:', err);
+    return { error: err };
+  }
+};
+🔧 2. Redundant Call in handleSignOut()
+You're calling signOut() twice:
+
+ts
+Copy
+Edit
+const result = await signOut();
+// then again:
+const { error } = await signOut()
+This means you're signing out twice, which is unnecessary and could cause confusing log output or state issues.
+
+✅ Fix handleSignOut like this:
+ts
+Copy
+Edit
+const handleSignOut = async () => {
+  console.log('Dashboard: handleSignOut called');
+  try {
+    console.log('Dashboard: calling signOut()...');
+    const { error } = await signOut();
+    console.log('Dashboard: signOut result:', error);
+
+    if (error) {
+      console.error('Dashboard: signOut returned error:', error);
+      throw error;
+    }
+
+    toast({
+      title: "Signed out",
+      description: "You've been successfully signed out.",
+    });
+
+    // Redirect to home after delay to ensure UI settles
+    setTimeout(() => {
+      console.log('Dashboard: redirecting to home');
+      window.location.hash = '#/';
+      window.location.reload();
+    }, 1000);
+
+  } catch (error: any) {
+    console.error('Dashboard: handleSignOut error:', error);
+    toast({
+      title: "Error",
+      description: error.message || "Failed to sign out.",
+      variant: "destructive",
+    });
+  }
+};
+✅ Summary of Required Fixes
+File	What to Fix
+useAuth.ts	Merge duplicate catch blocks into one, and ensure return { error }.
+DashboardPage.tsx	Only call signOut() once and use its result.

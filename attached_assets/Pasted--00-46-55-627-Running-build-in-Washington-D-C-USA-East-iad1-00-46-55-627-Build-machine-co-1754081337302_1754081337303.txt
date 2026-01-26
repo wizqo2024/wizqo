@@ -1,0 +1,42 @@
+[00:46:55.627] Running build in Washington, D.C., USA (East) – iad1
+[00:46:55.627] Build machine configuration: 2 cores, 8 GB
+[00:46:55.640] Cloning github.com/wizqo2024/HobbyPlanGen (Branch: main, Commit: 765c28a)
+[00:46:55.810] Previous build caches not available
+[00:46:56.070] Cloning completed: 430.000ms
+[00:46:56.391] Running "vercel build"
+[00:46:57.245] Vercel CLI 44.6.4
+[00:46:58.760] > Installing Builder: @vercel/node@3.0.0
+[00:47:08.184] Running "install" command: `npm install`...
+[00:47:46.379] npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+[00:47:46.380] npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+[00:47:47.159] npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+[00:47:53.344] 
+[00:47:53.345] added 546 packages, and audited 547 packages in 45s
+[00:47:53.346] 
+[00:47:53.346] 75 packages are looking for funding
+[00:47:53.346]   run `npm fund` for details
+[00:47:53.369] 
+[00:47:53.370] 5 moderate severity vulnerabilities
+[00:47:53.370] 
+[00:47:53.371] To address all issues (including breaking changes), run:
+[00:47:53.371]   npm audit fix --force
+[00:47:53.371] 
+[00:47:53.371] Run `npm audit` for details.
+[00:47:53.733] 
+[00:47:53.734] > rest-express@1.0.0 build
+[00:47:53.734] > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+[00:47:53.734] 
+[00:47:53.993] [36mvite v5.4.19 [32mbuilding for production...[36m[39m
+[00:47:54.044] transforming...
+[00:47:55.684] [32m✓[39m 37 modules transformed.
+[00:47:55.691] [31mx[39m Build failed in 1.67s
+[00:47:55.691] [31merror during build:
+[00:47:55.691] [31m[vite:load-fallback] Could not load /vercel/path0/client/src/components/ui/toast (imported by client/src/components/ui/toaster.tsx): ENOENT: no such file or directory, open '/vercel/path0/client/src/components/ui/toast'[31m
+[00:47:55.691]     at async open (node:internal/fs/promises:639:25)
+[00:47:55.691]     at async Object.readFile (node:internal/fs/promises:1243:14)
+[00:47:55.691]     at async Object.load (file:///vercel/path0/node_modules/vite/dist/node/chunks/dep-C6uTJdX2.js:65341:25)
+[00:47:55.692]     at async PluginDriver.hookFirstAndGetPlugin (file:///vercel/path0/node_modules/rollup/dist/es/shared/node-entry.js:22233:28)
+[00:47:55.692]     at async file:///vercel/path0/node_modules/rollup/dist/es/shared/node-entry.js:21237:33
+[00:47:55.692]     at async Queue.work (file:///vercel/path0/node_modules/rollup/dist/es/shared/node-entry.js:22461:32)[39m
+[00:47:55.712] Error: Command "npm run build" exited with 1
+[00:47:58.781] Exiting build container

@@ -1,0 +1,91 @@
+Problem
+Your current rewrite:
+
+json
+Copy
+Edit
+{
+  "source": "/((?!assets).*)",
+  "destination": "/index.html"
+}
+…rewrites everything except /assets to index.html, but Vercel is not serving /assets/*.js correctly, because:
+
+You're not explicitly defining the assets/ folder as static.
+
+Vercel defaults to public/, but you're using dist/public/.
+
+You're not using handle: "filesystem", which would let Vercel try static files before applying rewrites.
+
+✅ Fix (Recommended vercel.json)
+Here is a corrected and tested version of your config:
+
+json
+Copy
+Edit
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/public"
+      }
+    },
+    {
+      "src": "dist/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "functions": {
+    "dist/index.js": {
+      "runtime": "@vercel/node@3"
+    }
+  },
+  "routes": [
+    { "handle": "filesystem" },  // 👈 First try to serve static files
+    {
+      "src": "/api/(.*)",
+      "dest": "/dist/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*\\.js)$",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*\\.css)$",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/css; charset=utf-8"
+        }
+      ]
+    }
+  ]
+}
+🔍 Why This Works
+"handle": "filesystem" lets Vercel first check for a matching file like /assets/index-*.js.
+
+Only if the file is not found, it continues to rewrites like /api/(.*) and finally the fallback /index.html.
+
+MIME types for .js and .css are explicitly set — no more text/html errors.
+
+✅ Checklist
+ Your frontend build puts .js into dist/public/assets
+
+ You’ve set distDir to dist/public in vercel.json
+
+ You added handle: "filesystem" before the rewrites
+
+ You set correct headers for application/javascript

@@ -1,0 +1,222 @@
+Since you're using Vite and deploying from GitHub to Vercel, and the issue persists where Vercel serves JavaScript files (e.g., index-G9WQI6ms.js) with a text/html MIME type instead of application/javascript, causing the browser error Failed to load module script, let’s address this with a Vite- and GitHub-specific approach. The error suggests Vercel is still redirecting or rewriting requests for JavaScript files to index.html, likely due to a misconfiguration in vercel.json, Vite’s build output, or Vercel’s caching. Below is a targeted solution to fix the MIME type issue.
+
+Problem Recap
+Error: Failed to load module script: Expected a JavaScript-or-Wasm module script but the server responded with a MIME type of "text/html".
+Cause: Vercel serves index.html with content-type: text/html for requests to /assets/index-G9WQI6ms.js, likely due to a catch-all rewrite rule or cached response.
+Setup: You’re using Vite, deploying via GitHub to Vercel, and the previous curl -I output showed x-vercel-cache: HIT with content-type: text/html.
+Solution
+To resolve this, we need to ensure Vite’s build output is correctly structured, vercel.json properly handles static assets, and Vercel’s cache is cleared. Here’s a step-by-step fix:
+
+Verify Vite Build Output:
+Run the Vite build locally or in your CI pipeline to confirm the output structure:
+bash
+
+
+
+
+npm run build
+ls -la dist/assets/
+Vite typically outputs to dist/ with assets in dist/assets/. Ensure index-G9WQI6ms.js exists in dist/assets/.
+Check dist/index.html to confirm the script tag references the correct path:
+html
+
+
+
+<script type="module" src="/assets/index-G9WQI6ms.js"></script>
+If the src path is incorrect (e.g., missing /assets/), adjust Vite’s base configuration in vite.config.js:
+javascript
+
+
+
+
+// vite.config.js
+export default {
+  base: '/', // Ensure this matches your deployment root
+  build: {
+    outDir: 'dist', // Default, but confirm it’s not changed
+    assetsDir: 'assets' // Default, ensure assets are in dist/assets/
+  }
+}
+Update vercel.json:
+Ensure your GitHub repository’s root contains a vercel.json file to enforce correct MIME types and routing for static assets. Use the following configuration:
+json
+
+
+
+{
+  "headers": [
+    {
+      "source": "/assets/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)\\.css",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/css"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+Explanation:
+The headers section sets Content-Type: application/javascript for .js files and text/css for .css files.
+The rewrites ensure /assets/* requests serve files from the dist/assets/ directory, while other requests fall back to index.html for SPA routing.
+The order is critical: asset-specific rules must come before the catch-all.
+Commit and Push to GitHub:
+Update vercel.json in your GitHub repository’s root.
+Commit and push changes:
+bash
+
+
+
+
+git add vercel.json vite.config.js
+git commit -m "Fix MIME type issue with vercel.json and Vite config"
+git push origin main
+Ensure your GitHub repository is linked to Vercel, so the push triggers a new deployment.
+Clear Vercel Cache and Redeploy:
+Since your previous curl -I showed x-vercel-cache: HIT, stale cache entries may be causing the issue. Trigger a fresh deployment:
+In the Vercel dashboard, go to your project, select “Deployments,” and click “Redeploy” on the latest deployment.
+Alternatively, use the Vercel CLI locally (if set up):
+bash
+
+
+
+
+vercel --prod
+To force cache invalidation, you can temporarily add a no-cache header in vercel.json for debugging:
+json
+
+
+
+{
+  "headers": [
+    {
+      "source": "/assets/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
+Revert to max-age=31536000, immutable after confirming the fix.
+Verify Deployment:
+After deployment, test the JavaScript file’s MIME type:
+bash
+
+
+
+
+curl -I https://www.wizqo.com/assets/index-G9WQI6ms.js
+Expected output:
+text
+
+
+
+HTTP/2 200
+content-type: application/javascript
+cache-control: public, max-age=31536000, immutable
+If it still shows content-type: text/html, check the Vercel deployment logs for errors.
+Check Vercel Build Settings:
+In the Vercel dashboard, go to your project’s “Settings” > “General”:
+Ensure the “Build Command” is set to vite build (or your custom build script from package.json).
+Ensure the “Output Directory” is set to dist.
+Ensure the “Root Directory” is set to / (or the directory containing dist/ and vercel.json).
+If using a custom GitHub workflow, verify your .github/workflows/vercel.yml (if present) runs the correct build and deploy steps:
+yaml
+
+
+
+name: Deploy to Vercel
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npm run build
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+Test in Browser:
+Open https://www.wizqo.com in an incognito window.
+Use DevTools (Network tab) to verify that index-G9WQI6ms.js loads with Content-Type: application/javascript.
+If the error persists, check for 404s or redirects in the Network tab and note the response body (e.g., curl -s https://www.wizqo.com/assets/index-G9WQI6ms.js).
+If the Issue Persists
+Inspect Build Logs:
+In the Vercel dashboard, check the latest deployment’s build logs for errors related to asset uploads or vercel.json parsing.
+Verify Asset Paths:
+Run:
+bash
+
+
+
+
+cat dist/index.html | grep index-G9WQI6ms.js
+Ensure the script tag’s src matches /assets/index-G9WQI6ms.js.
+Debug Cache:
+Temporarily set Cache-Control: no-cache in vercel.json and redeploy.
+Test with curl -I again.
+Share Debugging Info:
+Provide:
+Output of curl -I https://www.wizqo.com/assets/index-G9WQI6ms.js
+Contents of vite.config.js
+Vercel deployment logs (from the dashboard)
+package.json build script
+Contact Vercel Support:
+Share:
+Deployment URL
+vercel.json content
+curl -I output
+Build logs
+Mention that .js files are served as text/html despite correct vercel.json headers.
+Additional Notes
+Vite-Specific: If Vite’s base is set incorrectly (e.g., to a subdirectory), it can cause asset paths to mismatch. Ensure base: '/' unless your app is deployed to a subdirectory.
+GitHub Integration: Confirm that Vercel is pulling the correct branch (e.g., main) and that vercel.json is included in the Git commit.
+Module Scripts: The error mentions “module scripts,” which require application/javascript. The provided vercel.json ensures this MIME type.
+Next Steps
+Update vite.config.js and vercel.json in your GitHub repository.
+Commit and push changes to trigger a Vercel deployment.
+Test with curl -I https://www.wizqo.com/assets/index-G9WQI6ms.js.
+If the issue persists, share the debugging info listed above.

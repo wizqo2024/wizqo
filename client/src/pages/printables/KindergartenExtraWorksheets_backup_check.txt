@@ -1,0 +1,3 @@
+// This is a backup file. content not strictly needed for this tool call but good practice if I were overwriting.
+// I will just append to the file so I don't need a full backup in the history context, 
+// but I will read the file length first to know where to append.

@@ -1,0 +1,119 @@
+Key points about your vercel.json headers snippet:
+diff
+Copy
+Edit
+-    {      
+-      "source": "/assets/(.*\\.js)$",      
+-      "headers": [        
+-        {          
+-          "key": "Content-Type",          
+-          "value": "application/javascript; charset=utf-8"        
+-        }        
+-        { "key": "Content-Type", "value": "application/javascript" }      
+-      ]    
+-    },
++    {      
++      "source": "/assets/(.*).js",      
++      "headers": [        
++        { "key": "Content-Type", "value": "application/javascript" }      
++      ]    
++    },
+You removed duplicate source keys and duplicate Content-Type headers. That's good, JSON objects cannot have duplicate keys.
+
+The source pattern was simplified from regex with $ to a simpler glob-like pattern. This is acceptable if Vercel treats it as a glob.
+
+You dropped charset=utf-8 from the Content-Type header, which is generally fine for JS files (optional).
+
+Recommendations:
+Confirm your full vercel.json looks like this minimal example:
+
+json
+Copy
+Edit
+{
+  "headers": [
+    {
+      "source": "/assets/(.*).js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript" }
+      ]
+    },
+    {
+      "source": "/assets/(.*).css",
+      "headers": [
+        { "key": "Content-Type", "value": "text/css" }
+      ]
+    }
+  ],
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build" }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
+Make sure your frontend build outputs all static JS and CSS files under /dist/public/assets/ and the paths your app uses in HTML reference /assets/*.js and /assets/*.css.
+
+In your package.json scripts, confirm:
+
+json
+Copy
+Edit
+"scripts": {
+  "build": "your-build-command",
+  "vercel-build": "npm run build"
+}
+Clear git locks and push the changes with your specific commit author as you described:
+
+bash
+Copy
+Edit
+rm -f .git/index.lock
+git add .
+git commit -m "Finalize Vercel MIME fix and production config" --author="wizqo <wizqo2024@gmail.com>"
+git push origin main
+Use Vercel CLI to deploy directly if Git deployment issues persist:
+
+bash
+Copy
+Edit
+npm install -g vercel
+vercel login
+vercel --prod
+Check browser devtools (Network tab) after deployment:
+
+Look at the JS files requests: Are they returning 200 OK?
+
+Confirm Content-Type header is application/javascript.
+
+If still served as text/html, open the response preview to check if it’s your index.html or an error page.
+
+If you still get text/html for .js files, a likely cause is:
+
+The path /assets/*.js is being routed to your SPA fallback (index.html).
+
+This happens if files are missing or not uploaded properly.
+
+Double-check the deployment output folder contents.
+
+Quick sanity check
+Run locally:
+
+bash
+Copy
+Edit
+npm run build
+npx serve dist/public
+Visit http://localhost:5000/assets/yourfile.js and verify the file loads with correct Content-Type.
+
+Summary
+Your minimal vercel.json looks correct if fully applied and the build output is correct. The main reasons for text/html served on .js are:
+
+Asset files not actually deployed or path mismatches → fallback to SPA index.html
+
+Vercel build config or routes misdirecting asset requests
+
+If you want, I can help you review your entire vercel.json and package.json files or generate a fully tested minimal config based on your project structure.
+

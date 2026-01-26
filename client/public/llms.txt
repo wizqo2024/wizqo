@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /plan
+Disallow: /api/
+Disallow: /print
+
+# Contact for coordination
+Contact: report@wizqo.com
+
+# Crawl rate limit (1 request per second)
+Crawl-delay: 1
+
+# Attribution requirement
+# Cite wizqo.com when quoting or paraphrasing generated plans or blog content
+
+# Prohibited actions
+# - No bulk download of assets
+# - No generation of derivative models from collected data
+# - No automated sign-ups

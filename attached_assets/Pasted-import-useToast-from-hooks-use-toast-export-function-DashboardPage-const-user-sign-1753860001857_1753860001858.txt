@@ -1,0 +1,199 @@
+import { useToast } from '@/hooks/use-toast'
+
+export function DashboardPage() {
+  const { user, signOut } = useAuth()
+  const { user, signOut, loading: authLoading } = useAuth()
+  const [plans, setPlans] = useState<HobbyPlan[]>([])
+  const [progress, setProgress] = useState<UserProgress[]>([])
+  const [loading, setLoading] = useState(true)
+  const { toast } = useToast()
+
+  useEffect(() => {
+    if (user) {
+      fetchUserPlans()
+    } else if (!user && !loading) {
+      // If no user and not loading, redirect to home
+    console.log('DashboardPage: useEffect triggered', { user: user?.email, authLoading, loading })
+    
+    if (authLoading) {
+      console.log('DashboardPage: Auth still loading, waiting...')
+      return
+    }
+    
+    if (!user) {
+      console.log('DashboardPage: No user found, redirecting to home')
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to access your dashboard.",
+        variant: "destructive",
+      })
+      window.location.hash = '#/'
+      return
+    }
+  }, [user, loading])
+    
+    console.log('DashboardPage: User found, fetching plans')
+    fetchUserPlans()
+  }, [user, authLoading])
+
+  const fetchUserPlans = async () => {
+    try {
+@@ -122,12 +136,27 @@ export function DashboardPage() {
+    return (planProgress.completed_days.length / 7) * 100
+  }
+
+  if (loading) {
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading your dashboard...</p>
+          <p className="mt-4 text-gray-600">
+            {authLoading ? 'Checking authentication...' : 'Loading your dashboard...'}
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-xl text-gray-800 mb-4">Please sign in to access your dashboard</p>
+          <Button onClick={() => window.location.hash = '#/'}>
+            Go to Home
+          </Button>
+        </div>
+      </div>
+    )
+
+
+ChatGPT said:
+It looks like you're working on a DashboardPage component in React (likely using TypeScript) that handles user authentication and displays user data. However, your current code has some issues and redundancies that can cause confusion or bugs.
+
+🚨 Key Issues
+Duplicate Destructuring from useAuth()
+
+ts
+Copy
+Edit
+const { user, signOut } = useAuth()
+const { user, signOut, loading: authLoading } = useAuth()
+⚠️ You're calling useAuth() twice. This can lead to inconsistent states or wasted renders. Only destructure it once.
+
+Redundant useEffect Triggers
+You have:
+
+ts
+Copy
+Edit
+useEffect(() => {
+  if (user) {
+    fetchUserPlans()
+  } else if (!user && !loading) { ... }
+}, [user, loading])
+
+useEffect(() => {
+  console.log('DashboardPage: User found, fetching plans')
+  fetchUserPlans()
+}, [user, authLoading])
+⚠️ This causes fetchUserPlans() to be called multiple times unnecessarily. These should be combined into one clean useEffect.
+
+Incorrect Loading Logic
+You're checking if (!user && !loading)—but you should check if (!user && !authLoading) instead, since authLoading tracks the user load.
+
+✅ Cleaned-Up Version
+Here's a refactored version of your component's core logic:
+
+tsx
+Copy
+Edit
+import { useToast } from '@/hooks/use-toast'
+import { useAuth } from '@/hooks/use-auth'
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+
+export function DashboardPage() {
+  const { user, signOut, loading: authLoading } = useAuth()
+  const [plans, setPlans] = useState<HobbyPlan[]>([])
+  const [progress, setProgress] = useState<UserProgress[]>([])
+  const [loading, setLoading] = useState(true)
+  const { toast } = useToast()
+
+  useEffect(() => {
+    console.log('DashboardPage: useEffect triggered', { user: user?.email, authLoading })
+
+    if (authLoading) {
+      console.log('DashboardPage: Auth still loading, waiting...')
+      return
+    }
+
+    if (!user) {
+      console.log('DashboardPage: No user found, redirecting to home')
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to access your dashboard.",
+        variant: "destructive",
+      })
+      window.location.hash = '#/'
+      return
+    }
+
+    fetchUserPlans()
+  }, [user, authLoading])
+
+  const fetchUserPlans = async () => {
+    try {
+      // Fetch logic here
+      setLoading(false)
+    } catch (error) {
+      console.error('Error fetching plans:', error)
+      toast({
+        title: "Error loading dashboard",
+        description: "Something went wrong fetching your data.",
+        variant: "destructive",
+      })
+      setLoading(false)
+    }
+  }
+
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">
+            {authLoading ? 'Checking authentication...' : 'Loading your dashboard...'}
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-xl text-gray-800 mb-4">Please sign in to access your dashboard</p>
+          <Button onClick={() => window.location.hash = '#/'}>
+            Go to Home
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  // ...rest of the render (showing plans etc.)
+}
+✅ Summary of Fixes
+✅ Single useAuth() call
+
+✅ Merged and cleaned useEffect
+
+✅ Corrected auth loading logic
+
+✅ Guarded redirect with authLoading
+
+✅ Avoided double fetch

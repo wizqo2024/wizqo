@@ -1,0 +1,408 @@
+stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
+stallwart.build.js:1 stallwart: failed ping 3
+stallwart.build.js:1 stallwart: failed ping 4
+stallwart.build.js:1 stallwart: failed ping 5
+stallwart.build.js:1 stallwart: session stalled
+_app-fb355538832771b2.js:13 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-fb355538832771b2.js:13 [LaunchDarkly] LaunchDarkly client initialized
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+_app-fb355538832771b2.js:13 task queue exceeded allotted deadline by 268ms
+(anonymous) @ _app-fb355538832771b2.js:13Understand this warning
+dotdevproxy.janeway.replit.dev/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+20Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'battery'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+framework-8f48bc75216a6c55.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-8f48bc75216a6c55.js:1Understand this warning
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+dotdevproxy.janeway.replit.dev/__reachability:1  Failed to load resource: net::ERR_NETWORK_CHANGEDUnderstand this error
+dotdevproxy.janeway.replit.dev/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.riker.replit.dev/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.riker.replit.dev/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.riker.replit.dev/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-fb355538832771b2.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-fb355538832771b2.js:1:132261)
+    at _app-fb355538832771b2.js:28:58884
+    at r (_app-fb355538832771b2.js:28:43219)
+    at _app-fb355538832771b2.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-fb355538832771b2.js:28:43112)
+    at Object.next (_app-fb355538832771b2.js:28:43229)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:15:109835
+    at Array.forEach (<anonymous>)
+    at n (_app-fb355538832771b2.js:15:109804)
+    at Object.next (_app-fb355538832771b2.js:28:44340)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at Object.onNext [as next] (_app-fb355538832771b2.js:40:250945)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at Object.next (_app-fb355538832771b2.js:40:250067)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-fb355538832771b2.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-fb355538832771b2.js:40:246849)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:40:249509Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+_app-fb355538832771b2.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-fb355538832771b2.js:1:132261)
+    at _app-fb355538832771b2.js:28:58884
+    at r (_app-fb355538832771b2.js:28:43219)
+    at _app-fb355538832771b2.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-fb355538832771b2.js:28:43112)
+    at Object.next (_app-fb355538832771b2.js:28:43229)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:15:109835
+    at Array.forEach (<anonymous>)
+    at n (_app-fb355538832771b2.js:15:109804)
+    at Object.next (_app-fb355538832771b2.js:28:44340)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at Object.onNext [as next] (_app-fb355538832771b2.js:40:250945)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at Object.next (_app-fb355538832771b2.js:40:250067)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-fb355538832771b2.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-fb355538832771b2.js:40:246849)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:40:249509Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+gravatar.com/avatar/f2b8d854bcea315e1ce5b3f198879b2f?d=404:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+2_app-fb355538832771b2.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-fb355538832771b2.js:1:132261)
+    at _app-fb355538832771b2.js:28:58884
+    at r (_app-fb355538832771b2.js:28:43219)
+    at _app-fb355538832771b2.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-fb355538832771b2.js:28:43112)
+    at Object.next (_app-fb355538832771b2.js:28:43229)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:15:109835
+    at Array.forEach (<anonymous>)
+    at n (_app-fb355538832771b2.js:15:109804)
+    at Object.next (_app-fb355538832771b2.js:28:44340)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at Object.onNext [as next] (_app-fb355538832771b2.js:40:250945)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at Object.next (_app-fb355538832771b2.js:40:250067)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-fb355538832771b2.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-fb355538832771b2.js:40:246849)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:40:249509Understand this error
+HobbyPlanGen:1 Access to fetch at 'https://sp.replit.com/v1/t' from origin 'https://replit.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+sp.replit.com/v1/t:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+_app-fb355538832771b2.js:1 Uncaught (in promise) ApolloError: Notification alert not found
+    at new t (_app-fb355538832771b2.js:1:132261)
+    at _app-fb355538832771b2.js:28:58884
+    at r (_app-fb355538832771b2.js:28:43219)
+    at _app-fb355538832771b2.js:28:43145
+    at new Promise (<anonymous>)
+    at Object.then (_app-fb355538832771b2.js:28:43112)
+    at Object.next (_app-fb355538832771b2.js:28:43229)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:15:109835
+    at Array.forEach (<anonymous>)
+    at n (_app-fb355538832771b2.js:15:109804)
+    at Object.next (_app-fb355538832771b2.js:28:44340)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at Object.onNext [as next] (_app-fb355538832771b2.js:40:250945)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at Object.next (_app-fb355538832771b2.js:40:250067)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:40:246909
+    at Array.forEach (<anonymous>)
+    at _app-fb355538832771b2.js:40:246882
+    at Array.forEach (<anonymous>)
+    at Object.next (_app-fb355538832771b2.js:40:246849)
+    at v (_app-fb355538832771b2.js:23:5666)
+    at y (_app-fb355538832771b2.js:23:6188)
+    at t.next (_app-fb355538832771b2.js:23:6689)
+    at _app-fb355538832771b2.js:40:249509Understand this error
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: 
+Console.js:61 🔄 Auth context state change: TOKEN_REFRESHED wizqo2024@gmail.com
+Console.js:61 🔑 Initial session: wizqo2024@gmail.com
+Console.js:61 🔄 Auth context state change: INITIAL_SESSION wizqo2024@gmail.com
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Navigating to route: generate
+Console.js:61 🔧 Setting location to: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: drawing
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "drawing",
+  "title": "Learn drawing in 7 Days",
+  "overview": "Master drawing in 7 days with this personalized plan.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Drawing Basics & Setup - 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in drawing. You'll work on basic concepts and terminology while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basic concepts and terminology fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical drawing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Drawing equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly set up your practice space",
+        "Focus on understanding why, not just how",
+        "Start slow and build confidence gradually"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Drawing Pencils Set",
+          "link": "https://www.amazon.com/dp/B077NSCQNX?tag=wizqohobby-20",
+          "price": "$14.99"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Drawing Core Techniques - 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in drawing. You'll work on core techniques and proper form while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques and proper form fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical drawing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Drawing equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Quality practice beats quantity every time",
+        "Focus on proper technique before speed",
+        "Use a mirror or recording to check your form"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Sketchbook 9x12",
+          "link": "https://www.amazon.com/dp/B0002513RC?tag=wizqohobby-20",
+          "price": "$12.99"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Drawing Building Skills - 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in drawing. You'll work on coordination and skill-building exercises while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with coordination and skill-building exercises fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical drawing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Drawing equipment ready and organized",
+        "Practice area set up for building skills work",
+        "Basic reference materials available",
+        "Timer set for focused building skills practice",
+        "Progress tracking system ready for Day 3"
+      ],
+      "tips": [
+        "Break complex skills into smaller parts",
+        "Celebrate small improvements each day",
+        "Be patient with your learning process"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [],
+      "affiliateProducts": [
+        {
+          "title": "Blending Stumps Set",
+          "link": "https://www.amazon.com/dp/B002513TE?tag=wizqohobby-20",
+          "price": "$8.99"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "title": "Drawing Practical Application - 4",
+      "mainTask": "Apply what you've learned in real-world scenarios with focused practice and hands-on learning.",
+      "explanation": "Day 4 focuses on practical application in drawing. You'll work on practical application and problem-solving while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with practical application and problem-solving fundamentals",
+        "
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 CORRECTED plan data - first day youtubeVideoId: ewJNyS9pe-Y
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 🔧 fixPlanDataFields - Input plan structure: Object
+Console.js:61 🔧 fixPlanDataFields - Output plan days count: 7
+Console.js:61 🔧 FIXED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 FIXED plan data - first day youtubeVideoId: ewJNyS9pe-Y
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 🔍 CHECKING: Looking for existing plan for hobby: drawing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+Console.js:61 🐛 Video Title: drawing - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔍 Direct Supabase session check: plan-1754290444174-lun28473p drawing
+Console.js:61 🔍 CHECKING: Found 1 existing plans for hobby: drawing
+Console.js:61 ⚠️ DUPLICATE PLAN: Plan already exists for hobby: drawing
+Console.js:61 ❌ SUPABASE SAVE ERROR: Failed to save plan: Error: You already have a learning plan for drawing. Check your dashboard to continue your existing plan.
+    at HobbyPlanService.savePlan (hobbyPlanService.ts:49:15)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:763:29)
+    at async handleOptionSelect (SplitPlanInterface.tsx:794:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error saving surprise plan to Supabase: Error: You already have a learning plan for drawing. Check your dashboard to continue your existing plan.
+    at HobbyPlanService.savePlan (hobbyPlanService.ts:49:15)
+    at async handleSurpriseMe (SplitPlanInterface.tsx:763:29)
+    at async handleOptionSelect (SplitPlanInterface.tsx:794:7)
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+Console.js:61 🐛 Video Title: drawing - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+Console.js:61 🐛 Video Title: drawing - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+Console.js:61 🐛 Video Title: drawing - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: ewJNyS9pe-Y
+Console.js:61 🐛 Video Title: drawing - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object

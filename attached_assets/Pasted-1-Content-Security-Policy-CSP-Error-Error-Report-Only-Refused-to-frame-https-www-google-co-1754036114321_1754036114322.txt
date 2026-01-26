@@ -1,0 +1,168 @@
+1. Content Security Policy (CSP) Error
+Error:
+
+[Report Only] Refused to frame 'https://www.google.com/' because an ancestor violates the following Content Security Policy directive: "frame-ancestors 'self'"
+Explanation:
+
+This error occurs because the Content Security Policy (CSP) frame-ancestors directive is set to 'self', meaning only the same origin (the website itself) is allowed to embed the page in an iframe. The website is trying to load https://www.google.com/ in an iframe, which violates this policy.
+Resolution:
+
+If you control the CSP, update the frame-ancestors directive to include https://www.google.com or remove the restriction if appropriate (e.g., frame-ancestors 'self' https://www.google.com).
+If embedding Google is unnecessary, remove the iframe attempting to load it.
+Since this is in "Report Only" mode, the policy is not enforced, but it’s a warning that enforcement could block this in the future.
+
+
+2. Invalid Sandbox Flag Error
+Error:
+
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Explanation:
+
+The HTML sandbox attribute on an iframe restricts its capabilities for security. The flag allow-downloads-without-user-activation is not a valid sandbox flag in the browser's implementation (as of 2025). Valid flags include allow-scripts, allow-same-origin, allow-popups, etc.
+Resolution:
+
+Remove the invalid allow-downloads-without-user-activation flag from the sandbox attribute.
+If you need to allow downloads, use the allow-downloads flag (supported in modern browsers).
+Check the browser's documentation for supported sandbox flags (e.g., MDN Web Docs).
+
+
+3. Unrecognized Feature Warnings
+Warnings (Multiple):
+
+Unrecognized feature: 'ambient-light-sensor', 'battery', 'execution-while-not-rendered', 'execution-while-out-of-viewport', 'layout-animations', 'legacy-image-formats', 'navigation-override', 'oversized-images', 'publickey-credentials', 'speaker-selection', 'unoptimized-images', 'unsized-media', 'pointer-lock'
+Explanation:
+
+These warnings indicate that the webpage is attempting to use features (likely in the Feature-Policy or Permissions-Policy HTTP header) that are not recognized by the browser. The Permissions-Policy header controls access to certain browser features (e.g., sensors, battery status, etc.), and these listed features are either deprecated, non-standard, or not supported in the browser.
+Resolution:
+
+Review the Permissions-Policy header in your server configuration or meta tags.
+Remove unrecognized or unnecessary features from the policy. For example:
+
+ambient-light-sensor and battery are deprecated in modern browsers due to privacy concerns.
+execution-while-not-rendered, execution-while-out-of-viewport, layout-animations, legacy-image-formats, navigation-override, oversized-images, unoptimized-images, unsized-media are likely Next.js or framework-specific optimizations that may not be standard.
+publickey-credentials, speaker-selection, and pointer-lock are valid but may not be supported in all browsers or contexts.
+
+
+Ensure the Permissions-Policy only includes supported features. Use tools like Chrome DevTools or MDN to verify supported features.
+
+
+4. Allow Attribute Precedence Warnings
+Warnings:
+
+Allow attribute will take precedence over 'allowfullscreen'.
+
+Allow attribute will take precedence over 'allowpaymentrequest'.
+Explanation:
+
+These warnings occur when an iframe’s allow attribute is used alongside legacy attributes like allowfullscreen or allowpaymentrequest. The allow attribute (used for Permissions-Policy) takes precedence over these older attributes, potentially overriding their behavior.
+Resolution:
+
+Consolidate permissions into the allow attribute. For example:
+
+Instead of <iframe allow="fullscreen" allowfullscreen>, use <iframe allow="fullscreen">.
+Instead of <iframe allowpaymentrequest>, use <iframe allow="payment">.
+
+
+Remove deprecated attributes like allowfullscreen and allowpaymentrequest to avoid conflicts.
+Verify the iframe’s required permissions and ensure they align with the Permissions-Policy header.
+
+
+5. Certificate Authority Invalid Errors
+Errors (Multiple):
+
+Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID
+
+(From dotdevproxy.janeway.repl.co/__reachability, dotdevproxy.picard.repl.co/__reachability, dotdevproxy.worf.repl.co/__reachability)
+Explanation:
+
+The browser is unable to verify the SSL/TLS certificate for these domains (e.g., dotdevproxy.janeway.repl.co). This typically happens when:
+
+The certificate is self-signed or issued by an untrusted certificate authority.
+The certificate is expired or misconfigured.
+The domains are part of a development environment (e.g., Replit) using temporary or untrusted certificates.
+
+Resolution:
+
+For development environments, configure your browser to accept self-signed certificates (not recommended for production).
+Use a trusted certificate authority (e.g., Let’s Encrypt) for these domains.
+If using Replit, ensure the proxy domains are correctly configured with valid certificates or bypass the __reachability endpoint in development.
+In production, obtain and install valid SSL/TLS certificates for all domains.
+
+
+6. Stallwart Failed Ping Error
+Error:
+
+stallwart.build.js:1 stallwart: failed ping 1
+Explanation:
+
+This error comes from a script (stallwart.build.js), likely part of a monitoring or health-check system (e.g., Stallwart, a potential internal tool or library). The "failed ping 1" suggests that a connectivity check to a server or endpoint failed, possibly due to network issues, a down server, or a misconfigured endpoint.
+Resolution:
+
+Check the network connectivity to the target endpoint in stallwart.build.js.
+Verify the server or service being pinged is operational.
+Inspect the stallwart.build.js script to understand the ping logic and ensure the target URL is correct.
+If this is a third-party tool, consult its documentation for troubleshooting failed pings.
+
+
+7. BeforeInstallPrompt Event Error
+Error:
+
+Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+Explanation:
+
+This error occurs when the beforeinstallprompt event (used to trigger a "Add to Home Screen" prompt for Progressive Web Apps) has its default behavior prevented (preventDefault() is called), but the page does not subsequently call prompt() to show the installation banner.
+Resolution:
+
+Ensure the code handling the beforeinstallprompt event calls prompt() after preventDefault(). Example:
+javascriptwindow.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); // Prevent the default mini-infobar
+  // Store the event for later use
+  let deferredPrompt = e;
+  // Show the prompt when ready, e.g., on a button click
+  button.addEventListener('click', () => {
+    deferredPrompt.prompt();
+  });
+});
+
+If the banner is intentionally suppressed, remove the preventDefault() call to avoid this warning.
+Verify PWA requirements (e.g., service worker, manifest file) are correctly set up.
+
+
+8. Supabase and Application Logs
+Logs (Multiple):
+
+Various logs related to Supabase initialization, user authentication, route changes, and plan/progress fetching (e.g., Supabase client initialized, Auth context state change: SIGNED_IN, Plans query completed via API. Result: 11 plans).
+Explanation:
+
+These are informational logs from your application, indicating:
+
+Successful initialization of the Supabase client with a URL.
+User authentication (SIGNED_IN for wizqo2024@gmail.com).
+Route changes (e.g., navigating to /dashboard or /plan).
+Data fetching for user plans (11 plans found) and progress (0 entries).
+Specific actions like navigating to a "gardening" plan, loading YouTube video data, and marking progress for a plan.
+
+Resolution:
+
+These are not errors but debug logs. No action is needed unless they indicate unexpected behavior.
+If the Progress query completed via API. Result: 0 progress entries is unexpected, verify the database or API logic to ensure progress is being saved correctly.
+The RLS cache issue - saving to session storage until resolved log suggests a Row-Level Security (RLS) issue with Supabase. Check your Supabase RLS policies to ensure the authenticated user has permission to access or update the relevant tables.
+
+
+9. General Observations
+
+LaunchDarkly Initialization: The log LaunchDarkly client initialized indicates successful setup of LaunchDarkly (a feature flag management service). No action is needed unless feature flags are not working as expected.
+Repetitive Logs: Many logs (e.g., YouTube video ID, Supabase queries) are repeated, suggesting multiple state changes or re-renders in the application. Consider optimizing React hooks (e.g., useEffect) to prevent redundant API calls or logging.
+Development Environment Issues: The certificate errors and proxy domain issues suggest this is a development environment (e.g., Replit). These may not occur in production with proper certificates.
+
+
+Summary of Actions
+
+CSP Error: Adjust the frame-ancestors directive or remove the Google iframe.
+Sandbox Error: Use valid sandbox flags like allow-downloads.
+Unrecognized Features: Remove unsupported features from the Permissions-Policy header.
+Allow Attribute Warnings: Consolidate permissions into the allow attribute.
+Certificate Errors: Use trusted certificates or bypass in development.
+Stallwart Ping Failure: Investigate the target endpoint and network connectivity.
+BeforeInstallPrompt Error: Ensure prompt() is called after preventDefault() for PWA installation.
+Supabase Logs: Verify RLS policies and optimize application logic to reduce redundant logs.

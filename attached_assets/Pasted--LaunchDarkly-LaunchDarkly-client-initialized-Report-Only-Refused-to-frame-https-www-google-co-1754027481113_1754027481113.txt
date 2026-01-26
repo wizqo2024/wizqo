@@ -1,0 +1,249 @@
+[LaunchDarkly] LaunchDarkly client initialized
+[Report Only] Refused to frame 'https://www.google.com/' because an ancestor violates the following Content Security Policy directive: "frame-ancestors 'self'".
+Understand this error
+HobbyPlanGen:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+stallwart.build.js:1 stallwart: failed ping 1
+20Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.Understand this error
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'battery'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'layout-animations'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'navigation-override'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'oversized-images'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'publickey-credentials'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'speaker-selection'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'unoptimized-images'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'unsized-media'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+framework-2bd9a0e07d0728ae.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-2bd9a0e07d0728ae.js:1Understand this warning
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.janeway.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.picard.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+dotdevproxy.worf.repl.co/__reachability:1  Failed to load resource: net::ERR_CERT_AUTHORITY_INVALIDUnderstand this error
+stallwart.build.js:1 stallwart: failed ping 1
+workspace_iframe.html:32 Unrecognized feature: 'ambient-light-sensor'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'battery'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-not-rendered'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'execution-while-out-of-viewport'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'layout-animations'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'legacy-image-formats'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'navigation-override'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'oversized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'publickey-credentials'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'speaker-selection'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unoptimized-images'.Understand this warning
+workspace_iframe.html:32 Unrecognized feature: 'unsized-media'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowfullscreen'.Understand this warning
+workspace_iframe.html:32 Allow attribute will take precedence over 'allowpaymentrequest'.Understand this warning
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: /generate hash: 
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 ✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+Console.js:61 🔧 Route change detected - pathname: / hash: #/
+Console.js:61 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+2Console.js:61 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 🔧 Navigating to route: generate
+Console.js:61 🔧 Setting location to: #/generate
+Console.js:61 🔄 Initializing messages state with welcome message
+Console.js:61 🔧 Route change detected - pathname: / hash: #/generate
+Console.js:61 🎯 Setting plan data in SplitPlanInterface: guitar
+Console.js:61 🐛 Raw plan data received in setPlanData: {
+  "hobby": "guitar",
+  "title": "Learn guitar in 7 Days",
+  "overview": "Master guitar in 7 days with this personalized plan.",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Guitar Fundamentals - Day 1",
+      "mainTask": "Learn essential guitar techniques and practice hands-on exercises with detailed instruction.",
+      "explanation": "Day 1 focuses on building your foundation in guitar with practical exercises that build on previous learning.",
+      "howTo": [
+        "Start with basic guitar concepts and terminology",
+        "Practice fundamental techniques with step-by-step guidance",
+        "Complete hands-on exercises designed for beginner level",
+        "Review and refine your skills through deliberate practice",
+        "Document your progress and identify areas for improvement"
+      ],
+      "checklist": [
+        "All necessary guitar equipment and materials ready",
+        "Comfortable practice space set up appropriately",
+        "Reference materials and guides easily accessible",
+        "Timer for focused practice sessions",
+        "Method to track progress and take notes"
+      ],
+      "tips": [
+        "Take your time with each exercise - quality over speed",
+        "Don't be afraid to repeat difficult parts multiple times",
+        "Practice regularly in short sessions rather than long marathons"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Guitar Basics - 10 Minute Lesson",
+          "link": "https://youtube.com/watch?v=BCWKDrPkCg0"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Guitar Essential Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqo-20",
+          "price": "$19.99"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Guitar Fundamentals - Day 2",
+      "mainTask": "Learn essential guitar techniques and practice hands-on exercises with detailed instruction.",
+      "explanation": "Day 2 focuses on building your foundation in guitar with practical exercises that build on previous learning.",
+      "howTo": [
+        "Start with basic guitar concepts and terminology",
+        "Practice fundamental techniques with step-by-step guidance",
+        "Complete hands-on exercises designed for beginner level",
+        "Review and refine your skills through deliberate practice",
+        "Document your progress and identify areas for improvement"
+      ],
+      "checklist": [
+        "All necessary guitar equipment and materials ready",
+        "Comfortable practice space set up appropriately",
+        "Reference materials and guides easily accessible",
+        "Timer for focused practice sessions",
+        "Method to track progress and take notes"
+      ],
+      "tips": [
+        "Take your time with each exercise - quality over speed",
+        "Don't be afraid to repeat difficult parts multiple times",
+        "Practice regularly in short sessions rather than long marathons"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "3 Easy Guitar Chords - 5 Minutes",
+          "link": "https://youtube.com/watch?v=tQU2OtZagS4"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Guitar Essential Kit",
+          "link": "https://amazon.com/dp/B2234?tag=wizqo-20",
+          "price": "$24.99"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Guitar Fundamentals - Day 3",
+      "mainTask": "Learn essential guitar techniques and practice hands-on exercises with detailed instruction.",
+      "explanation": "Day 3 focuses on building your foundation in guitar with practical exercises that build on previous learning.",
+      "howTo": [
+        "Start with basic guitar concepts and terminology",
+        "Practice fundamental techniques with step-by-step guidance",
+        "Complete hands-on exercises designed for beginner level",
+        "Review and refine your skills through deliberate practice",
+        "Document your progress and identify areas for improvement"
+      ],
+      "checklist": [
+        "All necessary guitar equipment and materials ready",
+        "Comfortable practice space set up appropriately",
+        "Reference materials and guides easily accessible",
+        "Timer for focused practice sessions",
+        "Method to track progress and take notes"
+      ],
+      "tips": [
+        "Take your time with each exercise - quality over speed",
+        "Don't be afraid to repeat difficult parts multiple times",
+        "Practice regularly in short sessions rather than long marathons"
+      ],
+      "mistakesToAvoid": [],
+      "freeResources": [
+        {
+          "title": "Simple Strumming Pattern - 8 Minutes",
+          "link": "https://youtube.com/watch?v=esTNkJaG6Y0"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Guitar Essential Kit",
+          "link": "https://amazon.com/dp/B3234?tag=wizqo-20",
+          "price": "$29.9
+Console.js:61 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 CORRECTED plan data - first day youtubeVideoId: BCWKDrPkCg0
+Console.js:61 Saving surprise plan to Supabase for authenticated user...
+Console.js:61 🔧 FIXED plan data - first day commonMistakes: Array(3)
+Console.js:61 🔧 FIXED plan data - first day youtubeVideoId: BCWKDrPkCg0
+Console.js:61 💾 SUPABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 💾 SUPABASE SAVE: Plan data: Object
+Console.js:61 💾 SUPABASE SAVE: Performing direct insert...
+Console.js:61 🐛 Debug YouTube Video ID: BCWKDrPkCg0
+Console.js:61 🐛 Video Title: guitar - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔍 IMMEDIATE STORING plan for navigation (SplitPlanInterface): plan-1754027444236-lj0oysvji guitar
+Console.js:61 📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+Mt.forEach.n.<computed> @ Console.js:61Understand this warning
+Console.js:61 🐛 Debug YouTube Video ID: BCWKDrPkCg0
+Console.js:61 🐛 Video Title: guitar - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: BCWKDrPkCg0
+Console.js:61 🐛 Video Title: guitar - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: BCWKDrPkCg0
+Console.js:61 🐛 Video Title: guitar - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 💾 SUPABASE SAVE: Operation timed out after 5 seconds
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 💾 SUPABASE SAVE FAILED: Error: Supabase save operation timed out after 5 seconds
+    at hobbyPlanService.ts:116:18
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 💾 SUPABASE SAVE: Save operation hung - possible network or RLS issue
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 Error saving surprise plan to Supabase: Error: Supabase save operation timed out after 5 seconds
+    at hobbyPlanService.ts:116:18
+Mt.forEach.n.<computed> @ Console.js:61Understand this error
+Console.js:61 🐛 Debug YouTube Video ID: BCWKDrPkCg0
+Console.js:61 🐛 Video Title: guitar - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: BCWKDrPkCg0
+Console.js:61 🐛 Video Title: guitar - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🐛 Debug YouTube Video ID: BCWKDrPkCg0
+Console.js:61 🐛 Video Title: guitar - Day 1
+Console.js:61 🐛 Debug Common Mistakes: Array(3)
+Console.js:61 🐛 Full current day data: Object
+Console.js:61 🔧 Route change detected - pathname: / hash: #/dashboard
+Console.js:61 DashboardPage: useEffect triggered Object
+Console.js:61 📖 SUPABASE: User found! Fetching plans and progress for: wizqo2024@gmail.com
+Console.js:61 📖 SUPABASE: Fetching user plans for user ID: 773c3f18-025a-432d-ae3d-fa13be3faef8
+Console.js:61 📖 SUPABASE: Starting plans query with quick timeout...
+Console.js:61 📖 SUPABASE: Quick timeout triggered, showing empty dashboard

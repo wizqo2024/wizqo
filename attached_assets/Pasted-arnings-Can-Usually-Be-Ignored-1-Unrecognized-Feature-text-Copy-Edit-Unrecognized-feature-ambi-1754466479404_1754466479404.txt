@@ -1,0 +1,89 @@
+arnings (Can Usually Be Ignored)
+1. Unrecognized Feature:
+text
+Copy
+Edit
+Unrecognized feature: 'ambient-light-sensor' / 'battery' / 'execution-while-not-rendered' ...
+Cause: You're using an iframe or Feature-Policy or Permissions-Policy headers that include unsupported or obsolete features.
+
+Fix: These warnings are harmless but you can clean up your iframe allow attributes or remove unsupported feature policies from headers if you're setting them.
+
+2. Sandbox Attribute Issue:
+text
+Copy
+Edit
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Cause: 'allow-downloads-without-user-activation' is not a valid sandbox attribute in modern browsers.
+
+Fix: Remove it from the iframe sandbox attribute.
+
+❗ Errors (You Might Want to Fix)
+3. Gravatar 404:
+text
+Copy
+Edit
+gravatar.com/avatar/[hash]?d=404:1 Failed to load resource: 404
+Cause: A user has no Gravatar image; fallback returns 404.
+
+Fix: Add ?d=identicon or another default instead of d=404, e.g.:
+
+ts
+Copy
+Edit
+https://gravatar.com/avatar/[hash]?d=identicon
+4. CORS Error:
+text
+Copy
+Edit
+Access to fetch at 'https://sp.replit.com/v1/t' from origin 'https://replit.com' has been blocked by CORS policy...
+Cause: You're making a cross-origin request to a domain (sp.replit.com) that doesn't allow https://replit.com as a valid origin.
+
+Fix: You can't bypass CORS in frontend code. You need the server (Replit) to add appropriate CORS headers, or proxy through a backend you control.
+
+5. PWA Installation Banner Not Shown:
+text
+Copy
+Edit
+Banner not shown: beforeinstallpromptevent.preventDefault() called...
+Cause: You called .preventDefault() on the beforeinstallprompt event but never later triggered .prompt().
+
+Fix: If you want the PWA banner to show:
+
+js
+Copy
+Edit
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // later in UI interaction:
+  deferredPrompt.prompt();
+});
+❌ Critical App Logic Error
+6. Supabase Save Error (Duplicate Plan):
+text
+Copy
+Edit
+Error: You already have a learning plan for yoga. Check your dashboard to continue your existing plan.
+Cause: The app is trying to create a new plan for "yoga", but the user already has one stored in Supabase.
+
+Fix (Options):
+
+Prevent this in UI: Show a message and direct the user to the dashboard.
+
+Allow duplicates with timestamp or versioning.
+
+Add override logic (e.g., delete old plan or update it).
+
+🐞 Debug Notes
+youtubeVideoId: undefined indicates that you're trying to access or display a YouTube video for the day but it's missing in the data.
+
+Fix: Ensure your plan data includes a valid YouTube video ID for each day, or add fallback logic in the UI to hide the video block if it's missing.
+
+Summary: What You Should Fix
+Issue	Importance	Suggested Fix
+Supabase plan already exists	🔴 High	Handle duplicate logic gracefully or allow updates
+CORS error	🔴 High (if request matters)	Use backend proxy or contact API provider
+youtubeVideoId: undefined	🟠 Medium	Add fallback logic or ensure data completeness
+Sandbox & feature policy warnings	🟡 Low	Clean up obsolete iframe attributes
+Gravatar 404	🟡 Low	Use a default image like identicon

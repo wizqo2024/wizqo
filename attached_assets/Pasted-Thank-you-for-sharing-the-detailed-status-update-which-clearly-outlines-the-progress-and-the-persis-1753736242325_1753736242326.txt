@@ -1,0 +1,178 @@
+Thank you for sharing the detailed status update, which clearly outlines the progress and the persistent issue with Vercel’s CDN serving stale content and incorrect MIME types. The key problems are:
+
+Vercel CDN Cache Persistence: The CDN is serving a stale deployment (etag: 0058329ff2e8fa2fa71b2d488a9a534b), causing index.html to reference the outdated index-G9WQI6ms.js instead of the new index-CWH0ADpq.js.
+MIME Type Issue: JavaScript files are served as text/html, triggering the browser error Failed to load module script.
+Asset Hash Mismatch: The production index.html references an old JavaScript file, indicating the cached index.html isn’t updating.
+Given that you’ve already applied a correct vercel.json with no-cache headers, forced redeployments, and confirmed the build works locally, the issue is likely Vercel’s aggressive CDN caching or a project-specific configuration error. Since you’ve asked whether to delete the Vercel project and GitHub repository, and considering the repeated failed attempts to clear the cache, deleting and redoing the Vercel project is a reasonable next step to bypass the CDN issue. However, deleting the GitHub repository is unnecessary unless you suspect file corruption. Below is a plan to either fix the issue one final time or cleanly delete and redo the Vercel project, with a fallback to alternative platforms like Netlify if needed.
+
+Final Attempt to Fix on Vercel
+Before deleting, let’s try one last fix to ensure we’ve exhausted all options, focusing on cache invalidation and verifying the build pipeline.
+
+Update vercel.json with Aggressive No-Cache Headers:
+Ensure your vercel.json forces no caching for all critical assets to bypass the CDN:
+json
+
+
+
+{
+  "headers": [
+    {
+      "source": "/assets/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)\\.css",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/css"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.html)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/html"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+Commit and push:
+bash
+
+
+
+
+git add vercel.json
+git commit -m "Force no-cache headers for all assets"
+git push origin main
+Clear Vite Build Cache and Rebuild:
+Clear Vite’s cache to ensure a fresh build:
+bash
+
+
+
+
+rm -rf node_modules/.vite dist
+npm run build
+Verify dist/index.html references index-CWH0ADpq.js:
+bash
+
+
+
+
+cat dist/index.html | grep index-CWH0ADpq.js
+Expected output:
+text
+
+
+
+<script type="module" src="/assets/index-CWH0ADpq.js"></script>
+Confirm index-CWH0ADpq.js exists:
+bash
+
+
+
+
+ls -la dist/assets/index-CWH0ADpq.js
+Commit the dist/ folder (if included in your repo):
+bash
+
+
+
+
+git add dist/
+git commit -m "Add fresh build with correct asset hashes"
+git push origin main
+Force Redeploy with Vercel CLI:
+Install Vercel CLI locally (if not already installed):
+bash
+
+
+
+
+npm install -g vercel
+Clear any local Vercel cache:
+bash
+
+
+
+
+rm -rf .vercel
+Redeploy with force:
+bash
+
+
+
+
+vercel --prod --force
+This bypasses cached build artifacts and triggers a fresh deployment.
+Test the Deployment:
+Check the JavaScript file:
+bash
+
+
+
+
+curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js
+Expected output:
+text
+
+
+
+HTTP/2 200
+content-type: application/javascript
+cache-control: no-cache, no-store, must-revalidate
+Check index.html:
+bash
+
+
+
+
+curl -s https://www.wizqo.com/ | grep index-CWH0ADpq.js
+Expected output:
+text
+
+
+
+<script type="module" src="/assets/index-CWH0ADpq.js"></script>
+Open https://www.wizqo.com in an incognito browser window and use DevTools (Network tab) to confirm index-CWH0ADpq.js loads with Content-Type: application/javascript.
+Contact Vercel Support:
+If the above fails, contact Vercel support before deleting the project:
+Go to Vercel dashboard > “Support” > submit a ticket.
+Provide:
+Deployment URL
+vercel.json content
+curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js output
+Build logs from the Vercel dashboard
+ETag of the stale response: 0058329ff2e8fa2fa71b2d488a9a534b

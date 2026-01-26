@@ -1,0 +1,74 @@
+What’s Not Working
+❗ Progress Not Saving
+pgsql
+Copy
+Edit
+📝 DATABASE SAVE: User not authenticated or no plan ID - progress not saved
+⚠️ Plan ID = undefined
+pgsql
+Copy
+Edit
+Direct Supabase session check: plan-1754033528638-l8x8c71dk undefined
+You’re creating the key correctly (plan-1754033528638-l8x8c71dk) but not attaching an actual plan ID.
+
+Therefore, when your save logic runs, planId is still undefined.
+
+🛠️ Root Cause
+Your code appears to be:
+
+Extracting the plan title from state correctly.
+
+But not assigning or resolving the plan’s actual database ID (plan_id) from Supabase.
+
+✅ How to Fix It
+Step 1: Locate the Plan ID in Supabase
+Assuming you’re loading a plan based on its title (e.g., “Learn cooking in 7 Days”), run this Supabase query before saving progress:
+
+js
+Copy
+Edit
+const { data: plan, error } = await supabase
+  .from('user_plans')
+  .select('id')
+  .eq('title', 'Learn cooking in 7 Days')
+  .eq('user_id', user.id)
+  .single();
+
+if (error || !plan) {
+  console.error('Plan not found', error);
+} else {
+  const planId = plan.id;
+  // ✅ Save this in state and pass it into your save logic
+}
+Step 2: Update Your Save Logic
+Ensure planId is:
+
+Fetched before autosave triggers.
+
+Stored in a ref or state variable that's available to your save function.
+
+js
+Copy
+Edit
+if (user && planId) {
+  // Proceed with saving progress
+} else {
+  console.warn("User not authenticated or planId missing");
+}
+🔍 Bonus: Other Warnings You Can Ignore or Clean Up
+These are mostly harmless:
+
+Warning/Error	Fix or Action
+Unrecognized feature: 'ambient-light-sensor'	Remove from feature policy header.
+beforeinstallprompt.preventDefault()	If you want the PWA install banner, call event.prompt().
+allow-downloads-without-user-activation is invalid	Remove from iframe’s sandbox attribute.
+ERR_CERT_AUTHORITY_INVALID on *.repl.co	Stop calling dotdevproxy.*.repl.co unless you trust them.
+
+✅ Summary
+Item	Status
+Supabase connection	✅ Working
+Authentication	✅ Working
+Plan fetching	✅ Working
+Plan ID for saving progress	❌ Missing
+Progress saving	❌ Blocked by missing plan ID
+Console warnings	⚠️ Mostly cosmetic

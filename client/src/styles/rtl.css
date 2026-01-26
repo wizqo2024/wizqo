@@ -1,0 +1,169 @@
+/* RTL (Right-to-Left) Support for Arabic and other RTL languages */
+
+/* RTL Layout Base - Only apply to body/html, not all elements */
+html[dir="rtl"],
+html[dir="rtl"] body {
+  direction: rtl;
+}
+
+/* RTL Text Alignment - Only for text content, not layout elements */
+[dir="rtl"] .worksheet-section {
+  direction: rtl;
+}
+
+[dir="rtl"] .worksheet-section h1,
+[dir="rtl"] .worksheet-section h2,
+[dir="rtl"] .worksheet-section h3,
+[dir="rtl"] .worksheet-section p,
+[dir="rtl"] .worksheet-section .text-left {
+  text-align: right;
+}
+
+/* RTL Flex Containers - Only reverse when needed */
+[dir="rtl"] .worksheet-section .flex.items-center:not(.math-problem):not(.visual-container) {
+  flex-direction: row-reverse;
+}
+
+/* RTL Grid - Keep normal direction for grids */
+[dir="rtl"] .grid {
+  direction: ltr; /* Keep grids LTR for consistency */
+}
+
+/* RTL Borders and Padding - Only for worksheet sections */
+[dir="rtl"] .worksheet-section .border-l-2 {
+  border-left: none;
+  border-right: 2px solid;
+}
+
+[dir="rtl"] .worksheet-section .pl-4,
+[dir="rtl"] .worksheet-section .pl-2,
+[dir="rtl"] .worksheet-section .pl-1 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+[dir="rtl"] .worksheet-section .pr-4,
+[dir="rtl"] .worksheet-section .pr-2 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+/* RTL Lists - Only for worksheet sections */
+[dir="rtl"] .worksheet-section ul,
+[dir="rtl"] .worksheet-section ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+  text-align: right;
+}
+
+[dir="rtl"] .worksheet-section .list-disc {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+/* RTL Inputs - Only for worksheet sections */
+[dir="rtl"] .worksheet-section input[type="text"],
+[dir="rtl"] .worksheet-section input[type="number"],
+[dir="rtl"] .worksheet-section textarea {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Math Problems Stay LTR (Universal) */
+[dir="rtl"] .math-problem,
+[dir="rtl"] .math-expression,
+[dir="rtl"] .number-line {
+  direction: ltr !important;
+  text-align: center;
+}
+
+/* Visual Examples Stay Centered */
+[dir="rtl"] .visual-example,
+[dir="rtl"] .visual-demo {
+  direction: ltr;
+  text-align: center;
+}
+
+/* RTL Worked Example Boxes */
+[dir="rtl"] .worked-example {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .worked-example .math-problem {
+  direction: ltr;
+  text-align: center;
+}
+
+/* RTL Challenge Section */
+[dir="rtl"] .challenge-section {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Self-Assessment */
+[dir="rtl"] .self-assessment {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Answer Key */
+[dir="rtl"] .answer-key {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Learning Objectives */
+[dir="rtl"] .learning-objectives {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Parent/Teacher Tips */
+[dir="rtl"] .parent-teacher-tips {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL Navigation (if needed) */
+[dir="rtl"] nav {
+  direction: rtl;
+}
+
+[dir="rtl"] .nav-menu {
+  flex-direction: row-reverse;
+}
+
+/* Keep SVG and Visual Elements Centered */
+[dir="rtl"] svg {
+  direction: ltr;
+}
+
+[dir="rtl"] .visual-container {
+  direction: ltr;
+  text-align: center;
+}
+
+/* RTL Gap Adjustments */
+[dir="rtl"] .gap-2,
+[dir="rtl"] .gap-4 {
+  /* Gaps work the same in RTL */
+}
+
+/* RTL Text with Icons */
+[dir="rtl"] .flex.items-center {
+  flex-direction: row-reverse;
+}
+
+/* Arabic Font Support */
+[dir="rtl"],
+[lang="ar"] {
+  font-family: 'Noto Sans Arabic', 'Cairo', 'Tajawal', 'Arial Unicode MS', sans-serif;
+}
+
+/* Ensure numbers stay LTR in RTL context */
+[dir="rtl"] .number,
+[dir="rtl"] .math-number {
+  direction: ltr;
+  display: inline-block;
+}

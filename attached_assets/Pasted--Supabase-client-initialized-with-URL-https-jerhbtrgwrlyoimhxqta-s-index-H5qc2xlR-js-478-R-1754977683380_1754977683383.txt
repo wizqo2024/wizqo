@@ -1,0 +1,1987 @@
+✅ Supabase client initialized with URL: https://jerhbtrgwrlyoimhxqta.s...
+index-H5qc2xlR.js:478 🔧 Route change detected - pathname: / hash: 
+index-H5qc2xlR.js:478 🔧 Route change detected - pathname: / hash: #/generate
+index-H5qc2xlR.js:478 🔧 Found existing plan in localStorage for generate route: Genealogy
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: false
+index-H5qc2xlR.js:219 🔄 Initializing with existing plan data: Genealogy
+index-H5qc2xlR.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-H5qc2xlR.js:217 🔍 plan.days length: 7
+index-H5qc2xlR.js:217 🔍 plan.plan_data?.days length: 0
+index-H5qc2xlR.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-H5qc2xlR.js:217 🔍 First day youtubeVideoId from different paths:
+index-H5qc2xlR.js:217 🔍   plan.days?.[0]?.youtubeVideoId: gDkTSoLI-NY
+index-H5qc2xlR.js:217 🔍   plan.days?.[0]?.videoId: gDkTSoLI-NY
+index-H5qc2xlR.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-H5qc2xlR.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-H5qc2xlR.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Genealogy Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in genealogy. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical genealogy scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Genealogy equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Genealogy Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=gDkTSoLI-NY"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Genealogy Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "gDkTSoLI-NY",
+  "videoId": "gDkTSoLI-NY",
+  "videoTitle": "Genealogy: Microsoft Visio - Tutorial for Beginners in 13 MINUTES!  [ FULL GUIDE ]",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner",
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ]
+}
+index-H5qc2xlR.js:217 🔍 FRONTEND - All keys in first day: Array(16)
+index-H5qc2xlR.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-H5qc2xlR.js:217 🔍 FRONTEND - videoId value type: string
+index-H5qc2xlR.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-H5qc2xlR.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-H5qc2xlR.js:219 🔧 Applied field mapping fix to initial plan data
+index-H5qc2xlR.js:478 🔧 Found existing plan in localStorage for generate route: Genealogy
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: false
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Genealogy Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Genealogy" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Genealogy" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: gDkTSoLI-NY
+index-H5qc2xlR.js:256 🐛 Video Title: Genealogy: Microsoft Visio - Tutorial for Beginners in 13 MINUTES!  [ FULL GUIDE ]
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-H5qc2xlR.js:219 🔍 Direct Supabase session check: plan-1754977598480-ohyq7pt91 Genealogy
+index-H5qc2xlR.js:219 🎯 Marked plan as freshly generated in session storage
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: false
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Genealogy Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Genealogy" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Genealogy" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: gDkTSoLI-NY
+index-H5qc2xlR.js:256 🐛 Video Title: Genealogy: Microsoft Visio - Tutorial for Beginners in 13 MINUTES!  [ FULL GUIDE ]
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔄 Starting new plan - clearing all data
+index-H5qc2xlR.js:239 ✅ Successfully reset to fresh start
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: hobby
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: undefined
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: false
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: generating
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: false
+index-H5qc2xlR.js:478 🔧 CRITICAL FIX - Backend planData received: {
+  "day": 1,
+  "title": "Rock climbing Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in rock climbing. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical rock climbing scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Rock climbing equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "commonMistakes": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Rock climbing Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Rock climbing Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoTitle": "Rock climbing Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-H5qc2xlR.js:478 🔧 CRITICAL FIX - First day youtubeVideoId from backend: v7AYKMP6rOE
+index-H5qc2xlR.js:478 🔧 CRITICAL FIX - First day videoId from backend: undefined
+index-H5qc2xlR.js:478 🔧 FIXED: Plan generated successfully, returning data to SplitPlanInterface
+index-H5qc2xlR.js:228 🎯 Setting plan data in SplitPlanInterface: Rock climbing
+index-H5qc2xlR.js:228 🐛 Raw plan data received in setPlanData: {
+  "hobby": "Rock climbing",
+  "title": "Master Rock climbing in 7 Days",
+  "overview": "A comprehensive rock climbing learning plan tailored for beginner learners",
+  "difficulty": "beginner",
+  "totalDays": 7,
+  "days": [
+    {
+      "day": 1,
+      "title": "Rock climbing Basics & Setup - Day 1",
+      "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+      "explanation": "Day 1 focuses on basics & setup in rock climbing. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with basics & setup fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical rock climbing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Rock climbing equipment ready and organized",
+        "Practice area set up for basics & setup work",
+        "Basic reference materials available",
+        "Timer set for focused basics & setup practice",
+        "Progress tracking system ready for Day 1"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      "freeResources": [
+        {
+          "title": "Rock climbing Basics & Setup - Day 1",
+          "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Rock climbing Beginner Kit",
+          "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+        }
+      ],
+      "youtubeVideoId": "v7AYKMP6rOE",
+      "videoId": "v7AYKMP6rOE",
+      "videoTitle": "Rock climbing Tutorial - Basics & Setup",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 2,
+      "title": "Rock climbing Core Techniques - Day 2",
+      "mainTask": "Master the essential techniques that form the foundation with focused practice and hands-on learning.",
+      "explanation": "Day 2 focuses on core techniques in rock climbing. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with core techniques fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical rock climbing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Rock climbing equipment ready and organized",
+        "Practice area set up for core techniques work",
+        "Basic reference materials available",
+        "Timer set for focused core techniques practice",
+        "Progress tracking system ready for Day 2"
+      ],
+      "tips": [
+        "Take time to properly understand each concept",
+        "Quality practice beats quantity every time",
+        "Be patient with your learning process",
+        "Don't be afraid to repeat difficult parts"
+      ],
+      "mistakesToAvoid": [
+        "Rushing through exercises without understanding concepts",
+        "Skipping practice time or cutting sessions short",
+        "Not taking notes or tracking your improvement"
+      ],
+      "freeResources": [
+        {
+          "title": "Rock climbing Core Techniques - Day 2",
+          "link": "https://youtube.com/watch?v=oBu-pQG6sTY"
+        }
+      ],
+      "affiliateProducts": [
+        {
+          "title": "Rock climbing Beginner Kit",
+          "link": "https://amazon.com/dp/B2334?tag=wizqohobby-20"
+        }
+      ],
+      "youtubeVideoId": "oBu-pQG6sTY",
+      "videoId": "oBu-pQG6sTY",
+      "videoTitle": "Rock climbing Tutorial - Core Techniques",
+      "estimatedTime": "1 hour",
+      "skillLevel": "beginner"
+    },
+    {
+      "day": 3,
+      "title": "Rock climbing Building Skills - Day 3",
+      "mainTask": "Develop coordination and muscle memory through practice with focused practice and hands-on learning.",
+      "explanation": "Day 3 focuses on building skills in rock climbing. You'll work on essential skills while building on everything you've learned so far.",
+      "howTo": [
+        "Begin with building skills fundamentals",
+        "Practice the day's core techniques step-by-step",
+        "Complete foundational exercises for beginner level",
+        "Apply today's skills in practical rock climbing scenarios",
+        "Review progress and prepare for tomorrow's challenges"
+      ],
+      "checklist": [
+        "Rock climbing equipment ready and organized",
+        "Prac
+index-H5qc2xlR.js:228 🐛 First day YouTube video ID before fixPlanDataFields: v7AYKMP6rOE
+index-H5qc2xlR.js:228 🐛 CRITICAL - Raw plan first day has keys: Array(15)
+index-H5qc2xlR.js:228 🐛 CRITICAL - Raw plan first day youtubeVideoId type: string
+index-H5qc2xlR.js:228 🐛 CRITICAL - Raw plan first day videoId type: string
+index-H5qc2xlR.js:217 🔍 fixPlanDataFields - Examining data structure:
+index-H5qc2xlR.js:217 🔍 plan.days length: 7
+index-H5qc2xlR.js:217 🔍 plan.plan_data?.days length: 0
+index-H5qc2xlR.js:217 🔍 plan.plan_data?.plan_data?.days length: 0
+index-H5qc2xlR.js:217 🔍 First day youtubeVideoId from different paths:
+index-H5qc2xlR.js:217 🔍   plan.days?.[0]?.youtubeVideoId: v7AYKMP6rOE
+index-H5qc2xlR.js:217 🔍   plan.days?.[0]?.videoId: v7AYKMP6rOE
+index-H5qc2xlR.js:217 🔍   plan.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-H5qc2xlR.js:217 🔍   plan.plan_data?.plan_data?.days?.[0]?.youtubeVideoId: undefined
+index-H5qc2xlR.js:217 🔍 COMPLETE FIRST DAY FRONTEND DATA: {
+  "day": 1,
+  "title": "Rock climbing Basics & Setup - Day 1",
+  "mainTask": "Get familiar with fundamentals and set up your practice space with focused practice and hands-on learning.",
+  "explanation": "Day 1 focuses on basics & setup in rock climbing. You'll work on essential skills while building on everything you've learned so far.",
+  "howTo": [
+    "Begin with basics & setup fundamentals",
+    "Practice the day's core techniques step-by-step",
+    "Complete foundational exercises for beginner level",
+    "Apply today's skills in practical rock climbing scenarios",
+    "Review progress and prepare for tomorrow's challenges"
+  ],
+  "checklist": [
+    "Rock climbing equipment ready and organized",
+    "Practice area set up for basics & setup work",
+    "Basic reference materials available",
+    "Timer set for focused basics & setup practice",
+    "Progress tracking system ready for Day 1"
+  ],
+  "tips": [
+    "Take time to properly understand each concept",
+    "Quality practice beats quantity every time",
+    "Be patient with your learning process",
+    "Don't be afraid to repeat difficult parts"
+  ],
+  "mistakesToAvoid": [
+    "Rushing through exercises without understanding concepts",
+    "Skipping practice time or cutting sessions short",
+    "Not taking notes or tracking your improvement"
+  ],
+  "freeResources": [
+    {
+      "title": "Rock climbing Basics & Setup - Day 1",
+      "link": "https://youtube.com/watch?v=v7AYKMP6rOE"
+    }
+  ],
+  "affiliateProducts": [
+    {
+      "title": "Rock climbing Beginner Kit",
+      "link": "https://amazon.com/dp/B1234?tag=wizqohobby-20"
+    }
+  ],
+  "youtubeVideoId": "v7AYKMP6rOE",
+  "videoId": "v7AYKMP6rOE",
+  "videoTitle": "Rock climbing Tutorial - Basics & Setup",
+  "estimatedTime": "1 hour",
+  "skillLevel": "beginner"
+}
+index-H5qc2xlR.js:217 🔍 FRONTEND - All keys in first day: Array(15)
+index-H5qc2xlR.js:217 🔍 FRONTEND - youtubeVideoId value type: string
+index-H5qc2xlR.js:217 🔍 FRONTEND - videoId value type: string
+index-H5qc2xlR.js:217 🔧 fixPlanDataFields - Input plan structure: Object
+index-H5qc2xlR.js:217 🔧 fixPlanDataFields - Output plan days count: 7
+index-H5qc2xlR.js:228 🔧 CORRECTED plan data - first day commonMistakes: Array(3)
+index-H5qc2xlR.js:228 🔧 CORRECTED plan data - first day youtubeVideoId: v7AYKMP6rOE
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: Setting planData with correctedPlanData
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: correctedPlanData structure: Object
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: About to set plan data and step to plan
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: Final plan data validation: Object
+index-H5qc2xlR.js:228 🧹 Cleared old cached plan data
+index-H5qc2xlR.js:228 🎯 Marked plan as freshly generated BEFORE setPlanData
+index-H5qc2xlR.js:228 ✅ PLAN STORED: Plan data saved to storage and state
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: After setPlanData - currentStep should be: plan
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: planData should have days: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:219 🔍 Plan data loaded, resetting selectedDay to 1
+index-H5qc2xlR.js:219 🔍 Direct Supabase session check: plan-1754977601459-p7jwa0zlz Rock climbing
+index-H5qc2xlR.js:219 🎯 Marked plan as freshly generated in session storage
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: Force re-render check - stored planData exists: true
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: Force re-render check - stored days array: true
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: Force re-render check - stored days length: 7
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: Force re-render check - currentStep should be: plan
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: Force re-render check - should show plan: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:217 ✅ YouTube video loaded successfully: v7AYKMP6rOE
+index-H5qc2xlR.js:228 🔍 PLAN DEBUG: Navigation protection disabled after plan generation
+index-H5qc2xlR.js:217 Auth form submitted: Object
+index-H5qc2xlR.js:217 Attempting sign-in...
+index-H5qc2xlR.js:52 🔄 Auth context state change: SIGNED_IN wizqo2024@gmail.com
+index-H5qc2xlR.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:52 🔧 Creating/updating user profile for: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:217 🔐 User authenticated, auto-closing modal
+index-H5qc2xlR.js:219 🔍 Checking for fresh plan marker: FOUND
+index-H5qc2xlR.js:219 🎯 Fresh plan detected - using generated plan data directly, not querying database
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: Array(6)
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: Object
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+hobby_plans:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+hobby-plans:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: Object
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: Object
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: Array(6)
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: Object
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+hobby_plans:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+hobby-plans:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: Object
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: Object
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: Array(6)
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: Object
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+hobby_plans:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+hobby-plans:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: Object
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: Object
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: Array(6)
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: Object
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+hobby_plans:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+hobby-plans:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: Object
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: Object
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: Array(6)
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: Object
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+hobby_plans:1  Failed to load resource: the server responded with a status of 400 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: Array(3)
+index-H5qc2xlR.js:256 🐛 Full current day data: Object
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+hobby-plans:1  Failed to load resource: the server responded with a status of 404 ()Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: {name: 'Error', message: 'Backend API Error 404: <!DOCTYPE html>\n<html lang=…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)', toString: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n'}
+savePlan @ index-H5qc2xlR.js:217Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: {name: 'Error', message: 'Failed to save plan: Backend API Error 404: <!DOCT…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Failed to save plan: Backend API Error 404:…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)'}
+Bg @ index-H5qc2xlR.js:237Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: (6) ['hobby', 'title', 'overview', 'difficulty', 'totalDays', 'days']
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: {hobby: 'Rock climbing', title: 'Master Rock climbing in 7 Days', overview: 'A comprehensive rock climbing learning plan tailored for beginner learners', difficulty: 'beginner', totalDays: 7, …}
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:217  GET https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc 400 (Bad Request)
+checkExistingPlan @ index-H5qc2xlR.js:217
+savePlan @ index-H5qc2xlR.js:217
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+index-H5qc2xlR.js:217  POST https://www.wizqo.com/api/hobby-plans 404 (Not Found)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: {name: 'Error', message: 'Backend API Error 404: <!DOCTYPE html>\n<html lang=…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)', toString: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n'}
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: {name: 'Error', message: 'Failed to save plan: Backend API Error 404: <!DOCT…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Failed to save plan: Backend API Error 404:…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)'}
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: (6) ['hobby', 'title', 'overview', 'difficulty', 'totalDays', 'days']
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: {hobby: 'Rock climbing', title: 'Master Rock climbing in 7 Days', overview: 'A comprehensive rock climbing learning plan tailored for beginner learners', difficulty: 'beginner', totalDays: 7, …}
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:217  GET https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc 400 (Bad Request)
+checkExistingPlan @ index-H5qc2xlR.js:217
+savePlan @ index-H5qc2xlR.js:217
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+index-H5qc2xlR.js:217  POST https://www.wizqo.com/api/hobby-plans 404 (Not Found)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: {name: 'Error', message: 'Backend API Error 404: <!DOCTYPE html>\n<html lang=…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)', toString: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n'}
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: {name: 'Error', message: 'Failed to save plan: Backend API Error 404: <!DOCT…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Failed to save plan: Backend API Error 404:…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)'}
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: (6) ['hobby', 'title', 'overview', 'difficulty', 'totalDays', 'days']
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: {hobby: 'Rock climbing', title: 'Master Rock climbing in 7 Days', overview: 'A comprehensive rock climbing learning plan tailored for beginner learners', difficulty: 'beginner', totalDays: 7, …}
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:217  GET https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc 400 (Bad Request)
+checkExistingPlan @ index-H5qc2xlR.js:217
+savePlan @ index-H5qc2xlR.js:217
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+index-H5qc2xlR.js:217  POST https://www.wizqo.com/api/hobby-plans 404 (Not Found)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: {name: 'Error', message: 'Backend API Error 404: <!DOCTYPE html>\n<html lang=…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)', toString: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n'}
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: {name: 'Error', message: 'Failed to save plan: Backend API Error 404: <!DOCT…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Failed to save plan: Backend API Error 404:…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)'}
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: (6) ['hobby', 'title', 'overview', 'difficulty', 'totalDays', 'days']
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: {hobby: 'Rock climbing', title: 'Master Rock climbing in 7 Days', overview: 'A comprehensive rock climbing learning plan tailored for beginner learners', difficulty: 'beginner', totalDays: 7, …}
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:217  GET https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc 400 (Bad Request)
+checkExistingPlan @ index-H5qc2xlR.js:217
+savePlan @ index-H5qc2xlR.js:217
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+index-H5qc2xlR.js:217  POST https://www.wizqo.com/api/hobby-plans 404 (Not Found)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: {name: 'Error', message: 'Backend API Error 404: <!DOCTYPE html>\n<html lang=…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)', toString: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n'}
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: {name: 'Error', message: 'Failed to save plan: Backend API Error 404: <!DOCT…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Failed to save plan: Backend API Error 404:…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)'}
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: (6) ['hobby', 'title', 'overview', 'difficulty', 'totalDays', 'days']
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: {hobby: 'Rock climbing', title: 'Master Rock climbing in 7 Days', overview: 'A comprehensive rock climbing learning plan tailored for beginner learners', difficulty: 'beginner', totalDays: 7, …}
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:217  GET https://jerhbtrgwrlyoimhxqta.supabase.co/rest/v1/hobby_plans?user_id=eq.773c3f18-025a-432d-ae3d-fa13be3faef8&select=id,title,created_at,plan_data,hobby_name,hobby&order=created_at.desc 400 (Bad Request)
+checkExistingPlan @ index-H5qc2xlR.js:217
+savePlan @ index-H5qc2xlR.js:217
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Using backend API for reliable save
+index-H5qc2xlR.js:217  POST https://www.wizqo.com/api/hobby-plans 404 (Not Found)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API response status: 404
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Backend API Error: 404 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR: Failed to save plan: Error: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27084)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:217 ❌ DATABASE SAVE ERROR - Full error details: {name: 'Error', message: 'Backend API Error 404: <!DOCTYPE html>\n<html lang=…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)', toString: 'Error: Backend API Error 404: <!DOCTYPE html>\n<htm…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n'}
+savePlan @ index-H5qc2xlR.js:217
+await in savePlan
+Bg @ index-H5qc2xlR.js:237
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Failed to save plan: Error: Failed to save plan: Backend API Error 404: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>Cannot POST /api/hobby-plans</pre>
+</body>
+</html>
+
+    at h1.savePlan (index-H5qc2xlR.js:217:27729)
+    at async Bg (index-H5qc2xlR.js:237:1522)
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:237 ❌ AUTO-SAVE: Error details: {name: 'Error', message: 'Failed to save plan: Backend API Error 404: <!DOCT…nnot POST /api/hobby-plans</pre>\n</body>\n</html>\n', stack: 'Error: Failed to save plan: Backend API Error 404:…/www.wizqo.com/assets/index-H5qc2xlR.js:237:1522)'}
+Bg @ index-H5qc2xlR.js:237
+await in Bg
+(anonymous) @ index-H5qc2xlR.js:237
+Ri @ index-H5qc2xlR.js:40
+Tn @ index-H5qc2xlR.js:40
+(anonymous) @ index-H5qc2xlR.js:40
+S @ index-H5qc2xlR.js:25
+E @ index-H5qc2xlR.js:25Understand this error
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
+index-H5qc2xlR.js:255 🔍 DEBUG: selectedDay: 1
+index-H5qc2xlR.js:255 🔍 DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 DEBUG: currentDay found: true Rock climbing Basics & Setup - Day 1
+index-H5qc2xlR.js:255 🔍 DEBUG: day status: unlocked
+index-H5qc2xlR.js:217 🎨 Plan AUTO-IMAGE: "Rock climbing" -> category-based generation
+index-H5qc2xlR.js:217 🎨 Plan AUTO-GENERATED: "Rock climbing" -> unique category-based image
+index-H5qc2xlR.js:217 🎨 Plan FINAL IMAGE: https://images.unsplash.com/photo-1571019613540-996a69c42d3f?w=400&h=240&fit=crop&t=487493
+index-H5qc2xlR.js:256 🐛 Debug YouTube Video ID: v7AYKMP6rOE
+index-H5qc2xlR.js:256 🐛 Video Title: Rock climbing Tutorial - Basics & Setup
+index-H5qc2xlR.js:256 TIP 0: Using icon at index 0
+index-H5qc2xlR.js:256 TIP 1: Using icon at index 1
+index-H5qc2xlR.js:256 TIP 2: Using icon at index 2
+index-H5qc2xlR.js:256 TIP 3: Using icon at index 3
+index-H5qc2xlR.js:256 🐛 Debug Common Mistakes: (3) ['Rushing through exercises without understanding concepts', 'Skipping practice time or cutting sessions short', 'Not taking notes or tracking your improvement']
+index-H5qc2xlR.js:256 🐛 Full current day data: {day: 1, title: 'Rock climbing Basics & Setup - Day 1', mainTask: 'Get familiar with fundamentals and set up your pra…pace with focused practice and hands-on learning.', explanation: "Day 1 focuses on basics & setup in rock climbing. …ile building on everything you've learned so far.", howTo: Array(5), …}
+index-H5qc2xlR.js:256 MISTAKE 0: Using icon at index 0
+index-H5qc2xlR.js:256 MISTAKE 1: Using icon at index 1
+index-H5qc2xlR.js:256 MISTAKE 2: Using icon at index 2
+index-H5qc2xlR.js:237 🔍 Auto-save check: User authenticated, plan ready, checking for saving...
+index-H5qc2xlR.js:237 🔍 Fresh plan marker check: FOUND
+index-H5qc2xlR.js:237 🎯 Plan needs saving - attempting database save operation
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Starting automatic plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan data keys: (6) ['hobby', 'title', 'overview', 'difficulty', 'totalDays', 'days']
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan hobby: Rock climbing
+index-H5qc2xlR.js:237 💾 AUTO-SAVE: Plan title: Master Rock climbing in 7 Days
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Starting plan save for user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:217 💾 DATABASE SAVE: Plan data: {hobby: 'Rock climbing', title: 'Master Rock climbing in 7 Days', overview: 'A comprehensive rock climbing learning plan tailored for beginner learners', difficulty: 'beginner', totalDays: 7, …}
+index-H5qc2xlR.js:217 🔍 DUPLICATE CHECK: Looking for existing plan for hobby: Rock climbing user: 773c3f18-025a-432d-ae3d-fa13be3faef8
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days exists: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days length: 7
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: planData.days is array: true
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: currentStep: plan
+index-H5qc2xlR.js:255 🔍 RENDER DEBUG: will show plan: true
