@@ -375,8 +375,8 @@ export default function HandwritingMakerPage() {
 
     const letterSpacing = (() => {
       if (!autoSpaceLetters) {
-        // Match PreviewSVG: 0.02em for cursives, 0 for others (including monoline)
-        const isCursive = textStyle === 'cursive' || textStyle === 'school-cursive' || textStyle === 'monoline-cursive';
+        // Match PreviewSVG: 0.02em for cursives and monoline (including true-monoline)
+        const isCursive = textStyle === 'true-monoline' || textStyle === 'monoline-cursive' || textStyle === 'cursive' || textStyle === 'school-cursive';
         return isCursive ? fontSizeVal * 0.02 : 0;
       }
       const base = (mode === 'letters' ? fontSizeVal * 0.18 : fontSizeVal * 0.25);
@@ -587,7 +587,7 @@ export default function HandwritingMakerPage() {
         const bgRGB = hexToRgb(theme.bg);
         doc.setDrawColor(bgRGB.r, bgRGB.g, bgRGB.b);
         doc.setLineWidth(2.5);
-        doc.line(margin + 16, baselineY + 0.5, pageW - margin, baselineY + 0.5);
+        doc.line(margin + 16, baselineY + 1.0, pageW - margin, baselineY + 1.0);
       }
     });
 
@@ -832,9 +832,17 @@ export default function HandwritingMakerPage() {
                 style={{
                   vectorEffect: 'non-scaling-stroke',
                   paintOrder: 'stroke fill',
-                  letterSpacing: autoSpaceLetters
-                    ? `${letterSpacing}px`
-                    : (textStyle === 'true-monoline' || textStyle === 'monoline-cursive' ? '0.02em' : (textStyle === 'cursive' || textStyle === 'school-cursive' ? '0.02em' : undefined))
+                  letterSpacing: (() => {
+                    const adjustment = (() => {
+                      if (textStyle === 'school-cursive') return 20;
+                      if (textStyle === 'monoline-cursive') return 10;
+                      return 0;
+                    })();
+                    const base = autoSpaceLetters
+                      ? letterSpacing
+                      : (textStyle === 'true-monoline' || textStyle === 'monoline-cursive' || textStyle === 'cursive' || textStyle === 'school-cursive' ? fontSize * 0.02 : 0);
+                    return `${base + adjustment}px`;
+                  })()
                 } as any} >
                 {(() => {
                   const parts = text.split(' ');
