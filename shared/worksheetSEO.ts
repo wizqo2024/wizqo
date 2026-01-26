@@ -90,7 +90,7 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     title: 'Math Maze Focus - Logical Thinking & Multiplication | Wizqo',
     metaDescription: 'Keep kids engaged with our Math Maze Focus worksheet. Combine path-finding puzzles with multiplication practice to build concentration and math fluency. PDF included.',
     learningObjectives: ['Strengthen visual attention and focus', 'Practice multiplication facts through engagement', 'Build logical path-finding skills'],
-    richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Math Maze Focus: Gamify Your Arithmetic Practice</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Transform math drills into a fun adventure with our 'Math Maze Focus' worksheets. By combining path-finding logic with arithmetic challenges, we keep students engaged while building deep concentration skills. This gamified approach leverages the natural reward systems of the brain, making standard multiplication and addition drills feel like a high-stakes puzzle rather than a repetitive task. Free PDF download for Grades 2-4.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">The Power of Gamified Learning</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Traditional worksheets can sometimes lead to 'math fatigue.' Our <strong>Math Maze Focus</strong> series solves this by integrating <strong>spatial reasoning</strong> with standard calculation. Students must solve problems to find the correct path through the maze, creating a <strong>self-correcting mechanism</strong> and increasing their internal motivation. Research shows that this combination leads to better information retention and higher levels of students' spatial intelligence. When a student chooses the wrong path because of a calculation error, the resulting 'dead end' provides immediate, non-punitive feedback that encourages them to revisit the problem with fresh eyes.</p></section><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Key Benefits for Students</h2><ul style=\"color: #475569; line-height: 1.6; padding-left: 1.5rem;\"><li style=\"margin-bottom: 0.5rem;\"><strong>Visual Attention:</strong> strengthening the ability to scan and identify numerical patterns in a busy field, a key skill for reading and data analysis.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Persistence:</strong> encouraging children to stick with a complex problem until the maze is complete, building the 'grit' needed for advanced math.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Logical Planning:</strong> anticipating the next turn based on mathematical outcomes, forcing the brain to look several steps ahead.</li></ul></section><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Strategic Classroom Integration</h2><p style=\"color: #475569; line-height: 1.6;\">These math mazes are the ideal 'Early Finisher' reward for your classroom. After students complete their primary lesson, give them a maze to maintain engagement without the pressure of a new concept. Teachers can use these as a 'Collaborative Challenge' by letting students work in pairs, debating the paths and checking each other's math. This turns an individual skill into a **social-learning** opportunity. For home use, parents can print these for travel or waiting rooms—they provide the perfect distraction that also keeps math skills sharp. To increase the **challenge**, set a timer and see if they can finish the path in under five minutes. Gamifying the mundane is the secret to lifetime math enjoyment. Let the maze run begin!</p></section><section><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Professional Quality PDFs</h2><p style=\"color: #475569; line-height: 1.6;\ bridge\">Wizqo's printable math mazes are designed to be high-contrast and easy to print at home or school. Each PDF includes a clear starting point, engaging graphics, and a complete answer key for easy grading. Download your interactive maze today and make math the best part of the day!</p></section></article>"
+    richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Math Maze Focus: Gamify Your Arithmetic Practice</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Transform math drills into a fun adventure with our 'Math Maze Focus' worksheets. By combining path-finding logic with arithmetic challenges, we keep students engaged while building deep concentration skills. This gamified approach leverages the natural reward systems of the brain, making standard multiplication and addition drills feel like a high-stakes puzzle rather than a repetitive task. Free PDF download for Grades 2-4.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">The Power of Gamified Learning</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Traditional worksheets can sometimes lead to 'math fatigue.' Our <strong>Math Maze Focus</strong> series solves this by integrating <strong>spatial reasoning</strong> with standard calculation. Students must solve problems to find the correct path through the maze, creating a <strong>self-correcting mechanism</strong> and increasing their internal motivation. Research shows that this combination leads to better information retention and higher levels of students' spatial intelligence. When a student chooses the wrong path because of a calculation error, the resulting 'dead end' provides immediate, non-punitive feedback that encourages them to revisit the problem with fresh eyes.</p></section><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Key Benefits for Students</h2><ul style=\"color: #475569; line-height: 1.6; padding-left: 1.5rem;\"><li style=\"margin-bottom: 0.5rem;\"><strong>Visual Attention:</strong> strengthening the ability to scan and identify numerical patterns in a busy field, a key skill for reading and data analysis.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Persistence:</strong> encouraging children to stick with a complex problem until the maze is complete, building the 'grit' needed for advanced math.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Logical Planning:</strong> anticipating the next turn based on mathematical outcomes, forcing the brain to look several steps ahead.</li></ul></section><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Strategic Classroom Integration</h2><p style=\"color: #475569; line-height: 1.6;\">These math mazes are the ideal 'Early Finisher' reward for your classroom. After students complete their primary lesson, give them a maze to maintain engagement without the pressure of a new concept. Teachers can use these as a 'Collaborative Challenge' by letting students work in pairs, debating the paths and checking each other's math. This turns an individual skill into a **social-learning** opportunity. For home use, parents can print these for travel or waiting rooms—they provide the perfect distraction that also keeps math skills sharp. To increase the **challenge**, set a timer and see if they can finish the path in under five minutes. Gamifying the mundane is the secret to lifetime math enjoyment. Let the maze run begin!</p></section><section><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Professional Quality PDFs</h2><p style=\"color: #475569; line-height: 1.6;\">Wizqo's printable math mazes are designed to be high-contrast and easy to print at home or school. Each PDF includes a clear starting point, engaging graphics, and a complete answer key for easy grading. Download your interactive maze today and make math the best part of the day!</p></section></article>"
   },
   'shapes-colors-sort': {
 
@@ -3062,7 +3062,18 @@ function inferCategory(docId: string): string[] {
  */
 function generateSEOTitle(name: string, grade?: string[]): string {
   const gradeText = grade && grade.length > 0 ? ` for ${grade[0]}` : ''
-  return `${name} Worksheet${gradeText} - Free Printable PDF | Wizqo`
+
+  // Use a rotating set of templates based on the length of the name to ensure variety across the site
+  const templates = [
+    `${name} Worksheet${gradeText} - Free Printable PDF | Wizqo`,
+    `Free ${name} Worksheets${gradeText} (PDF) - Printable & Answer Key | Wizqo`,
+    `${name}${gradeText} - Math Practice Sheets | Wizqo`,
+    `Mastering ${name}: Drills and Practice${gradeText} | Wizqo`,
+    `Printable ${name} Activity${gradeText} - Free Download | Wizqo`
+  ]
+
+  const index = name.length % templates.length
+  return templates[index]
 }
 
 /**
@@ -3070,9 +3081,19 @@ function generateSEOTitle(name: string, grade?: string[]): string {
  */
 function generateMetaDescription(name: string, grade: string[], category: string[]): string {
   const gradeText = grade.length > 0 ? `Perfect for ${grade.join(' and ')}. ` : ''
-  const categoryText = category.length > 0 ? `${category[0]} practice. ` : ''
-  const benefits = ['Build math skills', 'Master key concepts', 'Practice with answer key']
-  return `Download free printable ${name.toLowerCase()} worksheet with answer key. ${gradeText}${categoryText}${benefits[0]}. Instant PDF download.`
+  const cat = category[0] || 'math'
+  const catProper = cat.charAt(0).toUpperCase() + cat.slice(1)
+
+  const templates = [
+    `Download free printable ${name.toLowerCase()} worksheet with answer key. ${gradeText}Expert-designed ${cat} practice for home or classroom. Instant PDF download.`,
+    `Master ${name.toLowerCase()} with our free printable resources. ${gradeText}Includes step-by-step examples and a full answer key for ${cat} success.`,
+    `Looking for ${name.toLowerCase()} practice? Download our free PDF worksheet${gradeText}Designed to build ${cat} fluency and confidence in young learners.`,
+    `Boost ${cat} skills with this free ${name.toLowerCase()} worksheet. ${gradeText}Clear, distraction-free layout with answer key included. Print in seconds!`,
+    `Comprehensive ${name.toLowerCase()} practice for ${grade.length > 0 ? grade[0] : 'elementary students'}. Free PDF includes answer key and ${cat} tips for parents and teachers.`
+  ]
+
+  const index = name.length % templates.length
+  return templates[index]
 }
 
 /**
@@ -3097,15 +3118,22 @@ function generateKeywords(name: string, category: string[], grade: string[]): st
  * Generate intro content (120-200 words)
  */
 function generateIntro(name: string, grade: string[], category: string[]): string {
+  const cat = category[0] || 'math'
+  const isMath = cat !== 'reading' && cat !== 'handwriting'
+
   const gradeText = grade.length > 0
-    ? `This ${name.toLowerCase()} worksheet is designed for ${grade.join(' and ')} students. `
-    : `This ${name.toLowerCase()} worksheet helps students `
+    ? `Designed specifically for ${grade.join(' and ')} students, this ${name.toLowerCase()} worksheet provides a structured approach to learning. `
+    : `This ${name.toLowerCase()} worksheet helps elementary students build essential foundations. `
 
-  const categoryText = category.length > 0
-    ? `practice ${category[0]} skills and build confidence. `
-    : 'build essential math skills. '
+  const educationalContext = isMath
+    ? `Following common core standards, our resources focus on building conceptual understanding alongside procedural fluency. `
+    : cat === 'reading'
+      ? `Our literacy resources are curated to build both decoding skills and deep reading comprehension. `
+      : `Handwriting mastery is a critical fine motor milestone that supports cognitive development and literacy. `
 
-  return `${gradeText}${categoryText}This printable worksheet includes an answer key for easy checking and is perfect for classroom use, homework, or extra practice at home. Download the free PDF instantly and start practicing today!`
+  const callToAction = `Whether you're a parent looking for extra home practice or a teacher needing classroom resources, this printable PDF includes a complete answer key for instant feedback. Download your free ${name.toLowerCase()} pack today and start building ${cat} confidence!`
+
+  return `${gradeText}${educationalContext}${callToAction}`
 }
 
 /**
