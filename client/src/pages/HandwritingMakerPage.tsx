@@ -370,7 +370,11 @@ export default function HandwritingMakerPage() {
       else if (dotted) doc.setFont('Codystar', 'normal');
       else doc.setFont('helvetica', 'normal');
       doc.setFontSize(fontSizeVal);
-      return doc.getTextWidth(txt) + (txt.length * letterSpacingAdjustment);
+      const textWidth = doc.getTextWidth(txt);
+      // CSS letter-spacing (base) only applies between characters, so (length - 1)
+      // Custom letterSpacingAdjustment also applies between characters
+      const kerningAdjustment = Math.max(0, txt.length - 1) * letterSpacingAdjustment;
+      return textWidth + kerningAdjustment;
     };
 
     const letterSpacing = (() => {
@@ -713,6 +717,7 @@ export default function HandwritingMakerPage() {
     const measureWithSpacing = (t: string) => {
       const charCount = Array.from(t).length;
       const base = measure(t);
+      // CSS letter-spacing (base + adjustment) only applies between characters, so (charCount - 1)
       const extra = Math.max(0, charCount - 1) * letterSpacing;
       // Add a small safety buffer for Bubble style due to thick strokes
       const buffer = textStyle === 'bubble' ? charCount * 2 : 0;
@@ -838,9 +843,12 @@ export default function HandwritingMakerPage() {
                       if (textStyle === 'monoline-cursive') return 10;
                       return 0;
                     })();
+                    // Base matches standard CSS letter-spacing
                     const base = autoSpaceLetters
                       ? letterSpacing
                       : (textStyle === 'true-monoline' || textStyle === 'monoline-cursive' || textStyle === 'cursive' || textStyle === 'school-cursive' ? fontSize * 0.02 : 0);
+                    // Standard letter-spacing behavior: total extra width = (charCount - 1) * spacing
+                    // We apply the sum (base + adjustment) as the letter-spacing value
                     return `${base + adjustment}px`;
                   })()
                 } as any} >
