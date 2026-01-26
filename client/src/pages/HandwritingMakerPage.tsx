@@ -15,7 +15,7 @@ import { HUB_SEO_DATA } from '@shared/worksheetSEO';
 
 type Mode = 'letters' | 'words' | 'sentences';
 type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset';
-type DecorationType = 'none' | 'stars' | 'hearts' | 'flowers';
+type DecorationType = 'none' | 'stars' | 'hearts' | 'flower';
 
 const THEMES: Record<ColorTheme, {
   name: string;
@@ -116,7 +116,7 @@ export default function HandwritingMakerPage() {
   const [startDots, setStartDots] = React.useState<boolean>(true);
   const [autoSpaceLetters, setAutoSpaceLetters] = React.useState<boolean>(false);
   const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
-  const [decoration, setDecoration] = React.useState<DecorationType>('flowers');
+  const [decoration, setDecoration] = React.useState<DecorationType>('flower');
   const [textStyle, setTextStyle] = React.useState<'cursive' | 'bubble' | 'true-monoline' | 'monoline-cursive' | 'school-cursive'>('true-monoline');
   const [tracingStyle, setTracingStyle] = React.useState<'dotted' | 'faint'>('dotted');
   const [showModelWord, setShowModelWord] = React.useState<boolean>(true);
@@ -307,8 +307,9 @@ export default function HandwritingMakerPage() {
             doc.circle(pos.x - s / 1.5, pos.y - s / 2, s, 'F');
             doc.circle(pos.x + s / 1.5, pos.y - s / 2, s, 'F');
             doc.triangle(pos.x - s, pos.y + s / 4, pos.x + s, pos.y + s / 4, pos.x, pos.y + s * 2, 'F');
-          } else if (decoration === 'flowers') {
-            const s = 6;
+            doc.circle(pos.x, pos.y, s * 0.3, 'F');
+          } else if (decoration === 'flower') {
+            const s = 10;
             for (let i = 0; i < 5; i++) {
               const angle = (i * 72 * Math.PI) / 180;
               doc.ellipse(pos.x + Math.cos(angle) * s * 0.6, pos.y + Math.sin(angle) * s * 0.6, s * 0.4, s * 0.7, 'F', angle);
@@ -781,7 +782,7 @@ export default function HandwritingMakerPage() {
           />
         );
       }
-      if (type === 'flowers') {
+      if (type === 'flower') {
         return (
           <g transform={`translate(${x},${y})`}>
             {[0, 72, 144, 216, 288].map(angle => (
@@ -804,10 +805,10 @@ export default function HandwritingMakerPage() {
 
         {decoration !== 'none' && (
           <>
-            {renderDecoration(decoration, margin - 10, margin - 10, 8)}
-            {renderDecoration(decoration, pageW - margin + 10, margin - 10, 8)}
-            {renderDecoration(decoration, margin - 10, pageH - margin + 10, 8)}
-            {renderDecoration(decoration, pageW - margin + 10, pageH - margin + 10, 8)}
+            {renderDecoration(decoration, margin - 10, margin - 10, 12)}
+            {renderDecoration(decoration, pageW - margin + 10, margin - 10, 12)}
+            {renderDecoration(decoration, margin - 10, pageH - margin + 10, 12)}
+            {renderDecoration(decoration, pageW - margin + 10, pageH - margin + 10, 12)}
           </>
         )}
 
@@ -1235,7 +1236,7 @@ export default function HandwritingMakerPage() {
                       { id: 'none', label: 'None', icon: '🚫' },
                       { id: 'stars', label: 'Stars', icon: '⭐' },
                       { id: 'hearts', label: 'Hearts', icon: '❤️' },
-                      { id: 'flowers', label: 'Flowers', icon: '🌸' },
+                      { id: 'flower', label: 'Flower', icon: '🌸' },
                     ].map(dec => (
                       <ToggleGroupItem
                         key={dec.id}
