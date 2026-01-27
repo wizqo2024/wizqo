@@ -139,6 +139,11 @@
       "source": "/blog/easy-hobbies-that-make-you-smarter",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/blog/test-markdown-post",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "headers": [
@@ -151,15 +156,6 @@
         }
       ]
     },
-    {
-      "source": "/blog/test-markdown-post",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    }
   ],
   "rewrites": [
     {
