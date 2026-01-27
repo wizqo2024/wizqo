@@ -2,7 +2,7 @@
 import { writeFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { WORKSHEET_SEO_MAP, HUB_SEO_DATA, initializeWorksheetSEO } from '../shared/worksheetSEO.js'
+import { WORKSHEET_SEO_MAP, HUB_SEO_DATA, initializeWorksheetSEO, WORKSHEET_MANUAL_CONTENT } from '../shared/worksheetSEO.js'
 
 // Ensure SEO map is initialized
 initializeWorksheetSEO();
@@ -388,14 +388,20 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
       console.warn(`[WARN] ${docId} has richContent but it is too short (${seo.richContent.length} chars). Falling back to template.`);
     }
 
-    finalRich = generateUniqueContent({
-      name: h1Text.replace(' Worksheet', '').replace(' - Free Printable PDF | Wizqo', ''),
-      h1: h1Text,
-      grade: seo.grade || [],
-      category: seo.category || [],
-      objectives: seo.learningObjectives || [],
-      docId
-    });
+    // CHECK MANUAL CONTENT FIRST
+    if (WORKSHEET_MANUAL_CONTENT[docId]?.richContent) {
+      console.log(`[INFO] Forcing manual rich content for ${docId}`);
+      finalRich = WORKSHEET_MANUAL_CONTENT[docId].richContent!;
+    } else {
+      finalRich = generateUniqueContent({
+        name: h1Text.replace(' Worksheet', '').replace(' - Free Printable PDF | Wizqo', ''),
+        h1: h1Text,
+        grade: seo.grade || [],
+        category: seo.category || [],
+        objectives: seo.learningObjectives || [],
+        docId
+      });
+    }
   }
 
   const slug = seo.slug || docId;
