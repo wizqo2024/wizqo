@@ -99,6 +99,41 @@
       "source": "/worksheets/two-digit-addition-with-regrouping",
       "destination": "/worksheets/2-digit-addition-with-regrouping",
       "permanent": true
+    },
+    {
+      "source": "/blog/handwriting-without-tears-infographic",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-are-cognitive-skills",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/easy-watercolor-paintings",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/micro-journaling-habit",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/find-hobby-that-sticks",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-long-to-build-a-habit",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/easy-hobbies-that-make-you-smarter",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "headers": [
