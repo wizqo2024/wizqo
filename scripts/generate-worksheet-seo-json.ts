@@ -1,3 +1,4 @@
+// Forced rebuild to verify SEO pipeline - 2026-01-27
 import { writeFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
