@@ -1,7 +1,10 @@
 import { writeFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { WORKSHEET_SEO_MAP, HUB_SEO_DATA } from '../shared/worksheetSEO.js'
+import { WORKSHEET_SEO_MAP, HUB_SEO_DATA, initializeWorksheetSEO } from '../shared/worksheetSEO.js'
+
+// Ensure SEO map is initialized
+initializeWorksheetSEO();
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -337,6 +340,14 @@ function buildSecondarySection(category: string, name: string, gradeList: string
 for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
   const h1Text = seo.h1 || seo.title;
   let finalRich = seo.richContent || "";
+
+  if (docId === 'sub-2digit-100') {
+    console.log(`Diagnostic for sub-2digit-100:`);
+    console.log(`- Title: ${seo.title}`);
+    console.log(`- H1: ${seo.h1}`);
+    console.log(`- RichContent exists: ${!!seo.richContent}`);
+    console.log(`- RichContent length: ${seo.richContent?.length || 0}`);
+  }
 
   // If no custom rich content, generate unique content based on worksheet attributes
   if (!finalRich || finalRich.length < 100) {
