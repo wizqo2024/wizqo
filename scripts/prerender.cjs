@@ -172,6 +172,8 @@ function getThumbnailForRoute(routePath, title = '') {
   if (path.includes('handwriting') || path.includes('writing')) return `${SITE}/images/thumbs/handwriting.png`;
   if (path.includes('tracing')) return `${SITE}/images/thumbs/tracing.png`;
   if (path.includes('reading')) return `${SITE}/images/thumbs/reading.png`;
+  if (path.includes('generator')) return `${SITE}/images/thumbs/generator.png`;
+  if (path.includes('certificate')) return `${SITE}/images/thumbs/certificate.png`;
 
   if (path.includes('kindergarten')) return `${SITE}/images/thumbs/kindergarten.png`;
   if (path.includes('1st-grade') || path.includes('first-grade')) return `${SITE}/images/thumbs/first-grade.png`;
