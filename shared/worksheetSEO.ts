@@ -610,12 +610,7 @@ const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     learningObjectives: ['Master safe and accurate scissor use (cutting on lines)', 'Practice following multi-step assembly instructions', 'Strengthen spatial reasoning through 2D-to-3D construction'],
     intro: 'Turn a flat piece of paper into a 3D masterpiece! Our Cut and Paste Crafts worksheet provides everything students need to build creative characters or objects. This "tactile" learning activity is one of the most effective ways to build the manual dexterity and spatial awareness that are essential for both artistic expression and complex scientific modeling.'
   },
-  'decimal-to-percent': {
-    title: 'Converting Decimals to Percents - Percentages Practice | Wizqo',
-    metaDescription: 'Master the "multiply by 100" rule. Learn to easily turn decimals into percentages with our clear, printable math worksheet for grades 5-6.',
-    learningObjectives: ['Understand the relationship between decimals and the "per cent" (per 100) concept', 'Conform decimal values to percentages by shifting the decimal point', 'Apply conversions to real-world probability and statistics'],
-    intro: 'A decimal is just a percent in disguise! Our Converting Decimals to Percents worksheet teaches students the simple logic of moving the decimal point two places to the right. By mastering this "shift," learners gain the ability to translate between different mathematical languages, a skill that is used daily in finance, taxes, and data science.'
-  },
+
   'decimal-word-problems-5th': {
     title: '5th Grade Decimal Word Problems - Real-Life Scenarios | Wizqo',
     metaDescription: 'Advanced decimal practice for upper elementary. Solve complex stories involving money, distance, and multi-step calculations. Free PDF.',
@@ -3073,42 +3068,42 @@ function inferGrade(docId: string): string[] {
 function inferCategory(docId: string): string[] {
   const categories: string[] = []
 
-  if (docId.includes('mult')) categories.push('multiplication')
-  if (docId.includes('div')) categories.push('division')
-  if (docId.includes('fraction')) categories.push('fractions')
-  if (docId.includes('decimal')) categories.push('decimals')
-  if (docId.includes('add') || docId.includes('sub')) categories.push('addition-subtraction')
-  if (docId.includes('count')) categories.push('counting')
-  if (docId.includes('number')) categories.push('number-sense')
-  if (docId.includes('word-problem')) categories.push('word-problems')
+  if (docId.includes('mult')) categories.push('Multiplication')
+  if (docId.includes('div')) categories.push('Division')
+  if (docId.includes('fraction')) categories.push('Fractions')
+  if (docId.includes('decimal')) categories.push('Decimals')
+  if (docId.includes('add') || docId.includes('sub')) categories.push('Addition-Subtraction')
+  if (docId.includes('count')) categories.push('Counting')
+  if (docId.includes('number')) categories.push('Place Value') // Changed to Place Value as it matches Number Sense loosely and maps to existing key
+  if (docId.includes('word-problem')) categories.push('Word Problems')
   if (docId.includes('geometry') || docId.includes('shape') || docId.includes('area') || docId.includes('perimeter') || docId.includes('angle')) {
-    categories.push('geometry')
+    categories.push('Geometry')
   }
   if (docId.includes('measurement') || docId.includes('time') || docId.includes('money') || docId.includes('length') || docId.includes('weight') || docId.includes('liquid')) {
-    categories.push('measurement')
+    categories.push('Measurement')
   }
   if (docId.includes('reading') || docId.includes('comprehension')) {
-    categories.push('reading')
+    categories.push('Reading')
   }
   if (docId.includes('cursive')) {
-    categories.push('handwriting')
+    categories.push('Handwriting')
   }
   if (docId.includes('pemdas') || docId.includes('order-of-operations')) {
-    categories.push('order-of-operations')
+    categories.push('Order of Operations')
   }
   if (docId.includes('lattice')) {
-    categories.push('multiplication')
-    categories.push('logic')
+    categories.push('Multiplication')
+    categories.push('Logic')
   }
   if (docId.includes('pattern')) {
-    categories.push('patterns')
+    categories.push('Patterns')
   }
   if (docId === 'match-object-to-shadow') {
-    categories.push('visual-perception')
-    categories.push('logic')
+    categories.push('Visual Perception') // Note: No specific key for this in generation script yet, might fallback to General
+    categories.push('Logic')
   }
 
-  return categories.length > 0 ? categories : ['math']
+  return categories.length > 0 ? categories : ['Math']
 }
 
 /**
@@ -3161,7 +3156,7 @@ function generateKeywords(name: string, category: string[], grade: string[]): st
     `${name.toLowerCase()} PDF`,
   ]
 
-  const cat = category.flatMap(c => [`${c} worksheet`, `${c} worksheets`])
+  const cat = category.flatMap(c => [`${c.toLowerCase()} worksheet`, `${c.toLowerCase()} worksheets`])
   const grd = grade.flatMap(g => [`${g} ${name.toLowerCase()}`, `${g} math worksheet`])
 
   return [...base, ...cat, ...grd].slice(0, 15).join(', ')
