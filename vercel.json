@@ -131,6 +131,11 @@
       "permanent": true
     },
     {
+      "source": "/printables/name-tracing-generator",
+      "destination": "/worksheets/handwriting-worksheet-maker",
+      "permanent": true
+    },
+    {
       "source": "/blog/easy-hobbies-that-make-you-smarter",
       "destination": "/",
       "permanent": true
@@ -328,10 +333,6 @@
     {
       "source": "/printables",
       "destination": "/printables/index.html"
-    },
-    {
-      "source": "/printables/name-tracing-generator",
-      "destination": "/printables/name-tracing-generator/index.html"
     },
     {
       "source": "/printables/certificate-maker",
