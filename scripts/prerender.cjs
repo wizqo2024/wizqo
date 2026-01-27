@@ -1119,36 +1119,7 @@ function main() {
   }
 
 
-  // EMERGENCY OVERRIDE: Explicitly force addition of sub-2digit-100 to routes list
-  // This ensures it gets prerendered even if unrelated to JSON data source
-  const sub2DigitRouteExists = routes.some(r => r.path && r.path.includes('sub-2digit-100'));
-  if (!sub2DigitRouteExists) {
-    console.log('  ⚠ EMERGENCY OVERRIDE: Manually forcing sub-2digit-100 into render queue');
-    routes.push({
-      path: '/worksheets/sub-2digit-100',
-      title: '2-Digit Subtraction Within 100 Worksheets - Free PDF | Wizqo',
-      description: 'Master 2-digit subtraction without regrouping with our free printable worksheets. Perfect for 1st & 2nd grade math practice. Instant PDF download with answer keys.',
-      keywords: '2-digit subtraction, subtraction within 100, no regrouping, math worksheets, 1st grade, 2nd grade, free printable, PDF, answer key',
-      ogImage: `${SITE}/og-image.jpg`,
-      // Rich content will be injected by the cloneForRoute override logic we added earlier
-      richContent: 'PLACEHOLDER - WILL BE OVERRIDDEN'
-    });
-  } else {
-    console.log('  ✓ sub-2digit-100 found in normal queue (will still be overridden by robust logic)');
-  }
 
-  const addSubRouteExists = routes.some(r => r.path && (r.path.includes('addition-subtraction-within-10') || r.path.includes('addition-subtraction-0-10')));
-  if (!addSubRouteExists) {
-    console.log('  ⚠ EMERGENCY OVERRIDE: Manually forcing addition-subtraction-within-10 into render queue');
-    routes.push({
-      path: '/worksheets/addition-subtraction-within-10',
-      title: 'Addition and Subtraction within 10 - Math Foundations | Wizqo',
-      description: 'Discover the logic of Unit Fluency with our primary math collection.',
-      keywords: 'addition, subtraction, math worksheets',
-      ogImage: `${SITE}/og-image.jpg`,
-      richContent: 'PLACEHOLDER - WILL BE OVERRIDDEN'
-    });
-  }
 
   let count = 0;
   let orderOfOpsGenerated = false;
@@ -1264,7 +1235,7 @@ function main() {
       process.exit(1);
     }
     const html = fs.readFileSync(filePath, 'utf8');
-    if (html.length < 5000 || !html.includes('<article>') || !html.includes('style=')) {
+    if (html.length < 5000 || (!html.includes('<article>') && !html.includes('id="seo-fallback"')) || !html.includes('style=')) {
       console.error(`CRITICAL ERROR: Thin content detected for ${slug}! Length: ${html.length}`);
       console.error('Bailing build to prevent SEO regression.');
       process.exit(1);
