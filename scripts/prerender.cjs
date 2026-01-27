@@ -162,6 +162,108 @@ function removeLegacyScripts(html) {
   return out;
 }
 
+function getThumbnailForRoute(routePath, title = '') {
+  const path = routePath.toLowerCase();
+  const t = title.toLowerCase();
+
+  if (path.includes('multiplication')) return `${SITE}/images/thumbs/multiplication.png`;
+  if (path.includes('times-table')) return `${SITE}/images/thumbs/times-table.png`;
+  if (path.includes('fractions')) return `${SITE}/images/thumbs/fractions.png`;
+  if (path.includes('handwriting') || path.includes('writing')) return `${SITE}/images/thumbs/handwriting.png`;
+  if (path.includes('tracing')) return `${SITE}/images/thumbs/tracing.png`;
+  if (path.includes('reading')) return `${SITE}/images/thumbs/reading.png`;
+
+  if (path.includes('kindergarten')) return `${SITE}/images/thumbs/kindergarten.png`;
+  if (path.includes('1st-grade') || path.includes('first-grade')) return `${SITE}/images/thumbs/first-grade.png`;
+  if (path.includes('2nd-grade') || path.includes('second-grade')) return `${SITE}/images/thumbs/second-grade.png`;
+  if (path.includes('3rd-grade') || path.includes('third-grade')) return `${SITE}/images/thumbs/third-grade.png`;
+  if (path.includes('4th-grade') || path.includes('fourth-grade')) return `${SITE}/images/thumbs/fourth-grade.png`;
+  if (path.includes('5th-grade') || path.includes('fifth-grade')) return `${SITE}/images/thumbs/fifth-grade.png`;
+
+  if (t.includes('addition') || t.includes('subtraction') || t.includes('math') || t.includes('digit')) {
+    return `${SITE}/images/thumbs/math-generic.png`;
+  }
+
+  return `${SITE}/logo-720x720.png`;
+}
+
+function injectStructuredData(html, route) {
+  const canonical = `${SITE}${route.path}`;
+  const thumbnail = getThumbnailForRoute(route.path, route.title);
+
+  // 1. LearningResource Schema
+  let grade = 'K-5';
+  if (route.path.includes('kindergarten')) grade = 'Kindergarten';
+  else if (route.path.includes('1st-grade')) grade = 'Grade 1';
+  else if (route.path.includes('2nd-grade')) grade = 'Grade 2';
+  else if (route.path.includes('3rd-grade')) grade = 'Grade 3';
+  else if (route.path.includes('4th-grade')) grade = 'Grade 4';
+  else if (route.path.includes('5th-grade')) grade = 'Grade 5';
+
+  const learningResource = {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": route.title,
+    "description": route.description,
+    "image": thumbnail,
+    "learningResourceType": "Worksheet",
+    "educationalLevel": grade,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Wizqo",
+      "url": SITE,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${SITE}/icon-512.png`
+      }
+    }
+  };
+
+  // 2. BreadcrumbList Schema
+  const segments = route.path.split('/').filter(Boolean);
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Worksheets",
+        "item": `${SITE}/worksheets`
+      }
+    ]
+  };
+
+  if (segments.length > 1) {
+    let catName = segments[0].charAt(0).toUpperCase() + segments[0].slice(1);
+    // Simple heuristic for category naming
+    if (route.path.includes('math')) catName = 'Math';
+    if (route.path.includes('reading')) catName = 'Reading';
+    if (route.path.includes('handwriting')) catName = 'Handwriting';
+
+    breadcrumbs.itemListElement.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": catName,
+      "item": `${SITE}/${segments[0]}`
+    });
+
+    breadcrumbs.itemListElement.push({
+      "@type": "ListItem",
+      "position": 3,
+      "name": route.title.split('|')[0].trim(),
+      "item": canonical
+    });
+  }
+
+  const scripts = `
+  <script type="application/ld+json">${JSON.stringify(learningResource)}</script>
+  <script type="application/ld+json">${JSON.stringify(breadcrumbs)}</script>
+  `;
+
+  return html.replace(/<\/head>/i, `${scripts}\n</head>`);
+}
+
 
 function setTitle(html, title) {
   const escaped = escapeHtml(title);
@@ -360,7 +462,7 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
 
 function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   const canonical = `${SITE}${route.path}`;
-  const ogImage = route.ogImage || `${SITE}/og-image.jpg`;
+  const ogImage = getThumbnailForRoute(route.path, route.title);
   let workingHtml = baseHtml;
 
   // The removal pass is now handled at the very end of this function for absolute safety.
@@ -376,6 +478,11 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     robots: route.noIndex ? 'noindex, nofollow' : 'index, follow',
     keywords: route.keywords
   });
+
+  // Inject Rich Structured Data for Worksheets
+  if (route.path.startsWith('/worksheets/') && route.path !== '/worksheets') {
+    html = injectStructuredData(html, route);
+  }
 
   // Final check: ensure viewport tag is always present
   html = ensureViewport(html);
