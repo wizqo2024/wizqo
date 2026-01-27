@@ -159,6 +159,21 @@ const CATEGORY_INTROS: Record<string, string[]> = {
     'Educational coloring activities combine creativity with learning, engaging multiple senses and learning styles to reinforce concepts and vocabulary.',
     'Coloring develops fine motor skills, color recognition, and the ability to follow directions while keeping students engaged with educational content.',
     'Our coloring worksheets integrate learning objectives with creative expression, making practice enjoyable and memorable.'
+  ],
+  'Math': [
+    'Mathematics is the universal language of logic and problem-solving. Our worksheets are designed to build numerical fluency and conceptual understanding through structured, educator-vetted practice.',
+    'Building a strong mathematical foundation is essential for academic success and real-world reasoning. We focus on clear explanations and progressive difficulty to ensure student mastery.',
+    'Our math resources bridge the gap between abstract concepts and practical application, helping students develop the quantitative skills needed for future STEM excellence.'
+  ],
+  'Percents': [
+    'Understanding percentages is critical for success in middle school math and beyond. Our worksheets help students master the relationship between parts and wholes in a variety of contexts.',
+    'Mastering percent conversion and calculation builds the foundational logic needed for statistics, finance, and real-world data analysis.',
+    'Our structured approach to percentages ensures that students develop both procedural fluency and conceptual understanding of this essential mathematical concept.'
+  ],
+  'General': [
+    'Wizqo provides high-quality, educator-vetted resources designed to support student growth and academic excellence across a wide range of subjects and grade levels.',
+    'Our worksheets focus on building foundational skills through clear instructions, structured practice, and immediate feedback via comprehensive answer keys.',
+    'Designed for both classroom and home use, these resources help students master critical concepts and build the confidence needed for lifetime learning.'
   ]
 };
 
@@ -188,7 +203,7 @@ function generateUniqueContent(params: ContentParams): string {
 
   // Select category intro (vary by docId)
   const primaryCategory = category[0] || 'Math';
-  const categoryIntros = CATEGORY_INTROS[primaryCategory] || CATEGORY_INTROS['Addition-Subtraction'];
+  const categoryIntros = CATEGORY_INTROS[primaryCategory] || CATEGORY_INTROS['General'];
   const introIndex = getVariationIndex(docId, categoryIntros.length);
   const categoryIntro = categoryIntros[introIndex];
 
