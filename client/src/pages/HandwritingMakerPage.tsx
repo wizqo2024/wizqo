@@ -954,6 +954,7 @@ export default function HandwritingMakerPage() {
             title={seo.title || "Free Name Tracing Worksheet Generator | Wizqo"}
             description={seo.metaDescription || "Create personalized Name Tracing and Cursive Writing worksheets in seconds. Perfect for kids learning handwriting. Download your custom PDF instantly for free."}
             keywords={seo.keywords || "name tracing generator, cursive handwriting worksheets, cursive writing practice, printable cursive sheets, tracing cursive letters, handwriting worksheet maker, free name tracing worksheets"}
+            ogImage="https://wizqo.com/images/handwriting-og-preview.png"
             canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
           />
         );
