@@ -1246,6 +1246,31 @@ function main() {
   } else {
     console.log(`✓ Final verification: Order of Operations file exists at ${orderOfOpsPath}`);
   }
+
+  // TRIPLE-LOCK ASSERTION: Ensure critical worksheets have rich content
+  const CRITICAL_SLUGS = [
+    '2-digit-subtraction-within-100',
+    '2-digit-subtraction-with-regrouping',
+    '2-digit-addition-within-100',
+    '2-digit-addition-with-regrouping',
+    'addition-subtraction-within-10'
+  ];
+
+  console.log('\n  --- Triple-Lock Rich Content Verification ---');
+  for (const slug of CRITICAL_SLUGS) {
+    const filePath = path.join(DIST, 'worksheets', slug, 'index.html');
+    if (!fs.existsSync(filePath)) {
+      console.error(`CRITICAL ERROR: High-fidelity file missing for ${slug} at ${filePath}`);
+      process.exit(1);
+    }
+    const html = fs.readFileSync(filePath, 'utf8');
+    if (html.length < 5000 || !html.includes('<article>') || !html.includes('style=')) {
+      console.error(`CRITICAL ERROR: Thin content detected for ${slug}! Length: ${html.length}`);
+      console.error('Bailing build to prevent SEO regression.');
+      process.exit(1);
+    }
+    console.log(`  ✓ Triple-Lock PASSED for ${slug} (${html.length} chars)`);
+  }
 }
 
 main();

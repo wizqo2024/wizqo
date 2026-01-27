@@ -59,6 +59,46 @@
       "source": "/worksheets/",
       "destination": "/worksheets/2nd-grade-math-worksheets",
       "permanent": true
+    },
+    {
+      "source": "/worksheets/sub-2digit-100",
+      "destination": "/worksheets/2-digit-subtraction-within-100",
+      "permanent": true
+    },
+    {
+      "source": "/worksheets/sub-2digit-regrouping",
+      "destination": "/worksheets/2-digit-subtraction-with-regrouping",
+      "permanent": true
+    },
+    {
+      "source": "/worksheets/addition-subtraction-0-10",
+      "destination": "/worksheets/addition-subtraction-within-10",
+      "permanent": true
+    },
+    {
+      "source": "/worksheets/add-2digit-100",
+      "destination": "/worksheets/2-digit-addition-within-100",
+      "permanent": true
+    },
+    {
+      "source": "/worksheets/two-digit-subtraction-no-regrouping",
+      "destination": "/worksheets/2-digit-subtraction-within-100",
+      "permanent": true
+    },
+    {
+      "source": "/worksheets/two-digit-subtraction-with-regrouping",
+      "destination": "/worksheets/2-digit-subtraction-with-regrouping",
+      "permanent": true
+    },
+    {
+      "source": "/worksheets/two-digit-addition-no-regrouping",
+      "destination": "/worksheets/2-digit-addition-within-100",
+      "permanent": true
+    },
+    {
+      "source": "/worksheets/two-digit-addition-with-regrouping",
+      "destination": "/worksheets/2-digit-addition-with-regrouping",
+      "permanent": true
     }
   ],
   "headers": [
