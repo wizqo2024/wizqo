@@ -347,6 +347,16 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
     console.log(`- H1: ${seo.h1}`);
     console.log(`- RichContent exists: ${!!seo.richContent}`);
     console.log(`- RichContent length: ${seo.richContent?.length || 0}`);
+
+    // CRITICAL ASSERTION: Fail build if rich content is missing at this stage
+    if (!seo.richContent || seo.richContent.length < 500) {
+      console.error(`FAILURE: ${docId} has thin content inside JSON generator loop!`);
+      console.error(`Dump:`, JSON.stringify(seo, null, 2));
+      throw new Error(`CRITICAL VERIFICATION FAILED: ${docId} has missing/thin rich content in generate-worksheet-seo-json.ts`);
+    } else {
+      console.log(`SUCCESS: ${docId} passed validation with ${seo.richContent.length} chars.`);
+    }
+
     if (seo.richContent && seo.richContent.length > 0 && seo.richContent.length < 500) {
       console.log(`- RichContent snippet: ${seo.richContent.substring(0, 100)}...`);
     }
