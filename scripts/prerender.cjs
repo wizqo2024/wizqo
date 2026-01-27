@@ -388,10 +388,17 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
 
   // EMERGENCY OVERRIDE: Force content for specific pages regardless of what JSON says
   // Use looser matching key to handle potential trailing spaces/slashes
-  if (slug && slug.includes('sub-2digit-100')) {
+  // Also check route.path directly to catch cases where slug derivation fails
+  const isSub2Digit = (slug && slug.toLowerCase().includes('sub-2digit-100')) ||
+    (route.path && route.path.toLowerCase().includes('sub-2digit-100')) ||
+    (route.title && route.title.includes('Sub 2digit 100'));
+
+  if (isSub2Digit) {
     console.log('  ⚠ EMERGENCY OVERRIDE ACTIVATED: sub-2digit-100');
     // Force title update as well since it might be stale
     html = setTitle(html, "2-Digit Subtraction Within 100: Math Practice - Free PDF");
+    // Inject debug comment to verify this ran
+    html = html.replace('</body>', '<!-- PRERENDER DEBUG: OVERRIDE TRIGGERED FOR SUB-2DIGIT-100 --></body>');
 
     richContent = `<article style="max-width: 1200px; margin: 0 auto; color: #1e293b; line-height: 1.6;">
   <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">2-Digit Subtraction Within 100: Math Practice - Free PDF</h1>
@@ -417,7 +424,7 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     <p style="color: #475569; line-height: 1.6; margin-bottom: 1rem;">At Wizqo, we believe that high-quality education should be accessible to everyone. Our resources are designed by pedagogical experts to ensure they meet the highest standards of clarity. By focusing on print-based learning, we help students foster a deeper connection with the material through physical problem-solving.</p>
   </section>
 </article>`;
-  } else if (slug && (slug.includes('addition-subtraction-within-10') || slug.includes('addition-subtraction-0-10'))) {
+  } else if ((slug && (slug.includes('addition-subtraction-within-10') || slug.includes('addition-subtraction-0-10'))) || (route.path && (route.path.includes('addition-subtraction-within-10') || route.path.includes('addition-subtraction-0-10')))) {
     console.log('  ⚠ EMERGENCY OVERRIDE ACTIVATED: addition-subtraction-within-10');
     // Force title update as well since it might be stale
     html = setTitle(html, "Addition and Subtraction within 10 - Math Foundations | Wizqo");
@@ -448,6 +455,7 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
     if (!richHtml.includes('id="seo-fallback"')) {
       richHtml = richHtml.replace('<article', '<main id="seo-fallback"').replace('</article>', '</main>');
     }
+
 
     // resilient replacement that doesn't care about style/attributes on original tag
     const mainRe = /<main[^>]*id="seo-fallback"[^>]*>[\s\S]*?<\/main>/i;
