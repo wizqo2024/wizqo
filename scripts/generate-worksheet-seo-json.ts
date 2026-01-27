@@ -357,7 +357,11 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
   // but the presence of richContent often indicates an override if it's long)
 
   // If no custom rich content, generate unique content based on worksheet attributes
-  if (!finalRich || finalRich.length < 100) {
+  if (!finalRich || finalRich.length < 500) {
+    if (seo.richContent && seo.richContent.length > 0) {
+      console.warn(`[WARN] ${docId} has richContent but it is too short (${seo.richContent.length} chars). Falling back to template.`);
+    }
+
     finalRich = generateUniqueContent({
       name: h1Text.replace(' Worksheet', '').replace(' - Free Printable PDF | Wizqo', ''),
       h1: h1Text,

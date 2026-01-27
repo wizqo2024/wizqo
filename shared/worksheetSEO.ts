@@ -3624,7 +3624,18 @@ export function initializeWorksheetSEO() {
     const grade = inferGrade(docId)
     const category = inferCategory(docId)
 
-    const overrides = WORKSHEET_MANUAL_CONTENT[docId] || {}
+    // NUCLEAR FIX: Explicit normalization and double-check for critical IDs
+    const normalizedId = docId.trim().toLowerCase();
+
+    // Priority Overrides for items that keep falling back to thin content
+    const PRIORITY_OVERRIDES: Record<string, Partial<WorksheetSEO>> = {
+      'sub-2digit-100': WORKSHEET_MANUAL_CONTENT['sub-2digit-100'],
+      'addition-subtraction-0-10': WORKSHEET_MANUAL_CONTENT['addition-subtraction-0-10']
+    };
+
+    const overrides = PRIORITY_OVERRIDES[normalizedId] ||
+      WORKSHEET_MANUAL_CONTENT[normalizedId] ||
+      WORKSHEET_MANUAL_CONTENT[docId] || {};
 
     WORKSHEET_SEO_MAP[docId] = {
       docId,
