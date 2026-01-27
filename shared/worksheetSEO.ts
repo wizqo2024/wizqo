@@ -3627,13 +3627,28 @@ export function initializeWorksheetSEO() {
     // NUCLEAR FIX: Explicit normalization and double-check for critical IDs
     const normalizedId = docId.trim().toLowerCase();
 
-    // Priority Overrides for items that keep falling back to thin content
-    const PRIORITY_OVERRIDES: Record<string, Partial<WorksheetSEO>> = {
-      'sub-2digit-100': WORKSHEET_MANUAL_CONTENT['sub-2digit-100'],
+    // HARDCODED CONTENT MAP to bypass any scope/lookup issues with the main object
+    const EMERGENCY_CONTENT_MAP: Record<string, Partial<WorksheetSEO>> = {
+      'sub-2digit-100': {
+        title: '2-Digit Subtraction Within 100 Worksheets - Free PDF | Wizqo',
+        metaDescription: 'Free printable 2-digit subtraction worksheets without regrouping. Perfect for 1st and 2nd grade math practice. Download PDF with answer keys.',
+        h1: '2-Digit Subtraction Within 100: Math Practice',
+        intro: 'Mastering 2-digit subtraction without regrouping is a key milestone for early elementary math. Our worksheets provide a clear, vertical layout to help students practice aligning tens and ones columns for accurate results.',
+        learningObjectives: [
+          'Subtract double-digit numbers within 100 without regrouping',
+          'Practice correct vertical alignment of tens and ones columns',
+          'Build mental math fluency and subtraction speed',
+          'Develop independence in solving multi-digit math problems'
+        ],
+        richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Mastering 2-Digit Subtraction: The Path to Numerical Fluency</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Unlock the power of mental math with our <strong>2-Digit Subtraction Within 100</strong> collection. Designed for 2nd and 3rd grade students, these resources focus on <strong>building confidence with larger numbers</strong> without the initial complexity of regrouping. This targeted practice is the essential bridge between single-digit facts and multi-step algorithms, fostering a deep understanding of place value and numerical relationships. Free printable PDF access for future problem solvers.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Why Separation Matters</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Subtraction is often harder for students to visualize than addition. Our curriculum helps students move from simple 'take away' concepts to <strong>structural place-value logic</strong>. By practicing subtraction <em>without</em> borrowing first, children solidify their understanding of the tens and ones columns as distinct but related entities. This 'Separation Strategy' builds <strong>foundational architectural awareness</strong> and the mental habit of 'organized calculation.' This practice is the essential precursor to understanding regrouping chains, deficit spending models, and data-reduction logic. It turns a scary wall of numbers into a clear, manageable set of columns. This is the <strong>symbolic foundation</strong> of arithmetic confidence. Subtract without fear today.</p></section><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Subtraction Mastery Goals</h2><ul style=\"color: #475569; line-height: 1.6; padding-left: 1.5rem;\"><li style=\"margin-bottom: 0.5rem;\"><strong>Column Independence:</strong> correctly subtracting the ones and tens separately to arrive at the final difference.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Magnitude Sense:</strong> developing the intuition to know that '85 - 20' looks like '8 - 2' in the tens place.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Checking Logic:</strong> building the habit of using addition to verify the answer (e.g., Difference + Subtrahend = Minuend).</li></ul></section><section><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Premier Academic Grade Printables</h2><p style=\"color: #475569; line-height: 1.6;\">Wizqo produces educator-vetted math tools that are high-fidelity for classroom growth. Our subtraction series follows rigorous developmental standards for primary math excellence. Download your mastery set today!</p></section></article>",
+        keywords: '2 digit subtraction worksheets, subtraction within 100, double digit subtraction, 2nd grade math worksheets, free printable math pdf',
+        grade: ['1st Grade', '2nd Grade'],
+        category: ['Math', 'Subtraction']
+      },
       'addition-subtraction-0-10': WORKSHEET_MANUAL_CONTENT['addition-subtraction-0-10']
     };
 
-    const overrides = PRIORITY_OVERRIDES[normalizedId] ||
+    const overrides = EMERGENCY_CONTENT_MAP[normalizedId] ||
       WORKSHEET_MANUAL_CONTENT[normalizedId] ||
       WORKSHEET_MANUAL_CONTENT[docId] || {};
 
