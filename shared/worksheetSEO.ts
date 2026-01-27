@@ -3652,6 +3652,15 @@ export function initializeWorksheetSEO() {
       richContent: overrides.richContent,
       relatedDocIds: [], // Will be populated based on category/grade
     }
+
+    // DEBUG ASSERTION: Ensure sub-2digit-100 has rich content
+    if (docId === 'sub-2digit-100') {
+      if (!overrides.richContent || overrides.richContent.length < 500) {
+        throw new Error(`CRITICAL BUILD ERROR: Rich content missing for sub-2digit-100. Overrides found keys: ${Object.keys(overrides).join(', ')}`);
+      }
+      // Log success to build logs
+      console.log(`[SEO-DEBUG] Success: sub-2digit-100 loaded with ${overrides.richContent.length} chars of content.`);
+    }
   }
 
   // Populate related worksheets - optimized to avoid O(N^2) filter scans
