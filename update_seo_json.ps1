@@ -5,10 +5,10 @@ $data = $raw | ConvertFrom-Json
 
 # 1. Rename 'addition-subtraction-within-10' to 'addition-subtraction-0-10' if exists
 if ($data.PSObject.Properties.Name -contains "addition-subtraction-within-10") {
-    $oldEntry = $data."addition-subtraction-within-10"
-    $data | Add-Member -MemberType NoteProperty -Name "addition-subtraction-0-10" -Value $oldEntry
-    $data.PSObject.Properties.Remove("addition-subtraction-within-10")
-    Write-Host "Renamed addition-subtraction-within-10 to addition-subtraction-0-10" -ForegroundColor Cyan
+  $oldEntry = $data."addition-subtraction-within-10"
+  $data | Add-Member -MemberType NoteProperty -Name "addition-subtraction-0-10" -Value $oldEntry
+  $data.PSObject.Properties.Remove("addition-subtraction-within-10")
+  Write-Host "Renamed addition-subtraction-within-10 to addition-subtraction-0-10" -ForegroundColor Cyan
 }
 
 # 2. Define Rich Content for sub-2digit-100 (Article Style with Emojis)
@@ -63,17 +63,29 @@ $RICH_ADD_SUB_0_10 = @"
 
 # 4. Apply Updates
 if ($data."sub-2digit-100") {
-    $data."sub-2digit-100".richContent = $RICH_SUB_2DIGIT_100
-    $data."sub-2digit-100".title = "2-Digit Subtraction Within 100 Worksheets - Free PDF | Wizqo"
-    Write-Host "Updated sub-2digit-100 with rich content" -ForegroundColor Green
+  $data."sub-2digit-100".richContent = $RICH_SUB_2DIGIT_100
+  $data."sub-2digit-100".title = "2-Digit Subtraction Within 100 Worksheets - Free PDF | Wizqo"
+  Write-Host "Updated sub-2digit-100 with rich content" -ForegroundColor Green
 }
 
 if ($data."addition-subtraction-0-10") {
-    $data."addition-subtraction-0-10".richContent = $RICH_ADD_SUB_0_10
-    $data."addition-subtraction-0-10".title = "Addition and Subtraction within 10 - Math Foundations | Wizqo"
-    Write-Host "Updated addition-subtraction-0-10 with rich content" -ForegroundColor Green
+  $data."addition-subtraction-0-10".richContent = $RICH_ADD_SUB_0_10
+  $data."addition-subtraction-0-10".title = "Addition and Subtraction within 10 - Math Foundations | Wizqo"
+  Write-Host "Updated addition-subtraction-0-10 with rich content" -ForegroundColor Green
 }
 
 # 5. Save back to JSON
-$data | ConvertTo-Json -Depth 10 | Set-Content $jsonFile -Encoding UTF8
+$jsonOutput = $data | ConvertTo-Json -Depth 10
+$jsonOutput | Set-Content $jsonFile -Encoding UTF8
 Write-Host "Manual SEO JSON sync completed." -ForegroundColor Yellow
+
+# 6. Verification
+$verifyRaw = Get-Content $jsonFile -Raw
+if ($verifyRaw -match "Mastering 2-digit subtraction") {
+  Write-Host "VERIFICATION SUCCESS: Content found in file." -ForegroundColor Green
+}
+else {
+  Write-Host "VERIFICATION FAILED: Content NOT found in file." -ForegroundColor Red
+  # Print a snippet of what IS there
+  Write-Host "Snippet found: $($verifyRaw.Substring(0, 200))..."
+}
