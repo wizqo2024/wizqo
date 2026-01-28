@@ -354,6 +354,14 @@ function buildSecondarySection(category: string, name: string, gradeList: string
 
 // Main processing loop
 for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
+  if (docId === 'decimal-to-percent') {
+    console.log('[DEBUG] Found decimal-to-percent in WORKSHEET_SEO_MAP');
+    console.log('[DEBUG] SEO Title:', seo.title);
+    console.log('[DEBUG] SEO Desc:', seo.metaDescription);
+    const manual = WORKSHEET_MANUAL_CONTENT[docId];
+    console.log('[DEBUG] Manual Title:', manual?.title);
+    console.log('[DEBUG] Manual Desc:', manual?.metaDescription);
+  }
   const h1Text = seo.h1 || seo.title;
   let finalRich = seo.richContent || "";
 
