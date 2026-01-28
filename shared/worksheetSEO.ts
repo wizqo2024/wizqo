@@ -3613,7 +3613,10 @@ export function initializeWorksheetSEO() {
     'word-problems-100', 'word-problems-addition-subtraction', 'word-search', 'writing-expressions', 'writing-numbers-1-100',
     'writing-prompts-creative', 'ws-animals', 'ws-sight-words', 'ws-space', 'ws-world',
     'zigzag-lines',
-    'fraction-word-problems', 'how-many-1-15', 'line-graphs', 'mean-median-mode-range', 'uppercase-lowercase-match', 'winter-kindness'
+    'fraction-word-problems', 'how-many-1-15', 'line-graphs', 'mean-median-mode-range', 'uppercase-lowercase-match', 'winter-kindness',
+    'reading-comprehension', 'multiplication-worksheets', '5th-grade-math-worksheets', '4th-grade-math-worksheets',
+    '3rd-grade-math-worksheets', '2nd-grade-math-worksheets', '1st-grade-math-worksheets', 'kindergarten-math-worksheets',
+    'interactive-worksheets-generator'
   ]
 
 
