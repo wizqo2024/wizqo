@@ -404,6 +404,18 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
     }
   }
 
+
+  // Apply manual overrides for ALL fields if present
+  const manual = WORKSHEET_MANUAL_CONTENT[docId];
+  if (manual) {
+    if (manual.title) seo.title = manual.title;
+    if (manual.metaDescription) seo.metaDescription = manual.metaDescription;
+    if (manual.keywords) seo.keywords = manual.keywords;
+    if (manual.h1) seo.h1 = manual.h1;
+    if (manual.learningObjectives) seo.learningObjectives = manual.learningObjectives;
+    // richContent is handled via finalRich variable above
+  }
+
   const slug = seo.slug || docId;
   seoData[slug] = {
     title: seo.title,
@@ -413,7 +425,7 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
     learningObjectives: seo.learningObjectives,
     grade: seo.grade,
     category: seo.category,
-    h1: seo.h1,
+    h1: seo.h1 || (manual && manual.h1) || seo.title,
     richContent: finalRich
   }
 }
