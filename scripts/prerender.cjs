@@ -243,16 +243,20 @@ function injectStructuredData(html, route) {
     if (route.path.includes('reading')) catName = 'Reading';
     if (route.path.includes('handwriting')) catName = 'Handwriting';
 
-    breadcrumbs.itemListElement.push({
-      "@type": "ListItem",
-      "position": 2,
-      "name": catName,
-      "item": `${SITE}/${segments[0]}`
-    });
+    // Only add if it's not already 'Worksheets' to avoid duplicate position 1 and 2
+    if (catName.toLowerCase() !== 'worksheets') {
+      breadcrumbs.itemListElement.push({
+        "@type": "ListItem",
+        "position": 2,
+        "name": catName,
+        "item": `${SITE}/${segments[0]}`
+      });
+    }
 
+    const currentPos = breadcrumbs.itemListElement.length + 1;
     breadcrumbs.itemListElement.push({
       "@type": "ListItem",
-      "position": 3,
+      "position": currentPos,
       "name": route.title.split('|')[0].trim(),
       "item": canonical
     });
