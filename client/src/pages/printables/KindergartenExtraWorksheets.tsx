@@ -1546,44 +1546,77 @@ export function BookmarkTemplates({ docId, seed }: SpecificWorksheetProps) {
 }
 
 // --- Hidden Object ---
-export function HiddenObjectWorksheet({ docId, seed }: SpecificWorksheetProps) {
+export function HiddenObjectWorksheet({ docId }: SpecificWorksheetProps) {
     return (
         <WorksheetSectionWrapper
             docId={docId}
             title="Hidden Picture Puzzle"
             emoji="🔍"
-            description="Can you find the hidden objects in the scene? Circle them when you find them!"
-            problemCount={5}
+            description="Can you find the hidden objects in the garden? Circle them when you find them!"
+            problemCount={4}
             learningObjectives={['Visual discrimination', 'Attention to detail', 'Figure-ground perception', 'Patience']}
         >
-            <div className="flex flex-col gap-4 break-inside-avoid">
+            <div className="flex flex-col gap-6 break-inside-avoid">
+                {/* Legend */}
                 <div className="flex justify-center gap-8 bg-slate-50 p-4 rounded-lg border border-slate-200">
-                    <div className="flex flex-col items-center"><span className="text-2xl">✏️</span><span className="text-xs">Pencil</span></div>
-                    <div className="flex flex-col items-center"><span className="text-2xl">🗝️</span><span className="text-xs">Key</span></div>
-                    <div className="flex flex-col items-center"><span className="text-2xl">🍕</span><span className="text-xs">Pizza</span></div>
-                    <div className="flex flex-col items-center"><span className="text-2xl">🎈</span><span className="text-xs">Balloon</span></div>
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-3xl">✏️</span>
+                        <span className="text-xs font-semibold text-slate-600">Pencil</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-3xl">🗝️</span>
+                        <span className="text-xs font-semibold text-slate-600">Key</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-3xl">🍕</span>
+                        <span className="text-xs font-semibold text-slate-600">Pizza</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-3xl">🎈</span>
+                        <span className="text-xs font-semibold text-slate-600">Balloon</span>
+                    </div>
                 </div>
 
-                <div className="w-full aspect-video border-4 border-slate-900 rounded-lg relative bg-white overflow-hidden">
-                    <svg viewBox="0 0 800 500" className="w-full h-full">
-                        <g fill="none" stroke="#000" strokeWidth="2">
-                            {/* Tree */}
-                            <path d="M100 400 L100 200 Q50 150, 150 100 Q250 150, 200 200 L200 400" />
-                            <path d="M50 400 L750 400" />
-                            <circle cx="600" cy="100" r="40" />
+                {/* Puzzle Scene */}
+                <div className="w-full relative rounded-xl border-4 border-slate-900 overflow-hidden bg-white shadow-lg">
+                    {/* Background Image */}
+                    <img
+                        src="/images/hidden-puzzle-garden.png"
+                        alt="Hidden Picture Garden Scene"
+                        className="w-full h-auto object-cover grayscale opacity-90 block"
+                    />
 
-                            {/* Bench */}
-                            <rect x="400" y="320" width="150" height="20" rx="5" />
-                            <rect x="420" y="340" width="10" height="40" />
-                            <rect x="520" y="340" width="10" height="40" />
+                    {/* Hidden Objects - Overlays */}
+                    {/* Pencil - Hidden near bushes bottom left */}
+                    <div className="absolute top-[82%] left-[12%] w-[4%] opacity-80 rotate-45 mix-blend-multiply print:mix-blend-normal">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-700">
+                            <path d="M20 80 L80 20 L90 30 L30 90 Z M20 80 L10 90 L30 90 Z" />
+                        </svg>
+                    </div>
 
-                            {/* Hidden Items */}
-                            <path d="M110 350 L110 300 Q115 290, 120 300 L120 350 Z" stroke="#333" />
-                            <path d="M600 50 L600 30 M595 40 L605 40" stroke="#333" />
-                            <path d="M50 350 Q70 320, 90 350" />
-                            <path d="M250 380 Q270 350, 290 380" />
-                        </g>
-                    </svg>
+                    {/* Key - Hidden near bench leg right */}
+                    <div className="absolute top-[65%] left-[78%] w-[3%] opacity-70 -rotate-12 mix-blend-multiply print:mix-blend-normal">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-800">
+                            <path d="M70 20 A20 20 0 1 0 50 40 L50 80 L70 80 L70 70 L60 70 L60 40 L70 40 A20 20 0 0 0 70 20 Z M70 30 A10 10 0 1 1 70 30" />
+                        </svg>
+                    </div>
+
+                    {/* Pizza - Hidden in flower foliage top right */}
+                    <div className="absolute top-[15%] left-[85%] w-[4%] opacity-60 rotate-[120deg] mix-blend-multiply print:mix-blend-normal">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-700">
+                            <path d="M50 10 L90 90 L10 90 Z" />
+                            <circle cx="45" cy="50" r="5" fill="#fff" />
+                            <circle cx="55" cy="70" r="5" fill="#fff" />
+                            <circle cx="35" cy="75" r="5" fill="#fff" />
+                        </svg>
+                    </div>
+
+                    {/* Balloon - Hidden near path stones middle */}
+                    <div className="absolute top-[55%] left-[45%] w-[3.5%] opacity-70 rotate-12 mix-blend-multiply print:mix-blend-normal">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-800">
+                            <path d="M50 10 C30 10 15 30 15 50 C15 70 50 90 50 90 C50 90 85 70 85 50 C85 30 70 10 50 10 Z M50 90 L50 100" stroke="currentColor" strokeWidth="5" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </WorksheetSectionWrapper>
