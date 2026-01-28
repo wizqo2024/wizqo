@@ -160,19 +160,6 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             </div>
           </header>
 
-          {/* Content */}
-          <div className="print:hidden">
-            {seoData.richContent ? (
-              <div
-                className="prose prose-slate max-w-none mb-8"
-                dangerouslySetInnerHTML={{ __html: seoData.richContent }}
-              />
-            ) : (
-              <div className="prose prose-slate max-w-none mb-8">
-                <p className="text-lg text-slate-700 leading-relaxed">{seoData.intro}</p>
-              </div>
-            )}
-          </div>
 
 
 
@@ -215,6 +202,20 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             <p className="text-sm text-slate-500 text-center mt-2 print:hidden">
               Click the button above to open the printable worksheet in a new window
             </p>
+          </div>
+
+          {/* Content (SEO Rich Content / Intro) */}
+          <div className="print:hidden border-t border-slate-100 pt-8">
+            {seoData.richContent ? (
+              <div
+                className="prose prose-slate max-w-none mb-8"
+                dangerouslySetInnerHTML={{ __html: seoData.richContent }}
+              />
+            ) : (
+              <div className="prose prose-slate max-w-none mb-8">
+                <p className="text-lg text-slate-700 leading-relaxed">{seoData.intro}</p>
+              </div>
+            )}
           </div>
 
           {/* Related Worksheets */}
