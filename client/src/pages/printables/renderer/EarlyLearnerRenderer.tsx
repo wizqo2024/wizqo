@@ -21,6 +21,7 @@ import { WorksheetSectionWrapper } from '../PrintableShared';
 import ShadowMatchingWorksheetPage from '../../ShadowMatchingWorksheetPage';
 import MatchFeelingWorksheetPage from '../../MatchFeelingWorksheetPage';
 import CursiveAlphabetWorksheet from '../../worksheets/cursive/CursiveAlphabetWorksheet';
+import { PreWritingTracingWorksheet as TracingRenderer } from '../TracingWorksheets'
 import CursivePracticeWorksheet from '../../worksheets/cursive/CursivePracticeWorksheet';
 import CapitalCursiveWorksheet from '../../worksheets/cursive/CapitalCursiveWorksheet';
 import JoiningCursiveWorksheet from '../../worksheets/cursive/JoiningCursiveWorksheet';
@@ -54,7 +55,23 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
             {activeDocs.includes('draw-half') && (
                 <DrawHalfWorksheet docId="draw-half" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
-            {activeDocs.includes('hidden-object') && (
+            {activeDocs.includes('line-tracing') && (
+                <TracingRenderer docId="line-tracing" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+
+            {activeDocs.includes('zigzag-lines') && (
+                <TracingRenderer docId="zigzag-lines" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+
+            {activeDocs.includes('curve-tracing') && (
+                <TracingRenderer docId="curve-tracing" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+
+            {activeDocs.includes('path-tracing') && (
+                <TracingRenderer docId="path-tracing" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
+            )}
+
+            {activeDocs.includes('counting-objects-1-10') && (
                 <HiddenObjectWorksheet docId="hidden-object" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('maze-focus') && (
