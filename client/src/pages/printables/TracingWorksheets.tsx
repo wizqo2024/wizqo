@@ -69,32 +69,44 @@ export function PreWritingTracingWorksheet({ docId, seed, variant, showAnswersFo
             />
 
             <div className="mt-8 space-y-12 bg-white p-8 rounded-2xl border-2 border-slate-100 shadow-sm">
-                {rows.map((row) => (
-                    <div key={row} className="relative h-24 w-full break-inside-avoid">
-                        <svg viewBox="0 0 620 100" className="w-full h-full overflow-visible">
-                            {/* Guidelines */}
-                            <line x1="10" y1="80" x2="610" y2="80" stroke="#e2e8f0" strokeWidth="1" />
-                            <line x1="10" y1="20" x2="610" y2="20" stroke="#e2e8f0" strokeWidth="1" />
+                {rows.map((row, index) => {
+                    // Logic Pairs for "Purposeful Tracing"
+                    const pairs = [
+                        { start: '🐝', end: '🌸' }, // Bee -> Flower
+                        { start: '🚗', end: '🏠' }, // Car -> House
+                        { start: '🚀', end: '🪐' }, // Rocket -> Planet
+                        { start: '🐰', end: '🥕' }, // Bunny -> Carrot
+                        { start: '🐶', end: '🦴' }, // Dog -> Bone
+                        { start: '😺', end: '🧶' }, // Cat -> Yarn
+                    ]
+                    const pair = pairs[index % pairs.length]
 
-                            {/* Tracing Path */}
-                            <path
-                                d={getPattern(docId, 80)}
-                                fill="none"
-                                stroke="#cbd5e1"
-                                strokeWidth="4"
-                                strokeDasharray="8 8"
-                                strokeLinecap="round"
-                            />
+                    return (
+                        <div key={row} className="relative h-24 w-full break-inside-avoid">
+                            <svg viewBox="0 0 620 100" className="w-full h-full overflow-visible">
+                                {/* Guidelines */}
+                                <line x1="10" y1="80" x2="610" y2="80" stroke="#e2e8f0" strokeWidth="1" />
+                                <line x1="10" y1="20" x2="610" y2="20" stroke="#e2e8f0" strokeWidth="1" />
 
-                            {/* Start Dot */}
-                            <circle cx="20" cy="80" r="6" fill="#ef4444" />
-                            <text x="15" y="98" fontSize="12" fill="#ef4444" fontWeight="bold">START</text>
+                                {/* Tracing Path */}
+                                <path
+                                    d={getPattern(docId, 80)}
+                                    fill="none"
+                                    stroke="#cbd5e1"
+                                    strokeWidth="4"
+                                    strokeDasharray="8 8"
+                                    strokeLinecap="round"
+                                />
 
-                            {/* End Indicator */}
-                            <text x="590" y="98" fontSize="24">🏁</text>
-                        </svg>
-                    </div>
-                ))}
+                                {/* Start Icon (Logic) */}
+                                <text x="0" y="85" fontSize="32">{pair.start}</text>
+
+                                {/* End Icon (Logic) */}
+                                <text x="580" y="85" fontSize="32">{pair.end}</text>
+                            </svg>
+                        </div>
+                    )
+                })}
             </div>
 
             {showAnswersForDoc(docId, () => (
