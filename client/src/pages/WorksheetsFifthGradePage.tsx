@@ -133,7 +133,9 @@ export default function WorksheetsFifthGradePage() {
         title={t('pages.fifthGrade.seoTitle')}
         description={t('pages.fifthGrade.seoDescription')}
         keywords={t('pages.fifthGrade.seoKeywords')}
+        ogImage="/images/math-grade-5-seo.png"
         canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/5th-grade-math-worksheets', getLocaleFromURL())}`}
+        ogType="website"
       />
       {(() => {
         const currentLocale = getLocaleFromURL();

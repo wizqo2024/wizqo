@@ -136,7 +136,9 @@ export default function WorksheetsThirdGradePage() {
         title={t('pages.thirdGrade.seoTitle')}
         description={t('pages.thirdGrade.seoDescription')}
         keywords={t('pages.thirdGrade.seoKeywords')}
+        ogImage="/images/math-grade-3-seo.png"
         canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/3rd-grade-math-worksheets', getLocaleFromURL())}`}
+        ogType="website"
       />
       {(() => {
         const currentLocale = getLocaleFromURL();

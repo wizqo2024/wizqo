@@ -6,6 +6,7 @@ import { PRINTABLE_BUNDLE_SECTIONS, PRINTABLE_DOC_META } from '@/data/printableB
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks';
 import { getWorksheetSEO } from '@shared/worksheetSEO';
 import { trackWorksheetDownload, trackPackGeneration, trackThumbnailClick } from '@/utils/analytics';
+import { SEOMetaTags } from '@/components/SEOMetaTags';
 
 const BUTTON_CLASS = 'inline-flex items-center justify-center px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors';
 const OUTLINE_BUTTON = 'inline-flex items-center justify-center px-4 py-2 rounded-lg border border-purple-200 text-purple-700 hover:bg-purple-50 transition-colors';
@@ -305,6 +306,14 @@ export function PrintablesLandingPage() {
   };
   return (
     <div className="min-h-screen bg-slate-50">
+      <SEOMetaTags
+        title={t('pages.printables.title') + ' - Wizqo'}
+        description={t('pages.printables.subtitle')}
+        keywords="free printable worksheets, kids activities, math worksheets, reading comprehension, coloring pages"
+        ogImage="/images/printables-landing-seo.png"
+        canonicalUrl="https://wizqo.com/printables"
+        ogType="website"
+      />
       <UnifiedNavigation currentPage="kids" />
       {/* Print-only Name/Date overlay for this page */}
       <style>{`

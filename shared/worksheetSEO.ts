@@ -2876,6 +2876,7 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
   'probability': {
     title: 'Free Probability Worksheets for Kids (PDF) - With Answer Key',
     h1: 'Mastering Probability: Coin Flips, Dice, and Spinners',
+    image: '/images/probability-marble-jar.png',
     metaDescription: 'Master probability with our free printable worksheets. Learn with coin flips, spinners, and dice. Includes 4th, 5th, and 6th grade math PDFs with full answer keys.',
     learningObjectives: [
       'Calculate the probability of simple events (e.g., rolling a die)',

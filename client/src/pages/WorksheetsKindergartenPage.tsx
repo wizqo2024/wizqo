@@ -155,7 +155,9 @@ export default function WorksheetsKindergartenPage() {
         title={t('pages.grades.kindergarten.seoTitle')}
         description={t('pages.grades.kindergarten.seoDescription')}
         keywords={t('pages.grades.kindergarten.seoKeywords')}
+        ogImage="/images/math-kindergarten-seo.png"
         canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/kindergarten-math-worksheets', getLocaleFromURL())}`}
+        ogType="website"
       />
       {(() => {
         const currentLocale = getLocaleFromURL();

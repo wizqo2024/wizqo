@@ -121,6 +121,7 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         canonicalUrl={`https://wizqo.com${addLocaleToPath(`/${slug}`, getLocaleFromURL())}`}
         noIndex={false}
         ogType="article"
+        ogImage={seoData.image}
       />
 
       <UnifiedNavigation />

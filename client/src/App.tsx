@@ -479,14 +479,8 @@ export default function App() {
                   );
                 case 'kids':
                   return (
-                    <>
-                      <SEOMetaTags
-                        title="Kids Hub - Play Games & Download Free Printables"
-                        description="Play kid-safe mini-games and download free printables: puzzles, handwriting practice, and quick math warm-ups. Fun learning activities for kids of all ages!"
-                        canonicalUrl={`https://wizqo.com${addLocaleToPath('/kids', currentLocale)}`}
-                      />
-                      <KidsPage />
-                    </>
+                    <KidsPage />
+
                   );
                 case 'print': {
                   const searchParams = new URLSearchParams(window.location.search);
@@ -565,12 +559,8 @@ export default function App() {
 
                   return (
                     <>
-                      <SEOMetaTags
-                        title="Free Printables Hub - Download Fun Learning Activities & Worksheets | Wizqo"
-                        description="Download free printable fun learning activities for kids: word searches, Sudoku, coloring pages, and spot-the-difference games. Perfect for home or school!"
-                        canonicalUrl={`https://wizqo.com${addLocaleToPath('/printables', currentLocale)}`}
-                      />
                       <PrintablesLandingPage />
+
                     </>
                   );
                 case 'worksheets':
@@ -652,18 +642,8 @@ export default function App() {
 
                   // Specific routes that should NOT be handled by the generic PrintablesPage
                   if (routeSubKey === '2nd-grade-math-worksheets') {
-                    const canonical = addLocaleToPath('/worksheets/2nd-grade-math-worksheets', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="2nd Grade Math Worksheets – Free Printable PDF"
-                          description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF instantly."
-                          keywords="2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2, addition worksheets second grade, subtraction worksheets grade 2, place value worksheets, counting worksheets grade 2"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <WorksheetsSecondGradePage />
-                      </>
-                    );
+                    return <WorksheetsSecondGradePage />;
+
                   }
 
                   // Explicit routing for Cursive Worksheets to ensure Rich Header
@@ -687,18 +667,8 @@ export default function App() {
 
                   // Existing category page routes
                   if (routeSubKey === 'multiplication-worksheets') {
-                    const canonical = addLocaleToPath('/worksheets/multiplication-worksheets', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="Free Multiplication Worksheets - Printable PDFs with Answer Keys | Wizqo"
-                          description="Master multiplication with free worksheets for 2nd-3rd grade! Download printable PDFs with answer keys. Practice facts, arrays, and word problems to build fluency."
-                          keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2rd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <MultiplicationWorksheetsPage />
-                      </>
-                    );
+                    return <MultiplicationWorksheetsPage />;
+
                   }
                   if (routeSubKey === 'times-table-multiplication-worksheets') {
                     const canonical = addLocaleToPath('/worksheets/times-table-multiplication-worksheets', currentLocale);
@@ -737,18 +707,8 @@ export default function App() {
                     );
                   }
                   if (routeSubKey === '1st-grade-math-worksheets') {
-                    const canonical = addLocaleToPath('/worksheets/1st-grade-math-worksheets', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="1st Grade Math Worksheets – Free Printable PDF"
-                          description="Free 1st grade math worksheets covering number sense, addition/subtraction within 10, ten-frames, skip counting, and shapes. Print or save as PDF instantly."
-                          keywords="1st grade math worksheets, first grade math worksheets, free 1st grade math worksheets PDF, printable math worksheets grade 1, addition worksheets first grade, subtraction worksheets grade 1, number sense worksheets, ten frames worksheets, skip counting worksheets"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <WorksheetsFirstGradePage />
-                      </>
-                    );
+                    return <WorksheetsFirstGradePage />;
+
                   }
                   if (routeSubKey === 'handwriting-worksheet-maker') {
                     const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
@@ -759,74 +719,24 @@ export default function App() {
                     );
                   }
                   if (routeSubKey === 'reading-comprehension') {
-                    const canonical = addLocaleToPath('/worksheets/reading-comprehension', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="Free Printable Reading Comprehension Worksheets for Kids (PDF)"
-                          description="Download free printable reading comprehension worksheets for kids. Fun passages with questions and answers. Perfect PDFs for grades 1–3. Print instantly!"
-                          keywords="reading comprehension worksheets, free reading comprehension worksheets PDF, reading comprehension for kids, reading passages with questions, reading worksheets grade 1, reading worksheets grade 2, reading worksheets grade 3, printable reading comprehension"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <ReadingComprehensionPage />
-                      </>
-                    );
+                    return <ReadingComprehensionPage />;
+
                   }
                   if (routeSubKey === 'kindergarten-math-worksheets') {
-                    const canonical = addLocaleToPath('/worksheets/kindergarten-math-worksheets', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="Kindergarten Math Worksheets – Free Printable PDF"
-                          description="Free printable kindergarten math worksheets for early learners. Download PDFs covering counting, number recognition, shapes, and addition. Perfect for building foundations!"
-                          keywords="kindergarten math worksheets, free kindergarten worksheets, printable kindergarten worksheets, kindergarten counting worksheets, number recognition worksheets, shapes worksheets kindergarten, kindergarten patterns worksheets, free printable kindergarten math worksheets PDF"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <WorksheetsKindergartenPage />
-                      </>
-                    );
+                    return <WorksheetsKindergartenPage />;
+
                   }
                   if (routeSubKey === '3rd-grade-math-worksheets') {
-                    const canonical = addLocaleToPath('/worksheets/3rd-grade-math-worksheets', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="3rd Grade Math Worksheets – Free Printable PDF"
-                          description="Free 3rd grade math worksheets covering multiplication, fractions, division, and word problems. Download printable PDFs with answer keys for math practice."
-                          keywords="3rd grade math worksheets, third grade math worksheets, free 3rd grade math worksheets PDF, printable math worksheets grade 3, multiplication worksheets 3rd grade, division worksheets 3rd grade, fractions worksheets 3rd grade, word problems 3rd grade, geometry worksheets 3rd grade"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <WorksheetsThirdGradePage />
-                      </>
-                    );
+                    return <WorksheetsThirdGradePage />;
+
                   }
                   if (routeSubKey === '4th-grade-math-worksheets') {
-                    const canonical = addLocaleToPath('/worksheets/4th-grade-math-worksheets', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="4th Grade Math Worksheets – Free Printable PDF"
-                          description="Free 4th grade math worksheets covering multiplication, division, fractions, decimals, and geometry. Download printable PDFs with answer keys for practice."
-                          keywords="4th grade math worksheets, fourth grade math worksheets, free 4th grade math worksheets PDF, printable math worksheets grade 4, multiplication worksheets 4th grade, division worksheets 4th grade, fractions worksheets 4th grade, decimals worksheets 4th grade, geometry worksheets 4th grade"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <WorksheetsFourthGradePage />
-                      </>
-                    );
+                    return <WorksheetsFourthGradePage />;
+
                   }
                   if (routeSubKey === '5th-grade-math-worksheets') {
-                    const canonical = addLocaleToPath('/worksheets/5th-grade-math-worksheets', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="5th Grade Math Worksheets – Free Printable PDF"
-                          description="Free 5th grade math worksheets covering multiplication, division, fractions, decimals, and algebra. Download printable PDFs with answer keys for practice."
-                          keywords="5th grade math worksheets, fifth grade math worksheets, free 5th grade math worksheets PDF, printable math worksheets grade 5, multiplication worksheets 5th grade, division worksheets 5th grade, fractions worksheets 5th grade, decimals worksheets 5th grade, algebra worksheets 5th grade, geometry worksheets 5th grade"
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <WorksheetsFifthGradePage />
-                      </>
-                    );
+                    return <WorksheetsFifthGradePage />;
+
                   }
 
                   // Handle remaining collection categories
@@ -846,18 +756,8 @@ export default function App() {
                     );
                   }
                   // Default: 2nd grade worksheets
-                  const canonical = addLocaleToPath('/worksheets/2nd-grade-math-worksheets', currentLocale);
-                  return (
-                    <>
-                      <SEOMetaTags
-                        title="2nd Grade Math Worksheets – Free Printable PDF"
-                        description="Free 2nd grade math worksheets covering counting, place value, addition/subtraction within 20 and 100, and focus skills. Print or save as PDF instantly."
-                        keywords="2nd grade math worksheets, second grade math worksheets, free 2nd grade math worksheets PDF, printable math worksheets grade 2, addition worksheets second grade, subtraction worksheets grade 2, place value worksheets, counting worksheets grade 2"
-                        canonicalUrl={`https://wizqo.com${canonical}`}
-                      />
-                      <WorksheetsSecondGradePage />
-                    </>
-                  );
+                  return <WorksheetsSecondGradePage />;
+
                 case 'dashboard':
                   return (
                     <>

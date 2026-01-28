@@ -133,7 +133,9 @@ export default function WorksheetsFourthGradePage() {
         title={t('pages.fourthGrade.seoTitle')}
         description={t('pages.fourthGrade.seoDescription')}
         keywords={t('pages.fourthGrade.seoKeywords')}
+        ogImage="/images/math-grade-4-seo.png"
         canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/4th-grade-math-worksheets', getLocaleFromURL())}`}
+        ogType="website"
       />
       {(() => {
         const currentLocale = getLocaleFromURL();
