@@ -143,7 +143,9 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
         <article className="bg-white rounded-lg shadow-sm border border-slate-200 p-8 mb-8 print:shadow-none print:border-0 print:p-0 print:m-0">
           {/* Header */}
           <header className="mb-6 print:hidden">
-            <h1 className="text-3xl font-bold text-slate-900 mb-4">{seoData.h1}</h1>
+            {!seoData.richContent && (
+              <h1 className="text-3xl font-bold text-slate-900 mb-4">{seoData.h1}</h1>
+            )}
             <div className="flex flex-wrap gap-2 mb-4">
               {seoData.grade.map((g: string) => (
                 <span key={g} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
@@ -158,9 +160,18 @@ export default function WorksheetPage({ slug }: WorksheetPageProps) {
             </div>
           </header>
 
-          {/* Intro Content */}
-          <div className="prose prose-slate max-w-none mb-8 print:hidden">
-            <p className="text-lg text-slate-700 leading-relaxed">{seoData.intro}</p>
+          {/* Content */}
+          <div className="print:hidden">
+            {seoData.richContent ? (
+              <div
+                className="prose prose-slate max-w-none mb-8"
+                dangerouslySetInnerHTML={{ __html: seoData.richContent }}
+              />
+            ) : (
+              <div className="prose prose-slate max-w-none mb-8">
+                <p className="text-lg text-slate-700 leading-relaxed">{seoData.intro}</p>
+              </div>
+            )}
           </div>
 
 

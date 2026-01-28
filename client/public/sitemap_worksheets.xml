@@ -649,6 +649,24 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://wizqo.com/worksheets/line-tracing</loc>
+    <lastmod>2026-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/worksheets/path-tracing</loc>
+    <lastmod>2026-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://wizqo.com/worksheets/zigzag-lines</loc>
+    <lastmod>2026-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://wizqo.com/worksheets/2-digit-subtraction-within-100</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>monthly</changefreq>
@@ -1183,12 +1201,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wizqo.com/worksheets/line-tracing</loc>
-    <lastmod>2026-01-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://wizqo.com/worksheets/logic-grid</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>monthly</changefreq>
@@ -1316,12 +1328,6 @@
   </url>
   <url>
     <loc>https://wizqo.com/worksheets/partial-products</loc>
-    <lastmod>2026-01-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://wizqo.com/worksheets/path-tracing</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1694,12 +1700,6 @@
   </url>
   <url>
     <loc>https://wizqo.com/worksheets/world-geography-word-search</loc>
-    <lastmod>2026-01-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://wizqo.com/worksheets/zigzag-lines</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
