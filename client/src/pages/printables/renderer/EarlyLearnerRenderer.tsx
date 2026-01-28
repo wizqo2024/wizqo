@@ -71,7 +71,7 @@ export const EarlyLearnerRenderer = ({ activeDocs, seed: effectiveSeed, variant,
                 <TracingRenderer docId="path-tracing" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
 
-            {activeDocs.includes('counting-objects-1-10') && (
+            {activeDocs.includes('hidden-object') && (
                 <HiddenObjectWorksheet docId="hidden-object" seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />
             )}
             {activeDocs.includes('maze-focus') && (
