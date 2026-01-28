@@ -377,7 +377,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {/* Division */}
             {activeDocs.includes('long-division-1-digit') && <LongDivision1Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('long-division-2-digit') && <LongDivision2Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
-            {activeDocs.includes('long-division-multi-digit') && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('long-division-multi-digit') || activeDocs.includes('long-division-multidigit')) && <LongDivisionMultiDigit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('dividing-by-10-100') || activeDocs.includes('div-by-10-100')) && <DividingBy10And100 seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
 
             {/* 3rd Grade Math Restoration */}
@@ -431,6 +431,7 @@ export const MathRenderer = ({ activeDocs, seed: effectiveSeed, variant, showAns
             {/* 4th Grade Multiplication & Division */}
             {(activeDocs.includes('mult-2x1-digit') || activeDocs.includes('mult-2x1')) && <MultiplicationVertical docId="mult-2x1-digit" digitsTop={2} digitsBottom={1} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('mult-2x2-digit') || activeDocs.includes('mult-2x2')) && <MultiplicationVertical docId="mult-2x2-digit" digitsTop={2} digitsBottom={2} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
+            {(activeDocs.includes('mult-3x2-digit') || activeDocs.includes('mult-3x2')) && <MultiplicationVertical docId="mult-3x2-digit" digitsTop={3} digitsBottom={2} seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('area-model-mult') || activeDocs.includes('mult-area-model')) && <AreaModelMult seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {activeDocs.includes('partial-products') && <PartialProducts seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
             {(activeDocs.includes('long-division-1digit') || activeDocs.includes('long-division-1-digit')) && <LongDivision1Digit seed={effectiveSeed} variant={numVariant} showAnswersForDoc={showAnswersForDoc} />}
