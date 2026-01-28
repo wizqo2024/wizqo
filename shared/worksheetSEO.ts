@@ -3862,4 +3862,11 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Generate free interactive worksheets for math, reading, and science. Create printable PDFs with answer keys for grades K-5.',
     richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Interactive Worksheets Generator: Custom Learning Resources</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Build custom, interactive worksheets for any subject in seconds.</p></article>"
   },
+  'hidden-object': {
+    title: 'Hidden Picture Puzzle - Kindergarten Visual Perception | Wizqo',
+    h1: 'Hidden Picture Puzzle',
+    metaDescription: 'Free printable hidden object worksheet for kindergarten. Build visual discrimination and attention to detail by finding hidden items in the scene.',
+    learningObjectives: ['Visual discrimination', 'Attention to detail', 'Figure-ground perception', 'Patience'],
+    richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Hidden Picture Puzzle: Visual Discovery</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Sharpen observation skills with our 'Hidden Picture Puzzle'. Designed for early learners, this worksheet challenges students to find concealed objects within a scene, building critical visual discrimination and focus. Free PDF download.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Developing Visual Literacy</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Finding hidden objects is more than a game—it's a workout for the brain! By identifying figures against a complex background, children develop <strong>figure-ground perception</strong> and <strong>attention to detail</strong>. These skills are essential reading readiness, helping students distinguish between similar letters and track text on a page.</p></section></article>"
+  },
 };
