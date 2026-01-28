@@ -357,40 +357,9 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
   const h1Text = seo.h1 || seo.title;
   let finalRich = seo.richContent || "";
 
-  if (docId === 'sub-2digit-100' || docId === 'addition-subtraction-0-10') {
-    console.log(`Diagnostic for ${docId}:`);
-    console.log(`- Title: ${seo.title}`);
-    console.log(`- H1: ${seo.h1}`);
-    console.log(`- RichContent exists: ${!!seo.richContent}`);
-    console.log(`- RichContent length: ${seo.richContent?.length || 0}`);
-
-    // CRITICAL ASSERTION: Fail build if rich content is missing at this stage
-    if (!seo.richContent || seo.richContent.length < 500) {
-      console.error(`FAILURE: ${docId} has thin content inside JSON generator loop!`);
-      console.error(`Dump:`, JSON.stringify(seo, null, 2));
-      throw new Error(`CRITICAL VERIFICATION FAILED: ${docId} has missing/thin rich content in generate-worksheet-seo-json.ts`);
-    } else {
-      console.log(`SUCCESS: ${docId} passed validation with ${seo.richContent.length} chars.`);
-    }
-
-    if (seo.richContent && seo.richContent.length > 0 && seo.richContent.length < 500) {
-      console.log(`- RichContent snippet: ${seo.richContent.substring(0, 100)}...`);
-    }
-  }
-
-  // Check if this was a manual override
-  // (We can't easily check WORKSHEET_MANUAL_CONTENT here without importing it or changing shared code, 
-  // but the presence of richContent often indicates an override if it's long)
-
-  // If no custom rich content, generate unique content based on worksheet attributes
+  // If no custom rich content or too short, generate unique content
   if (!finalRich || finalRich.length < 500) {
-    if (seo.richContent && seo.richContent.length > 0) {
-      console.warn(`[WARN] ${docId} has richContent but it is too short (${seo.richContent.length} chars). Falling back to template.`);
-    }
-
-    // CHECK MANUAL CONTENT FIRST
     if (WORKSHEET_MANUAL_CONTENT[docId]?.richContent) {
-      console.log(`[INFO] Forcing manual rich content for ${docId}`);
       finalRich = WORKSHEET_MANUAL_CONTENT[docId].richContent!;
     } else {
       finalRich = generateUniqueContent({
@@ -404,11 +373,10 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
     }
   }
 
-
   // Apply manual overrides for ALL fields if present
   const manual = WORKSHEET_MANUAL_CONTENT[docId];
-
   const slug = seo.slug || docId;
+
   seoData[slug] = {
     title: manual?.title || seo.title,
     description: manual?.metaDescription || seo.metaDescription,
