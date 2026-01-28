@@ -29,7 +29,8 @@ function getAllWorksheetURLs() {
       url: seo.canonicalUrl || `${SITE}/worksheets/${slug}`,
       title: seo.title || slug,
       description: seo.description,
-      richContent: seo.richContent // Capture rich content for bake-in
+      richContent: seo.richContent, // Capture rich content for bake-in
+      image: seo.image
     })).filter(w => w.url && w.url.includes('/worksheets/'));
 
     console.log(`  → Loaded ${worksheets.length} worksheets from JSON.`);
@@ -43,14 +44,14 @@ function getAllWorksheetURLs() {
   }
 }
 
-// GLOBAL LOOKUP: Direct access to richContent by slug (bypasses route object issues)
-let WORKSHEET_RICH_CONTENT_MAP = null;
+// GLOBAL LOOKUP: Direct access to SEO data by slug (bypasses route object issues)
+let WORKSHEET_SEO_DATA_MAP = null;
 
-function getWorksheetRichContentMap() {
-  if (WORKSHEET_RICH_CONTENT_MAP !== null) {
-    return WORKSHEET_RICH_CONTENT_MAP;
+function getWorksheetSEODataMap() {
+  if (WORKSHEET_SEO_DATA_MAP !== null) {
+    return WORKSHEET_SEO_DATA_MAP;
   }
-  WORKSHEET_RICH_CONTENT_MAP = {};
+  WORKSHEET_SEO_DATA_MAP = {};
   try {
     const paths = [
       path.join(ROOT, 'client', 'public', 'worksheet-seo-data.json'),
@@ -64,28 +65,27 @@ function getWorksheetRichContentMap() {
         const data = JSON.parse(fs.readFileSync(worksheetSEOFile, 'utf8'));
         let count = 0;
         for (const [slug, seo] of Object.entries(data)) {
-          if (seo.richContent) {
-            WORKSHEET_RICH_CONTENT_MAP[slug] = seo.richContent;
-            count++;
-          }
+          WORKSHEET_SEO_DATA_MAP[slug] = {
+            richContent: seo.richContent,
+            image: seo.image
+          };
+          count++;
         }
         if (count > 0) {
-          console.log(`  → Loaded richContent map with ${count} entries from ${path.basename(worksheetSEOFile)}`);
+          console.log(`  → Loaded SEO data map with ${count} entries from ${path.basename(worksheetSEOFile)}`);
           found = true;
-          break; // Stop if we found a rich one
-        } else {
-          console.log(`  → Found ${worksheetSEOFile} but it has NO richContent. Checking next...`);
+          break;
         }
       }
     }
 
     if (!found) {
-      console.warn('  ⚠ WARNING: No worksheet-seo-data.json with richContent found in search paths!');
+      console.warn('  ⚠ WARNING: No worksheet-seo-data.json found in search paths!');
     }
   } catch (e) {
-    console.warn('Could not load worksheet richContent map:', e.message);
+    console.warn('Could not load worksheet SEO data map:', e.message);
   }
-  return WORKSHEET_RICH_CONTENT_MAP;
+  return WORKSHEET_SEO_DATA_MAP;
 }
 
 
@@ -166,6 +166,15 @@ function getThumbnailForRoute(routePath, title = '') {
   const path = routePath.toLowerCase();
   const t = title.toLowerCase();
 
+  // 1. Check if we have a specific image in our SEO data map
+  const slug = path.startsWith('/worksheets/') ? path.replace('/worksheets/', '').split('/')[0] : (path === '/' ? 'home' : null);
+  if (slug) {
+    const seoMap = getWorksheetSEODataMap();
+    if (seoMap[slug] && seoMap[slug].image) {
+      return `${SITE}${seoMap[slug].image}`;
+    }
+  }
+
   if (path.includes('multiplication')) return `${SITE}/images/thumbs/multiplication.png`;
   if (path.includes('times-table')) return `${SITE}/images/thumbs/times-table.png`;
   if (path.includes('fractions')) return `${SITE}/images/thumbs/fractions.png`;
@@ -184,6 +193,14 @@ function getThumbnailForRoute(routePath, title = '') {
 
   if (t.includes('addition') || t.includes('subtraction') || t.includes('math') || t.includes('digit')) {
     return `${SITE}/images/thumbs/math-generic.png`;
+  }
+
+  // Home page or default fallback
+  if (path === '/' || path === '') {
+    const seoMap = getWorksheetSEODataMap();
+    if (seoMap['home'] && seoMap['home'].image) {
+      return `${SITE}${seoMap['home'].image}`;
+    }
   }
 
   return `${SITE}/logo-720x720.png`;
@@ -494,9 +511,10 @@ function cloneForRoute(baseHtml, route, allPosts = [], allRoutes = []) {
   html = ensureViewport(html);
 
   // 1. If we have rich content (from worksheet-seo-data.json), use it!
-  const slug = route.path.startsWith('/worksheets/') ? route.path.replace('/worksheets/', '').split('/')[0] : null;
-  const richContentMap = getWorksheetRichContentMap();
-  const directRichContent = slug ? richContentMap[slug] : null;
+  const slug = route.path.startsWith('/worksheets/') ? route.path.replace('/worksheets/', '').split('/')[0] : (route.path === '/' ? 'home' : null);
+  const seoDataMap = getWorksheetSEODataMap();
+  const directSEO = slug ? seoDataMap[slug] : null;
+  const directRichContent = directSEO ? directSEO.richContent : null;
   let richContent = directRichContent || route.richContent;
 
 

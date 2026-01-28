@@ -21,6 +21,7 @@ const seoData: Record<string, {
   category: string[]
   h1: string
   richContent?: string
+  image?: string
 }> = {}
 
 // ============================================================================
@@ -386,7 +387,8 @@ for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
     grade: finalGrade,
     category: finalCategory,
     h1: h1Text,
-    richContent: finalRich
+    richContent: finalRich,
+    image: manual?.image || seo.image
   }
 }
 
@@ -401,8 +403,22 @@ for (const [slug, seo] of Object.entries(HUB_SEO_DATA)) {
     grade: seo.grade || [],
     category: seo.category || [],
     h1: seo.h1 || '',
-    richContent: seo.richContent
+    richContent: seo.richContent,
+    image: seo.image
   }
+}
+
+// Add landing page SEO
+seoData['home'] = {
+  title: 'Wizqo | Free Printable Worksheets for Kids (K-5)',
+  description: 'Download 1000+ free printable worksheets for kids. Math, reading, tracing, and handwriting practice with answer keys. 100% free, no login required.',
+  keywords: 'free printable worksheets, math worksheets, handwriting maker, reading comprehension, kindergarten worksheets',
+  canonicalUrl: 'https://wizqo.com/',
+  h1: 'Free Printable Worksheets for Every Student',
+  image: '/assets/previews/landing-page-preview.png',
+  learningObjectives: [],
+  grade: ['K-5'],
+  category: ['Education']
 }
 
 // Write to client/public directory so Vite copies it to build output
