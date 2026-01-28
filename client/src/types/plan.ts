@@ -2,9 +2,9 @@
 // Extracted from SplitPlanInterface.tsx for better organization
 
 export interface QuizAnswers {
-  experience: string;
-  timeAvailable: string;
-  goal: string;
+  experience?: string;
+  timeAvailable?: string;
+  goal?: string;
 }
 
 export interface ChatMessage {
