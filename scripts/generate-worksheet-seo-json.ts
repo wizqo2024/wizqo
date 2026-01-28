@@ -354,47 +354,39 @@ function buildSecondarySection(category: string, name: string, gradeList: string
 
 // Main processing loop
 for (const [docId, seo] of Object.entries(WORKSHEET_SEO_MAP)) {
-  if (docId === 'decimal-to-percent') {
-    console.log('[DEBUG] Found decimal-to-percent in WORKSHEET_SEO_MAP');
-    console.log('[DEBUG] SEO Title:', seo.title);
-    console.log('[DEBUG] SEO Desc:', seo.metaDescription);
-    const manual = WORKSHEET_MANUAL_CONTENT[docId];
-    console.log('[DEBUG] Manual Title:', manual?.title);
-    console.log('[DEBUG] Manual Desc:', manual?.metaDescription);
-  }
-  const h1Text = seo.h1 || seo.title;
-  let finalRich = seo.richContent || "";
+  const manual = WORKSHEET_MANUAL_CONTENT[docId];
+  const finalTitle = manual?.title || seo.title;
+  const h1Text = manual?.h1 || seo.h1 || finalTitle;
+  const finalCategory = manual?.category || seo.category || [];
+  const finalGrade = manual?.grade || seo.grade || [];
+  const finalObjectives = manual?.learningObjectives || seo.learningObjectives || [];
+
+  let finalRich = manual?.richContent || seo.richContent || "";
 
   // If no custom rich content or too short, generate unique content
   if (!finalRich || finalRich.length < 500) {
-    if (WORKSHEET_MANUAL_CONTENT[docId]?.richContent) {
-      finalRich = WORKSHEET_MANUAL_CONTENT[docId].richContent!;
-    } else {
-      finalRich = generateUniqueContent({
-        name: h1Text.replace(' Worksheet', '').replace(' - Free Printable PDF | Wizqo', ''),
-        h1: h1Text,
-        grade: seo.grade || [],
-        category: seo.category || [],
-        objectives: seo.learningObjectives || [],
-        docId
-      });
-    }
+    finalRich = generateUniqueContent({
+      name: h1Text.replace(' Worksheet', '').replace(' - Free Printable PDF | Wizqo', ''),
+      h1: h1Text,
+      grade: finalGrade,
+      category: finalCategory,
+      objectives: finalObjectives,
+      docId
+    });
   }
 
-  // Apply manual overrides for ALL fields if present
-  const manual = WORKSHEET_MANUAL_CONTENT[docId];
   const slug = seo.slug || docId;
 
   seoData[slug] = {
-    title: manual?.title || seo.title,
+    title: finalTitle,
     description: manual?.metaDescription || seo.metaDescription,
     keywords: manual?.keywords || seo.keywords || "",
     canonicalUrl: `https://wizqo.com/worksheets/${slug}`,
-    learningObjectives: manual?.learningObjectives || seo.learningObjectives || [],
-    grade: manual?.grade || seo.grade || [],
-    category: manual?.category || seo.category || [],
-    h1: manual?.h1 || seo.h1 || (manual && manual.h1) || seo.title,
-    richContent: manual?.richContent || finalRich
+    learningObjectives: finalObjectives,
+    grade: finalGrade,
+    category: finalCategory,
+    h1: h1Text,
+    richContent: finalRich
   }
 }
 
