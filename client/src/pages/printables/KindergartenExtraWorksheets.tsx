@@ -1587,23 +1587,23 @@ export function HiddenObjectWorksheet({ docId }: SpecificWorksheetProps) {
                     />
 
                     {/* Hidden Objects - Overlays */}
-                    {/* Pencil - Hidden near bushes bottom left */}
-                    <div className="absolute top-[82%] left-[12%] w-[4%] opacity-80 rotate-45 mix-blend-multiply print:mix-blend-normal">
-                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-700">
+                    {/* Pencil - Hidden near bushes bottom left - VISIBLE MODE */}
+                    <div className="absolute top-[82%] left-[12%] w-[8%] rotate-45 z-10 filter drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-800" style={{ stroke: 'white', strokeWidth: '4' }}>
                             <path d="M20 80 L80 20 L90 30 L30 90 Z M20 80 L10 90 L30 90 Z" />
                         </svg>
                     </div>
 
-                    {/* Key - Hidden near bench leg right */}
-                    <div className="absolute top-[65%] left-[78%] w-[3%] opacity-70 -rotate-12 mix-blend-multiply print:mix-blend-normal">
-                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-800">
+                    {/* Key - Hidden near bench leg right - VISIBLE MODE */}
+                    <div className="absolute top-[65%] left-[78%] w-[6%] -rotate-12 z-10 filter drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-800" style={{ stroke: 'white', strokeWidth: '4' }}>
                             <path d="M70 20 A20 20 0 1 0 50 40 L50 80 L70 80 L70 70 L60 70 L60 40 L70 40 A20 20 0 0 0 70 20 Z M70 30 A10 10 0 1 1 70 30" />
                         </svg>
                     </div>
 
-                    {/* Pizza - Hidden in flower foliage top right */}
-                    <div className="absolute top-[15%] left-[85%] w-[4%] opacity-60 rotate-[120deg] mix-blend-multiply print:mix-blend-normal">
-                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-700">
+                    {/* Pizza - Hidden in flower foliage top right - VISIBLE MODE */}
+                    <div className="absolute top-[12%] left-[82%] w-[8%] rotate-[120deg] z-10 filter drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-800" style={{ stroke: 'white', strokeWidth: '4' }}>
                             <path d="M50 10 L90 90 L10 90 Z" />
                             <circle cx="45" cy="50" r="5" fill="#fff" />
                             <circle cx="55" cy="70" r="5" fill="#fff" />
@@ -1611,9 +1611,9 @@ export function HiddenObjectWorksheet({ docId }: SpecificWorksheetProps) {
                         </svg>
                     </div>
 
-                    {/* Balloon - Hidden near path stones middle */}
-                    <div className="absolute top-[55%] left-[45%] w-[3.5%] opacity-70 rotate-12 mix-blend-multiply print:mix-blend-normal">
-                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-800">
+                    {/* Balloon - Hidden near path stones middle - VISIBLE MODE */}
+                    <div className="absolute top-[52%] left-[42%] w-[7%] rotate-12 z-10 filter drop-shadow-[0_0_2px_rgba(255,255,255,0.9)]">
+                        <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-800" style={{ stroke: 'white', strokeWidth: '4' }}>
                             <path d="M50 10 C30 10 15 30 15 50 C15 70 50 90 50 90 C50 90 85 70 85 50 C85 30 70 10 50 10 Z M50 90 L50 100" stroke="currentColor" strokeWidth="5" />
                         </svg>
                     </div>
