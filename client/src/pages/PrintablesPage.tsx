@@ -46,6 +46,7 @@ import { MathRenderer } from './printables/renderer/MathRenderer';
 import { LanguageRenderer } from './printables/renderer/LanguageRenderer';
 import { EarlyLearnerRenderer } from './printables/renderer/EarlyLearnerRenderer';
 import { HolidayRenderer } from './printables/renderer/HolidayRenderer';
+import { SocialEmotionalRenderer } from './printables/renderer/SocialEmotionalRenderer';
 
 import {
   trackWorksheetDownload,
