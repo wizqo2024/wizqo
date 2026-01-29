@@ -141,7 +141,10 @@ function generate() {
   push(`${site}/worksheets/fractions-to-decimals-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/order-of-operations-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/reading-comprehension`, today, 'weekly', '0.7');
-  push(`${site}/worksheets/handwriting-worksheet-maker`, today, 'weekly', '0.7');
+  push(`${site}/worksheets/handwriting-worksheet-maker`, today, 'weekly', '0.7', {
+    loc: `${site}/assets/previews/handwriting-hub-preview.png`,
+    caption: 'Handwriting Worksheet Maker - Custom name tracing and practice'
+  });
   push(`${site}/worksheets/spelling-list-generator`, today, 'weekly', '0.8', {
     loc: `${site}/images/spelling-generator-seo.png`,
     caption: 'Spelling List Generator - Create custom tracing sheets'
