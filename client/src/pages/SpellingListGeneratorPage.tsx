@@ -545,7 +545,26 @@ export default function SpellingListGeneratorPage() {
                                 <Sparkles className="w-5 h-5 text-amber-500" />
                                 Live Preview
                             </h2>
-                            <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">Letter Format (8.5" x 11")</span>
+                            <div className="flex items-center gap-3">
+                                <span className="hidden sm:inline text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">Letter Format (8.5" x 11")</span>
+                                <div className="flex items-center gap-2">
+                                    <Button
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={() => window.print()}
+                                        className="h-8 px-3 border-indigo-200 text-indigo-700 hover:bg-indigo-50"
+                                    >
+                                        <Printer className="w-4 h-4 mr-1.5" /> Print
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        onClick={handleDownloadPDF}
+                                        className="h-8 px-3 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm"
+                                    >
+                                        <Download className="w-4 h-4 mr-1.5" /> Download
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
 
                         {/* The SVG Preview */}
