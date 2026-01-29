@@ -101,8 +101,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     } catch { }
   };
 
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [isSubscribing, setIsSubscribing] = useState(false);
   const { toast } = useToast();
   const [showBackToTop, setShowBackToTop] = useState(false);
 
@@ -158,41 +156,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
     return <NotFoundPage />;
   }
 
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!newsletterEmail || !newsletterEmail.includes('@')) {
-      toast({
-        title: t('pages.blog.newsletter.invalidEmail'),
-        description: t('pages.blog.newsletter.invalidEmailDesc'),
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsSubscribing(true);
-
-    try {
-      // Simulate API call - in real implementation, this would integrate with email service
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      toast({
-        title: t('pages.blog.newsletter.success'),
-        description: t('pages.blog.newsletter.successDesc'),
-        variant: "default"
-      });
-
-      setNewsletterEmail('');
-    } catch (error) {
-      toast({
-        title: t('pages.blog.newsletter.failed'),
-        description: t('pages.blog.newsletter.failedDesc'),
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubscribing(false);
-    }
-  };
 
   if (selectedPost) {
     return (
@@ -233,10 +196,6 @@ export function BlogPage({ initialSlug, onNavigate }: { initialSlug?: string; on
         navigateTo(`/blog/${post.id}`);
       }}
       navigateTo={navigateTo}
-      newsletterEmail={newsletterEmail}
-      isSubscribing={isSubscribing}
-      onNewsletterEmailChange={setNewsletterEmail}
-      onNewsletterSubmit={handleNewsletterSubmit}
       showBackToTop={showBackToTop}
     />
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { WizqoLogo } from './WizqoLogo';
 import { useTranslation } from '@/context/TranslationContext';
+import { NewsletterForm } from './NewsletterForm';
 
 // Social media configuration - easy to update
 const SOCIAL_LINKS = {
@@ -188,76 +189,4 @@ export function Footer() {
   );
 }
 
-function NewsletterForm() {
-  const [email, setEmail] = React.useState('');
-  const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'error' | 'exists'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setStatus('loading');
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setEmail('');
-      } else if (response.status === 409) {
-        setStatus('exists');
-      } else {
-        setStatus('error');
-      }
-    } catch (err) {
-      console.error('Newsletter error:', err);
-      setStatus('error');
-    }
-  };
-
-  if (status === 'success') {
-    return (
-      <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center animate-in fade-in zoom-in duration-300">
-        <p className="text-emerald-400 text-sm font-bold flex items-center justify-center gap-2">
-          <span>✨</span> Welcome to the club!
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-      <div className="flex gap-2">
-        <input
-          type="email"
-          placeholder="Your email address"
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-          className="bg-slate-800 border-0 focus:ring-2 focus:ring-purple-500 rounded-lg px-3 py-2 text-sm text-white flex-1 min-w-0"
-          required
-          disabled={status === 'loading'}
-        />
-        <button
-          type="submit"
-          className="bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap active:scale-95"
-          disabled={status === 'loading'}
-        >
-          {status === 'loading' ? 'Joining...' : 'Join'}
-        </button>
-      </div>
-      {status === 'error' && (
-        <p className="text-red-400 text-[11px] font-medium animate-in slide-in-from-top-1">
-          Something went wrong. Please try again later.
-        </p>
-      )}
-      {status === 'exists' && (
-        <p className="text-blue-400 text-[11px] font-medium animate-in slide-in-from-top-1">
-          You're already on the list! Stay tuned for updates.
-        </p>
-      )}
-    </form>
-  );
-}
+<NewsletterForm variant="footer" />
