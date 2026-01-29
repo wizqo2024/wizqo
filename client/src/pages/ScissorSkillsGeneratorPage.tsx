@@ -204,7 +204,7 @@ export default function ScissorSkillsGeneratorPage() {
 
                             <svg width="100%" height="60" viewBox={`0 0 ${contentWidth} 60`} className="overflow-visible flex-1">
                                 <defs>
-                                    <linearGradient id="rainbow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <linearGradient id={`rainbow-grad-${i}`} x1="0" y1="0" x2={contentWidth} y2="0" gradientUnits="userSpaceOnUse">
                                         <stop offset="0%" stopColor="#EF4444" />
                                         <stop offset="25%" stopColor="#F59E0B" />
                                         <stop offset="50%" stopColor="#10B981" />
@@ -216,7 +216,7 @@ export default function ScissorSkillsGeneratorPage() {
                                 {lineStyle === 'straight' && (
                                     <line
                                         x1="0" y1="30" x2={contentWidth} y2="30"
-                                        stroke={isRainbow ? "url(#rainbow-grad)" : activeTheme.color}
+                                        stroke={isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
                                     />
@@ -229,7 +229,7 @@ export default function ScissorSkillsGeneratorPage() {
                                             return `L ${x} ${y}`;
                                         }).join(' ')}`}
                                         fill="none"
-                                        stroke={isRainbow ? "url(#rainbow-grad)" : activeTheme.color}
+                                        stroke={isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
                                     />
@@ -245,7 +245,7 @@ export default function ScissorSkillsGeneratorPage() {
                                             return `C ${ctrlX1} ${ctrlY1} ${ctrlX2} ${ctrlY2} ${nextX} 30`;
                                         }).join(' ')}`}
                                         fill="none"
-                                        stroke={isRainbow ? "url(#rainbow-grad)" : activeTheme.color}
+                                        stroke={isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
                                     />
