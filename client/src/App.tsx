@@ -60,9 +60,9 @@ import { SkipLink } from './components/SkipLink';
 
 
 type QuizAnswers = {
-  experience: string;
-  timeAvailable: string;
-  goal: string;
+  experience?: string;
+  timeAvailable?: string;
+  goal?: string;
 };
 
 export default function App() {
