@@ -9,6 +9,7 @@ import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 import { trackWorksheetDownload } from '@/utils/analytics'
+import { HUB_SEO_DATA } from '@shared/worksheetSEO'
 
 // Categories will be defined inside component to use translation
 
@@ -129,14 +130,19 @@ export default function WorksheetsFifthGradePage() {
 
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title={t('pages.fifthGrade.seoTitle')}
-        description={t('pages.fifthGrade.seoDescription')}
-        keywords={t('pages.fifthGrade.seoKeywords')}
-        ogImage="/images/math-grade-5-seo.jpg"
-        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/5th-grade-math-worksheets', getLocaleFromURL())}`}
-        ogType="website"
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['5th-grade-math-worksheets'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || t('pages.fifthGrade.seoTitle')}
+            description={seo.metaDescription || t('pages.fifthGrade.seoDescription')}
+            keywords={seo.keywords || t('pages.fifthGrade.seoKeywords')}
+            ogImage="/images/math-grade-5-seo.png"
+            canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/5th-grade-math-worksheets', getLocaleFromURL())}`}
+            ogType="website"
+          />
+        )
+      })()}
       {(() => {
         const currentLocale = getLocaleFromURL();
         const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/5th-grade-math-worksheets', currentLocale)}`;
@@ -316,7 +322,18 @@ export default function WorksheetsFifthGradePage() {
 
         {/* Pre-Algebra Readiness Guide (SEO 5th Grade Injection) */}
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-          <PreAlgebraReadinessGuide />
+          {(() => {
+            const seo = HUB_SEO_DATA['5th-grade-math-worksheets'];
+            if (seo?.richContent) {
+              return (
+                <article
+                  className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                  dangerouslySetInnerHTML={{ __html: seo.richContent }}
+                />
+              );
+            }
+            return <PreAlgebraReadinessGuide />;
+          })()}
         </section>
       </main>
       <Footer />

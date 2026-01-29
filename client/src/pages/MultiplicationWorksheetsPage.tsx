@@ -10,6 +10,7 @@ import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { PDFDownloadButton } from '@/components/common/PDFDownloadButton'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
+import { HUB_SEO_DATA } from '@shared/worksheetSEO'
 
 interface WorksheetItem {
   title: string
@@ -112,14 +113,19 @@ export default function MultiplicationWorksheetsPage() {
   }, [filteredWorksheets])
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title={`${t('pages.multiplication.title')} - Printable PDFs with Answer Keys | Wizqo`}
-        description={t('pages.multiplication.subtitle')}
-        keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
-        ogImage="/images/math-multiplication-seo.jpg"
-        canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
-        ogType="website"
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['multiplication-worksheets'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || `${t('pages.multiplication.title')} - Printable PDFs with Answer Keys | Wizqo`}
+            description={seo.metaDescription || t('pages.multiplication.subtitle')}
+            keywords={seo.keywords || "multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"}
+            ogImage="/images/math-multiplication-seo.png"
+            canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
+            ogType="website"
+          />
+        )
+      })()}
       {(() => {
         const currentLocale = getLocaleFromURL();
         const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/multiplication-worksheets', currentLocale)}`;
@@ -298,6 +304,19 @@ export default function MultiplicationWorksheetsPage() {
               </AccordionItem>
             </Accordion>
           </section>
+
+          {(() => {
+            const seo = HUB_SEO_DATA['multiplication-worksheets'];
+            if (seo?.richContent) {
+              return (
+                <article
+                  className="mt-16 bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                  dangerouslySetInnerHTML={{ __html: seo.richContent }}
+                />
+              );
+            }
+            return null;
+          })()}
         </div>
 
         {/* Multiplication Concepts Guide (SEO Hub Injection) */}

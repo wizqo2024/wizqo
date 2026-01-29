@@ -8,6 +8,7 @@ import { trackCategoryFilter } from '@/utils/analytics';
 import { useTranslation } from '@/context/TranslationContext';
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { trackWorksheetDownload } from '@/utils/analytics'
+import { HUB_SEO_DATA } from '@shared/worksheetSEO'
 
 // READING_CATEGORIES will be created inside component to use translations
 
@@ -355,14 +356,19 @@ export default function ReadingComprehensionPage() {
 
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title={t('pages.readingComprehension.seoTitle')}
-        description={t('pages.readingComprehension.seoDescription')}
-        keywords="reading comprehension worksheets, reading passages grade 1, reading worksheets pdf, free reading worksheets"
-        ogImage="/images/reading-comprehension-seo.jpg"
-        canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
-        ogType="website"
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['reading-comprehension'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || t('pages.readingComprehension.seoTitle')}
+            description={seo.metaDescription || t('pages.readingComprehension.seoDescription')}
+            keywords={seo.keywords || "reading comprehension worksheets, reading passages grade 1, reading worksheets pdf, free reading worksheets"}
+            ogImage="/images/reading-comprehension-seo.png"
+            canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
+            ogType="website"
+          />
+        )
+      })()}
       <UnifiedNavigation currentPage="printables" />
       {/* Print-only Name/Date overlay for this page */}
       <style>{`
@@ -598,7 +604,18 @@ export default function ReadingComprehensionPage() {
       </main>
 
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
-        <LiteracyMasteryGuide />
+        {(() => {
+          const seo = HUB_SEO_DATA['reading-comprehension'];
+          if (seo?.richContent) {
+            return (
+              <article
+                className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                dangerouslySetInnerHTML={{ __html: seo.richContent }}
+              />
+            );
+          }
+          return <LiteracyMasteryGuide />;
+        })()}
       </div>
 
       <Footer />

@@ -9,6 +9,7 @@ import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 import { trackWorksheetDownload } from '@/utils/analytics'
+import { HUB_SEO_DATA } from '@shared/worksheetSEO'
 
 // Categories will be defined inside component to use translation
 
@@ -129,14 +130,19 @@ export default function WorksheetsFourthGradePage() {
 
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title={t('pages.fourthGrade.seoTitle')}
-        description={t('pages.fourthGrade.seoDescription')}
-        keywords={t('pages.fourthGrade.seoKeywords')}
-        ogImage="/images/math-grade-4-seo.jpg"
-        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/4th-grade-math-worksheets', getLocaleFromURL())}`}
-        ogType="website"
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['4th-grade-math-worksheets'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || t('pages.fourthGrade.seoTitle')}
+            description={seo.metaDescription || t('pages.fourthGrade.seoDescription')}
+            keywords={seo.keywords || t('pages.fourthGrade.seoKeywords')}
+            ogImage="/images/math-grade-4-seo.png"
+            canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/4th-grade-math-worksheets', getLocaleFromURL())}`}
+            ogType="website"
+          />
+        )
+      })()}
       {(() => {
         const currentLocale = getLocaleFromURL();
         const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/4th-grade-math-worksheets', currentLocale)}`;
@@ -316,7 +322,18 @@ export default function WorksheetsFourthGradePage() {
 
         {/* 4th Grade Mastery Guide (SEO Injection) */}
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-          <FourthGradeMasteryGuide />
+          {(() => {
+            const seo = HUB_SEO_DATA['4th-grade-math-worksheets'];
+            if (seo?.richContent) {
+              return (
+                <article
+                  className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                  dangerouslySetInnerHTML={{ __html: seo.richContent }}
+                />
+              );
+            }
+            return <FourthGradeMasteryGuide />;
+          })()}
         </section>
       </main>
       <Footer />

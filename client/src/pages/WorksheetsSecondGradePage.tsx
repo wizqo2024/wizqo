@@ -9,6 +9,7 @@ import { trackCategoryFilter } from '@/utils/analytics'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 import { trackWorksheetDownload } from '@/utils/analytics'
+import { HUB_SEO_DATA } from '@shared/worksheetSEO'
 
 // Categories will be defined inside component to use translation
 
@@ -112,14 +113,19 @@ export default function WorksheetsSecondGradePage() {
   }, [filteredWorksheets])
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title={t('pages.secondGrade.seoTitle')}
-        description={t('pages.secondGrade.seoDescription')}
-        keywords="2nd grade math worksheets, second grade math pdf, free math worksheets grade 2, place value, addition subtraction"
-        ogImage="/images/math-grade-2-seo.jpg"
-        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/2nd-grade-math-worksheets', getLocaleFromURL())}`}
-        ogType="website"
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['2nd-grade-math-worksheets'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || t('pages.secondGrade.seoTitle')}
+            description={seo.metaDescription || t('pages.secondGrade.seoDescription')}
+            keywords={seo.keywords || "2nd grade math worksheets, second grade math pdf, free math worksheets grade 2, place value, addition subtraction"}
+            ogImage="/images/math-grade-2-seo.png"
+            canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/2nd-grade-math-worksheets', getLocaleFromURL())}`}
+            ogType="website"
+          />
+        )
+      })()}
       {(() => {
         const currentLocale = getLocaleFromURL();
         const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/2nd-grade-math-worksheets', currentLocale)}`;
@@ -293,7 +299,18 @@ export default function WorksheetsSecondGradePage() {
 
       {/* 2nd Grade Growth Guide (SEO Injection) */}
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
-        <SecondGradeGrowthGuide />
+        {(() => {
+          const seo = HUB_SEO_DATA['2nd-grade-math-worksheets'];
+          if (seo?.richContent) {
+            return (
+              <article
+                className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                dangerouslySetInnerHTML={{ __html: seo.richContent }}
+              />
+            );
+          }
+          return <SecondGradeGrowthGuide />;
+        })()}
       </section>
 
       <Footer />

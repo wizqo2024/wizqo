@@ -8,6 +8,7 @@ import { useTranslation } from '@/context/TranslationContext'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { trackCategoryFilter, trackThumbnailClick, trackWorksheetDownload, trackBuildPackClick } from '@/utils/analytics'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
+import { HUB_SEO_DATA } from '@shared/worksheetSEO'
 
 // Categories will be translated in the component
 const KINDERGARTEN_CATEGORIES_IDS = [
@@ -151,14 +152,19 @@ export default function WorksheetsKindergartenPage() {
 
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title={t('pages.grades.kindergarten.seoTitle')}
-        description={t('pages.grades.kindergarten.seoDescription')}
-        keywords={t('pages.grades.kindergarten.seoKeywords')}
-        ogImage="/images/math-kindergarten-seo.jpg"
-        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/kindergarten-math-worksheets', getLocaleFromURL())}`}
-        ogType="website"
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['kindergarten-math-worksheets'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || t('pages.grades.kindergarten.seoTitle')}
+            description={seo.metaDescription || t('pages.grades.kindergarten.seoDescription')}
+            keywords={seo.keywords || t('pages.grades.kindergarten.seoKeywords')}
+            ogImage="/images/math-kindergarten-seo.png"
+            canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/kindergarten-math-worksheets', getLocaleFromURL())}`}
+            ogType="website"
+          />
+        )
+      })()}
       {(() => {
         const currentLocale = getLocaleFromURL();
         const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/kindergarten-math-worksheets', currentLocale)}`;
@@ -354,7 +360,18 @@ export default function WorksheetsKindergartenPage() {
         </div>
       </main>
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
-        <EarlyLearningFoundationGuide />
+        {(() => {
+          const seo = HUB_SEO_DATA['kindergarten-math-worksheets'];
+          if (seo?.richContent) {
+            return (
+              <article
+                className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                dangerouslySetInnerHTML={{ __html: seo.richContent }}
+              />
+            );
+          }
+          return <EarlyLearningFoundationGuide />;
+        })()}
       </div>
       <Footer />
 

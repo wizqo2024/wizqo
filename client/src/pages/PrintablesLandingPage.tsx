@@ -1,4 +1,5 @@
 import React from 'react';
+import { HUB_SEO_DATA } from '@shared/worksheetSEO';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { Footer } from '@/components/Footer';
 import { useTranslation } from '@/context/TranslationContext';
@@ -306,14 +307,19 @@ export function PrintablesLandingPage() {
   };
   return (
     <div className="min-h-screen bg-slate-50">
-      <SEOMetaTags
-        title={t('pages.printables.title') + ' - Wizqo'}
-        description={t('pages.printables.subtitle')}
-        keywords="free printable worksheets, kids activities, math worksheets, reading comprehension, coloring pages"
-        ogImage="/images/printables-landing-seo.jpg"
-        canonicalUrl="https://wizqo.com/printables"
-        ogType="website"
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['printables-landing'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || (t('pages.printables.title') + ' - Wizqo')}
+            description={seo.metaDescription || t('pages.printables.subtitle')}
+            keywords={seo.keywords || "free printable worksheets, kids activities, math worksheets, reading comprehension, coloring pages"}
+            ogImage="/images/printables-landing-seo.png"
+            canonicalUrl="https://wizqo.com/printables"
+            ogType="website"
+          />
+        )
+      })()}
       <UnifiedNavigation currentPage="kids" />
       {/* Print-only Name/Date overlay for this page */}
       <style>{`
@@ -988,9 +994,23 @@ export function PrintablesLandingPage() {
             </section>
           </div>
         </div>
+
+        {(() => {
+          const seo = HUB_SEO_DATA['printables-landing'];
+          if (seo?.richContent) {
+            return (
+              <div className="mt-12">
+                <article
+                  className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                  dangerouslySetInnerHTML={{ __html: seo.richContent }}
+                />
+              </div>
+            );
+          }
+          return <PrintableActivityExcellenceGuide />;
+        })()}
       </main>
 
-      <PrintableActivityExcellenceGuide />
       <Footer />
 
       {/* Preview Modal */}

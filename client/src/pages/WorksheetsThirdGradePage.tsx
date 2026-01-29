@@ -9,6 +9,7 @@ import { trackCategoryFilter, trackBuildPackClick } from '@/utils/analytics'
 import { getWorksheetURL, getWorksheetPrintURL } from '@/utils/worksheetLinks'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 import { trackWorksheetDownload } from '@/utils/analytics'
+import { HUB_SEO_DATA } from '@shared/worksheetSEO'
 
 // Categories will be defined inside component to use translation
 
@@ -132,14 +133,19 @@ export default function WorksheetsThirdGradePage() {
 
   return (
     <div className="min-h-screen bg-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title={t('pages.thirdGrade.seoTitle')}
-        description={t('pages.thirdGrade.seoDescription')}
-        keywords={t('pages.thirdGrade.seoKeywords')}
-        ogImage="/images/math-grade-3-seo.jpg"
-        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/3rd-grade-math-worksheets', getLocaleFromURL())}`}
-        ogType="website"
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['3rd-grade-math-worksheets'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || t('pages.thirdGrade.seoTitle')}
+            description={seo.metaDescription || t('pages.thirdGrade.seoDescription')}
+            keywords={seo.keywords || t('pages.thirdGrade.seoKeywords')}
+            ogImage="/images/math-grade-3-seo.png"
+            canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/3rd-grade-math-worksheets', getLocaleFromURL())}`}
+            ogType="website"
+          />
+        )
+      })()}
       {(() => {
         const currentLocale = getLocaleFromURL();
         const canonical = `https://wizqo.com${addLocaleToPath('/worksheets/3rd-grade-math-worksheets', currentLocale)}`;
@@ -322,7 +328,18 @@ export default function WorksheetsThirdGradePage() {
 
         {/* 3rd Grade Foundational Guide (SEO Injection) */}
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-          <FoundationalNumberSenseGuide />
+          {(() => {
+            const seo = HUB_SEO_DATA['3rd-grade-math-worksheets'];
+            if (seo?.richContent) {
+              return (
+                <article
+                  className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                  dangerouslySetInnerHTML={{ __html: seo.richContent }}
+                />
+              );
+            }
+            return <FoundationalNumberSenseGuide />;
+          })()}
         </section>
       </main>
       <Footer />

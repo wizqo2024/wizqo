@@ -7,6 +7,7 @@ import { useTranslation } from '@/context/TranslationContext'
 import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale'
 import { Search, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { HUB_SEO_DATA } from '@shared/worksheetSEO'
 
 interface CategoryCard {
   title: string
@@ -204,12 +205,18 @@ export default function AllWorksheetsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEOMetaTags
-        title="All Worksheet Categories - Discover Every Learning Tool | Wizqo"
-        description="Explore our complete collection of free worksheet categories! From kindergarten math to 5th grade, multiplication to reading. 100% free, ready to print."
-        keywords="worksheet categories, browse worksheets, all worksheet types, worksheet directory, worksheets by grade, worksheets by subject, complete worksheet list, free worksheet categories, math worksheets by grade, reading worksheets, handwriting worksheets"
-        canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/all', getLocaleFromURL())}`}
-      />
+      {(() => {
+        const seo = HUB_SEO_DATA['all'] || {}
+        return (
+          <SEOMetaTags
+            title={seo.title || "All Worksheet Categories - Discover Every Learning Tool | Wizqo"}
+            description={seo.metaDescription || "Explore our complete collection of free worksheet categories! From kindergarten math to 5th grade, multiplication to reading. 100% free, ready to print."}
+            keywords={seo.keywords || "worksheet categories, browse worksheets, all worksheet types, worksheet directory, worksheets by grade, worksheets by subject, complete worksheet list, free worksheet categories, math worksheets by grade, reading worksheets, handwriting worksheets"}
+            ogImage="/images/all-worksheets-seo.png"
+            canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/all', getLocaleFromURL())}`}
+          />
+        )
+      })()}
 
       {/* Breadcrumb Schema */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
@@ -417,7 +424,18 @@ export default function AllWorksheetsPage() {
 
         {/* Final SEO Feature: Discovery Guide */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
-          <FreeLearningDiscoveryGuide />
+          {(() => {
+            const seo = HUB_SEO_DATA['all'];
+            if (seo?.richContent) {
+              return (
+                <article
+                  className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                  dangerouslySetInnerHTML={{ __html: seo.richContent }}
+                />
+              );
+            }
+            return <FreeLearningDiscoveryGuide />;
+          })()}
         </div>
 
         {/* CTA Section */}
