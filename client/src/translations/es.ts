@@ -3844,6 +3844,8 @@ export const es = {
     allWorksheets: '✨ Todas las Categorías de Hojas de Trabajo',
     allWorksheetsDesc: 'Acceder a todas las categorías',
     wordSearchGame: 'Juego de Búsqueda de Palabras',
+    scissorSkillsGenerator: 'Generador de Habilidades con Tijeras',
+    scissorSkillsGeneratorDesc: 'Práctica de corte preescolar personalizada',
   },
   grades: {
     preK: 'Preescolar',

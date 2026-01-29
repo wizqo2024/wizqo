@@ -4803,6 +4803,8 @@ export const ar = {
     allWorksheets: '✨ جميع فئات أوراق العمل',
     allWorksheetsDesc: 'الوصول إلى جميع الفئات',
     wordSearchGame: 'لعبة البحث عن الكلمات',
+    scissorSkillsGenerator: 'مولد مهارات استخدام المقص',
+    scissorSkillsGeneratorDesc: 'تمارين قص مخصصة لمرحلة ما قبل المدرسة',
   },
   grades: {
     preK: 'ما قبل المدرسة',

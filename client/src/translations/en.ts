@@ -4633,6 +4633,8 @@ export const en = {
     allWorksheets: '✨ All Worksheet Categories',
     allWorksheetsDesc: 'Access all categories',
     wordSearchGame: 'Word Search Game',
+    scissorSkillsGenerator: 'Scissor Skills Generator',
+    scissorSkillsGeneratorDesc: 'Custom preschool cutting practice',
   },
   grades: {
     preK: 'Preschool',
