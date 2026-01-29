@@ -3762,6 +3762,62 @@ export function getAllWorksheetSEO(): WorksheetSEO[] {
  * SEO metadata and rich content for high-traffic Category Hub pages.
  */
 export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
+  'blog': {
+    title: 'Wizqo Blog | Parenting Tips, Teaching Strategies & Learning Resources',
+    metaDescription: 'Explore the Wizqo Blog for expert parenting advice, teacher resources, and effective teaching strategies. Stay updated with the latest in early childhood education.',
+    image: '/images/blog-hub-seo.png',
+    keywords: 'parenting blog, teaching strategies, education resources for parents, teacher tips, early childhood learning, homeschooling advice, wizqo blog',
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">The Wizqo Blog: Empowering Educators and Parents</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to the <strong>Wizqo Blog</strong>, your hub for practical insights, creative teaching ideas, and expert parenting advice. We are committed to supporting the global community of educators and parents by providing high-quality content that makes learning at home and in the classroom more effective and engaging.</p>
+      
+      <section style="margin-bottom: 3rem; background: #faf5ff; padding: 2rem; border-radius: 12px; border: 1px solid #f3e8ff;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #581c87; margin-bottom: 1.5rem;">What You'll Find on Our Blog</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #6b21a8; margin-bottom: 0.75rem;">Teaching Strategies</h3>
+            <p style="color: #475569;">Discover proven techniques for teaching complex concepts like multiplication, cursive writing, and phonics to young learners with ease.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #6b21a8; margin-bottom: 0.75rem;">Parenting Resources</h3>
+            <p style="color: #475569;">From managing screen time to fostering a growth mindset, our parenting guides provide actionable tips for supporting your child's emotional and academic development.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #6b21a8; margin-bottom: 0.75rem;">Product Updates</h3>
+            <p style="color: #475569;">Be the first to know about new worksheet generators, interactive tools, and feature enhancements designed to save you time and improve learning outcomes.</p>
+          </div>
+        </div>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Expert-Led Educational Insights</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Our team of educators and child development specialists curates every article to ensure it meets the highest standards of accuracy and utility. We cover a wide range of topics, including:</p>
+        <ul style="color: #475569; line-height: 1.8; columns: 2; -webkit-columns: 2;">
+          <li>Early Literacy & Phonics</li>
+          <li>Mental Math Techniques</li>
+          <li>Classroom Management Tips</li>
+          <li>Homeschooling Best Practices</li>
+          <li>Fine Motor Skill Development</li>
+          <li>STEM Education for Kids</li>
+        </ul>
+      </section>
+
+      <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Join Our Learning Community</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 2rem;">The Wizqo Blog is more than just a collection of articles; it's a growing community of people dedicated to excellence in education. Subscribe to our newsletter to receive the latest tips and free resources directly in your inbox, and join us as we empower learning together.</p>
+        
+        <div style="margin-top: 4rem; border-top: 1px solid #f1f5f9; padding-top: 2rem;">
+          <h3 style="font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;">Blog Hub Preview</h3>
+          <img 
+            src="/images/blog-hub-seo.png" 
+            alt="Wizqo Blog Hub Preview" 
+            style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;"
+            loading="lazy"
+          />
+        </div>
+      </section>
+    </article>`
+  },
   'home': {
     title: 'Free Printable Worksheets for Kids | Math, Reading, Writing | Wizqo',
     metaDescription: 'Download 1000+ free printable worksheets for K-5 learners. High-quality math, reading comprehension, and handwriting practice with answer keys included. 100% free PDFs.',

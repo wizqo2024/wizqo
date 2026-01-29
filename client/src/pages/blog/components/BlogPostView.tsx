@@ -113,7 +113,7 @@ export function BlogPostView({
         title={post.id ? `${post.title}` : post.title}
         description={post.excerpt}
         keywords={post.keywords}
-        ogImage={post.imageUrl}
+        ogImage={image}
         canonicalUrl={canonical}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />

@@ -8,6 +8,9 @@ import { BlogPostCard } from './BlogPostCard';
 import { BlogFilters } from './BlogFilters';
 import { useTranslation } from '@/context/TranslationContext';
 import { NewsletterForm } from '@/components/NewsletterForm';
+import { SEOMetaTags } from '@/components/SEOMetaTags';
+import { HUB_SEO_DATA } from '@shared/worksheetSEO';
+import { addLocaleToPath, getLocaleFromURL } from '@/utils/locale';
 
 interface BlogListProps {
   allPosts: BlogPost[];
@@ -55,6 +58,42 @@ export function BlogList({
   return (
     <div className="min-h-screen bg-slate-50 overflow-x-hidden" dir={isRTL ? 'rtl' : 'ltr'}>
       <UnifiedNavigation currentPage="blog" />
+
+      {(() => {
+        const seo = HUB_SEO_DATA['blog'] || {};
+        const currentLocale = getLocaleFromURL();
+        const canonical = `https://wizqo.com${addLocaleToPath('/blog', currentLocale)}`;
+
+        return (
+          <>
+            <SEOMetaTags
+              title={seo.title || "Wizqo Blog | Parenting Tips, Teaching Strategies & Learning Resources"}
+              description={seo.metaDescription || "Explore the Wizqo Blog for expert parenting advice, teacher resources, and effective teaching strategies."}
+              keywords={seo.keywords || "parenting blog, teaching strategies, education resources for parents"}
+              ogImage="/images/blog-hub-seo.png"
+              canonicalUrl={canonical}
+              ogType="website"
+            />
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Blog",
+                "name": "Wizqo Blog",
+                "description": seo.metaDescription,
+                "url": canonical,
+                "publisher": {
+                  "@type": "Organization",
+                  "name": "Wizqo",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://wizqo.com/logo-720x720.png"
+                  }
+                }
+              })}
+            </script>
+          </>
+        );
+      })()}
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
         <div className="text-center mb-8 sm:mb-16">
