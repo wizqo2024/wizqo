@@ -275,7 +275,7 @@ export default function SpellingListGeneratorPage() {
                         title={seo.title || "Free Spelling List Generator | Create Custom Spelling Worksheets | Wizqo"}
                         description={seo.metaDescription || "Create personalized spelling list worksheets for kids (K-5). Choose from dotted, cursive, or bubble fonts. 100% free to customize and print as PDF."}
                         keywords={seo.keywords || "spelling list generator, custom spelling worksheets, handwriting practice, spelling words for kids, free printable spelling sheets"}
-                        ogImage={seo.image || "/images/spelling-generator-seo.jpg"}
+                        ogImage={seo.image || "/images/spelling-generator-seo.png"}
                         canonicalUrl="https://wizqo.com/worksheets/spelling-list-generator"
                     />
                 );
@@ -298,8 +298,8 @@ export default function SpellingListGeneratorPage() {
                     name: "Wizqo Spelling List Generator",
                     operatingSystem: "Any",
                     applicationCategory: "EducationalApplication",
-                    image: "https://wizqo.com/images/spelling-generator-seo.jpg",
-                    screenshot: "https://wizqo.com/images/spelling-generator-seo.jpg",
+                    image: "https://wizqo.com/images/spelling-generator-seo.png",
+                    screenshot: "https://wizqo.com/images/spelling-generator-seo.png",
                     offers: {
                         "@type": "Offer",
                         price: "0",

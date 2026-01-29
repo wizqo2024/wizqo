@@ -3872,14 +3872,24 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Hidden Picture Puzzle: Visual Discovery</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Sharpen observation skills with our 'Hidden Picture Puzzle'. Designed for early learners, this worksheet challenges students to find concealed objects within a scene, building critical visual discrimination and focus. Free PDF download.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Developing Visual Literacy</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Finding hidden objects is more than a game—it's a workout for the brain! By identifying figures against a complex background, children develop <strong>figure-ground perception</strong> and <strong>attention to detail</strong>. These skills are essential reading readiness, helping students distinguish between similar letters and track text on a page.</p></section></article>"
   },
   'spelling-list-generator': {
-    title: 'Free Spelling List Generator | Custom Spelling Tracing Sheets | Wizqo',
-    metaDescription: 'Create custom spelling practice worksheets for free. Generate personalized spelling lists with dotted tracing fonts, cursive, and print styles. Perfect for weekly spelling tests.',
-    image: '/images/spelling-generator-seo.jpg',
-    keywords: 'spelling list generator, custom spelling worksheets, spelling practice maker, free spelling generator, spelling tracing sheets, weekly spelling list maker, cursive spelling practice, wizqo spelling generator',
+    title: 'Free Spelling List Generator | No Sign Up Custom Spelling Sheets | Wizqo',
+    metaDescription: 'Create custom spelling practice worksheets for free. No Sign Up required. Generate personalized spelling lists with dotted tracing fonts, cursive, and hard spelling words for grades 3-5.',
+    image: '/images/spelling-generator-seo.png',
+    keywords: 'spelling list generator, custom spelling worksheets, spelling practice maker, free spelling generator, spelling tracing sheets, weekly spelling list maker, cursive spelling practice, hard spelling words, 3rd grade spelling words, 4th grade spelling words, 5th grade spelling words, no sign up spelling maker',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
-      <h1 style="font-size: 2.5rem; font-weight: 900; color: #011627; margin-bottom: 1rem;">Free Spelling List Generator</h1>
-      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's <strong>Spelling List Generator</strong>. Our tool helps parents and teachers create custom spelling tracing sheets in seconds. Enter up to 20 words, choose your font style (Print, Dotted, or Cursive), and download a high-quality PDF ready for your classroom or home study session.</p>
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #011627; margin-bottom: 1rem;">Free Spelling List Generator - No Sign Up Required</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's <strong>Spelling List Generator</strong>. Our tool helps parents and teachers create custom spelling tracing sheets in seconds with <strong>No Sign Up or login required</strong>. Enter up to 20 words, choose your font style (Print, Dotted, or Cursive), and download a high-quality PDF ready for your classroom or home study session.</p>
       
+      <section style="margin-bottom: 3rem; background: #f0f9ff; padding: 2rem; border-radius: 12px; border: 1px solid #e0f2fe;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #0369a1; margin-bottom: 1.5rem;">The Wizqo Advantage: No Sign Up</h2>
+        <p style="color: #0c4a6e; margin-bottom: 1.5rem;">Unlike other spelling sites that force you to create an account or subscribe, Wizqo offers a completely <strong>free spelling maker with no sign up</strong>. We believe in making high-quality educational tools accessible to everyone instantly. Just type your words and print!</p>
+        <ul style="color: #0c4a6e; line-height: 1.8;">
+          <li><strong>Instant Access:</strong> No accounts, no passwords, no email required.</li>
+          <li><strong>100% Free:</strong> Unlimited custom spelling lists at your fingertips.</li>
+          <li><strong>Privacy First:</strong> We don't track your data or store your student lists.</li>
+        </ul>
+      </section>
+
       <section style="margin-bottom: 3rem; background: #fef2f2; padding: 2rem; border-radius: 12px; border: 1px solid #fee2e2;">
         <h2 style="font-size: 1.875rem; font-weight: 800; color: #991b1b; margin-bottom: 1.5rem;">Master Spelling Through Active Tracing</h2>
         <p style="color: #991b1b; margin-bottom: 1.5rem;">Kinesthetic learning is key to literacy. By physically tracing each word, students build muscle memory and reinforce letter-sound relationships. Our generator is designed to make weekly spelling prep effortless for educators while providing students with clean, pedagogical layouts.</p>
@@ -3889,6 +3899,26 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
           <li><strong>Visual Guides:</strong> Toggle starting dots and guidelines to help with letter formation.</li>
           <li><strong>Downloadable PDFs:</strong> Instant export for easy printing and distribution.</li>
         </ul>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Targeting Hard Spelling Words (Grades 3-5)</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">As students move from basic phonics to advanced vocabulary, they encounter "troublemaker" words. Our generator is specifically optimized for mastering <strong>Hard Spelling Words</strong> across different grade levels:</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <h3 style="font-weight: 700; color: #334155; margin-bottom: 0.75rem;">3rd Grade Hard Words</h3>
+            <p style="color: #64748b; font-size: 0.95rem;">Focus on: <em>Believe, Caught, Enough, Library, Though, Through.</em> Use our <strong>Dotted Font</strong> to help students visualize the letter connections in these tricky combinations.</p>
+          </div>
+          <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <h3 style="font-weight: 700; color: #334155; margin-bottom: 0.75rem;">4th Grade Hard Words</h3>
+            <p style="color: #64748b; font-size: 0.95rem;">Focus on: <em>Accidentally, Calendar, Guarantee, Necessary, Separate.</em> Our <strong>Cursive Tracing</strong> option is ideal for 4th graders building penmanship along with complex spelling.</p>
+          </div>
+          <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <h3 style="font-weight: 700; color: #334155; margin-bottom: 0.75rem;">5th Grade Hard Words</h3>
+            <p style="color: #64748b; font-size: 0.95rem;">Focus on: <em>Accommodate, Conscious, Environment, Privilege, Rhythm.</em> Use these words in our generator to create challenging daily practice sheets.</p>
+          </div>
+        </div>
       </section>
 
       <section style="margin-bottom: 3rem;">

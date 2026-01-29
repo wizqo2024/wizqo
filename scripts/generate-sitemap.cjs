@@ -143,7 +143,7 @@ function generate() {
   push(`${site}/worksheets/reading-comprehension`, today, 'weekly', '0.7');
   push(`${site}/worksheets/handwriting-worksheet-maker`, today, 'weekly', '0.7');
   push(`${site}/worksheets/spelling-list-generator`, today, 'weekly', '0.8', {
-    loc: `${site}/images/spelling-generator-seo.jpg`,
+    loc: `${site}/images/spelling-generator-seo.png`,
     caption: 'Spelling List Generator - Create custom tracing sheets'
   });
 
