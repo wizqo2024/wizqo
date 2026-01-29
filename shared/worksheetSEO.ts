@@ -3762,6 +3762,62 @@ export function getAllWorksheetSEO(): WorksheetSEO[] {
  * SEO metadata and rich content for high-traffic Category Hub pages.
  */
 export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
+  'home': {
+    title: 'Free Printable Worksheets for Kids | Math, Reading, Writing | Wizqo',
+    metaDescription: 'Download 1000+ free printable worksheets for K-5 learners. High-quality math, reading comprehension, and handwriting practice with answer keys included. 100% free PDFs.',
+    image: '/images/hero-real.png',
+    keywords: 'free printable worksheets, math worksheets for kids, reading comprehension passages, handwriting practice sheets, free educational printables, K-5 learning resources, teachers worksheets, parents homeschooling tools',
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Printable Worksheets for Kids: The Wizqo Learning Library</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo, your destination for high-quality, <strong>free printable worksheets</strong>. We believe that every child deserves access to premium educational resources. Our library is designed to turn the "work" of learning into a journey of discovery, providing teachers and parents with the tools they need to foster student success at home and in the classroom.</p>
+      
+      <section style="margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">The Wizqo Difference: Why Educators Choose Us</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">100% Free Access</h3>
+            <p style="color: #475569;">No subscriptions, no paywalls. Every worksheet in our library is completely free to download and print, ensuring that financial barriers never stand in the way of a child's education.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">Answer Keys Included</h3>
+            <p style="color: #475569;">We respect your time. Every academic worksheet automatically includes a comprehensive answer key appendix, making grading and immediate feedback effortless for busy parents and teachers.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">AI-Powered Personalization</h3>
+            <p style="color: #475569;">Beyond our static library, our proprietary interactive generators allow you to create custom handwriting, spelling, and math sheets tailored to your student's unique needs.</p>
+          </div>
+        </div>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Comprehensive K-5 Curriculum Support</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Our resources are aligned with Core developmental standards, covering all essential subjects for elementary excellence:</p>
+        <ul style="color: #475569; line-height: 1.8; columns: 2; -webkit-columns: 2;">
+          <li>Math: Addition to Algebra</li>
+          <li>Reading Comprehension</li>
+          <li>Handwriting & Tracing</li>
+          <li>Spelling & Vocabulary</li>
+          <li>Science & Social Studies</li>
+          <li>Critical Thinking Puzzles</li>
+        </ul>
+      </section>
+
+      <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Start Your Story of Success</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 2rem;">Whether you're looking for a quick morning warm-up, a deep-dive reading passage, or a custom name-tracing sheet for your kindergartener, Wizqo is your dedicated partner in literacy and logic. Join our growing community of educators today and experience the difference of premium, printable learning.</p>
+        
+        <div style="margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;">
+          <h3 style="font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;">Learning Preview</h3>
+          <img 
+            src="/images/hero-real.png" 
+            alt="Wizqo Free Learning Worksheets Preview" 
+            style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;"
+            loading="lazy"
+          />
+        </div>
+      </section>
+    </article>`
+  },
   'handwriting-worksheet-maker': {
     title: 'Free Custom Name Tracing Generator | Handwriting Practice Maker | Wizqo',
     metaDescription: 'Create personalized name tracing and handwriting practice worksheets for free. Custom cursive and print tracing generators for kids, parents, and teachers. No login required.',

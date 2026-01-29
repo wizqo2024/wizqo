@@ -6,6 +6,7 @@ import GradientText from './GradientText';
 import AnimatedIcon from './AnimatedIcon';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useTranslation } from '@/context/TranslationContext';
+import { HUB_SEO_DATA } from '@shared/worksheetSEO';
 
 interface LandingPageProps {
   onNavigateToGenerate: () => void;
@@ -998,6 +999,22 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* SEO Content Section */}
+      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        {(() => {
+          const seo = HUB_SEO_DATA['home'];
+          if (seo?.richContent) {
+            return (
+              <article
+                className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+                dangerouslySetInnerHTML={{ __html: seo.richContent }}
+              />
+            );
+          }
+          return null;
+        })()}
       </section>
 
       {/* Footer */}

@@ -55,7 +55,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { initAnalytics, trackPageView, trackUserFlow } from './utils/analytics';
 import { TranslationProvider } from './context/TranslationContext';
 import { parseLocaleFromPath, addLocaleToPath, removeLocaleFromPath, getLocaleFromURL, shouldAddLocale } from './utils/locale';
-import { getWorksheetSEOBySlug } from '@shared/worksheetSEO';
+import { getWorksheetSEOBySlug, HUB_SEO_DATA } from '@shared/worksheetSEO';
 import { SkipLink } from './components/SkipLink';
 
 
@@ -428,12 +428,18 @@ export default function App() {
                 case '': // home
                   return (
                     <>
-                      <SEOMetaTags
-                        title="Free Worksheets for Kids (K-5) | Math, Reading & More | Wizqo"
-                        description="Download free printable worksheets for kids (K-5). Math, reading, writing, tracing, and multiplication worksheets with answer keys—100% free, ready to print."
-                        keywords="free printable worksheets, math worksheets, reading worksheets, handwriting worksheets, worksheets for kids, kindergarten worksheets, 1st grade worksheets, 2nd grade worksheets"
-                        canonicalUrl={baseCanonical}
-                      />
+                      {(() => {
+                        const seo = HUB_SEO_DATA['home'] || {}
+                        return (
+                          <SEOMetaTags
+                            title={seo.title || "Free Worksheets for Kids (K-5) | Math, Reading & More | Wizqo"}
+                            description={seo.metaDescription || "Download free printable worksheets for kids (K-5). Math, reading, writing, tracing, and multiplication worksheets with answer keys—100% free, ready to print."}
+                            keywords={seo.keywords || "free printable worksheets, math worksheets, reading worksheets, handwriting worksheets, worksheets for kids, kindergarten worksheets, 1st grade worksheets, 2nd grade worksheets"}
+                            canonicalUrl={baseCanonical}
+                            ogImage={seo.image || "/images/hero-real.png"}
+                          />
+                        )
+                      })()}
                       <LandingPage onNavigateToGenerate={() => navigateTo('/generate')} />
                     </>
                   );
