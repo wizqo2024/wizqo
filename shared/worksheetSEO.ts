@@ -3871,4 +3871,42 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     learningObjectives: ['Visual discrimination', 'Attention to detail', 'Figure-ground perception', 'Patience'],
     richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Hidden Picture Puzzle: Visual Discovery</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Sharpen observation skills with our 'Hidden Picture Puzzle'. Designed for early learners, this worksheet challenges students to find concealed objects within a scene, building critical visual discrimination and focus. Free PDF download.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Developing Visual Literacy</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Finding hidden objects is more than a game—it's a workout for the brain! By identifying figures against a complex background, children develop <strong>figure-ground perception</strong> and <strong>attention to detail</strong>. These skills are essential reading readiness, helping students distinguish between similar letters and track text on a page.</p></section></article>"
   },
+  'spelling-list-generator': {
+    title: 'Free Spelling List Generator | Custom Spelling Tracing Sheets | Wizqo',
+    metaDescription: 'Create custom spelling practice worksheets for free. Generate personalized spelling lists with dotted tracing fonts, cursive, and print styles. Perfect for weekly spelling tests.',
+    image: '/images/spelling-generator-seo.jpg',
+    keywords: 'spelling list generator, custom spelling worksheets, spelling practice maker, free spelling generator, spelling tracing sheets, weekly spelling list maker, cursive spelling practice, wizqo spelling generator',
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #011627; margin-bottom: 1rem;">Free Spelling List Generator</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's <strong>Spelling List Generator</strong>. Our tool helps parents and teachers create custom spelling tracing sheets in seconds. Enter up to 20 words, choose your font style (Print, Dotted, or Cursive), and download a high-quality PDF ready for your classroom or home study session.</p>
+      
+      <section style="margin-bottom: 3rem; background: #fef2f2; padding: 2rem; border-radius: 12px; border: 1px solid #fee2e2;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #991b1b; margin-bottom: 1.5rem;">Master Spelling Through Active Tracing</h2>
+        <p style="color: #991b1b; margin-bottom: 1.5rem;">Kinesthetic learning is key to literacy. By physically tracing each word, students build muscle memory and reinforce letter-sound relationships. Our generator is designed to make weekly spelling prep effortless for educators while providing students with clean, pedagogical layouts.</p>
+        <ul style="color: #991b1b; line-height: 1.8;">
+          <li><strong>Custom Lists:</strong> Input your own weekly spelling words for targeted practice.</li>
+          <li><strong>Multiple Fonts:</strong> Support for Print, Dotted, and Cursive styles to match any grade level.</li>
+          <li><strong>Visual Guides:</strong> Toggle starting dots and guidelines to help with letter formation.</li>
+          <li><strong>Downloadable PDFs:</strong> Instant export for easy printing and distribution.</li>
+        </ul>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Spelling Practice FAQ</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">How many words can I add?</h3>
+          <p style="color: #475569;">You can add up to 20 words per list. The generator will automatically organize them into a clean, easy-to-read vertical format.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">Can I use this for cursive practice?</h3>
+          <p style="color: #475569;">Yes! Our <strong>Cursive Tracing</strong> option uses an elegant, connected script that is perfect for students transitioning from print to cursive writing.</p>
+        </div>
+      </section>
+
+      <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Efficient Weekly Preparation</h2>
+        <p style="color: #475569; line-height: 1.6;">Don't spend hours manually drawing lines or searching for generic lists. With Wizqo, you can generate a custom spelling worksheet in under 60 seconds. Empower your students with the tools they need to master their weekly vocabulary today.</p>
+      </section>
+    </article>`
+  },
 };

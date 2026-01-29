@@ -172,7 +172,7 @@ export default function KidsPage() {
         title={`${t('pages.kids.title')} – Fun Learning Games & Printable Activities for Kids`}
         description={t('pages.kids.subtitle')}
         keywords="kids learning games, educational games for kids, free printable activities, online learning games"
-        ogImage="/images/kids-hub-seo.png"
+        ogImage="/images/kids-hub-seo.jpg"
         canonicalUrl="https://wizqo.com/kids"
         ogType="website"
         twitterCard="summary_large_image"

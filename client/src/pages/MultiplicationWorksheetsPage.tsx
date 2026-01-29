@@ -116,7 +116,7 @@ export default function MultiplicationWorksheetsPage() {
         title={`${t('pages.multiplication.title')} - Printable PDFs with Answer Keys | Wizqo`}
         description={t('pages.multiplication.subtitle')}
         keywords="multiplication worksheets, free multiplication worksheets, multiplication worksheets for 2nd grade, multiplication worksheets for 3rd grade, printable multiplication worksheets, multiplication facts worksheets, multiplication arrays worksheets, multiplication word problems, free multiplication worksheets PDF, multiplication practice sheets, multiplication worksheets with answer keys, 2nd grade multiplication worksheets, 3rd grade multiplication worksheets, multiplication tables worksheets, multiplication drills"
-        ogImage="/images/math-multiplication-seo.png"
+        ogImage="/images/math-multiplication-seo.jpg"
         canonicalUrl="https://wizqo.com/worksheets/multiplication-worksheets"
         ogType="website"
       />

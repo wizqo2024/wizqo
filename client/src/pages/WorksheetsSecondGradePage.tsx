@@ -116,7 +116,7 @@ export default function WorksheetsSecondGradePage() {
         title={t('pages.secondGrade.seoTitle')}
         description={t('pages.secondGrade.seoDescription')}
         keywords="2nd grade math worksheets, second grade math pdf, free math worksheets grade 2, place value, addition subtraction"
-        ogImage="/images/math-grade-2-seo.png"
+        ogImage="/images/math-grade-2-seo.jpg"
         canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/2nd-grade-math-worksheets', getLocaleFromURL())}`}
         ogType="website"
       />

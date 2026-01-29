@@ -359,7 +359,7 @@ export default function ReadingComprehensionPage() {
         title={t('pages.readingComprehension.seoTitle')}
         description={t('pages.readingComprehension.seoDescription')}
         keywords="reading comprehension worksheets, reading passages grade 1, reading worksheets pdf, free reading worksheets"
-        ogImage="/images/reading-comprehension-seo.png"
+        ogImage="/images/reading-comprehension-seo.jpg"
         canonicalUrl="https://wizqo.com/worksheets/reading-comprehension"
         ogType="website"
       />

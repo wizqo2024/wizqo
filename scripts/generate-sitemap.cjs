@@ -50,17 +50,17 @@ function collectInlinePosts() {
   const basePostsFile = path.join(ROOT, 'client', 'src', 'pages', 'blog', 'basePosts.ts');
   const basePostsSrc = readFileSafe(basePostsFile) || '';
   const idsFromBase = Array.from(basePostsSrc.matchAll(/id:\s*"([a-z0-9-]+)"/g)).map(m => m[1]);
-  
+
   // Also check BlogPage.tsx as fallback
   const blogPageFile = path.join(ROOT, 'client', 'src', 'pages', 'BlogPage.tsx');
   const blogPageSrc = readFileSafe(blogPageFile) || '';
   const idsFromPage = Array.from(blogPageSrc.matchAll(/id:\s*"([a-z0-9-]+)"/g)).map(m => m[1]);
-  
+
   // Combine and deduplicate
   const allIds = [...idsFromBase, ...idsFromPage];
   const exclude = new Set(['test-markdown-post']);
   const uniqueIds = Array.from(new Set(allIds)).filter(id => !exclude.has(id));
-  
+
   // Extract dates from basePosts.ts if available
   const posts = [];
   for (const id of uniqueIds) {
@@ -68,7 +68,7 @@ function collectInlinePosts() {
     const date = dateMatch ? dateMatch[1] : '';
     posts.push({ slug: id, date });
   }
-  
+
   return posts;
 }
 
@@ -98,36 +98,36 @@ function generate() {
   const posts = uniqueBySlug([...md, ...inlinePosts]);
 
   const urls = [];
-  const push = (loc, lastmod = null, changefreq = 'weekly', priority = '0.7') => {
-    urls.push({ loc, lastmod, changefreq, priority });
+  const push = (loc, lastmod = null, changefreq = 'weekly', priority = '0.7', image = null) => {
+    urls.push({ loc, lastmod, changefreq, priority, image });
   };
 
   // Homepage
   push(`${site}/`, today, 'weekly', '1.0');
-  
+
   // Main navigation pages
   push(`${site}/generate`, today, 'monthly', '0.9');
   push(`${site}/about`, today, 'monthly', '0.8');
   push(`${site}/contact`, today, 'monthly', '0.6');
-  
+
   // Kids hub and games
   push(`${site}/kids`, today, 'weekly', '0.8');
   const kidsGames = ['memory', 'word-search', 'puzzle', 'typing', 'pattern'];
   for (const slug of kidsGames) {
     push(`${site}/kids/games/${slug}`, today, 'weekly', '0.6');
   }
-  
+
   // Printables
   push(`${site}/printables`, today, 'weekly', '0.7');
   push(`${site}/printables/name-tracing-generator`, today, 'weekly', '0.85');
   push(`${site}/printables/certificate-maker`, today, 'weekly', '0.7');
-  
+
   // Interactive worksheets generator
   push(`${site}/interactive-worksheets-generator`, today, 'daily', '0.8');
-  
+
   // Blog
   push(`${site}/blog`, today, 'weekly', '0.8');
-  
+
   // Worksheets pages
   push(`${site}/worksheets/all`, today, 'weekly', '0.9');
   push(`${site}/worksheets/kindergarten-math-worksheets`, today, 'weekly', '0.7');
@@ -142,7 +142,11 @@ function generate() {
   push(`${site}/worksheets/order-of-operations-worksheets`, today, 'weekly', '0.7');
   push(`${site}/worksheets/reading-comprehension`, today, 'weekly', '0.7');
   push(`${site}/worksheets/handwriting-worksheet-maker`, today, 'weekly', '0.7');
-  
+  push(`${site}/worksheets/spelling-list-generator`, today, 'weekly', '0.8', {
+    loc: `${site}/images/spelling-generator-seo.jpg`,
+    caption: 'Spelling List Generator - Create custom tracing sheets'
+  });
+
   // Intentionally exclude /print?doc=..., /plan, /dashboard, /reset-password, /privacy, /terms, /cookies from sitemap (non-indexed)
 
   for (const p of posts) {
@@ -154,16 +158,23 @@ function generate() {
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
     ...urls.map(u => {
-      return [
+      const parts = [
         '  <url>',
         `    <loc>${u.loc}</loc>`,
         u.lastmod ? `    <lastmod>${u.lastmod}</lastmod>` : null,
         `    <changefreq>${u.changefreq}</changefreq>`,
-        `    <priority>${u.priority}</priority>`,
-        '  </url>'
-      ].filter(Boolean).join('\n');
+        `    <priority>${u.priority}</priority>`
+      ];
+      if (u.image) {
+        parts.push('    <image:image>');
+        parts.push(`      <image:loc>${u.image.loc}</image:loc>`);
+        if (u.image.caption) parts.push(`      <image:caption>${u.image.caption}</image:caption>`);
+        parts.push('    </image:image>');
+      }
+      parts.push('  </url>');
+      return parts.filter(Boolean).join('\n');
     }),
     '</urlset>',
     ''

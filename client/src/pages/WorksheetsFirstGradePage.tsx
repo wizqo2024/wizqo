@@ -135,7 +135,7 @@ export default function WorksheetsFirstGradePage() {
         title={t('pages.firstGrade.seoTitle')}
         description={t('pages.firstGrade.seoDescription')}
         keywords="1st grade math worksheets, first grade math pdf, free math worksheets grade 1, addition subtraction, number sense"
-        ogImage="/images/math-grade-1-seo.png"
+        ogImage="/images/math-grade-1-seo.jpg"
         canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/1st-grade-math-worksheets', getLocaleFromURL())}`}
         ogType="website"
       />

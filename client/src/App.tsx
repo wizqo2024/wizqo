@@ -45,6 +45,8 @@ import AllWorksheetsPage from './pages/AllWorksheetsPage';
 import ShadowMatchingWorksheetPage from './pages/ShadowMatchingWorksheetPage';
 import MatchFeelingWorksheetPage from './pages/MatchFeelingWorksheetPage';
 import InteractiveReadingWorksheetPage from './pages/InteractiveReadingWorksheetPage';
+import SpellingListGeneratorPage from './pages/SpellingListGeneratorPage';
+
 
 
 
@@ -715,6 +717,14 @@ export default function App() {
                     return (
                       <>
                         <HandwritingMakerPage />
+                      </>
+                    );
+                  }
+                  if (routeSubKey === 'spelling-list-generator') {
+                    const canonical = addLocaleToPath(`/worksheets/${routeSubKey}`, currentLocale);
+                    return (
+                      <>
+                        <SpellingListGeneratorPage />
                       </>
                     );
                   }

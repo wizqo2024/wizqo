@@ -310,7 +310,7 @@ export function PrintablesLandingPage() {
         title={t('pages.printables.title') + ' - Wizqo'}
         description={t('pages.printables.subtitle')}
         keywords="free printable worksheets, kids activities, math worksheets, reading comprehension, coloring pages"
-        ogImage="/images/printables-landing-seo.png"
+        ogImage="/images/printables-landing-seo.jpg"
         canonicalUrl="https://wizqo.com/printables"
         ogType="website"
       />
