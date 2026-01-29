@@ -229,6 +229,36 @@ app.get('/api/db-diagnostics', async (_req, res) => {
   }
 });
 
+// Newsletter Subscription
+app.post('/api/subscribe', async (req, res) => {
+  try {
+    if (!supabaseAdmin) return res.status(503).json({ error: 'db_unavailable' });
+    const email: string = String(req.body?.email || '').trim().toLowerCase();
+
+    if (!email || !email.includes('@')) {
+      return res.status(400).json({ error: 'invalid_email' });
+    }
+
+    // Insert using service role
+    const { error } = await supabaseAdmin
+      .from('newsletter_subscribers')
+      .insert({ email });
+
+    if (error) {
+      if (error.code === '23505') { // Unique violation
+        return res.status(409).json({ error: 'already_subscribed' });
+      }
+      console.error('subscription_failed', error);
+      return res.status(500).json({ error: 'subscription_failed' });
+    }
+
+    res.json({ ok: true, message: 'Subscription successful' });
+  } catch (e: any) {
+    console.error('subscription_exception', e);
+    res.status(500).json({ error: 'subscription_failed', details: String(e?.message || e) });
+  }
+});
+
 // Admin write: create/update user profile (schema-flexible: id or user_id)
 // NOTE: If you see RLS policy errors, you need to either:
 // 1) Disable RLS on user_profiles table: ALTER TABLE user_profiles DISABLE ROW LEVEL SECURITY;
