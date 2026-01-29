@@ -18,7 +18,7 @@ import { trackWorksheetDownload } from '@/utils/analytics';
 import { HUB_SEO_DATA } from '@shared/worksheetSEO';
 import { SocialShare } from '@/components/SocialShare';
 
-type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset';
+type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset' | 'inksaver';
 type DecorationType = 'none' | 'stars' | 'hearts' | 'flower';
 type FontStyle = 'dotted' | 'cursive' | 'print' | 'bubble';
 
@@ -37,6 +37,7 @@ const THEMES: Record<ColorTheme, {
     candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
     forest: { name: 'Magic Forest', primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#f0fdf4' },
     sunset: { name: 'Warm Sunset', primary: '#ea580c', secondary: '#ffedd5', text: '#9a3412', dots: '#ef4444', bg: '#fff7ed' },
+    inksaver: { name: 'Ink Saver', primary: '#000000', secondary: '#000000', text: '#000000', dots: '#000000', bg: '#ffffff' },
 };
 
 const RAINBOW_COLORS = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
@@ -132,7 +133,7 @@ export default function SpellingListGeneratorPage() {
     const [fontSize, setFontSize] = React.useState<number>(64);
     const [fontStyle, setFontStyle] = React.useState<FontStyle>('dotted');
     const [tracingType, setTracingType] = React.useState<'dotted' | 'faint'>('dotted');
-    const [colorTheme, setColorTheme] = React.useState<ColorTheme>('rainbow');
+    const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
     const [decoration, setDecoration] = React.useState<DecorationType>('stars');
     const [showGuidelines, setShowGuidelines] = React.useState(true);
     const [showStartDots, setShowStartDots] = React.useState(true);
