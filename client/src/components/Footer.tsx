@@ -222,7 +222,7 @@ function NewsletterForm() {
     return (
       <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center animate-in fade-in zoom-in duration-300">
         <p className="text-emerald-400 text-sm font-bold flex items-center justify-center gap-2">
-          <span>✨</span> Welcome to the club! Check your inbox.
+          <span>✨</span> Welcome to the club!
         </p>
       </div>
     );
