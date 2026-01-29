@@ -68,8 +68,13 @@ export default function ScissorSkillsGeneratorPage() {
             doc.text('Created for free at wizqo.com', pageWidth / 2, 0.7, { align: 'center' });
 
             doc.setDrawColor(activeTheme.color);
-            // @ts-ignore
-            doc.setLineDashPattern([0.15, 0.1], 0);
+            // @ts-ignore - Some versions use setLineDash, some setLineDashPattern
+            if (typeof doc.setLineDashPattern === 'function') {
+                // @ts-ignore
+                doc.setLineDashPattern([0.15, 0.1], 0);
+            } else if (typeof doc.setLineDash === 'function') {
+                doc.setLineDash([0.15, 0.1], 0);
+            }
             doc.setLineWidth(strokeWidth);
 
             for (let i = 0; i < stripCount; i++) {
@@ -99,6 +104,9 @@ export default function ScissorSkillsGeneratorPage() {
                     const amplitude = 0.3;
                     let currentX = xStart;
 
+                    // IMPORTANT: Must move to start position for wavy paths
+                    doc.moveTo(currentX, yBase);
+
                     for (let j = 0; j < segments; j++) {
                         const nextX = currentX + segWidth;
                         const ctrlX1 = currentX + (segWidth / 4);
@@ -118,11 +126,84 @@ export default function ScissorSkillsGeneratorPage() {
             }
 
             doc.save('wizqo-scissor-skills.pdf');
-            trackWorksheetDownload('scissor-skills-generator', 'pdf');
+            trackWorksheetDownload('scissor-skills-generator', 'Scissor Skills Practice', 'ScissorSkillsGeneratorPage', 'Pre-K');
             toast({ title: 'Success!', description: 'Your cutting practice sheet is ready.' });
         } catch (err) {
-            console.error(err);
+            console.error('PDF Generation Error:', err);
             toast({ title: 'Error', description: 'Failed to generate PDF.', variant: 'destructive' });
+        }
+    };
+
+    const handlePrint = () => {
+        try {
+            const previewElement = document.getElementById('scissor-sheet-preview');
+            if (!previewElement) return;
+
+            const printContent = previewElement.innerHTML;
+            const iframe = document.createElement('iframe');
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            document.body.appendChild(iframe);
+
+            const doc = iframe.contentDocument || iframe.contentWindow?.document;
+            if (!doc) return;
+
+            doc.open();
+            doc.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Wizqo Scissor Skills Practice</title>
+                    <style>
+                        @page { size: 8.5in 11in; margin: 0; }
+                        body { margin: 0; padding: 0.5in; font-family: sans-serif; }
+                        .preview-content { width: 7.5in; margin: 0 auto; }
+                        svg { width: 100%; height: auto; display: block; }
+                        .text-center { text-align: center; }
+                        .mb-12 { margin-bottom: 3rem; }
+                        .mb-2 { margin-bottom: 0.5rem; }
+                        .text-3xl { font-size: 1.875rem; font-weight: 700; color: #1e293b; }
+                        .text-sm { font-size: 0.875rem; color: #94a3b8; letter-spacing: 0.1em; text-transform: uppercase; }
+                        .space-y-16 > * + * { margin-top: 4rem; }
+                        .relative { position: relative; }
+                        .flex { display: flex; align-items: center; }
+                        /* Scissor icon positioning in print */
+                        .print-scissor { position: absolute; left: -0.5in; font-size: 24px; color: #cbd5e1; transform: rotate(-45deg); }
+                    </style>
+                </head>
+                <body>
+                    <div class="preview-content">
+                        ${printContent.replace(/<svg/g, '<div class="print-scissor">✂</div><svg')}
+                    </div>
+                </body>
+                </html>
+            `);
+            doc.close();
+
+            const onIframeLoad = () => {
+                setTimeout(() => {
+                    iframe.contentWindow?.focus();
+                    iframe.contentWindow?.print();
+                    setTimeout(() => {
+                        document.body.removeChild(iframe);
+                    }, 1000);
+                }, 500);
+            };
+
+            if (iframe.contentWindow?.document.readyState === 'complete') {
+                onIframeLoad();
+            } else {
+                iframe.onload = onIframeLoad;
+            }
+
+            trackWorksheetDownload('scissor-skills-generator', 'Scissor Skills Practice (Print)', 'ScissorSkillsGeneratorPage', 'Pre-K');
+        } catch (err) {
+            console.error('Print Error:', err);
+            toast({ title: 'Error', description: 'Failed to open print dialog.', variant: 'destructive' });
         }
     };
 
@@ -133,7 +214,7 @@ export default function ScissorSkillsGeneratorPage() {
         const contentWidth = usableWidth - (padding * 2);
 
         return (
-            <div id="scissor-sheet-preview" className="bg-white shadow-2xl rounded-sm p-8 border border-slate-200 mx-auto transition-all duration-300" style={{ width: '100%', maxWidth: '800px', aspectRatio: '8.5/11' }}>
+            <div id="scissor-sheet-preview" className="bg-white shadow-2xl rounded-sm p-8 border border-slate-200 mx-auto transition-all duration-300 print:shadow-none print:border-none" style={{ width: '100%', maxWidth: '800px', aspectRatio: '8.5/11' }}>
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold text-slate-800 mb-2">Scissor Skills Practice</h2>
                     <p className="text-sm text-slate-400 font-medium tracking-widest uppercase">www.wizqo.com</p>
@@ -142,7 +223,7 @@ export default function ScissorSkillsGeneratorPage() {
                 <div className="space-y-16">
                     {Array.from({ length: stripCount }).map((_, i) => (
                         <div key={i} className="relative flex items-center group">
-                            < Scissors className="absolute -left-10 text-slate-300 transform -rotate-45 group-hover:text-purple-400 transition-colors" size={24} />
+                            < Scissors className="absolute -left-10 text-slate-300 transform -rotate-45 group-hover:text-purple-400 transition-colors print:hidden" size={24} />
                             <svg width="100%" height="60" viewBox={`0 0 ${contentWidth} 60`} className="overflow-visible">
                                 {lineStyle === 'straight' && (
                                     <line
@@ -187,6 +268,17 @@ export default function ScissorSkillsGeneratorPage() {
 
     return (
         <div className="min-h-screen bg-slate-50">
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                @media print {
+                    nav, footer, .lg\\:col-span-4, .prose, .social-share-container { display: none !important; }
+                    main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+                    .lg\\:col-span-8 { width: 100% !important; margin: 0 !important; }
+                    .rounded-3xl { border: none !important; padding: 0 !important; background: transparent !important; }
+                    .border-dashed { border: none !important; }
+                    .sticky { position: static !important; }
+                }
+            ` }} />
             <SEOMetaTags
                 title={seo.title}
                 description={seo.metaDescription}
@@ -222,7 +314,7 @@ export default function ScissorSkillsGeneratorPage() {
                 <div className="grid lg:grid-cols-12 gap-12 items-start">
 
                     {/* Controls Sidebar */}
-                    <div className="lg:col-span-4 space-y-8 sticky top-24">
+                    <div className="lg:col-span-4 space-y-8 sticky top-24 print:hidden">
                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <h1 className="text-2xl font-black text-slate-900 mb-2 flex items-center gap-2">
                                 <Scissors className="text-purple-600" />
@@ -244,7 +336,7 @@ export default function ScissorSkillsGeneratorPage() {
 
                                 <div className="space-y-3">
                                     <Label className="text-xs font-bold uppercase tracking-wider text-slate-400">Difficulty (Thickness)</Label>
-                                    <ToggleGroup type="single" value={thickness} onValueChange={(v) => v && setThickness(v as Thickness)} className="justify-start gap-2">
+                                    <ToggleGroup type="single" value={thickness} onValueChange={(v: string | null) => v && setThickness(v as Thickness)} className="justify-start gap-2">
                                         <ToggleGroupItem value="thick" className="flex-1 rounded-xl px-4 py-2 data-[state=on]:bg-amber-100 data-[state=on]:text-amber-900 border-2">Beginner (Thick)</ToggleGroupItem>
                                         <ToggleGroupItem value="thin" className="flex-1 rounded-xl px-4 py-2 data-[state=on]:bg-emerald-100 data-[state=on]:text-emerald-900 border-2">Precision (Thin)</ToggleGroupItem>
                                     </ToggleGroup>
@@ -273,7 +365,7 @@ export default function ScissorSkillsGeneratorPage() {
                                     <Slider
                                         value={[stripCount]}
                                         min={3} max={10} step={1}
-                                        onValueChange={([v]) => setStripCount(v as number)}
+                                        onValueChange={(vals: number[]) => setStripCount(vals[0])}
                                         className="py-4"
                                     />
                                 </div>
@@ -282,12 +374,12 @@ export default function ScissorSkillsGeneratorPage() {
                                     <Button onClick={generatePDF} className="w-full bg-slate-900 hover:bg-slate-800 text-white py-6 rounded-xl text-lg font-bold flex gap-2">
                                         <Download size={20} /> Download PDF
                                     </Button>
-                                    <Button variant="outline" onClick={() => window.print()} className="w-full py-6 rounded-xl text-lg font-medium flex gap-2">
+                                    <Button variant="outline" onClick={handlePrint} className="w-full py-6 rounded-xl text-lg font-medium flex gap-2">
                                         <Printer size={20} /> Print Directly
                                     </Button>
                                 </div>
 
-                                <div className="pt-6 border-t border-slate-100">
+                                <div className="pt-6 border-t border-slate-100 social-share-container">
                                     <SocialShare
                                         url="https://wizqo.com/worksheets/scissor-skills-generator"
                                         title="Check out this free Preschool Scissor Skills Generator! ✂️"
@@ -299,12 +391,12 @@ export default function ScissorSkillsGeneratorPage() {
 
                     {/* Preview Area */}
                     <div className="lg:col-span-8 space-y-12">
-                        <div className="sticky top-24 bg-slate-100 p-8 sm:p-12 rounded-3xl border-4 border-dashed border-slate-200">
+                        <div className="sticky top-24 bg-slate-100 p-8 sm:p-12 rounded-3xl border-4 border-dashed border-slate-200 print:bg-transparent print:border-none print:p-0 print:static">
                             {renderPreview()}
                         </div>
 
                         {/* SEO Content Section */}
-                        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200 prose prose-slate max-w-none">
+                        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200 prose prose-slate max-w-none print:hidden">
                             <div dangerouslySetInnerHTML={{ __html: seo.richContent || '' }} />
                         </div>
                     </div>
