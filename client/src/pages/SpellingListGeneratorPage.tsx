@@ -503,29 +503,12 @@ export default function SpellingListGeneratorPage() {
                                     </div>
                                 </div>
 
-                                {/* Action Buttons */}
-                                <div className="pt-6 space-y-3">
-                                    <Button
-                                        onClick={handleDownloadPDF}
-                                        className="w-full bg-indigo-600 hover:bg-indigo-700 h-12 text-lg shadow-md"
-                                    >
-                                        <Download className="mr-2 w-5 h-5" /> Download PDF
-                                    </Button>
-                                    <Button
-                                        variant="outline"
-                                        onClick={() => window.print()}
-                                        className="w-full h-12 border-slate-200 text-slate-600"
-                                    >
-                                        <Printer className="mr-2 w-5 h-5" /> Quick Print
-                                    </Button>
-
-                                    <div className="pt-4 border-t border-slate-100">
-                                        <SocialShare
-                                            url="https://wizqo.com/worksheets/spelling-list-generator"
-                                            title="I just created a custom spelling worksheet for free at Wizqo! You should check it out."
-                                            media="https://wizqo.com/images/spelling-list-generator-seo.png"
-                                        />
-                                    </div>
+                                <div className="pt-4 border-t border-slate-100">
+                                    <SocialShare
+                                        url="https://wizqo.com/worksheets/spelling-list-generator"
+                                        title="I just created a custom spelling worksheet for free at Wizqo! You should check it out."
+                                        media="https://wizqo.com/images/spelling-list-generator-seo.png"
+                                    />
                                 </div>
                             </CardContent>
                         </Card>
