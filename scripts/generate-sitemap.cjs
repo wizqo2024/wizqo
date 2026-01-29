@@ -149,6 +149,10 @@ function generate() {
     loc: `${site}/images/spelling-generator-seo.png`,
     caption: 'Spelling List Generator - Create custom tracing sheets'
   });
+  push(`${site}/worksheets/scissor-skills-generator`, today, 'weekly', '0.8', {
+    loc: `${site}/images/scissor-skills.png`,
+    caption: 'Free Scissor Skills Generator - Preschool cutting practice'
+  });
 
   // Intentionally exclude /print?doc=..., /plan, /dashboard, /reset-password, /privacy, /terms, /cookies from sitemap (non-indexed)
 
