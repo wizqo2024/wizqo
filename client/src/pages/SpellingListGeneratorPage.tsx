@@ -31,7 +31,7 @@ const THEMES: Record<ColorTheme, {
     bg: string; // Sheet background tint
     rainbow?: boolean;
 }> = {
-    classic: { name: 'Classic Blue', primary: '#94a3b8', secondary: '#cbd5f5', text: '#94a3b8', dots: '#34d399', bg: '#f8fafc' },
+    classic: { name: 'Classic Blue', primary: '#3b82f6', secondary: '#bfdbfe', text: '#1e40af', dots: '#22c55e', bg: '#f8fafc' },
     rainbow: { name: 'Rainbow', primary: '#cbd5f1', secondary: '#e2e8f0', text: '#475569', dots: '#ec4899', bg: '#fffafb', rainbow: true },
     ocean: { name: 'Deep Sea', primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', dots: '#2DD4BF', bg: '#f0f9ff' },
     candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
@@ -132,7 +132,7 @@ export default function SpellingListGeneratorPage() {
     const [fontSize, setFontSize] = React.useState<number>(64);
     const [fontStyle, setFontStyle] = React.useState<FontStyle>('dotted');
     const [tracingType, setTracingType] = React.useState<'dotted' | 'faint'>('dotted');
-    const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
+    const [colorTheme, setColorTheme] = React.useState<ColorTheme>('rainbow');
     const [decoration, setDecoration] = React.useState<DecorationType>('stars');
     const [showGuidelines, setShowGuidelines] = React.useState(true);
     const [showStartDots, setShowStartDots] = React.useState(true);
