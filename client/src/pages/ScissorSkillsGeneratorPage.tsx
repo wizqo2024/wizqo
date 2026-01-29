@@ -41,12 +41,12 @@ export default function ScissorSkillsGeneratorPage() {
     const { t, language } = useTranslation();
     const { toast } = useToast();
 
-    const [lineStyle, setLineStyle] = useState<LineStyle>('straight');
+    const [lineStyle, setLineStyle] = useState<LineStyle>('wavy');
     const [thickness, setThickness] = useState<Thickness>('thick');
     const [theme, setTheme] = useState<ColorTheme>('candy');
     const [stripCount, setStripCount] = useState(5);
     const [mission, setMission] = useState<MissionTheme>('animals');
-    const [isRainbow, setIsRainbow] = useState(false);
+    const [isRainbow, setIsRainbow] = useState(true);
     const [showBadge, setShowBadge] = useState(true);
 
     const seo = HUB_SEO_DATA['scissor-skills-generator'] || {};
@@ -460,7 +460,7 @@ export default function ScissorSkillsGeneratorPage() {
                         <div className="sticky top-24 bg-slate-100 p-8 sm:p-12 rounded-3xl border-4 border-dashed border-slate-200 print:bg-transparent print:border-none print:p-0 print:static group/preview">
                             {/* Action Buttons Overlay */}
                             <div className="absolute top-6 right-6 flex gap-3 z-30 print:hidden">
-                                <Button onClick={generatePDF} size="sm" className="bg-slate-900/90 hover:bg-slate-800 text-white rounded-full px-4 py-5 shadow-lg backdrop-blur-sm transition-all hover:scale-105 flex gap-2">
+                                <Button onClick={generatePDF} size="sm" className="bg-purple-600 hover:bg-purple-700 text-white rounded-full px-4 py-5 shadow-lg shadow-purple-200/50 transition-all hover:scale-105 flex gap-2 border-none">
                                     <Download size={18} /> <span className="hidden sm:inline">Download</span>
                                 </Button>
                                 <Button variant="outline" onClick={handlePrint} size="sm" className="bg-white/90 hover:bg-white text-slate-900 rounded-full px-4 py-5 shadow-lg backdrop-blur-sm transition-all hover:scale-105 flex gap-2">
