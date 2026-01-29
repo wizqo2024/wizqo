@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Slider } from '@/components/ui/slider';
 import jsPDF from 'jspdf';
 import { hexToRgb } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
@@ -1252,21 +1253,17 @@ export default function HandwritingMakerPage() {
 
               {/* Standard Options */}
               <div className="mt-4 border-t pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <Label htmlFor="fontSizeSlider" className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.fontSize')}</Label>
-                  <div className="flex items-center gap-2">
-                    <input
-                      id="fontSizeSlider"
-                      type="range"
-                      min={28}
-                      max={72}
-                      step={2}
-                      value={fontSize}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFontSize(parseInt(e.target.value))}
-                      className="flex-1 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
-                    />
-                    <span className="text-xs font-bold text-slate-700 w-6">{fontSize}</span>
-                  </div>
+                <div className="space-y-4">
+                  <Label htmlFor="fontSizeSlider" className="text-xs font-medium text-slate-600 font-bold uppercase">{t('pages.handwriting.options.fontSize')} ({fontSize}px)</Label>
+                  <Slider
+                    id="fontSizeSlider"
+                    min={28}
+                    max={72}
+                    step={2}
+                    value={[fontSize]}
+                    onValueChange={([v]) => setFontSize(v)}
+                    className="py-4"
+                  />
                 </div>
 
 
