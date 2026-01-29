@@ -241,7 +241,7 @@ export default function SpellingListGeneratorPage() {
 
             // Font selection logic
             if (fontStyle === 'cursive') {
-                doc.setFont('Cedarville-Cursive', 'normal');
+                doc.setFont('LearningCurve-Dashed', 'normal');
             } else if (fontStyle === 'bubble') {
                 doc.setFont('Codystar', 'normal');
             } else if (fontStyle === 'dotted') {
@@ -480,7 +480,7 @@ export default function SpellingListGeneratorPage() {
                             id="spelling-sheet-preview"
                             className="w-full aspect-[8.5/11] bg-white shadow-2xl rounded-sm overflow-hidden border border-slate-200"
                             style={{
-                                fontFamily: fontStyle === 'cursive' ? 'Cedarville Cursive' :
+                                fontFamily: fontStyle === 'cursive' ? 'LearningCurveDashed' :
                                     fontStyle === 'bubble' ? 'Codystar' :
                                         fontStyle === 'dotted' ? 'SchoolHandDotted' : 'ABeeZee'
                             }}
