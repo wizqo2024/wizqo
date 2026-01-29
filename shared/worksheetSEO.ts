@@ -3762,6 +3762,67 @@ export function getAllWorksheetSEO(): WorksheetSEO[] {
  * SEO metadata and rich content for high-traffic Category Hub pages.
  */
 export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
+  'scissor-skills-generator': {
+    title: 'Free Scissor Skills Generator | Preschool Cutting Practice Worksheets | No Sign Up',
+    metaDescription: 'Stop buying workbooks. Generate unlimited cutting practice worksheets for preschoolers. Create custom straight, wavy, and zig-zag cutting strips. 100% Free PDF, no account needed.',
+    image: '/images/scissor-skills.png',
+    keywords: 'scissor skills generator, preschool cutting practice, free printable cutting activities, kindergarten prep, fine motor skills, preschool worksheets',
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Master Scissor Skills: Free Printable Cutting Practice</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Developing fine motor skills shouldn't cost a fortune in workbooks. With Wizqo’s <strong>Scissor Skills Generator</strong>, you can create endless cutting practice worksheets in seconds. Whether your child is just learning to hold scissors or needs to practice complex zig-zags for Kindergarten readiness, our tool lets you print exactly what you need.</p>
+      
+      <section style="margin-bottom: 3rem; background: #fdf2f8; padding: 2rem; border-radius: 12px; border: 1px solid #fce7f3;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #86198f; margin-bottom: 1.5rem;">Why Parents & Teachers Love This Tool</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #701a75; margin-bottom: 0.75rem;">Save Money</h3>
+            <p style="color: #475569;">Stop buying "one-time use" cutting books. Print as many pages as you need for free.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #701a75; margin-bottom: 0.75rem;">Customizable Difficulty</h3>
+            <p style="color: #475569;">Start with thick, straight lines for beginners. Switch to thin, wavy lines as they improve.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #701a75; margin-bottom: 0.75rem;">Instant Access</h3>
+            <p style="color: #475569;">No email required. No login. Just click and print. 100% free accessibility.</p>
+          </div>
+        </div>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Educational Benefits: Why Cutting Practice Matters</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Using scissors is a major developmental milestone. It builds fine motor skills and hand-eye coordination that children need before they can learn to write.</p>
+        <ul style="color: #475569; line-height: 1.8;">
+          <li><strong>Bilateral Coordination:</strong> Cutting requires using both hands together—one to cut, one to hold the paper.</li>
+          <li><strong>Hand Strength:</strong> The "open-close" motion builds the tiny muscles in the hand needed for gripping a pencil later.</li>
+          <li><strong>Focus & Attention:</strong> Following a line requires sustained concentration and visual tracking.</li>
+        </ul>
+      </section>
+
+      <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Preschool Cutting Practice FAQ</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">At what age should I start cutting practice?</h3>
+          <p style="color: #475569;">Most children are ready to start preschool cutting practice around age 3 or 4. Start with our "Thick Straight Lines" to build confidence before moving to shapes.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">Is this good for Kindergarten prep?</h3>
+          <p style="color: #475569;">Absolutely. Mastering scissor skills is a key requirement for entering Kindergarten. Teachers often look for students who can cut along a curved line independently.</p>
+        </div>
+        
+        <div style="margin-top: 4rem; border-top: 1px solid #f1f5f9; padding-top: 2rem;">
+          <h3 style="font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;">Tool Preview</h3>
+          <img 
+            src="/images/scissor-skills.png" 
+            alt="Free preschool cutting practice worksheet generator" 
+            style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;"
+            loading="lazy"
+          />
+          <p style="text-align: center; color: #64748b; font-size: 0.875rem; mt-2;">Generate custom cutting strips for fine motor practice. Free PDF.</p>
+        </div>
+      </section>
+    </article>`
+  },
   'blog': {
     title: 'Wizqo Blog | Parenting Tips, Teaching Strategies & Learning Resources',
     metaDescription: 'Explore the Wizqo Blog for expert parenting advice, teacher resources, and effective teaching strategies. Stay updated with the latest in early childhood education.',

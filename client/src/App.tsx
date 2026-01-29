@@ -46,6 +46,7 @@ import ShadowMatchingWorksheetPage from './pages/ShadowMatchingWorksheetPage';
 import MatchFeelingWorksheetPage from './pages/MatchFeelingWorksheetPage';
 import InteractiveReadingWorksheetPage from './pages/InteractiveReadingWorksheetPage';
 import SpellingListGeneratorPage from './pages/SpellingListGeneratorPage';
+import ScissorSkillsGeneratorPage from './pages/ScissorSkillsGeneratorPage';
 
 
 
@@ -623,6 +624,7 @@ export default function App() {
                     'decimal-worksheets',
                     'math-maze-worksheets',
                     'data-analysis-worksheets',
+                    'scissor-skills-generator',
                     'all'
                   ];
 
@@ -734,6 +736,9 @@ export default function App() {
                         <SpellingListGeneratorPage />
                       </>
                     );
+                  }
+                  if (routeSubKey === 'scissor-skills-generator') {
+                    return <ScissorSkillsGeneratorPage />;
                   }
                   if (routeSubKey === 'reading-comprehension') {
                     return <ReadingComprehensionPage />;
