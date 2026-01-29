@@ -606,14 +606,17 @@ export default function ReadingComprehensionPage() {
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
         {(() => {
           const seo = HUB_SEO_DATA['reading-comprehension'];
-          if (seo?.richContent) {
-            return (
-              <article
-                className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm prose prose-slate max-w-none"
+          return (
+            <div className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm">
+              <div
+                className="prose prose-slate prose-indigo max-w-none 
+                            prose-h1:text-3xl prose-h1:font-black prose-h1:text-slate-900 
+                            prose-h2:text-2xl prose-h2:font-extrabold prose-h2:text-slate-800
+                            prose-p:text-slate-600 prose-p:leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: seo.richContent }}
               />
-            );
-          }
+            </div>
+          );
           return <LiteracyMasteryGuide />;
         })()}
       </div>

@@ -472,8 +472,13 @@ export default function ScissorSkillsGeneratorPage() {
                         </div>
 
                         {/* SEO Content Section */}
-                        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200 prose prose-slate max-w-none print:hidden">
-                            <div dangerouslySetInnerHTML={{ __html: seo.richContent || '' }} />
+                        <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200 print:hidden">
+                            <div className="prose prose-slate prose-indigo max-w-none 
+                                            prose-h1:text-3xl prose-h1:font-black prose-h1:text-slate-900 
+                                            prose-h2:text-2xl prose-h2:font-extrabold prose-h2:text-slate-800
+                                            prose-p:text-slate-600 prose-p:leading-relaxed">
+                                <div dangerouslySetInnerHTML={{ __html: seo.richContent || '' }} />
+                            </div>
                         </div>
                     </div>
 
