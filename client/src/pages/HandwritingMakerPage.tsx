@@ -1410,8 +1410,29 @@ export default function HandwritingMakerPage() {
             }
             return <FineMotorHandwritingGuide />;
           })()}
-        </div>
 
+          {/* Related Tools Section */}
+          <div className="mt-20 border-t border-slate-100 pt-16 print:hidden">
+            <h3 className="text-2xl font-black text-slate-900 mb-8 items-center flex gap-3">
+              <Info className="text-indigo-500 w-6 h-6" />
+              Related Tools & Worksheets
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <a href="/worksheets/spelling-list-generator" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
+                <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">Spelling Generator</h4>
+                <p className="text-sm text-slate-500">Create custom spelling lists with tracing and bubble fonts.</p>
+              </a>
+              <a href="/worksheets/scissor-skills-generator" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
+                <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">Scissor Skills Generator</h4>
+                <p className="text-sm text-slate-500">Fun cutting practice strips with rainbows and animal missions.</p>
+              </a>
+              <a href="/worksheets/kindergarten" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
+                <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">Kindergarten Math</h4>
+                <p className="text-sm text-slate-500">Explore hundreds of free math worksheets for pre-k and kindergarten.</p>
+              </a>
+            </div>
+          </div>
+        </div>
       </main>
       <Footer />
     </div >
