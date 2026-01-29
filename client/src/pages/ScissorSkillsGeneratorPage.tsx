@@ -445,15 +445,6 @@ export default function ScissorSkillsGeneratorPage() {
                                     </div>
                                 </div>
 
-                                <div className="pt-6 space-y-3">
-                                    <Button onClick={generatePDF} className="w-full bg-slate-900 hover:bg-slate-800 text-white py-6 rounded-xl text-lg font-bold flex gap-2">
-                                        <Download size={20} /> Download PDF
-                                    </Button>
-                                    <Button variant="outline" onClick={handlePrint} className="w-full py-6 rounded-xl text-lg font-medium flex gap-2">
-                                        <Printer size={20} /> Print Directly
-                                    </Button>
-                                </div>
-
                                 <div className="pt-6 border-t border-slate-100 social-share-container">
                                     <SocialShare
                                         url="https://wizqo.com/worksheets/scissor-skills-generator"
@@ -466,7 +457,17 @@ export default function ScissorSkillsGeneratorPage() {
 
                     {/* Preview Area */}
                     <div className="lg:col-span-8 space-y-12">
-                        <div className="sticky top-24 bg-slate-100 p-8 sm:p-12 rounded-3xl border-4 border-dashed border-slate-200 print:bg-transparent print:border-none print:p-0 print:static">
+                        <div className="sticky top-24 bg-slate-100 p-8 sm:p-12 rounded-3xl border-4 border-dashed border-slate-200 print:bg-transparent print:border-none print:p-0 print:static group/preview">
+                            {/* Action Buttons Overlay */}
+                            <div className="absolute top-6 right-6 flex gap-3 z-30 print:hidden">
+                                <Button onClick={generatePDF} size="sm" className="bg-slate-900/90 hover:bg-slate-800 text-white rounded-full px-4 py-5 shadow-lg backdrop-blur-sm transition-all hover:scale-105 flex gap-2">
+                                    <Download size={18} /> <span className="hidden sm:inline">Download</span>
+                                </Button>
+                                <Button variant="outline" onClick={handlePrint} size="sm" className="bg-white/90 hover:bg-white text-slate-900 rounded-full px-4 py-5 shadow-lg backdrop-blur-sm transition-all hover:scale-105 flex gap-2">
+                                    <Printer size={18} /> <span className="hidden sm:inline">Print</span>
+                                </Button>
+                            </div>
+
                             {renderPreview()}
                         </div>
 
