@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { trackWorksheetDownload } from '@/utils/analytics';
 import { HUB_SEO_DATA } from '@shared/worksheetSEO';
 import { SocialShare } from '@/components/SocialShare';
@@ -40,92 +41,32 @@ export default function ScissorSkillsGeneratorPage() {
 
     const generatePDF = async () => {
         try {
-            const doc = new jsPDF({
+            const previewElement = document.getElementById('scissor-sheet-preview');
+            if (!previewElement) return;
+
+            toast({ title: 'Generating...', description: 'Preparing your high-quality PDF.' });
+
+            const canvas = await html2canvas(previewElement, {
+                scale: 3, // High resolution
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff'
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF({
                 orientation: 'portrait',
                 unit: 'in',
                 format: 'letter'
             });
 
-            const pageWidth = 8.5;
-            const pageHeight = 11;
-            const margin = 0.75;
-            const usableWidth = pageWidth - (margin * 2);
-            const usableHeight = pageHeight - (margin * 2);
-            const rowHeight = usableHeight / stripCount;
+            const imgProps = pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-            const activeTheme = THEMES[theme as ColorTheme];
-            const strokeWidth = thickness === 'thick' ? 0.08 : 0.03;
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('wizqo-scissor-skills.pdf');
 
-            // Add Title
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(24);
-            doc.setTextColor(30, 41, 59); // slate-800
-            doc.text('Scissor Skills Practice', pageWidth / 2, 0.5, { align: 'center' });
-
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(100, 116, 139); // slate-500
-            doc.text('Created for free at wizqo.com', pageWidth / 2, 0.7, { align: 'center' });
-
-            doc.setDrawColor(activeTheme.color);
-            // @ts-ignore - Some versions use setLineDash, some setLineDashPattern
-            if (typeof doc.setLineDashPattern === 'function') {
-                // @ts-ignore
-                doc.setLineDashPattern([0.15, 0.1], 0);
-            } else if (typeof doc.setLineDash === 'function') {
-                doc.setLineDash([0.15, 0.1], 0);
-            }
-            doc.setLineWidth(strokeWidth);
-
-            for (let i = 0; i < stripCount; i++) {
-                const yBase = margin + (i * rowHeight) + 0.3;
-                const xStart = margin;
-                const xEnd = pageWidth - margin;
-
-                if (lineStyle === 'straight') {
-                    doc.line(xStart, yBase, xEnd, yBase);
-                } else if (lineStyle === 'zigzag') {
-                    const segments = 10;
-                    const segWidth = usableWidth / segments;
-                    const amplitude = 0.25;
-                    let currentX = xStart;
-                    let currentY = yBase;
-
-                    for (let j = 0; j < segments; j++) {
-                        const nextX = currentX + segWidth;
-                        const nextY = j % 2 === 0 ? yBase - amplitude : yBase + amplitude;
-                        doc.line(currentX, currentY, nextX, nextY);
-                        currentX = nextX;
-                        currentY = nextY;
-                    }
-                } else if (lineStyle === 'wavy') {
-                    const segments = 6;
-                    const segWidth = usableWidth / segments;
-                    const amplitude = 0.3;
-                    let currentX = xStart;
-
-                    // IMPORTANT: Must move to start position for wavy paths
-                    doc.moveTo(currentX, yBase);
-
-                    for (let j = 0; j < segments; j++) {
-                        const nextX = currentX + segWidth;
-                        const ctrlX1 = currentX + (segWidth / 4);
-                        const ctrlY1 = j % 2 === 0 ? yBase - amplitude : yBase + amplitude;
-                        const ctrlX2 = currentX + (3 * segWidth / 4);
-                        const ctrlY2 = j % 2 === 0 ? yBase - amplitude : yBase + amplitude;
-
-                        doc.bezierCurveTo(ctrlX1, ctrlY1, ctrlX2, ctrlY2, nextX, yBase);
-                        currentX = nextX;
-                    }
-                }
-
-                // Draw scissor icon or cut here indicator
-                doc.setFontSize(14);
-                doc.setTextColor(activeTheme.color);
-                doc.text('✂', xStart - 0.3, yBase + 0.05, { align: 'left' });
-            }
-
-            doc.save('wizqo-scissor-skills.pdf');
             trackWorksheetDownload('scissor-skills-generator', 'Scissor Skills Practice', 'ScissorSkillsGeneratorPage', 'Pre-K');
             toast({ title: 'Success!', description: 'Your cutting practice sheet is ready.' });
         } catch (err) {
@@ -139,7 +80,8 @@ export default function ScissorSkillsGeneratorPage() {
             const previewElement = document.getElementById('scissor-sheet-preview');
             if (!previewElement) return;
 
-            const printContent = previewElement.innerHTML;
+            // Simple win.print() is often better with robust @media print
+            // But we use an iframe for targeted printing of ONLY the preview
             const iframe = document.createElement('iframe');
             iframe.style.position = 'fixed';
             iframe.style.right = '0';
@@ -152,6 +94,19 @@ export default function ScissorSkillsGeneratorPage() {
             const doc = iframe.contentDocument || iframe.contentWindow?.document;
             if (!doc) return;
 
+            // Clone the styles to the iframe
+            const styles = Array.from(document.styleSheets)
+                .map(styleSheet => {
+                    try {
+                        return Array.from(styleSheet.cssRules)
+                            .map(rule => rule.cssText)
+                            .join('');
+                    } catch (e) {
+                        return '';
+                    }
+                })
+                .join('');
+
             doc.open();
             doc.write(`
                 <!DOCTYPE html>
@@ -159,26 +114,23 @@ export default function ScissorSkillsGeneratorPage() {
                 <head>
                     <title>Wizqo Scissor Skills Practice</title>
                     <style>
+                        ${styles}
                         @page { size: 8.5in 11in; margin: 0; }
-                        body { margin: 0; padding: 0.5in; font-family: sans-serif; }
-                        .preview-content { width: 7.5in; margin: 0 auto; }
-                        svg { width: 100%; height: auto; display: block; }
-                        .text-center { text-align: center; }
-                        .mb-12 { margin-bottom: 3rem; }
-                        .mb-2 { margin-bottom: 0.5rem; }
-                        .text-3xl { font-size: 1.875rem; font-weight: 700; color: #1e293b; }
-                        .text-sm { font-size: 0.875rem; color: #94a3b8; letter-spacing: 0.1em; text-transform: uppercase; }
-                        .space-y-16 > * + * { margin-top: 4rem; }
-                        .relative { position: relative; }
-                        .flex { display: flex; align-items: center; }
-                        /* Scissor icon positioning in print */
-                        .print-scissor { position: absolute; left: -0.5in; font-size: 24px; color: #cbd5e1; transform: rotate(-45deg); }
+                        body { margin: 0; padding: 0; background: #fff; }
+                        #scissor-sheet-preview { 
+                            width: 8.5in !important; 
+                            height: 11in !important; 
+                            max-width: none !important; 
+                            margin: 0 !important; 
+                            padding: 0.75in !important;
+                            box-shadow: none !important;
+                            border: none !important;
+                        }
+                        .print-scissor-icon { display: block !important; }
                     </style>
                 </head>
                 <body>
-                    <div class="preview-content">
-                        ${printContent.replace(/<svg/g, '<div class="print-scissor">✂</div><svg')}
-                    </div>
+                    ${previewElement.outerHTML}
                 </body>
                 </html>
             `);
@@ -223,7 +175,7 @@ export default function ScissorSkillsGeneratorPage() {
                 <div className="space-y-16">
                     {Array.from({ length: stripCount }).map((_, i) => (
                         <div key={i} className="relative flex items-center group">
-                            < Scissors className="absolute -left-10 text-slate-300 transform -rotate-45 group-hover:text-purple-400 transition-colors print:hidden" size={24} />
+                            < Scissors className="absolute -left-12 text-slate-300 transform -rotate-45 group-hover:text-purple-400 transition-colors print_scissor_icon" size={24} />
                             <svg width="100%" height="60" viewBox={`0 0 ${contentWidth} 60`} className="overflow-visible">
                                 {lineStyle === 'straight' && (
                                     <line
@@ -271,12 +223,23 @@ export default function ScissorSkillsGeneratorPage() {
             <style dangerouslySetInnerHTML={{
                 __html: `
                 @media print {
-                    nav, footer, .lg\\:col-span-4, .prose, .social-share-container { display: none !important; }
+                    nav, footer, .lg\\:col-span-4, .prose, .social-share-container, .print\\:hidden { display: none !important; }
                     main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
                     .lg\\:col-span-8 { width: 100% !important; margin: 0 !important; }
+                    #scissor-sheet-preview { 
+                        width: 8.5in !important; 
+                        height: 11in !important; 
+                        max-width: none !important; 
+                        margin: 0 auto !important; 
+                        padding: 0.75in !important;
+                        box-shadow: none !important;
+                        border: none !important;
+                        background: white !important;
+                    }
                     .rounded-3xl { border: none !important; padding: 0 !important; background: transparent !important; }
                     .border-dashed { border: none !important; }
                     .sticky { position: static !important; }
+                    .print_scissor_icon { display: block !important; color: #cbd5e1 !important; }
                 }
             ` }} />
             <SEOMetaTags
