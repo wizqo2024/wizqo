@@ -32,7 +32,7 @@ const THEMES: Record<ColorTheme, {
     rainbow?: boolean;
 }> = {
     classic: { name: 'Classic Blue', primary: '#3b82f6', secondary: '#bfdbfe', text: '#1e40af', dots: '#22c55e', bg: '#f8fafc' },
-    rainbow: { name: 'Rainbow', primary: '#cbd5f1', secondary: '#e2e8f0', text: '#475569', dots: '#ec4899', bg: '#fffafb', rainbow: true },
+    rainbow: { name: 'Rainbow', primary: '#f472b6', secondary: '#fbcfe8', text: '#1e293b', dots: '#ec4899', bg: '#fffafb', rainbow: true },
     ocean: { name: 'Deep Sea', primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', dots: '#2DD4BF', bg: '#f0f9ff' },
     candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
     forest: { name: 'Magic Forest', primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#f0fdf4' },
@@ -299,11 +299,21 @@ export default function SpellingListGeneratorPage() {
                 doc.setFont('ABeeZee', 'normal');
             }
 
-            const textColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
-            const textRGB = hexToRgb(textColor);
-            doc.setTextColor(textRGB.r, textRGB.g, textRGB.b);
-
-            doc.text(word, margin + 25, baselineY - getBaselineOffset(fontSize, fontStyle));
+            if (theme.rainbow) {
+                let currentX = margin + 25;
+                const chars = Array.from(word);
+                chars.forEach((char, charIdx) => {
+                    const charColor = RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length];
+                    const rgb = hexToRgb(charColor);
+                    doc.setTextColor(rgb.r, rgb.g, rgb.b);
+                    doc.text(char, currentX, baselineY - getBaselineOffset(fontSize, fontStyle));
+                    currentX += doc.getTextWidth(char);
+                });
+            } else {
+                const textRGB = hexToRgb(theme.text);
+                doc.setTextColor(textRGB.r, textRGB.g, textRGB.b);
+                doc.text(word, margin + 25, baselineY - getBaselineOffset(fontSize, fontStyle));
+            }
         });
 
         doc.save(`${listTitle.toLowerCase().replace(/\s+/g, '-')}.pdf`);
@@ -497,7 +507,11 @@ export default function SpellingListGeneratorPage() {
                                                 className={`p-2 rounded-md border-2 transition-all ${colorTheme === t ? 'border-indigo-500 bg-indigo-50' : 'border-slate-100 hover:border-slate-200'
                                                     }`}
                                             >
-                                                <div className="h-4 w-full rounded mb-1" style={{ backgroundColor: THEMES[t].primary }} />
+                                                <div className="h-4 w-full rounded mb-1" style={{
+                                                    background: t === 'rainbow'
+                                                        ? 'linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6)'
+                                                        : THEMES[t].primary
+                                                }} />
                                                 <span className="text-[10px] uppercase font-bold text-slate-600">{THEMES[t].name}</span>
                                             </button>
                                         ))}
@@ -739,18 +753,34 @@ function PreviewSVG({ words, title, theme, fontSize, fontStyle, showGuidelines, 
                         )}
 
                         {/* Word Text */}
-                        <text
-                            x={margin + 25}
-                            y={y - (fontStyle === 'cursive' ? fontSize * 0.05 : fontSize * 0.16)}
-                            className="fill-current"
-                            style={{
-                                fontSize: `${fontSize}px`,
-                                color: theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text,
-                                letterSpacing: '2px'
-                            }}
-                        >
-                            {word}
-                        </text>
+                        {theme.rainbow ? (
+                            <text
+                                x={margin + 25}
+                                y={y - (fontStyle === 'cursive' ? fontSize * 0.05 : fontSize * 0.16)}
+                                style={{
+                                    fontSize: `${fontSize}px`,
+                                    fontFamily: 'inherit',
+                                    letterSpacing: '2px'
+                                }}
+                            >
+                                {Array.from(word).map((char, charIdx) => (
+                                    <tspan key={charIdx} fill={RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length]}>{char}</tspan>
+                                ))}
+                            </text>
+                        ) : (
+                            <text
+                                x={margin + 25}
+                                y={y - (fontStyle === 'cursive' ? fontSize * 0.05 : fontSize * 0.16)}
+                                fill={theme.text}
+                                style={{
+                                    fontSize: `${fontSize}px`,
+                                    fontFamily: 'inherit',
+                                    letterSpacing: '2px'
+                                }}
+                            >
+                                {word}
+                            </text>
+                        )}
                     </g>
                 );
             })}

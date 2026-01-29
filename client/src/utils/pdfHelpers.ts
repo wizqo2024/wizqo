@@ -62,7 +62,7 @@ export const drawWorksheetOnPDF = (
 
     const THEMES: Record<string, any> = {
         classic: { primary: '#94a3b8', secondary: '#cbd5f5', text: '#94a3b8', dots: '#34d399', bg: '#f8fafc' },
-        rainbow: { primary: '#cbd5f1', secondary: '#e2e8f0', text: '#475569', dots: '#ec4899', bg: '#fffafb', rainbow: true },
+        rainbow: { primary: '#f472b6', secondary: '#fbcfe8', text: '#1e293b', dots: '#ec4899', bg: '#fffafb', rainbow: true },
         ocean: { primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', dots: '#2DD4BF', bg: '#f0f9ff' },
         candy: { primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
         forest: { primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#f0fdf4' },

@@ -40,7 +40,7 @@ const THEMES: Record<ColorTheme, {
   rainbow?: boolean;
 }> = {
   classic: { name: 'Classic Blue', primary: '#94a3b8', secondary: '#cbd5f5', text: '#94a3b8', dots: '#34d399', bg: '#f8fafc' },
-  rainbow: { name: 'Rainbow', primary: '#cbd5f1', secondary: '#e2e8f0', text: '#475569', dots: '#ec4899', bg: '#fffafb', rainbow: true },
+  rainbow: { name: 'Rainbow', primary: '#f472b6', secondary: '#fbcfe8', text: '#1e293b', dots: '#ec4899', bg: '#fffafb', rainbow: true },
   ocean: { name: 'Deep Sea', primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', dots: '#2DD4BF', bg: '#f0f9ff' },
   candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
   forest: { name: 'Magic Forest', primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#f0fdf4' },
@@ -1161,7 +1161,11 @@ export default function NameTracingGeneratorPage() {
                         >
                           <div
                             className="w-full h-8 rounded-lg shadow-inner flex items-center justify-center overflow-hidden"
-                            style={{ background: THEMES[themeKey].bg }}
+                            style={{
+                              background: THEMES[themeKey].rainbow
+                                ? 'linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6)'
+                                : THEMES[themeKey].bg
+                            }}
                           >
                             <div className="flex gap-0.5">
                               {THEMES[themeKey].rainbow ? (

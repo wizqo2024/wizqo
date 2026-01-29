@@ -29,7 +29,7 @@ const THEMES: Record<ColorTheme, {
   rainbow?: boolean;
 }> = {
   classic: { name: 'Classic Blue', primary: '#94a3b8', secondary: '#cbd5f5', text: '#94a3b8', dots: '#34d399', bg: '#f8fafc' },
-  rainbow: { name: 'Rainbow', primary: '#cbd5f1', secondary: '#e2e8f0', text: '#475569', dots: '#ec4899', bg: '#fffafb', rainbow: true },
+  rainbow: { name: 'Rainbow', primary: '#f472b6', secondary: '#fbcfe8', text: '#1e293b', dots: '#ec4899', bg: '#fffafb', rainbow: true },
   ocean: { name: 'Deep Sea', primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', dots: '#2DD4BF', bg: '#f0f9ff' },
   candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
   forest: { name: 'Magic Forest', primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#f0fdf4' },
@@ -533,9 +533,17 @@ export default function HandwritingMakerPage() {
           if (isTracing) { doc.setLineWidth(0.8); doc.setLineDashPattern([3, 3], 0); }
           else if (textStyle === 'bubble') { doc.setLineWidth(2); doc.setLineDashPattern(tracingStyle === 'dotted' ? [4, 6] : [], 0); }
 
+          let charInWordIdx = 0;
           for (const char of restOfWord) {
+            if (theme.rainbow) {
+              const charColor = RAINBOW_COLORS[(1 + charInWordIdx) % RAINBOW_COLORS.length];
+              const rgb = hexToRgb(charColor);
+              doc.setTextColor(rgb.r, rgb.g, rgb.b);
+              doc.setDrawColor(rgb.r, rgb.g, rgb.b);
+            }
             doc.text(char, currentX, baselineY - getBaselineOffset(doc.getFont().fontName, fontSizeVal, textStyle), { renderingMode: renderingMode as any });
             currentX += doc.getTextWidth(char) + charSpace;
+            charInWordIdx++;
           }
         } else {
           const isDotted = tracingStyle === 'dotted';
@@ -561,9 +569,17 @@ export default function HandwritingMakerPage() {
           else if (textStyle === 'bubble') { doc.setLineWidth(2); doc.setLineDashPattern(isDotted ? [4, 6] : [], 0); }
           else { doc.setLineDashPattern([], 0); doc.setLineWidth(0); }
 
+          let charInWordIdx = 0;
           for (const char of wordToDraw) {
+            if (theme.rainbow) {
+              const charColor = RAINBOW_COLORS[charInWordIdx % RAINBOW_COLORS.length];
+              const rgb = hexToRgb(charColor);
+              doc.setTextColor(rgb.r, rgb.g, rgb.b);
+              doc.setDrawColor(rgb.r, rgb.g, rgb.b);
+            }
             doc.text(char, currentX, baselineY - getBaselineOffset(doc.getFont().fontName, fontSizeVal, textStyle), { renderingMode: renderingMode as any });
             currentX += doc.getTextWidth(char) + charSpace;
+            charInWordIdx++;
           }
         }
       });
@@ -873,7 +889,6 @@ export default function HandwritingMakerPage() {
                             const isNativeDotted = tracingStyle === 'dotted' && textStyle !== 'bubble';
                             if (isNativeDotted) return theme.text;
                             if (isFaint) return '#cbd5e1';
-                            if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                             return theme.text;
                           })()}
                             stroke={(() => {
@@ -883,7 +898,11 @@ export default function HandwritingMakerPage() {
                             })()}
                             strokeWidth={textStyle === 'bubble' ? 3 : 0}
                             strokeDasharray={(textStyle === 'bubble' && tracingStyle === 'dotted') ? '4 6' : undefined} >
-                            {rest}
+                            {theme.rainbow ? (
+                              Array.from(rest).map((char, charIdx) => (
+                                <tspan key={charIdx} fill={RAINBOW_COLORS[(firstChar.length + charIdx) % RAINBOW_COLORS.length]}>{char}</tspan>
+                              ))
+                            ) : rest}
                           </tspan>
                         </React.Fragment>
                       );
@@ -895,7 +914,6 @@ export default function HandwritingMakerPage() {
                           const isNativeDotted = isDotted && textStyle !== 'bubble';
                           if (isNativeDotted) return theme.text;
                           if (isFaint) return '#cbd5e1';
-                          if (theme.rainbow) return RAINBOW_COLORS[idx % RAINBOW_COLORS.length];
                           return theme.text;
                         })()}
                         stroke={(() => {
@@ -905,7 +923,11 @@ export default function HandwritingMakerPage() {
                         })()}
                         strokeWidth={textStyle === 'bubble' ? 3 : 0}
                         strokeDasharray={(textStyle === 'bubble' && isDotted) ? '4 6' : undefined} >
-                        {word}
+                        {theme.rainbow ? (
+                          Array.from(word).map((char, charIdx) => (
+                            <tspan key={charIdx} fill={RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length]}>{char}</tspan>
+                          ))
+                        ) : word}
                       </tspan>
                     );
                   });
@@ -1202,7 +1224,11 @@ export default function HandwritingMakerPage() {
                         onClick={() => setColorTheme(tKey)}
                         className={`w-8 h-8 rounded-full border-2 transition-all ${colorTheme === tKey ? 'border-slate-900 scale-110 shadow-sm' : 'border-transparent hover:scale-105'
                           }`}
-                        style={{ background: THEMES[tKey].primary }}
+                        style={{
+                          background: tKey === 'rainbow'
+                            ? 'linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6)'
+                            : THEMES[tKey].primary
+                        }}
                         title={THEMES[tKey].name}
                         aria-label={THEMES[tKey].name}
                       />
