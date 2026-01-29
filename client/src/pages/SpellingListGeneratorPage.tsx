@@ -82,6 +82,39 @@ export default function SpellingListGeneratorPage() {
         font-weight: normal;
         font-style: normal;
       }
+      @media print {
+        @page { 
+          size: 8.5in 11in; 
+          margin: 0 !important; 
+        }
+        body { 
+          background: white !important; 
+          margin: 0 !important; 
+          padding: 0 !important; 
+        }
+        nav, footer, .UnifiedNavigation, header, aside, button, .Button, .Label, .Switch, .ToggleGroup, .Card, .bg-amber-50, .mt-20 {
+          display: none !important;
+        }
+        #spelling-sheet-preview {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 8.5in !important;
+          height: 11in !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          border: none !important;
+          box-shadow: none !important;
+          z-index: 99999 !important;
+          background: white !important;
+          display: block !important;
+        }
+        /* Ensure the SVG inside takes full space */
+        #spelling-sheet-preview svg {
+          width: 100% !important;
+          height: 100% !important;
+        }
+      }
     `;
         document.head.appendChild(style);
 
