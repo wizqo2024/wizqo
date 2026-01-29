@@ -604,6 +604,7 @@ export default function App() {
                     '1st-grade-math-worksheets',
                     '2nd-grade-math-worksheets',
                     'handwriting-worksheet-maker',
+                    'spelling-list-generator',
                     'reading-comprehension',
                     'kindergarten-math-worksheets',
                     '3rd-grade-math-worksheets',
