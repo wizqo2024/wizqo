@@ -13,6 +13,7 @@ import jsPDF from 'jspdf';
 import { hexToRgb } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
 import { HUB_SEO_DATA } from '@shared/worksheetSEO';
+import { SocialShare } from '@/components/SocialShare';
 
 type Mode = 'letters' | 'words' | 'sentences';
 type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset';
@@ -229,7 +230,6 @@ export default function HandwritingMakerPage() {
     const startY = 140;
     const fontSizeVal = fontSize;
     const lineGap = fontSizeVal * 2.0;
-    const rowsPerPage = Math.floor((pageH - startY - margin) / lineGap);
     const theme = THEMES[colorTheme as ColorTheme] || THEMES.classic;
 
     // Load Fonts Asynchronously for PDF
@@ -332,8 +332,18 @@ export default function HandwritingMakerPage() {
       const urlRGB = hexToRgb('#64748b');
       doc.setTextColor(urlRGB.r, urlRGB.g, urlRGB.b);
       doc.text('www.wizqo.com', pageW - margin, margin + 20, { align: 'right' });
+    };
 
-      // Name/Date removed to prevent overlap in compact layout
+    const drawFooter = () => {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(148, 163, 184); // slate-400
+      doc.text('Created for Free at Wizqo.com - Scan to create your own!', pageW / 2, pageH - 20, { align: 'center' });
+
+      // Add a subtle clickable-looking underline
+      doc.setDrawColor(148, 163, 184);
+      doc.setLineWidth(0.5);
+      doc.line(pageW / 2 - 100, pageH - 18, pageW / 2 + 100, pageH - 18);
     };
 
     // Logic to replicate PreviewSVG rows
@@ -367,21 +377,21 @@ export default function HandwritingMakerPage() {
       if (textStyle === 'true-monoline') doc.setFont('LearningCurve', 'normal');
       else if (textStyle === 'monoline-cursive') doc.setFont('LearningCurve', 'normal');
       else if (textStyle === 'school-cursive') doc.setFont('ABeeZee', 'normal');
-      else if (textStyle === 'cursive') doc.setFont('Cedarville-Cursive', 'normal');
+      else if (textStyle === 'cursive') doc.setFont('CedarvilleCursive', 'normal');
       else if (textStyle === 'bubble') doc.setFont('Codystar', 'bold');
-      else if (dotted) doc.setFont('Codystar', 'normal');
+      else if (tracingStyle === 'dotted') {
+        if (textStyle === 'bubble') doc.setFont('Codystar', 'normal');
+        else doc.setFont('KGPrimaryDots', 'normal');
+      }
       else doc.setFont('helvetica', 'normal');
       doc.setFontSize(fontSizeVal);
       const textWidth = doc.getTextWidth(txt);
-      // CSS letter-spacing (base) only applies between characters, so (length - 1)
-      // Custom letterSpacingAdjustment also applies between characters
       const kerningAdjustment = Math.max(0, txt.length - 1) * letterSpacingAdjustment;
       return textWidth + kerningAdjustment;
     };
 
     const letterSpacing = (() => {
       if (!autoSpaceLetters) {
-        // Match PreviewSVG: 0.02em for cursives and monoline (including true-monoline)
         const isCursive = textStyle === 'true-monoline' || textStyle === 'monoline-cursive' || textStyle === 'cursive' || textStyle === 'school-cursive';
         return isCursive ? fontSizeVal * 0.02 : 0;
       }
@@ -422,8 +432,11 @@ export default function HandwritingMakerPage() {
     }
     if (current) pdfRows.push(current);
 
+    const rowsPerPage = Math.floor((pageH - startY - margin) / lineGap);
+
     // Initial page header
     drawHeader();
+    drawFooter();
 
     pdfRows.forEach((txt, idx) => {
       const pageIdx = Math.floor(idx / rowsPerPage);
@@ -432,16 +445,16 @@ export default function HandwritingMakerPage() {
       if (pageIdx > 0 && rowInPage === 0) {
         doc.addPage();
         drawHeader();
+        drawFooter();
       }
 
       const y = startY + rowInPage * lineGap;
+      const baselineY = y;
       const mid = y - fontSizeVal * 0.35;
       const top = y - fontSizeVal * 0.7;
 
-      // Ensure footer-style adjustments for kerning are applied consistently during drawing
       const charSpace = letterSpacing + letterSpacingAdjustment;
       doc.setCharSpace(charSpace);
-      const baselineY = y;
 
       const secondaryRGB = hexToRgb(theme.secondary);
       const primaryRGB = hexToRgb(theme.primary);
@@ -467,28 +480,21 @@ export default function HandwritingMakerPage() {
 
       doc.setFontSize(fontSizeVal);
 
-      // Rendering word by word to support per-word styles (Model Word)
+      // Rendering word by word
       const wordsInRow = txt.split(' ');
       let currentX = margin + 16;
 
       wordsInRow.forEach((word, wordIdx) => {
-        // Only model the first token in the row
         const isModel = showModelWord && wordIdx === 0;
         const isFaint = tracingStyle === 'faint' && !isModel;
         const isDotted = tracingStyle === 'dotted' && !isModel;
-
         const wordToDraw = word + (wordIdx < wordsInRow.length - 1 ? ' ' : '');
-
-        // If it's a model word, we might still want to only solidify the first letter
-        // if it's "Letters" mode or a very long continuous string (like "ffff...")
         const onlyFirstCharModel = isModel && (mode === 'letters' || word.length > 5);
 
         if (onlyFirstCharModel) {
           const firstChar = wordToDraw.substring(0, 1);
           const restOfWord = wordToDraw.substring(1);
 
-          // Draw the SOLID first character
-          // Draw the SOLID first character
           const firstCharFont = (() => {
             if (textStyle === 'true-monoline') return 'LearningCurve';
             if (textStyle === 'monoline-cursive') return 'LearningCurve';
@@ -505,11 +511,9 @@ export default function HandwritingMakerPage() {
           doc.setLineDashPattern([], 0);
           doc.setLineWidth(0);
 
-          const charWidth = doc.getTextWidth(firstChar);
           doc.text(firstChar, currentX, baselineY - getBaselineOffset(doc.getFont().fontName, fontSizeVal, textStyle), { renderingMode: 0 });
-          currentX += charWidth + charSpace;
+          currentX += doc.getTextWidth(firstChar) + charSpace;
 
-          // Now draw the rest of the word
           const isActuallyDotted = tracingStyle === 'dotted';
           const font = (() => {
             if (textStyle === 'true-monoline') return isActuallyDotted ? 'LearningCurveDashed' : 'LearningCurve';
@@ -521,28 +525,19 @@ export default function HandwritingMakerPage() {
           })();
           doc.setFont(font, textStyle === 'bubble' ? 'bold' : 'normal');
 
-          if (tracingStyle === 'faint') {
-            doc.setTextColor(203, 213, 225); // Slate-300
-          } else {
-            doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
-          }
+          if (isFaint) doc.setTextColor(203, 213, 225);
+          else doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
 
-          const isTracing = isActuallyDotted && (textStyle === 'bubble'); // Native dotted fonts don't need SVG dashes
+          const isTracing = isActuallyDotted && (textStyle === 'bubble');
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
-          if (isTracing) {
-            doc.setLineWidth(0.8);
-            doc.setLineDashPattern([3, 3], 0);
-          } else if (textStyle === 'bubble') {
-            doc.setLineWidth(2);
-            doc.setLineDashPattern(tracingStyle === 'dotted' ? [4, 6] : [], 0);
-          }
+          if (isTracing) { doc.setLineWidth(0.8); doc.setLineDashPattern([3, 3], 0); }
+          else if (textStyle === 'bubble') { doc.setLineWidth(2); doc.setLineDashPattern(tracingStyle === 'dotted' ? [4, 6] : [], 0); }
 
           for (const char of restOfWord) {
             doc.text(char, currentX, baselineY - getBaselineOffset(doc.getFont().fontName, fontSizeVal, textStyle), { renderingMode: renderingMode as any });
             currentX += doc.getTextWidth(char) + charSpace;
           }
         } else {
-          // Standard full-word model or full-word tracing
           const isDotted = tracingStyle === 'dotted';
           const font = (() => {
             if (textStyle === 'true-monoline') return isDotted ? 'LearningCurveDashed' : 'LearningCurve';
@@ -556,24 +551,15 @@ export default function HandwritingMakerPage() {
 
           let textColor = theme.rainbow ? RAINBOW_COLORS[idx % RAINBOW_COLORS.length] : theme.text;
           if (isFaint) textColor = '#cbd5e1';
-
           const rowTextRGB = hexToRgb(textColor);
           doc.setTextColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
           doc.setDrawColor(rowTextRGB.r, rowTextRGB.g, rowTextRGB.b);
 
           const isTracing = isDotted && (textStyle === 'bubble');
           const renderingMode = (textStyle === 'bubble' || isTracing) ? 1 : 0;
-
-          if (isTracing) {
-            doc.setLineWidth(0.8);
-            doc.setLineDashPattern([3, 3], 0);
-          } else if (textStyle === 'bubble') {
-            doc.setLineWidth(2);
-            doc.setLineDashPattern(isDotted ? [4, 6] : [], 0);
-          } else {
-            doc.setLineDashPattern([], 0);
-            doc.setLineWidth(0);
-          }
+          if (isTracing) { doc.setLineWidth(0.8); doc.setLineDashPattern([3, 3], 0); }
+          else if (textStyle === 'bubble') { doc.setLineWidth(2); doc.setLineDashPattern(isDotted ? [4, 6] : [], 0); }
+          else { doc.setLineDashPattern([], 0); doc.setLineWidth(0); }
 
           for (const char of wordToDraw) {
             doc.text(char, currentX, baselineY - getBaselineOffset(doc.getFont().fontName, fontSizeVal, textStyle), { renderingMode: renderingMode as any });
@@ -582,12 +568,10 @@ export default function HandwritingMakerPage() {
         }
       });
 
-      // Reset dash pattern and line width for next elements
       doc.setLineDashPattern([], 0);
       doc.setLineWidth(1);
       doc.setCharSpace(0);
 
-      // Mask built-in underline for SchoolHandDotted in PDF
       const isSchoolDotted = textStyle === 'school-cursive' && tracingStyle === 'dotted';
       if (isSchoolDotted) {
         const bgRGB = hexToRgb(theme.bg);
@@ -600,10 +584,9 @@ export default function HandwritingMakerPage() {
     const fileNameText = (pdfRows[0] || 'worksheet').substring(0, 15).replace(/\s+/g, '-');
     doc.save(`handwriting-${fileNameText}.pdf`);
 
-    // Track download
     trackWorksheetDownload('handwriting-maker', `${mode}-pdf`, 'handwriting-maker', 'handwriting')
 
-    // CREATIVE UPGRADE: Confetti Celebration
+    // Confetti
     const colors = theme.rainbow ? RAINBOW_COLORS : [theme.primary, theme.text, theme.dots];
     for (let i = 0; i < 40; i++) {
       const conf = document.createElement('div');
@@ -634,6 +617,8 @@ export default function HandwritingMakerPage() {
       description: t('Your handwriting worksheet has been saved as PDF.'),
     });
   };
+
+  // Memoized content for the layout
 
   const content = React.useMemo(() => {
     if (mode === 'letters') return letters.split(/\s+/).filter(Boolean);
@@ -1302,23 +1287,17 @@ export default function HandwritingMakerPage() {
                 </ul>
               </div>
 
-              {/* Pinterest Growth Section - SEO Safe */}
-              <div className="mt-6 pt-4 border-t border-slate-100 print:hidden text-center">
-                <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-3">Save for Later</p>
-                <div className="flex justify-center gap-4">
-                  <a
-                    href={`https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent('https://wizqo.com/worksheets/handwriting-worksheet-maker')}&media=${encodeURIComponent('https://wizqo.com/logo-720x720.png')}&description=${encodeURIComponent('Free Personalized Name Tracing & Cursive Handwriting Maker - Create custom worksheets for kids in seconds! #education #handwriting #parenting')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-2 rounded-full bg-[#E60023] text-white text-xs font-bold hover:bg-[#ad001a] transition-all hover:scale-105 shadow-sm shadow-red-200" >
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                      <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.966 1.406-5.966s-.359-.72-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.654 2.568-.994 3.993-.284 1.194.593 2.167 1.77 2.167 2.124 0 3.756-2.241 3.756-5.476 0-2.863-2.056-4.865-4.997-4.865-3.399 0-5.395 2.551-5.395 5.186 0 1.027.395 2.127.889 2.727.098.119.112.224.083.345-.091.377-.293 1.191-.333 1.353-.053.214-.174.26-.401.154-1.49-.693-2.422-2.869-2.422-4.616 0-3.759 2.731-7.213 7.877-7.213 4.136 0 7.351 2.947 7.351 6.89 0 4.11-2.591 7.416-6.185 7.416-1.207 0-2.343-.627-2.731-1.369 0 0-.599 2.282-.744 2.84-.269 1.038-1.001 2.34-1.492 3.138 1.066.31 2.195.477 3.361.477 6.611 0 11.988-5.365 11.988-11.988C23.995 5.367 18.628 0 12.017 0z" />
-                    </svg>
-                    Pin to Pinterest
-                  </a>
+              <div className="mt-6 pt-4 border-t border-slate-100 print:hidden text-center flex flex-col items-center">
+                <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest mb-3">Share & Support</p>
+                <div className="flex justify-center">
+                  <SocialShare
+                    url="https://wizqo.com/worksheets/handwriting-worksheet-maker"
+                    title="Check out this Free Personalized Name Tracing & Handwriting Maker! Create custom worksheets for kids in seconds. #education #parenting"
+                    media="https://wizqo.com/images/handwriting-hub-preview-v2_1769603396482.png"
+                  />
                 </div>
                 <p className="mt-3 text-[9px] text-slate-400 leading-relaxed italic">
-                  Show your worksheet some love! 🌸<br />Pining helps other parents find this free tool.
+                  Show your worksheet some love! 🌸<br />Sharing helps other parents and teachers find this free tool.
                 </p>
               </div>
             </div>

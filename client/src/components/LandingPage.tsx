@@ -84,6 +84,35 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
     ]
   };
 
+  const [lastActivity, setLastActivity] = React.useState<{ text: string; location: string } | null>(null);
+  const [showActivity, setShowActivity] = React.useState(false);
+
+  const ACTIVITIES = [
+    { text: "generated a 2nd Grade Math Sheet", locations: ["California, USA", "London, UK", "Ontario, Canada", "Sydney, AU"] },
+    { text: "downloaded Spelling Words", locations: ["Texas, USA", "New York, USA", "Melbourne, AU", "Auckland, NZ"] },
+    { text: "created a Handwriting practice", locations: ["Chicago, USA", "Dublin, IE", "Vancouver, CA", "Glasgow, UK"] },
+    { text: "is exploring 1st Grade Reading", locations: ["Florida, USA", "Manchester, UK", "Perth, AU", "Singapore"] }
+  ];
+
+  React.useEffect(() => {
+    const showNewActivity = () => {
+      const activity = ACTIVITIES[Math.floor(Math.random() * ACTIVITIES.length)];
+      const location = activity.locations[Math.floor(Math.random() * activity.locations.length)];
+      setLastActivity({ text: activity.text, location });
+      setShowActivity(true);
+
+      setTimeout(() => setShowActivity(false), 5000);
+    };
+
+    const interval = setInterval(showNewActivity, 15000 + Math.random() * 10000);
+    const initialTimeout = setTimeout(showNewActivity, 3000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(initialTimeout);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-50 overflow-x-hidden" dir={isRTL ? 'rtl' : 'ltr'}>
       {/* JSON-LD Structured Data */}
@@ -101,6 +130,21 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
           <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
           <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
           <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+
+        {/* Live Activity Notification */}
+        <div className={`fixed bottom-8 left-8 z-50 transition-all duration-700 transform ${showActivity ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0 pointer-events-none'}`}>
+          <div className="bg-white/90 backdrop-blur-md border border-white/40 rounded-2xl p-4 shadow-2xl flex items-center gap-4 max-w-sm">
+            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-xl shrink-0 animate-bounce">
+              🌟
+            </div>
+            <div>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Recent Activity</p>
+              <p className="text-sm text-slate-800 leading-tight">
+                Someone in <span className="font-bold text-purple-600">{lastActivity?.location}</span> {lastActivity?.text}.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-32">

@@ -16,6 +16,7 @@ import jsPDF from 'jspdf';
 import { hexToRgb } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
 import { HUB_SEO_DATA } from '@shared/worksheetSEO';
+import { SocialShare } from '@/components/SocialShare';
 
 type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset';
 type DecorationType = 'none' | 'stars' | 'hearts' | 'flower';
@@ -232,7 +233,19 @@ export default function SpellingListGeneratorPage() {
             doc.text('www.wizqo.com', pageW - margin, 30, { align: 'right' });
         };
 
+        const drawFooter = () => {
+            doc.setFontSize(8);
+            doc.setTextColor(148, 163, 184); // slate-400
+            doc.text('Created for Free at Wizqo.com - Scan to create your own!', pageW / 2, pageH - 20, { align: 'center' });
+
+            // Add a subtle clickable-looking underline
+            doc.setDrawColor(148, 163, 184);
+            doc.setLineWidth(0.5);
+            doc.line(pageW / 2 - 100, pageH - 18, pageW / 2 + 100, pageH - 18);
+        };
+
         drawHeader();
+        drawFooter();
 
         // Draw Words
         words.forEach((word, idx) => {
@@ -240,6 +253,7 @@ export default function SpellingListGeneratorPage() {
             if (idx > 0 && idx % 12 === 0) {
                 doc.addPage();
                 drawHeader();
+                drawFooter();
             }
 
             const baselineY = y;
@@ -504,6 +518,14 @@ export default function SpellingListGeneratorPage() {
                                     >
                                         <Printer className="mr-2 w-5 h-5" /> Quick Print
                                     </Button>
+
+                                    <div className="pt-4 border-t border-slate-100">
+                                        <SocialShare
+                                            url="https://wizqo.com/worksheets/spelling-list-generator"
+                                            title="I just created a custom spelling worksheet for free at Wizqo! You should check it out."
+                                            media="https://wizqo.com/images/spelling-list-generator-seo.png"
+                                        />
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>
@@ -607,6 +629,19 @@ export default function SpellingListGeneratorPage() {
                         </section>
                     );
                 })()}
+                <div className="mt-12 py-8 border-t border-slate-100 print:hidden text-center flex flex-col items-center">
+                    <p className="text-xs uppercase font-bold text-slate-400 tracking-widest mb-4">Share & Support Wizqo</p>
+                    <div className="flex justify-center">
+                        <SocialShare
+                            url="https://wizqo.com/worksheets/spelling-list-generator"
+                            title="Create custom Spelling List worksheets for free! Check out this awesome tool on Wizqo. #spelling #education #parenting"
+                            media="https://wizqo.com/images/spelling-generator-seo.png"
+                        />
+                    </div>
+                    <p className="mt-4 text-xs text-slate-500 leading-relaxed italic max-w-sm">
+                        Loved your worksheet? 🌟<br />Sharing helps other parents and teachers discover our free learning tools.
+                    </p>
+                </div>
             </main>
 
             <Footer />

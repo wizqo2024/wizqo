@@ -165,6 +165,25 @@ export function Footer() {
                 </div>
               )}
             </div>
+            {/* Newsletter Signup */}
+            <div className="mt-8 pt-6 border-t border-slate-800">
+              <h4 className="text-sm font-bold text-white mb-2">Get New Worksheets Weekly</h4>
+              <p className="text-xs text-slate-400 mb-4 truncate line-clamp-2">Be the first to get our latest printable tools and educational tips.</p>
+              <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="bg-slate-800 border-0 focus:ring-2 focus:ring-purple-500 rounded-lg px-3 py-2 text-sm text-white flex-1 min-w-0"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-colors whitespace-nowrap"
+                >
+                  Join
+                </button>
+              </form>
+            </div>
           </div>
         </div>
 
