@@ -3935,7 +3935,17 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
 
       <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
         <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Efficient Weekly Preparation</h2>
-        <p style="color: #475569; line-height: 1.6;">Don't spend hours manually drawing lines or searching for generic lists. With Wizqo, you can generate a custom spelling worksheet in under 60 seconds. Empower your students with the tools they need to master their weekly vocabulary today.</p>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 2rem;">Don't spend hours manually drawing lines or searching for generic lists. With Wizqo, you can generate a custom spelling worksheet in under 60 seconds. Empower your students with the tools they need to master their weekly vocabulary today.</p>
+        
+        <div style="margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;">
+          <h3 style="font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;">Worksheet Preview</h3>
+          <img 
+            src="/images/spelling-generator-seo.png" 
+            alt="Spelling List Generator Preview" 
+            style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;"
+            loading="lazy"
+          />
+        </div>
       </section>
     </article>`
   },

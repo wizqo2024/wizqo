@@ -11,6 +11,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Slider } from '@/components/ui/slider';
 import jsPDF from 'jspdf';
 import { hexToRgb } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
@@ -437,6 +438,23 @@ export default function SpellingListGeneratorPage() {
                                         <ToggleGroupItem value="bubble" className="px-4">Bubble</ToggleGroupItem>
                                         <ToggleGroupItem value="print" className="px-4">Print</ToggleGroupItem>
                                     </ToggleGroup>
+                                </div>
+
+                                {/* Font Size */}
+                                <div className="space-y-4 pt-4 border-t border-slate-100">
+                                    <div className="flex items-center justify-between">
+                                        <Label className="text-sm font-semibold flex items-center gap-2">
+                                            Size ({fontSize}px)
+                                        </Label>
+                                    </div>
+                                    <Slider
+                                        value={[fontSize]}
+                                        min={32}
+                                        max={120}
+                                        step={1}
+                                        onValueChange={([v]) => setFontSize(v)}
+                                        className="py-4"
+                                    />
                                 </div>
 
                                 {/* Visual Settings */}
