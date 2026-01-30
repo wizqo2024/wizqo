@@ -2,14 +2,14 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}", "./shared/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
         sans: [
           'Inter',
           '-apple-system',
-          'BlinkMacSystemFont', 
+          'BlinkMacSystemFont',
           'Segoe UI',
           'Roboto',
           'system-ui',

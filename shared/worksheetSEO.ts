@@ -2974,10 +2974,10 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
       <section class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-2xl text-center">
         <h2 class="text-2xl font-bold text-slate-800 mb-6">🚀 Need More Practice?</h2>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href="/worksheets/cut-and-paste" class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-bold rounded-full shadow-sm hover:shadow-md transition-all border border-indigo-100 no-underline">
+          <a href="/worksheets/scissor-skills-generator" class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-bold rounded-full shadow-sm hover:shadow-md transition-all border border-indigo-100 no-underline">
             ✂️ Scissor Skills Generator
           </a>
-          <a href="/worksheets/spelling-words-worksheets-generator" class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-bold rounded-full shadow-sm hover:shadow-md transition-all border border-indigo-100 no-underline">
+          <a href="/worksheets/spelling-list-generator" class="inline-flex items-center px-6 py-3 bg-white text-indigo-600 font-bold rounded-full shadow-sm hover:shadow-md transition-all border border-indigo-100 no-underline">
             📝 Spelling List Generator
           </a>
         </div>
