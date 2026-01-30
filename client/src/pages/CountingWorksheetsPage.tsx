@@ -5,31 +5,41 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket, BookOpen, Rabbit, Footprints } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { useTranslation } from '@/context/TranslationContext';
-import jsPDF from 'jspdf';
-import { generateWorksheetPDF } from '@/utils/pdfGenerator';
-import { trackWorksheetDownload } from '@/utils/analytics';
-import { SocialShare } from '@/components/SocialShare';
-import { getWorksheetSEOBySlug } from '@shared/worksheetSEO';
+const DinosaurIcon = (props: any) => (
+    <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+    >
+        <path d="M3 20c0-3.3 2.7-6 6-6h3.6L11 9.5c-.3-1 .4-2 1.5-2H15l1.5-3.5c.3-.7 1.2-.9 1.8-.4l2.5 2.2c.5.4.6 1.1.2 1.6L19 10h-2l1 4h3c1.1 0 2 .9 2 2v2c0 1.1-.9 2-2 2h-4v-2h-2v2h-4v-2H9c-2.2 0-4-1.8-4-4v-2H3v2z" />
+        <circle cx="16" cy="8" r="0.5" fill="currentColor" />
+    </svg>
+);
 
-type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset' | 'bw';
-type IconTheme = 'dinosaurs' | 'bunnies' | 'cars' | 'stars' | 'hearts' | 'rockets';
-
-const THEMES: Record<ColorTheme, { name: string; primary: string; secondary: string; text: string; bg: string; rainbow?: boolean }> = {
-    classic: { name: 'Classic Blue', primary: '#94a3b8', secondary: '#cbd5f5', text: '#475569', bg: '#f8fafc' },
-    rainbow: { name: 'Rainbow', primary: '#f472b6', secondary: '#fbcfe8', text: '#1e293b', bg: '#fffafb', rainbow: true },
-    ocean: { name: 'Deep Sea', primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', bg: '#f0f9ff' },
-    candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', bg: '#fff1f2' },
-    forest: { name: 'Magic Forest', primary: '#059669', secondary: '#d1fae5', text: '#065f46', bg: '#f0fdf4' },
-    sunset: { name: 'Warm Sunset', primary: '#ea580c', secondary: '#ffedd5', text: '#9a3412', bg: '#fff7ed' },
-    bw: { name: 'Black & White', primary: '#000000', secondary: '#cbd5e1', text: '#000000', bg: '#ffffff' },
-};
+const BunnyIcon = (props: any) => (
+    <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+    >
+        <path d="M10 20v-2a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2M14 20v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M20 12.5c0-1.7-1.3-3-3-3a3 3 0 0 0-3 3v.5h-4v-.5a3 3 0 0 0-3-3c-1.7 0-3 1.3-3 3v2.5a5 5 0 0 0 5 5h6a5 5 0 0 0 5-5v-2.5z" />
+        <path d="M7 9.5V4a2 2 0 0 1 4 0v3M13 7V4a2 2 0 0 1 4 0v5.5" />
+        <circle cx="9" cy="14" r="0.5" fill="currentColor" />
+        <circle cx="15" cy="14" r="0.5" fill="currentColor" />
+    </svg>
+);
 
 const ICONS: Record<IconTheme, { name: string; icon: string; label: string; lucide?: React.ElementType }> = {
-    dinosaurs: { name: 'Dinosaurs', icon: '🦕', label: 'Dinosaur', lucide: Footprints },
-    bunnies: { name: 'Bunnies', icon: '🐰', label: 'Bunny', lucide: Rabbit },
+    dinosaurs: { name: 'Dinosaurs', icon: '🦕', label: 'Dinosaur', lucide: DinosaurIcon },
+    bunnies: { name: 'Bunnies', icon: '🐰', label: 'Bunny', lucide: BunnyIcon },
     cars: { name: 'Cars', icon: '🏎️', label: 'Car', lucide: Car },
     stars: { name: 'Stars', icon: '⭐', label: 'Star', lucide: Star },
     hearts: { name: 'Hearts', icon: '❤️', label: 'Heart', lucide: Heart },
