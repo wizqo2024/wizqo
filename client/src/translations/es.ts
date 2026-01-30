@@ -1080,6 +1080,10 @@ export const es = {
     },
   },
   pages: {
+    counting: {
+      title: 'Laboratorio de Conteo de Números',
+      subtitle: 'Crea hojas de trabajo mágicas para tus pequeños.',
+    },
     handwriting: {
       title: 'Hojas de Práctica de Escritura Gratis',
       subtitle: 'Crea hojas de trabajo de escritura personalizadas en segundos. Elige letras, palabras u oraciones. ¡Perfecto para enseñar escritura!',

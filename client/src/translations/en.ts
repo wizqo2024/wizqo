@@ -1601,6 +1601,10 @@ export const en = {
       trustedBy: 'Trusted by learners',
       seeReviews: 'See reviews on Trustpilot →',
     },
+    counting: {
+      title: 'Number Counting Lab',
+      subtitle: 'Create magical counting worksheets for your little ones.',
+    },
     contact: {
       title: 'Contact Wizqo',
       subtitle: 'Got a question or suggestion? Reach out to Wizqo\'s team — we typically respond within 24 hours. Let\'s improve your learning journey together.',
