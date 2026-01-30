@@ -5,6 +5,28 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket, BookOpen } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/context/TranslationContext';
+import jsPDF from 'jspdf';
+import { generateWorksheetPDF } from '@/utils/pdfGenerator';
+import { trackWorksheetDownload } from '@/utils/analytics';
+import { SocialShare } from '@/components/SocialShare';
+import { getWorksheetSEOBySlug } from '@shared/worksheetSEO';
+
+type ColorTheme = 'classic' | 'rainbow' | 'ocean' | 'candy' | 'forest' | 'sunset' | 'bw';
+type IconTheme = 'dinosaurs' | 'bunnies' | 'cars' | 'stars' | 'hearts' | 'rockets';
+
+const THEMES: Record<ColorTheme, { name: string; primary: string; secondary: string; text: string; bg: string; rainbow?: boolean }> = {
+    classic: { name: 'Classic Blue', primary: '#94a3b8', secondary: '#cbd5f5', text: '#475569', bg: '#f8fafc' },
+    rainbow: { name: 'Rainbow', primary: '#f472b6', secondary: '#fbcfe8', text: '#1e293b', bg: '#fffafb', rainbow: true },
+    ocean: { name: 'Deep Sea', primary: '#0ea5e9', secondary: '#bae6fd', text: '#0369a1', bg: '#f0f9ff' },
+    candy: { name: 'Cotton Candy', primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', bg: '#fff1f2' },
+    forest: { name: 'Magic Forest', primary: '#059669', secondary: '#d1fae5', text: '#065f46', bg: '#f0fdf4' },
+    sunset: { name: 'Warm Sunset', primary: '#ea580c', secondary: '#ffedd5', text: '#9a3412', bg: '#fff7ed' },
+    bw: { name: 'Black & White', primary: '#000000', secondary: '#cbd5e1', text: '#000000', bg: '#ffffff' },
+};
+
 const DinosaurIcon = (props: any) => (
     <svg
         viewBox="0 0 24 24"
@@ -58,7 +80,14 @@ interface WorksheetTemplateProps {
     id?: string;
 }
 
-const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({ number, iconTheme, colorTheme, isOutlineMode, t, id }) => {
+const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
+    number,
+    iconTheme,
+    colorTheme,
+    isOutlineMode,
+    t,
+    id
+}: WorksheetTemplateProps) => {
     const theme = THEMES[colorTheme];
     const iconData = ICONS[iconTheme];
     const IconComponent = iconData.lucide || Star; // Fallback
