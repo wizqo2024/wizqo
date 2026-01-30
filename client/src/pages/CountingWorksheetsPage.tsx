@@ -37,14 +37,15 @@ const DinosaurIcon = (props: any) => (
         strokeLinejoin="round"
         {...props}
     >
+        {/* Head & Neck */}
+        <path d="M18 4h-1c-2 0-3 1.5-3 3.5v3" />
+        <path d="M18 4c1.5 0 2.5 1 2.5 2.5S19.5 9 18 9h-1" />
+        <circle cx="18.5" cy="5.5" r="0.5" fill="currentColor" />
         {/* Body & Tail */}
-        <path d="M22 13c-2 0-3-1-4-3-1-3-2-7-5-7s-4 2-4 5v2" />
-        <path d="M9 10c-4 0-6 3-6 7 0 2 1 3 3 3h12" />
-        {/* Neck & Head */}
-        <path d="M13 3c1.5 0 2.5 1 2.5 2.5S14.5 9 13 9h-2" />
+        <path d="M14 10.5c0 4-3 7-8 7-2 0-4 1-4 3.5 0 0 0 1 1 1h15c1 0 1-1 1-1 0-3-1-7.5-5-10.5z" />
         {/* Legs */}
-        <path d="M6 20v2M9 20v2M13 20v2M16 20v2" />
-        <circle cx="13.5" cy="4.5" r="0.5" fill="currentColor" />
+        <path d="M7 17.5v3.5M11 17.5v3.5M15 17.5v3.5" />
+        <path d="M5 13c.5-.5 1-1 2-1s1.5.5 2 1" />
     </svg>
 );
 
@@ -60,13 +61,25 @@ const BunnyIcon = (props: any) => (
     >
         <path d="M10 18c-2 0-4 2-4 4h12c0-2-2-4-4-4" />
         <path d="M12 18c-3 0-5-2-5-5.5s2-5.5 5-5.5 5 2 5 5.5-2 5.5-5 5.5z" />
-        <path d="M9 7c0-3 1-4 2-4s2 1 2 4M13 7c0-3 1-4 2-4s2 1 2 4" />
         <circle cx="10" cy="11" r="0.5" fill="currentColor" />
         <circle cx="14" cy="11" r="0.5" fill="currentColor" />
         <path d="M11 14c.5.5 1.5.5 2 0" />
-        <circle cx="18" cy="20" r="1" />
+        {/* Ears */}
+        <path d="M9 7.5C9 4 10 3 11 3s2 1 2 4.5" />
+        <path d="M15 7.5C15 4 14 3 13 3s-2 1-2 4.5" />
+        {/* Fluffy Tail */}
+        <circle cx="18" cy="20" r="1.5" strokeDasharray="2 1" />
     </svg>
 );
+
+const ICONS: Record<IconTheme, { name: string; icon: string; label: string; lucide?: React.ElementType }> = {
+    dinosaurs: { name: 'Dinosaurs', icon: '🦕', label: 'Dinosaur', lucide: DinosaurIcon },
+    bunnies: { name: 'Bunnies', icon: '🐰', label: 'Bunny', lucide: BunnyIcon },
+    cars: { name: 'Cars', icon: '🏎️', label: 'Car', lucide: Car },
+    stars: { name: 'Stars', icon: '⭐', label: 'Star', lucide: Star },
+    hearts: { name: 'Hearts', icon: '❤️', label: 'Heart', lucide: Heart },
+    rockets: { name: 'Rockets', icon: '🚀', label: 'Rocket', lucide: Rocket },
+};
 
 const WorkbookCover = ({ childName, iconTheme }: { childName: string; iconTheme: IconTheme }) => (
     <div
@@ -98,15 +111,6 @@ const WorkbookCover = ({ childName, iconTheme }: { childName: string; iconTheme:
         </div>
     </div>
 );
-
-const ICONS: Record<IconTheme, { name: string; icon: string; label: string; lucide?: React.ElementType }> = {
-    dinosaurs: { name: 'Dinosaurs', icon: '🦕', label: 'Dinosaur', lucide: DinosaurIcon },
-    bunnies: { name: 'Bunnies', icon: '🐰', label: 'Bunny', lucide: BunnyIcon },
-    cars: { name: 'Cars', icon: '🏎️', label: 'Car', lucide: Car },
-    stars: { name: 'Stars', icon: '⭐', label: 'Star', lucide: Star },
-    hearts: { name: 'Hearts', icon: '❤️', label: 'Heart', lucide: Heart },
-    rockets: { name: 'Rockets', icon: '🚀', label: 'Rocket', lucide: Rocket },
-};
 
 const NUMBER_NAMES = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
