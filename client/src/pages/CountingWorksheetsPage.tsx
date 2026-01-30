@@ -4,7 +4,8 @@ import { Footer } from '@/components/Footer';
 import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket, BookOpen, Rabbit, Footprints } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
@@ -26,18 +27,151 @@ const THEMES: Record<ColorTheme, { name: string; primary: string; secondary: str
     bw: { name: 'Black & White', primary: '#000000', secondary: '#cbd5e1', text: '#000000', bg: '#ffffff' },
 };
 
-const ICONS: Record<IconTheme, { name: string; icon: string; label: string }> = {
-    dinosaurs: { name: 'Dinosaurs', icon: '🦕', label: 'Dinosaur' },
-    bunnies: { name: 'Bunnies', icon: '🐰', label: 'Bunny' },
-    cars: { name: 'Cars', icon: '🏎️', label: 'Car' },
-    stars: { name: 'Stars', icon: '⭐', label: 'Star' },
-    hearts: { name: 'Hearts', icon: '❤️', label: 'Heart' },
-    rockets: { name: 'Rockets', icon: '🚀', label: 'Rocket' },
+const ICONS: Record<IconTheme, { name: string; icon: string; label: string; lucide?: React.ElementType }> = {
+    dinosaurs: { name: 'Dinosaurs', icon: '🦕', label: 'Dinosaur', lucide: Footprints },
+    bunnies: { name: 'Bunnies', icon: '🐰', label: 'Bunny', lucide: Rabbit },
+    cars: { name: 'Cars', icon: '🏎️', label: 'Car', lucide: Car },
+    stars: { name: 'Stars', icon: '⭐', label: 'Star', lucide: Star },
+    hearts: { name: 'Hearts', icon: '❤️', label: 'Heart', lucide: Heart },
+    rockets: { name: 'Rockets', icon: '🚀', label: 'Rocket', lucide: Rocket },
 };
 
 const NUMBER_NAMES = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
-const RAINBOW_COLORS = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+// --- Reusable Worksheet Template Component ---
+interface WorksheetTemplateProps {
+    number: number;
+    iconTheme: IconTheme;
+    colorTheme: ColorTheme;
+    isOutlineMode?: boolean;
+    t: any;
+    id?: string;
+}
+
+const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({ number, iconTheme, colorTheme, isOutlineMode, t, id }) => {
+    const theme = THEMES[colorTheme];
+    const iconData = ICONS[iconTheme];
+    const IconComponent = iconData.lucide || Star; // Fallback
+
+    const renderIcons = () => {
+        const icons = [];
+        for (let i = 0; i < number; i++) {
+            if (isOutlineMode) {
+                // Outline Mode: Use Lucide SVG with stroke
+                icons.push(
+                    <div key={i} className="text-6xl animate-in zoom-in duration-300" style={{ animationDelay: `${i * 50}ms` }}>
+                        <IconComponent
+                            className="w-16 h-16 sm:w-20 sm:h-20"
+                            strokeWidth={1.5}
+                            color="black"
+                            fill="transparent"
+                        />
+                    </div>
+                );
+            } else {
+                // Standard Mode: Use Emoji
+                icons.push(
+                    <div key={i} className="text-4xl sm:text-6xl animate-in zoom-in duration-300 fill-mode-both" style={{ animationDelay: `${i * 50}ms` }}>
+                        {iconData.icon}
+                    </div>
+                );
+            }
+        }
+        return icons;
+    };
+
+    return (
+        <div
+            id={id}
+            className="bg-white rounded-sm shadow-2xl border border-slate-200 aspect-[8.5/11] p-12 flex flex-col items-center overflow-hidden worksheet-section relative"
+            style={{
+                // Ensure print styles are forced even if captured off-screen
+                width: '8.5in',
+                height: '11in',
+                minHeight: '11in',
+                maxHeight: '11in',
+                padding: '0.5in',
+                boxSizing: 'border-box'
+            }}
+        >
+            {/* Header */}
+            <div className="w-full text-center border-b-2 border-slate-100 pb-4 mb-6 relative">
+                <div className="absolute left-0 top-0 text-slate-200">
+                    <Star className="w-12 h-12" strokeWidth={1} />
+                </div>
+                <h2 className="text-3xl font-black text-slate-800 tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>Counting Practice</h2>
+                <div className="flex justify-center items-center gap-2 mt-1">
+                    <span className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
+                        WIZQO MAGIC MATH
+                    </span>
+                </div>
+            </div>
+
+            {/* Big Number Section */}
+            <div className="flex-1 w-full flex flex-col items-center justify-between">
+                <div className="text-center">
+                    <div
+                        className={`text-[250px] leading-[1] font-normal relative ${!isOutlineMode && 'pdf-gradient-text'}`} // Only gradient if not outline
+                        data-gradient-colors={(!isOutlineMode && colorTheme === 'rainbow') ? '#ef4444, #f97316, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899' : ''}
+                        style={{
+                            fontFamily: "'KG Primary Dots', sans-serif",
+                            ...(isOutlineMode ? {
+                                color: 'transparent',
+                                WebkitTextStroke: '2px black', // Ink saving outline for text
+                            } : (colorTheme === 'rainbow' ? {
+                                backgroundImage: 'linear-gradient(45deg, #ef4444, #f97316, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899)',
+                                backgroundClip: 'text',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                color: 'transparent'
+                            } : {
+                                color: theme.primary
+                            }))
+                        }}
+                    >
+                        {number}
+                    </div>
+                </div>
+
+                {/* Icons Grid */}
+                <div className="w-full py-2">
+                    <p className="text-center text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">
+                        {t('pages.counting.countIcons', { name: iconData.name })}
+                    </p>
+                    <div className="grid grid-cols-5 gap-6 max-w-sm mx-auto place-items-center">
+                        {renderIcons()}
+                    </div>
+                </div>
+
+                {/* Word Tracing Section */}
+                <div className="w-full text-center mt-auto border-t-2 border-slate-100 pt-8">
+                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('pages.counting.traceWord')}</p>
+                    <div
+                        className="text-[80px] leading-none mb-4"
+                        style={{
+                            fontFamily: "'Learning Curve Dashed', sans-serif",
+                            color: isOutlineMode ? '#000000' : theme.primary,
+                            opacity: isOutlineMode ? 1 : 0.8
+                        }}
+                    >
+                        {NUMBER_NAMES[number]}
+                    </div>
+                </div>
+            </div>
+
+            {/* Footer */}
+            <div className="w-full mt-6 flex justify-between items-end border-t border-slate-50 pt-4">
+                <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">© wizqo.com • Free Educational Resources</p>
+                <div className="flex gap-2">
+                    <div className="w-2 h-2 rounded-full bg-slate-100"></div>
+                    <div className="w-2 h-2 rounded-full bg-slate-100"></div>
+                    <div className="w-2 h-2 rounded-full bg-slate-100"></div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 
 export default function CountingWorksheetsPage() {
     const { toast } = useToast();
@@ -45,22 +179,22 @@ export default function CountingWorksheetsPage() {
     const [selectedNumber, setSelectedNumber] = useState<number>(5);
     const [iconTheme, setIconTheme] = useState<IconTheme>('dinosaurs');
     const [colorTheme, setColorTheme] = useState<ColorTheme>('rainbow');
-    const previewRef = useRef<HTMLDivElement>(null);
+    const [isOutlineMode, setIsOutlineMode] = useState<boolean>(false);
 
+    // SEO Data
     const seoData = getWorksheetSEOBySlug('counting-numbers-generator');
 
     const handleDownloadPDF = async () => {
         try {
-            const element = document.getElementById('counting-preview-svg');
+            const element = document.getElementById('counting-preview-single');
             if (!element) return;
 
-            // Apply print styles for PDF generation
+            // Apply print class for safety (though template handles styles)
             element.classList.add('printing');
-
             toast({ title: 'Generating...', description: 'Preparing your high-quality PDF.' });
 
             await generateWorksheetPDF(element, {
-                filename: `wizqo-counting-${selectedNumber}.pdf`,
+                filename: `wizqo-counting-${selectedNumber}${isOutlineMode ? '-outline' : ''}.pdf`,
                 scale: 3.5,
                 docTitle: `Counting Practice - ${selectedNumber}`
             });
@@ -71,23 +205,35 @@ export default function CountingWorksheetsPage() {
             console.error('PDF Error:', err);
             toast({ title: 'Error', description: 'Failed to generate PDF.', variant: 'destructive' });
         } finally {
-            // Remove print styles
-            const element = document.getElementById('counting-preview-svg');
+            const element = document.getElementById('counting-preview-single');
             if (element) element.classList.remove('printing');
         }
     };
 
-    const renderIcons = () => {
-        const icons = [];
-        const iconData = ICONS[iconTheme];
-        for (let i = 0; i < selectedNumber; i++) {
-            icons.push(
-                <div key={i} className="text-4xl sm:text-6xl animate-in zoom-in duration-300 fill-mode-both" style={{ animationDelay: `${i * 50}ms` }}>
-                    {iconData.icon}
-                </div>
-            );
+    const handleDownloadWorkbook = async () => {
+        try {
+            const element = document.getElementById('workbook-container');
+            if (!element) return;
+
+            toast({ title: 'Building Workbook...', description: 'Generating 10-page workbook (1-10). This may take a moment.' });
+
+            // Ensure the container is "visible" for capture (it's off-screen)
+            // No class manipulation needed as it's static
+
+            await generateWorksheetPDF(element, {
+                filename: `wizqo-counting-workbook-1-10${isOutlineMode ? '-outline' : ''}.pdf`,
+                scale: 3.5, // High quality
+                docTitle: `Counting Workbook 1-10`,
+                packSections: false // Ensure each uses a full page
+            });
+
+            trackWorksheetDownload('counting-numbers-generator', `Workbook 1-10`, 'CountingWorksheetsPage', 'Pre-K');
+            toast({ title: 'Workbook Ready!', description: 'Your 1-10 workbook has been downloaded.' });
+
+        } catch (err) {
+            console.error('Workbook PDF Error:', err);
+            toast({ title: 'Error', description: 'Failed to generate Workbook.', variant: 'destructive' });
         }
-        return icons;
     };
 
     return (
@@ -134,6 +280,19 @@ export default function CountingWorksheetsPage() {
                                 </div>
                             </div>
 
+                            {/* Outline Mode Toggle */}
+                            <div className="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-100 mb-6">
+                                <div className="space-y-0.5">
+                                    <Label className="text-sm font-bold text-slate-700">Ink Saving Mode</Label>
+                                    <p className="text-xs text-slate-500">Black & white outlines for coloring</p>
+                                </div>
+                                <Switch
+                                    checked={isOutlineMode}
+                                    onCheckedChange={setIsOutlineMode}
+                                    className="data-[state=checked]:bg-purple-600"
+                                />
+                            </div>
+
                             {/* Icon Theme */}
                             <div className="space-y-3 mb-6">
                                 <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.chooseTheme')}</Label>
@@ -155,7 +314,7 @@ export default function CountingWorksheetsPage() {
                             </div>
 
                             {/* Color Theme */}
-                            <div className="space-y-3 mb-8">
+                            <div className={`space-y-3 mb-8 transition-opacity duration-300 ${isOutlineMode ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
                                 <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.colorPalette')}</Label>
                                 <div className="flex flex-wrap gap-2">
                                     {(Object.keys(THEMES) as ColorTheme[]).map((key) => (
@@ -175,20 +334,34 @@ export default function CountingWorksheetsPage() {
                                 </div>
                             </div>
 
-                            <div className="flex gap-3">
+                            <div className="space-y-3">
+                                {/* Single Download */}
+                                <div className="flex gap-3">
+                                    <Button
+                                        onClick={() => window.print()}
+                                        className="flex-1 h-12 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 font-bold shadow-lg"
+                                    >
+                                        <Printer className="w-4 h-4 mr-2" /> {t('pages.counting.printNow')}
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        onClick={handleDownloadPDF}
+                                        className="flex-1 h-12 rounded-2xl border-2 border-slate-200 font-bold hover:bg-slate-50"
+                                    >
+                                        <Download className="w-4 h-4 mr-2" /> {t('pages.counting.savePdf')}
+                                    </Button>
+                                </div>
+
+                                {/* Workbook Download Button */}
                                 <Button
-                                    onClick={() => window.print()}
-                                    className="flex-1 h-12 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 font-bold shadow-lg"
+                                    onClick={handleDownloadWorkbook}
+                                    className="w-full h-14 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 font-black shadow-xl border-2 border-slate-900 flex items-center justify-center gap-2 group transition-all hover:scale-[1.02]"
                                 >
-                                    <Printer className="w-4 h-4 mr-2" /> {t('pages.counting.printNow')}
+                                    <BookOpen className="w-5 h-5 group-hover:animate-bounce" />
+                                    <span>Download Full Workbook (1-10)</span>
+                                    <span className="bg-yellow-400 text-slate-900 text-[10px] px-2 py-0.5 rounded-full ml-auto">FREE</span>
                                 </Button>
-                                <Button
-                                    variant="outline"
-                                    onClick={handleDownloadPDF}
-                                    className="flex-1 h-12 rounded-2xl border-2 border-slate-200 font-bold hover:bg-slate-50"
-                                >
-                                    <Download className="w-4 h-4 mr-2" /> {t('pages.counting.savePdf')}
-                                </Button>
+                                <p className="text-center text-xs text-slate-400 font-medium">Get all 10 pages in one click!</p>
                             </div>
                         </div>
 
@@ -204,80 +377,35 @@ export default function CountingWorksheetsPage() {
 
                     {/* Preview */}
                     <div className="lg:col-span-7" id="counting-preview-area">
-                        <div className="sticky top-8 bg-white rounded-sm shadow-2xl border border-slate-200 aspect-[8.5/11] p-12 flex flex-col items-center overflow-hidden worksheet-section" id="counting-preview-svg">
-                            {/* Header */}
-                            <div className="w-full text-center border-b-2 border-slate-100 pb-4 mb-6 relative">
-                                <div className="absolute left-0 top-0 text-slate-200">
-                                    <Star className="w-12 h-12" />
-                                </div>
-                                <h2 className="text-3xl font-black text-slate-800 tracking-tight">Counting Practice</h2>
-                                <div className="flex justify-center items-center gap-2 mt-1">
-                                    <span className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
-                                        WIZQO MAGIC MATH
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Big Number Section */}
-                            <div className="flex-1 w-full flex flex-col items-center justify-between">
-                                <div className="text-center">
-                                    <div
-                                        className="text-[250px] leading-[1] font-normal relative pdf-gradient-text"
-                                        data-gradient-colors={colorTheme === 'rainbow' ? '#ef4444, #f97316, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899' : ''}
-                                        style={{
-                                            fontFamily: "'KG Primary Dots', sans-serif",
-                                            ...(colorTheme === 'rainbow' ? {
-                                                backgroundImage: 'linear-gradient(45deg, #ef4444, #f97316, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899)',
-                                                backgroundClip: 'text',
-                                                WebkitBackgroundClip: 'text',
-                                                WebkitTextFillColor: 'transparent',
-                                                color: 'transparent' // Fallback
-                                            } : {
-                                                color: THEMES[colorTheme].primary
-                                            })
-                                        }}
-                                    >
-                                        {selectedNumber}
-                                    </div>
-                                </div>
-
-                                {/* Icons Grid */}
-                                <div className="w-full py-2">
-                                    <p className="text-center text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">
-                                        {t('pages.counting.countIcons', { name: ICONS[iconTheme].name })}
-                                    </p>
-                                    <div className="grid grid-cols-5 gap-6 max-w-sm mx-auto place-items-center">
-                                        {renderIcons()}
-                                    </div>
-                                </div>
-
-                                {/* Word Tracing Section */}
-                                <div className="w-full text-center mt-auto border-t-2 border-slate-100 pt-8">
-                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('pages.counting.traceWord')}</p>
-                                    <div
-                                        className="text-[80px] leading-none mb-4"
-                                        style={{
-                                            fontFamily: "'Learning Curve Dashed', sans-serif",
-                                            color: THEMES[colorTheme].primary,
-                                            opacity: 0.8
-                                        }}
-                                    >
-                                        {NUMBER_NAMES[selectedNumber]}
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Footer */}
-                            <div className="w-full mt-6 flex justify-between items-end border-t border-slate-50 pt-4">
-                                <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">© wizqo.com • Free Educational Resources</p>
-                                <div className="flex gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-slate-100"></div>
-                                    <div className="w-2 h-2 rounded-full bg-slate-100"></div>
-                                    <div className="w-2 h-2 rounded-full bg-slate-100"></div>
-                                </div>
-                            </div>
+                        <div id="counting-preview-single" className="sticky top-8">
+                            <CountingWorksheetTemplate
+                                number={selectedNumber}
+                                iconTheme={iconTheme}
+                                colorTheme={colorTheme}
+                                isOutlineMode={isOutlineMode}
+                                t={t}
+                            />
                         </div>
                     </div>
+                </div>
+
+                {/* Hidden Workbook Staging Area */}
+                {/* Positioned absolute off-screen, but NOT 'display: none' so html2canvas can read it */}
+                <div
+                    id="workbook-container"
+                    style={{ position: 'absolute', top: -10000, left: -10000, width: '8.5in' }}
+                >
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                        <div key={num} className="mb-8">
+                            <CountingWorksheetTemplate
+                                number={num}
+                                iconTheme={iconTheme}
+                                colorTheme={colorTheme}
+                                isOutlineMode={isOutlineMode}
+                                t={t}
+                            />
+                        </div>
+                    ))}
                 </div>
 
                 {/* SEO Content Section */}
@@ -310,21 +438,8 @@ export default function CountingWorksheetsPage() {
                 justify-content: center !important;
                 align-items: flex-start !important;
             }
-            
-            #counting-preview-svg { 
-                width: 8.5in !important; 
-                height: 11in !important; 
-                min-height: 11in !important;
-                max-height: 11in !important;
-                box-shadow: none !important; 
-                border: none !important; 
-                padding: 0.5in !important;
-                margin: 0 !important;
-                border-radius: 0 !important;
-                overflow: hidden !important;
-                display: flex !important;
-                flex-direction: column !important;
-            }
+             /* When printing normally (CTRL+P), we typically only print the visible one */
+             #workbook-container { display: none !important; }
         }
       `}</style>
         </div>
