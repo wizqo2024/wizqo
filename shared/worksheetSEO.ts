@@ -2988,7 +2988,7 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
         <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Ready for More?</h2>
         <p style="font-size: 1.125rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Explore our other zero-setup worksheet generators and keep the learning going!</p>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
-          <a href="/worksheets/math/addition-generator" style="background: white; color: #4f46e5; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; transition: transform 0.2s;">Addition Practice</a>
+          <a href="/worksheets/addition-subtraction-within-10" style="background: white; color: #4f46e5; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; transition: transform 0.2s;">Addition Practice</a>
           <a href="/worksheets/scissor-skills-generator" style="background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; border: 1px solid white; transition: background 0.2s;">Scissor Skills</a>
         </div>
       </section>
