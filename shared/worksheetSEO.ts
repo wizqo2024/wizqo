@@ -3729,7 +3729,8 @@ export function initializeWorksheetSEO() {
     'fraction-word-problems', 'how-many-1-15', 'line-graphs', 'mean-median-mode-range', 'uppercase-lowercase-match', 'winter-kindness',
     'reading-comprehension', 'multiplication-worksheets', '5th-grade-math-worksheets', '4th-grade-math-worksheets',
     '3rd-grade-math-worksheets', '2nd-grade-math-worksheets', '1st-grade-math-worksheets', 'kindergarten-math-worksheets',
-    'interactive-worksheets-generator'
+    'interactive-worksheets-generator',
+    'counting-numbers-generator'
   ]
 
 
