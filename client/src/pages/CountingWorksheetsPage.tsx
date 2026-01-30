@@ -32,13 +32,19 @@ const DinosaurIcon = (props: any) => (
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         {...props}
     >
-        <path d="M3 20c0-3.3 2.7-6 6-6h3.6L11 9.5c-.3-1 .4-2 1.5-2H15l1.5-3.5c.3-.7 1.2-.9 1.8-.4l2.5 2.2c.5.4.6 1.1.2 1.6L19 10h-2l1 4h3c1.1 0 2 .9 2 2v2c0 1.1-.9 2-2 2h-4v-2h-2v2h-4v-2H9c-2.2 0-4-1.8-4-4v-2H3v2z" />
-        <circle cx="16" cy="8" r="0.5" fill="currentColor" />
+        {/* Head & Neck */}
+        <path d="M18 4h-1c-1.5 0-2.5 1-2.5 2.5V10" />
+        <path d="M18 4c1 0 2 .5 2 1.5s-1 1.5-2 1.5h-1" />
+        <circle cx="18.5" cy="5.2" r="0.2" fill="currentColor" />
+        {/* Body */}
+        <path d="M14.5 10c0 3-2 5-6 5h-1c-3 0-4.5 2-4.5 4v1h15v-1c0-3-1.5-6-3.5-9z" />
+        {/* Tail */}
+        <path d="M3 19c-1 0-1-1 0-2 1-1 2.5-1 4.5-1" />
     </svg>
 );
 
@@ -47,15 +53,19 @@ const BunnyIcon = (props: any) => (
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         {...props}
     >
-        <path d="M10 20v-2a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2M14 20v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M20 12.5c0-1.7-1.3-3-3-3a3 3 0 0 0-3 3v.5h-4v-.5a3 3 0 0 0-3-3c-1.7 0-3 1.3-3 3v2.5a5 5 0 0 0 5 5h6a5 5 0 0 0 5-5v-2.5z" />
-        <path d="M7 9.5V4a2 2 0 0 1 4 0v3M13 7V4a2 2 0 0 1 4 0v5.5" />
-        <circle cx="9" cy="14" r="0.5" fill="currentColor" />
-        <circle cx="15" cy="14" r="0.5" fill="currentColor" />
+        <path d="M10 18c0 1.5-1 3-3 3s-3-1.5-3-3 1.5-3 3-3 3 1.5 3 3z" />
+        <path d="M14 18c0 1.5 1 3 3 3s3-1.5 3-3-1.5-3-3-3-3 1.5-3 3z" />
+        <path d="M12 15c-3 0-5-2-5-5s2-5 5-5 5 2 5 5-2 5-5 5z" />
+        <path d="M9 6V3c0-1 1-1 1 0v3" />
+        <path d="M15 6V3c0-1-1-1-1 0v3" />
+        <circle cx="10" cy="10" r="0.5" fill="currentColor" />
+        <circle cx="14" cy="10" r="0.5" fill="currentColor" />
+        <path d="M11 12h2" />
     </svg>
 );
 
