@@ -2889,20 +2889,20 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     category: ['Math', 'Logic']
   },
   'counting-numbers-generator': {
-    title: 'Free Counting Numbers Worksheets (1-10) - Custom Creator | Wizqo',
-    h1: 'Free Counting Numbers Worksheets (1-10)',
+    title: 'Free Counting Numbers Worksheets & Tracing Generator (1-10) - Custom Creator | Wizqo',
+    h1: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)',
     image: '/images/counting-generator-seo.png',
-    metaDescription: 'Stop buying expensive workbooks. Create unlimited, fun, and colorful math worksheets for your child in seconds! 100% Free PDF • No Sign Up Required • Instant Download.',
+    metaDescription: 'Stop searching for expensive workbooks. Create unlimited, fun, and colorful math worksheets for your child in seconds! 100% Free PDF • No Sign Up Required.',
     keywords: 'counting numbers worksheets, free numbers tracing generator, kindergarten math worksheets, preschool counting games, one-to-one correspondence, free math printables, no sign up required, wizqo',
     learningObjectives: [
       'Identify and count objects from 1 to 10',
       'Understand one-to-one correspondence',
-      'Develop fine motor skills through worksheet interaction',
+      'Develop fine motor skills through number tracing',
       'Build numerical confidence with customizable themes'
     ],
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
-      <h1 style="font-size: 2.5rem; font-weight: 900; color: #011627; margin-bottom: 1rem;">Free Counting Numbers Worksheets (1-10)</h1>
-      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;"><strong>Stop buying expensive workbooks.</strong> Create unlimited, fun, and colorful math worksheets for your child in seconds!</p>
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Free Counting Numbers Worksheets & Tracing Generator (1-10)</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2rem; line-height: 1.6;"><strong>Stop buying expensive workbooks.</strong> Create unlimited, fun, and colorful math worksheets for your child in seconds!</p>
       
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Wizqo’s Free Counting Numbers Worksheets are designed to make learning math magical. Unlike boring black-and-white pages, our tool lets you customize the learning experience. Does your child love bunnies? 🐰 Race cars? 🏎️ Dinosaurs? 🦕 Simply click to change the theme, and watch their eyes light up!</p>
 
@@ -2911,52 +2911,63 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
       </div>
 
       <section style="margin-bottom: 3rem;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Turn Math into a Game</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Preschool math doesn't have to be boring. Teachers know that children learn best when they are having fun. That is why we built this tool to act like <strong>counting numbers games for kindergarten</strong>.</p>
-        <p style="color: #475569; line-height: 1.6;">By connecting "visual counting" (seeing 5 bunnies) with "number tracing" (writing the number 5), your child builds a strong foundation. They aren't just memorizing; they are understanding the relationship between counting and numbers through play.</p>
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Turn Math into a Game</h2>
+        <p style="color: #475569; line-height: 1.7; margin-bottom: 1.25rem;">Preschool math doesn't have to be boring. Teachers know that children learn best when they are having fun. That is why we built this tool to act like <strong>counting numbers games for kindergarten</strong>.</p>
+        <p style="color: #475569; line-height: 1.7;">By connecting "visual counting" (seeing 5 bunnies) with "number tracing" (writing the number 5), your child builds a strong foundation. They aren't just memorizing; they are understanding the relationship between counting and numbers through play.</p>
       </section>
 
-      <section style="margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #334155; margin-bottom: 1.5rem;">How to Use These Worksheets</h2>
-        <ol style="color: #475569; line-height: 1.8;">
-          <li><strong>Select a Number:</strong> Choose any number from 1 to 10 using the quick buttons above.</li>
-          <li><strong>Pick a Theme:</strong> Let your child choose! If they love space, pick Stars. If they love animals, pick Bunnies.</li>
-          <li><strong>Print Instantly:</strong> Click "Download PDF" to get your free counting numbers worksheets immediately. No email address needed!</li>
-        </ol>
-        <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-left: 4px solid #f59e0b; font-size: 0.95rem;">
-          <strong>Teacher Tip:</strong> Once your child masters single digits, you can use these sheets to help them learn to count between two numbers by printing a sequence (e.g., 4, 5, and 6) and stapling them together into a mini-book!
+      <section style="margin-bottom: 3rem; background: #f8fafc; padding: 2.5rem; border-radius: 20px; border: 1px solid #e2e8f0;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">How to Use These Worksheets</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #7c3aed; margin-bottom: 0.5rem;">1. Select a Number</h3>
+            <p style="font-size: 0.95rem; color: #64748b;">Choose any number from 1 to 10 using the quick buttons above.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #7c3aed; margin-bottom: 0.5rem;">2. Pick a Theme</h3>
+            <p style="font-size: 0.95rem; color: #64748b;">Let your child choose! If they love space, pick Stars. If they love animals, pick Bunnies.</p>
+          </div>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #7c3aed; margin-bottom: 0.5rem;">3. Print Instantly</h3>
+            <p style="font-size: 0.95rem; color: #64748b;">Click "Download PDF" to get your free counting numbers worksheets immediately. No email address needed!</p>
+          </div>
+        </div>
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px dashed #cbd5e1;">
+          <p style="font-style: italic; color: #475569;"><strong>Teacher Tip:</strong> Once your child masters single digits, you can use these sheets to help them learn to count between two numbers by printing a sequence (e.g., 4, 5, and 6) and stapling them together into a mini-book!</p>
         </div>
       </section>
 
       <section style="margin-bottom: 3rem;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Why "One-to-One Correspondence" Matters?</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">You might just see cute icons, but this tool teaches a critical skill called <strong>"One-to-One Correspondence."</strong> This is the ability to point at one object and say one number name.</p>
-        <p style="color: #475569; line-height: 1.6;">Our generator places icons in clear, easy-to-count rows. This helps toddlers and preschoolers slow down and count accurately, bridging the gap between simple reciting and true mathematical understanding.</p>
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Why "One-to-One Correspondence" Matters?</h2>
+        <p style="color: #475569; line-height: 1.7; margin-bottom: 1.25rem;">You might just see cute icons, but this tool teaches a critical skill called <strong>"One-to-One Correspondence."</strong> This is the ability to point at one object and say one number name.</p>
+        <p style="color: #475569; line-height: 1.7;">Our generator places icons in clear, easy-to-count rows. This helps toddlers and preschoolers slow down and count accurately, bridging the gap between simple reciting and true mathematical understanding.</p>
       </section>
 
-      <section style="margin-bottom: 3rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1.5rem;">Frequently Asked Questions (FAQ)</h2>
-        <div style="margin-bottom: 1.5rem;">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Is this tool really free?</h3>
-          <p style="color: #475569; line-height: 1.5;">Yes! You can generate as many PDFs as you want. There are no hidden fees, and no sign up is required. We believe education should be accessible to everyone.</p>
-        </div>
-        <div style="margin-bottom: 1.5rem;">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">What age is this for?</h3>
-          <p style="color: #475569; line-height: 1.5;">These worksheets are perfect for Toddlers (Ages 2-3) who are just learning to recognize numbers, and Preschool/Kindergarten (Ages 3-5) students practicing writing and counting.</p>
-        </div>
-        <div>
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Can I use this for my classroom?</h3>
-          <p style="color: #475569; line-height: 1.5;">Absolutely! Teachers love our tool because they can create a unique worksheet for every student. It’s the ultimate resource for counting numbers games in kindergarten.</p>
+      <section style="margin-bottom: 4rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 2rem;">Frequently Asked Questions (FAQ)</h2>
+        <div style="space-y: 1.5rem;">
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-size: 1.125rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Is this tool really free?</h4>
+            <p style="color: #64748b; line-height: 1.6;">Yes! You can generate as many PDFs as you want. There are no hidden fees, and no sign up is required. We believe education should be accessible to everyone.</p>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-size: 1.125rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">What age is this for?</h4>
+            <p style="color: #64748b; line-height: 1.6;">These worksheets are perfect for Toddlers (Ages 2-3) who are just learning to recognize numbers, and Preschool/Kindergarten (Ages 3-5) students practicing writing and counting.</p>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-size: 1.125rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Can I use this for my classroom?</h4>
+            <p style="color: #64748b; line-height: 1.6;">Absolutely! Teachers love our tool because they can create a unique worksheet for every student. It’s the ultimate resource for counting numbers games in kindergarten.</p>
+          </div>
         </div>
       </section>
 
-      <div style="padding: 2rem; background: #f1f5f9; border-radius: 12px; margin-top: 2rem;">
-        <h3 style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">🚀 Need More Practice?</h3>
-        <ul style="color: #475569; line-height: 1.8;">
-          <li><a href="/worksheets/scissor-skills-generator" style="color: #2563eb; text-decoration: underline;">Scissor Skills Generator</a> - Improve fine motor control through creative cutting.</li>
-          <li><a href="/worksheets/spelling-list-generator" style="color: #2563eb; text-decoration: underline;">Spelling List Generator</a> - Create custom spelling and handwriting practice sheets.</li>
-        </ol>
-      </div>
+      <section style="border-top: 2px solid #f1f5f9; padding-top: 3rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">🚀 Need More Practice?</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+          <a href="/worksheets/scissor-skills-generator" style="background: #eef2ff; color: #4338ca; padding: 1rem 1.5rem; border-radius: 12px; text-decoration: none; font-weight: 700; border: 1px solid #c7d2fe;">✂️ Scissor Skills Generator</a>
+          <a href="/worksheets/spelling-list-generator" style="background: #fff7ed; color: #c2410c; padding: 1rem 1.5rem; border-radius: 12px; text-decoration: none; font-weight: 700; border: 1px solid #ffedd5;">📝 Spelling List Generator</a>
+        </div>
+      </section>
     </article>`
   }
 };
@@ -3833,179 +3844,6 @@ export function getAllWorksheetSEO(): WorksheetSEO[] {
  * SEO metadata and rich content for high-traffic Category Hub pages.
  */
 export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
-  'scissor-skills-generator': {
-    title: 'Free Scissor Skills Generator | Preschool Cutting Practice Worksheets | No Sign Up',
-    metaDescription: 'Stop buying workbooks. Generate unlimited cutting practice worksheets for preschoolers. Create custom straight, wavy, and zig-zag cutting strips. 100% Free PDF, no account needed.',
-    image: '/images/scissor-skills.png',
-    keywords: 'scissor skills generator, preschool cutting practice, free printable cutting activities, kindergarten prep, fine motor skills, preschool worksheets',
-    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
-      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Master Scissor Skills: Free Printable Cutting Practice</h1>
-      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Developing fine motor skills shouldn't cost a fortune in workbooks. With Wizqo’s <strong>Scissor Skills Generator</strong>, you can create endless cutting practice worksheets in seconds. Whether your child is just learning to hold scissors or needs to practice complex zig-zags for Kindergarten readiness, our tool lets you print exactly what you need.</p>
-      
-      <section style="margin-bottom: 3rem; background: #fdf2f8; padding: 2rem; border-radius: 12px; border: 1px solid #fce7f3;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #86198f; margin-bottom: 1.5rem;">Why Parents & Teachers Love This Tool</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #701a75; margin-bottom: 0.75rem;">Save Money</h3>
-            <p style="color: #475569;">Stop buying "one-time use" cutting books. Print as many pages as you need for free.</p>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #701a75; margin-bottom: 0.75rem;">Customizable Difficulty</h3>
-            <p style="color: #475569;">Start with thick, straight lines for beginners. Switch to thin, wavy lines as they improve.</p>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #701a75; margin-bottom: 0.75rem;">Instant Access</h3>
-            <p style="color: #475569;">No email required. No login. Just click and print. 100% free accessibility.</p>
-          </div>
-        </div>
-      </section>
-
-      <section style="margin-bottom: 3rem;">
-        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Educational Benefits: Why Cutting Practice Matters</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Using scissors is a major developmental milestone. It builds fine motor skills and hand-eye coordination that children need before they can learn to write.</p>
-        <ul style="color: #475569; line-height: 1.8;">
-          <li><strong>Bilateral Coordination:</strong> Cutting requires using both hands together—one to cut, one to hold the paper.</li>
-          <li><strong>Hand Strength:</strong> The "open-close" motion builds the tiny muscles in the hand needed for gripping a pencil later.</li>
-          <li><strong>Focus & Attention:</strong> Following a line requires sustained concentration and visual tracking.</li>
-        </ul>
-      </section>
-
-      <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Preschool Cutting Practice FAQ</h2>
-        <div style="margin-bottom: 1.5rem;">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">At what age should I start cutting practice?</h3>
-          <p style="color: #475569;">Most children are ready to start preschool cutting practice around age 3 or 4. Start with our "Thick Straight Lines" to build confidence before moving to shapes.</p>
-        </div>
-        <div style="margin-bottom: 1.5rem;">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">Is this good for Kindergarten prep?</h3>
-          <p style="color: #475569;">Absolutely. Mastering scissor skills is a key requirement for entering Kindergarten. Teachers often look for students who can cut along a curved line independently.</p>
-        </div>
-        
-        <div style="margin-top: 4rem; border-top: 1px solid #f1f5f9; padding-top: 2rem;">
-          <h3 style="font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;">Tool Preview</h3>
-          <img 
-            src="/images/scissor-skills.png" 
-            alt="Free preschool cutting practice worksheet generator" 
-            style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;"
-            loading="lazy"
-          />
-          <p style="text-align: center; color: #64748b; font-size: 0.875rem; mt-2;">Generate custom cutting strips for fine motor practice. Free PDF.</p>
-        </div>
-      </section>
-    </article>`
-  },
-  'blog': {
-    title: 'Wizqo Blog | Parenting Tips, Teaching Strategies & Learning Resources',
-    metaDescription: 'Explore the Wizqo Blog for expert parenting advice, teacher resources, and effective teaching strategies. Stay updated with the latest in early childhood education.',
-    image: '/images/blog-hub-seo.png',
-    keywords: 'parenting blog, teaching strategies, education resources for parents, teacher tips, early childhood learning, homeschooling advice, wizqo blog',
-    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
-      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">The Wizqo Blog: Empowering Educators and Parents</h1>
-      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to the <strong>Wizqo Blog</strong>, your hub for practical insights, creative teaching ideas, and expert parenting advice. We are committed to supporting the global community of educators and parents by providing high-quality content that makes learning at home and in the classroom more effective and engaging.</p>
-      
-      <section style="margin-bottom: 3rem; background: #faf5ff; padding: 2rem; border-radius: 12px; border: 1px solid #f3e8ff;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #581c87; margin-bottom: 1.5rem;">What You'll Find on Our Blog</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #6b21a8; margin-bottom: 0.75rem;">Teaching Strategies</h3>
-            <p style="color: #475569;">Discover proven techniques for teaching complex concepts like multiplication, cursive writing, and phonics to young learners with ease.</p>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #6b21a8; margin-bottom: 0.75rem;">Parenting Resources</h3>
-            <p style="color: #475569;">From managing screen time to fostering a growth mindset, our parenting guides provide actionable tips for supporting your child's emotional and academic development.</p>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #6b21a8; margin-bottom: 0.75rem;">Product Updates</h3>
-            <p style="color: #475569;">Be the first to know about new worksheet generators, interactive tools, and feature enhancements designed to save you time and improve learning outcomes.</p>
-          </div>
-        </div>
-      </section>
-
-      <section style="margin-bottom: 3rem;">
-        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Expert-Led Educational Insights</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Our team of educators and child development specialists curates every article to ensure it meets the highest standards of accuracy and utility. We cover a wide range of topics, including:</p>
-        <ul style="color: #475569; line-height: 1.8; columns: 2; -webkit-columns: 2;">
-          <li>Early Literacy & Phonics</li>
-          <li>Mental Math Techniques</li>
-          <li>Classroom Management Tips</li>
-          <li>Homeschooling Best Practices</li>
-          <li>Fine Motor Skill Development</li>
-          <li>STEM Education for Kids</li>
-        </ul>
-      </section>
-
-      <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Join Our Learning Community</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 2rem;">The Wizqo Blog is more than just a collection of articles; it's a growing community of people dedicated to excellence in education. Subscribe to our newsletter to receive the latest tips and free resources directly in your inbox, and join us as we empower learning together.</p>
-        
-        <div style="margin-top: 4rem; border-top: 1px solid #f1f5f9; padding-top: 2rem;">
-          <h3 style="font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;">Blog Hub Preview</h3>
-          <img 
-            src="/images/blog-hub-seo.png" 
-            alt="Wizqo Blog Hub Preview" 
-            style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;"
-            loading="lazy"
-          />
-        </div>
-      </section>
-    </article>`
-  },
-  'home': {
-    title: 'Free Printable Worksheets for Kids | Math, Reading, Writing | Wizqo',
-    metaDescription: 'Download 1000+ free printable worksheets for K-5 learners. High-quality math, reading comprehension, and handwriting practice with answer keys included. 100% free PDFs.',
-    image: '/images/hero-real.png',
-    keywords: 'free printable worksheets, math worksheets for kids, reading comprehension passages, handwriting practice sheets, free educational printables, K-5 learning resources, teachers worksheets, parents homeschooling tools',
-    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
-      <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Free Printable Worksheets for Kids: The Wizqo Learning Library</h1>
-      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo, your destination for high-quality, <strong>free printable worksheets</strong>. We believe that every child deserves access to premium educational resources. Our library is designed to turn the "work" of learning into a journey of discovery, providing teachers and parents with the tools they need to foster student success at home and in the classroom.</p>
-      
-      <section style="margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">The Wizqo Difference: Why Educators Choose Us</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">100% Free Access</h3>
-            <p style="color: #475569;">No subscriptions, no paywalls. Every worksheet in our library is completely free to download and print, ensuring that financial barriers never stand in the way of a child's education.</p>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">Answer Keys Included</h3>
-            <p style="color: #475569;">We respect your time. Every academic worksheet automatically includes a comprehensive answer key appendix, making grading and immediate feedback effortless for busy parents and teachers.</p>
-          </div>
-          <div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;">AI-Powered Personalization</h3>
-            <p style="color: #475569;">Beyond our static library, our proprietary interactive generators allow you to create custom handwriting, spelling, and math sheets tailored to your student's unique needs.</p>
-          </div>
-        </div>
-      </section>
-
-      <section style="margin-bottom: 3rem;">
-        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Comprehensive K-5 Curriculum Support</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Our resources are aligned with Core developmental standards, covering all essential subjects for elementary excellence:</p>
-        <ul style="color: #475569; line-height: 1.8; columns: 2; -webkit-columns: 2;">
-          <li>Math: Addition to Algebra</li>
-          <li>Reading Comprehension</li>
-          <li>Handwriting & Tracing</li>
-          <li>Spelling & Vocabulary</li>
-          <li>Science & Social Studies</li>
-          <li>Critical Thinking Puzzles</li>
-        </ul>
-      </section>
-
-      <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Start Your Story of Success</h2>
-        <p style="color: #475569; line-height: 1.6; margin-bottom: 2rem;">Whether you're looking for a quick morning warm-up, a deep-dive reading passage, or a custom name-tracing sheet for your kindergartener, Wizqo is your dedicated partner in literacy and logic. Join our growing community of educators today and experience the difference of premium, printable learning.</p>
-        
-        <div style="margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;">
-          <h3 style="font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;">Learning Preview</h3>
-          <img 
-            src="/images/hero-real.png" 
-            alt="Wizqo Free Learning Worksheets Preview" 
-            style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;"
-            loading="lazy"
-          />
-        </div>
-      </section>
-    </article>`
-  },
   'handwriting-worksheet-maker': {
     title: 'Free Custom Name Tracing Generator | Handwriting Practice Maker | Wizqo',
     metaDescription: 'Create personalized name tracing and handwriting practice worksheets for free. Custom cursive and print tracing generators for kids, parents, and teachers. No login required.',
@@ -4061,56 +3899,56 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
   'all': {
     title: 'All Free Printable Worksheets | Math, Reading, Writing & More | Wizqo',
     metaDescription: 'Browse all free printable worksheets for kids (K-5). Math, reading, writing, tracing, and multiplication worksheets with answer keys - 100% free, ready to print.',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free Printable Worksheets for Kids: The Complete Learning Library</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Join thousands of parents and teachers who trust Wizqo for high-quality, free printable math and literacy worksheets. Our collection spans from early childhood foundations to advanced elementary skills, providing a seamless educational journey for every student.</p><section style=\"margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;\">Wizqo: Empowering Learners Through High-Quality Printables</h2><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;\">Why Physical Worksheets Matter in a Digital World</h3><p style=\"color: #475569; margin-bottom: 1.5rem;\">At Wizqo, we believe in the \"Print-First\" philosophy. Research shows that physically writing and solving problems on paper improves retention, motor skills, and deep focus. Our massive library of <strong>free printable worksheets</strong> is designed to provide teachers and parents with expert-level resources without the noise of digital distractions. Engaging with physical paper allows a child's brain to map spatial relationships more effectively, turning abstract concepts into tangible victories.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;\">The Core Learning Pillars</h3><ul style=\"color: #475569; line-height: 1.8;\"><li><strong>Comprehensive K-5 Math:</strong> Every grade, every standard. From counting 1-20 to intermediate algebra and geometry. We provide structured paths for arithmetic mastery.</li><li><strong>Literacy & Discovery:</strong> Reading comprehension passages that build critical thinking and vocabulary at multiple grade levels. Our stories are designed to engage and inspire.</li><li><strong>Custom Learning Tools:</strong> Interactive generators for handwriting, name tracing, and specialized certificates to celebrate growth. We make personalization easy and free.</li></ul><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-top: 1.5rem; margin-bottom: 0.75rem;\">Future-Proofing Through Fundamental Mastery</h3><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1.5rem;\">In an era of rapid technological change, the fundamentals remain the most stable assets a student can possess. By mastering the core principles of symbolic logic, linguistic structure, and numerical operation, children build a \"Cognitive Insurance Policy\" that serves them for a lifetime. Our worksheets are not just about passing the next test; they are about fostering the mental resilience and procedural stability required to tackle the unknown challenges of the future. We prioritize clarity of thought over simple rote memorization, encouraging students to explain their reasoning and visualize their results.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-top: 1.5rem; margin-bottom: 0.75rem;\">Supporting Holistic Student Growth</h3><p style=\"color: #475569; line-height: 1.6;\">Beyond just academics, Wizqo resources are designed to build the \"Softer Skills\" of scholarship: concentration, discipline, and the habit of checking one's work. By providing high-quality, free materials, we remove the financial barriers to excellence. Whether you are a teacher looking for supplementary classroom material or a parent seeking to reinforce learning at home, our library is your dedicated partner in student success. Start exploring today and see the difference that high-fidelity educational assets can make.</p></section><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/math-worksheets-seo.png\" alt=\"Math Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free Printable Worksheets for Kids: The Complete Learning Library</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Join thousands of parents and teachers who trust Wizqo for high-quality, free printable math and literacy worksheets. Our collection spans from early childhood foundations to advanced elementary skills, providing a seamless educational journey for every student.</p><section style=\"margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;\">Wizqo: Empowering Learners Through High-Quality Printables</h2><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;\">Why Physical Worksheets Matter in a Digital World</h3><p style=\"color: #475569; margin-bottom: 1.5rem;\">At Wizqo, we believe in the \"Print-First\" philosophy. Research shows that physically writing and solving problems on paper improves retention, motor skills, and deep focus. Our massive library of <strong>free printable worksheets</strong> is designed to provide teachers and parents with expert-level resources without the noise of digital distractions. Engaging with physical paper allows a child's brain to map spatial relationships more effectively, turning abstract concepts into tangible victories.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;\">The Core Learning Pillars</h3><ul style=\"color: #475569; line-height: 1.8;\"><li><strong>Comprehensive K-5 Math:</strong> Every grade, every standard. From counting 1-20 to intermediate algebra and geometry. We provide structured paths for arithmetic mastery.</li><li><strong>Literacy & Discovery:</strong> Reading comprehension passages that build critical thinking and vocabulary at multiple grade levels. Our stories are designed to engage and inspire.</li><li><strong>Custom Learning Tools:</strong> Interactive generators for handwriting, name tracing, and specialized certificates to celebrate growth. We make personalization easy and free.</li></ul><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-top: 1.5rem; margin-bottom: 0.75rem;\">Future-Proofing Through Fundamental Mastery</h3><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1.5rem;\">In an era of rapid technological change, the fundamentals remain the most stable assets a student can possess. By mastering the core principles of symbolic logic, linguistic structure, and numerical operation, children build a \"Cognitive Insurance Policy\" that serves them for a lifetime. Our worksheets are not just about passing the next test; they are about fostering the mental resilience and procedural stability required to tackle the unknown challenges of the future. We prioritize clarity of thought over simple rote memorization, encouraging students to explain their reasoning and visualize their results.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-top: 1.5rem; margin-bottom: 0.75rem;\">Supporting Holistic Student Growth</h3><p style=\"color: #475569; line-height: 1.6;\">Beyond just academics, Wizqo resources are designed to build the \"Softer Skills\" of scholarship: concentration, discipline, and the habit of checking one's work. By providing high-quality, free materials, we remove the financial barriers to excellence. Whether you are a teacher looking for supplementary classroom material or a parent seeking to reinforce learning at home, our library is your dedicated partner in student success. Start exploring today and see the difference that high-fidelity educational assets can make.</p></section></article>"
   },
 
   'multiplication-worksheets': {
     title: 'Free Multiplication Worksheets - Printable PDFs with Answer Keys',
     metaDescription: 'Help your child master multiplication with our free multiplication worksheets! Practice multiplication facts, arrays, and word problems with answer keys.',
     image: '/assets/previews/math-hub-preview.png',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free Multiplication Worksheets: Concepts & Visual Models</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Join thousands of parents and teachers who trust Wizqo for high-quality, free printable math worksheets. Our multiplication series is designed to build a deep, conceptual bridge between simple addition and high-level algebraic thinking.</p><section style=\"margin-bottom: 3rem; background: #fdfcfb; padding: 2rem; border-radius: 12px; border: 1px solid #fdf4ff;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;\">Understanding Multiplication Beyond Memorization</h2><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;\">The Power of Visual Models</h3><p style=\"color: #475569; margin-bottom: 1.5rem;\">Multiplication is more than just \"times-ing\" numbers; it is about scaling, grouping, and spatial relationships. Using <strong>Arrays</strong> and <strong>Area Models</strong> helps students visualize why 3x4 is the same as 3 groups of 4. This conceptual depth is critical for solving complex word problems in 3rd and 4th grade. When a student can \"see\" the multiplication as a physical grid, they build the foundational mental maps required for geometry and physics.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;\">Key Strategies to Teach First</h3><ul style=\"color: #475569; line-height: 1.8;\"><li><strong>Equal Groups:</strong> Start by showing that 2x6 is simply \"2 groups of 6.\" This anchors the abstract symbol to a concrete reality.</li><li><strong>Array Drawing:</strong> Use rows and columns to represent calculations. Arrays are the perfect transition to understanding area and perimeter.</li><li><strong>Repeated Addition:</strong> Help students realize that multiplication is a shortcut for addition, fostering an appreciation for mathematical efficiency.</li></ul><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-top: 1.5rem; margin-bottom: 0.75rem;\">Building Multiplication Fluency for Lifelong Success</h3><p style=\"color: #475569; line-height: 1.6;\">Automaticity in multiplication facts is one of the single best predictors of student success in middle school math. By removing the \"computational load\" of simple facts, students can focus their mental energy on higher-order problem solving and logical derivation. Wizqo's worksheets provide the targeted, high-repetition practice needed to move these facts from short-term memory to permanent storage. Whether you are working through the basic 1-12 tables or tackling multi-digit long multiplication, our resources provide the clear structure and immediate feedback necessary for rapid improvement. Download your multiplication pack today and start building total math confidence.</p></section><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/math-multiplication-seo.png\" alt=\"Multiplication Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free Multiplication Worksheets: Concepts & Visual Models</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Join thousands of parents and teachers who trust Wizqo for high-quality, free printable math worksheets. Our multiplication series is designed to build a deep, conceptual bridge between simple addition and high-level algebraic thinking.</p><section style=\"margin-bottom: 3rem; background: #fdfcfb; padding: 2rem; border-radius: 12px; border: 1px solid #fdf4ff;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;\">Understanding Multiplication Beyond Memorization</h2><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;\">The Power of Visual Models</h3><p style=\"color: #475569; margin-bottom: 1.5rem;\">Multiplication is more than just \"times-ing\" numbers; it is about scaling, grouping, and spatial relationships. Using <strong>Arrays</strong> and <strong>Area Models</strong> helps students visualize why 3x4 is the same as 3 groups of 4. This conceptual depth is critical for solving complex word problems in 3rd and 4th grade. When a student can \"see\" the multiplication as a physical grid, they build the foundational mental maps required for geometry and physics.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.75rem;\">Key Strategies to Teach First</h3><ul style=\"color: #475569; line-height: 1.8;\"><li><strong>Equal Groups:</strong> Start by showing that 2x6 is simply \"2 groups of 6.\" This anchors the abstract symbol to a concrete reality.</li><li><strong>Array Drawing:</strong> Use rows and columns to represent calculations. Arrays are the perfect transition to understanding area and perimeter.</li><li><strong>Repeated Addition:</strong> Help students realize that multiplication is a shortcut for addition, fostering an appreciation for mathematical efficiency.</li></ul><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-top: 1.5rem; margin-bottom: 0.75rem;\">Building Multiplication Fluency for Lifelong Success</h3><p style=\"color: #475569; line-height: 1.6;\">Automaticity in multiplication facts is one of the single best predictors of student success in middle school math. By removing the \"computational load\" of simple facts, students can focus their mental energy on higher-order problem solving and logical derivation. Wizqo's worksheets provide the targeted, high-repetition practice needed to move these facts from short-term memory to permanent storage. Whether you are working through the basic 1-12 tables or tackling multi-digit long multiplication, our resources provide the clear structure and immediate feedback necessary for rapid improvement. Download your multiplication pack today and start building total math confidence.</p></section></article>"
   },
   'reading-comprehension': {
     title: 'Free Reading Comprehension Worksheets (PDF) - Passages & Questions',
     metaDescription: 'Download 100+ free reading comprehension worksheets. High-interest passages, question sets, and answer keys for Grades 1-5. Print or save as PDF instantly.',
     image: '/assets/previews/reading-hub-preview.png',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free Reading Comprehension Worksheets: Passages & Q&A</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Join thousands of parents and teachers who trust Wizqo for high-quality, free printable literacy worksheets. Reading comprehension is the bedrock of all future learning, and our resources are designed to turn passive readers into active, inquisitive thinkers.</p><section style=\"margin-bottom: 3rem; background: #ecfeff; padding: 2rem; border-radius: 12px; border: 1px solid #cffafe;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #0891b2; margin-bottom: 1.5rem;\">Reading Comprehension: Mastering the Art of Literacy Discovery</h2><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #164e63; margin-bottom: 0.75rem;\">Beyond Decoding: Building Meaning</h3><p style=\"color: #0891b2; margin-bottom: 1.5rem;\">Reading is more than just sounding out words; it's about building a bridge to new worlds. Our \"Reading Discovery\" passages are crafted to help students move from <strong>phonics fluency</strong> to deep <strong>conceptual understanding</strong>. By engaging with narratives that relate to their daily lives and interests, students learn to extract evidence and infer meaning - skills that are vital for both academic success and informed citizenship.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #164e63; margin-bottom: 0.75rem;\">Core Literacy Milestones</h3><ul style=\"color: #0891b2; line-height: 1.8;\"><li><strong>Detail Identification:</strong> Learning to find specific proof in the text to answer \"Who\" and \"What\" questions. This builds the habit of evidence-based reasoning.</li><li><strong>Sequence Mastery:</strong> Developing the ability to order events logically, which is the foundation of narrative structure and historical understanding.</li><li><strong>Context Clue Decoding:</strong> Using surrounding text to unlock the meaning of unfamiliar words, fostering independent vocabulary growth.</li></ul><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #164e63; margin-top: 1.5rem; margin-bottom: 0.75rem;\">The Path to Empathetic Reading</h3><p style=\"color: #0891b2; line-height: 1.6;\">At Wizqo, we believe that reading is an act of empathy. Our carefully selected passages introduce students to diverse perspectives and scenarios, encouraging them to consider character motivations and emotional arcs. This \"Social-Emotional Reading\" approach helps children develop the emotional intelligence needed for successful social interaction. Every worksheet includes a comprehensive teacher/parent answer key to facilitate meaningful discussion and ensure that no student is left behind. Start your journey into stories and truth today with Wizqo's free literacy library.</p></section><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/reading-comprehension-seo.png\" alt=\"Reading Comprehension Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free Reading Comprehension Worksheets: Passages & Q&A</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Join thousands of parents and teachers who trust Wizqo for high-quality, free printable literacy worksheets. Reading comprehension is the bedrock of all future learning, and our resources are designed to turn passive readers into active, inquisitive thinkers.</p><section style=\"margin-bottom: 3rem; background: #ecfeff; padding: 2rem; border-radius: 12px; border: 1px solid #cffafe;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #0891b2; margin-bottom: 1.5rem;\">Reading Comprehension: Mastering the Art of Literacy Discovery</h2><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #164e63; margin-bottom: 0.75rem;\">Beyond Decoding: Building Meaning</h3><p style=\"color: #0891b2; margin-bottom: 1.5rem;\">Reading is more than just sounding out words; it's about building a bridge to new worlds. Our \"Reading Discovery\" passages are crafted to help students move from <strong>phonics fluency</strong> to deep <strong>conceptual understanding</strong>. By engaging with narratives that relate to their daily lives and interests, students learn to extract evidence and infer meaning - skills that are vital for both academic success and informed citizenship.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #164e63; margin-bottom: 0.75rem;\">Core Literacy Milestones</h3><ul style=\"color: #0891b2; line-height: 1.8;\"><li><strong>Detail Identification:</strong> Learning to find specific proof in the text to answer \"Who\" and \"What\" questions. This builds the habit of evidence-based reasoning.</li><li><strong>Sequence Mastery:</strong> Developing the ability to order events logically, which is the foundation of narrative structure and historical understanding.</li><li><strong>Context Clue Decoding:</strong> Using surrounding text to unlock the meaning of unfamiliar words, fostering independent vocabulary growth.</li></ul><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #164e63; margin-top: 1.5rem; margin-bottom: 0.75rem;\">The Path to Empathetic Reading</h3><p style=\"color: #0891b2; line-height: 1.6;\">At Wizqo, we believe that reading is an act of empathy. Our carefully selected passages introduce students to diverse perspectives and scenarios, encouraging them to consider character motivations and emotional arcs. This \"Social-Emotional Reading\" approach helps children develop the emotional intelligence needed for successful social interaction. Every worksheet includes a comprehensive teacher/parent answer key to facilitate meaningful discussion and ensure that no student is left behind. Start your journey into stories and truth today with Wizqo's free literacy library.</p></section></article>"
   },
   '5th-grade-math-worksheets': {
     title: '5th Grade Math Worksheets  -  Free Printable PDF',
     metaDescription: 'Master upper elementary math with our 5th grade worksheets. Covers decimals, fraction operations, algebra basics (PEMDAS), and volume.',
     image: '/assets/previews/math-hub-preview.png',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 5th Grade Math Worksheets: Pre-Algebra & Advanced Geometry</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Join thousands of parents and teachers who trust Wizqo for 5th grade mastery. This pivotal year sets the stage for success in middle school and beyond.</p><section style=\"margin-bottom: 3rem; background: #f0fdf4; padding: 2rem; border-radius: 12px; border: 1px solid #dcfce7;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #166534; margin-bottom: 1.5rem;\">The 5th Grade Transition: Mastering Middle School Foundations</h2><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #14532d; margin-bottom: 0.75rem;\">Building Algebraic Thinking</h3><p style=\"color: #166534; margin-bottom: 1.5rem;\">5th grade is the \"pivotal year\" where math moves from concrete arithmetic to abstract logic. Mastering <strong>order of operations (PEMDAS)</strong> and working with <strong>variables</strong> are the essential foundations of algebraic readiness. Our worksheets guide students through the multi-step reasoning needed to untangle complex expressions and solve for unknowns.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #14532d; margin-bottom: 0.75rem;\">Key 5th Grade Standards Covered</h3><ul style=\"color: #166534; line-height: 1.8;\"><li><strong>Geometric Volume:</strong> Transitioning from 2D area to 3D space understanding ($V = l \\times w \\times h$). We help students visualize how layers of area build volume.</li><li><strong>Coordinate Planes:</strong> Understanding the relationship between (x, y) coordinates. This is the first step toward graphing functions and mapping data.</li><li><strong>Decimal Fluency:</strong> Performing all four operations (addition, subtraction, multiplication, division) with multi-digit decimals with precision.</li></ul><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #14532d; margin-top: 1.5rem; margin-bottom: 0.75rem;\">Preparing for the Rigor of Intermediate Math</h3><p style=\"color: #166534; line-height: 1.6;\">The leap from 4th to 5th grade math is significant. Students are expected to handle larger numbers, more complex fractions, and the introductory concepts of statistics and probability. Wizqo's high-resolution PDF worksheets are designed to reduce the cognitive friction of this transition. By providing clear examples, structured workspace, and immediate feedback through answer keys, we ensure that every student can master these challenging concepts. Whether you are prepping for standardized tests or reinforcing daily lessons, our 5th grade hub is your comprehensive resource for academic excellence.</p></section><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/math-grade-5-seo.png\" alt=\"5th Grade Math Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 5th Grade Math Worksheets: Pre-Algebra & Advanced Geometry</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Join thousands of parents and teachers who trust Wizqo for 5th grade mastery. This pivotal year sets the stage for success in middle school and beyond.</p><section style=\"margin-bottom: 3rem; background: #f0fdf4; padding: 2rem; border-radius: 12px; border: 1px solid #dcfce7;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #166534; margin-bottom: 1.5rem;\">The 5th Grade Transition: Mastering Middle School Foundations</h2><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #14532d; margin-bottom: 0.75rem;\">Building Algebraic Thinking</h3><p style=\"color: #166534; margin-bottom: 1.5rem;\">5th grade is the \"pivotal year\" where math moves from concrete arithmetic to abstract logic. Mastering <strong>order of operations (PEMDAS)</strong> and working with <strong>variables</strong> are the essential foundations of algebraic readiness. Our worksheets guide students through the multi-step reasoning needed to untangle complex expressions and solve for unknowns.</p><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #14532d; margin-bottom: 0.75rem;\">Key 5th Grade Standards Covered</h3><ul style=\"color: #166534; line-height: 1.8;\"><li><strong>Geometric Volume:</strong> Transitioning from 2D area to 3D space understanding ($V = l \\times w \\times h$). We help students visualize how layers of area build volume.</li><li><strong>Coordinate Planes:</strong> Understanding the relationship between (x, y) coordinates. This is the first step toward graphing functions and mapping data.</li><li><strong>Decimal Fluency:</strong> Performing all four operations (addition, subtraction, multiplication, division) with multi-digit decimals with precision.</li></ul><h3 style=\"font-size: 1.25rem; font-weight: 700; color: #14532d; margin-top: 1.5rem; margin-bottom: 0.75rem;\">Preparing for the Rigor of Intermediate Math</h3><p style=\"color: #166534; line-height: 1.6;\">The leap from 4th to 5th grade math is significant. Students are expected to handle larger numbers, more complex fractions, and the introductory concepts of statistics and probability. Wizqo's high-resolution PDF worksheets are designed to reduce the cognitive friction of this transition. By providing clear examples, structured workspace, and immediate feedback through answer keys, we ensure that every student can master these challenging concepts. Whether you are prepping for standardized tests or reinforcing daily lessons, our 5th grade hub is your comprehensive resource for academic excellence.</p></section></article>"
   },
   '4th-grade-math-worksheets': {
     title: '4th Grade Math Worksheets  -  Free Printable PDF',
     metaDescription: 'Download free 4th grade math worksheets. Covers multi-digit multiplication, long division, equivalent fractions, decimals, and geometry.',
     image: '/assets/previews/math-hub-preview.png',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 4th Grade Math Worksheets: Operations & Fraction Mastery</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">High-quality 4th grade printables for home and classroom use.</p><section style=\"margin-bottom: 3rem; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;\">Scaling Up: Advanced Operations and Fractions</h2><p style=\"color: #475569; margin-bottom: 1.5rem;\">In 4th grade, math becomes more complex with long division and multi-step word problems. Our worksheets are designed to break these concepts down into manageable steps.</p><ul><li><strong>Fraction Equivalence:</strong> Building a deep understanding of parts of a whole.</li><li><strong>Multi-Digit Multiplication:</strong> Mastery of the standard algorithm and area models.</li><li><strong>Geometry:</strong> Identifying angles, lines, and symmetry in shapes.</li></ul></section><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/math-grade-4-seo.png\" alt=\"4th Grade Math Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 4th Grade Math Worksheets: Operations & Fraction Mastery</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">High-quality 4th grade printables for home and classroom use.</p><section style=\"margin-bottom: 3rem; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;\">Scaling Up: Advanced Operations and Fractions</h2><p style=\"color: #475569; margin-bottom: 1.5rem;\">In 4th grade, math becomes more complex with long division and multi-step word problems. Our worksheets are designed to break these concepts down into manageable steps.</p><ul><li><strong>Fraction Equivalence:</strong> Building a deep understanding of parts of a whole.</li><li><strong>Multi-Digit Multiplication:</strong> Mastery of the standard algorithm and area models.</li><li><strong>Geometry:</strong> Identifying angles, lines, and symmetry in shapes.</li></ul></section></article>"
   },
   '3rd-grade-math-worksheets': {
     title: '3rd Grade Math Worksheets  -  Free Printable PDF',
     metaDescription: 'Free 3rd grade math worksheets covering multiplication, division, fractions, and measurement. Print or save as PDF instantly.',
     image: '/assets/previews/math-hub-preview.png',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 3rd Grade Math Worksheets: Multiplication & Division Hub</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Essential 3rd grade math resources for building foundational fluency.</p><section style=\"margin-bottom: 3rem; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;\">The Year of Multiplication Mastery</h2><p style=\"color: #475569; margin-bottom: 1.5rem;\">3rd grade is all about fluency in multiplication and introduction to its inverse: division. Our resources focus on both the 'how' and the 'why' of these core operations.</p><ul><li><strong>Introduction to Fractions:</strong> Understanding fractions as numbers on a line.</li><li><strong>Measurement & Data:</strong> Reading scales and interpreting bar graphs.</li><li><strong>Word Problems:</strong> Applying operations to real-world scenarios.</li></ul></section><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/math-grade-3-seo.png\" alt=\"3rd Grade Math Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 3rd Grade Math Worksheets: Multiplication & Division Hub</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Essential 3rd grade math resources for building foundational fluency.</p><section style=\"margin-bottom: 3rem; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;\"><h2 style=\"font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;\">The Year of Multiplication Mastery</h2><p style=\"color: #475569; margin-bottom: 1.5rem;\">3rd grade is all about fluency in multiplication and introduction to its inverse: division. Our resources focus on both the 'how' and the 'why' of these core operations.</p><ul><li><strong>Introduction to Fractions:</strong> Understanding fractions as numbers on a line.</li><li><strong>Measurement & Data:</strong> Reading scales and interpreting bar graphs.</li><li><strong>Word Problems:</strong> Applying operations to real-world scenarios.</li></ul></section></article>"
   },
   '2nd-grade-math-worksheets': {
     title: '2nd Grade Math Worksheets  -  Free Printable PDF',
     metaDescription: 'Free 2nd grade math worksheets for addition, subtraction, place value, and time. Hundreds of free printables for Grade 2.',
     image: '/assets/previews/math-hub-preview.png',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 2nd Grade Math Worksheets: Addition, Subtraction & Time</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Building confidence in foundational math for second graders.</p><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/math-grade-2-seo.png\" alt=\"2nd Grade Math Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 2nd Grade Math Worksheets: Addition, Subtraction & Time</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Building confidence in foundational math for second graders.</p></article>"
   },
   '1st-grade-math-worksheets': {
     title: '1st Grade Math Worksheets  -  Free Printable PDF',
     metaDescription: 'Download free 1st grade math worksheets covering addition, subtraction, number sense, and shapes. Perfect for early learners.',
     image: '/assets/previews/math-hub-preview.png',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 1st Grade Math Worksheets: Number Sense & Basic Operations</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Fun and engaging math practice for first grade students.</p><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/math-grade-1-seo.png\" alt=\"1st Grade Math Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free 1st Grade Math Worksheets: Number Sense & Basic Operations</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Fun and engaging math practice for first grade students.</p></article>"
   },
   'kindergarten-math-worksheets': {
     title: 'Kindergarten Math Worksheets  -  Free Printable PDF',
     metaDescription: 'Free kindergarten math worksheets for counting, number recognition, and basic shapes. Start your child\'s math journey here.',
     image: '/assets/previews/math-hub-preview.png',
-    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free Kindergarten Math Worksheets: Counting & Early Numbers</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Gentle and effective math foundations for early learners.</p><div style=\"margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;\"><h3 style=\"font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;\">Worksheet Preview</h3><img src=\"/images/math-kindergarten-seo.png\" alt=\"Kindergarten Math Worksheets Preview\" style=\"width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;\" loading=\"lazy\" /></div></article>"
+    richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Free Kindergarten Math Worksheets: Counting & Early Numbers</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Gentle and effective math foundations for early learners.</p></article>"
   },
   'interactive-worksheets-generator': {
     title: 'Free Interactive Worksheets Generator | Create Printable PDFs',
