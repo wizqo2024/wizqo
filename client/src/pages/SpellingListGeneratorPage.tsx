@@ -672,7 +672,7 @@ export default function SpellingListGeneratorPage() {
                         Related Tools & Worksheets
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <a href="/worksheets/handwriting-maker" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
                             <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">Handwriting Maker</h4>
                             <p className="text-sm text-slate-500">Generate custom tracing sheets for names, words, and sentences.</p>
                         </a>
@@ -680,7 +680,7 @@ export default function SpellingListGeneratorPage() {
                             <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">Scissor Skills Generator</h4>
                             <p className="text-sm text-slate-500">Fun cutting practice strips with rainbows and animal missions.</p>
                         </a>
-                        <a href="/worksheets/1st-grade" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
+                        <a href="/worksheets/1st-grade-math-worksheets" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
                             <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">1st Grade Math</h4>
                             <p className="text-sm text-slate-500">Explore hundreds of free math worksheets for first graders.</p>
                         </a>
