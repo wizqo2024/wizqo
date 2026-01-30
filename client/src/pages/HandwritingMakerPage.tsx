@@ -1455,7 +1455,7 @@ export default function HandwritingMakerPage() {
                 <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">Scissor Skills Generator</h4>
                 <p className="text-sm text-slate-500">Fun cutting practice strips with rainbows and animal missions.</p>
               </a>
-              <a href="/worksheets/kindergarten" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
+              <a href="/worksheets/kindergarten-math-worksheets" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
                 <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">Kindergarten Math</h4>
                 <p className="text-sm text-slate-500">Explore hundreds of free math worksheets for pre-k and kindergarten.</p>
               </a>
