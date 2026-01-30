@@ -214,15 +214,19 @@ export default function CountingWorksheetsPage() {
                             {/* Big Number Section */}
                             <div className="flex-1 w-full flex flex-col items-center justify-between">
                                 <div className="text-center">
-                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('pages.counting.traceNumber')}</p>
                                     <div
                                         className="text-[200px] leading-[1] font-normal relative"
                                         style={{
                                             fontFamily: "'KG Primary Dots', sans-serif",
-                                            color: colorTheme === 'rainbow' ? '#fdba74' : THEMES[colorTheme].primary,
-                                            // Fallback for PDF if color is transparent
-                                            // backgroundImage: colorTheme === 'rainbow' ? 'linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6)' : 'none',
-                                            // backgroundClip: colorTheme === 'rainbow' ? 'text' : 'border-box',
+                                            ...(colorTheme === 'rainbow' ? {
+                                                backgroundImage: 'linear-gradient(45deg, #ef4444, #f97316, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899)',
+                                                backgroundClip: 'text',
+                                                WebkitBackgroundClip: 'text',
+                                                WebkitTextFillColor: 'transparent',
+                                                color: 'transparent' // Fallback
+                                            } : {
+                                                color: THEMES[colorTheme].primary
+                                            })
                                         }}
                                     >
                                         {selectedNumber}
@@ -279,21 +283,40 @@ export default function CountingWorksheetsPage() {
             {/* Print-เฉพาะ styles */}
             <style>{`
         @media print {
-          nav, footer, .print\\:hidden { display: none !important; }
-          main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
-          #counting-preview-area { width: 100% !important; margin: 0 !important; }
-          #counting-preview-svg { 
-            width: 8.5in !important; 
-            height: 11in !important; 
-            box-shadow: none !important; 
-            border: none !important; 
-            padding: 0.75in !important;
-            margin: 0 !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-          }
-          body { background: white !important; }
+            @page { 
+                size: letter portrait; 
+                margin: 0;
+            }
+            body { 
+                background: white !important; 
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            nav, footer, .print\\:hidden { display: none !important; }
+            main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+            
+            #counting-preview-area { 
+                width: 100% !important; 
+                margin: 0 !important; 
+                display: flex !important;
+                justify-content: center !important;
+                align-items: flex-start !important;
+            }
+            
+            #counting-preview-svg { 
+                width: 8.5in !important; 
+                height: 11in !important; 
+                min-height: 11in !important;
+                max-height: 11in !important;
+                box-shadow: none !important; 
+                border: none !important; 
+                padding: 0.5in !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
         }
       `}</style>
         </div>
