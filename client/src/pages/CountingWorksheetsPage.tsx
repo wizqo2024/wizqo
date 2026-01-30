@@ -54,6 +54,9 @@ export default function CountingWorksheetsPage() {
             const element = document.getElementById('counting-preview-svg');
             if (!element) return;
 
+            // Apply print styles for PDF generation
+            element.classList.add('printing');
+
             toast({ title: 'Generating...', description: 'Preparing your high-quality PDF.' });
 
             await generateWorksheetPDF(element, {
@@ -67,6 +70,10 @@ export default function CountingWorksheetsPage() {
         } catch (err) {
             console.error('PDF Error:', err);
             toast({ title: 'Error', description: 'Failed to generate PDF.', variant: 'destructive' });
+        } finally {
+            // Remove print styles
+            const element = document.getElementById('counting-preview-svg');
+            if (element) element.classList.remove('printing');
         }
     };
 
