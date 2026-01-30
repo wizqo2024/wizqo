@@ -32,20 +32,20 @@ const DinosaurIcon = (props: any) => (
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
         {...props}
     >
-        {/* Tail & Back */}
-        <path d="M2 14c2 0 3-1 4-3 1-3 2-8 7-8s5 2 5 5v3" />
+        {/* Tail and Back */}
+        <path d="M2 14c2 0 3-1 4-2s2-8 7-8 5 2 5 5v3" />
         {/* Head */}
-        <path d="M18 5c1.5 0 2.5 1 2.5 2.5S19.5 10 18 10h-2" />
+        <path d="M18 5c1.5 0 2.5 1 2.5 2.5s-1 2.5-2.5 2.5h-1" />
         {/* Belly */}
-        <path d="M6 11c0 5 3 8 7 8s7-3 7-8" />
+        <path d="M6 12c0 5 3 8 7 8s7-3 7-8" />
         {/* Legs */}
-        <path d="M8 19v3M11 19v3M15 19v3M18 18v3" />
-        <circle cx="18.5" cy="7.2" r="0.5" fill="currentColor" />
+        <path d="M8 20v2M11 20v2M15 20v2M18 20v2" />
+        <circle cx="18.5" cy="7" r="0.5" fill="currentColor" />
     </svg>
 );
 
@@ -54,23 +54,22 @@ const BunnyIcon = (props: any) => (
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
         {...props}
     >
         {/* Ears */}
         <path d="M9 7c0-3 1-4 2-4s2 1 2 4M13 7c0-3 1-4 2-4s2 1 2 4" />
-        {/* Head */}
+        {/* Head/Body */}
         <path d="M12 15c-3.5 0-6-2.5-6-6s2.5-6 6-6 6 2.5 6 6-2.5 6-6 6z" />
-        {/* Body */}
         <path d="M12 15c-4 0-7 3-7 7h14c0-4-3-7-7-7z" />
-        {/* Eyes & Nose */}
-        <circle cx="9.5" cy="9" r="0.5" fill="currentColor" />
-        <circle cx="14.5" cy="9" r="0.5" fill="currentColor" />
-        <path d="M11 11.5c.5.5 1.5.5 2 0" />
+        {/* Features */}
+        <circle cx="9.5" cy="10" r="0.5" fill="currentColor" />
+        <circle cx="14.5" cy="10" r="0.5" fill="currentColor" />
+        <path d="M11 12.5c.5.5 1.5.5 2 0" />
         {/* Tail */}
-        <circle cx="5" cy="20" r="1.5" />
+        <circle cx="5" cy="20" r="1" />
     </svg>
 );
 
@@ -197,7 +196,7 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                     <p className="text-center text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">
                         {number === 0 ? 'Zero means nothing to count!' : t('pages.counting.countIcons', { name: iconData.name })}
                     </p>
-                    <div className="grid grid-cols-5 gap-6 max-w-sm mx-auto place-items-center min-h-[100px]">
+                    <div className="grid grid-cols-5 gap-6 max-w-lg mx-auto place-items-center min-h-[100px]">
                         {renderIcons()}
                     </div>
                 </div>
