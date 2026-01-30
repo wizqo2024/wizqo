@@ -37,15 +37,16 @@ const DinosaurIcon = (props: any) => (
         strokeLinejoin="round"
         {...props}
     >
-        {/* Tail and Back */}
-        <path d="M2 14c2 0 3-1 4-2s2-8 7-8 5 2 5 5v3" />
+        {/* Body */}
+        <path d="M10 10c-2 0-4 1-4 3s2 3 4 3h4c2 0 4-1 4-3s-2-3-4-3z" />
         {/* Head */}
-        <path d="M18 5c1.5 0 2.5 1 2.5 2.5s-1 2.5-2.5 2.5h-1" />
-        {/* Belly */}
-        <path d="M6 12c0 5 3 8 7 8s7-3 7-8" />
+        <path d="M14 10c1 0 1.5-1 1.5-2s-0.5-2-1.5-2h-2c-1 0-1.5 1-1.5 2s0.5 2 1.5 2z" />
+        {/* Tail */}
+        <path d="M10 13c-1 0-2 0.5-2 1.5s1 1.5 2 1.5h2c1 0 2-0.5 2-1.5s-1-1.5-2-1.5z" />
         {/* Legs */}
-        <path d="M8 20v2M11 20v2M15 20v2M18 20v2" />
-        <circle cx="18.5" cy="7" r="0.5" fill="currentColor" />
+        <path d="M10 16v2M14 16v2" />
+        {/* Eye */}
+        <circle cx="13" cy="9" r="0.5" fill="currentColor" />
     </svg>
 );
 
@@ -59,17 +60,18 @@ const BunnyIcon = (props: any) => (
         strokeLinejoin="round"
         {...props}
     >
+        {/* Body */}
+        <path d="M12 15c-3.5 0-6-2.5-6-6s2.5-6 6-6 6 2.5 6 6-2.5 6-6 6z" />
         {/* Ears */}
         <path d="M9 7c0-3 1-4 2-4s2 1 2 4M13 7c0-3 1-4 2-4s2 1 2 4" />
-        {/* Head/Body */}
-        <path d="M12 15c-3.5 0-6-2.5-6-6s2.5-6 6-6 6 2.5 6 6-2.5 6-6 6z" />
-        <path d="M12 15c-4 0-7 3-7 7h14c0-4-3-7-7-7z" />
-        {/* Features */}
+        {/* Tail */}
+        <circle cx="5" cy="20" r="1" />
+        {/* Legs */}
+        <path d="M10 18v2M14 18v2" />
+        {/* Face */}
         <circle cx="9.5" cy="10" r="0.5" fill="currentColor" />
         <circle cx="14.5" cy="10" r="0.5" fill="currentColor" />
         <path d="M11 12.5c.5.5 1.5.5 2 0" />
-        {/* Tail */}
-        <circle cx="5" cy="20" r="1" />
     </svg>
 );
 
@@ -116,7 +118,7 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                 icons.push(
                     <div key={i} className="animate-in zoom-in duration-300" style={{ animationDelay: `${i * 50}ms` }}>
                         <IconComponent
-                            className="w-20 h-20 sm:w-24 sm:h-24"
+                            className="w-24 h-24 sm:w-28 sm:h-28" // Increased size
                             strokeWidth={1.2}
                             color="black"
                             fill="transparent"
@@ -205,11 +207,12 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                 <div className="w-full text-center mt-auto border-t-2 border-slate-100 pt-8">
                     <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('pages.counting.traceWord')}</p>
                     <div
-                        className="text-[80px] leading-none mb-4"
+                        className="text-[100px] leading-none mb-4 lowercase"
                         style={{
-                            fontFamily: "'Learning Curve Dashed', sans-serif",
-                            color: isOutlineMode ? '#000000' : theme.primary,
-                            opacity: isOutlineMode ? 1 : 0.8
+                            fontFamily: "'KG Primary Dots', sans-serif",
+                            color: isOutlineMode ? 'transparent' : theme.primary,
+                            WebkitTextStroke: isOutlineMode ? '1.5px black' : 'none',
+                            opacity: isOutlineMode ? 1 : 0.6
                         }}
                     >
                         {NUMBER_NAMES[number]}
@@ -329,13 +332,19 @@ export default function CountingWorksheetsPage() {
                                         placeholder="Enter child's name..."
                                         value={childName}
                                         onChange={(e) => setChildName(e.target.value)}
+                                        maxLength={15}
                                         className="w-full h-12 px-4 rounded-xl bg-slate-50 border-2 border-slate-100 focus:border-purple-500 focus:bg-white outline-none transition-all font-bold text-slate-700 placeholder:text-slate-300"
                                     />
-                                    {childName && (
-                                        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-purple-400 bg-purple-50 px-2 py-1 rounded-md">
-                                            Magic Added ✨
-                                        </div>
-                                    )}
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                        <span className="text-[10px] font-bold text-slate-300">
+                                            {childName.length}/15
+                                        </span>
+                                        {childName && (
+                                            <div className="text-[10px] font-black uppercase text-purple-400 bg-purple-50 px-2 py-1 rounded-md">
+                                                ✨
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
