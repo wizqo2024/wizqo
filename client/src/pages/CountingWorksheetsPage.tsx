@@ -76,6 +76,7 @@ interface WorksheetTemplateProps {
     iconTheme: IconTheme;
     colorTheme: ColorTheme;
     isOutlineMode?: boolean;
+    childName?: string;
     t: any;
     id?: string;
 }
@@ -85,6 +86,7 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
     iconTheme,
     colorTheme,
     isOutlineMode,
+    childName,
     t,
     id
 }: WorksheetTemplateProps) => {
@@ -116,6 +118,7 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                 );
             }
         }
+        // Special case for Zero: Show a friendly message if needed, or just keep it empty (correct for 0)
         return icons;
     };
 
@@ -138,7 +141,9 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                 <div className="absolute left-0 top-0 text-slate-200">
                     <Star className="w-12 h-12" strokeWidth={1} />
                 </div>
-                <h2 className="text-3xl font-black text-slate-800 tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>Counting Practice</h2>
+                <h2 className="text-3xl font-black text-slate-800 tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    {childName ? `${childName}'s ` : ''}Counting Practice
+                </h2>
                 <div className="flex justify-center items-center gap-2 mt-1">
                     <span className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em] bg-slate-50 px-3 py-1 rounded-full border border-slate-100">
                         WIZQO MAGIC MATH
@@ -175,9 +180,9 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                 {/* Icons Grid */}
                 <div className="w-full py-2">
                     <p className="text-center text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">
-                        {t('pages.counting.countIcons', { name: iconData.name })}
+                        {number === 0 ? 'Zero means nothing to count!' : t('pages.counting.countIcons', { name: iconData.name })}
                     </p>
-                    <div className="grid grid-cols-5 gap-6 max-w-sm mx-auto place-items-center">
+                    <div className="grid grid-cols-5 gap-6 max-w-sm mx-auto place-items-center min-h-[100px]">
                         {renderIcons()}
                     </div>
                 </div>
@@ -219,6 +224,7 @@ export default function CountingWorksheetsPage() {
     const [iconTheme, setIconTheme] = useState<IconTheme>('dinosaurs');
     const [colorTheme, setColorTheme] = useState<ColorTheme>('rainbow');
     const [isOutlineMode, setIsOutlineMode] = useState<boolean>(false);
+    const [childName, setChildName] = useState<string>('');
 
     // SEO Data
     const seoData = getWorksheetSEOBySlug('counting-numbers-generator');
@@ -233,7 +239,7 @@ export default function CountingWorksheetsPage() {
             toast({ title: 'Generating...', description: 'Preparing your high-quality PDF.' });
 
             await generateWorksheetPDF(element, {
-                filename: `wizqo-counting-${selectedNumber}${isOutlineMode ? '-outline' : ''}.pdf`,
+                filename: `wizqo-counting-${selectedNumber}${childName ? `-${childName}` : ''}.pdf`,
                 scale: 3.5,
                 docTitle: `Counting Practice - ${selectedNumber}`
             });
@@ -254,20 +260,20 @@ export default function CountingWorksheetsPage() {
             const element = document.getElementById('workbook-container');
             if (!element) return;
 
-            toast({ title: 'Building Workbook...', description: 'Generating 10-page workbook (1-10). This may take a moment.' });
+            toast({ title: 'Building Workbook...', description: 'Generating 11-page workbook (0-10). This may take a moment.' });
 
             // Ensure the container is "visible" for capture (it's off-screen)
             // No class manipulation needed as it's static
 
             await generateWorksheetPDF(element, {
-                filename: `wizqo-counting-workbook-1-10${isOutlineMode ? '-outline' : ''}.pdf`,
+                filename: `wizqo-counting-workbook-0-10${childName ? `-${childName}` : ''}.pdf`,
                 scale: 3.5, // High quality
-                docTitle: `Counting Workbook 1-10`,
+                docTitle: `Counting Workbook 0-10`,
                 packSections: false // Ensure each uses a full page
             });
 
-            trackWorksheetDownload('counting-numbers-generator', `Workbook 1-10`, 'CountingWorksheetsPage', 'Pre-K');
-            toast({ title: 'Workbook Ready!', description: 'Your 1-10 workbook has been downloaded.' });
+            trackWorksheetDownload('counting-numbers-generator', `Workbook 0-10`, 'CountingWorksheetsPage', 'Pre-K');
+            toast({ title: 'Workbook Ready!', description: 'Your 0-10 workbook has been downloaded.' });
 
         } catch (err) {
             console.error('Workbook PDF Error:', err);
@@ -291,7 +297,7 @@ export default function CountingWorksheetsPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
                     {/* Controls */}
-                    <div className="lg:col-span-5 space-y-6 print:hidden">
+                    <div className="lg:col-span-12 xl:col-span-5 space-y-6 print:hidden">
                         <div className="bg-white rounded-3xl p-6 shadow-xl border border-slate-100">
                             <h1 className="text-2xl font-black text-slate-800 mb-2">
                                 {t('pages.counting.title')}
@@ -300,80 +306,105 @@ export default function CountingWorksheetsPage() {
                                 {t('pages.counting.subtitle')}
                             </p>
 
-                            {/* Number Selection */}
+                            {/* Personalization: Child's Name */}
                             <div className="space-y-3 mb-6">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.selectNumber')}</Label>
-                                <div className="grid grid-cols-5 gap-2">
-                                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                                        <button
-                                            key={num}
-                                            onClick={() => setSelectedNumber(num)}
-                                            className={`h-10 rounded-xl font-bold transition-all ${selectedNumber === num
-                                                ? 'bg-purple-600 text-white shadow-lg scale-105'
-                                                : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
-                                                }`}
-                                        >
-                                            {num}
-                                        </button>
-                                    ))}
+                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">Personalize (Optional)</Label>
+                                <div className="relative">
+                                    <input
+                                        type="text"
+                                        placeholder="Enter child's name..."
+                                        value={childName}
+                                        onChange={(e) => setChildName(e.target.value)}
+                                        className="w-full h-12 px-4 rounded-xl bg-slate-50 border-2 border-slate-100 focus:border-purple-500 focus:bg-white outline-none transition-all font-bold text-slate-700 placeholder:text-slate-300"
+                                    />
+                                    {childName && (
+                                        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-purple-400 bg-purple-50 px-2 py-1 rounded-md">
+                                            Magic Added ✨
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
-                            {/* Outline Mode Toggle */}
-                            <div className="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-100 mb-6">
-                                <div className="space-y-0.5">
-                                    <Label className="text-sm font-bold text-slate-700">Ink Saving Mode</Label>
-                                    <p className="text-xs text-slate-500">Black & white outlines for coloring</p>
-                                </div>
-                                <Switch
-                                    checked={isOutlineMode}
-                                    onCheckedChange={setIsOutlineMode}
-                                    className="data-[state=checked]:bg-purple-600"
-                                />
-                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
+                                <div className="space-y-6">
+                                    {/* Number Selection */}
+                                    <div className="space-y-3">
+                                        <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.selectNumber')}</Label>
+                                        <div className="grid grid-cols-6 gap-2">
+                                            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                                <button
+                                                    key={num}
+                                                    onClick={() => setSelectedNumber(num)}
+                                                    className={`h-10 rounded-xl font-bold transition-all ${selectedNumber === num
+                                                        ? 'bg-purple-600 text-white shadow-lg scale-105'
+                                                        : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                                                        }`}
+                                                >
+                                                    {num}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
 
-                            {/* Icon Theme */}
-                            <div className="space-y-3 mb-6">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.chooseTheme')}</Label>
-                                <div className="grid grid-cols-3 gap-2">
-                                    {(Object.keys(ICONS) as IconTheme[]).map((key) => (
-                                        <button
-                                            key={key}
-                                            onClick={() => setIconTheme(key)}
-                                            className={`p-3 rounded-2xl border-2 transition-all flex flex-col items-center gap-1 ${iconTheme === key
-                                                ? 'border-purple-500 bg-purple-50'
-                                                : 'border-slate-100 bg-white hover:border-slate-200'
-                                                }`}
-                                        >
-                                            <span className="text-2xl">{ICONS[key].icon}</span>
-                                            <span className="text-[10px] font-bold uppercase text-slate-500">{ICONS[key].name}</span>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Color Theme */}
-                            <div className={`space-y-3 mb-8 transition-opacity duration-300 ${isOutlineMode ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.colorPalette')}</Label>
-                                <div className="flex flex-wrap gap-2">
-                                    {(Object.keys(THEMES) as ColorTheme[]).map((key) => (
-                                        <button
-                                            key={key}
-                                            onClick={() => setColorTheme(key)}
-                                            className={`w-10 h-10 rounded-full border-2 transition-all ${colorTheme === key ? 'border-slate-900 scale-110 shadow-md' : 'border-transparent hover:scale-105'
-                                                }`}
-                                            style={{
-                                                background: key === 'rainbow'
-                                                    ? 'linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6)'
-                                                    : THEMES[key].primary
-                                            }}
-                                            title={THEMES[key].name}
+                                    {/* Outline Mode Toggle */}
+                                    <div className="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                        <div className="space-y-0.5">
+                                            <Label className="text-sm font-bold text-slate-700">Ink Saving Mode</Label>
+                                            <p className="text-xs text-slate-500">Black & white outlines for coloring</p>
+                                        </div>
+                                        <Switch
+                                            checked={isOutlineMode}
+                                            onCheckedChange={setIsOutlineMode}
+                                            className="data-[state=checked]:bg-purple-600"
                                         />
-                                    ))}
+                                    </div>
+                                </div>
+
+                                <div className="space-y-6">
+                                    {/* Icon Theme */}
+                                    <div className="space-y-3">
+                                        <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.chooseTheme')}</Label>
+                                        <div className="grid grid-cols-3 gap-2">
+                                            {(Object.keys(ICONS) as IconTheme[]).map((key) => (
+                                                <button
+                                                    key={key}
+                                                    onClick={() => setIconTheme(key)}
+                                                    className={`p-3 rounded-2xl border-2 transition-all flex flex-col items-center gap-1 ${iconTheme === key
+                                                        ? 'border-purple-500 bg-purple-50'
+                                                        : 'border-slate-100 bg-white hover:border-slate-200'
+                                                        }`}
+                                                >
+                                                    <span className="text-2xl">{ICONS[key].icon}</span>
+                                                    <span className="text-[10px] font-bold uppercase text-slate-500">{ICONS[key].name}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Color Theme */}
+                                    <div className={`space-y-3 transition-opacity duration-300 ${isOutlineMode ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+                                        <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.colorPalette')}</Label>
+                                        <div className="flex flex-wrap gap-2">
+                                            {(Object.keys(THEMES) as ColorTheme[]).map((key) => (
+                                                <button
+                                                    key={key}
+                                                    onClick={() => setColorTheme(key)}
+                                                    className={`w-10 h-10 rounded-full border-2 transition-all ${colorTheme === key ? 'border-slate-900 scale-110 shadow-md' : 'border-transparent hover:scale-105'
+                                                        }`}
+                                                    style={{
+                                                        background: key === 'rainbow'
+                                                            ? 'linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6)'
+                                                            : THEMES[key].primary
+                                                    }}
+                                                    title={THEMES[key].name}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="space-y-3">
+                            <div className="space-y-3 mt-8">
                                 {/* Single Download */}
                                 <div className="flex gap-3">
                                     <Button
@@ -397,10 +428,9 @@ export default function CountingWorksheetsPage() {
                                     className="w-full h-14 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 font-black shadow-xl border-2 border-slate-900 flex items-center justify-center gap-2 group transition-all hover:scale-[1.02]"
                                 >
                                     <BookOpen className="w-5 h-5 group-hover:animate-bounce" />
-                                    <span>Download Full Workbook (1-10)</span>
+                                    <span>Download Full Workbook (0-10)</span>
                                     <span className="bg-yellow-400 text-slate-900 text-[10px] px-2 py-0.5 rounded-full ml-auto">FREE</span>
                                 </Button>
-                                <p className="text-center text-xs text-slate-400 font-medium">Get all 10 pages in one click!</p>
                             </div>
                         </div>
 
@@ -415,13 +445,14 @@ export default function CountingWorksheetsPage() {
                     </div>
 
                     {/* Preview */}
-                    <div className="lg:col-span-7" id="counting-preview-area">
+                    <div className="lg:col-span-12 xl:col-span-7" id="counting-preview-area">
                         <div id="counting-preview-single" className="sticky top-8">
                             <CountingWorksheetTemplate
                                 number={selectedNumber}
                                 iconTheme={iconTheme}
                                 colorTheme={colorTheme}
                                 isOutlineMode={isOutlineMode}
+                                childName={childName}
                                 t={t}
                             />
                         </div>
@@ -434,13 +465,14 @@ export default function CountingWorksheetsPage() {
                     id="workbook-container"
                     style={{ position: 'absolute', top: -10000, left: -10000, width: '8.5in' }}
                 >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                         <div key={num} className="mb-8">
                             <CountingWorksheetTemplate
                                 number={num}
                                 iconTheme={iconTheme}
                                 colorTheme={colorTheme}
                                 isOutlineMode={isOutlineMode}
+                                childName={childName}
                                 t={t}
                             />
                         </div>
@@ -458,21 +490,21 @@ export default function CountingWorksheetsPage() {
             {/* Print-เฉพาะ styles */}
             <style>{`
         @media print {
-            @page { 
-                size: letter portrait; 
+            @page {
+                size: letter portrait;
                 margin: 0;
             }
-            body { 
-                background: white !important; 
+            body {
+                background: white !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
             nav, footer, .print\\:hidden { display: none !important; }
             main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
-            
-            #counting-preview-area { 
-                width: 100% !important; 
-                margin: 0 !important; 
+
+            #counting-preview-area {
+                width: 100% !important;
+                margin: 0 !important;
                 display: flex !important;
                 justify-content: center !important;
                 align-items: flex-start !important;
