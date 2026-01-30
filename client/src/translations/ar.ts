@@ -4805,6 +4805,8 @@ export const ar = {
     wordSearchGame: 'لعبة البحث عن الكلمات',
     scissorSkillsGenerator: 'مولد مهارات استخدام المقص',
     scissorSkillsGeneratorDesc: 'تمارين قص مخصصة لمرحلة ما قبل المدرسة',
+    countingNumbersGenerator: 'مولد أرقام العد',
+    countingNumbersGeneratorDesc: 'أوراق عمل ممتعة للتتبع والعد',
   },
   grades: {
     preK: 'ما قبل المدرسة',

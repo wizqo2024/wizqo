@@ -2887,6 +2887,71 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     richContent: "<article style=\"max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;\"><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;\">Mastering Probability: The Logic of Chance</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Discover the logic of 'Predictive Analysis' with our probability collection. Designed for 4th through 6th Grade mathematicians, these resources focus on <strong>calculating the mathematical likelihood of specific outcomes</strong>, building the foundational logic needed for statistics, risk assessment, and data science. By mastering the fraction-based tools of chance, students unlock a vital tool for real-world decision making. Free printable PDF access for future statisticians.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Turning 'Luck' into Logic</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Probability is just math aimed at the future! Our curriculum helps students move from wild guesses to <strong>procedura statistical logic</strong>. By practicing with classic randomizers like coins and spinners, children build <strong>foundational analytical awareness</strong> and the mental habit of 'informal-inference.' This practice is the essential precursor to high-school statistics, understanding complex insurance models, and professional forecasting roles. It turns a random world into a clear, manageable map of likely outcomes. This is the <strong>symbolic foundation</strong> of predictive literacy and academic pride. Calculate your odds today.</p></section><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Statistical Mastery Goals</h2><ul style=\"color: #475569; line-height: 1.6; padding-left: 1.5rem;\"><li style=\"margin-bottom: 0.5rem;\"><strong>Fractional Rigor:</strong> correctly expressing the likelihood of an event as a precise fraction (e.g., 1/6 for a die roll).</li><li style=\"margin-bottom: 0.5rem;\"><strong>Outcome Logic:</strong> practice Identifying all possible results in a sample space before making a prediction.</li><li style=\"margin-bottom: 0.5rem;\"><strong>Real-World Application:</strong> understanding how likelihood scales in real life, from weather forecasts to game strategy.</li></ul></section><section><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Premier Academic Grade Printables</h2><p style=\"color: #475569; line-height: 1.6;\">Wizqo produces educator-vetted math tools that are high-fidelity for middle-school success. Our probability series follows rigorous achievement standards for intermediate math excellence. Master the future today!</p></section></article>",
     grade: ['4th Grade', '5th Grade', '6th Grade'],
     category: ['Math', 'Logic']
+  },
+  'counting-numbers-generator': {
+    title: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)',
+    h1: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)',
+    image: '/images/counting-generator-seo.png',
+    metaDescription: 'Stop buying expensive workbooks. Create unlimited, fun, and colorful math worksheets for your child in seconds! 100% Free PDF • No Sign Up Required • Instant Download.',
+    keywords: 'counting numbers worksheets, free numbers tracing generator, kindergarten math worksheets, preschool counting games, one-to-one correspondence, free math printables, no sign up required, wizqo',
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #011627; margin-bottom: 1rem;">Free Counting Numbers Worksheets & Tracing Generator (1-10)</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;"><strong>Stop buying expensive workbooks.</strong> Create unlimited, fun, and colorful math worksheets for your child in seconds!</p>
+      
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Wizqo’s Free Counting Numbers Worksheets are designed to make learning math magical. Unlike boring black-and-white pages, our tool lets you customize the learning experience. Does your child love bunnies? 🐰 Race cars? 🏎️ Dinosaurs? 🦕 Simply click to change the theme, and watch their eyes light up!</p>
+
+      <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 12px; border: 1px solid #dcfce7; margin-bottom: 3rem; text-align: center; font-weight: bold; color: #166534;">
+        ✅ 100% Free PDF • ✅ No Sign Up Required • ✅ Instant Download
+      </div>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Turn Math into a Game</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">Preschool math doesn't have to be boring. Teachers know that children learn best when they are having fun. That is why we built this tool to act like <strong>counting numbers games for kindergarten</strong>.</p>
+        <p style="color: #475569; line-height: 1.6;">By connecting "visual counting" (seeing 5 bunnies) with "number tracing" (writing the number 5), your child builds a strong foundation. They aren't just memorizing; they are understanding the relationship between counting and numbers through play.</p>
+      </section>
+
+      <section style="margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #334155; margin-bottom: 1.5rem;">How to Use These Worksheets</h2>
+        <ol style="color: #475569; line-height: 1.8;">
+          <li><strong>Select a Number:</strong> Choose any number from 1 to 10 using the quick buttons above.</li>
+          <li><strong>Pick a Theme:</strong> Let your child choose! If they love space, pick Stars. If they love animals, pick Bunnies.</li>
+          <li><strong>Print Instantly:</strong> Click "Download PDF" to get your free counting numbers worksheets immediately. No email address needed!</li>
+        </ol>
+        <div style="margin-top: 1.5rem; padding: 1rem; background: #fffbeb; border-left: 4px solid #f59e0b; font-size: 0.95rem;">
+          <strong>Teacher Tip:</strong> Once your child masters single digits, you can use these sheets to help them learn to count between two numbers by printing a sequence (e.g., 4, 5, and 6) and stapling them together into a mini-book!
+        </div>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Why "One-to-One Correspondence" Matters?</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 1.5rem;">You might just see cute icons, but this tool teaches a critical skill called <strong>"One-to-One Correspondence."</strong> This is the ability to point at one object and say one number name.</p>
+        <p style="color: #475569; line-height: 1.6;">Our generator places icons in clear, easy-to-count rows. This helps toddlers and preschoolers slow down and count accurately, bridging the gap between simple reciting and true mathematical understanding.</p>
+      </section>
+
+      <section style="margin-bottom: 3rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 1.5rem;">Frequently Asked Questions (FAQ)</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Is this tool really free?</h3>
+          <p style="color: #475569; line-height: 1.5;">Yes! You can generate as many PDFs as you want. There are no hidden fees, and no sign up is required. We believe education should be accessible to everyone.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">What age is this for?</h3>
+          <p style="color: #475569; line-height: 1.5;">These worksheets are perfect for Toddlers (Ages 2-3) who are just learning to recognize numbers, and Preschool/Kindergarten (Ages 3-5) students practicing writing and counting.</p>
+        </div>
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Can I use this for my classroom?</h3>
+          <p style="color: #475569; line-height: 1.5;">Absolutely! Teachers love our tool because they can create a unique worksheet for every student. It’s the ultimate resource for counting numbers games in kindergarten.</p>
+        </div>
+      </section>
+
+      <div style="padding: 2rem; background: #f1f5f9; border-radius: 12px; margin-top: 2rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">🚀 Need More Practice?</h3>
+        <ul style="color: #475569; line-height: 1.8;">
+          <li><a href="/worksheets/scissor-skills-generator" style="color: #2563eb; text-decoration: underline;">Scissor Skills Generator</a> - Improve fine motor control through creative cutting.</li>
+          <li><a href="/worksheets/spelling-list-generator" style="color: #2563eb; text-decoration: underline;">Spelling List Generator</a> - Create custom spelling and handwriting practice sheets.</li>
+        </ol>
+      </div>
+    </article>`
   }
 };
 

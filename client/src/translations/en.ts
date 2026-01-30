@@ -4635,6 +4635,8 @@ export const en = {
     wordSearchGame: 'Word Search Game',
     scissorSkillsGenerator: 'Scissor Skills Generator',
     scissorSkillsGeneratorDesc: 'Custom preschool cutting practice',
+    countingNumbersGenerator: 'Counting Numbers Generator',
+    countingNumbersGeneratorDesc: 'Fun tracing & counting worksheets',
   },
   grades: {
     preK: 'Preschool',

@@ -3846,6 +3846,8 @@ export const es = {
     wordSearchGame: 'Juego de Búsqueda de Palabras',
     scissorSkillsGenerator: 'Generador de Habilidades con Tijeras',
     scissorSkillsGeneratorDesc: 'Práctica de corte preescolar personalizada',
+    countingNumbersGenerator: 'Generador de Números para Contar',
+    countingNumbersGeneratorDesc: 'Hojas de rastreo y conteo divertidas',
   },
   grades: {
     preK: 'Preescolar',
