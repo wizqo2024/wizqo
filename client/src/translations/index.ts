@@ -5904,10 +5904,6 @@ export function getTranslation(language: Language, key: string): string | any {
 
     // Debug logging removed - translations are working correctly
 
-    // Split key by dot to support nested keys (e.g. 'home.title')
-    // Check if key is already an array (internal recursion) or string
-    const keys = Array.isArray(key) ? key : key.split('.')
-
     // Navigate through nested keys
     for (let i = 0; i < keys.length; i++) {
       const k = keys[i];
