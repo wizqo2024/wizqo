@@ -8,6 +8,7 @@ import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket } from 'luc
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
+import { generateWorksheetPDF } from '@/utils/pdfGenerator';
 import { trackWorksheetDownload } from '@/utils/analytics';
 import { SocialShare } from '@/components/SocialShare';
 import { getWorksheetSEOBySlug } from '@shared/worksheetSEO';
@@ -50,22 +51,19 @@ export default function CountingWorksheetsPage() {
 
     const handleDownloadPDF = async () => {
         try {
-            const doc = new jsPDF({
-                orientation: 'portrait',
-                unit: 'px',
-                format: 'letter'
-            });
-
             const element = document.getElementById('counting-preview-svg');
             if (!element) return;
 
-            // Use a simpler approach for PDF generation for now (SVG to Canvas to PDF)
-            // or just direct drawing. For consistency with others, we'll use our helper or similar logic.
+            toast({ title: 'Generating...', description: 'Preparing your high-quality PDF.' });
 
-            // For this implementation, we will use the print function which is more reliable for SVG
-            window.print();
+            await generateWorksheetPDF(element, {
+                filename: `wizqo-counting-${selectedNumber}.pdf`,
+                scale: 3.5,
+                docTitle: `Counting Practice - ${selectedNumber}`
+            });
 
             trackWorksheetDownload('counting-numbers-generator', `Counting Worksheets (${selectedNumber})`, 'CountingWorksheetsPage', 'Pre-K');
+            toast({ title: 'Success!', description: 'Your counting worksheet is ready.' });
         } catch (err) {
             console.error('PDF Error:', err);
             toast({ title: 'Error', description: 'Failed to generate PDF.', variant: 'destructive' });
@@ -199,7 +197,7 @@ export default function CountingWorksheetsPage() {
 
                     {/* Preview */}
                     <div className="lg:col-span-7" id="counting-preview-area">
-                        <div className="sticky top-8 bg-white rounded-sm shadow-2xl border border-slate-200 aspect-[8.5/11] p-12 flex flex-col items-center overflow-hidden" id="counting-preview-svg">
+                        <div className="sticky top-8 bg-white rounded-sm shadow-2xl border border-slate-200 aspect-[8.5/11] p-12 flex flex-col items-center overflow-hidden worksheet-section" id="counting-preview-svg">
                             {/* Header */}
                             <div className="w-full text-center border-b-2 border-slate-100 pb-6 mb-8 relative">
                                 <div className="absolute left-0 top-0 text-slate-200">
