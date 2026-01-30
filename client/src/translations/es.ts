@@ -1081,7 +1081,7 @@ export const es = {
   },
   pages: {
     counting: {
-      title: 'Laboratorio de Conteo de Números',
+      title: 'Hojas de Trabajo de Conteo de Números Gratis',
       subtitle: 'Crea hojas de trabajo mágicas para tus pequeños.',
     },
     handwriting: {

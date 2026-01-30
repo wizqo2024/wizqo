@@ -1737,7 +1737,7 @@ export const ar = {
   },
   pages: {
     counting: {
-      title: 'مختبر عد الأرقام',
+      title: 'أوراق عمل عد الأرقام المجانية',
       subtitle: 'قم بإنشاء أوراق عمل سحرية للعد لأطفالك الصغار.',
     },
     handwriting: {

@@ -1602,7 +1602,7 @@ export const en = {
       seeReviews: 'See reviews on Trustpilot →',
     },
     counting: {
-      title: 'Number Counting Lab',
+      title: 'Free Counting Numbers Worksheets',
       subtitle: 'Create magical counting worksheets for your little ones.',
     },
     contact: {
