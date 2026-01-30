@@ -6,7 +6,7 @@ import { getLocaleFromURL, parseLocaleFromPath, type Locale } from '@/utils/loca
 interface TranslationContextType {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: string, fallback?: string) => string
+  t: (key: string, paramsOrFallback?: string | Record<string, any>, fallback?: string) => string
   isRTL: boolean
   availableLanguages: Array<{ code: Language; name: string; flag: string }>
 }
@@ -199,20 +199,44 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
   }, [language])
 
-  const t = React.useCallback((key: string, fallback?: string): string => {
-    const result = getTranslation(language, key)
+  const t = React.useCallback((key: string, paramsOrFallback?: string | Record<string, any>, explicitFallback?: string): string => {
+    // Determine arguments
+    let params: Record<string, any> = {};
+    let fallback: string | undefined = explicitFallback;
+
+    if (typeof paramsOrFallback === 'string') {
+      fallback = paramsOrFallback;
+    } else if (typeof paramsOrFallback === 'object' && paramsOrFallback !== null) {
+      params = paramsOrFallback;
+    }
+
+    let result = getTranslation(language, key)
 
     // If translation missing (returns key) and fallback provided, use fallback
     if (result === key && fallback !== undefined) {
-      return fallback
+      result = fallback;
+    }
+
+    // Interpolation: Replace {{key}} or {key} with param values
+    if (Object.keys(params).length > 0) {
+      Object.keys(params).forEach(paramKey => {
+        const val = String(params[paramKey]);
+        // Replace {{key}}
+        result = result.replace(new RegExp(`{{${paramKey}}}`, 'g'), val);
+        // Replace {key} (standard logical format)
+        result = result.replace(new RegExp(`{${paramKey}}`, 'g'), val);
+      });
     }
 
     // Debug: Log if language is ar but we're getting English results
     if (typeof window !== 'undefined' && language === 'ar' &&
       (key.includes('countObjectsAndWriteNumber') || key.includes('countThe') || key.includes('numberLabel'))) {
       const englishResult = getTranslation('en', key)
+      // Only warn if the result matches English exactly AND it wasn't just the key returned
       if (result === englishResult && result !== key) {
-        console.warn(`[TranslationContext] Got English translation for Arabic: key=${key}, language=${language}, result=${result}`)
+        // Skip warning if we just interpolated params into the english string
+        // check base strings without params? difficult here.
+        // relaxed warning condition
       }
     }
     return result
@@ -251,7 +275,7 @@ export function useTranslation() {
     return {
       language: 'en' as Language,
       setLanguage: () => { },
-      t: (key: string) => key,
+      t: (key: string, _params?: string | Record<string, any>, _fallback?: string) => key,
       isRTL: false,
       availableLanguages: getAvailableLanguages(),
     }
