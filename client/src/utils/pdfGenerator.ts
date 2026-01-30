@@ -103,10 +103,11 @@ export async function generateWorksheetPDF(
             return window.btoa(binary)
         }
 
-        const [cedarvilleB64, codystarB64, learningCurveB64] = await Promise.all([
+        const [cedarvilleB64, codystarB64, learningCurveB64, kgDotsB64] = await Promise.all([
             fetchFontBase64('/fonts/cedarville_cursive.ttf'),
             fetchFontBase64('/fonts/codystar.ttf'),
-            fetchFontBase64('/fonts/learning_curve_dashed.ttf')
+            fetchFontBase64('/fonts/learning_curve_dashed.ttf'),
+            fetchFontBase64('/fonts/kg_primary_dots.ttf')
         ])
 
         let currentY = 0
@@ -145,6 +146,11 @@ export async function generateWorksheetPDF(
                             font-display: block;
                         }
                         @font-face {
+                            font-family: 'KG Primary Dots';
+                            src: url(data:font/ttf;base64,${kgDotsB64}) format('truetype');
+                            font-display: block;
+                        }
+                        @font-face {
                             font-family: 'Inter';
                             src: local('Inter'), local('sans-serif');
                         }
@@ -180,6 +186,11 @@ export async function generateWorksheetPDF(
                                 src: url(data:font/ttf;base64,${codystarB64}) format('truetype');
                                 font-display: block;
                             }
+                            @font-face {
+                                font-family: 'KG Primary Dots';
+                                src: url(data:font/ttf;base64,${kgDotsB64}) format('truetype');
+                                font-display: block;
+                            }
                         `;
                         defs.appendChild(svgStyle);
                     });
@@ -190,6 +201,7 @@ export async function generateWorksheetPDF(
                     fontForceLoad.innerHTML = `
                         <span style="font-family: 'Cedarville Cursive' !important;">force load</span>
                         <span style="font-family: 'Codystar' !important;">force load</span>
+                        <span style="font-family: 'KG Primary Dots' !important;">force load</span>
                     `;
                     clonedDoc.body.appendChild(fontForceLoad);
 

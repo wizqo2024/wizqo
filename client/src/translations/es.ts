@@ -4164,4 +4164,18 @@ export const es = {
       answerKey: 'Las respuestas de los estudiantes pueden variar. Verifica la comprensión de rasgos de carácter, capacidad de identificar formas de demostrar rasgos y reconocimiento de rasgos en otros.',
     },
   },
+  counting: {
+    title: 'Hojas de Trabajo Gratuitas para Contar Números (1-10)',
+    subtitle: 'Laboratorio de Conteo de Números • Wizqo Magic Math',
+    selectNumber: 'Seleccionar Número',
+    chooseTheme: 'Elegir Tema',
+    colorPalette: 'Paleta de Colores',
+    printNow: 'Imprimir Ahora',
+    savePdf: 'Guardar PDF',
+    traceNumber: 'Traza el Número',
+    countIcons: 'Cuenta los {name}',
+    traceWord: 'Traza la Palabra',
+    shareMagic: 'Comparte la Magia',
+    shareText: '¡Acabo de hacer una hoja de conteo gratuita para el número {number} en Wizqo! #educacion #paternidad'
+  },
 };

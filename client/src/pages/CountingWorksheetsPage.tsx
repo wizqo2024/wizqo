@@ -102,15 +102,15 @@ export default function CountingWorksheetsPage() {
                     <div className="lg:col-span-5 space-y-6 print:hidden">
                         <div className="bg-white rounded-3xl p-6 shadow-xl border border-slate-100">
                             <h1 className="text-2xl font-black text-slate-800 mb-2">
-                                {t('pages.counting.title') || 'Free Counting Numbers Worksheets (1-10)'}
+                                {t('counting.title')}
                             </h1>
                             <p className="text-slate-500 text-sm mb-6 font-medium">
-                                {t('pages.counting.subtitle') || 'Number Counting Lab • Wizqo Magic Math'}
+                                {t('counting.subtitle')}
                             </p>
 
                             {/* Number Selection */}
                             <div className="space-y-3 mb-6">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">Select Number</Label>
+                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('counting.selectNumber')}</Label>
                                 <div className="grid grid-cols-5 gap-2">
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                                         <button
@@ -129,7 +129,7 @@ export default function CountingWorksheetsPage() {
 
                             {/* Icon Theme */}
                             <div className="space-y-3 mb-6">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">Choose Theme</Label>
+                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('counting.chooseTheme')}</Label>
                                 <div className="grid grid-cols-3 gap-2">
                                     {(Object.keys(ICONS) as IconTheme[]).map((key) => (
                                         <button
@@ -149,7 +149,7 @@ export default function CountingWorksheetsPage() {
 
                             {/* Color Theme */}
                             <div className="space-y-3 mb-8">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">Color Palette</Label>
+                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('counting.colorPalette')}</Label>
                                 <div className="flex flex-wrap gap-2">
                                     {(Object.keys(THEMES) as ColorTheme[]).map((key) => (
                                         <button
@@ -173,24 +173,24 @@ export default function CountingWorksheetsPage() {
                                     onClick={() => window.print()}
                                     className="flex-1 h-12 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 font-bold shadow-lg"
                                 >
-                                    <Printer className="w-4 h-4 mr-2" /> Print Now
+                                    <Printer className="w-4 h-4 mr-2" /> {t('counting.printNow')}
                                 </Button>
                                 <Button
                                     variant="outline"
                                     onClick={handleDownloadPDF}
                                     className="flex-1 h-12 rounded-2xl border-2 border-slate-200 font-bold hover:bg-slate-50"
                                 >
-                                    <Download className="w-4 h-4 mr-2" /> Save PDF
+                                    <Download className="w-4 h-4 mr-2" /> {t('counting.savePdf')}
                                 </Button>
                             </div>
                         </div>
 
                         {/* Support Box */}
                         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-6 border border-indigo-100 text-center">
-                            <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">Share the Magic</p>
+                            <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">{t('counting.shareMagic')}</p>
                             <SocialShare
                                 url="https://wizqo.com/worksheets/counting-numbers-generator"
-                                title={`I just made a free counting worksheet for the number ${selectedNumber} on Wizqo! #education #parenting`}
+                                title={t('counting.shareText', { number: selectedNumber })}
                             />
                         </div>
                     </div>
@@ -214,37 +214,41 @@ export default function CountingWorksheetsPage() {
                             {/* Big Number Section */}
                             <div className="flex-1 w-full flex flex-col items-center justify-between">
                                 <div className="text-center">
-                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">Trace the Number</p>
+                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('counting.traceNumber')}</p>
                                     <div
-                                        className="text-[180px] leading-none font-black italic relative"
+                                        className="text-[200px] leading-[1] font-normal relative"
                                         style={{
-                                            color: colorTheme === 'rainbow' ? 'transparent' : THEMES[colorTheme].primary,
-                                            backgroundImage: colorTheme === 'rainbow' ? 'linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6)' : 'none',
-                                            backgroundClip: colorTheme === 'rainbow' ? 'text' : 'border-box',
-                                            WebkitBackgroundClip: colorTheme === 'rainbow' ? 'text' : 'border-box'
+                                            fontFamily: "'KG Primary Dots', sans-serif",
+                                            color: colorTheme === 'rainbow' ? '#fdba74' : THEMES[colorTheme].primary,
+                                            // Fallback for PDF if color is transparent
+                                            // backgroundImage: colorTheme === 'rainbow' ? 'linear-gradient(45deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6)' : 'none',
+                                            // backgroundClip: colorTheme === 'rainbow' ? 'text' : 'border-box',
                                         }}
                                     >
                                         {selectedNumber}
-                                        <div className="absolute inset-0 text-white/20 select-none print:hidden" style={{ WebkitTextStroke: '2px #cbd5e1' }}>{selectedNumber}</div>
                                     </div>
                                 </div>
 
                                 {/* Icons Grid */}
                                 <div className="w-full py-8">
                                     <p className="text-center text-xs font-bold uppercase text-slate-400 mb-6 tracking-widest">
-                                        Count the {ICONS[iconTheme].name}
+                                        {t('counting.countIcons', { name: ICONS[iconTheme].name })}
                                     </p>
-                                    <div className="flex flex-wrap justify-center gap-6 max-w-md mx-auto">
+                                    <div className="grid grid-cols-5 gap-6 max-w-sm mx-auto place-items-center">
                                         {renderIcons()}
                                     </div>
                                 </div>
 
                                 {/* Word Tracing Section */}
                                 <div className="w-full text-center mt-auto border-t-2 border-slate-100 pt-8">
-                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">Trace the Word</p>
+                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('counting.traceWord')}</p>
                                     <div
-                                        className="text-6xl font-cursive italic tracking-widest opacity-30 border-b-2 border-dashed border-slate-200 pb-2 inline-block px-8"
-                                        style={{ color: THEMES[colorTheme].primary }}
+                                        className="text-[80px] leading-none mb-4"
+                                        style={{
+                                            fontFamily: "'Learning Curve Dashed', sans-serif",
+                                            color: THEMES[colorTheme].primary,
+                                            opacity: 0.8
+                                        }}
                                     >
                                         {NUMBER_NAMES[selectedNumber]}
                                     </div>

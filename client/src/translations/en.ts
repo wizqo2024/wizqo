@@ -1604,6 +1604,16 @@ export const en = {
     counting: {
       title: 'Free Counting Numbers Worksheets (1-10)',
       subtitle: 'Number Counting Lab • Wizqo Magic Math',
+      selectNumber: 'Select Number',
+      chooseTheme: 'Choose Theme',
+      colorPalette: 'Color Palette',
+      printNow: 'Print Now',
+      savePdf: 'Save PDF',
+      traceNumber: 'Trace the Number',
+      countIcons: 'Count the {name}',
+      traceWord: 'Trace the Word',
+      shareMagic: 'Share the Magic',
+      shareText: 'I just made a free counting worksheet for the number {number} on Wizqo! #education #parenting'
     },
     contact: {
       title: 'Contact Wizqo',

@@ -5630,4 +5630,18 @@ export const ar = {
       instagramDesc: 'نسخ لقصتك',
     },
   },
+  counting: {
+    title: 'أوراق عمل مجانية لعد الأرقام (1-10)',
+    subtitle: 'مختبر عد الأرقام • سحر رياضيات Wizqo',
+    selectNumber: 'اختر الرقم',
+    chooseTheme: 'اختر المظهر',
+    colorPalette: 'لوحة الألوان',
+    printNow: 'اطبع الآن',
+    savePdf: 'حفظ PDF',
+    traceNumber: 'تتبع الرقم',
+    countIcons: 'عد الـ {name}',
+    traceWord: 'تتبع الكلمة',
+    shareMagic: 'شارك السحر',
+    shareText: 'لقد قمت للتو بإنشاء ورقة عمل مجانية لعد الرقم {number} على Wizqo! #تعليم #تربية'
+  },
 };
