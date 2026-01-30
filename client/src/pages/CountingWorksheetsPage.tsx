@@ -206,7 +206,7 @@ export default function CountingWorksheetsPage() {
                     <div className="lg:col-span-7" id="counting-preview-area">
                         <div className="sticky top-8 bg-white rounded-sm shadow-2xl border border-slate-200 aspect-[8.5/11] p-12 flex flex-col items-center overflow-hidden worksheet-section" id="counting-preview-svg">
                             {/* Header */}
-                            <div className="w-full text-center border-b-2 border-slate-100 pb-6 mb-8 relative">
+                            <div className="w-full text-center border-b-2 border-slate-100 pb-4 mb-6 relative">
                                 <div className="absolute left-0 top-0 text-slate-200">
                                     <Star className="w-12 h-12" />
                                 </div>
@@ -242,8 +242,8 @@ export default function CountingWorksheetsPage() {
                                 </div>
 
                                 {/* Icons Grid */}
-                                <div className="w-full py-8">
-                                    <p className="text-center text-xs font-bold uppercase text-slate-400 mb-6 tracking-widest">
+                                <div className="w-full py-2">
+                                    <p className="text-center text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">
                                         {t('pages.counting.countIcons', { name: ICONS[iconTheme].name })}
                                     </p>
                                     <div className="grid grid-cols-5 gap-6 max-w-sm mx-auto place-items-center">
@@ -268,7 +268,7 @@ export default function CountingWorksheetsPage() {
                             </div>
 
                             {/* Footer */}
-                            <div className="w-full mt-12 flex justify-between items-end border-t border-slate-50 pt-4">
+                            <div className="w-full mt-6 flex justify-between items-end border-t border-slate-50 pt-4">
                                 <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">© wizqo.com • Free Educational Resources</p>
                                 <div className="flex gap-2">
                                     <div className="w-2 h-2 rounded-full bg-slate-100"></div>
