@@ -195,7 +195,75 @@ export async function generateWorksheetPDF(
                         defs.appendChild(svgStyle);
                     });
 
-                    // 3. Force-trigger font loading
+                    // 3. Fix Gradient Text (background-clip: text) support in html2canvas
+                    const gradientTexts = clonedDoc.querySelectorAll('.pdf-gradient-text');
+                    gradientTexts.forEach(el => {
+                        const htmlEl = el as HTMLElement;
+                        const colors = htmlEl.dataset.gradientColors;
+                        if (colors) {
+                            const text = htmlEl.innerText;
+                            const rect = htmlEl.getBoundingClientRect();
+                            const style = window.getComputedStyle(htmlEl);
+
+                            // Create SVG replacement
+                            const svgNS = "http://www.w3.org/2000/svg";
+                            const svg = document.createElementNS(svgNS, "svg");
+                            svg.setAttribute("width", rect.width + "px");
+                            svg.setAttribute("height", rect.height + "px");
+                            svg.style.display = "block";
+                            svg.style.margin = "0 auto";
+
+                            // Define gradient
+                            const defs = document.createElementNS(svgNS, "defs");
+                            const gradient = document.createElementNS(svgNS, "linearGradient");
+                            gradient.id = "textGradient-" + Math.random().toString(36).substr(2, 9);
+                            gradient.setAttribute("x1", "0%");
+                            gradient.setAttribute("y1", "100%");
+                            gradient.setAttribute("x2", "100%");
+                            gradient.setAttribute("y2", "0%"); // 45deg approx
+
+                            const colorList = colors.split(',').map(c => c.trim());
+                            colorList.forEach((c, idx) => {
+                                const stop = document.createElementNS(svgNS, "stop");
+                                stop.setAttribute("offset", `${(idx / (colorList.length - 1)) * 100}%`);
+                                stop.setAttribute("stop-color", c);
+                                gradient.appendChild(stop);
+                            });
+                            defs.appendChild(gradient);
+
+                            // Add Font Style to SVG
+                            const fontStyle = document.createElementNS(svgNS, "style");
+                            fontStyle.textContent = `
+                                @font-face {
+                                    font-family: 'KG Primary Dots';
+                                    src: url(data:font/ttf;base64,${kgDotsB64}) format('truetype');
+                                }
+                                text {
+                                    font-family: 'KG Primary Dots', sans-serif;
+                                    font-size: 200px;
+                                    font-weight: normal;
+                                    dominant-baseline: central;
+                                    text-anchor: middle;
+                                }
+                            `;
+                            defs.appendChild(fontStyle);
+                            svg.appendChild(defs);
+
+                            // Create Text
+                            const svgText = document.createElementNS(svgNS, "text");
+                            svgText.textContent = text;
+                            svgText.setAttribute("x", "50%");
+                            svgText.setAttribute("y", "50%");
+                            svgText.setAttribute("fill", `url(#${gradient.id})`);
+
+                            svg.appendChild(svgText);
+
+                            // Replace element
+                            htmlEl.parentNode?.replaceChild(svg, htmlEl);
+                        }
+                    });
+
+                    // 4. Force-trigger font loading
                     const fontForceLoad = clonedDoc.createElement('div');
                     fontForceLoad.style.cssText = 'position: absolute !important; opacity: 0 !important; pointer-events: none !important; top: 0 !important; left: 0 !important; z-index: -1 !important;';
                     fontForceLoad.innerHTML = `
@@ -205,19 +273,23 @@ export async function generateWorksheetPDF(
                     `;
                     clonedDoc.body.appendChild(fontForceLoad);
 
-                    // 4. Adjust cloned section styles for better PDF look
+                    // 5. Adjust cloned section styles for better PDF look
                     const clonedSection = clonedDoc.querySelector('.worksheet-section') || clonedDoc.body.firstChild as HTMLElement
                     if (clonedSection instanceof HTMLElement) {
-                        // Tighter padding if packing is enabled
-                        const paddingBottom = packSections ? '20px' : '60px'
-                        const paddingTop = packSections ? '5px' : '20px'
-                        clonedSection.style.setProperty('padding', `${paddingTop} 32px ${paddingBottom} 32px`, 'important')
-                        clonedSection.style.setProperty('border-radius', '12px', 'important')
+                        // Match Print CSS Padding (0.5in ≈ 48px)
+                        const paddingBottom = packSections ? '20px' : '48px'
+                        const paddingTop = packSections ? '5px' : '48px'
+                        const paddingSide = '48px';
+
+                        clonedSection.style.setProperty('padding', `${paddingTop} ${paddingSide} ${paddingBottom} ${paddingSide}`, 'important')
+                        clonedSection.style.setProperty('border-radius', '0', 'important') // 0 radius for print
                         clonedSection.style.setProperty('position', 'relative', 'important')
                         clonedSection.style.setProperty('background', 'white', 'important')
                         clonedSection.style.setProperty('image-rendering', 'auto', 'important')
                         clonedSection.style.setProperty('border', 'none', 'important')
                         clonedSection.style.setProperty('box-shadow', 'none', 'important')
+                        clonedSection.style.setProperty('width', '8.5in', 'important') // Explicit width
+                        clonedSection.style.setProperty('height', '11in', 'important') // Explicit height
 
                         // Remove corner accents and other decorative elements
                         const accents = clonedSection.querySelectorAll('[class*="rounded-bl-full"], [class*="rounded-tr-full"], [class*="animate-gradient-x"]');
