@@ -158,6 +158,12 @@ export async function generateWorksheetPDF(
                             font-smoothing: antialiased !important;
                             -webkit-font-smoothing: antialiased !important;
                         }
+                        /* CRITICAL: Disable all animations to prevent capturing incomplete states (like zooming icons) */
+                        * {
+                            animation: none !important;
+                            transition: none !important;
+                            opacity: 1 !important; /* Ensure faded-in elements are visible */
+                        }
                     `;
                     clonedDoc.getElementsByTagName('head')[0].appendChild(style);
 
