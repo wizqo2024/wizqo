@@ -37,16 +37,14 @@ const DinosaurIcon = (props: any) => (
         strokeLinejoin="round"
         {...props}
     >
-        {/* Body */}
-        <path d="M10 10c-2 0-4 1-4 3s2 3 4 3h4c2 0 4-1 4-3s-2-3-4-3z" />
-        {/* Head */}
-        <path d="M14 10c1 0 1.5-1 1.5-2s-0.5-2-1.5-2h-2c-1 0-1.5 1-1.5 2s0.5 2 1.5 2z" />
-        {/* Tail */}
-        <path d="M10 13c-1 0-2 0.5-2 1.5s1 1.5 2 1.5h2c1 0 2-0.5 2-1.5s-1-1.5-2-1.5z" />
+        {/* Body & Tail */}
+        <path d="M22 13c-2 0-3-1-4-3-1-3-2-7-5-7s-4 2-4 5v2" />
+        <path d="M9 10c-4 0-6 3-6 7 0 2 1 3 3 3h12" />
+        {/* Neck & Head */}
+        <path d="M13 3c1.5 0 2.5 1 2.5 2.5S14.5 9 13 9h-2" />
         {/* Legs */}
-        <path d="M10 16v2M14 16v2" />
-        {/* Eye */}
-        <circle cx="13" cy="9" r="0.5" fill="currentColor" />
+        <path d="M6 20v2M9 20v2M13 20v2M16 20v2" />
+        <circle cx="13.5" cy="4.5" r="0.5" fill="currentColor" />
     </svg>
 );
 
@@ -60,19 +58,45 @@ const BunnyIcon = (props: any) => (
         strokeLinejoin="round"
         {...props}
     >
-        {/* Body */}
-        <path d="M12 15c-3.5 0-6-2.5-6-6s2.5-6 6-6 6 2.5 6 6-2.5 6-6 6z" />
-        {/* Ears */}
+        <path d="M10 18c-2 0-4 2-4 4h12c0-2-2-4-4-4" />
+        <path d="M12 18c-3 0-5-2-5-5.5s2-5.5 5-5.5 5 2 5 5.5-2 5.5-5 5.5z" />
         <path d="M9 7c0-3 1-4 2-4s2 1 2 4M13 7c0-3 1-4 2-4s2 1 2 4" />
-        {/* Tail */}
-        <circle cx="5" cy="20" r="1" />
-        {/* Legs */}
-        <path d="M10 18v2M14 18v2" />
-        {/* Face */}
-        <circle cx="9.5" cy="10" r="0.5" fill="currentColor" />
-        <circle cx="14.5" cy="10" r="0.5" fill="currentColor" />
-        <path d="M11 12.5c.5.5 1.5.5 2 0" />
+        <circle cx="10" cy="11" r="0.5" fill="currentColor" />
+        <circle cx="14" cy="11" r="0.5" fill="currentColor" />
+        <path d="M11 14c.5.5 1.5.5 2 0" />
+        <circle cx="18" cy="20" r="1" />
     </svg>
+);
+
+const WorkbookCover = ({ childName, iconTheme }: { childName: string; iconTheme: IconTheme }) => (
+    <div
+        className="bg-white p-12 flex flex-col items-center justify-center text-center worksheet-section"
+        style={{ width: '8.5in', height: '11in', boxSizing: 'border-box', border: '16px solid #f8fafc' }}
+    >
+        <div className="mb-12">
+            <span className="text-8xl">{ICONS[iconTheme].icon}</span>
+        </div>
+        <h1 className="text-6xl font-black text-slate-900 mb-4 tracking-tight leading-tight">
+            MY MAGIC<br />COUNTING BOOK
+        </h1>
+        <div className="h-2 w-32 bg-purple-500 rounded-full mb-8 mx-auto" />
+
+        {childName && (
+            <div className="mb-12">
+                <p className="text-xl font-bold text-slate-400 uppercase tracking-widest mb-2">Created Specially For</p>
+                <p className="text-7xl font-black text-purple-600 tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    {childName}
+                </p>
+            </div>
+        )}
+
+        <div className="mt-auto">
+            <div className="bg-slate-50 px-8 py-4 rounded-3xl border-2 border-slate-100 mb-4">
+                <p className="text-2xl font-black text-slate-800">NUMBERS 0 TO 10</p>
+            </div>
+            <p className="text-sm font-bold text-slate-300 uppercase tracking-[0.3em]">WIZQO.COM • PRINTABLE MAGIC</p>
+        </div>
+    </div>
 );
 
 const ICONS: Record<IconTheme, { name: string; icon: string; label: string; lucide?: React.ElementType }> = {
@@ -488,8 +512,12 @@ export default function CountingWorksheetsPage() {
                     id="workbook-container"
                     style={{ position: 'absolute', top: -10000, left: -10000, width: '8.5in' }}
                 >
+                    {/* Page 1: Beautiful Cover */}
+                    <WorkbookCover childName={childName} iconTheme={iconTheme} />
+
+                    {/* Worksheets */}
                     {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                        <div key={num} className="mb-8">
+                        <div key={num} className="mt-8">
                             <CountingWorksheetTemplate
                                 number={num}
                                 iconTheme={iconTheme}
