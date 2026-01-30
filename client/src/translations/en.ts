@@ -1602,7 +1602,7 @@ export const en = {
       seeReviews: 'See reviews on Trustpilot →',
     },
     counting: {
-      title: 'Free Counting Numbers Worksheets (1-10)',
+      title: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)',
       subtitle: 'Number Counting Lab • Wizqo Magic Math',
       selectNumber: 'Select Number',
       chooseTheme: 'Choose Theme',
