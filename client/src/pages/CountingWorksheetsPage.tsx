@@ -37,14 +37,15 @@ const DinosaurIcon = (props: any) => (
         strokeLinejoin="round"
         {...props}
     >
-        {/* Head & Neck */}
-        <path d="M18 4h-1c-1.5 0-2.5 1-2.5 2.5V10" />
-        <path d="M18 4c1 0 2 .5 2 1.5s-1 1.5-2 1.5h-1" />
-        <circle cx="18.5" cy="5.2" r="0.2" fill="currentColor" />
-        {/* Body */}
-        <path d="M14.5 10c0 3-2 5-6 5h-1c-3 0-4.5 2-4.5 4v1h15v-1c0-3-1.5-6-3.5-9z" />
-        {/* Tail */}
-        <path d="M3 19c-1 0-1-1 0-2 1-1 2.5-1 4.5-1" />
+        {/* Tail & Back */}
+        <path d="M2 14c2 0 3-1 4-3 1-3 2-8 7-8s5 2 5 5v3" />
+        {/* Head */}
+        <path d="M18 5c1.5 0 2.5 1 2.5 2.5S19.5 10 18 10h-2" />
+        {/* Belly */}
+        <path d="M6 11c0 5 3 8 7 8s7-3 7-8" />
+        {/* Legs */}
+        <path d="M8 19v3M11 19v3M15 19v3M18 18v3" />
+        <circle cx="18.5" cy="7.2" r="0.5" fill="currentColor" />
     </svg>
 );
 
@@ -58,14 +59,18 @@ const BunnyIcon = (props: any) => (
         strokeLinejoin="round"
         {...props}
     >
-        <path d="M10 18c0 1.5-1 3-3 3s-3-1.5-3-3 1.5-3 3-3 3 1.5 3 3z" />
-        <path d="M14 18c0 1.5 1 3 3 3s3-1.5 3-3-1.5-3-3-3-3 1.5-3 3z" />
-        <path d="M12 15c-3 0-5-2-5-5s2-5 5-5 5 2 5 5-2 5-5 5z" />
-        <path d="M9 6V3c0-1 1-1 1 0v3" />
-        <path d="M15 6V3c0-1-1-1-1 0v3" />
-        <circle cx="10" cy="10" r="0.5" fill="currentColor" />
-        <circle cx="14" cy="10" r="0.5" fill="currentColor" />
-        <path d="M11 12h2" />
+        {/* Ears */}
+        <path d="M9 7c0-3 1-4 2-4s2 1 2 4M13 7c0-3 1-4 2-4s2 1 2 4" />
+        {/* Head */}
+        <path d="M12 15c-3.5 0-6-2.5-6-6s2.5-6 6-6 6 2.5 6 6-2.5 6-6 6z" />
+        {/* Body */}
+        <path d="M12 15c-4 0-7 3-7 7h14c0-4-3-7-7-7z" />
+        {/* Eyes & Nose */}
+        <circle cx="9.5" cy="9" r="0.5" fill="currentColor" />
+        <circle cx="14.5" cy="9" r="0.5" fill="currentColor" />
+        <path d="M11 11.5c.5.5 1.5.5 2 0" />
+        {/* Tail */}
+        <circle cx="5" cy="20" r="1.5" />
     </svg>
 );
 
@@ -110,10 +115,10 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
             if (isOutlineMode) {
                 // Outline Mode: Use Lucide SVG with stroke
                 icons.push(
-                    <div key={i} className="text-6xl animate-in zoom-in duration-300" style={{ animationDelay: `${i * 50}ms` }}>
+                    <div key={i} className="animate-in zoom-in duration-300" style={{ animationDelay: `${i * 50}ms` }}>
                         <IconComponent
-                            className="w-16 h-16 sm:w-20 sm:h-20"
-                            strokeWidth={1.5}
+                            className="w-20 h-20 sm:w-24 sm:h-24"
+                            strokeWidth={1.2}
                             color="black"
                             fill="transparent"
                         />
@@ -122,7 +127,7 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
             } else {
                 // Standard Mode: Use Emoji
                 icons.push(
-                    <div key={i} className="text-4xl sm:text-6xl animate-in zoom-in duration-300 fill-mode-both" style={{ animationDelay: `${i * 50}ms` }}>
+                    <div key={i} className="text-5xl sm:text-7xl animate-in zoom-in duration-300 fill-mode-both" style={{ animationDelay: `${i * 50}ms` }}>
                         {iconData.icon}
                     </div>
                 );
