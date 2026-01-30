@@ -222,7 +222,7 @@ export default function CountingWorksheetsPage() {
                             <div className="flex-1 w-full flex flex-col items-center justify-between">
                                 <div className="text-center">
                                     <div
-                                        className="text-[200px] leading-[1] font-normal relative pdf-gradient-text"
+                                        className="text-[250px] leading-[1] font-normal relative pdf-gradient-text"
                                         data-gradient-colors={colorTheme === 'rainbow' ? '#ef4444, #f97316, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899' : ''}
                                         style={{
                                             fontFamily: "'KG Primary Dots', sans-serif",

@@ -246,7 +246,7 @@ export async function generateWorksheetPDF(
                                 }
                                 text {
                                     font-family: 'KG Primary Dots', sans-serif;
-                                    font-size: 200px;
+                                    font-size: ${style.fontSize};
                                     font-weight: normal;
                                     dominant-baseline: central;
                                     text-anchor: middle;
