@@ -49,6 +49,7 @@ export default function ScissorSkillsGeneratorPage() {
     const [mission, setMission] = useState<MissionTheme>('animals');
     const [isRainbow, setIsRainbow] = useState(true);
     const [showBadge, setShowBadge] = useState(true);
+    const [isInkSaving, setIsInkSaving] = useState(false);
 
     const seo = HUB_SEO_DATA['scissor-skills-generator'] || {};
 
@@ -180,7 +181,10 @@ export default function ScissorSkillsGeneratorPage() {
         return (
             <div
                 id="scissor-sheet-preview"
-                className="bg-[#FFFDF5] w-full aspect-[8.5/11] shadow-2xl rounded-sm p-12 flex flex-col items-center relative overflow-hidden border-[12px] border-purple-200"
+                className={`w-full aspect-[8.5/11] rounded-sm p-12 flex flex-col items-center relative overflow-hidden transition-all ${isInkSaving
+                    ? 'bg-white border-none'
+                    : 'bg-[#FFFDF5] shadow-2xl border-[12px] border-purple-200'
+                    }`}
             >
                 {/* Header */}
                 <div className="text-center mb-12 w-full">
@@ -217,7 +221,7 @@ export default function ScissorSkillsGeneratorPage() {
                                 {lineStyle === 'straight' && (
                                     <line
                                         x1="0" y1="30" x2={contentWidth} y2="30"
-                                        stroke={isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color}
+                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color)}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
                                     />
@@ -230,7 +234,7 @@ export default function ScissorSkillsGeneratorPage() {
                                             return `L ${x} ${y}`;
                                         }).join(' ')}`}
                                         fill="none"
-                                        stroke={isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color}
+                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color)}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
                                     />
@@ -246,7 +250,7 @@ export default function ScissorSkillsGeneratorPage() {
                                             return `C ${ctrlX1} ${ctrlY1} ${ctrlX2} ${ctrlY2} ${nextX} 30`;
                                         }).join(' ')}`}
                                         fill="none"
-                                        stroke={isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color}
+                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color)}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
                                     />
@@ -383,9 +387,9 @@ export default function ScissorSkillsGeneratorPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <div className="flex gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 opacity-transition">
                                     <div className="flex-1 flex items-center gap-3">
-                                        <div className={`p-2 rounded-lg ${isRainbow ? 'bg-gradient-to-r from-red-400 to-purple-400' : 'bg-slate-200'}`}>
+                                        <div className={`p-2 rounded-lg ${isRainbow && !isInkSaving ? 'bg-gradient-to-r from-red-400 to-purple-400' : 'bg-slate-200'}`}>
                                             <Palette className="text-white" size={18} />
                                         </div>
                                         <div className="flex flex-col">
@@ -393,10 +397,25 @@ export default function ScissorSkillsGeneratorPage() {
                                             <span className="text-[10px] text-slate-400 font-bold">Pinterest Favorite!</span>
                                         </div>
                                     </div>
-                                    <ToggleGroup type="single" value={isRainbow ? 'on' : 'off'} onValueChange={(v: string | null) => setIsRainbow(v === 'on')}>
+                                    <ToggleGroup type="single" value={(isRainbow && !isInkSaving) ? 'on' : 'off'} onValueChange={(v: string | null) => setIsRainbow(v === 'on')} disabled={isInkSaving}>
                                         <ToggleGroupItem value="on" className="rounded-lg px-4 py-1 flex-1 text-xs">ON</ToggleGroupItem>
                                         <ToggleGroupItem value="off" className="rounded-lg px-4 py-1 flex-1 text-xs">OFF</ToggleGroupItem>
                                     </ToggleGroup>
+                                </div>
+
+                                <div className="flex items-center justify-between bg-slate-100 p-4 rounded-2xl border-2 border-purple-200 shadow-sm animate-in fade-in slide-in-from-left-2 duration-500">
+                                    <div className="space-y-0.5">
+                                        <Label className="text-sm font-bold text-slate-700">Ink Saving Mode</Label>
+                                        <p className="text-[10px] text-slate-500 font-medium">B&W Outlines • Professional Print</p>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <input
+                                            type="checkbox"
+                                            checked={isInkSaving}
+                                            onChange={(e) => setIsInkSaving(e.target.checked)}
+                                            className="w-5 h-5 accent-purple-600 cursor-pointer rounded-full transition-all"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="space-y-3">
