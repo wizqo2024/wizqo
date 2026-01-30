@@ -1081,8 +1081,8 @@ export const es = {
   },
   pages: {
     counting: {
-      title: 'Hojas de Trabajo de Conteo de Números Gratis',
-      subtitle: 'Crea hojas de trabajo mágicas para tus pequeños.',
+      title: 'Hojas de Trabajo de Conteo de Números Gratis (1-10)',
+      subtitle: 'Laboratorio de Conteo de Números • Wizqo Magic Math',
     },
     handwriting: {
       title: 'Hojas de Práctica de Escritura Gratis',

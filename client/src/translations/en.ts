@@ -1602,8 +1602,8 @@ export const en = {
       seeReviews: 'See reviews on Trustpilot →',
     },
     counting: {
-      title: 'Free Counting Numbers Worksheets',
-      subtitle: 'Create magical counting worksheets for your little ones.',
+      title: 'Free Counting Numbers Worksheets (1-10)',
+      subtitle: 'Number Counting Lab • Wizqo Magic Math',
     },
     contact: {
       title: 'Contact Wizqo',

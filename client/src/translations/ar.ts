@@ -1737,8 +1737,8 @@ export const ar = {
   },
   pages: {
     counting: {
-      title: 'أوراق عمل عد الأرقام المجانية',
-      subtitle: 'قم بإنشاء أوراق عمل سحرية للعد لأطفالك الصغار.',
+      title: 'أوراق عمل عد الأرقام المجانية (1-10)',
+      subtitle: 'مختبر عد الأرقام • Wizqo Magic Math',
     },
     handwriting: {
       title: 'أوراق ممارسة الكتابة المجانية',

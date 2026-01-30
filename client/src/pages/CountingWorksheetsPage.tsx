@@ -102,10 +102,10 @@ export default function CountingWorksheetsPage() {
                     <div className="lg:col-span-5 space-y-6 print:hidden">
                         <div className="bg-white rounded-3xl p-6 shadow-xl border border-slate-100">
                             <h1 className="text-2xl font-black text-slate-800 mb-2">
-                                {t('pages.counting.title') || 'Number Counting Lab'}
+                                {t('pages.counting.title') || 'Free Counting Numbers Worksheets (1-10)'}
                             </h1>
-                            <p className="text-slate-500 text-sm mb-6">
-                                {t('pages.counting.subtitle') || 'Create magical counting worksheets for your little ones.'}
+                            <p className="text-slate-500 text-sm mb-6 font-medium">
+                                {t('pages.counting.subtitle') || 'Number Counting Lab • Wizqo Magic Math'}
                             </p>
 
                             {/* Number Selection */}
