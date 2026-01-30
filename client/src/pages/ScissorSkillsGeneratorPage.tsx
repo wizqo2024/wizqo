@@ -18,7 +18,7 @@ import { SocialShare } from '@/components/SocialShare';
 
 type LineStyle = 'straight' | 'zigzag' | 'wavy';
 type Thickness = 'thin' | 'thick';
-type ColorTheme = 'ocean' | 'candy' | 'forest' | 'sunset' | 'royal';
+type ColorTheme = 'ocean' | 'candy' | 'forest' | 'sunset' | 'royal' | 'bw';
 type MissionTheme = 'none' | 'animals' | 'space' | 'food' | 'transport';
 
 const THEMES: Record<ColorTheme, { name: string, color: string }> = {
@@ -27,6 +27,7 @@ const THEMES: Record<ColorTheme, { name: string, color: string }> = {
     forest: { name: 'Magic Forest', color: '#059669' },
     sunset: { name: 'Warm Sunset', color: '#ea580c' },
     royal: { name: 'Royal Gold', color: '#B45309' },
+    bw: { name: 'Black & White', color: '#000000' },
 };
 
 const MISSIONS: Record<MissionTheme, { name: string, start: string, end: string }> = {

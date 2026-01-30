@@ -67,6 +67,7 @@ export const drawWorksheetOnPDF = (
         candy: { primary: '#db2777', secondary: '#fbcfe8', text: '#be185d', dots: '#a855f7', bg: '#fff1f2' },
         forest: { primary: '#059669', secondary: '#d1fae5', text: '#065f46', dots: '#f59e0b', bg: '#f0fdf4' },
         sunset: { primary: '#ea580c', secondary: '#ffedd5', text: '#9a3412', dots: '#ef4444', bg: '#fff7ed' },
+        bw: { primary: '#000000', secondary: '#cbd5e1', text: '#000000', dots: '#94a3b8', bg: '#ffffff' },
     };
 
     const RAINBOW_COLORS = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
