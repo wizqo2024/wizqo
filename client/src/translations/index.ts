@@ -1697,7 +1697,7 @@ const ensureInteractiveTitleDescriptionKeys = () => {
       }
       const interactive = langTranslations.interactive
       const keys = interactiveTitleDescKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       Object.keys(keys).forEach((docId) => {
         if (keys[docId as keyof typeof keys]) {
@@ -1713,31 +1713,31 @@ const ensureInteractiveTitleDescriptionKeys = () => {
 const ensureWorksheetKeys = () => {
   // First, ensure interactive worksheet title/description keys
   ensureInteractiveTitleDescriptionKeys()
-  
+
   // Then, ensure interactive worksheet keys
   ensureInteractiveWorksheetKeys()
-  
+
   // Then, ensure times-table worksheet keys
   ensureTimesTableWorksheetKeys()
-  
+
   // Then, ensure place-value-hto worksheet keys
   ensurePlaceValueHtoKeys()
-  
+
   // Then, ensure count-circle-1-10 worksheet keys
   ensureCountCircleKeys()
-  
+
   // Then, ensure mult-facts-0-12 worksheet keys
   ensureMultFactsKeys()
-  
+
   // Then, ensure math-maze worksheet keys
   ensureMathMazeKeys()
-  
+
   // Then, ensure number-tracing-1-20 worksheet keys
   ensureNumberTracing120Keys()
-  
+
   // Then, ensure addition-subtraction-0-10 worksheet keys
   ensureAdditionSubtraction010Keys()
-  
+
   // Then, ensure number-id-1-10 worksheet keys
   ensureNumberId110Keys()
 }
@@ -3445,7 +3445,7 @@ const ensureInteractiveWorksheetKeys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = interactiveKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys.countObjectsAndWriteNumber) {
         worksheets.countObjectsAndWriteNumber = keys.countObjectsAndWriteNumber
@@ -3895,7 +3895,7 @@ const ensurePlaceValueHtoKeys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = placeValueKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys['place-value-hto']) {
         worksheets['place-value-hto'] = keys['place-value-hto']
@@ -4078,7 +4078,7 @@ const ensureCountCircleKeys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = countCircleKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys['count-circle-1-10']) {
         worksheets['count-circle-1-10'] = keys['count-circle-1-10']
@@ -4270,7 +4270,7 @@ const ensureMultFactsKeys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = multFactsKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys['mult-facts-0-12']) {
         worksheets['mult-facts-0-12'] = keys['mult-facts-0-12']
@@ -4495,7 +4495,7 @@ const ensureMathMazeKeys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = mathMazeKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys['math-maze']) {
         worksheets['math-maze'] = keys['math-maze']
@@ -4699,7 +4699,7 @@ const ensureNumberTracing120Keys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = numberTracingKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys['number-tracing-1-20']) {
         worksheets['number-tracing-1-20'] = keys['number-tracing-1-20']
@@ -4870,13 +4870,13 @@ const ensureAdditionSubtraction010Keys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = additionSubtractionKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys['addition-subtraction-0-10']) {
         worksheets['addition-subtraction-0-10'] = keys['addition-subtraction-0-10']
       }
     }
-    
+
     // Merge worksheetDocs into worksheets if it exists
     if (langTranslations && langTranslations.worksheetDocs && langTranslations.worksheets) {
       Object.assign(langTranslations.worksheets, langTranslations.worksheetDocs)
@@ -5040,7 +5040,7 @@ const ensureNumberId110Keys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = numberIdKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys['number-id-1-10']) {
         worksheets['number-id-1-10'] = keys['number-id-1-10']
@@ -5397,7 +5397,7 @@ const ensureTimesTableWorksheetKeys = () => {
     if (langTranslations && langTranslations.worksheets) {
       const worksheets = langTranslations.worksheets
       const keys = timesTableKeys[lang]
-      
+
       // Always merge to ensure complete translations (even if key exists, it might be incomplete due to tree-shaking)
       if (keys['times-table-horizontal-1-5']) {
         worksheets['times-table-horizontal-1-5'] = keys['times-table-horizontal-1-5']
@@ -5573,23 +5573,23 @@ const ensureInteractiveContentTranslations = () => {
         langTranslations.interactive = {}
       }
       const interactive = langTranslations.interactive
-      
+
       // Merge from the directly defined translations (prevents tree-shaking)
       const sourceInteractive = interactiveContentTranslations[lang]
       if (sourceInteractive) {
-      // Merge friendship translations explicitly
-      if (sourceInteractive['interactive-sel-friendship']) {
-        interactive['interactive-sel-friendship'] = sourceInteractive['interactive-sel-friendship']
+        // Merge friendship translations explicitly
+        if (sourceInteractive['interactive-sel-friendship']) {
+          interactive['interactive-sel-friendship'] = sourceInteractive['interactive-sel-friendship']
+        }
+        // Merge matching and kindness titles
+        if (sourceInteractive['interactive-logic-matching']) {
+          interactive['interactive-logic-matching'] = sourceInteractive['interactive-logic-matching']
+        }
+        if (sourceInteractive['interactive-sel-kindness']) {
+          interactive['interactive-sel-kindness'] = sourceInteractive['interactive-sel-kindness']
+        }
       }
-      // Merge matching and kindness titles
-      if (sourceInteractive['interactive-logic-matching']) {
-        interactive['interactive-logic-matching'] = sourceInteractive['interactive-logic-matching']
-      }
-      if (sourceInteractive['interactive-sel-kindness']) {
-        interactive['interactive-sel-kindness'] = sourceInteractive['interactive-sel-kindness']
-      }
-      }
-      
+
       // Also try to merge from source files as fallback
       const fileInteractive = lang === 'en' ? en.interactive : lang === 'es' ? es.interactive : ar.interactive
       if (fileInteractive) {
@@ -5649,11 +5649,11 @@ ensureInteractiveContentTranslations()
 export function getTranslation(language: Language, key: string): string | any {
   try {
     const keys = key.split('.')
-    
+
     // For interactive translations, try the exported interactiveTranslations first (prevents tree-shaking issues)
     if (keys[0] === 'interactive' && keys.length >= 2) {
       const interactiveKey = keys[1]
-      
+
       // Try exported interactiveTranslations first
       if (interactiveTranslations && interactiveTranslations[language] && interactiveKey) {
         const interactiveObj = (interactiveTranslations[language] as any)
@@ -5663,10 +5663,10 @@ export function getTranslation(language: Language, key: string): string | any {
           for (let j = 2; j < keys.length; j++) {
             if (value === null || value === undefined) {
               if (typeof window !== 'undefined') {
-                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { 
-                  key, 
-                  language, 
-                  keys, 
+                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, {
+                  key,
+                  language,
+                  keys,
                   currentValue: value,
                   valueType: typeof value,
                   valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
@@ -5700,7 +5700,7 @@ export function getTranslation(language: Language, key: string): string | any {
           }
         }
       }
-      
+
       // Fallback: try translations[language].interactive
       if (translations[language] && translations[language].interactive && interactiveKey) {
         const interactiveObj = (translations[language].interactive as any)
@@ -5710,10 +5710,10 @@ export function getTranslation(language: Language, key: string): string | any {
           for (let j = 2; j < keys.length; j++) {
             if (value === null || value === undefined) {
               if (typeof window !== 'undefined') {
-                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, { 
-                  key, 
-                  language, 
-                  keys, 
+                console.warn(`[getTranslation] Navigation failed at key[${j}]=${keys[j]}, value is ${value}`, {
+                  key,
+                  language,
+                  keys,
                   currentValue: value,
                   valueType: typeof value,
                   valueKeys: value && typeof value === 'object' ? Object.keys(value) : 'N/A'
@@ -5747,7 +5747,7 @@ export function getTranslation(language: Language, key: string): string | any {
           }
         }
       }
-      
+
       // If we get here and it's an interactive key, log for debugging
       if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
         const debugKey = `interactive-missing-${language}-${key}`
@@ -5764,7 +5764,7 @@ export function getTranslation(language: Language, key: string): string | any {
         }
       }
     }
-    
+
     // For worksheet keys, try interactiveWorksheetKeys first (prevents tree-shaking issues)
     // Then fallback to main translations object for any worksheet key
     // This handles both:
@@ -5772,7 +5772,7 @@ export function getTranslation(language: Language, key: string): string | any {
     // - Static worksheet document IDs: worksheets.addition-subtraction-0-10.title
     if (keys[0] === 'worksheets' && keys.length >= 2) {
       const interactiveKey = keys[1] as keyof typeof interactiveWorksheetKeys.en
-      
+
       // First, try explicit exports (prevents tree-shaking)
       if (interactiveKey && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
         const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
@@ -5798,7 +5798,7 @@ export function getTranslation(language: Language, key: string): string | any {
           }
         }
       }
-      
+
       // Fallback: try main translations object for any worksheet key
       if (translations[language] && translations[language].worksheets && interactiveKey) {
         const worksheetsObj = (translations[language].worksheets as any)
@@ -5825,9 +5825,9 @@ export function getTranslation(language: Language, key: string): string | any {
         }
       }
     }
-    
+
     let value: any = translations[language]
-    
+
     // Debug logging for interactive translations
     if (typeof window !== 'undefined' && keys[0] === 'interactive' && process.env.NODE_ENV === 'development') {
       const debugKey = `translation-debug-interactive-${language}-${key}`
@@ -5846,7 +5846,7 @@ export function getTranslation(language: Language, key: string): string | any {
         })
       }
     }
-    
+
     // Debug logging removed - translations are working correctly
     if (false && typeof window !== 'undefined' && keys[0] === 'worksheets' && process.env.NODE_ENV === 'development') {
       const debugKey = `translation-debug-${language}`
@@ -5855,7 +5855,7 @@ export function getTranslation(language: Language, key: string): string | any {
         const langObj = translations[language]
         const worksheetsObj = langObj && typeof langObj === 'object' ? langObj.worksheets : undefined
         const objectNamesObj = worksheetsObj && typeof worksheetsObj === 'object' ? worksheetsObj.objectNames : undefined
-        
+
         console.log(`[getTranslation] Top-level translations structure for ${language}:`, {
           hasTranslations: !!translations,
           hasLanguage: !!langObj,
@@ -5881,7 +5881,7 @@ export function getTranslation(language: Language, key: string): string | any {
         })
       }
     }
-    
+
     // Debug: Log if translations object is missing or malformed
     if (!value) {
       console.warn(`[getTranslation] Translation object not found for language: ${language}`, {
@@ -5901,15 +5901,20 @@ export function getTranslation(language: Language, key: string): string | any {
         return key
       }
     }
-    
+
     // Debug logging removed - translations are working correctly
-    
+
+    // Split key by dot to support nested keys (e.g. 'home.title')
+    // Check if key is already an array (internal recursion) or string
+    const keys = Array.isArray(key) ? key : key.split('.')
+
     // Navigate through nested keys
     for (let i = 0; i < keys.length; i++) {
-      const k = keys[i]
+      const k = keys[i];
+
       // Debug: Log when looking for interactive translations
       if (typeof window !== 'undefined' && keys[0] === 'interactive' && process.env.NODE_ENV === 'development') {
-        const debugKey = `translation-debug-interactive-nav-${language}-${key}-${i}`
+        const debugKey = `translation-debug-interactive-nav-${language}-${keys.join('.')}-${i}`
         if (!(window as any)[debugKey]) {
           (window as any)[debugKey] = true
           console.log(`[getTranslation] Navigation step ${i}: key=${k}, value type=${typeof value}, isObject=${value && typeof value === 'object'}, hasKey=${value && typeof value === 'object' ? k in value : false}`, {
@@ -5918,116 +5923,15 @@ export function getTranslation(language: Language, key: string): string | any {
           })
         }
       }
-      // Debug: Log when looking for number-id-1-10 translations
-      if (typeof window !== 'undefined' && key.includes('number-id-1-10')) {
-        const debugKey = `translation-debug-${key}-${language}-${i}`
-        if (!(window as any)[debugKey]) {
-          (window as any)[debugKey] = true
-          const worksheetsObj = i === 0 ? value : (value && typeof value === 'object' ? value : undefined)
-          if (i === 1) {
-            console.log(`[getTranslation] Looking for key: ${key}, language: ${language}, at key[${i}]: ${k}, value type: ${typeof value}, hasKey: ${value && typeof value === 'object' ? k in value : false}, availableKeys:`, value && typeof value === 'object' ? Object.keys(value).filter(k => k.includes('number') || k.includes('id')).slice(0, 15) : 'N/A')
-          }
-          if (i === 2 && value && typeof value === 'object') {
-            console.log(`[getTranslation] At final key: ${k}, value:`, value[k], 'type:', typeof value[k])
-          }
-        }
-      }
+
       if (value === null || value === undefined) {
-        // If we're looking for interactive translations and they're missing, try the exported interactiveTranslations
-        if (keys[0] === 'interactive' && i >= 1 && interactiveTranslations[language]) {
-          const interactiveKey = keys[1]
-          if (interactiveKey && interactiveTranslations[language] && interactiveKey in interactiveTranslations[language]) {
-            const interactiveValue = (interactiveTranslations[language] as any)[interactiveKey]
-            if (interactiveValue !== undefined) {
-              if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-                console.log(`[getTranslation] Using interactiveTranslations fallback for: ${key}, language: ${language}, interactiveKey: ${interactiveKey}`)
-              }
-              // Continue navigation from the interactive value
-              value = interactiveValue
-              // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
-              for (let j = 2; j < keys.length; j++) {
-                if (value === null || value === undefined) break
-                if (value && typeof value === 'object' && keys[j] in value) {
-                  value = value[keys[j]]
-                } else {
-                  value = undefined
-                  break
-                }
-              }
-              if (value !== null && value !== undefined) {
-                if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
-                  return value
-                }
-                if (typeof value === 'string') {
-                  return value
-                }
-              }
-            }
-          }
-        }
-        // If we're looking for worksheet keys and they're missing,
-        // try to get them from the exported interactiveWorksheetKeys or main translations
-        if (keys[0] === 'worksheets' && i >= 1) {
-          const interactiveKey = keys[1]
-          // Try explicit exports first
-          if (interactiveKey && interactiveWorksheetKeys[language] && interactiveKey in interactiveWorksheetKeys[language]) {
-            const interactiveValue = (interactiveWorksheetKeys[language] as any)[interactiveKey]
-            if (interactiveValue !== undefined) {
-              // Continue navigation from the interactive value
-              value = interactiveValue
-              // Continue with remaining keys if any (starting from index 2, since we already handled 0 and 1)
-              for (let j = 2; j < keys.length; j++) {
-                if (value === null || value === undefined) break
-                if (value && typeof value === 'object' && keys[j] in value) {
-                  value = value[keys[j]]
-                } else {
-                  value = undefined
-                  break
-                }
-              }
-              if (value !== null && value !== undefined) {
-                if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
-                  return value
-                }
-                if (typeof value === 'string') {
-                  return value
-                }
-              }
-            }
-          }
-          // Fallback to main translations object for any worksheet key
-          if (translations[language] && translations[language].worksheets && interactiveKey && interactiveKey in translations[language].worksheets) {
-            const worksheetsValue = (translations[language].worksheets as any)[interactiveKey]
-            if (worksheetsValue !== undefined) {
-              value = worksheetsValue
-              // Continue with remaining keys if any
-              for (let j = 2; j < keys.length; j++) {
-                if (value === null || value === undefined) break
-                if (value && typeof value === 'object' && keys[j] in value) {
-                  value = value[keys[j]]
-                } else {
-                  value = undefined
-                  break
-                }
-              }
-              if (value !== null && value !== undefined) {
-                if (Array.isArray(value) || (typeof value === 'object' && typeof value !== 'string')) {
-                  return value
-                }
-                if (typeof value === 'string') {
-                  return value
-                }
-              }
-            }
-          }
-        }
-        
-        // Debug logging removed - translations are working correctly
-        break
+        // Break and let fallback logic handle it
+        break;
       }
+
       value = value[k]
     }
-    
+
     // If we got a valid value (string, array, or object), return it
     if (value !== null && value !== undefined) {
       // Return arrays and objects as-is
@@ -6041,7 +5945,7 @@ export function getTranslation(language: Language, key: string): string | any {
         return value
       }
     }
-    
+
     // Fallback to English if translation missing
     if (language !== 'en') {
       let fallbackValue: any = translations.en
@@ -6104,7 +6008,7 @@ export function getTranslation(language: Language, key: string): string | any {
         }
       }
     }
-    
+
     // Final fallback: return the key itself (so it's visible if translation missing)
     // Only warn in development to avoid console spam
     if (typeof window !== 'undefined' && (window as any).__DEV__) {
