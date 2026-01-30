@@ -153,6 +153,10 @@ function generate() {
     loc: `${site}/images/scissor-skills.png`,
     caption: 'Free Scissor Skills Generator - Preschool cutting practice'
   });
+  push(`${site}/worksheets/counting-numbers-generator`, today, 'weekly', '0.8', {
+    loc: `${site}/images/counting-generator-seo.png`,
+    caption: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)'
+  });
 
   // Intentionally exclude /print?doc=..., /plan, /dashboard, /reset-password, /privacy, /terms, /cookies from sitemap (non-indexed)
 
