@@ -202,7 +202,7 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                         className={`text-[250px] leading-[1] font-normal relative ${!isOutlineMode && 'pdf-gradient-text'}`} // Only gradient if not outline
                         data-gradient-colors={(!isOutlineMode && colorTheme === 'rainbow') ? '#ef4444, #f97316, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899' : ''}
                         style={{
-                            fontFamily: "'KG Primary Dots', sans-serif",
+                            fontFamily: "'KGPrimaryDots', sans-serif",
                             ...(isOutlineMode ? {
                                 color: 'transparent',
                                 WebkitTextStroke: '2px black', // Ink saving outline for text
@@ -235,9 +235,9 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                 <div className="w-full text-center mt-auto border-t-2 border-slate-100 pt-8">
                     <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('pages.counting.traceWord')}</p>
                     <div
-                        className="text-[100px] leading-none mb-4 lowercase"
+                        className="text-[100px] leading-none mb-4 lowercase tracking-wider"
                         style={{
-                            fontFamily: "'KG Primary Dots', sans-serif",
+                            fontFamily: "'KGPrimaryDots', sans-serif",
                             color: isOutlineMode ? 'transparent' : theme.primary,
                             WebkitTextStroke: isOutlineMode ? '1.5px black' : 'none',
                             opacity: isOutlineMode ? 1 : 0.6
