@@ -120,6 +120,7 @@ interface WorksheetTemplateProps {
     iconTheme: IconTheme;
     colorTheme: ColorTheme;
     isOutlineMode?: boolean;
+    isTraceable?: boolean;
     childName?: string;
     t: any;
     id?: string;
@@ -130,6 +131,7 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
     iconTheme,
     colorTheme,
     isOutlineMode,
+    isTraceable = true,
     childName,
     t,
     id
@@ -202,7 +204,8 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                         className={`text-[250px] leading-[1] font-normal relative ${!isOutlineMode && 'pdf-gradient-text'}`} // Only gradient if not outline
                         data-gradient-colors={(!isOutlineMode && colorTheme === 'rainbow') ? '#ef4444, #f97316, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ec4899' : ''}
                         style={{
-                            fontFamily: "'KGPrimaryDots', sans-serif",
+                            fontFamily: isTraceable ? "'KGPrimaryDots', sans-serif" : "'Inter', sans-serif",
+                            fontWeight: isTraceable ? 'normal' : '900',
                             ...(isOutlineMode ? {
                                 color: 'transparent',
                                 WebkitTextStroke: '2px black', // Ink saving outline for text
@@ -237,7 +240,8 @@ const CountingWorksheetTemplate: React.FC<WorksheetTemplateProps> = ({
                     <div
                         className="text-[100px] leading-none mb-4 lowercase tracking-wider"
                         style={{
-                            fontFamily: "'KGPrimaryDots', sans-serif",
+                            fontFamily: isTraceable ? "'KGPrimaryDots', sans-serif" : "'Inter', sans-serif",
+                            fontWeight: isTraceable ? 'normal' : '900',
                             color: isOutlineMode ? 'transparent' : theme.primary,
                             WebkitTextStroke: isOutlineMode ? '1.5px black' : 'none',
                             opacity: isOutlineMode ? 1 : 0.6
@@ -269,6 +273,7 @@ export default function CountingWorksheetsPage() {
     const [iconTheme, setIconTheme] = useState<IconTheme>('dinosaurs');
     const [colorTheme, setColorTheme] = useState<ColorTheme>('rainbow');
     const [isOutlineMode, setIsOutlineMode] = useState<boolean>(false);
+    const [isTraceable, setIsTraceable] = useState<boolean>(true); // Default to tracing as it's our USP
     const [childName, setChildName] = useState<string>('');
 
     // SEO Data
@@ -284,12 +289,12 @@ export default function CountingWorksheetsPage() {
             toast({ title: 'Generating...', description: 'Preparing your high-quality PDF.' });
 
             await generateWorksheetPDF(element, {
-                filename: `wizqo-counting-${selectedNumber}${childName ? `-${childName}` : ''}.pdf`,
+                filename: `wizqo-counting-${selectedNumber}${isTraceable ? '-tracing' : ''}${childName ? `-${childName}` : ''}.pdf`,
                 scale: 3.5,
                 docTitle: `Counting Practice - ${selectedNumber}`
             });
 
-            trackWorksheetDownload('counting-numbers-generator', `Counting Worksheets (${selectedNumber})`, 'CountingWorksheetsPage', 'Pre-K');
+            trackWorksheetDownload('counting-numbers-generator', `Counting Worksheets (${selectedNumber}) - Tracing: ${isTraceable}`, 'CountingWorksheetsPage', 'Pre-K');
             toast({ title: 'Success!', description: 'Your counting worksheet is ready.' });
         } catch (err) {
             console.error('PDF Error:', err);
@@ -307,17 +312,14 @@ export default function CountingWorksheetsPage() {
 
             toast({ title: 'Building Workbook...', description: 'Generating 11-page workbook (0-10). This may take a moment.' });
 
-            // Ensure the container is "visible" for capture (it's off-screen)
-            // No class manipulation needed as it's static
-
             await generateWorksheetPDF(element, {
-                filename: `wizqo-counting-workbook-0-10${childName ? `-${childName}` : ''}.pdf`,
+                filename: `wizqo-counting-workbook-0-10${isTraceable ? '-tracing' : ''}${childName ? `-${childName}` : ''}.pdf`,
                 scale: 3.5, // High quality
                 docTitle: `Counting Workbook 0-10`,
                 packSections: false // Ensure each uses a full page
             });
 
-            trackWorksheetDownload('counting-numbers-generator', `Workbook 0-10`, 'CountingWorksheetsPage', 'Pre-K');
+            trackWorksheetDownload('counting-numbers-generator', `Workbook 0-10 - Tracing: ${isTraceable}`, 'CountingWorksheetsPage', 'Pre-K');
             toast({ title: 'Workbook Ready!', description: 'Your 0-10 workbook has been downloaded.' });
 
         } catch (err) {
@@ -398,16 +400,30 @@ export default function CountingWorksheetsPage() {
                                     </div>
 
                                     {/* Outline Mode Toggle */}
-                                    <div className="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                        <div className="space-y-0.5">
-                                            <Label className="text-sm font-bold text-slate-700">Ink Saving Mode</Label>
-                                            <p className="text-xs text-slate-500">Black & white outlines for coloring</p>
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                            <div className="space-y-0.5">
+                                                <Label className="text-sm font-bold text-slate-700">Ink Saving Mode</Label>
+                                                <p className="text-xs text-slate-500">Black & white outlines for coloring</p>
+                                            </div>
+                                            <Switch
+                                                checked={isOutlineMode}
+                                                onCheckedChange={setIsOutlineMode}
+                                                className="data-[state=checked]:bg-purple-600"
+                                            />
                                         </div>
-                                        <Switch
-                                            checked={isOutlineMode}
-                                            onCheckedChange={setIsOutlineMode}
-                                            className="data-[state=checked]:bg-purple-600"
-                                        />
+
+                                        <div className="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                            <div className="space-y-0.5">
+                                                <Label className="text-sm font-bold text-slate-700">Tracing Style</Label>
+                                                <p className="text-xs text-slate-500">Dotted fonts for handwriting</p>
+                                            </div>
+                                            <Switch
+                                                checked={isTraceable}
+                                                onCheckedChange={setIsTraceable}
+                                                className="data-[state=checked]:bg-purple-600"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -503,6 +519,7 @@ export default function CountingWorksheetsPage() {
                                 iconTheme={iconTheme}
                                 colorTheme={colorTheme}
                                 isOutlineMode={isOutlineMode}
+                                isTraceable={isTraceable}
                                 childName={childName}
                                 t={t}
                             />
@@ -527,6 +544,7 @@ export default function CountingWorksheetsPage() {
                                 iconTheme={iconTheme}
                                 colorTheme={colorTheme}
                                 isOutlineMode={isOutlineMode}
+                                isTraceable={isTraceable}
                                 childName={childName}
                                 t={t}
                             />
