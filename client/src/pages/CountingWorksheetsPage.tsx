@@ -102,15 +102,15 @@ export default function CountingWorksheetsPage() {
                     <div className="lg:col-span-5 space-y-6 print:hidden">
                         <div className="bg-white rounded-3xl p-6 shadow-xl border border-slate-100">
                             <h1 className="text-2xl font-black text-slate-800 mb-2">
-                                {t('counting.title')}
+                                {t('pages.counting.title')}
                             </h1>
                             <p className="text-slate-500 text-sm mb-6 font-medium">
-                                {t('counting.subtitle')}
+                                {t('pages.counting.subtitle')}
                             </p>
 
                             {/* Number Selection */}
                             <div className="space-y-3 mb-6">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('counting.selectNumber')}</Label>
+                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.selectNumber')}</Label>
                                 <div className="grid grid-cols-5 gap-2">
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                                         <button
@@ -129,7 +129,7 @@ export default function CountingWorksheetsPage() {
 
                             {/* Icon Theme */}
                             <div className="space-y-3 mb-6">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('counting.chooseTheme')}</Label>
+                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.chooseTheme')}</Label>
                                 <div className="grid grid-cols-3 gap-2">
                                     {(Object.keys(ICONS) as IconTheme[]).map((key) => (
                                         <button
@@ -149,7 +149,7 @@ export default function CountingWorksheetsPage() {
 
                             {/* Color Theme */}
                             <div className="space-y-3 mb-8">
-                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('counting.colorPalette')}</Label>
+                                <Label className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('pages.counting.colorPalette')}</Label>
                                 <div className="flex flex-wrap gap-2">
                                     {(Object.keys(THEMES) as ColorTheme[]).map((key) => (
                                         <button
@@ -173,24 +173,24 @@ export default function CountingWorksheetsPage() {
                                     onClick={() => window.print()}
                                     className="flex-1 h-12 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 font-bold shadow-lg"
                                 >
-                                    <Printer className="w-4 h-4 mr-2" /> {t('counting.printNow')}
+                                    <Printer className="w-4 h-4 mr-2" /> {t('pages.counting.printNow')}
                                 </Button>
                                 <Button
                                     variant="outline"
                                     onClick={handleDownloadPDF}
                                     className="flex-1 h-12 rounded-2xl border-2 border-slate-200 font-bold hover:bg-slate-50"
                                 >
-                                    <Download className="w-4 h-4 mr-2" /> {t('counting.savePdf')}
+                                    <Download className="w-4 h-4 mr-2" /> {t('pages.counting.savePdf')}
                                 </Button>
                             </div>
                         </div>
 
                         {/* Support Box */}
                         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-6 border border-indigo-100 text-center">
-                            <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">{t('counting.shareMagic')}</p>
+                            <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-3">{t('pages.counting.shareMagic')}</p>
                             <SocialShare
                                 url="https://wizqo.com/worksheets/counting-numbers-generator"
-                                title={t('counting.shareText', { number: selectedNumber })}
+                                title={t('pages.counting.shareText', { number: selectedNumber })}
                             />
                         </div>
                     </div>
@@ -214,7 +214,7 @@ export default function CountingWorksheetsPage() {
                             {/* Big Number Section */}
                             <div className="flex-1 w-full flex flex-col items-center justify-between">
                                 <div className="text-center">
-                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('counting.traceNumber')}</p>
+                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('pages.counting.traceNumber')}</p>
                                     <div
                                         className="text-[200px] leading-[1] font-normal relative"
                                         style={{
@@ -232,7 +232,7 @@ export default function CountingWorksheetsPage() {
                                 {/* Icons Grid */}
                                 <div className="w-full py-8">
                                     <p className="text-center text-xs font-bold uppercase text-slate-400 mb-6 tracking-widest">
-                                        {t('counting.countIcons', { name: ICONS[iconTheme].name })}
+                                        {t('pages.counting.countIcons', { name: ICONS[iconTheme].name })}
                                     </p>
                                     <div className="grid grid-cols-5 gap-6 max-w-sm mx-auto place-items-center">
                                         {renderIcons()}
@@ -241,7 +241,7 @@ export default function CountingWorksheetsPage() {
 
                                 {/* Word Tracing Section */}
                                 <div className="w-full text-center mt-auto border-t-2 border-slate-100 pt-8">
-                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('counting.traceWord')}</p>
+                                    <p className="text-xs font-bold uppercase text-slate-400 mb-4 tracking-widest">{t('pages.counting.traceWord')}</p>
                                     <div
                                         className="text-[80px] leading-none mb-4"
                                         style={{
