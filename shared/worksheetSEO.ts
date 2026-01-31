@@ -3989,12 +3989,12 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Hidden Picture Puzzle: Visual Discovery</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Sharpen observation skills with our 'Hidden Picture Puzzle'. Designed for early learners, this worksheet challenges students to find concealed objects within a scene, building critical visual discrimination and focus. Free PDF download.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Developing Visual Literacy</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Finding hidden objects is more than a game—it's a workout for the brain! By identifying figures against a complex background, children develop <strong>figure-ground perception</strong> and <strong>attention to detail</strong>. These skills are essential reading readiness, helping students distinguish between similar letters and track text on a page.</p></section></article>"
   },
   'scissor-skills-generator': {
-    title: 'Free Scissor Skills Generator | Preschool Cutting Practice Worksheets | No Sign Up',
-    metaDescription: 'Stop buying workbooks. Generate unlimited cutting practice worksheets for preschoolers. Create custom straight, wavy, and zig-zag cutting strips. 100% Free PDF, no account needed.',
+    title: 'Free Printable Cutting Practice Worksheets (PDF) - Scissor Skills Generator',
+    metaDescription: "Download free printable cutting practice worksheets for preschoolers. Generate custom vertical cutting strips, zigzag lines, and 'haircut' activities for fine motor skills. No sign up.",
     image: '/images/scissor-skills-seo.png',
-    keywords: 'scissor skills generator, preschool cutting strips, monster haircut worksheet, vertical cutting practice, fine motor skills worksheets, kindergarten scissor practice, free cutting generator, teacher scissor strips',
+    keywords: 'free printable cutting practice worksheets, scissor skills worksheets for kindergarten, cutting strips for preschoolers, fine motor skills activities, haircut worksheets, vertical cutting practice, free homeschooling resources',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
-      <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Scissor Skills Generator</h1>
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Printable Cutting Practice Worksheets</h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's <strong>Free Scissor Skills Generator</strong>. We've upgraded our tool with the viral <strong>Monster Haircut Salon Mode</strong>. Our unique <strong>Vertical Strip Layout</strong> is ergonomically designed for toddlers and preschoolers, allowing them to cut upwards—a natural motion that builds confidence and precision.</p>
 
       <section style="margin-bottom: 3rem; background: #f5f3ff; padding: 2rem; border-radius: 12px; border: 1px solid #ddd6fe;">
@@ -4017,6 +4017,21 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
         <div style="margin-bottom: 1.5rem;">
           <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">At what age should a child start with scissors?</h3>
           <p style="color: #475569;">Most children can begin supervised scissor play around age 2.5 to 3. Start with our <strong>Thick Straight Lines</strong> in Salon Mode to build immediate success!</p>
+        </div>
+      </section>
+
+      <section style="margin-top: 4rem; text-align: center; padding-top: 2rem; border-top: 2px dashed #e2e8f0;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Keep the Learning Going! 🚀</h2>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+          <a href="/worksheets/counting-numbers-generator" style="display: inline-block; background: white; color: #4f46e5; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #e0e7ff; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            🔢 Counting Generator
+          </a>
+          <a href="/worksheets/addition-subtraction-within-10" style="display: inline-block; background: white; color: #4f46e5; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #e0e7ff; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            ➕ Visual Math
+          </a>
+          <a href="/worksheets/spelling-list-generator" style="display: inline-block; background: white; color: #4f46e5; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #e0e7ff; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            📝 Name Tracing
+          </a>
         </div>
       </section>
     </article>`
