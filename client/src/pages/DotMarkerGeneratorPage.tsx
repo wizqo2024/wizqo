@@ -152,7 +152,7 @@ export default function DotMarkerGeneratorPage() {
             if (iconMatrix) {
                 // Determine vertical start: 8 rows down from top (below text)
                 const iconYStart = 8 * dotSpacing;
-                // Center it horizontally relative to the cursorX
+                // Center it horizontally relative to the total cursorX
                 const iconWidth = iconMatrix[0].length;
                 const iconXStart = (cursorX / 2) - ((iconWidth / 2) * dotSpacing);
 
@@ -163,7 +163,8 @@ export default function DotMarkerGeneratorPage() {
                                 id: `icon-${rIndex}-${cIndex}`,
                                 x: iconXStart + (cIndex * dotSpacing),
                                 y: iconYStart + (rIndex * dotSpacing),
-                                isIcon: true
+                                isIcon: true,
+                                color: colors[result.length % colors.length]
                             });
                         }
                     });
@@ -518,8 +519,8 @@ export default function DotMarkerGeneratorPage() {
                             </p>
                         </div>
 
-                        {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio */}
-                        <div className="w-full aspect-[8.5/11] bg-white relative p-12 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
+                        {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) */}
+                        <div className="w-full aspect-[1/1.41] bg-white relative p-12 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
                             <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:bg-white" />
 
                             <svg
@@ -543,15 +544,6 @@ export default function DotMarkerGeneratorPage() {
                                             </React.Fragment>
                                         ))}
                                     </g>
-
-                                    {/* Dedicated Icon Stamper at the bottom */}
-                                    {stamperIcon !== 'none' && (
-                                        <g transform={`translate(${totalWidth / 2}, 500) scale(4)`} className="opacity-10 print:opacity-100">
-                                            <g transform="translate(-10, -10)">
-                                                {renderShape({ x: 0, y: 0 }, 15, stamperIcon, '#e2e8f0')}
-                                            </g>
-                                        </g>
-                                    )}
                                 </g>
                             </svg>
 
@@ -607,6 +599,9 @@ export default function DotMarkerGeneratorPage() {
                             <p className="leading-relaxed">
                                 Use this dot marker generator to make a class set of name mats for the first week of school.
                                 Great for <strong>name recognition centers</strong>! Our tools are designed to save you hours of prep time.
+                            </p>
+                            <p className="mt-4 text-sm italic">
+                                <strong>SEO Strategy Tip:</strong> By mentioning "Bingo Dauber," "Dot Marker," "Do-A-Dot," and "Dot Art," we cover all major synonyms that parents and teachers search for.
                             </p>
                         </section>
                     </div>

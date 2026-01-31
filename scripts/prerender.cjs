@@ -88,6 +88,18 @@ function getWorksheetSEODataMap() {
   return WORKSHEET_SEO_DATA_MAP;
 }
 
+/**
+ * Helper to get a map of slugs to richContent strings
+ */
+function getWorksheetRichContentMap() {
+  const seoData = getWorksheetSEODataMap();
+  const map = {};
+  for (const [slug, data] of Object.entries(seoData)) {
+    map[slug] = data.richContent;
+  }
+  return map;
+}
+
 
 function ensureDir(p) {
   fs.mkdirSync(p, { recursive: true });
