@@ -284,73 +284,10 @@ export default function DotMarkerGeneratorPage() {
             <UnifiedNavigation />
 
             <main className="max-w-7xl mx-auto px-4 py-12 lg:py-20">
-                <div className="grid lg:grid-cols-[1fr_400px] gap-12 items-start">
+                <div className="grid lg:grid-cols-[400px_1fr] gap-12 items-start">
 
-                    {/* Left: Preview Area */}
-                    <div className="space-y-8">
-                        <div className="text-center lg:text-left space-y-4">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-sm font-bold animate-pulse">
-                                <Sparkles size={16} /> 2026 Viral Tool Logic
-                            </div>
-                            <h1 className="text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-none">
-                                Do-A-Dot <span className="text-purple-600">Name Generator</span>
-                            </h1>
-                            <p className="text-lg text-slate-500 font-medium max-w-2xl">
-                                The internet's only dynamic dot sampler. Professional layout for Bingo Markers, Q-Tips, and Stickers.
-                            </p>
-                        </div>
-
-                        {/* SVG Canvas Preview */}
-                        <div className="relative group bg-white rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 aspect-[1.41] overflow-hidden print:shadow-none print:border-0 print:rounded-none">
-                            <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:bg-white" />
-
-                            <svg
-                                ref={svgRef}
-                                viewBox="0 0 1200 800"
-                                className="relative w-full h-full p-12 drop-shadow-sm transition-all duration-300 pointer-events-none"
-                            >
-                                {/* Branding footer in preview */}
-                                <text x="1150" y="780" textAnchor="end" className="fill-slate-300 text-[12px] font-bold uppercase tracking-widest print:hidden">
-                                    Made with Wizqo.com
-                                </text>
-
-                                {/* The Dots */}
-                                <g className="dots-container">
-                                    {dots.map(point => renderShape(point, dotSize))}
-                                </g>
-
-                                {/* Dedicated Icon Stamper at the bottom */}
-                                {stamperIcon !== 'none' && (
-                                    <g transform="translate(600, 650) scale(4)" className="opacity-10 print:opacity-100">
-                                        <g transform="translate(-10, -10)">
-                                            {renderShape({ x: 0, y: 0 }, 15, stamperIcon, '#e2e8f0')}
-                                        </g>
-                                    </g>
-                                )}
-                            </svg>
-
-                            {/* Grid Lines Overlay for Realism */}
-                            <div className="absolute inset-0 pointer-events-none opacity-5 print:hidden bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]" />
-                        </div>
-
-                        {/* Features Bar */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {[
-                                { label: 'High Resolution', icon: Check },
-                                { label: 'Printer Friendly', icon: Printer },
-                                { label: 'Sticker Ready', icon: Sparkles },
-                                { label: 'Instant PDF', icon: Download },
-                            ].map((f, i) => (
-                                <div key={i} className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-white border border-slate-100 text-slate-600 text-sm font-bold shadow-sm">
-                                    <f.icon className="text-purple-500" size={16} />
-                                    {f.label}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Right: Sidebar Controls */}
-                    <aside className="sticky top-24 space-y-6 bg-white p-8 rounded-[32px] border-2 border-slate-50 shadow-xl shadow-slate-200/50 print:hidden">
+                    {/* Left: Sidebar Controls */}
+                    <aside className="sticky top-24 space-y-6 bg-white p-8 rounded-[32px] border-2 border-slate-50 shadow-xl shadow-slate-200/50 print:hidden lg:order-1">
                         <div className="space-y-1">
                             <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
                                 Personalization <Sparkles size={18} className="text-purple-400" />
@@ -491,6 +428,69 @@ export default function DotMarkerGeneratorPage() {
                             </button>
                         </div>
                     </aside>
+
+                    {/* Right: Preview Area */}
+                    <div className="space-y-8 lg:order-2">
+                        <div className="text-center lg:text-left space-y-4">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-sm font-bold animate-pulse">
+                                <Sparkles size={16} /> 2026 Viral Tool Logic
+                            </div>
+                            <h1 className="text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-none">
+                                Do-A-Dot <span className="text-purple-600">Name Generator</span>
+                            </h1>
+                            <p className="text-lg text-slate-500 font-medium max-w-2xl">
+                                The internet's only dynamic dot sampler. Professional layout for Bingo Markers, Q-Tips, and Stickers.
+                            </p>
+                        </div>
+
+                        {/* SVG Canvas Preview */}
+                        <div className="relative group bg-white rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 aspect-[1.41] overflow-hidden print:shadow-none print:border-0 print:rounded-none">
+                            <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:bg-white" />
+
+                            <svg
+                                ref={svgRef}
+                                viewBox="0 0 1200 800"
+                                className="relative w-full h-full p-12 drop-shadow-sm transition-all duration-300 pointer-events-none"
+                            >
+                                {/* Branding footer in preview */}
+                                <text x="1150" y="780" textAnchor="end" className="fill-slate-300 text-[12px] font-bold uppercase tracking-widest print:hidden">
+                                    Made with Wizqo.com
+                                </text>
+
+                                {/* The Dots */}
+                                <g className="dots-container">
+                                    {dots.map(point => renderShape(point, dotSize))}
+                                </g>
+
+                                {/* Dedicated Icon Stamper at the bottom */}
+                                {stamperIcon !== 'none' && (
+                                    <g transform="translate(600, 650) scale(4)" className="opacity-10 print:opacity-100">
+                                        <g transform="translate(-10, -10)">
+                                            {renderShape({ x: 0, y: 0 }, 15, stamperIcon, '#e2e8f0')}
+                                        </g>
+                                    </g>
+                                )}
+                            </svg>
+
+                            {/* Grid Lines Overlay for Realism */}
+                            <div className="absolute inset-0 pointer-events-none opacity-5 print:hidden bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]" />
+                        </div>
+
+                        {/* Features Bar */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {[
+                                { label: 'High Resolution', icon: Check },
+                                { label: 'Printer Friendly', icon: Printer },
+                                { label: 'Sticker Ready', icon: Sparkles },
+                                { label: 'Instant PDF', icon: Download },
+                            ].map((f, i) => (
+                                <div key={i} className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-white border border-slate-100 text-slate-600 text-sm font-bold shadow-sm">
+                                    <f.icon className="text-purple-500" size={16} />
+                                    {f.label}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
 
                 {/* SEO Copy Section (Required for Google Image Trap) */}
