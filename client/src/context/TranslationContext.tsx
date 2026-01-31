@@ -6,7 +6,7 @@ import { getLocaleFromURL, parseLocaleFromPath, type Locale } from '@/utils/loca
 interface TranslationContextType {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: string, paramsOrFallback?: string | Record<string, any>, fallback?: string) => string
+  t: (key: string, paramsOrFallback?: any, fallback?: any) => any
   isRTL: boolean
   availableLanguages: Array<{ code: Language; name: string; flag: string }>
 }
@@ -199,12 +199,15 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
   }, [language])
 
-  const t = React.useCallback((key: string, paramsOrFallback?: string | Record<string, any>, explicitFallback?: string): string => {
+  const t = React.useCallback((key: string, paramsOrFallback?: any, explicitFallback?: any): any => {
     // Determine arguments
     let params: Record<string, any> = {};
-    let fallback: string | undefined = explicitFallback;
+    let fallback: any = explicitFallback;
 
     if (typeof paramsOrFallback === 'string') {
+      fallback = paramsOrFallback;
+    } else if (Array.isArray(paramsOrFallback)) {
+      // If an array is passed as the second argument, treat it as the fallback
       fallback = paramsOrFallback;
     } else if (typeof paramsOrFallback === 'object' && paramsOrFallback !== null) {
       params = paramsOrFallback;
@@ -218,7 +221,8 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
 
     // Interpolation: Replace {{key}} or {key} with param values
-    if (Object.keys(params).length > 0) {
+    // Only perform replacement if the result is a string and we have params
+    if (typeof result === 'string' && Object.keys(params).length > 0) {
       Object.keys(params).forEach(paramKey => {
         const val = String(params[paramKey]);
         // Use split/join instead of RegExp to avoid syntax errors with numeric keys like {0}
@@ -275,7 +279,12 @@ export function useTranslation() {
     return {
       language: 'en' as Language,
       setLanguage: () => { },
-      t: (key: string, _params?: string | Record<string, any>, _fallback?: string) => key,
+      t: (key: string, paramsOrFallback?: any, explicitFallback?: any) => {
+        if (explicitFallback !== undefined) return explicitFallback;
+        if (Array.isArray(paramsOrFallback)) return paramsOrFallback;
+        if (typeof paramsOrFallback === 'string') return paramsOrFallback;
+        return key;
+      },
       isRTL: false,
       availableLanguages: getAvailableLanguages(),
     }

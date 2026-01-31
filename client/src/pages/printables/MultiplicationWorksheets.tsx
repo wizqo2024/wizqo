@@ -407,17 +407,17 @@ export function MultiplicationArrays2To5({ seed, variant, showAnswersForDoc }: S
                     emoji={String.fromCharCode(0x2716, 0xFE0F)}
                     description={getTrans('description', "Find the product for each multiplication problem. Use the array to help you count.")}
                     problemCount={arrays.length} // Show total count for scoring
-                    learningObjectives={t('learningObjectives', [
+                    learningObjectives={[
                         'Use arrays to visualize multiplication',
                         'Count rows and columns to find the product',
                         'Understand multiplication as equal groups'
-                    ])}
-                    parentTeacherTips={t('parentTeacherTips', [
+                    ]}
+                    parentTeacherTips={[
                         'Arrays help students see multiplication visually',
                         'Count rows first, then columns, or count all objects',
                         'Encourage students to count the total number of boxes',
                         'Extension: Draw your own arrays for different problems'
-                    ])}
+                    ]}
                     hideDownloadButton
                     hideBorders
                 >
@@ -709,17 +709,17 @@ export function MultiplicationArraysModels({ seed, variant, showAnswersForDoc }:
             emoji={String.fromCodePoint(0x1F3D7)}
             description={getTrans('description', "Draw an array for each problem. Use your favorite color to shade the boxes!")}
             problemCount={arrays.length}
-            learningObjectives={t('learningObjectives', [
+            learningObjectives={[
                 'Use arrays to visualize and solve multiplication',
                 'Count rows and columns to find products',
                 'Understand multiplication as equal groups arranged in arrays'
-            ])}
-            parentTeacherTips={t('parentTeacherTips', [
+            ]}
+            parentTeacherTips={[
                 'Arrays help students see the structure of multiplication',
                 'Encourage students to count rows x columns',
                 'Students can also count all boxes to verify their answer',
                 'Extension: Draw arrays for larger numbers'
-            ])}
+            ]}
         >
             <PremiumWorksheetBanner
                 title={getTrans('title', 'Array Architect')}
@@ -979,16 +979,16 @@ export function MultiplicationWindowArrays({ seed, variant, showAnswersForDoc }:
             emoji={String.fromCodePoint(0x2716)}
             description={getTrans('description', 'Count the rows and columns of windows to find the total product.')}
             problemCount={4}
-            learningObjectives={t('learningObjectives', [
+            learningObjectives={[
                 'Understand multiplication as repeated addition',
                 'Visualize arrays (rows x columns)',
                 'Write multiplication sentences'
-            ])}
-            parentTeacherTips={t('parentTeacherTips', [
+            ]}
+            parentTeacherTips={[
                 'Rows go side to side (like a building floor).',
                 'Columns go up and down.',
                 'Count by skip counting the rows!'
-            ])}
+            ]}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 animate-gradient-x mb-4" />
 
@@ -1051,7 +1051,7 @@ export function MultiplicationWindowArrays({ seed, variant, showAnswersForDoc }:
                     <div className="grid grid-cols-2 gap-4 text-xs text-cyan-800">
                         {problems.map((p, i) => (
                             <div key={i}>
-                                <strong>Problem {i + 1}:</strong> {p.rows} rows x {p.cols} cols = <strong>{p.product} windows</strong>
+                                <strong>Problem {i + 1}:</strong> {p.rows} rows x {p.cols} = <strong>{p.product} windows</strong>
                             </div>
                         ))}
                     </div>
@@ -1087,16 +1087,16 @@ export function TimesTableVertical({ seed, variant, showAnswersForDoc, docId, ra
             emoji={String.fromCodePoint(0x2716)}
             description={getTrans('description', "Solve each multiplication problem in vertical format. Pay attention to place value alignment.")}
             problemCount={facts.length}
-            learningObjectives={t('learningObjectives', [
+            learningObjectives={[
                 'Master vertical multiplication format',
                 'Practice place value alignment',
                 'Build calculation speed'
-            ])}
-            parentTeacherTips={t('parentTeacherTips', [
+            ]}
+            parentTeacherTips={[
                 'Ensure numbers are stacked correctly (ones under ones)',
                 'Draw a line to separate the problem from the answer',
                 'Say the problem out loud as "top times bottom"'
-            ])}
+            ]}
         >
             <PremiumWorksheetBanner
                 title={getTrans('banner.title', 'Vertical Velocity')}
@@ -1382,16 +1382,16 @@ export function MultiplicationPatterns({ seed, variant, showAnswersForDoc }: Spe
             emoji={String.fromCodePoint(0x1F50D)}
             description={getTrans('description', 'Observe how the numbers change. Can you find the hidden rule?')}
             problemCount={patterns.length}
-            learningObjectives={worksheetT('learningObjectives', [
+            learningObjectives={[
                 'Identify patterns in multiplication tables',
                 'Extend numerical sequences',
                 'Recognize algebraic relationships'
-            ])}
-            parentTeacherTips={worksheetT('parentTeacherTips', [
+            ]}
+            parentTeacherTips={[
                 'Ask: "What is the rule between each number?"',
                 'Encourage students to count the jump between answers',
                 'Connect addition to multiplication jumps'
-            ])}
+            ]}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-indigo-400 to-cyan-500 animate-gradient-x mb-4" />
 
@@ -2452,16 +2452,16 @@ export function MultiplicationAreaModel({ seed, variant, showAnswersForDoc }: Sp
             emoji={String.fromCodePoint(0x1F4CF)}
             description={getTrans('description', 'Break numbers into tens and ones. Map out the area to find the total.')}
             problemCount={problems.length}
-            learningObjectives={worksheetT('learningObjectives', [
+            learningObjectives={[
                 'Apply area models to multi-digit multiplication',
                 'Decompose numbers by place value',
                 'Synthesize partial products for a final result'
-            ])}
-            parentTeacherTips={worksheetT('parentTeacherTips', [
+            ]}
+            parentTeacherTips={[
                 'Visualize the area as a rectangle divided into four plots',
                 'The large plot is Tens x Tens (e.g., 20 x 10)',
                 'Adding the four "plots" gives the total territory'
-            ])}
+            ]}
         >
             <div className="print:hidden h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 animate-gradient-x mb-4" />
 
