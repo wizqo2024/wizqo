@@ -97,6 +97,7 @@ export default function DotMarkerGeneratorPage() {
     // State
     const [childName, setChildName] = useState<string>('AVA');
     const [dotSize, setDotSize] = useState<number>(30); // Radius in pixels for preview
+    const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
     const [spacing, setSpacing] = useState<number>(65); // Spacing between dots
     const [isStickerMode, setIsStickerMode] = useState<boolean>(false);
     const [colorTheme, setColorTheme] = useState<ColorTheme>('bw');
@@ -316,14 +317,13 @@ export default function DotMarkerGeneratorPage() {
         setIsGenerating(true);
 
         try {
+            const isPortrait = orientation === 'portrait';
             const doc = new jsPDF({
-                orientation: 'portrait',
+                orientation: isPortrait ? 'portrait' : 'landscape',
                 unit: 'px',
-                format: [595, 842] // A4 portrait in px
+                format: isPortrait ? [595, 842] : [842, 595]
             });
 
-            // Simple implementation: clone SVG, scale it, and draw
-            // For a better result, we might want to iterate points directly into PDF
             const svg = svgRef.current;
             const svgData = new XMLSerializer().serializeToString(svg);
             const canvas = document.createElement('canvas');
@@ -334,11 +334,15 @@ export default function DotMarkerGeneratorPage() {
             const url = URL.createObjectURL(svgBlob);
 
             img.onload = () => {
-                canvas.width = 1190; // 2x width (595 * 2)
-                canvas.height = 1684; // 2x height (842 * 2)
+                // High-res canvas (2x)
+                canvas.width = isPortrait ? 1190 : 1684;
+                canvas.height = isPortrait ? 1684 : 1190;
+
                 ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
                 const imgData = canvas.toDataURL('image/png');
-                doc.addImage(imgData, 'PNG', 0, 0, 595, 842, undefined, 'FAST');
+
+                // Add to PDF
+                doc.addImage(imgData, 'PNG', 0, 0, isPortrait ? 595 : 842, isPortrait ? 842 : 595, undefined, 'FAST');
                 doc.save(`dot-marker-${childName.toLowerCase()}.pdf`);
                 URL.revokeObjectURL(url);
                 setIsGenerating(false);
@@ -353,9 +357,9 @@ export default function DotMarkerGeneratorPage() {
 
     if (isPrinting) {
         return (
-            <div className="flex items-center justify-center w-[210mm] h-[297mm] overflow-hidden bg-white m-0 p-0">
+            <div className={`flex items-center justify-center overflow-hidden bg-white m-0 p-0 ${orientation === 'portrait' ? 'w-[210mm] h-[297mm]' : 'w-[297mm] h-[210mm]'}`}>
                 <style>{`
-                    @page { size: A4 portrait; margin: 0; }
+                    @page { size: A4 ${orientation}; margin: 0; }
                     body { margin: 0; box-shadow: none; }
                 `}</style>
                 <svg
@@ -608,6 +612,23 @@ export default function DotMarkerGeneratorPage() {
                     {/* Right: Preview Area */}
                     {/* Right: Preview Area */}
                     <div className="space-y-2 lg:order-2">
+                        {/* Orientation Toggle */}
+                        <div className="flex gap-2 mb-2 bg-slate-100 p-1 rounded-xl w-fit print:hidden">
+                            <button
+                                onClick={() => setOrientation('portrait')}
+                                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${orientation === 'portrait' ? 'bg-white shadow text-purple-600' : 'text-slate-500 hover:bg-slate-200'}`}
+                            >
+                                <StickyNote size={14} className="rotate-0" />
+                                Portrait
+                            </button>
+                            <button
+                                onClick={() => setOrientation('landscape')}
+                                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${orientation === 'landscape' ? 'bg-white shadow text-purple-600' : 'text-slate-500 hover:bg-slate-200'}`}
+                            >
+                                <StickyNote size={14} className="rotate-90" />
+                                Landscape
+                            </button>
+                        </div>
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                             <div className="text-center lg:text-left space-y-1">
                                 <h1 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight leading-none mb-1">
@@ -685,9 +706,14 @@ export default function DotMarkerGeneratorPage() {
                             `}
                         </style>
 
-                        {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) - MASSIVE CANVAS MODE */}
+                        {/* SVG Preview Container: Adjusted to Dynamic Aspect Ratio - MASSIVE CANVAS MODE */}
 
-                        <div className="dots-worksheet-print-container w-full aspect-[1/1.41] bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
+                        <div
+                            className="dots-worksheet-print-container w-full bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none transition-all duration-300"
+                            style={{
+                                aspectRatio: orientation === 'portrait' ? '1 / 1.414' : '1.414 / 1'
+                            }}
+                        >
                             <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:hidden" />
 
                             {(() => {
