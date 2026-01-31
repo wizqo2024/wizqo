@@ -359,11 +359,11 @@ export default function DotMarkerGeneratorPage() {
             })()}
             <UnifiedNavigation />
 
-            <main className="max-w-7xl mx-auto px-4 py-12 lg:py-20">
+            <main className="max-w-7xl mx-auto px-4 py-6 lg:py-10">
                 <div className="grid lg:grid-cols-[400px_1fr] gap-12 items-start">
 
                     {/* Left: Sidebar Controls */}
-                    <aside className="sticky top-24 space-y-6 bg-white p-8 rounded-[32px] border-2 border-slate-50 shadow-xl shadow-slate-200/50 print:hidden lg:order-1">
+                    <aside className="sticky top-24 space-y-4 bg-white p-6 rounded-[32px] border-2 border-slate-50 shadow-xl shadow-slate-200/50 print:hidden lg:order-1">
                         <div className="space-y-1">
                             <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
                                 Personalization <Sparkles size={18} className="text-purple-400" />
@@ -371,7 +371,7 @@ export default function DotMarkerGeneratorPage() {
                             <p className="text-sm text-slate-400 font-medium">Configure your custom worksheet.</p>
                         </div>
 
-                        <div className="space-y-6 pt-4">
+                        <div className="space-y-4 pt-2">
                             <div className="space-y-3">
                                 <Label htmlFor="childName" className="text-xs font-black uppercase tracking-widest text-slate-400">Child's Name</Label>
                                 <Input
@@ -506,18 +506,18 @@ export default function DotMarkerGeneratorPage() {
                     </aside>
 
                     {/* Right: Preview Area */}
-                    <div className="space-y-8 lg:order-2">
-                        <div className="text-center lg:text-left space-y-4">
-                            <h1 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-none">
+                    <div className="space-y-4 lg:order-2">
+                        <div className="text-center lg:text-left space-y-2">
+                            <h1 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-none">
                                 {HUB_SEO_DATA['dot-marker-generator']?.h1 || "Do-A-Dot Name Generator"}
                             </h1>
-                            <p className="text-lg text-slate-500 font-medium max-w-2xl">
+                            <p className="text-base text-slate-500 font-medium max-w-2xl">
                                 Professional layout for Bingo Markers, Q-Tips, and Stickers.
                             </p>
                         </div>
 
-                        {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) */}
-                        <div className="w-full aspect-[1/1.41] bg-white relative p-12 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
+                        {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) with Height Constraint */}
+                        <div className="w-full aspect-[1/1.41] max-h-[600px] bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
                             <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:bg-white" />
 
                             <svg
