@@ -543,10 +543,27 @@ export default function DotMarkerGeneratorPage() {
                             >
                                 {/* Center the name */}
                                 <g transform={`translate(${totalWidth < 700 ? (700 - totalWidth) / 2 : 0}, 150)`}>
-                                    {/* Branding footer in preview */}
-                                    <text x={totalWidth} y="630" textAnchor="end" className="fill-slate-300 text-[12px] font-bold uppercase tracking-widest print:hidden">
-                                        Made with Wizqo.com
-                                    </text>
+                                    {/* Branding Footer */}
+                                    <g transform={`translate(${totalWidth / 2}, 650)`} className="print:block">
+                                        {logoBase64 && (
+                                            <image
+                                                href={logoBase64}
+                                                x="-40"
+                                                y="-40"
+                                                height="80"
+                                                width="80"
+                                                preserveAspectRatio="xMidYMid meet"
+                                            />
+                                        )}
+                                        <text
+                                            y="55"
+                                            textAnchor="middle"
+                                            className="fill-slate-400 text-[14px] font-bold uppercase tracking-widest"
+                                            style={{ fontFamily: 'sans-serif' }}
+                                        >
+                                            wizqo.com
+                                        </text>
+                                    </g>
 
                                     {/* The Dots */}
                                     <g className="dots-container">
