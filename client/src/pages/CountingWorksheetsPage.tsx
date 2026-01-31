@@ -364,13 +364,12 @@ export default function CountingWorksheetsPage() {
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col">
             {(() => {
-                const seo = HUB_SEO_DATA['counting-numbers-generator'] || {};
                 return (
                     <SEOMetaTags
-                        title={seo.title || 'Free Counting Numbers Worksheets & Tracing Generator (1-10)'}
-                        description={seo.metaDescription || 'Create unlimited, fun, and colorful math worksheets for your child in seconds!'}
-                        keywords={seo.keywords}
-                        ogImage={seo.image}
+                        title={seoData?.title || 'Free Counting Numbers Worksheets & Tracing Generator (1-10)'}
+                        description={seoData?.metaDescription || 'Create unlimited, fun, and colorful math worksheets for your child in seconds!'}
+                        keywords={seoData?.keywords}
+                        ogImage={seoData?.image}
                         canonicalUrl="https://wizqo.com/worksheets/counting-numbers-generator"
                     />
                 );
