@@ -478,13 +478,19 @@ export default function DotMarkerGeneratorPage() {
 
                         <div className="space-y-4 pt-2">
                             <div className="space-y-3">
-                                <Label htmlFor="childName" className="text-xs font-black uppercase tracking-widest text-slate-400">Child's Name</Label>
+                                <div className="flex justify-between items-baseline mb-1">
+                                    <Label htmlFor="childName" className="text-xs font-black uppercase tracking-widest text-slate-400">Child's Name</Label>
+                                    <span className={`text-[10px] font-bold ${childName.length === 10 ? 'text-red-500' : 'text-slate-300'}`}>
+                                        {childName.length}/10
+                                    </span>
+                                </div>
                                 <Input
                                     id="childName"
                                     value={childName}
-                                    onChange={(e) => setChildName(e.target.value.slice(0, 12))}
+                                    onChange={(e) => setChildName(e.target.value.slice(0, 10))}
                                     placeholder="Enter Name"
-                                    className="h-14 px-6 rounded-2xl border-2 border-slate-100 focus:border-purple-600 focus:ring-0 text-lg font-bold text-slate-700 bg-slate-50/50"
+                                    maxLength={10}
+                                    className="w-full h-14 px-6 rounded-2xl border-2 border-slate-100 focus:border-purple-600 focus:ring-0 text-lg font-bold text-slate-700 bg-slate-50/50"
                                 />
                             </div>
 
