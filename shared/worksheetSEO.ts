@@ -3995,7 +3995,7 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     keywords: 'scissor skills generator, preschool cutting strips, monster haircut worksheet, vertical cutting practice, fine motor skills worksheets, kindergarten scissor practice, free cutting generator, teacher scissor strips',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Scissor Skills Generator</h1>
-      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's <strong>Scissor Skills Generator</strong>. We've upgraded our tool with the viral <strong>Monster Haircut Salon Mode</strong>. Our unique <strong>Vertical Strip Layout</strong> is ergonomically designed for toddlers and preschoolers, allowing them to cut upwards—a natural motion that builds confidence and precision.</p>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's <strong>Free Scissor Skills Generator</strong>. We've upgraded our tool with the viral <strong>Monster Haircut Salon Mode</strong>. Our unique <strong>Vertical Strip Layout</strong> is ergonomically designed for toddlers and preschoolers, allowing them to cut upwards—a natural motion that builds confidence and precision.</p>
 
       <section style="margin-bottom: 3rem; background: #f5f3ff; padding: 2rem; border-radius: 12px; border: 1px solid #ddd6fe;">
         <h2 style="font-size: 1.875rem; font-weight: 800; color: #5b21b6; margin-bottom: 1.5rem;">The "Viral" Haircut Method</h2>

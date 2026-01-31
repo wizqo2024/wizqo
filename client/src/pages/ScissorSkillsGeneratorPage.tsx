@@ -141,7 +141,7 @@ export default function ScissorSkillsGeneratorPage() {
                 <!DOCTYPE html>
                 <html>
                 <head>
-                    <title>Wizqo Scissor Skills Practice</title>
+                    <title>Wizqo Free Scissor Skills Generator</title>
                     <style>
                         ${styles}
                         @page { size: 8.5in 11in; margin: 0; }
@@ -442,7 +442,7 @@ export default function ScissorSkillsGeneratorPage() {
                                 Free Scissor Skills Generator
                             </h1>
                             <p className="text-slate-500 text-sm mb-8 leading-relaxed">
-                                Turn cutting practice into a <strong>Viral Monster Haircut Game</strong>. Ergonomic vertical strips for tiny hands.
+                                The #1 <strong>Free Scissor Skills Generator</strong>. Turn cutting practice into a <strong>Viral Monster Haircut Game</strong>. Ergonomic vertical strips for tiny hands.
                             </p>
 
                             <div className="space-y-6">
