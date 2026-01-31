@@ -597,8 +597,15 @@ export default function NameTracingGeneratorPage() {
             variant: 'destructive',
           });
         } finally {
-          // Track print intent as download
-          trackWorksheetDownload('name-tracing', batchMode === 'batch' ? 'batch-print' : childName, 'name-tracing', 'Kindergarten')
+          // Magic Celebration
+          if (typeof (window as any).confetti === 'function') {
+            (window as any).confetti({
+              particleCount: 150,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ['#7c3aed', '#a855f7', '#6366f1']
+            });
+          }
 
           // 3. Reset state after printing started
           // Small delay to ensure the print dialog is fully independent of the DOM state
@@ -886,6 +893,16 @@ export default function NameTracingGeneratorPage() {
 
       const safeFilename = names.length > 1 ? 'name-tracing-batch.pdf' : `${safeFileName}.pdf`;
       doc.save(safeFilename);
+
+      // Magic Celebration
+      if (typeof (window as any).confetti === 'function') {
+        (window as any).confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#7c3aed', '#a855f7', '#6366f1']
+        });
+      }
 
       // Track PDF download
       trackWorksheetDownload('name-tracing', batchMode === 'batch' ? 'batch-pdf' : childName, 'name-tracing', 'Kindergarten')
@@ -1852,19 +1869,18 @@ export default function NameTracingGeneratorPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
 
-      <Footer />
-    </div >
+        <Footer />
+      </div >
 
-      {/* Print-only container (moved outside to prevent parent display:none from hiding it) */ }
-  {
-    isPrinting && (
-      <div className="print-only" style={{ background: '#fff', position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 9999 }}>
-        <style dangerouslySetInnerHTML={{
-          __html: `
+      {/* Print-only container (moved outside to prevent parent display:none from hiding it) */}
+      {
+        isPrinting && (
+          <div className="print-only" style={{ background: '#fff', position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 9999 }}>
+            <style dangerouslySetInnerHTML={{
+              __html: `
           @media screen {
             .print-only { display: none !important; }
           }
@@ -1893,48 +1909,48 @@ export default function NameTracingGeneratorPage() {
           }
         `}} />
 
-        {batchLayout === 'one-per-page' || batchMode === 'single' ? (
-          printNames.map((name: string, i: number) => (
-            <div key={i} className="print-page">
-              <div dangerouslySetInnerHTML={{ __html: generateSVGForName(name) }} />
-            </div>
-          ))
-        ) : batchLayout === 'two-per-page' ? (
-          (() => {
-            const pages = [];
-            for (let i = 0; i < printNames.length; i += 2) {
-              const name1 = printNames[i];
-              const name2 = printNames[i + 1];
-              pages.push(
+            {batchLayout === 'one-per-page' || batchMode === 'single' ? (
+              printNames.map((name: string, i: number) => (
                 <div key={i} className="print-page">
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name1) }} />
-                  {name2 && <div style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name2) }} />}
+                  <div dangerouslySetInnerHTML={{ __html: generateSVGForName(name) }} />
                 </div>
-              );
-            }
-            return pages;
-          })()
-        ) : (
-          // four-per-page
-          (() => {
-            const pages = [];
-            for (let i = 0; i < printNames.length; i += 4) {
-              const chunk = printNames.slice(i, i + 4);
-              pages.push(
-                <div key={i} className="print-page">
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[0]) }} />
-                  {chunk[1] && <div style={{ position: 'absolute', top: 0, left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[1]) }} />}
-                  {chunk[2] && <div style={{ position: 'absolute', top: '50%', left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[2]) }} />}
-                  {chunk[3] && <div style={{ position: 'absolute', top: '50%', left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[3]) }} />}
-                </div>
-              );
-            }
-            return pages;
-          })()
-        )}
-      </div>
-    )
-  }
+              ))
+            ) : batchLayout === 'two-per-page' ? (
+              (() => {
+                const pages = [];
+                for (let i = 0; i < printNames.length; i += 2) {
+                  const name1 = printNames[i];
+                  const name2 = printNames[i + 1];
+                  pages.push(
+                    <div key={i} className="print-page">
+                      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name1) }} />
+                      {name2 && <div style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name2) }} />}
+                    </div>
+                  );
+                }
+                return pages;
+              })()
+            ) : (
+              // four-per-page
+              (() => {
+                const pages = [];
+                for (let i = 0; i < printNames.length; i += 4) {
+                  const chunk = printNames.slice(i, i + 4);
+                  pages.push(
+                    <div key={i} className="print-page">
+                      <div style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[0]) }} />
+                      {chunk[1] && <div style={{ position: 'absolute', top: 0, left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[1]) }} />}
+                      {chunk[2] && <div style={{ position: 'absolute', top: '50%', left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[2]) }} />}
+                      {chunk[3] && <div style={{ position: 'absolute', top: '50%', left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[3]) }} />}
+                    </div>
+                  );
+                }
+                return pages;
+              })()
+            )}
+          </div>
+        )
+      }
     </>
   );
 }
