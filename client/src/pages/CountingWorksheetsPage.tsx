@@ -5,7 +5,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket, BookOpen } from 'lucide-react';
+import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket, BookOpen, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
@@ -275,6 +275,8 @@ export default function CountingWorksheetsPage() {
     const [isOutlineMode, setIsOutlineMode] = useState<boolean>(false);
     const [isTraceable, setIsTraceable] = useState<boolean>(true); // Default to tracing as it's our USP
     const [childName, setChildName] = useState<string>('');
+    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+    const [isGeneratingWorkbook, setIsGeneratingWorkbook] = useState(false);
 
     // SEO Data
     const seoData = getWorksheetSEOBySlug('counting-numbers-generator');
@@ -284,6 +286,7 @@ export default function CountingWorksheetsPage() {
             const element = document.getElementById('counting-preview-single');
             if (!element) return;
 
+            setIsGeneratingPDF(true);
             // Apply print class for safety (though template handles styles)
             element.classList.add('printing');
             toast({ title: 'Generating...', description: 'Preparing your high-quality PDF.' });
@@ -300,6 +303,7 @@ export default function CountingWorksheetsPage() {
             console.error('PDF Error:', err);
             toast({ title: 'Error', description: 'Failed to generate PDF.', variant: 'destructive' });
         } finally {
+            setIsGeneratingPDF(false);
             const element = document.getElementById('counting-preview-single');
             if (element) element.classList.remove('printing');
         }
@@ -310,6 +314,7 @@ export default function CountingWorksheetsPage() {
             const element = document.getElementById('workbook-container');
             if (!element) return;
 
+            setIsGeneratingWorkbook(true);
             toast({ title: 'Building Workbook...', description: 'Generating 11-page workbook (0-10). This may take a moment.' });
 
             await generateWorksheetPDF(element, {
@@ -325,6 +330,8 @@ export default function CountingWorksheetsPage() {
         } catch (err) {
             console.error('Workbook PDF Error:', err);
             toast({ title: 'Error', description: 'Failed to generate Workbook.', variant: 'destructive' });
+        } finally {
+            setIsGeneratingWorkbook(false);
         }
     };
 
@@ -483,20 +490,40 @@ export default function CountingWorksheetsPage() {
                                     <Button
                                         variant="outline"
                                         onClick={handleDownloadPDF}
+                                        disabled={isGeneratingPDF}
                                         className="flex-1 h-12 rounded-2xl border-2 border-slate-200 font-bold hover:bg-slate-50"
                                     >
-                                        <Download className="w-4 h-4 mr-2" /> {t('pages.counting.savePdf')}
+                                        {isGeneratingPDF ? (
+                                            <>
+                                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                                Generating...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Download className="w-4 h-4 mr-2" /> {t('pages.counting.savePdf')}
+                                            </>
+                                        )}
                                     </Button>
                                 </div>
 
                                 {/* Workbook Download Button */}
                                 <Button
                                     onClick={handleDownloadWorkbook}
-                                    className="w-full h-14 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 font-black shadow-xl border-2 border-slate-900 flex items-center justify-center gap-2 group transition-all hover:scale-[1.02]"
+                                    disabled={isGeneratingWorkbook}
+                                    className="w-full h-14 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 font-black shadow-xl border-2 border-slate-900 flex items-center justify-center gap-2 group transition-all hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
                                 >
-                                    <BookOpen className="w-5 h-5 group-hover:animate-bounce" />
-                                    <span>Download Full Workbook (0-10)</span>
-                                    <span className="bg-yellow-400 text-slate-900 text-[10px] px-2 py-0.5 rounded-full ml-auto">FREE</span>
+                                    {isGeneratingWorkbook ? (
+                                        <>
+                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                            <span>Generating Workbook...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <BookOpen className="w-5 h-5 group-hover:animate-bounce" />
+                                            <span>Download Full Workbook (0-10)</span>
+                                            <span className="bg-yellow-400 text-slate-900 text-[10px] px-2 py-0.5 rounded-full ml-auto">FREE</span>
+                                        </>
+                                    )}
                                 </Button>
                             </div>
                         </div>
