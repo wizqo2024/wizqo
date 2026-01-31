@@ -549,42 +549,41 @@ export default function DotMarkerGeneratorPage() {
                                         margin: 0;
                                     }
                                     html, body {
-                                        width: 210mm;
-                                        height: auto !important;
-                                        min-height: 297mm;
+                                        height: 100vh;
+                                        overflow: hidden;
                                         margin: 0 !important;
                                         padding: 0 !important;
-                                        background: white;
                                     }
-                                    /* Hide the root app container */
-                                    #root, body > *:not(.dots-worksheet-print-container) {
-                                        display: none !important;
+                                    /* Hide Everything via Visibility */
+                                    body * {
+                                        visibility: hidden;
                                     }
                                     
-                                    /* Force the print container to be the only thing visible */
-                                    .dots-worksheet-print-container {
-                                        display: block !important;
-                                        visibility: visible !important;
-                                        position: absolute !important;
-                                        top: 0 !important;
-                                        left: 0 !important;
-                                        width: 210mm !important;
-                                        height: 297mm !important;
-                                        margin: 0 !important;
-                                        padding: 0 !important;
-                                        border: none !important;
-                                        z-index: 9999;
-                                        background: white;
-                                        overflow: hidden !important;
-                                        page-break-after: avoid !important;
-                                        page-break-inside: avoid !important;
+                                    /* Show Only The Print Container & Its Children */
+                                    .dots-worksheet-print-container, 
+                                    .dots-worksheet-print-container * {
+                                        visibility: visible;
                                     }
+
+                                    /* Position Absolute to break out of flow */
+                                    .dots-worksheet-print-container {
+                                        position: absolute;
+                                        left: 0;
+                                        top: 0;
+                                        width: 210mm;
+                                        height: 297mm;
+                                        margin: 0;
+                                        padding: 0;
+                                        overflow: hidden;
+                                        z-index: 99999;
+                                        background: white;
+                                    }
+
                                     /* Ensure SVG handles scaling */
                                     .dots-worksheet-print-container svg {
-                                        width: 100% !important;
-                                        height: 100% !important;
+                                        width: 100%;
+                                        height: 100%;
                                         display: block;
-                                        overflow: hidden; /* Clip any potential spillover */
                                     }
                                 }
                             `}
