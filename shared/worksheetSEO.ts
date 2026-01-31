@@ -3988,6 +3988,39 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     learningObjectives: ['Visual discrimination', 'Attention to detail', 'Figure-ground perception', 'Patience'],
     richContent: "<article><h1 style=\"font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;\">Hidden Picture Puzzle: Visual Discovery</h1><p style=\"font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;\">Sharpen observation skills with our 'Hidden Picture Puzzle'. Designed for early learners, this worksheet challenges students to find concealed objects within a scene, building critical visual discrimination and focus. Free PDF download.</p><section style=\"margin-bottom: 2rem;\"><h2 style=\"font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;\">Developing Visual Literacy</h2><p style=\"color: #475569; line-height: 1.6; margin-bottom: 1rem;\">Finding hidden objects is more than a game—it's a workout for the brain! By identifying figures against a complex background, children develop <strong>figure-ground perception</strong> and <strong>attention to detail</strong>. These skills are essential reading readiness, helping students distinguish between similar letters and track text on a page.</p></section></article>"
   },
+  'scissor-skills-generator': {
+    title: 'Free Scissor Skills Generator | Monster Haircut Salon Mode | Wizqo',
+    metaDescription: 'Create custom scissor skills practice worksheets. Viral Monster Haircut Mode with vertical cutting strips. Teach preschoolers cutting control with our ergonomic vertical layout.',
+    image: '/images/scissor-skills-seo.png',
+    keywords: 'scissor skills generator, preschool cutting strips, monster haircut worksheet, vertical cutting practice, fine motor skills worksheets, kindergarten scissor practice, free cutting generator, teacher scissor strips',
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Scissor Skills Generator - Salon Mode</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's <strong>Scissor Skills Generator</strong>. We've upgraded our tool with the viral <strong>Monster Haircut Salon Mode</strong>. Our unique <strong>Vertical Strip Layout</strong> is ergonomically designed for toddlers and preschoolers, allowing them to cut upwards—a natural motion that builds confidence and precision.</p>
+
+      <section style="margin-bottom: 3rem; background: #f5f3ff; padding: 2rem; border-radius: 12px; border: 1px solid #ddd6fe;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #5b21b6; margin-bottom: 1.5rem;">The "Viral" Haircut Method</h2>
+        <p style="color: #4c1d95; margin-bottom: 1.5rem;">Turn boring cutting lines into a fun game! With our Haircut Mode, children cut "crazy hair" to reach the monster or lion face. We've included a <strong>Stop Sign</strong> at the end of every line to teach technical control—preventing "over-cutting" and improving fine motor accuracy.</p>
+        <ul style="color: #4c1d95; line-height: 1.8;">
+          <li><strong>Ergonomic Vertical Layout:</strong> 4 strips per page, designed for the natural "up-cut" motion.</li>
+          <li><strong>Salon Themes:</strong> Choose from Monsters, Lions, and Cool Kids for high engagement.</li>
+          <li><strong>Progressive Difficulty:</strong> Toggle between Straight, Zig-Zag, and Wavy "hair" styles.</li>
+          <li><strong>Teacher Approved:</strong> Used by occupational therapists to build hand strength and coordination.</li>
+        </ul>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Fine Motor Development FAQ</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">Why use vertical strips instead of horizontal?</h3>
+          <p style="color: #475569;">Vertical strips allow the child to hold the paper at the bottom and cut towards the top. This prevents the paper from "flopping" and helps early learners focus on the blade movement rather than paper management.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">At what age should a child start with scissors?</h3>
+          <p style="color: #475569;">Most children can begin supervised scissor play around age 2.5 to 3. Start with our <strong>Thick Straight Lines</strong> in Salon Mode to build immediate success!</p>
+        </div>
+      </section>
+    </article>`
+  },
   'spelling-list-generator': {
     title: 'Free Spelling List Generator | No Sign Up Custom Spelling Sheets | Wizqo',
     metaDescription: 'Create custom spelling practice worksheets for free. No Sign Up required. Generate personalized spelling lists with dotted tracing fonts, cursive, and hard spelling words for grades 3-5.',

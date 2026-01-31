@@ -19,7 +19,8 @@ import { SocialShare } from '@/components/SocialShare';
 type LineStyle = 'straight' | 'zigzag' | 'wavy';
 type Thickness = 'thin' | 'thick';
 type ColorTheme = 'ocean' | 'candy' | 'forest' | 'sunset' | 'royal' | 'bw';
-type MissionTheme = 'none' | 'animals' | 'space' | 'food' | 'transport';
+type MissionTheme = 'none' | 'animals' | 'space' | 'food' | 'transport' | 'haircut_monster' | 'haircut_cool' | 'haircut_lion';
+type WorksheetLayout = 'landscape' | 'vertical';
 
 const THEMES: Record<ColorTheme, { name: string, color: string }> = {
     ocean: { name: 'Deep Sea', color: '#0ea5e9' },
@@ -30,12 +31,15 @@ const THEMES: Record<ColorTheme, { name: string, color: string }> = {
     bw: { name: 'Black & White', color: '#000000' },
 };
 
-const MISSIONS: Record<MissionTheme, { name: string, start: string, end: string }> = {
+const MISSIONS: Record<MissionTheme, { name: string, start: string, end: string, isHaircut?: boolean }> = {
     none: { name: 'Simple', start: '', end: '' },
     animals: { name: 'Animal Feeding', start: '🥕', end: '🐰' },
     space: { name: 'Space Mission', start: '🚀', end: '🌕' },
     food: { name: 'Grocery Run', start: '🍎', end: '🧺' },
     transport: { name: 'Race Day', start: '🏎️', end: '🏁' },
+    haircut_monster: { name: 'Monster Haircut', start: '✂️', end: '👾', isHaircut: true },
+    haircut_cool: { name: 'Cool Kid Haircut', start: '✂️', end: '👦', isHaircut: true },
+    haircut_lion: { name: 'Lion Haircut', start: '✂️', end: '🦁', isHaircut: true },
 };
 
 export default function ScissorSkillsGeneratorPage() {
@@ -46,7 +50,8 @@ export default function ScissorSkillsGeneratorPage() {
     const [thickness, setThickness] = useState<Thickness>('thick');
     const [theme, setTheme] = useState<ColorTheme>('candy');
     const [stripCount, setStripCount] = useState(5);
-    const [mission, setMission] = useState<MissionTheme>('animals');
+    const [mission, setMission] = useState<MissionTheme>('haircut_monster');
+    const [layout, setLayout] = useState<WorksheetLayout>('vertical');
     const [isRainbow, setIsRainbow] = useState(true);
     const [showBadge, setShowBadge] = useState(true);
     const [isInkSaving, setIsInkSaving] = useState(false);
@@ -196,7 +201,10 @@ export default function ScissorSkillsGeneratorPage() {
     const renderPreview = () => {
         const activeTheme = THEMES[theme as ColorTheme];
         const activeMission = MISSIONS[mission as MissionTheme];
-        const contentWidth = 600;
+
+        const isVertical = layout === 'vertical';
+        const contentWidth = isVertical ? 150 : 600;
+        const contentHeight = isVertical ? 650 : 60;
 
         return (
             <div
@@ -211,10 +219,10 @@ export default function ScissorSkillsGeneratorPage() {
                 }}
             >
                 {/* Header */}
-                <div className="text-center mb-12 w-full">
+                <div className="text-center mb-10 w-full">
                     <h2 className="text-4xl font-black text-slate-800 tracking-tight flex items-center justify-center gap-3">
                         <Star className="text-amber-400 fill-amber-400 animate-pulse" />
-                        Scissor Skills Practice
+                        {activeMission.isHaircut ? 'Monster Haircut Salon' : 'Scissor Skills Practice'}
                         <Star className="text-amber-400 fill-amber-400 animate-pulse" />
                     </h2>
                     <p className="text-slate-400 font-bold uppercase tracking-widest text-xs mt-2">
@@ -222,18 +230,26 @@ export default function ScissorSkillsGeneratorPage() {
                     </p>
                 </div>
 
-                {/* Strips */}
-                <div className="flex-1 w-full space-y-12">
-                    {Array.from({ length: stripCount }).map((_, i) => (
-                        <div key={i} className="relative flex items-center group w-full px-8">
-                            {/* Mission Start */}
-                            <div className="absolute left-0 text-3xl z-10">
-                                {activeMission.start || <Scissors className="text-slate-300 transform -rotate-45" size={24} />}
-                            </div>
+                {/* Main Content Area */}
+                <div className={`flex-1 w-full ${isVertical ? 'flex justify-between items-stretch gap-2' : 'space-y-12'}`}>
+                    {Array.from({ length: isVertical ? 4 : stripCount }).map((_, i) => (
+                        <div key={i} className={`relative flex ${isVertical ? 'flex-col flex-1 items-center px-4 border-l-2 border-dashed border-slate-100 first:border-l-0' : 'items-center group w-full px-8'}`}>
 
-                            <svg width="100%" height="60" viewBox={`0 0 ${contentWidth} 60`} className="overflow-visible flex-1">
+                            {/* Mission Start - Only in Landscape or Non-Haircut */}
+                            {(!isVertical || !activeMission.isHaircut) && (
+                                <div className={`${isVertical ? 'mb-4' : 'absolute left-0'} text-3xl z-10`}>
+                                    {activeMission.start || <Scissors className="text-slate-300 transform -rotate-45" size={24} />}
+                                </div>
+                            )}
+
+                            <svg
+                                width={isVertical ? "80" : "100%"}
+                                height={isVertical ? "100%" : "60"}
+                                viewBox={`0 0 ${contentWidth} ${contentHeight}`}
+                                className="overflow-visible flex-1"
+                            >
                                 <defs>
-                                    <linearGradient id={`rainbow-grad-${i}`} x1="0" y1="0" x2={contentWidth} y2="0" gradientUnits="userSpaceOnUse">
+                                    <linearGradient id={`grad-${i}`} x1="0" y1="0" x2={isVertical ? 0 : 1} y2={isVertical ? 1 : 0} gradientUnits="userSpaceOnUse">
                                         <stop offset="0%" stopColor="#EF4444" />
                                         <stop offset="25%" stopColor="#F59E0B" />
                                         <stop offset="50%" stopColor="#10B981" />
@@ -244,46 +260,83 @@ export default function ScissorSkillsGeneratorPage() {
 
                                 {lineStyle === 'straight' && (
                                     <line
-                                        x1="0" y1="30" x2={contentWidth} y2="30"
-                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color)}
+                                        x1={isVertical ? contentWidth / 2 : 0} y1={isVertical ? 0 : 30}
+                                        x2={isVertical ? contentWidth / 2 : contentWidth} y2={isVertical ? contentHeight : 30}
+                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#grad-${i})` : activeTheme.color)}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
+                                        strokeLinecap="round"
                                     />
                                 )}
                                 {lineStyle === 'zigzag' && (
                                     <path
-                                        d={`M 0 30 ${Array.from({ length: 10 }).map((_, j) => {
-                                            const x = (contentWidth / 10) * (j + 1);
-                                            const y = j % 2 === 0 ? 0 : 60;
-                                            return `L ${x} ${y}`;
-                                        }).join(' ')}`}
+                                        d={isVertical
+                                            ? `M ${contentWidth / 2} 0 ${Array.from({ length: 12 }).map((_, j) => {
+                                                const y = (contentHeight / 12) * (j + 1);
+                                                const x = j % 2 === 0 ? contentWidth / 2 - 30 : contentWidth / 2 + 30;
+                                                return `L ${x} ${y}`;
+                                            }).join(' ')}`
+                                            : `M 0 30 ${Array.from({ length: 10 }).map((_, j) => {
+                                                const x = (contentWidth / 10) * (j + 1);
+                                                const y = j % 2 === 0 ? 0 : 60;
+                                                return `L ${x} ${y}`;
+                                            }).join(' ')}`
+                                        }
                                         fill="none"
-                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color)}
+                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#grad-${i})` : activeTheme.color)}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
+                                        strokeLinecap="round"
                                     />
                                 )}
                                 {lineStyle === 'wavy' && (
                                     <path
-                                        d={`M 0 30 ${Array.from({ length: 6 }).map((_, j) => {
-                                            const nextX = (contentWidth / 6) * (j + 1);
-                                            const ctrlX1 = (contentWidth / 6) * j + (contentWidth / 24);
-                                            const ctrlY1 = j % 2 === 0 ? 0 : 60;
-                                            const ctrlX2 = (contentWidth / 6) * j + (3 * contentWidth / 24);
-                                            const ctrlY2 = j % 2 === 0 ? 0 : 60;
-                                            return `C ${ctrlX1} ${ctrlY1} ${ctrlX2} ${ctrlY2} ${nextX} 30`;
-                                        }).join(' ')}`}
+                                        d={isVertical
+                                            ? `M ${contentWidth / 2} 0 ${Array.from({ length: 8 }).map((_, j) => {
+                                                const nextY = (contentHeight / 8) * (j + 1);
+                                                const ctrlY1 = (contentHeight / 8) * j + (contentHeight / 32);
+                                                const ctrlX1 = j % 2 === 0 ? contentWidth / 2 - 50 : contentWidth / 2 + 50;
+                                                const ctrlY2 = (contentHeight / 8) * j + (3 * contentHeight / 32);
+                                                const ctrlX2 = j % 2 === 0 ? contentWidth / 2 - 50 : contentWidth / 2 + 50;
+                                                return `C ${ctrlX1} ${ctrlY1} ${ctrlX2} ${ctrlY2} ${contentWidth / 2} ${nextY}`;
+                                            }).join(' ')}`
+                                            : `M 0 30 ${Array.from({ length: 6 }).map((_, j) => {
+                                                const nextX = (contentWidth / 6) * (j + 1);
+                                                const ctrlX1 = (contentWidth / 6) * j + (contentWidth / 24);
+                                                const ctrlY1 = j % 2 === 0 ? 0 : 60;
+                                                const ctrlX2 = (contentWidth / 6) * j + (3 * contentWidth / 24);
+                                                const ctrlY2 = j % 2 === 0 ? 0 : 60;
+                                                return `C ${ctrlX1} ${ctrlY1} ${ctrlX2} ${ctrlY2} ${nextX} 30`;
+                                            }).join(' ')}`
+                                        }
                                         fill="none"
-                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#rainbow-grad-${i})` : activeTheme.color)}
+                                        stroke={isInkSaving ? '#000000' : (isRainbow ? `url(#grad-${i})` : activeTheme.color)}
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
+                                        strokeLinecap="round"
                                     />
+                                )}
+
+                                {/* Stop Sign / Star at the end of the line */}
+                                {activeMission.isHaircut && (
+                                    <g transform={`translate(${contentWidth / 2 - 15}, ${contentHeight - 20})`}>
+                                        <path d="M 15 2 L 18 10 L 28 10 L 20 16 L 23 25 L 15 20 L 7 25 L 10 16 L 2 10 L 12 10 Z"
+                                            fill={isInkSaving ? "none" : "#F59E0B"}
+                                            stroke="#B45309" strokeWidth="2"
+                                        />
+                                    </g>
                                 )}
                             </svg>
 
-                            {/* Mission End */}
-                            <div className="absolute right-0 text-3xl z-10">
+                            {/* Mission End / Face Icon */}
+                            <div className={`${isVertical ? 'mt-4' : 'absolute right-0'} text-5xl z-10 flex flex-col items-center`}>
                                 {activeMission.end}
+                                {activeMission.isHaircut && (
+                                    <div className="mt-2 flex flex-col items-center">
+                                        <div className="px-2 py-0.5 bg-red-600 text-[10px] text-white font-black rounded-sm leading-none mb-1">STOP</div>
+                                        <div className="text-[8px] font-black text-slate-400 uppercase tracking-tighter">HERE</div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))}
@@ -291,7 +344,7 @@ export default function ScissorSkillsGeneratorPage() {
 
                 {/* Reward Badge */}
                 {showBadge && (
-                    <div className="mt-8 border-4 border-dashed border-amber-200 rounded-full p-6 flex flex-col items-center justify-center bg-white shadow-sm transform hover:scale-105 transition-transform duration-300">
+                    <div className="mt-6 border-4 border-dashed border-amber-200 rounded-full p-6 flex flex-col items-center justify-center bg-white shadow-sm transform hover:scale-105 transition-transform duration-300">
                         <Award className="text-amber-500 mb-1" size={32} />
                         <span className="text-sm font-black text-slate-700">SCISSOR MASTER</span>
                         <div className="flex gap-1 mt-1">
@@ -303,6 +356,7 @@ export default function ScissorSkillsGeneratorPage() {
             </div>
         );
     };
+
 
     return (
         <div className="min-h-screen bg-slate-50">
@@ -322,10 +376,8 @@ export default function ScissorSkillsGeneratorPage() {
                         border: none !important;
                         background: white !important;
                     }
-                    .rounded-3xl { border: none !important; padding: 0 !important; background: transparent !important; }
-                    .border-dashed { border: none !important; }
-                    .sticky { position: static !important; }
                     .print_scissor_icon { display: block !important; color: #cbd5e1 !important; }
+                    .print-vertical-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; height: 100% !important; }
                 }
             ` }} />
             <SEOMetaTags
@@ -370,10 +422,23 @@ export default function ScissorSkillsGeneratorPage() {
                                 Scissor Skills
                             </h1>
                             <p className="text-slate-500 text-sm mb-8 leading-relaxed">
-                                Generate unlimited cutting strips for preschoolers. Custom difficulty levels.
+                                Turn cutting practice into a <strong>Viral Monster Haircut Game</strong>. Ergonomic vertical strips for tiny hands.
                             </p>
 
                             <div className="space-y-6">
+                                <div className="space-y-3">
+                                    <Label className="text-xs font-bold uppercase tracking-wider text-slate-400">Layout Mode</Label>
+                                    <ToggleGroup type="single" value={layout} onValueChange={(v: string | null) => v && setLayout(v as WorksheetLayout)} className="justify-start gap-2">
+                                        <ToggleGroupItem value="vertical" className="flex-1 rounded-xl px-4 py-3 data-[state=on]:bg-indigo-100 data-[state=on]:text-indigo-900 border-2 flex flex-col gap-1 transition-all">
+                                            <span className="font-bold">Vertical Strips</span>
+                                            <span className="text-[10px] opacity-70">Ergonomic Up-Cut</span>
+                                        </ToggleGroupItem>
+                                        <ToggleGroupItem value="landscape" className="flex-1 rounded-xl px-4 py-3 data-[state=on]:bg-indigo-100 data-[state=on]:text-indigo-900 border-2 flex flex-col gap-1 transition-all">
+                                            <span className="font-bold">Landscape</span>
+                                            <span className="text-[10px] opacity-70">Classic Tracing</span>
+                                        </ToggleGroupItem>
+                                    </ToggleGroup>
+                                </div>
                                 <div className="space-y-3">
                                     <Label className="text-xs font-bold uppercase tracking-wider text-slate-400">Line Style</Label>
                                     <ToggleGroup type="single" value={lineStyle} onValueChange={(v: string | null) => v && setLineStyle(v as LineStyle)} className="justify-start gap-2">
@@ -393,7 +458,10 @@ export default function ScissorSkillsGeneratorPage() {
                                 </div>
 
                                 <div className="space-y-3">
-                                    <Label className="text-xs font-bold uppercase tracking-wider text-slate-400">Mission Theme</Label>
+                                    <div className="flex justify-between items-center">
+                                        <Label className="text-xs font-bold uppercase tracking-wider text-slate-400">Mission & Salon Theme</Label>
+                                        {layout === 'vertical' && <span className="text-[10px] font-black text-rose-500 animate-pulse">VIRAL MODE ✂️</span>}
+                                    </div>
                                     <div className="grid grid-cols-2 gap-2">
                                         {Object.entries(MISSIONS).map(([key, data]) => (
                                             <button
@@ -404,7 +472,7 @@ export default function ScissorSkillsGeneratorPage() {
                                                 }}
                                                 className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all shadow-sm ${mission === key ? 'bg-indigo-50 border-indigo-500 text-indigo-900' : 'bg-white border-slate-100 hover:border-indigo-200'}`}
                                             >
-                                                <span className="text-xl">{data.start || '✂️'}</span>
+                                                <span className="text-xl">{data.end || '✂️'}</span>
                                                 <span className="text-xs font-bold truncate">{data.name}</span>
                                             </button>
                                         ))}
