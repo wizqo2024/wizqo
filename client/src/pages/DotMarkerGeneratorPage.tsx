@@ -278,9 +278,9 @@ export default function DotMarkerGeneratorPage() {
 
         try {
             const doc = new jsPDF({
-                orientation: 'landscape',
+                orientation: 'portrait',
                 unit: 'px',
-                format: [842, 595] // A4 landscape in px
+                format: [595, 842] // A4 portrait in px
             });
 
             // Simple implementation: clone SVG, scale it, and draw
@@ -295,11 +295,11 @@ export default function DotMarkerGeneratorPage() {
             const url = URL.createObjectURL(svgBlob);
 
             img.onload = () => {
-                canvas.width = 1684; // 2x for quality
-                canvas.height = 1190;
+                canvas.width = 1190; // 2x width (595 * 2)
+                canvas.height = 1684; // 2x height (842 * 2)
                 ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
                 const imgData = canvas.toDataURL('image/png');
-                doc.addImage(imgData, 'PNG', 0, 0, 842, 595, undefined, 'FAST');
+                doc.addImage(imgData, 'PNG', 0, 0, 595, 842, undefined, 'FAST');
                 doc.save(`dot-marker-${childName.toLowerCase()}.pdf`);
                 URL.revokeObjectURL(url);
                 setIsGenerating(false);
@@ -551,31 +551,8 @@ export default function DotMarkerGeneratorPage() {
                                 className="max-w-full max-h-full drop-shadow-2xl"
                                 preserveAspectRatio="xMidYMid meet"
                             >
-                                {/* Center the name */}
+                                {/* Center the name group */}
                                 <g transform={`translate(${totalWidth < 700 ? (700 - totalWidth) / 2 : 0}, 150)`}>
-                                    {/* Branding Footer */}
-                                    <g transform={`translate(${totalWidth / 2}, 650)`} className="print:block">
-                                        {logoBase64 && (
-                                            <image
-                                                href={logoBase64}
-                                                x="-40"
-                                                y="-40"
-                                                height="80"
-                                                width="80"
-                                                preserveAspectRatio="xMidYMid meet"
-                                            />
-                                        )}
-                                        <text
-                                            y="55"
-                                            textAnchor="middle"
-                                            className="fill-slate-400 text-[14px] font-bold uppercase tracking-widest"
-                                            style={{ fontFamily: 'sans-serif' }}
-                                        >
-                                            wizqo.com
-                                        </text>
-                                    </g>
-
-                                    {/* The Dots */}
                                     <g className="dots-container">
                                         {dots.map((point, i) => (
                                             <React.Fragment key={i}>
@@ -583,6 +560,28 @@ export default function DotMarkerGeneratorPage() {
                                             </React.Fragment>
                                         ))}
                                     </g>
+                                </g>
+
+                                {/* Branding Footer - Independently Centered */}
+                                <g transform={`translate(${Math.max(800, totalWidth + 100) / 2}, 900)`}>
+                                    {logoBase64 && (
+                                        <image
+                                            href={logoBase64}
+                                            x="-40"
+                                            y="-40"
+                                            height="80"
+                                            width="80"
+                                            preserveAspectRatio="xMidYMid meet"
+                                        />
+                                    )}
+                                    <text
+                                        y="55"
+                                        textAnchor="middle"
+                                        className="fill-slate-400 text-[14px] font-bold uppercase tracking-widest"
+                                        style={{ fontFamily: 'sans-serif' }}
+                                    >
+                                        wizqo.com
+                                    </text>
                                 </g>
                             </svg>
 
