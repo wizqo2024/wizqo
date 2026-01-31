@@ -287,6 +287,9 @@ export default function CountingWorksheetsPage() {
             if (!element) return;
 
             setIsGeneratingPDF(true);
+            // Yield to allow UI to update (spinner to show/animate) before main thread is blocked
+            await new Promise(resolve => setTimeout(resolve, 50));
+
             // Apply print class for safety (though template handles styles)
             element.classList.add('printing');
             toast({ title: 'Generating...', description: 'Preparing your high-quality PDF.' });
@@ -315,6 +318,9 @@ export default function CountingWorksheetsPage() {
             if (!element) return;
 
             setIsGeneratingWorkbook(true);
+            // Yield to allow UI to update (spinner to show/animate) before main thread is blocked
+            await new Promise(resolve => setTimeout(resolve, 50));
+
             toast({ title: 'Building Workbook...', description: 'Generating 11-page workbook (0-10). This may take a moment.' });
 
             await generateWorksheetPDF(element, {
