@@ -151,10 +151,14 @@ export default function DotMarkerGeneratorPage() {
             const iconMatrix = DOT_FONT[iconKey];
             if (iconMatrix) {
                 // Determine vertical start: 8 rows down from top (below text)
+                // We lock it to 8 * dotSpacing so it sits nicely below the 7-row letters
                 const iconYStart = 8 * dotSpacing;
-                // Center it horizontally relative to the total cursorX
-                const iconWidth = iconMatrix[0].length;
-                const iconXStart = (cursorX / 2) - ((iconWidth / 2) * dotSpacing);
+
+                // Center it horizontally relative to the total cursorX calculate above
+                // Note: cursorX includes the final letter buffer, so we subtract it for true center logic
+                const trueWidth = cursorX - letterSpacing;
+                const iconWidthPx = (iconMatrix[0].length * dotSpacing);
+                const iconXStart = (trueWidth / 2) - (iconWidthPx / 2) + (dotSpacing / 2); // Fine tune centering
 
                 iconMatrix.forEach((row, rIndex) => {
                     row.forEach((isDot, cIndex) => {
@@ -689,9 +693,13 @@ export default function DotMarkerGeneratorPage() {
                             {(() => {
                                 const minWidth = 800;
                                 const contentWidth = Math.max(minWidth, totalWidth + 100);
-                                // Enforce A4 Portrait Aspect Ratio (1 : 1.4142)
-                                const ratio = 1.4142;
-                                const contentHeight = contentWidth * ratio;
+
+                                // Dynamic Height Calculation: 
+                                // Text = 7 rows. Icon starts at 8. Icon ~7 rows. Total ~16 rows generously.
+                                // If no icon, we only need ~8 rows.
+                                const contentHeight = stamperIcon !== 'none'
+                                    ? 16 * spacing // Text (7) + Gap (1) + Icon (7) + Buffer
+                                    : 8 * spacing; // Text (7) + Buffer
 
                                 return (
                                     <svg
@@ -701,7 +709,8 @@ export default function DotMarkerGeneratorPage() {
                                         preserveAspectRatio="xMidYMid meet"
                                     >
                                         {/* Center the name group horizontally based on actual contentWidth */}
-                                        <g transform={`translate(${(contentWidth - totalWidth) / 2}, 150)`}>
+                                        {/* Vertical center is simpler now: just push down a bit (dotSpacing) */}
+                                        <g transform={`translate(${(contentWidth - totalWidth) / 2}, ${spacing})`}>
                                             <g className="dots-container">
                                                 {dots.map((point, i) => (
                                                     <React.Fragment key={i}>
