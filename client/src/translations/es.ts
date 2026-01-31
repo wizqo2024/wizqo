@@ -3851,7 +3851,9 @@ export const es = {
     scissorSkillsGenerator: 'Generador de Habilidades con Tijeras',
     scissorSkillsGeneratorDesc: 'Práctica de corte preescolar personalizada',
     countingNumbersGenerator: 'Generador de Números para Contar',
-    countingNumbersGeneratorDesc: 'Hojas de rastreo y conteo divertidas',
+    countingNumbersGeneratorDesc: 'Divertidas hojas de trazado y conteo',
+    dotMarkerGenerator: 'Generador de Do-A-Dot',
+    dotMarkerGeneratorDesc: 'Arte de puntos para trazar nombres',
   },
   grades: {
     preK: 'Preescolar',

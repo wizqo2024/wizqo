@@ -4811,6 +4811,8 @@ export const ar = {
     scissorSkillsGeneratorDesc: 'تمارين قص مخصصة لمرحلة ما قبل المدرسة',
     countingNumbersGenerator: 'مولد أرقام العد',
     countingNumbersGeneratorDesc: 'أوراق عمل ممتعة للتتبع والعد',
+    dotMarkerGenerator: 'مولد النقاط (Do-A-Dot)',
+    dotMarkerGeneratorDesc: 'تتبع الأسماء بفن النقاط',
   },
   grades: {
     preK: 'ما قبل المدرسة',

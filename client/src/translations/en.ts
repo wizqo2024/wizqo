@@ -4651,6 +4651,8 @@ export const en = {
     scissorSkillsGeneratorDesc: 'Custom preschool cutting practice',
     countingNumbersGenerator: 'Counting Numbers Generator',
     countingNumbersGeneratorDesc: 'Fun tracing & counting worksheets',
+    dotMarkerGenerator: 'Do-A-Dot Generator',
+    dotMarkerGeneratorDesc: 'Dot art name tracing',
   },
   grades: {
     preK: 'Preschool',
