@@ -301,8 +301,8 @@ export default function DotMarkerGeneratorPage() {
                     <SEOMetaTags
                         title={seo.title || "Free Dot Marker Generator | Custom Name Worksheets | Wizqo"}
                         description={seo.metaDescription || "Create personalized dot marker name tracing worksheets for toddlers and preschoolers. Fun, hands-on fine motor practice. 100% Free PDF."}
-                        keywords={seo.keywords || "dot marker generator, do a dot name tracing, bingo dauber worksheets, free preschool printables"}
-                        ogImage={imageArray}
+                        keywords="dot marker printables, do a dot worksheets, bingo dauber activity, custom name tracing, dot art generator, free preschool worksheets, fine motor skills activities"
+                        ogImage="https://wizqo.com/images/seo/dot-marker-olivia.png"
                         canonicalUrl="https://wizqo.com/worksheets/dot-marker-generator"
                     />
                 );
@@ -351,8 +351,8 @@ export default function DotMarkerGeneratorPage() {
 
                 return (
                     <>
-                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
                     </>
                 );
