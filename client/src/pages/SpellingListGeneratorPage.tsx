@@ -130,7 +130,7 @@ export default function SpellingListGeneratorPage() {
     const [words, setWords] = React.useState<string[]>(['Apple', 'Banana', 'Cherry']);
     const [newWord, setNewWord] = React.useState('');
     const [listTitle, setListTitle] = React.useState('My Spelling List');
-    const [fontSize, setFontSize] = React.useState<number>(64);
+    const [fontSize, setFontSize] = React.useState<number>(48);
     const [fontStyle, setFontStyle] = React.useState<FontStyle>('dotted');
     const [tracingType, setTracingType] = React.useState<'dotted' | 'faint'>('dotted');
     const [colorTheme, setColorTheme] = React.useState<ColorTheme>('classic');
