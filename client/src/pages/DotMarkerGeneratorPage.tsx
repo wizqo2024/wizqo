@@ -541,9 +541,57 @@ export default function DotMarkerGeneratorPage() {
                             </div>
                         </div>
 
+                        <style>
+                            {`
+                                @media print {
+                                    @page {
+                                        size: A4 portrait;
+                                        margin: 0;
+                                    }
+                                    body {
+                                        print-color-adjust: exact;
+                                        -webkit-print-color-adjust: exact;
+                                        margin: 0;
+                                        padding: 0;
+                                        background: white;
+                                    }
+                                    /* Hide everything by default */
+                                    body > * {
+                                        display: none;
+                                    }
+                                    /* Only show the specific print container */
+                                    .dots-worksheet-print-container, 
+                                    .dots-worksheet-print-container * {
+                                        display: block !important;
+                                        visibility: visible !important;
+                                    }
+                                    /* Position it absolutely to cover the page */
+                                    .dots-worksheet-print-container {
+                                        position: fixed;
+                                        top: 0;
+                                        left: 0;
+                                        width: 210mm;
+                                        height: 297mm;
+                                        margin: 0;
+                                        padding: 0;
+                                        border: none;
+                                        border-radius: 0;
+                                        box-shadow: none;
+                                        z-index: 9999;
+                                        background: white;
+                                    }
+                                    /* Ensure SVG handles scaling */
+                                    svg {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            `}
+                        </style>
+
                         {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) with Height Constraint */}
 
-                        <div className="w-full aspect-[1/1.41] max-h-[600px] bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none print:max-h-none print:overflow-visible print:aspect-auto print:p-0">
+                        <div className="dots-worksheet-print-container w-full aspect-[1/1.41] max-h-[600px] bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
                             <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:hidden" />
 
                             {(() => {
