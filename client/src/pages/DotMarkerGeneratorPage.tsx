@@ -550,17 +550,18 @@ export default function DotMarkerGeneratorPage() {
                                     }
                                     html, body {
                                         width: 210mm;
-                                        height: 297mm;
+                                        height: auto !important;
+                                        min-height: 297mm;
                                         margin: 0 !important;
                                         padding: 0 !important;
-                                        overflow: hidden !important;
                                         background: white;
                                     }
-                                    /* Hide everything by default */
-                                    body > * {
+                                    /* Hide the root app container */
+                                    #root, body > *:not(.dots-worksheet-print-container) {
                                         display: none !important;
                                     }
-                                    /* Only show the specific print container */
+                                    
+                                    /* Force the print container to be the only thing visible */
                                     .dots-worksheet-print-container {
                                         display: block !important;
                                         visibility: visible !important;
@@ -574,13 +575,16 @@ export default function DotMarkerGeneratorPage() {
                                         border: none !important;
                                         z-index: 9999;
                                         background: white;
-                                        overflow: hidden !important; /* Prevent internal spillover */
+                                        overflow: hidden !important;
+                                        page-break-after: avoid !important;
+                                        page-break-inside: avoid !important;
                                     }
                                     /* Ensure SVG handles scaling */
                                     .dots-worksheet-print-container svg {
                                         width: 100% !important;
                                         height: 100% !important;
                                         display: block;
+                                        overflow: hidden; /* Clip any potential spillover */
                                     }
                                 }
                             `}
