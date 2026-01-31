@@ -17,7 +17,8 @@ import {
     Check,
     RotateCcw,
     Sparkles,
-    Info
+    Info,
+    StickyNote
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
