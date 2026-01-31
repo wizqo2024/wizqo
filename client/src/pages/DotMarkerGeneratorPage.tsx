@@ -493,17 +493,7 @@ export default function DotMarkerGeneratorPage() {
                                 />
                             </div>
 
-                            <div className="pt-4">
 
-                                <Button
-                                    onClick={handleDownloadPDF}
-                                    disabled={isGenerating}
-                                    className="h-14 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-black shadow-lg shadow-purple-200 text-sm group"
-                                >
-                                    <Download className={`mr-2 ${isGenerating ? 'animate-bounce' : 'group-hover:translate-y-0.5'} transition-transform`} size={18} />
-                                    {isGenerating ? 'BUILDING...' : 'SAVE PDF'}
-                                </Button>
-                            </div>
 
                             <button
                                 onClick={() => {
