@@ -12,7 +12,7 @@ import { Slider } from '@/components/ui/slider';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { trackWorksheetDownload, trackEvent } from '@/utils/analytics';
-import { Star, Award, Zap, Palette, Trash2, Layout } from 'lucide-react';
+import { Star, Award, Zap, Palette, Trash2, Layout, Columns2, Rows2 } from 'lucide-react';
 import { HUB_SEO_DATA } from '@shared/worksheetSEO';
 import { SocialShare } from '@/components/SocialShare';
 
@@ -428,14 +428,31 @@ export default function ScissorSkillsGeneratorPage() {
                             <div className="space-y-6">
                                 <div className="space-y-3">
                                     <Label className="text-xs font-bold uppercase tracking-wider text-slate-400">Layout Mode</Label>
-                                    <ToggleGroup type="single" value={layout} onValueChange={(v: string | null) => v && setLayout(v as WorksheetLayout)} className="justify-start gap-2">
-                                        <ToggleGroupItem value="vertical" className="flex-1 rounded-xl px-4 py-3 data-[state=on]:bg-indigo-100 data-[state=on]:text-indigo-900 border-2 flex flex-col gap-1 transition-all">
-                                            <span className="font-bold">Vertical Strips</span>
-                                            <span className="text-[10px] opacity-70">Ergonomic Up-Cut</span>
+                                    <ToggleGroup type="single" value={layout} onValueChange={(v: string | null) => v && setLayout(v as WorksheetLayout)} className="justify-start gap-3">
+                                        <ToggleGroupItem
+                                            value="vertical"
+                                            className="flex-1 rounded-2xl h-auto px-4 py-5 data-[state=on]:bg-indigo-600 data-[state=on]:text-white data-[state=on]:border-indigo-600 data-[state=on]:shadow-lg data-[state=on]:shadow-indigo-200 border-2 border-slate-100 hover:border-indigo-200 hover:bg-slate-50 transition-all duration-300 flex flex-col gap-2 group"
+                                        >
+                                            <div className="p-2 rounded-xl bg-slate-50 group-data-[state=on]:bg-white/20 transition-colors">
+                                                <Columns2 size={24} className="opacity-80" />
+                                            </div>
+                                            <div className="flex flex-col text-center">
+                                                <span className="font-black text-sm tracking-tight text-inherit">Vertical strips</span>
+                                                <span className="text-[10px] font-bold opacity-60 text-inherit">Ergonomic Up-Cut</span>
+                                            </div>
                                         </ToggleGroupItem>
-                                        <ToggleGroupItem value="landscape" className="flex-1 rounded-xl px-4 py-3 data-[state=on]:bg-indigo-100 data-[state=on]:text-indigo-900 border-2 flex flex-col gap-1 transition-all">
-                                            <span className="font-bold">Landscape</span>
-                                            <span className="text-[10px] opacity-70">Classic Tracing</span>
+
+                                        <ToggleGroupItem
+                                            value="landscape"
+                                            className="flex-1 rounded-2xl h-auto px-4 py-5 data-[state=on]:bg-indigo-600 data-[state=on]:text-white data-[state=on]:border-indigo-600 data-[state=on]:shadow-lg data-[state=on]:shadow-indigo-200 border-2 border-slate-100 hover:border-indigo-200 hover:bg-slate-50 transition-all duration-300 flex flex-col gap-2 group"
+                                        >
+                                            <div className="p-2 rounded-xl bg-slate-50 group-data-[state=on]:bg-white/20 transition-colors">
+                                                <Rows2 size={24} className="opacity-80" />
+                                            </div>
+                                            <div className="flex flex-col text-center">
+                                                <span className="font-black text-sm tracking-tight text-inherit">Landscape</span>
+                                                <span className="text-[10px] font-bold opacity-60 text-inherit">Classic Tracing</span>
+                                            </div>
                                         </ToggleGroupItem>
                                     </ToggleGroup>
                                 </div>
