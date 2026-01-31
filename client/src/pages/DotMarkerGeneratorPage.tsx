@@ -247,6 +247,26 @@ export default function DotMarkerGeneratorPage() {
         }
     };
 
+    const [logoBase64, setLogoBase64] = useState<string | null>(null);
+
+    // Load logo as base64 for reliable PDF/SVG embedding
+    useEffect(() => {
+        const loadLogo = async () => {
+            try {
+                const response = await fetch('/logo-720x720.png');
+                const blob = await response.blob();
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    setLogoBase64(reader.result as string);
+                };
+                reader.readAsDataURL(blob);
+            } catch (error) {
+                console.error('Failed to load logo:', error);
+            }
+        };
+        loadLogo();
+    }, []);
+
     // --- Actions ---
     const handlePrint = useCallback(() => {
         window.print();
