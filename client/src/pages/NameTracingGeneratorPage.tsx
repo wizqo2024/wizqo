@@ -14,6 +14,7 @@ import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
 import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
+import { HUB_SEO_DATA } from '@shared/worksheetSEO';
 
 type LetterCase = 'original' | 'title' | 'upper' | 'lower';
 type FontStyle = 'classic' | 'dotted' | 'bubble' | 'script';
@@ -926,14 +927,86 @@ export default function NameTracingGeneratorPage() {
 
   return (
     <>
-      <div className={`min-h-screen bg-slate-50 ${isPrinting ? 'no-print' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
-        <SEOMetaTags
-          title="Create Name Tracing Worksheets | Free Generator & Printable PDF"
-          description="Use our free name tracing generator to create custom name tracing worksheets instantly. Editable, printable PDFs perfect for preschool handwriting practice."
-          keywords="create name tracing worksheets, name tracing generator free, name tracing printable, editable name tracing, handwriting worksheet maker"
-          canonicalUrl="https://wizqo.com/printables/name-tracing-generator"
-        />
+      {(() => {
+        const seo = HUB_SEO_DATA['name-tracing-generator'] || {};
+        return (
+          <SEOMetaTags
+            title={seo.title || "Free Name Tracing Generator | Custom Practice Sheets | Wizqo"}
+            description={seo.metaDescription || "Create personalized name tracing worksheets for kids. Choose from dotted, bubble, or script fonts. 100% free to customize and print as PDF."}
+            keywords={seo.keywords || "name tracing generator, custom name worksheets, preschool handwriting practice, tracing names for kindergarten"}
+            ogImage={seo.image || "/images/name-tracing-seo.png"}
+            canonicalUrl="https://wizqo.com/worksheets/name-tracing-generator"
+          />
+        );
+      })()}
+      {(() => {
+        const seo = HUB_SEO_DATA['name-tracing-generator'] || {};
+        const canonical = "https://wizqo.com/worksheets/name-tracing-generator";
+        const breadcrumbLd = {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+            { "@type": "ListItem", position: 3, name: "Name Tracing Generator", item: canonical }
+          ]
+        } as const;
+        const softwareLd = {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "Wizqo Name Tracing Generator",
+          operatingSystem: "Any",
+          applicationCategory: "EducationalApplication",
+          image: "https://wizqo.com/images/name-tracing-seo.png",
+          screenshot: "https://wizqo.com/images/name-tracing-seo.png",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD"
+          },
+          featureList: "Single & Batch mode, Multiple fonts (Dotted, Script, Bubble), Adjustable size, Rainbow mode, Instant PDF"
+        } as const;
+        const learningResourceLd = {
+          "@context": "https://schema.org",
+          "@type": "LearningResource",
+          name: "Custom Name Tracing Worksheet",
+          description: "A personalized activity where children practice writing their names using various tracing styles.",
+          learningResourceType: "Worksheet",
+          educationalLevel: "Preschool, Kindergarten",
+          competencyRequired: "Fine motor skills, Name recognition"
+        } as const;
+        const faqLd = {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How do I download the worksheet as PDF?",
+              acceptedAnswer: { "@type": "Answer", text: "Click ‘Print / Save as PDF’ and use your browser’s Print → Save as PDF." }
+            },
+            {
+              "@type": "Question",
+              name: "Can I adjust font size and letter spacing?",
+              acceptedAnswer: { "@type": "Answer", text: "Yes. Use Font size and the Auto‑space letters toggle to increase spacing for letters, words, or sentences." }
+            },
+            {
+              "@type": "Question",
+              name: "Will it fit on one page when printing?",
+              acceptedAnswer: { "@type": "Answer", text: "Yes. The preview is sized to a single Letter page and prints without overflow." }
+            }
+          ]
+        } as const;
+        return (
+          <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+          </>
+        );
+      })()}
 
+      <div className={`min-h-screen flex flex-col bg-slate-50 font-sans ${isPrinting ? 'no-print' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
         <UnifiedNavigation currentPage="printables" />
 
 

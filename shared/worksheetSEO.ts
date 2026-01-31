@@ -4112,8 +4112,9 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     h1: 'Free Custom Dot Marker Name Generator',
     image: [
       '/images/dot-marker-16x9.png',
-      '/images/dot-marker-4x3.png',
-      '/images/dot-marker-1x1.png'
+      '/images/seo/dot-marker-olivia.png',
+      '/images/seo/dot-marker-action.png',
+      '/images/seo/dot-marker-flatlay.png'
     ],
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Custom Dot Marker Name Generator</h1>
@@ -4121,11 +4122,11 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
 
       <div style="margin-bottom: 3rem; text-align: center;">
         <img 
-          src="/images/dot-marker-16x9.png" 
-          alt="Personalized Do-A-Dot Name Tracing Worksheet Preview" 
+          src="/images/seo/dot-marker-olivia.png" 
+          alt="Rainbow colored dot marker name tracing worksheet for toddler Olivia" 
           style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;"
         />
-        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.75rem; font-style: italic;">Professional Do-A-Dot Name Tracing worksheet generated in seconds.</p>
+        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.75rem; font-style: italic;">Rainbow colored dot marker name tracing worksheet for toddler Olivia.</p>
       </div>
 
       <section style="margin-bottom: 3rem; background: #f5f3ff; padding: 2rem; border-radius: 12px; border: 1px solid #ddd6fe;">
@@ -4133,30 +4134,48 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
         <p style="color: #4c1d95; margin-bottom: 1.5rem;">Our generator is designed to be 10x better than standard PDFs. Here is how it works:</p>
         <ol style="color: #4c1d95; line-height: 1.8; padding-left: 1.5rem;">
           <li><strong>Type your child's name:</strong> Watch it instantly transform into a dot-pattern.</li>
-          <li><strong>Choose your dot size:</strong> Use "Big Dots" for standard 18mm Bingo Markers or "Small Dots" for Q-Tip painting.</li>
-          <li><strong>Select Sticker Mode:</strong> Toggle "Filled Dots" to create a custom sticker name chart for 3/4 inch round stickers.</li>
-          <li><strong>Add Icon Stampers:</strong> Decorate the page with hearts, stars, or dinosaurs to keep the fun going!</li>
+          <li><strong>Choose your dot size:</strong> Use 18mm for standard Bingo markers or 10mm for Q-tip painting.</li>
+          <li><strong>Select Sticker Mode:</strong> Toggle "Filled Dots" to create a custom sticker name reward chart.</li>
+          <li><strong>Add Icon Stampers:</strong> Decorate the page with hearts, stars, or dinosaurs!</li>
         </ol>
       </section>
+
+      <div style="margin-bottom: 3rem; text-align: center;">
+        <img 
+          src="/images/seo/dot-marker-action.png" 
+          alt="Child using bingo dauber on custom name printable" 
+          style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;"
+        />
+        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.75rem; font-style: italic;">Why "Bingo Dauber" Activities Build Fine Motor Skills: Occupational therapists love dot marker activities because they require hand-eye coordination.</p>
+      </div>
 
       <section style="margin-bottom: 3rem;">
         <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Why "Bingo Dauber" Activities Build Fine Motor Skills</h2>
         <p style="color: #475569; line-height: 1.6;">Occupational therapists love dot marker activities because they require <strong>hand-eye coordination</strong> and <strong>isolated finger movement</strong>. When a child aims for the circle, they are practicing technical control. This is the essential precursor to holding a pencil and writing letters. By using our generator, you move from generic shapes to the child's most important word—their name—building confidence and self-recognition simultaneously.</p>
       </section>
 
+      <div style="margin-bottom: 3rem; text-align: center;">
+        <img 
+          src="/images/seo/dot-marker-flatlay.png" 
+          alt="Supplies for do a dot activities: Q-tips, stickers, and markers" 
+          style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;"
+        />
+        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.75rem; font-style: italic;">Supplies for do a dot activities: Q-tips, stickers, and markers.</p>
+      </div>
+
       <section style="margin-bottom: 3rem; background: #f8fafc; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0;">
         <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">3 Ways to Use These Worksheets (Beyond Markers!)</h2>
         <div style="margin-bottom: 1.5rem;">
           <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">1. Sticker Names</h3>
-          <p style="color: #475569;">Use standard 3/4 inch (19mm) round office stickers. This "Peel and Stick" motion is incredible for developing the pincer grasp.</p>
+          <p style="color: #475569;">Use round garage sale stickers for a mess-free activity. This "Peel and Stick" motion is incredible for developing the pincer grasp.</p>
         </div>
         <div style="margin-bottom: 1.5rem;">
           <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">2. Q-Tip Painting</h3>
-          <p style="color: #475569;">Switch the generator to "Small Dots." Use cotton swabs and washable paint for a high-precision art session.</p>
+          <p style="color: #475569;">Use paint and cotton swabs for precision practice. Switch the generator to "Small Dots" for high-precision art sessions.</p>
         </div>
         <div style="margin-bottom: 1.5rem;">
           <h3 style="font-size: 1.25rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">3. Pom-Pom Match</h3>
-          <p style="color: #475569;">Place colorful pom-poms onto the circles using plastic tweezers. This adds a "sensory bin" feel to the literacy activity.</p>
+          <p style="color: #475569;">Place pom-poms on the circles with tweezers. This adds a "sensory bin" feel to the literacy activity.</p>
         </div>
       </section>
 
@@ -4164,11 +4183,11 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
         <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
         <div style="margin-bottom: 1.5rem;">
           <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.25rem;">What size are the dots?</h3>
-          <p style="color: #475569;">By default, the dots are sized to fit standard 18mm (approx 0.7 inch) Bingo markers like "Do-A-Dot Art!" brand.</p>
+          <p style="color: #475569;">Adjustable! Our generator defaults to standard 18mm Bingo markers like "Do-A-Dot Art!", but you can shrink them for Q-tips or stickers.</p>
         </div>
         <div style="margin-bottom: 1.5rem;">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.25rem;">Can I print these for a classroom?</h3>
-          <p style="color: #475569;">Yes! Use our "Classroom Note" to quickly generate a pack for all your students. Perfect for back-to-school name recognition.</p>
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.25rem;">Are you a teacher?</h3>
+          <p style="color: #475569;">Yes! Print a class set in minutes. Our tool is designed for back-to-school name recognition and center activities.</p>
         </div>
       </section>
 
@@ -4184,5 +4203,22 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
         </div>
       </section>
     </article>`
+  },
+  'name-tracing-generator': {
+    title: 'Free Name Tracing Generator | Custom Practice Sheets | Wizqo',
+    metaDescription: 'Create personalized name tracing worksheets for kids. Choose from dotted, bubble, or script fonts. 100% free to customize and print as PDF.',
+    keywords: 'name tracing generator, custom name worksheets, preschool handwriting practice, tracing names for kindergarten, free printable name tracing, name tracing maker',
+    image: '/images/name-tracing-seo.png',
+  },
+  'counting-numbers-generator': {
+    title: 'Free Counting Numbers Worksheets & Tracing Generator (1-10) | Wizqo',
+    metaDescription: 'Create unlimited, fun, and colorful math worksheets for your child in seconds! Personalized counting and number tracing practice for preschool and kindergarten.',
+    keywords: 'counting worksheets, number tracing generator, preschool math worksheets, kindergarten counting practice, free math printables, learn to count 1-10',
+    image: '/assets/previews/counting-generator-seo.png',
+  },
+  'reading-discovery-interactive': {
+    title: 'Reading Discovery: Interactive Comprehension Worksheet | Wizqo',
+    metaDescription: 'Free interactive reading comprehension worksheet for Grade 1 and 2. Features original stories, illustrations, and a "Show Answer" toggle. Print as PDF instantly.',
+    image: '/images/reading-interactive-seo.jpg'
   },
 };

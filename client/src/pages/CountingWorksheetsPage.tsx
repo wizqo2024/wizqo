@@ -363,13 +363,62 @@ export default function CountingWorksheetsPage() {
 
     return (
         <div className="min-h-screen bg-slate-50 flex flex-col">
-            <SEOMetaTags
-                title={seoData?.title || 'Free Counting Numbers Worksheets & Tracing Generator (1-10)'}
-                description={seoData?.metaDescription || 'Create unlimited, fun, and colorful math worksheets for your child in seconds!'}
-                keywords={seoData?.keywords}
-                ogImage={seoData?.image}
-                canonicalUrl="https://wizqo.com/worksheets/counting-numbers-generator"
-            />
+            {(() => {
+                const seo = HUB_SEO_DATA['counting-numbers-generator'] || {};
+                return (
+                    <SEOMetaTags
+                        title={seo.title || 'Free Counting Numbers Worksheets & Tracing Generator (1-10)'}
+                        description={seo.metaDescription || 'Create unlimited, fun, and colorful math worksheets for your child in seconds!'}
+                        keywords={seo.keywords}
+                        ogImage={seo.image}
+                        canonicalUrl="https://wizqo.com/worksheets/counting-numbers-generator"
+                    />
+                );
+            })()}
+
+            {(() => {
+                const canonical = "https://wizqo.com/worksheets/counting-numbers-generator";
+                const breadcrumbLd = {
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    itemListElement: [
+                        { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+                        { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+                        { "@type": "ListItem", position: 3, name: "Counting Numbers Generator", item: canonical }
+                    ]
+                } as const;
+                const softwareLd = {
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    name: "Wizqo Counting Numbers Generator",
+                    operatingSystem: "Any",
+                    applicationCategory: "EducationalApplication",
+                    image: "https://wizqo.com/images/counting-generator-seo.png",
+                    screenshot: "https://wizqo.com/images/counting-generator-seo.png",
+                    offers: {
+                        "@type": "Offer",
+                        price: "0",
+                        priceCurrency: "USD"
+                    },
+                    featureList: "Number tracing 0-10, Multiple themes (Dinosaurs, Rockets, etc.), Custom child names, High-quality PDF workbook"
+                } as const;
+                const learningResourceLd = {
+                    "@context": "https://schema.org",
+                    "@type": "LearningResource",
+                    name: "Counting & Number Tracing Worksheet",
+                    description: "An interactive worksheet generator for children to practice counting objects and tracing numbers 0-10.",
+                    learningResourceType: "Worksheet",
+                    educationalLevel: "Preschool, Kindergarten, Grade 1",
+                    competencyRequired: "Counting, Handwriting, Basic Math"
+                } as const;
+                return (
+                    <>
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
+                    </>
+                );
+            })()}
 
             <UnifiedNavigation />
 

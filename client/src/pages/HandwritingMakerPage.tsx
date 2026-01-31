@@ -786,18 +786,18 @@ export default function HandwritingMakerPage() {
       <svg viewBox={`0 0 ${pageW} ${pageH}`} className="w-full h-auto bg-white shadow-2xl rounded-sm" role="img" aria-label="Handwriting sheet preview" style={{ overflow: 'hidden' }}>
         <rect width={pageW} height={pageH} fill={theme.bg} />
 
-        {/* Branding Header */}
-        <text x={margin} y={margin + 20} fontSize={24} fontWeight="bold" fill="#0f172a" fontFamily="helvetica, Arial, sans-serif">Wizqo</text>
-        <text x={pageW - margin} y={margin + 20} fontSize={10} fill="#64748b" textAnchor="end" fontFamily="helvetica, Arial, sans-serif">www.wizqo.com</text>
-
-        {decoration !== 'none' && (
-          <>
-            {renderDecoration(decoration, margin - 10, margin - 10, 12)}
-            {renderDecoration(decoration, pageW - margin + 10, margin - 10, 12)}
-            {renderDecoration(decoration, margin - 10, pageH - margin + 10, 12)}
-            {renderDecoration(decoration, pageW - margin + 10, pageH - margin + 10, 12)}
-          </>
-        )}
+        {(() => {
+          const seo = HUB_SEO_DATA['handwriting-worksheet-maker'] || {};
+          return (
+            <SEOMetaTags
+              title={seo.title || "Free Handwriting Worksheet Maker | Custom Tracing Sheets | Wizqo"}
+              description={seo.metaDescription || "Create custom handwriting practice sheets for kids. Choose from dotted, cursive, or bubble fonts. 100% free to customize and print as PDF."}
+              keywords={seo.keywords || "handwriting maker, tracing worksheets, custom handwriting sheets, cursive practice, dotted font generator"}
+              ogImage={seo.image || "/images/handwriting-maker-seo.png"}
+              canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
+            />
+          );
+        })()}
 
         {rows.map((text, idx) => {
           const y = startY + idx * lineGap;
@@ -944,7 +944,7 @@ export default function HandwritingMakerPage() {
         const seo = HUB_SEO_DATA['handwriting-worksheet-maker'] || {};
         return (
           <SEOMetaTags
-            title={seo.title || "Free Name Tracing Worksheet Generator | Wizqo"}
+            title={seo.title || "Free Handwriting Worksheet Maker | Custom Tracing Practice | Wizqo"}
             description={seo.metaDescription || "Create personalized Name Tracing and Cursive Writing worksheets in seconds. Perfect for kids learning handwriting. Download your custom PDF instantly for free."}
             keywords={seo.keywords || "name tracing generator, cursive handwriting worksheets, cursive writing practice, printable cursive sheets, tracing cursive letters, handwriting worksheet maker, free name tracing worksheets"}
             ogImage="https://wizqo.com/images/handwriting-og-preview.png"
@@ -954,25 +954,40 @@ export default function HandwritingMakerPage() {
       })()}
       <UnifiedNavigation currentPage="kids" />
       {(() => {
+        const seo = HUB_SEO_DATA['handwriting-worksheet-maker'] || {};
         const canonical = "https://wizqo.com/worksheets/handwriting-worksheet-maker";
-        const breadcrumbId = `${canonical}#breadcrumbs`;
         const breadcrumbLd = {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
-          "@id": breadcrumbId,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
-            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/2nd-grade-math-worksheets" },
-            { "@type": "ListItem", position: 3, name: "Handwriting Worksheet Maker", item: "https://wizqo.com/worksheets/handwriting-worksheet-maker" }
+            { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+            { "@type": "ListItem", position: 3, name: "Handwriting Maker", item: canonical }
           ]
         } as const;
-        const webPageLd = {
+        const softwareLd = {
           "@context": "https://schema.org",
-          "@type": "WebPage",
-          name: "Free Name Tracing & Cursive Writing Practice Sheets for Kids | Wizqo",
-          url: "https://wizqo.com/worksheets/handwriting-worksheet-maker",
-          description: "Create personalized Name Tracing and Cursive Writing worksheets in seconds. Perfect for kids learning handwriting. Download your custom PDF instantly for free.",
-          breadcrumb: { "@id": breadcrumbId }
+          "@type": "SoftwareApplication",
+          name: "Wizqo Handwriting Worksheet Maker",
+          operatingSystem: "Any",
+          applicationCategory: "EducationalApplication",
+          image: "https://wizqo.com/images/handwriting-maker-seo.png",
+          screenshot: "https://wizqo.com/images/handwriting-maker-seo.png",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD"
+          },
+          featureList: "Custom text tracing, Multiple fonts (Dotted, Cursive, Bubble), Adjustable size, Rainbow mode, Instant PDF"
+        } as const;
+        const learningResourceLd = {
+          "@context": "https://schema.org",
+          "@type": "LearningResource",
+          name: "Custom Handwriting Practice Sheet",
+          description: "A personalized handwriting activity where children practice tracing letters, words, or sentences.",
+          learningResourceType: "Worksheet",
+          educationalLevel: "Preschool, Kindergarten, First Grade",
+          competencyRequired: "Fine motor skills, Penmanship"
         } as const;
         const faqLd = {
           "@context": "https://schema.org",
@@ -997,8 +1012,9 @@ export default function HandwritingMakerPage() {
         } as const;
         return (
           <>
-            <script id="breadcrumbs" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
           </>
         );
@@ -1459,7 +1475,7 @@ export default function HandwritingMakerPage() {
         </div>
       </main>
       <Footer />
-    </div >
+    </div>
   );
 }
 

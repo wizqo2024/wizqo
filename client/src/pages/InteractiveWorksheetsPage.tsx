@@ -681,6 +681,63 @@ function useFaqSchema(t: (key: string) => string) {
 export function InteractiveWorksheetsPage() {
   const { t, isRTL, language } = useTranslation()
   useFaqSchema(t)
+
+  // Standardized SEO/JSON-LD for Interactive Hub
+  React.useEffect(() => {
+    const canonical = "https://wizqo.com/interactive-worksheets-generator";
+    const breadcrumbLd = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+        { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+        { "@type": "ListItem", position: 3, name: "Interactive Worksheets", item: canonical }
+      ]
+    } as const;
+    const softwareLd = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Wizqo Interactive Worksheets Generator",
+      operatingSystem: "Any",
+      applicationCategory: "EducationalApplication",
+      image: "https://wizqo.com/images/interactive-worksheets-seo.png",
+      screenshot: "https://wizqo.com/images/interactive-worksheets-seo.png",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD"
+      },
+      featureList: "Dynamic variable generation, Grade-specific bundles (PreK-8th), Integrated answer keys, High-res PDF export"
+    } as const;
+
+    const existingBreadcrumb = document.getElementById('interactive-breadcrumb-schema');
+    if (existingBreadcrumb) {
+      existingBreadcrumb.textContent = JSON.stringify(breadcrumbLd);
+    } else {
+      const script = document.createElement('script');
+      script.id = 'interactive-breadcrumb-schema';
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(breadcrumbLd);
+      document.head.appendChild(script);
+    }
+
+    const existingSoftware = document.getElementById('interactive-software-schema');
+    if (existingSoftware) {
+      existingSoftware.textContent = JSON.stringify(softwareLd);
+    } else {
+      const script = document.createElement('script');
+      script.id = 'interactive-software-schema';
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(softwareLd);
+      document.head.appendChild(script);
+    }
+
+    return () => {
+      document.getElementById('interactive-breadcrumb-schema')?.remove();
+      document.getElementById('interactive-software-schema')?.remove();
+    };
+  }, []);
+
   const [filters, setFilters] = React.useState<FiltersState>(() => parseInitialFilters())
   const [pack, setPack] = React.useState<InteractiveWorksheetPack | null>(null)
   const [loading, setLoading] = React.useState(false)

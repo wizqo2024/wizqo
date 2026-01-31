@@ -32,9 +32,11 @@ type ShapeType = 'circle' | 'heart' | 'star' | 'dino';
 type ColorTheme = 'classic' | 'rainbow' | 'pastel' | 'bw';
 
 interface DotPoint {
+    id?: string;
     x: number;
     y: number;
     color?: string;
+    isIcon?: boolean;
 }
 
 const THEMES: Record<ColorTheme, string[]> = {
@@ -71,7 +73,20 @@ const DOT_FONT: Record<string, number[][]> = {
     'W': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 1, 0, 1, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1]],
     'X': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1]],
     'Y': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 0, 1, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]],
-    'Z': [[1, 1, 1, 1, 1], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 1]]
+    'Z': [[1, 1, 1, 1, 1], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 1]],
+    '0': [[0, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 1, 1], [1, 0, 1, 0, 1], [1, 1, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]],
+    '1': [[0, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 1, 1, 1, 0]],
+    '2': [[0, 1, 1, 1, 0], [1, 0, 0, 0, 1], [0, 0, 0, 0, 1], [0, 0, 1, 1, 0], [0, 1, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 1]],
+    '3': [[1, 1, 1, 1, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [0, 1, 1, 1, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [1, 1, 1, 1, 0]],
+    '4': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 1], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1]],
+    '5': [[1, 1, 1, 1, 1], [1, 0, 0, 0, 0], [1, 1, 1, 1, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]],
+    '6': [[0, 1, 1, 1, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]],
+    '7': [[1, 1, 1, 1, 1], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]],
+    '8': [[0, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]],
+    '9': [[0, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 1], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [0, 1, 1, 1, 0]],
+    'HEART': [[0, 1, 0, 1, 0], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1], [0, 1, 1, 1, 0], [0, 0, 1, 0, 0]],
+    'STAR': [[0, 0, 1, 0, 0], [0, 1, 1, 1, 0], [1, 1, 1, 1, 1], [0, 1, 1, 1, 0], [1, 0, 1, 0, 1]],
+    'DINO': [[0, 0, 0, 1, 1], [0, 0, 0, 1, 1], [0, 0, 0, 1, 0], [1, 0, 1, 1, 1], [1, 1, 1, 1, 1], [0, 0, 1, 0, 1], [0, 0, 1, 0, 1]]
 };
 
 // --- Component ---
@@ -94,7 +109,7 @@ export default function DotMarkerGeneratorPage() {
 
     // --- Logic: Point Generation (Using Coordinate Map) ---
     const { dots, totalWidth } = useMemo(() => {
-        const safeText = childName.toUpperCase().replace(/[^A-Z ]/g, '') || 'NAME';
+        const safeText = childName.toUpperCase().replace(/[^A-Z0-9 ]/g, '') || 'NAME';
         const result: DotPoint[] = [];
 
         // Gap constants
@@ -117,6 +132,7 @@ export default function DotMarkerGeneratorPage() {
                 row.forEach((isDot, colIndex) => {
                     if (isDot === 1) {
                         result.push({
+                            id: `dot-${char}-${result.length}`,
                             x: cursorX + (colIndex * dotSpacing),
                             y: rowIndex * dotSpacing,
                             color: colors[result.length % colors.length]
@@ -129,8 +145,34 @@ export default function DotMarkerGeneratorPage() {
             cursorX += (5 * dotSpacing) + letterSpacing;
         });
 
+        // --- Logic Fix: Add Decoration Icon below the name ---
+        if (stamperIcon !== 'none') {
+            const iconKey = stamperIcon.toUpperCase() as keyof typeof DOT_FONT;
+            const iconMatrix = DOT_FONT[iconKey];
+            if (iconMatrix) {
+                // Determine vertical start: 8 rows down from top (below text)
+                const iconYStart = 8 * dotSpacing;
+                // Center it horizontally relative to the cursorX
+                const iconWidth = iconMatrix[0].length;
+                const iconXStart = (cursorX / 2) - ((iconWidth / 2) * dotSpacing);
+
+                iconMatrix.forEach((row, rIndex) => {
+                    row.forEach((isDot, cIndex) => {
+                        if (isDot) {
+                            result.push({
+                                id: `icon-${rIndex}-${cIndex}`,
+                                x: iconXStart + (cIndex * dotSpacing),
+                                y: iconYStart + (rIndex * dotSpacing),
+                                isIcon: true
+                            });
+                        }
+                    });
+                });
+            }
+        }
+
         return { dots: result, totalWidth: cursorX };
-    }, [childName, spacing, colorTheme]);
+    }, [childName, spacing, stamperIcon, colorTheme]);
 
     // Center horizontally
     const dotsBounds = useMemo(() => {
@@ -154,7 +196,7 @@ export default function DotMarkerGeneratorPage() {
             case 'heart':
                 return (
                     <path
-                        key={`${point.x}-${point.y}-${type}`}
+                        key={`${point.id || `${point.x}-${point.y}`}-${type}`}
                         d={`M ${point.x} ${point.y + size * 0.3}
                C ${point.x - size} ${point.y - size} ${point.x - size * 1.5} ${point.y + size * 0.5} ${point.x} ${point.y + size * 1.2}
                C ${point.x + size * 1.5} ${point.y + size * 0.5} ${point.x + size} ${point.y - size} ${point.x} ${point.y + size * 0.3}`}
@@ -166,7 +208,7 @@ export default function DotMarkerGeneratorPage() {
             case 'star':
                 return (
                     <path
-                        key={`${point.x}-${point.y}-${type}`}
+                        key={`${point.id || `${point.x}-${point.y}`}-${type}`}
                         d={`M ${point.x} ${point.y - size}
                L ${point.x + size * 0.3} ${point.y - size * 0.3}
                L ${point.x + size} ${point.y - size * 0.2}
@@ -184,7 +226,7 @@ export default function DotMarkerGeneratorPage() {
                 );
             case 'dino':
                 return (
-                    <g key={`${point.x}-${point.y}-${type}`} transform={`translate(${point.x - size}, ${point.y - size}) scale(${size / 20})`}>
+                    <g key={`${point.id || `${point.x}-${point.y}`}-${type}`} transform={`translate(${point.x - size}, ${point.y - size}) scale(${size / 20})`}>
                         <path d="M10,30 Q15,5 30,10 Q45,15 40,35 Q35,55 20,50 Q5,45 10,30" fill={color} stroke={stroke} strokeWidth="3" />
                         <circle cx="30" cy="15" r="2" fill={stroke} />
                     </g>
@@ -192,7 +234,7 @@ export default function DotMarkerGeneratorPage() {
             default:
                 return (
                     <circle
-                        key={`${point.x}-${point.y}-${type}`}
+                        key={`${point.id || `${point.x}-${point.y}`}-${type}`}
                         cx={point.x}
                         cy={point.y}
                         r={size}
@@ -250,15 +292,16 @@ export default function DotMarkerGeneratorPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#FDFCFB] font-sans selection:bg-purple-100">
+        <div className="min-h-screen flex flex-col bg-slate-50 font-sans">
             {(() => {
                 const seo = HUB_SEO_DATA['dot-marker-generator'] || {};
+                const imageArray = Array.isArray(seo.image) ? seo.image : [seo.image || "/images/dot-marker-16x9.png"];
                 return (
                     <SEOMetaTags
-                        title={seo.title || "Free Dot Marker Name Generator | Create Personalized Do-A-Dot Worksheets"}
-                        description={seo.metaDescription || "Make personalized dot marker worksheets for toddlers and preschoolers. Perfect for Bingo Daubers, stickers, and fine motor skills. 100% Free PDF."}
-                        keywords={seo.keywords || "dot marker generator, do a dot worksheets, bingo dauber printables, name tracing"}
-                        ogImage={seo.image || "/images/dot-marker-16x9.png"}
+                        title={seo.title || "Free Dot Marker Generator | Custom Name Worksheets | Wizqo"}
+                        description={seo.metaDescription || "Create personalized dot marker name tracing worksheets for toddlers and preschoolers. Fun, hands-on fine motor practice. 100% Free PDF."}
+                        keywords={seo.keywords || "dot marker generator, do a dot name tracing, bingo dauber worksheets, free preschool printables"}
+                        ogImage={imageArray}
                         canonicalUrl="https://wizqo.com/worksheets/dot-marker-generator"
                     />
                 );
@@ -295,10 +338,21 @@ export default function DotMarkerGeneratorPage() {
                     featureList: "Dynamic dot scaling, Sticker mode support, Custom name sampling, High-res PDF export"
                 } as const;
 
+                const learningResourceLd = {
+                    "@context": "https://schema.org",
+                    "@type": "LearningResource",
+                    name: "Custom Dot Marker Name Worksheet",
+                    description: "A personalized fine motor skill activity where children use dot markers to trace their names.",
+                    learningResourceType: "Worksheet",
+                    educationalLevel: "Preschool, Kindergarten",
+                    competencyRequired: "Fine motor skills, Letter recognition"
+                } as const;
+
                 return (
                     <>
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
                     </>
                 );
             })()}
@@ -456,26 +510,26 @@ export default function DotMarkerGeneratorPage() {
                             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-sm font-bold animate-pulse">
                                 <Sparkles size={16} /> 2026 Viral Tool Logic
                             </div>
-                            <h1 className="text-4xl lg:text-6xl font-black text-slate-900 tracking-tight leading-none">
-                                Do-A-Dot <span className="text-purple-600">Name Generator</span>
+                            <h1 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-none">
+                                {HUB_SEO_DATA['dot-marker-generator']?.h1 || "Do-A-Dot Name Generator"}
                             </h1>
                             <p className="text-lg text-slate-500 font-medium max-w-2xl">
                                 The internet's only dynamic dot sampler. Professional layout for Bingo Markers, Q-Tips, and Stickers.
                             </p>
                         </div>
 
-                        {/* SVG Canvas Preview */}
-                        <div className="relative group bg-white rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 aspect-[1.41] overflow-hidden print:shadow-none print:border-0 print:rounded-none">
+                        {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio */}
+                        <div className="w-full aspect-[8.5/11] bg-white relative p-12 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
                             <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:bg-white" />
 
                             <svg
                                 ref={svgRef}
-                                viewBox={`0 0 ${Math.max(1200, totalWidth + 100)} 800`}
+                                viewBox={`0 0 ${Math.max(800, totalWidth + 100)} 1000`}
+                                className="max-w-full max-h-full drop-shadow-2xl"
                                 preserveAspectRatio="xMidYMid meet"
-                                className="relative w-full h-full p-12 drop-shadow-sm transition-all duration-300 pointer-events-none"
                             >
                                 {/* Center the name */}
-                                <g transform={`translate(${totalWidth < 1100 ? (1100 - totalWidth) / 2 : 0}, 150)`}>
+                                <g transform={`translate(${totalWidth < 700 ? (700 - totalWidth) / 2 : 0}, 150)`}>
                                     {/* Branding footer in preview */}
                                     <text x={totalWidth} y="630" textAnchor="end" className="fill-slate-300 text-[12px] font-bold uppercase tracking-widest print:hidden">
                                         Made with Wizqo.com
@@ -522,29 +576,99 @@ export default function DotMarkerGeneratorPage() {
                     </div>
                 </div>
 
-                {/* SEO Copy Section (Required for Google Image Trap) */}
-                <div className="mt-24 border-t-2 border-slate-50 pt-16">
-                    <div className="bg-white p-12 rounded-[48px] border-2 border-slate-50 shadow-sm space-y-12">
-                        <section className="max-w-3xl mx-auto space-y-6">
-                            <h2 className="text-3xl font-black text-slate-900">Why Use This Dot Marker Generator?</h2>
-                            <p className="text-slate-600 leading-relaxed text-lg">
-                                Traditional PDFs are static and rarely match your child's name perfectly. Our
-                                <strong> 2026 AI-Powered Sampling Logic</strong> ensures that every letter is
-                                mapped with mathematical precision. This isn't just a worksheet; it's a technical fine
-                                motor tool designed to prepare little hands for handwriting and penmanship.
+                {/* Content Sandwich: SEO Keyword Zone */}
+                <div className="mt-16 max-w-4xl mx-auto px-4">
+                    <div className="bg-white rounded-[40px] p-8 md:p-12 border-2 border-slate-50 shadow-sm space-y-8">
+                        <section className="space-y-4">
+                            <h2 className="text-3xl font-black text-slate-900">Free Custom Dot Marker Name Generator (PDF)</h2>
+                            <p className="text-slate-600 text-lg leading-relaxed">
+                                Stop searching for generic worksheets. Create your own <strong>custom name do-a-dot printables</strong> in seconds!
+                                Perfect for toddlers learning to spell their names using <strong>bingo daubers</strong>, <strong>dot markers</strong>, or <strong>stickers</strong>.
                             </p>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
-                                <div className="space-y-3 p-6 rounded-3xl bg-slate-50 border border-slate-100">
-                                    <div className="w-12 h-12 rounded-2xl bg-purple-600 flex items-center justify-center text-white font-black">1</div>
-                                    <h3 className="font-black text-slate-800">Dynamic Scaling</h3>
-                                    <p className="text-sm text-slate-500 leading-relaxed">Adjust the radius to fit your specific tools, from jumbo markers to tiny cotton swabs.</p>
-                                </div>
-                                <div className="space-y-3 p-6 rounded-3xl bg-slate-50 border border-slate-100">
-                                    <div className="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center text-white font-black">2</div>
-                                    <h3 className="font-black text-slate-800">Sticker Chart Logic</h3>
-                                    <p className="text-sm text-slate-500 leading-relaxed">Switch to Sticker Mode to create custom name reward charts for pincer grasp development.</p>
+                        </section>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100 space-y-2">
+                                <h3 className="font-bold text-slate-900">Adjustable Dot Size</h3>
+                                <p className="text-sm text-slate-500">Perfect for standard 18mm Bingo Markers or smaller Q-Tip painting.</p>
+                            </div>
+                            <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100 space-y-2">
+                                <h3 className="font-bold text-slate-900">Sticker Mode</h3>
+                                <p className="text-sm text-slate-500">Turn dots into solid circles for garage sale stickers (fine motor practice).</p>
+                            </div>
+                            <div className="p-6 rounded-3xl bg-slate-50 border border-slate-100 space-y-2">
+                                <h3 className="font-bold text-slate-900">Instant PDF</h3>
+                                <p className="text-sm text-slate-500">Download high-resolution dot art worksheets for free.</p>
+                            </div>
+                        </div>
+
+                        <section className="pt-8 border-t border-slate-100 text-slate-600">
+                            <h3 className="text-xl font-bold text-slate-900 mb-4">Are you a teacher? 🍎</h3>
+                            <p className="leading-relaxed">
+                                Use this dot marker generator to make a class set of name mats for the first week of school.
+                                Great for <strong>name recognition centers</strong>! Our tools are designed to save you hours of prep time.
+                            </p>
+                        </section>
+                    </div>
+                </div>
+
+                {/* Teacher's Corner: The Viral Hook */}
+                <div className="mt-16 max-w-4xl mx-auto px-4 print:hidden">
+                    <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[32px] p-8 md:p-12 shadow-2xl shadow-indigo-200 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-white/20 transition-colors duration-500" />
+                        <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                            <div className="w-20 h-20 rounded-3xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0 shadow-inner">
+                                <Info size={40} className="animate-pulse" />
+                            </div>
+                            <div className="space-y-2 text-center md:text-left">
+                                <h2 className="text-2xl md:text-3xl font-black text-white leading-none">Are you a Teacher? 🍎</h2>
+                                <p className="text-indigo-100 font-medium text-lg leading-relaxed">
+                                    Our "Classroom Mode" allows you to print personalized dot-marker sets for your entire class in minutes. Perfect for back-to-school name recognition centers!
+                                </p>
+                                <div className="pt-4 flex flex-wrap justify-center md:justify-start gap-4">
+                                    <button
+                                        onClick={() => {
+                                            setChildName("CLASS NAME");
+                                            toast({
+                                                title: "Classroom Mode Active",
+                                                description: "Ready to print a name set. Type each student's name and hit Print!",
+                                            });
+                                        }}
+                                        className="px-6 py-3 rounded-2xl bg-white text-indigo-700 font-black text-sm shadow-xl hover:scale-105 transition-transform"
+                                    >
+                                        ACTIVATE CLASSROOM MODE
+                                    </button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Million Dollar SEO Blueprint Content */}
+                <div className="mt-24 border-t-2 border-slate-50 pt-16">
+                    <div className="bg-white p-12 rounded-[48px] border-2 border-slate-50 shadow-sm">
+                        <section className="max-w-4xl mx-auto">
+                            {HUB_SEO_DATA['dot-marker-generator']?.richContent ? (
+                                <div
+                                    className="prose prose-slate max-w-none 
+                                        prose-h1:text-4xl prose-h1:font-black prose-h1:text-slate-900
+                                        prose-h2:text-3xl prose-h2:font-black prose-h2:text-slate-900 prose-h2:mt-12 prose-h2:mb-6
+                                        prose-h3:text-xl prose-h3:font-bold prose-h3:text-slate-800 prose-h3:mt-8 prose-h3:mb-4
+                                        prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-lg
+                                        prose-strong:text-slate-900 prose-strong:font-bold
+                                        prose-img:rounded-3xl prose-img:shadow-2xl prose-img:border prose-img:border-slate-100 prose-img:my-12"
+                                    dangerouslySetInnerHTML={{ __html: HUB_SEO_DATA['dot-marker-generator'].richContent }}
+                                />
+                            ) : (
+                                <div className="space-y-6">
+                                    <h2 className="text-3xl font-black text-slate-900">Why Use This Dot Marker Generator?</h2>
+                                    <p className="text-slate-600 leading-relaxed text-lg">
+                                        Traditional PDFs are static and rarely match your child's name perfectly. Our
+                                        <strong> 2026 AI-Powered Sampling Logic</strong> ensures that every letter is
+                                        mapped with mathematical precision.
+                                    </p>
+                                </div>
+                            )}
                         </section>
                     </div>
                 </div>

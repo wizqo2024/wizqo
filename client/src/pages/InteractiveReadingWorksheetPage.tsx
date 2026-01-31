@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Printer, RefreshCw, ArrowLeft, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { SEOMetaTags } from '../components/SEOMetaTags';
+import { HUB_SEO_DATA } from '@shared/worksheetSEO';
 
 const stories = [
     {
@@ -167,13 +168,63 @@ export default function InteractiveReadingWorksheetPage() {
     return (
         <div className={`font-sans text-slate-900 ${isPreview ? 'p-0 bg-white' : 'min-h-screen pb-16 bg-slate-50'} print:bg-white print:pb-0`}>
             {!isPreview && (
-                <SEOMetaTags
-                    title="Reading Discovery: Interactive Comprehension Worksheet | Wizqo"
-                    description="Free interactive reading comprehension worksheet for Grade 1 and 2. Features original stories, illustrations, and a 'Show Answer' toggle. Print as PDF instantly."
-                    ogImage="/images/reading-interactive-seo.jpg"
-                    canonicalUrl="https://wizqo.com/worksheets/reading-discovery-interactive"
-                    ogType="website"
-                />
+                <>
+                    {(() => {
+                        const seo = HUB_SEO_DATA['reading-discovery-interactive'] || {};
+                        return (
+                            <SEOMetaTags
+                                title={seo.title || "Reading Discovery: Interactive Comprehension Worksheet | Wizqo"}
+                                description={seo.metaDescription || "Free interactive reading comprehension worksheet for Grade 1 and 2. Features original stories, illustrations, and a 'Show Answer' toggle. Print as PDF instantly."}
+                                ogImage={seo.image || "/images/reading-interactive-seo.jpg"}
+                                canonicalUrl="https://wizqo.com/worksheets/reading-discovery-interactive"
+                                ogType="website"
+                            />
+                        );
+                    })()}
+                    {(() => {
+                        const canonical = "https://wizqo.com/worksheets/reading-discovery-interactive";
+                        const breadcrumbLd = {
+                            "@context": "https://schema.org",
+                            "@type": "BreadcrumbList",
+                            itemListElement: [
+                                { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+                                { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+                                { "@type": "ListItem", position: 3, name: "Interactive Reading", item: canonical }
+                            ]
+                        } as const;
+                        const softwareLd = {
+                            "@context": "https://schema.org",
+                            "@type": "SoftwareApplication",
+                            name: "Wizqo Interactive Reading Discovery",
+                            operatingSystem: "Any",
+                            applicationCategory: "EducationalApplication",
+                            image: "https://wizqo.com/images/reading-interactive-seo.jpg",
+                            screenshot: "https://wizqo.com/images/reading-interactive-seo.jpg",
+                            offers: {
+                                "@type": "Offer",
+                                price: "0",
+                                priceCurrency: "USD"
+                            },
+                            featureList: "Dynamic passage shuffling, Interactive answer key, Multi-theme stories, High-res PDF export"
+                        } as const;
+                        const learningResourceLd = {
+                            "@context": "https://schema.org",
+                            "@type": "LearningResource",
+                            name: "Reading Comprehension Mastery Sheet",
+                            description: "An interactive reading resource where children practice comprehension skills with real-time feedback and story variants.",
+                            learningResourceType: "Worksheet",
+                            educationalLevel: "Grade 1, Grade 2",
+                            competencyRequired: "Reading, Literacy, Critical Thinking"
+                        } as const;
+                        return (
+                            <>
+                                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+                                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+                                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
+                            </>
+                        );
+                    })()}
+                </>
             )}
 
             {/* Control Bar */}

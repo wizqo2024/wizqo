@@ -396,34 +396,63 @@ export default function ScissorSkillsGeneratorPage() {
                     .print-strip-center { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-start !important; height: 100% !important; position: relative !important; }
                 }
             ` }} />
-            <SEOMetaTags
-                title={seo.title}
-                description={seo.metaDescription}
-                keywords={seo.keywords}
-                ogImage="/images/scissor-skills.png"
-            />
+            {(() => {
+                const seo = HUB_SEO_DATA['scissor-skills-generator'] || {};
+                const imageArray = Array.isArray(seo.image) ? seo.image : [seo.image || "/images/scissor-skills-seo.png"];
+                return (
+                    <SEOMetaTags
+                        title={seo.title || "Free Scissor Skills Generator | Custom Cutting Worksheets | Wizqo"}
+                        description={seo.metaDescription || "Create custom cutting practice worksheets for toddlers and preschoolers. Fun haircut salon and animal mission themes. 100% Free PDF."}
+                        keywords={seo.keywords || "scissor skills generator, cutting practice worksheets, fine motor skills activities, free preschool printables"}
+                        ogImage={imageArray}
+                        canonicalUrl="https://wizqo.com/worksheets/scissor-skills-generator"
+                    />
+                );
+            })()}
 
-            {/* JSON-LD Structured Data */}
-            <script type="application/ld+json">
-                {JSON.stringify({
+            {(() => {
+                const canonical = "https://wizqo.com/worksheets/scissor-skills-generator";
+                const breadcrumbLd = {
                     "@context": "https://schema.org",
-                    "@type": "WebApplication",
-                    "name": "Wizqo Scissor Skills Generator",
-                    "url": "https://wizqo.com/worksheets/scissor-skills-generator",
-                    "description": seo.metaDescription,
-                    "applicationCategory": "EducationalApplication",
-                    "operatingSystem": "All",
-                    "offers": {
+                    "@type": "BreadcrumbList",
+                    itemListElement: [
+                        { "@type": "ListItem", position: 1, name: "Home", item: "https://wizqo.com/" },
+                        { "@type": "ListItem", position: 2, name: "Worksheets", item: "https://wizqo.com/worksheets/all" },
+                        { "@type": "ListItem", position: 3, name: "Scissor Skills Generator", item: canonical }
+                    ]
+                } as const;
+                const softwareLd = {
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    name: "Wizqo Scissor Skills Generator",
+                    operatingSystem: "Any",
+                    applicationCategory: "EducationalApplication",
+                    image: "https://wizqo.com/images/scissor-skills-seo.png",
+                    screenshot: "https://wizqo.com/images/scissor-skills-seo.png",
+                    offers: {
                         "@type": "Offer",
-                        "price": "0",
-                        "priceCurrency": "USD"
+                        price: "0",
+                        priceCurrency: "USD"
                     },
-                    "author": {
-                        "@type": "Organization",
-                        "name": "Wizqo"
-                    }
-                })}
-            </script>
+                    featureList: "Custom cutting paths, Multiple difficulty levels, Engaging themes (Haircut, Animal Mission), Instant PDF"
+                } as const;
+                const learningResourceLd = {
+                    "@context": "https://schema.org",
+                    "@type": "LearningResource",
+                    name: "Scissor Skills Practice Worksheet",
+                    description: "An interactive tool to generate cutting practice worksheets that build fine motor skills and hand-eye coordination.",
+                    learningResourceType: "Worksheet",
+                    educationalLevel: "Preschool, Kindergarten",
+                    competencyRequired: "Fine motor skills, Bilateral coordination"
+                } as const;
+                return (
+                    <>
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
+                    </>
+                );
+            })()}
 
             <UnifiedNavigation currentPage="worksheets" />
 

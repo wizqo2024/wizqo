@@ -376,6 +376,15 @@ export default function SpellingListGeneratorPage() {
                     },
                     featureList: "Custom word lists, Dotted tracing fonts, Cursive support, Instant PDF download"
                 } as const;
+                const learningResourceLd = {
+                    "@context": "https://schema.org",
+                    "@type": "LearningResource",
+                    name: "Spelling List Practice Worksheet",
+                    description: "A customized spelling worksheet tool for parents and teachers to create personalized handwriting and spelling practice.",
+                    learningResourceType: "Worksheet",
+                    educationalLevel: "Kindergarten, Grade 1, Grade 2, Grade 3, Grade 4, Grade 5",
+                    competencyRequired: "Spelling, Handwriting, Vocabulary"
+                } as const;
                 const faqLd = {
                     "@context": "https://schema.org",
                     "@type": "FAQPage",
@@ -396,6 +405,7 @@ export default function SpellingListGeneratorPage() {
                     <>
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
+                        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
                     </>
                 );
