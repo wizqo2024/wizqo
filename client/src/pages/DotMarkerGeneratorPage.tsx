@@ -461,7 +461,7 @@ export default function DotMarkerGeneratorPage() {
             <UnifiedNavigation />
 
             <main className="max-w-7xl mx-auto px-4 py-6 lg:py-10">
-                <div className="grid lg:grid-cols-[400px_1fr] gap-12 items-start">
+                <div className="grid lg:grid-cols-[300px_1fr] gap-12 items-start">
 
                     {/* Left: Sidebar Controls */}
                     <aside className="sticky top-24 space-y-4 bg-white p-6 rounded-[32px] border-2 border-slate-50 shadow-xl shadow-slate-200/50 print:hidden lg:order-1">
@@ -670,9 +670,9 @@ export default function DotMarkerGeneratorPage() {
                             `}
                         </style>
 
-                        {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) with Height Constraint */}
+                        {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) - MASSIVE CANVAS MODE */}
 
-                        <div className="dots-worksheet-print-container w-full aspect-[1/1.41] max-h-[600px] bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
+                        <div className="dots-worksheet-print-container w-full aspect-[1/1.41] bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
                             <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:hidden" />
 
                             {(() => {
