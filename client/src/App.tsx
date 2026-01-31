@@ -173,15 +173,34 @@ export default function App() {
   // Track previous route for user flow analysis
   const prevRouteRef = React.useRef<string>('');
 
+  // Robust scroll-to-top on route change
+  useLayoutEffect(() => {
+    try {
+      const currentPath = window.location.pathname + window.location.search;
+      // Only scroll if the path (ignoring hash) has changed
+      if (currentPath !== prevRouteRef.current) {
+        // If there's no hash in the URL, force scroll to top
+        if (!window.location.hash) {
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          if (document.body) document.body.scrollTop = 0;
+
+          // Micro-tick delay to catch any late layout updates or browser overrides
+          setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+          }, 0);
+        }
+      }
+    } catch (e) {
+      console.error('Scroll error:', e);
+    }
+  }, [route]);
+
   useEffect(() => {
     // Track page view and user flow on route change
     const currentRoute = window.location.pathname + window.location.search;
     if (currentRoute !== prevRouteRef.current) {
-      // Scroll to top on navigation (except for same-page hash links)
-      if (!window.location.hash) {
-        window.scrollTo(0, 0);
-      }
-
       trackPageView(currentRoute);
       if (prevRouteRef.current) {
         trackUserFlow(prevRouteRef.current, currentRoute, 'navigation');
