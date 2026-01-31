@@ -2939,22 +2939,22 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
 
       <!-- How it works -->
       <section style="margin-bottom: 4rem; background: #0f172a; padding: 3rem; border-radius: 2rem; color: #ffffff;">
-        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; text-align: center;">How to Create Your Worksheet</h2>
+        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; text-align: center; color: #ffffff;">How to Create Your Worksheet</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem;">
           <div style="text-align: center;">
-            <div style="width: 2.5rem; height: 2.5rem; background: #4f46e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: white;">1</div>
+            <div style="width: 2.5rem; height: 2.5rem; background: #4f46e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">1</div>
             <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Select Number</h3>
-            <p style="color: #ffffff; font-size: 0.875rem; opacity: 0.9;">Choose any number from 1 to 10 using the quick buttons above.</p>
+            <p style="color: #ffffff; font-size: 0.875rem;">Choose any number from 1 to 10 using the quick buttons above.</p>
           </div>
           <div style="text-align: center;">
-            <div style="width: 2.5rem; height: 2.5rem; background: #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: white;">2</div>
+            <div style="width: 2.5rem; height: 2.5rem; background: #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">2</div>
             <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Choose Theme</h3>
-            <p style="color: #ffffff; font-size: 0.875rem; opacity: 0.9;">Bunnies, Dinosaurs, or Space? Let your child pick their favorite!</p>
+            <p style="color: #ffffff; font-size: 0.875rem;">Bunnies, Dinosaurs, or Space? Let your child pick their favorite!</p>
           </div>
           <div style="text-align: center;">
-            <div style="width: 2.5rem; height: 2.5rem; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: white;">3</div>
+            <div style="width: 2.5rem; height: 2.5rem; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">3</div>
             <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Print & Learn</h3>
-            <p style="color: #ffffff; font-size: 0.875rem; opacity: 0.9;">Click 'Download PDF' and get your free high-quality worksheet instantly.</p>
+            <p style="color: #ffffff; font-size: 0.875rem;">Click 'Download PDF' and get your free high-quality worksheet instantly.</p>
           </div>
         </div>
       </section>
