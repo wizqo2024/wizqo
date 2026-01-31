@@ -548,42 +548,39 @@ export default function DotMarkerGeneratorPage() {
                                         size: A4 portrait;
                                         margin: 0;
                                     }
-                                    body {
-                                        print-color-adjust: exact;
-                                        -webkit-print-color-adjust: exact;
-                                        margin: 0;
-                                        padding: 0;
+                                    html, body {
+                                        width: 210mm;
+                                        height: 297mm;
+                                        margin: 0 !important;
+                                        padding: 0 !important;
+                                        overflow: hidden !important;
                                         background: white;
                                     }
                                     /* Hide everything by default */
                                     body > * {
-                                        display: none;
+                                        display: none !important;
                                     }
                                     /* Only show the specific print container */
-                                    .dots-worksheet-print-container, 
-                                    .dots-worksheet-print-container * {
+                                    .dots-worksheet-print-container {
                                         display: block !important;
                                         visibility: visible !important;
-                                    }
-                                    /* Position it absolutely to cover the page */
-                                    .dots-worksheet-print-container {
-                                        position: fixed;
-                                        top: 0;
-                                        left: 0;
-                                        width: 210mm;
-                                        height: 297mm;
-                                        margin: 0;
-                                        padding: 0;
-                                        border: none;
-                                        border-radius: 0;
-                                        box-shadow: none;
+                                        position: absolute !important;
+                                        top: 0 !important;
+                                        left: 0 !important;
+                                        width: 210mm !important;
+                                        height: 297mm !important;
+                                        margin: 0 !important;
+                                        padding: 0 !important;
+                                        border: none !important;
                                         z-index: 9999;
                                         background: white;
+                                        overflow: hidden !important; /* Prevent internal spillover */
                                     }
                                     /* Ensure SVG handles scaling */
-                                    svg {
-                                        width: 100%;
-                                        height: 100%;
+                                    .dots-worksheet-print-container svg {
+                                        width: 100% !important;
+                                        height: 100% !important;
+                                        display: block;
                                     }
                                 }
                             `}
