@@ -1427,437 +1427,444 @@ export default function NameTracingGeneratorPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="bg-slate-100 p-4">
-                    <div className="bg-white rounded-2xl shadow-inner border border-slate-200">
-                      <div id="name-tracing-sheet" className="p-4">
-                        {batchMode === 'batch' && formattedNames.length > 1 ? (
-                          // Show multiple names in batch mode when there are multiple names
-                          <svg
-                            ref={svgRef}
-                            viewBox={`0 0 ${pageWidth} ${pageHeight}`}
-                            role="img"
-                            aria-label={t('pages.nameTracing.nameTracingWorksheetsPreview')}
-                            className="w-full h-auto"
-                          >
-                            <defs>
-                              {(formattedNames as string[]).map((_: string, nameIndex: number) => {
-                                const totalNames = formattedNames.length;
-                                let worksheetWidth = pageWidth - margin * 2;
-                                let worksheetHeight = pageHeight - margin * 2;
-
-                                if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
-                                  worksheetHeight = (pageHeight - margin * 2) / 2;
-                                } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
-                                  worksheetWidth = (pageWidth - margin * 2) / 2;
-                                  worksheetHeight = (pageHeight - margin * 2) / 2;
-                                }
-
-                                return (
-                                  <clipPath key={`clip-def-${nameIndex}`} id={`worksheet-clip-${nameIndex}`}>
-                                    <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} />
-                                  </clipPath>
-                                );
-                              })}
-                            </defs>
-                            <rect x={0} y={0} width={pageWidth} height={pageHeight} fill={THEMES[colorTheme].bg} rx={36} />
-                            <rect
-                              x={margin - 24}
-                              y={margin - 24}
-                              width={pageWidth - (margin - 24) * 2}
-                              height={pageHeight - (margin - 24) * 2}
-                              fill="#ffffff"
-                              stroke={THEMES[colorTheme as ColorTheme].secondary}
-                              strokeWidth={2}
-                              rx={28}
-                            />
-
-                            {/* Decorations for Batch Preview */}
-                            {decoration !== 'none' && (
-                              <g opacity="0.6" fill={THEMES[colorTheme].dots}>
-                                {[
-                                  { x: margin + 10, y: margin + 10 },
-                                  { x: pageWidth - margin - 10, y: margin + 10 },
-                                  { x: margin + 10, y: pageHeight - margin - 10 },
-                                  { x: pageWidth - margin - 10, y: pageHeight - margin - 10 }
-                                ].map((pos, i) => (
-                                  decoration === 'stars' ? (
-                                    <path key={i} d={`M ${pos.x} ${pos.y - 12} L ${pos.x + 3} ${pos.y - 3} L ${pos.x + 12} ${pos.y - 3} L ${pos.x + 5} ${pos.y + 2} L ${pos.x + 8} ${pos.y + 12} L ${pos.x} ${pos.y + 6} L ${pos.x - 8} ${pos.y + 12} L ${pos.x - 5} ${pos.y + 2} L ${pos.x - 12} ${pos.y - 3} L ${pos.x - 3} ${pos.y - 3} Z`} />
-                                  ) : (
-                                    <path key={i} d={`M ${pos.x} ${pos.y + 8} C ${pos.x - 16} ${pos.y - 8}, ${pos.x} ${pos.y - 16}, ${pos.x} ${pos.y - 4} C ${pos.x} ${pos.y - 16}, ${pos.x + 16} ${pos.y - 8}, ${pos.x} ${pos.y + 8}`} />
-                                  )
-                                ))}
-                              </g>
-                            )}
-
-                            {(formattedNames as string[]).map((name: string, nameIndex: number) => {
-                              // Use the name from the map parameter directly - it's already the correct value
-                              if (!name) return null;
-
-                              const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
-                              const currentTheme = THEMES[colorTheme];
-                              // Calculate position based on layout
-                              // For preview, use a smart layout based on number of names
+                  <div className="bg-slate-100 p-8 sm:p-12">
+                    <div
+                      id="name-tracing-sheet"
+                      className="bg-white rounded-sm overflow-hidden transition-all duration-500"
+                      style={{
+                        boxShadow: '0 20px 50px -12px rgba(76, 29, 149, 0.15), 0 0 0 1px rgba(124, 58, 237, 0.05)',
+                        transform: 'perspective(1000px) rotateY(-0.5deg)',
+                      }}
+                    >
+                      {batchMode === 'batch' && formattedNames.length > 1 ? (
+                        // Show multiple names in batch mode when there are multiple names
+                        <svg
+                          ref={svgRef}
+                          viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                          role="img"
+                          aria-label={t('pages.nameTracing.nameTracingWorksheetsPreview')}
+                          className="w-full h-auto"
+                        >
+                          <defs>
+                            {(formattedNames as string[]).map((_: string, nameIndex: number) => {
                               const totalNames = formattedNames.length;
-
-                              let worksheetX = 0;
-                              let worksheetY = 0;
                               let worksheetWidth = pageWidth - margin * 2;
                               let worksheetHeight = pageHeight - margin * 2;
 
                               if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
-                                // Two names: stack vertically
                                 worksheetHeight = (pageHeight - margin * 2) / 2;
-                                worksheetX = margin;
-                                worksheetY = margin + nameIndex * worksheetHeight;
                               } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
-                                // Four names or more: use 2x2 grid
                                 worksheetWidth = (pageWidth - margin * 2) / 2;
                                 worksheetHeight = (pageHeight - margin * 2) / 2;
-                                // Calculate grid position: column (0 or 1) and row (0 or 1)
-                                const col = nameIndex % 2;
-                                const row = Math.floor(nameIndex / 2);
-                                worksheetX = margin + col * worksheetWidth;
-                                worksheetY = margin + row * worksheetHeight;
-                              } else {
-                                // Single name: full page
-                                worksheetX = margin;
-                                worksheetY = margin;
                               }
 
-                              // Adjust row calculations for smaller worksheets
-                              const adjustedRowGap = batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)
-                                ? rowGap * 0.8
-                                : (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2))
-                                  ? rowGap * 0.6
-                                  : rowGap;
-                              const adjustedMaxRows = Math.min(rowCount, Math.max(2, Math.floor((worksheetHeight - 120) / adjustedRowGap)));
-                              const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
-
                               return (
-                                <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#worksheet-clip-${nameIndex})`}>
-                                  {adjustedRows.map((rowType: 'trace' | 'blank', rowIndex: number) => {
-                                    const baselineY = 120 + rowIndex * adjustedRowGap;
-                                    const startX = 40;
-                                    const endX = Math.min(worksheetWidth - 20, startX + worksheetWidth - 60);
-                                    const topLine = baselineY - baselineOffset;
-                                    const midLine = baselineY - baselineOffset / 2;
-                                    const showPrimary = lineStyle === 'primary';
+                                <clipPath key={`clip-def-${nameIndex}`} id={`worksheet-clip-${nameIndex}`}>
+                                  <rect x={0} y={0} width={worksheetWidth} height={worksheetHeight} />
+                                </clipPath>
+                              );
+                            })}
+                          </defs>
+                          <rect x={0} y={0} width={pageWidth} height={pageHeight} fill={THEMES[colorTheme].bg} rx={36} />
+                          <rect
+                            x={margin - 24}
+                            y={margin - 24}
+                            width={pageWidth - (margin - 24) * 2}
+                            height={pageHeight - (margin - 24) * 2}
+                            fill="#ffffff"
+                            stroke={THEMES[colorTheme as ColorTheme].secondary}
+                            strokeWidth={2}
+                            rx={28}
+                          />
 
-                                    return (
-                                      <g key={`row-${nameIndex}-${rowIndex}`}>
-                                        {showPrimary && (
-                                          <>
-                                            <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke={currentTheme.secondary} strokeWidth={3} strokeDasharray="10 14" />
-                                            <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke={currentTheme.secondary} opacity={0.5} strokeWidth={2.5} strokeDasharray="14 14" />
-                                          </>
-                                        )}
-                                        <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke={currentTheme.primary} strokeWidth={4} />
+                          {/* Decorations for Batch Preview */}
+                          {decoration !== 'none' && (
+                            <g opacity="0.6" fill={THEMES[colorTheme].dots}>
+                              {[
+                                { x: margin + 10, y: margin + 10 },
+                                { x: pageWidth - margin - 10, y: margin + 10 },
+                                { x: margin + 10, y: pageHeight - margin - 10 },
+                                { x: pageWidth - margin - 10, y: pageHeight - margin - 10 }
+                              ].map((pos, i) => (
+                                decoration === 'stars' ? (
+                                  <path key={i} d={`M ${pos.x} ${pos.y - 12} L ${pos.x + 3} ${pos.y - 3} L ${pos.x + 12} ${pos.y - 3} L ${pos.x + 5} ${pos.y + 2} L ${pos.x + 8} ${pos.y + 12} L ${pos.x} ${pos.y + 6} L ${pos.x - 8} ${pos.y + 12} L ${pos.x - 5} ${pos.y + 2} L ${pos.x - 12} ${pos.y - 3} L ${pos.x - 3} ${pos.y - 3} Z`} />
+                                ) : (
+                                  <path key={i} d={`M ${pos.x} ${pos.y + 8} C ${pos.x - 16} ${pos.y - 8}, ${pos.x} ${pos.y - 16}, ${pos.x} ${pos.y - 4} C ${pos.x} ${pos.y - 16}, ${pos.x + 16} ${pos.y - 8}, ${pos.x} ${pos.y + 8}`} />
+                                )
+                              ))}
+                            </g>
+                          )}
 
-                                        {rowType === 'blank' ? (
-                                          <line x1={startX} y1={baselineY + 26} x2={endX} y2={baselineY + 26} stroke={currentTheme.secondary} strokeWidth={2} strokeDasharray="14 16" />
-                                        ) : (
-                                          <>
-                                            {showGuideDots && (
-                                              <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill={currentTheme.dots} />
-                                            )}
+                          {(formattedNames as string[]).map((name: string, nameIndex: number) => {
+                            // Use the name from the map parameter directly - it's already the correct value
+                            if (!name) return null;
 
-                                            {currentTheme.rainbow ? (
-                                              <text
-                                                x={startX}
-                                                y={baselineY - 8}
-                                                fontFamily={nameConfig.fontFamily}
-                                                fontSize={nameConfig.fontSize}
-                                                fontWeight={nameConfig.fontWeight as any}
-                                                style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
-                                              >
-                                                {Array.from(name).map((char, charIdx) => (
-                                                  <tspan key={charIdx} fill={RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length]}>{char}</tspan>
-                                                ))}
-                                              </text>
-                                            ) : (
-                                              <>
-                                                {fontStyle === 'dotted' && (
-                                                  <text
-                                                    x={startX}
-                                                    y={baselineY - 8}
-                                                    fontFamily={nameConfig.fontFamily}
-                                                    fontSize={nameConfig.fontSize}
-                                                    fontWeight={nameConfig.fontWeight as any}
-                                                    fill={currentTheme.text}
-                                                    style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
-                                                  >
-                                                    {name}
-                                                  </text>
-                                                )}
+                            const nameConfig = fittedFontConfigs[nameIndex] || fittedFontConfig;
+                            const currentTheme = THEMES[colorTheme];
+                            // Calculate position based on layout
+                            // For preview, use a smart layout based on number of names
+                            const totalNames = formattedNames.length;
+
+                            let worksheetX = 0;
+                            let worksheetY = 0;
+                            let worksheetWidth = pageWidth - margin * 2;
+                            let worksheetHeight = pageHeight - margin * 2;
+
+                            if (batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)) {
+                              // Two names: stack vertically
+                              worksheetHeight = (pageHeight - margin * 2) / 2;
+                              worksheetX = margin;
+                              worksheetY = margin + nameIndex * worksheetHeight;
+                            } else if (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2)) {
+                              // Four names or more: use 2x2 grid
+                              worksheetWidth = (pageWidth - margin * 2) / 2;
+                              worksheetHeight = (pageHeight - margin * 2) / 2;
+                              // Calculate grid position: column (0 or 1) and row (0 or 1)
+                              const col = nameIndex % 2;
+                              const row = Math.floor(nameIndex / 2);
+                              worksheetX = margin + col * worksheetWidth;
+                              worksheetY = margin + row * worksheetHeight;
+                            } else {
+                              // Single name: full page
+                              worksheetX = margin;
+                              worksheetY = margin;
+                            }
+
+                            // Adjust row calculations for smaller worksheets
+                            const adjustedRowGap = batchLayout === 'two-per-page' || (batchLayout === 'one-per-page' && totalNames === 2)
+                              ? rowGap * 0.8
+                              : (batchLayout === 'four-per-page' || (batchLayout === 'one-per-page' && totalNames > 2))
+                                ? rowGap * 0.6
+                                : rowGap;
+                            const adjustedMaxRows = Math.min(rowCount, Math.max(2, Math.floor((worksheetHeight - 120) / adjustedRowGap)));
+                            const adjustedRows = practicingRows.slice(0, adjustedMaxRows);
+
+                            return (
+                              <g key={`worksheet-${nameIndex}-${name}`} transform={`translate(${worksheetX}, ${worksheetY})`} clipPath={`url(#worksheet-clip-${nameIndex})`}>
+                                {adjustedRows.map((rowType: 'trace' | 'blank', rowIndex: number) => {
+                                  const baselineY = 120 + rowIndex * adjustedRowGap;
+                                  const startX = 40;
+                                  const endX = Math.min(worksheetWidth - 20, startX + worksheetWidth - 60);
+                                  const topLine = baselineY - baselineOffset;
+                                  const midLine = baselineY - baselineOffset / 2;
+                                  const showPrimary = lineStyle === 'primary';
+
+                                  return (
+                                    <g key={`row-${nameIndex}-${rowIndex}`}>
+                                      {showPrimary && (
+                                        <>
+                                          <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke={currentTheme.secondary} strokeWidth={3} strokeDasharray="10 14" />
+                                          <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke={currentTheme.secondary} opacity={0.5} strokeWidth={2.5} strokeDasharray="14 14" />
+                                        </>
+                                      )}
+                                      <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke={currentTheme.primary} strokeWidth={4} />
+
+                                      {rowType === 'blank' ? (
+                                        <line x1={startX} y1={baselineY + 26} x2={endX} y2={baselineY + 26} stroke={currentTheme.secondary} strokeWidth={2} strokeDasharray="14 16" />
+                                      ) : (
+                                        <>
+                                          {showGuideDots && (
+                                            <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill={currentTheme.dots} />
+                                          )}
+
+                                          {currentTheme.rainbow ? (
+                                            <text
+                                              x={startX}
+                                              y={baselineY - 8}
+                                              fontFamily={nameConfig.fontFamily}
+                                              fontSize={nameConfig.fontSize}
+                                              fontWeight={nameConfig.fontWeight as any}
+                                              style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
+                                            >
+                                              {Array.from(name).map((char, charIdx) => (
+                                                <tspan key={charIdx} fill={RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length]}>{char}</tspan>
+                                              ))}
+                                            </text>
+                                          ) : (
+                                            <>
+                                              {fontStyle === 'dotted' && (
                                                 <text
                                                   x={startX}
                                                   y={baselineY - 8}
                                                   fontFamily={nameConfig.fontFamily}
                                                   fontSize={nameConfig.fontSize}
-                                                  fontWeight={nameConfig.fontWeight}
-                                                  fill={fontStyle === 'dotted' ? 'none' : currentTheme.text}
-                                                  stroke={nameConfig.stroke}
-                                                  strokeWidth={nameConfig.strokeWidth}
-                                                  strokeLinecap="round"
-                                                  strokeLinejoin="round"
-                                                  strokeDasharray={nameConfig.dashArray}
+                                                  fontWeight={nameConfig.fontWeight as any}
+                                                  fill={currentTheme.text}
                                                   style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
                                                 >
                                                   {name}
                                                 </text>
-                                              </>
-                                            )}
-                                          </>
-                                        )}
-                                      </g>
-                                    );
-                                  })}
-                                </g>
-                              );
-                            })}
-                            <text
-                              x={margin}
-                              y={pageHeight - margin + 10}
-                              fontSize={18}
-                              fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
-                              fill={THEMES[colorTheme].primary}
-                            >
-                              {t('pages.nameTracing.traceSlowly')}
-                            </text>
-                          </svg>
-                        ) : (
-                          // Single name preview (single mode or one-per-page batch mode)
-                          <svg
-                            ref={svgRef}
-                            viewBox={`0 0 ${pageWidth} ${pageHeight}`}
-                            role="img"
-                            aria-label={t('pages.nameTracing.nameTracingWorksheetPreview')}
-                            className="w-full h-auto"
-                          >
-                            <rect x={0} y={0} width={pageWidth} height={pageHeight} fill={THEMES[colorTheme].bg} rx={36} />
-                            <rect
-                              x={margin - 24}
-                              y={margin - 24}
-                              width={pageWidth - (margin - 24) * 2}
-                              height={pageHeight - (margin - 24) * 2}
-                              fill="#ffffff"
-                              stroke={THEMES[colorTheme].secondary}
-                              strokeWidth={2}
-                              rx={28}
-                            />
-
-                            {/* Decorations for Single Preview */}
-                            {decoration !== 'none' && (
-                              <g opacity="0.6" fill={THEMES[colorTheme].dots}>
-                                {[
-                                  { x: margin + 10, y: margin + 10 },
-                                  { x: pageWidth - margin - 10, y: margin + 10 },
-                                  { x: margin + 10, y: pageHeight - margin - 10 },
-                                  { x: pageWidth - margin - 10, y: pageHeight - margin - 10 }
-                                ].map((pos, i) => (
-                                  decoration === 'stars' ? (
-                                    <path key={i} d={`M ${pos.x} ${pos.y - 12} L ${pos.x + 3} ${pos.y - 3} L ${pos.x + 12} ${pos.y - 3} L ${pos.x + 5} ${pos.y + 2} L ${pos.x + 8} ${pos.y + 12} L ${pos.x} ${pos.y + 6} L ${pos.x - 8} ${pos.y + 12} L ${pos.x - 5} ${pos.y + 2} L ${pos.x - 12} ${pos.y - 3} L ${pos.x - 3} ${pos.y - 3} Z`} />
-                                  ) : (
-                                    <path key={i} d={`M ${pos.x} ${pos.y + 8} C ${pos.x - 16} ${pos.y - 8}, ${pos.x} ${pos.y - 16}, ${pos.x} ${pos.y - 4} C ${pos.x} ${pos.y - 16}, ${pos.x + 16} ${pos.y - 8}, ${pos.x} ${pos.y + 8}`} />
-                                  )
-                                ))}
-                              </g>
-                            )}
-
-                            {rowsForPreview.map((rowType: 'trace' | 'blank', index: number) => {
-                              const baselineY = margin + 120 + index * rowGap;
-                              const startX = margin + 40;
-                              const endX = pageWidth - margin + 20;
-                              const topLine = baselineY - baselineOffset;
-                              const midLine = baselineY - baselineOffset / 2;
-                              const showPrimary = lineStyle === 'primary';
-                              const currentTheme = THEMES[colorTheme];
-
-                              const accessibilityLabel = rowType === 'blank'
-                                ? t('pages.nameTracing.blankHandwritingLine')
-                                : t('pages.nameTracing.traceableHandwritingLine');
-                              return (
-                                <g key={`row-${index}`} aria-label={accessibilityLabel}>
-                                  {showPrimary && (
-                                    <>
-                                      <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke={currentTheme.secondary} strokeWidth={3} strokeDasharray="10 14" />
-                                      <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke={currentTheme.secondary} opacity={0.5} strokeWidth={2.5} strokeDasharray="14 14" />
-                                    </>
-                                  )}
-                                  <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke={currentTheme.primary} strokeWidth={4} />
-
-                                  {rowType === 'blank' ? (
-                                    <>
-                                      <line
-                                        x1={startX}
-                                        y1={baselineY + 26}
-                                        x2={endX}
-                                        y2={baselineY + 26}
-                                        stroke={currentTheme.secondary}
-                                        strokeWidth={2}
-                                        strokeDasharray="14 16"
-                                      />
-                                    </>
-                                  ) : (
-                                    <>
-                                      {showGuideDots && (
-                                        <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill={currentTheme.dots} />
-                                      )}
-
-                                      {currentTheme.rainbow ? (
-                                        <text
-                                          x={startX}
-                                          y={baselineY - 8}
-                                          fontFamily={fittedFontConfig.fontFamily}
-                                          fontSize={fittedFontConfig.fontSize}
-                                          fontWeight={fittedFontConfig.fontWeight as any}
-                                          style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
-                                        >
-                                          {Array.from(formattedName).map((char, charIdx) => (
-                                            <tspan key={charIdx} fill={RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length]}>{char}</tspan>
-                                          ))}
-                                        </text>
-                                      ) : (
-                                        <>
-                                          {fontStyle === 'dotted' && (
-                                            <text
-                                              x={startX}
-                                              y={baselineY - 8}
-                                              fontFamily={fittedFontConfig.fontFamily}
-                                              fontSize={fittedFontConfig.fontSize}
-                                              fontWeight={fittedFontConfig.fontWeight as any}
-                                              fill={currentTheme.text}
-                                              style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
-                                            >
-                                              {formattedName}
-                                            </text>
+                                              )}
+                                              <text
+                                                x={startX}
+                                                y={baselineY - 8}
+                                                fontFamily={nameConfig.fontFamily}
+                                                fontSize={nameConfig.fontSize}
+                                                fontWeight={nameConfig.fontWeight}
+                                                fill={fontStyle === 'dotted' ? 'none' : currentTheme.text}
+                                                stroke={nameConfig.stroke}
+                                                strokeWidth={nameConfig.strokeWidth}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeDasharray={nameConfig.dashArray}
+                                                style={{ letterSpacing: `${nameConfig.letterSpacing}px` }}
+                                              >
+                                                {name}
+                                              </text>
+                                            </>
                                           )}
+                                        </>
+                                      )}
+                                    </g>
+                                  );
+                                })}
+                              </g>
+                            );
+                          })}
+                          <text
+                            x={margin}
+                            y={pageHeight - margin + 10}
+                            fontSize={18}
+                            fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
+                            fill={THEMES[colorTheme].primary}
+                          >
+                            {t('pages.nameTracing.traceSlowly')}
+                          </text>
+                        </svg>
+                      ) : (
+                        // Single name preview (single mode or one-per-page batch mode)
+                        <svg
+                          ref={svgRef}
+                          viewBox={`0 0 ${pageWidth} ${pageHeight}`}
+                          role="img"
+                          aria-label={t('pages.nameTracing.nameTracingWorksheetPreview')}
+                          className="w-full h-auto"
+                        >
+                          <rect x={0} y={0} width={pageWidth} height={pageHeight} fill={THEMES[colorTheme].bg} rx={36} />
+                          <rect
+                            x={margin - 24}
+                            y={margin - 24}
+                            width={pageWidth - (margin - 24) * 2}
+                            height={pageHeight - (margin - 24) * 2}
+                            fill="#ffffff"
+                            stroke={THEMES[colorTheme].secondary}
+                            strokeWidth={2}
+                            rx={28}
+                          />
+
+                          {/* Decorations for Single Preview */}
+                          {decoration !== 'none' && (
+                            <g opacity="0.6" fill={THEMES[colorTheme].dots}>
+                              {[
+                                { x: margin + 10, y: margin + 10 },
+                                { x: pageWidth - margin - 10, y: margin + 10 },
+                                { x: margin + 10, y: pageHeight - margin - 10 },
+                                { x: pageWidth - margin - 10, y: pageHeight - margin - 10 }
+                              ].map((pos, i) => (
+                                decoration === 'stars' ? (
+                                  <path key={i} d={`M ${pos.x} ${pos.y - 12} L ${pos.x + 3} ${pos.y - 3} L ${pos.x + 12} ${pos.y - 3} L ${pos.x + 5} ${pos.y + 2} L ${pos.x + 8} ${pos.y + 12} L ${pos.x} ${pos.y + 6} L ${pos.x - 8} ${pos.y + 12} L ${pos.x - 5} ${pos.y + 2} L ${pos.x - 12} ${pos.y - 3} L ${pos.x - 3} ${pos.y - 3} Z`} />
+                                ) : (
+                                  <path key={i} d={`M ${pos.x} ${pos.y + 8} C ${pos.x - 16} ${pos.y - 8}, ${pos.x} ${pos.y - 16}, ${pos.x} ${pos.y - 4} C ${pos.x} ${pos.y - 16}, ${pos.x + 16} ${pos.y - 8}, ${pos.x} ${pos.y + 8}`} />
+                                )
+                              ))}
+                            </g>
+                          )}
+
+                          {rowsForPreview.map((rowType: 'trace' | 'blank', index: number) => {
+                            const baselineY = margin + 120 + index * rowGap;
+                            const startX = margin + 40;
+                            const endX = pageWidth - margin + 20;
+                            const topLine = baselineY - baselineOffset;
+                            const midLine = baselineY - baselineOffset / 2;
+                            const showPrimary = lineStyle === 'primary';
+                            const currentTheme = THEMES[colorTheme];
+
+                            const accessibilityLabel = rowType === 'blank'
+                              ? t('pages.nameTracing.blankHandwritingLine')
+                              : t('pages.nameTracing.traceableHandwritingLine');
+                            return (
+                              <g key={`row-${index}`} aria-label={accessibilityLabel}>
+                                {showPrimary && (
+                                  <>
+                                    <line x1={startX} y1={topLine} x2={endX} y2={topLine} stroke={currentTheme.secondary} strokeWidth={3} strokeDasharray="10 14" />
+                                    <line x1={startX} y1={midLine} x2={endX} y2={midLine} stroke={currentTheme.secondary} opacity={0.5} strokeWidth={2.5} strokeDasharray="14 14" />
+                                  </>
+                                )}
+                                <line x1={startX} y1={baselineY} x2={endX} y2={baselineY} stroke={currentTheme.primary} strokeWidth={4} />
+
+                                {rowType === 'blank' ? (
+                                  <>
+                                    <line
+                                      x1={startX}
+                                      y1={baselineY + 26}
+                                      x2={endX}
+                                      y2={baselineY + 26}
+                                      stroke={currentTheme.secondary}
+                                      strokeWidth={2}
+                                      strokeDasharray="14 16"
+                                    />
+                                  </>
+                                ) : (
+                                  <>
+                                    {showGuideDots && (
+                                      <circle cx={startX - 16} cy={baselineY - baselineOffset / 3} r={8} fill={currentTheme.dots} />
+                                    )}
+
+                                    {currentTheme.rainbow ? (
+                                      <text
+                                        x={startX}
+                                        y={baselineY - 8}
+                                        fontFamily={fittedFontConfig.fontFamily}
+                                        fontSize={fittedFontConfig.fontSize}
+                                        fontWeight={fittedFontConfig.fontWeight as any}
+                                        style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
+                                      >
+                                        {Array.from(formattedName).map((char, charIdx) => (
+                                          <tspan key={charIdx} fill={RAINBOW_COLORS[charIdx % RAINBOW_COLORS.length]}>{char}</tspan>
+                                        ))}
+                                      </text>
+                                    ) : (
+                                      <>
+                                        {fontStyle === 'dotted' && (
                                           <text
                                             x={startX}
                                             y={baselineY - 8}
                                             fontFamily={fittedFontConfig.fontFamily}
                                             fontSize={fittedFontConfig.fontSize}
-                                            fontWeight={fittedFontConfig.fontWeight}
-                                            fill={fontStyle === 'dotted' ? 'none' : currentTheme.text}
-                                            stroke={fittedFontConfig.stroke}
-                                            strokeWidth={fittedFontConfig.strokeWidth}
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeDasharray={fittedFontConfig.dashArray}
+                                            fontWeight={fittedFontConfig.fontWeight as any}
+                                            fill={currentTheme.text}
                                             style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
                                           >
                                             {formattedName}
                                           </text>
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </g>
-                              );
-                            })}
+                                        )}
+                                        <text
+                                          x={startX}
+                                          y={baselineY - 8}
+                                          fontFamily={fittedFontConfig.fontFamily}
+                                          fontSize={fittedFontConfig.fontSize}
+                                          fontWeight={fittedFontConfig.fontWeight}
+                                          fill={fontStyle === 'dotted' ? 'none' : currentTheme.text}
+                                          stroke={fittedFontConfig.stroke}
+                                          strokeWidth={fittedFontConfig.strokeWidth}
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeDasharray={fittedFontConfig.dashArray}
+                                          style={{ letterSpacing: `${fittedFontConfig.letterSpacing}px` }}
+                                        >
+                                          {formattedName}
+                                        </text>
+                                      </>
+                                    )}
+                                  </>
+                                )}
+                              </g>
+                            );
+                          })}
 
-                            <text
-                              x={margin}
-                              y={pageHeight - margin + 10}
-                              fontSize={18}
-                              fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
-                              fill={THEMES[colorTheme].primary}
-                            >
-                              {t('pages.nameTracing.traceSlowly')}
-                            </text>
-                          </svg>
-                        )}
-                      </div>
+                          <text
+                            x={margin}
+                            y={pageHeight - margin + 10}
+                            fontSize={18}
+                            fontFamily="'Patrick Hand', 'Comic Neue', 'Segoe UI', sans-serif"
+                            fill={THEMES[colorTheme].primary}
+                          >
+                            {t('pages.nameTracing.traceSlowly')}
+                          </text>
+                        </svg>
+                      )}
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-5">
-                  <h2 className="text-xl font-bold text-slate-900">Helpful tips for joyful handwriting</h2>
-                  <div className="space-y-4 text-sm text-slate-600">
-                    <p>
-                      Encourage a <strong>rainbow trace</strong>: print two copies and ask your child to trace with different colors each time. This keeps their hand relaxed and builds muscle memory.
-                    </p>
-                    <p>
-                      Use the <strong>fun name tracing worksheet for preschoolers</strong> as part of a morning routine. Pair it with a favorite song or timer so they know practice time is short and sweet.
-                    </p>
-                    <p>
-                      Adjust the <strong>font size</strong> toggle when you need extra breathing room or a tighter fit—large gives beginners more space, while small keeps confident writers focused on tidy letters.
-                    </p>
-                    <p>
-                      Ready for a challenge? Switch to the <strong>personalized handwriting practice for kids</strong> mode by turning off the dotted style and letting them write on the blank lines.
-                    </p>
-                  </div>
+              <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-5">
+                <h2 className="text-xl font-bold text-slate-900">Helpful tips for joyful handwriting</h2>
+                <div className="space-y-4 text-sm text-slate-600">
+                  <p>
+                    Encourage a <strong>rainbow trace</strong>: print two copies and ask your child to trace with different colors each time. This keeps their hand relaxed and builds muscle memory.
+                  </p>
+                  <p>
+                    Use the <strong>fun name tracing worksheet for preschoolers</strong> as part of a morning routine. Pair it with a favorite song or timer so they know practice time is short and sweet.
+                  </p>
+                  <p>
+                    Adjust the <strong>font size</strong> toggle when you need extra breathing room or a tighter fit—large gives beginners more space, while small keeps confident writers focused on tidy letters.
+                  </p>
+                  <p>
+                    Ready for a challenge? Switch to the <strong>personalized handwriting practice for kids</strong> mode by turning off the dotted style and letting them write on the blank lines.
+                  </p>
                 </div>
+              </div>
 
-                <div className="mt-8 bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-inner">
-                  <h2 className="text-lg font-semibold text-slate-900 mb-4">More tools kids love</h2>
-                  <div className="grid gap-4 md:grid-cols-3">
-                    <a
-                      href="/printables/certificate-maker"
-                      className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
-                    >
-                      <h3 className="text-sm font-semibold text-slate-900">Certificate Maker</h3>
-                      <p className="text-xs text-slate-600 mt-1">Design printable awards with cute badges and editable text.</p>
-                      <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Create certificate →</span>
-                    </a>
+              <div className="mt-8 bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-inner">
+                <h2 className="text-lg font-semibold text-slate-900 mb-4">More tools kids love</h2>
+                <div className="grid gap-4 md:grid-cols-3">
+                  <a
+                    href="/printables/certificate-maker"
+                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                  >
+                    <h3 className="text-sm font-semibold text-slate-900">Certificate Maker</h3>
+                    <p className="text-xs text-slate-600 mt-1">Design printable awards with cute badges and editable text.</p>
+                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Create certificate →</span>
+                  </a>
 
-                    <a
-                      href="/worksheets/handwriting-worksheet-maker"
-                      className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
-                    >
-                      <h3 className="text-sm font-semibold text-slate-900">Handwriting Worksheet Maker</h3>
-                      <p className="text-xs text-slate-600 mt-1">Generate tracing rows for letters, words, or sentences in print or cursive.</p>
-                      <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Build worksheet →</span>
-                    </a>
+                  <a
+                    href="/worksheets/handwriting-worksheet-maker"
+                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                  >
+                    <h3 className="text-sm font-semibold text-slate-900">Handwriting Worksheet Maker</h3>
+                    <p className="text-xs text-slate-600 mt-1">Generate tracing rows for letters, words, or sentences in print or cursive.</p>
+                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Build worksheet →</span>
+                  </a>
 
-                    <a
-                      href="/kids"
-                      className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
-                    >
-                      <h3 className="text-sm font-semibold text-slate-900">Kids Hub</h3>
-                      <p className="text-xs text-slate-600 mt-1">Play free learning games, print puzzles, and explore 7-day skill plans.</p>
-                      <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Visit Kids Hub →</span>
-                    </a>
-                  </div>
+                  <a
+                    href="/kids"
+                    className="block rounded-2xl border border-slate-200 bg-white p-4 shadow-sm hover:shadow-md transition"
+                  >
+                    <h3 className="text-sm font-semibold text-slate-900">Kids Hub</h3>
+                    <p className="text-xs text-slate-600 mt-1">Play free learning games, print puzzles, and explore 7-day skill plans.</p>
+                    <span className="mt-3 inline-flex text-xs font-semibold text-purple-600">Visit Kids Hub →</span>
+                  </a>
                 </div>
+              </div>
 
-                <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
-                  <h2 className="text-lg font-semibold text-slate-900 mb-4">Frequently asked questions</h2>
-                  <div className="space-y-4">
-                    <details className="group rounded-2xl border border-slate-200 p-4">
-                      <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-800">
-                        How can I help my child hold the pencil correctly?
-                        <span className="ml-2 text-purple-500 group-open:rotate-180 transition-transform">▾</span>
-                      </summary>
-                      <p className="mt-3 text-sm text-slate-600">
-                        Start with a short practice session, remind them of the tripod grip, and keep the wrist floating above the page. Use the friendly start dot so they always know where to begin each letter.
-                      </p>
-                    </details>
-                    <details className="group rounded-2xl border border-slate-200 p-4">
-                      <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-800">
-                        Can I create more than one name?
-                        <span className="ml-2 text-purple-500 group-open:rotate-180 transition-transform">▾</span>
-                      </summary>
-                      <p className="mt-3 text-sm text-slate-600">
-                        Absolutely. Print or download your first sheet, then come back to type new names for siblings, classmates, or the whole preschool group. Each worksheet is instant and free.
-                      </p>
-                    </details>
-                  </div>
+              <div className="mt-8 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                <h2 className="text-lg font-semibold text-slate-900 mb-4">Frequently asked questions</h2>
+                <div className="space-y-4">
+                  <details className="group rounded-2xl border border-slate-200 p-4">
+                    <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-800">
+                      How can I help my child hold the pencil correctly?
+                      <span className="ml-2 text-purple-500 group-open:rotate-180 transition-transform">▾</span>
+                    </summary>
+                    <p className="mt-3 text-sm text-slate-600">
+                      Start with a short practice session, remind them of the tripod grip, and keep the wrist floating above the page. Use the friendly start dot so they always know where to begin each letter.
+                    </p>
+                  </details>
+                  <details className="group rounded-2xl border border-slate-200 p-4">
+                    <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-semibold text-slate-800">
+                      Can I create more than one name?
+                      <span className="ml-2 text-purple-500 group-open:rotate-180 transition-transform">▾</span>
+                    </summary>
+                    <p className="mt-3 text-sm text-slate-600">
+                      Absolutely. Print or download your first sheet, then come back to type new names for siblings, classmates, or the whole preschool group. Each worksheet is instant and free.
+                    </p>
+                  </details>
                 </div>
               </div>
             </div>
-          </section>
-        </main>
+          </div>
+        </section>
+      </main>
 
-        <Footer />
-      </div>
+      <Footer />
+    </div >
 
-      {/* Print-only container (moved outside to prevent parent display:none from hiding it) */}
-      {isPrinting && (
-        <div className="print-only" style={{ background: '#fff', position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 9999 }}>
-          <style dangerouslySetInnerHTML={{
-            __html: `
+      {/* Print-only container (moved outside to prevent parent display:none from hiding it) */ }
+  {
+    isPrinting && (
+      <div className="print-only" style={{ background: '#fff', position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 9999 }}>
+        <style dangerouslySetInnerHTML={{
+          __html: `
           @media screen {
             .print-only { display: none !important; }
           }
@@ -1886,47 +1893,48 @@ export default function NameTracingGeneratorPage() {
           }
         `}} />
 
-          {batchLayout === 'one-per-page' || batchMode === 'single' ? (
-            printNames.map((name: string, i: number) => (
-              <div key={i} className="print-page">
-                <div dangerouslySetInnerHTML={{ __html: generateSVGForName(name) }} />
-              </div>
-            ))
-          ) : batchLayout === 'two-per-page' ? (
-            (() => {
-              const pages = [];
-              for (let i = 0; i < printNames.length; i += 2) {
-                const name1 = printNames[i];
-                const name2 = printNames[i + 1];
-                pages.push(
-                  <div key={i} className="print-page">
-                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name1) }} />
-                    {name2 && <div style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name2) }} />}
-                  </div>
-                );
-              }
-              return pages;
-            })()
-          ) : (
-            // four-per-page
-            (() => {
-              const pages = [];
-              for (let i = 0; i < printNames.length; i += 4) {
-                const chunk = printNames.slice(i, i + 4);
-                pages.push(
-                  <div key={i} className="print-page">
-                    <div style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[0]) }} />
-                    {chunk[1] && <div style={{ position: 'absolute', top: 0, left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[1]) }} />}
-                    {chunk[2] && <div style={{ position: 'absolute', top: '50%', left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[2]) }} />}
-                    {chunk[3] && <div style={{ position: 'absolute', top: '50%', left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[3]) }} />}
-                  </div>
-                );
-              }
-              return pages;
-            })()
-          )}
-        </div>
-      )}
+        {batchLayout === 'one-per-page' || batchMode === 'single' ? (
+          printNames.map((name: string, i: number) => (
+            <div key={i} className="print-page">
+              <div dangerouslySetInnerHTML={{ __html: generateSVGForName(name) }} />
+            </div>
+          ))
+        ) : batchLayout === 'two-per-page' ? (
+          (() => {
+            const pages = [];
+            for (let i = 0; i < printNames.length; i += 2) {
+              const name1 = printNames[i];
+              const name2 = printNames[i + 1];
+              pages.push(
+                <div key={i} className="print-page">
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name1) }} />
+                  {name2 && <div style={{ position: 'absolute', top: '50%', left: 0, width: '100%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(name2) }} />}
+                </div>
+              );
+            }
+            return pages;
+          })()
+        ) : (
+          // four-per-page
+          (() => {
+            const pages = [];
+            for (let i = 0; i < printNames.length; i += 4) {
+              const chunk = printNames.slice(i, i + 4);
+              pages.push(
+                <div key={i} className="print-page">
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[0]) }} />
+                  {chunk[1] && <div style={{ position: 'absolute', top: 0, left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[1]) }} />}
+                  {chunk[2] && <div style={{ position: 'absolute', top: '50%', left: 0, width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[2]) }} />}
+                  {chunk[3] && <div style={{ position: 'absolute', top: '50%', left: '50%', width: '50%', height: '50%' }} dangerouslySetInnerHTML={{ __html: generateSVGForName(chunk[3]) }} />}
+                </div>
+              );
+            }
+            return pages;
+          })()
+        )}
+      </div>
+    )
+  }
     </>
   );
 }

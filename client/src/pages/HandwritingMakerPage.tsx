@@ -603,30 +603,14 @@ export default function HandwritingMakerPage() {
 
     trackWorksheetDownload('handwriting-maker', `${mode}-pdf`, 'handwriting-maker', 'handwriting')
 
-    // Confetti
-    const colors = theme.rainbow ? RAINBOW_COLORS : [theme.primary, theme.text, theme.dots];
-    for (let i = 0; i < 40; i++) {
-      const conf = document.createElement('div');
-      conf.style.position = 'fixed';
-      conf.style.zIndex = '9999';
-      conf.style.left = Math.random() * 100 + 'vw';
-      conf.style.top = '-5vh';
-      conf.style.width = '10px';
-      conf.style.height = '10px';
-      conf.style.pointerEvents = 'none';
-      conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-      conf.style.transform = `rotate(${Math.random() * 360}deg)`;
-      document.body.appendChild(conf);
-
-      const animation = conf.animate([
-        { top: '-5vh', transform: `rotate(0deg) translateX(0px)`, opacity: 1 },
-        { top: '105vh', transform: `rotate(${Math.random() * 1000}deg) translateX(${Math.random() * 200 - 100}px)`, opacity: 0 }
-      ], {
-        duration: 2000 + Math.random() * 3000,
-        easing: 'cubic-bezier(0, .9, .57, 1)'
+    // Magic Celebration
+    if (typeof (window as any).confetti === 'function') {
+      (window as any).confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#7c3aed', '#a855f7', '#6366f1']
       });
-      animation.onfinish = () => conf.remove();
     }
 
     toast({
@@ -1409,6 +1393,17 @@ export default function HandwritingMakerPage() {
               </div>
             </div>
           </section>
+
+          {/* Worksheet Preview with Real Paper Effect */}
+          <div id="handwriting-sheet"
+            className="mt-12 w-full max-w-4xl mx-auto aspect-[8.5/11] bg-white rounded-sm overflow-hidden transition-all duration-500"
+            style={{
+              boxShadow: '0 20px 50px -12px rgba(76, 29, 149, 0.15), 0 0 0 1px rgba(124, 58, 237, 0.05)',
+              transform: 'perspective(1000px) rotateY(-0.5deg)',
+            }}
+          >
+            <PreviewSVG />
+          </div>
         </div>
 
         <div className="mt-12 space-y-8">

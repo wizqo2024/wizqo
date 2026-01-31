@@ -323,6 +323,16 @@ export default function SpellingListGeneratorPage() {
             title: "PDF Generated!",
             description: "Your spelling list is ready to print.",
         });
+
+        // Magic Celebration
+        if (typeof (window as any).confetti === 'function') {
+            (window as any).confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#7c3aed', '#a855f7', '#6366f1']
+            });
+        }
     };
 
     return (
@@ -565,14 +575,16 @@ export default function SpellingListGeneratorPage() {
                             </div>
                         </div>
 
-                        {/* The SVG Preview */}
+                        {/* The SVG Preview with Real Paper Effect */}
                         <div
                             id="spelling-sheet-preview"
-                            className="w-full aspect-[8.5/11] bg-white shadow-2xl rounded-sm overflow-hidden border border-slate-200"
+                            className="w-full aspect-[8.5/11] bg-white rounded-sm overflow-hidden transition-all duration-500"
                             style={{
                                 fontFamily: fontStyle === 'cursive' ? 'LearningCurveDashed' :
                                     fontStyle === 'bubble' ? 'Codystar' :
-                                        fontStyle === 'dotted' ? 'SchoolHandDotted' : 'ABeeZee'
+                                        fontStyle === 'dotted' ? 'SchoolHandDotted' : 'ABeeZee',
+                                boxShadow: '0 20px 50px -12px rgba(76, 29, 149, 0.15), 0 0 0 1px rgba(124, 58, 237, 0.05)',
+                                transform: 'perspective(1000px) rotateY(-0.5deg)',
                             }}
                         >
                             <PreviewSVG

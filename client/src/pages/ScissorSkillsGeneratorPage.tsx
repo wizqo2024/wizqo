@@ -83,6 +83,16 @@ export default function ScissorSkillsGeneratorPage() {
 
             trackWorksheetDownload('scissor-skills-generator', 'Scissor Skills Practice', 'ScissorSkillsGeneratorPage', 'Pre-K');
             toast({ title: 'Success!', description: 'Your cutting practice sheet is ready.' });
+
+            // Magic Celebration
+            if (typeof (window as any).confetti === 'function') {
+                (window as any).confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#7c3aed', '#a855f7', '#6366f1']
+                });
+            }
         } catch (err) {
             console.error('PDF Generation Error:', err);
             toast({ title: 'Error', description: 'Failed to generate PDF.', variant: 'destructive' });
@@ -167,6 +177,16 @@ export default function ScissorSkillsGeneratorPage() {
             }
 
             trackWorksheetDownload('scissor-skills-generator', 'Scissor Skills Practice (Print)', 'ScissorSkillsGeneratorPage', 'Pre-K');
+
+            // Magic Celebration
+            if (typeof (window as any).confetti === 'function') {
+                (window as any).confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#7c3aed', '#a855f7', '#6366f1']
+                });
+            }
         } catch (err) {
             console.error('Print Error:', err);
             toast({ title: 'Error', description: 'Failed to open print dialog.', variant: 'destructive' });
@@ -181,10 +201,14 @@ export default function ScissorSkillsGeneratorPage() {
         return (
             <div
                 id="scissor-sheet-preview"
-                className={`w-full aspect-[8.5/11] rounded-sm p-12 flex flex-col items-center relative overflow-hidden transition-all ${isInkSaving
+                className={`w-full aspect-[8.5/11] rounded-sm p-12 flex flex-col items-center relative overflow-hidden transition-all duration-500 ${isInkSaving
                     ? 'bg-white border-none'
-                    : 'bg-[#FFFDF5] shadow-2xl border-[12px] border-purple-200'
+                    : 'bg-[#FFFDF5] border-[12px] border-purple-200'
                     }`}
+                style={isInkSaving ? {} : {
+                    boxShadow: '0 20px 50px -12px rgba(76, 29, 149, 0.15), 0 0 0 1px rgba(124, 58, 237, 0.05)',
+                    transform: 'perspective(1000px) rotateY(-0.5deg)',
+                }}
             >
                 {/* Header */}
                 <div className="text-center mb-12 w-full">
