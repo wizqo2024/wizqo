@@ -439,7 +439,7 @@ export default function ScissorSkillsGeneratorPage() {
                         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <h1 className="text-2xl font-black text-slate-900 mb-2 flex items-center gap-2">
                                 <Scissors className="text-purple-600" />
-                                Scissor Skills
+                                Free Scissor Skills Generator
                             </h1>
                             <p className="text-slate-500 text-sm mb-8 leading-relaxed">
                                 Turn cutting practice into a <strong>Viral Monster Haircut Game</strong>. Ergonomic vertical strips for tiny hands.
