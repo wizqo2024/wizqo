@@ -302,6 +302,16 @@ export default function CountingWorksheetsPage() {
 
             trackWorksheetDownload('counting-numbers-generator', `Counting Worksheets (${selectedNumber}) - Tracing: ${isTraceable}`, 'CountingWorksheetsPage', 'Pre-K');
             toast({ title: 'Success!', description: 'Your counting worksheet is ready.' });
+
+            // Magic Celebration
+            if (typeof (window as any).confetti === 'function') {
+                (window as any).confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#7c3aed', '#a855f7', '#6366f1']
+                });
+            }
         } catch (err) {
             console.error('PDF Error:', err);
             toast({ title: 'Error', description: 'Failed to generate PDF.', variant: 'destructive' });
@@ -332,6 +342,16 @@ export default function CountingWorksheetsPage() {
 
             trackWorksheetDownload('counting-numbers-generator', `Workbook 0-10 - Tracing: ${isTraceable}`, 'CountingWorksheetsPage', 'Pre-K');
             toast({ title: 'Workbook Ready!', description: 'Your 0-10 workbook has been downloaded.' });
+
+            // Magic Celebration
+            if (typeof (window as any).confetti === 'function') {
+                (window as any).confetti({
+                    particleCount: 200,
+                    spread: 100,
+                    origin: { y: 0.6 },
+                    colors: ['#7c3aed', '#a855f7', '#6366f1', '#f59e0b']
+                });
+            }
 
         } catch (err) {
             console.error('Workbook PDF Error:', err);
@@ -544,9 +564,17 @@ export default function CountingWorksheetsPage() {
                         </div>
                     </div>
 
-                    {/* Preview */}
+                    {/* Preview Area with Real Paper Effect */}
                     <div className="lg:col-span-12 xl:col-span-7" id="counting-preview-area">
-                        <div id="counting-preview-single" className="sticky top-8">
+                        <div
+                            id="counting-preview-single"
+                            className="sticky top-8 transition-all duration-500"
+                            style={{
+                                boxShadow: '0 20px 50px -12px rgba(76, 29, 149, 0.15), 0 0 0 1px rgba(124, 58, 237, 0.05)',
+                                transform: 'perspective(1000px) rotateY(-0.5deg)',
+                                borderRadius: '8px'
+                            }}
+                        >
                             <CountingWorksheetTemplate
                                 number={selectedNumber}
                                 iconTheme={iconTheme}

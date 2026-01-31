@@ -2901,24 +2901,24 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
       'Build numerical confidence with customizable themes'
     ],
     richContent: `<article style="max-width: 1000px; margin: 0 auto; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #334155; line-height: 1.6;">
-      <!-- Hero Section -->
-      <div style="text-align: center; margin-bottom: 4rem; padding: 3rem 2rem; background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border-radius: 2rem; border: 1px solid #e2e8f0;">
-        <h1 style="font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: #1e293b; margin-bottom: 1.5rem; line-height: 1.1; letter-spacing: -0.02em;">
-          Free Counting Numbers <span style="color: #4f46e5;">Worksheets</span> & Tracing Generator
+      <!-- Magic Wavy Hero Section -->
+      <div style="text-align: center; padding: 4rem 2rem 6rem 2rem; background: linear-gradient(180deg, #f3e8ff 0%, #e0c3fc 100%); border-radius: 0 0 50% 50% / 5%; margin-bottom: 4rem;">
+        <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #4c1d95; margin-bottom: 1rem; line-height: 1.1; letter-spacing: -0.03em;">
+          Free Counting Numbers <br/><span style="color: #7c3aed;">Worksheets Generator</span>
         </h1>
-        <p style="font-size: 1.25rem; color: #64748b; max-width: 700px; margin: 0 auto 2.5rem; font-weight: 500;">
-          The ultimate school-ready math lab for parents and teachers. Create unlimited, personalized practice sheets in seconds.
+        <p style="font-size: 1.25rem; color: #6b21a8; max-width: 600px; margin: 0 auto 2.5rem; font-weight: 500;">
+          Create unlimited, ink-saving worksheets in seconds. No sign up required.
         </p>
-      
+        
         <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-          <span style="background: white; padding: 0.75rem 1.25rem; border-radius: 1rem; border: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
-            <span style="color: #22c55e;">✓</span> 100% Free PDF
+          <span style="background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); padding: 0.6rem 1.2rem; border-radius: 99px; font-weight: 700; color: #5b21b6; font-size: 0.9rem; box-shadow: 0 2px 10px rgba(124, 58, 237, 0.1); display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: #7c3aed;">✨</span> 100% Free PDF
           </span>
-          <span style="background: white; padding: 0.75rem 1.25rem; border-radius: 1rem; border: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
-            <span style="color: #22c55e;">✓</span> No Sign Up
+          <span style="background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); padding: 0.6rem 1.2rem; border-radius: 99px; font-weight: 700; color: #5b21b6; font-size: 0.9rem; box-shadow: 0 2px 10px rgba(124, 58, 237, 0.1); display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: #7c3aed;">🚀</span> No Sign Up
           </span>
-          <span style="background: white; padding: 0.75rem 1.25rem; border-radius: 1rem; border: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
-            <span style="color: #22c55e;">✓</span> Instant Download
+          <span style="background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); padding: 0.6rem 1.2rem; border-radius: 99px; font-weight: 700; color: #5b21b6; font-size: 0.9rem; box-shadow: 0 2px 10px rgba(124, 58, 237, 0.1); display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: #7c3aed;">🖨️</span> Ink-Saving Mode
           </span>
         </div>
       </div>
