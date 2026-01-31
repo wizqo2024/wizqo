@@ -363,16 +363,7 @@ export default function ScissorSkillsGeneratorPage() {
 
 
                 {/* Reward Badge */}
-                {showBadge && (
-                    <div className="mt-6 border-4 border-dashed border-amber-200 rounded-full p-6 flex flex-col items-center justify-center bg-white shadow-sm transform hover:scale-105 transition-transform duration-300">
-                        <Award className="text-amber-500 mb-1" size={32} />
-                        <span className="text-sm font-black text-slate-700">SCISSOR MASTER</span>
-                        <div className="flex gap-1 mt-1">
-                            {[1, 2, 3].map(s => <Star key={s} size={12} className="text-amber-400 fill-amber-400" />)}
-                        </div>
-                        <p className="text-[10px] text-slate-400 mt-2 font-bold uppercase italic cursor-default">Cut & Paste Your Trophy!</p>
-                    </div>
-                )}
+
             </div>
         );
     };
@@ -584,17 +575,7 @@ export default function ScissorSkillsGeneratorPage() {
                                         onValueChange={(vals: number[]) => setStripCount(vals[0])}
                                         className="py-4"
                                     />
-                                    <div className="flex items-center justify-between px-1">
-                                        <label className="text-[10px] font-bold text-slate-400 flex items-center gap-1">
-                                            <Award size={10} /> Show Reward Badge
-                                        </label>
-                                        <input
-                                            type="checkbox"
-                                            checked={showBadge}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setShowBadge(e.target.checked)}
-                                            className="accent-purple-600"
-                                        />
-                                    </div>
+
                                 </div>
 
                                 <div className="pt-6 border-t border-slate-100 social-share-container">
