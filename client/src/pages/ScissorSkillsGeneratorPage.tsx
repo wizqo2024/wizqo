@@ -395,10 +395,12 @@ export default function ScissorSkillsGeneratorPage() {
                         box-shadow: none !important;
                         border: none !important;
                         background: white !important;
+                        transform: none !important;
+                        position: relative !important;
                     }
                     .print_scissor_icon { display: block !important; color: #cbd5e1 !important; }
-                    .print-vertical-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; height: 100% !important; }
-                    .print-strip-center { display: flex !important; flex-direction: column !important; align-items: center !important; height: 100% !important; }
+                    .print-vertical-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; height: 100% !important; gap: 2rem !important; }
+                    .print-strip-center { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-start !important; height: 100% !important; position: relative !important; }
                 }
             ` }} />
             <SEOMetaTags
