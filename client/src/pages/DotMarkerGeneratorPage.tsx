@@ -267,9 +267,44 @@ export default function DotMarkerGeneratorPage() {
         loadLogo();
     }, []);
 
+    const [isPrinting, setIsPrinting] = useState(false);
+
     // --- Actions ---
+    // Handle Print with React State for perfect isolation
+    useEffect(() => {
+        if (isPrinting) {
+            // Small timeout to allow render to complete before printing
+            const timer = setTimeout(() => {
+                window.print();
+                // We rely on 'afterprint' event or manual reset, but user might cancel.
+                // It's safer to not auto-reset immediately so the view doesn't flash back.
+            }, 100);
+            return () => clearTimeout(timer);
+        }
+    }, [isPrinting]);
+
+    // Track print completion to restore view
+    useEffect(() => {
+        const mql = window.matchMedia('print');
+        const handlePrintChange = (e: MediaQueryListEvent) => {
+            if (!e.matches) {
+                setIsPrinting(false);
+            }
+        };
+        // Modern browsers
+        mql.addEventListener('change', handlePrintChange);
+
+        // Fallback for older/safari
+        window.addEventListener('afterprint', () => setIsPrinting(false));
+
+        return () => {
+            mql.removeEventListener('change', handlePrintChange);
+            window.removeEventListener('afterprint', () => setIsPrinting(false));
+        };
+    }, []);
+
     const handlePrint = useCallback(() => {
-        window.print();
+        setIsPrinting(true);
     }, []);
 
     const handleDownloadPDF = async () => {
@@ -311,6 +346,52 @@ export default function DotMarkerGeneratorPage() {
             setIsGenerating(false);
         }
     };
+
+    if (isPrinting) {
+        return (
+            <div className="flex items-center justify-center w-[210mm] h-[297mm] overflow-hidden bg-white m-0 p-0">
+                <style>{`
+                    @page { size: A4 portrait; margin: 0; }
+                    body { margin: 0; box-shadow: none; }
+                `}</style>
+                <svg
+                    viewBox={`0 0 ${Math.max(800, totalWidth + 100)} ${Math.max(800, totalWidth + 100) * 1.4142}`}
+                    className="w-full h-full"
+                    preserveAspectRatio="xMidYMid meet"
+                >
+                    <g transform={`translate(${totalWidth < 700 ? (700 - totalWidth) / 2 : 0}, 150)`}>
+                        <g className="dots-container">
+                            {dots.map((point, i) => (
+                                <React.Fragment key={i}>
+                                    {renderShape(point, dotSize / 4, selectedShape)}
+                                </React.Fragment>
+                            ))}
+                        </g>
+                    </g>
+                    <g transform={`translate(${Math.max(800, totalWidth + 100) / 2}, ${Math.max(800, totalWidth + 100) * 1.4142 - 100})`}>
+                        {logoBase64 && (
+                            <image
+                                href={logoBase64}
+                                x="-40"
+                                y="-40"
+                                height="80"
+                                width="80"
+                                preserveAspectRatio="xMidYMid meet"
+                            />
+                        )}
+                        <text
+                            y="55"
+                            textAnchor="middle"
+                            className="fill-slate-400 text-[14px] font-bold uppercase tracking-widest"
+                            style={{ fontFamily: 'sans-serif' }}
+                        >
+                            wizqo.com
+                        </text>
+                    </g>
+                </svg>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen flex flex-col bg-slate-50 font-sans">
