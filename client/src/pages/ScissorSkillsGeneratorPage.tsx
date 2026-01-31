@@ -204,7 +204,7 @@ export default function ScissorSkillsGeneratorPage() {
 
         const isVertical = layout === 'vertical';
         const contentWidth = isVertical ? 150 : 600;
-        const contentHeight = isVertical ? 650 : 60;
+        const contentHeight = isVertical ? 900 : 60;
 
         return (
             <div
@@ -259,6 +259,7 @@ export default function ScissorSkillsGeneratorPage() {
                                 width={isVertical ? "80" : "100%"}
                                 height={isVertical ? "100%" : "60"}
                                 viewBox={`0 0 ${contentWidth} ${contentHeight}`}
+                                preserveAspectRatio="none"
                                 className="overflow-visible flex-1"
                             >
                                 <defs>
@@ -284,8 +285,8 @@ export default function ScissorSkillsGeneratorPage() {
                                 {lineStyle === 'zigzag' && (
                                     <path
                                         d={isVertical
-                                            ? `M ${contentWidth / 2} 0 ${Array.from({ length: 12 }).map((_, j) => {
-                                                const y = (contentHeight / 12) * (j + 1);
+                                            ? `M ${contentWidth / 2} 0 ${Array.from({ length: 16 }).map((_, j) => {
+                                                const y = (contentHeight / 16) * (j + 1);
                                                 const x = j % 2 === 0 ? contentWidth / 2 - 30 : contentWidth / 2 + 30;
                                                 return `L ${x} ${y}`;
                                             }).join(' ')}`
@@ -300,16 +301,17 @@ export default function ScissorSkillsGeneratorPage() {
                                         strokeWidth={thickness === 'thick' ? 6 : 2}
                                         strokeDasharray="12, 8"
                                         strokeLinecap="round"
+                                        strokeLinejoin="round"
                                     />
                                 )}
                                 {lineStyle === 'wavy' && (
                                     <path
                                         d={isVertical
-                                            ? `M ${contentWidth / 2} 0 ${Array.from({ length: 8 }).map((_, j) => {
-                                                const nextY = (contentHeight / 8) * (j + 1);
-                                                const ctrlY1 = (contentHeight / 8) * j + (contentHeight / 32);
+                                            ? `M ${contentWidth / 2} 0 ${Array.from({ length: 12 }).map((_, j) => {
+                                                const nextY = (contentHeight / 12) * (j + 1);
+                                                const ctrlY1 = (contentHeight / 12) * j + (contentHeight / 48);
                                                 const ctrlX1 = j % 2 === 0 ? contentWidth / 2 - 50 : contentWidth / 2 + 50;
-                                                const ctrlY2 = (contentHeight / 8) * j + (3 * contentHeight / 32);
+                                                const ctrlY2 = (contentHeight / 12) * j + (3 * contentHeight / 48);
                                                 const ctrlX2 = j % 2 === 0 ? contentWidth / 2 - 50 : contentWidth / 2 + 50;
                                                 return `C ${ctrlX1} ${ctrlY1} ${ctrlX2} ${ctrlY2} ${contentWidth / 2} ${nextY}`;
                                             }).join(' ')}`
