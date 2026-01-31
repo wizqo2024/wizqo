@@ -473,13 +473,8 @@ export default function DotMarkerGeneratorPage() {
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3 pt-4">
-                                <Button
-                                    onClick={handlePrint}
-                                    className="h-14 rounded-2xl bg-slate-900 hover:bg-black text-white font-black shadow-lg shadow-slate-200 text-sm group"
-                                >
-                                    <Printer className="mr-2 group-hover:scale-110 transition-transform" size={18} /> PRINT NOW
-                                </Button>
+                            <div className="pt-4">
+
                                 <Button
                                     onClick={handleDownloadPDF}
                                     disabled={isGenerating}
@@ -517,7 +512,14 @@ export default function DotMarkerGeneratorPage() {
                                 </p>
                             </div>
 
-                            <div className="flex justify-center md:justify-end print:hidden">
+                            <div className="flex justify-center md:justify-end gap-3 print:hidden">
+                                <Button
+                                    onClick={handlePrint}
+                                    className="h-11 px-6 rounded-xl bg-slate-900 hover:bg-black text-white font-black shadow-lg shadow-slate-200 text-sm group transition-all"
+                                >
+                                    <Printer className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                                    PRINT
+                                </Button>
                                 <Button
                                     onClick={handleDownloadPDF}
                                     disabled={isGenerating}
