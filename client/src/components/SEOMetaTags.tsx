@@ -6,7 +6,7 @@ interface SEOMetaTagsProps {
   title?: string;
   description?: string;
   keywords?: string;
-  ogImage?: string;
+  ogImage?: string | string[];
   canonicalUrl?: string;
   noIndex?: boolean;
   ogType?: 'website' | 'article';
@@ -86,13 +86,18 @@ export function SEOMetaTags({
     ogDescription.setAttribute('content', description);
 
     // Update Open Graph image
-    let ogImageMeta = document.querySelector('meta[property="og:image"]');
-    if (!ogImageMeta) {
-      ogImageMeta = document.createElement('meta');
-      ogImageMeta.setAttribute('property', 'og:image');
-      document.head.appendChild(ogImageMeta);
-    }
-    ogImageMeta.setAttribute('content', ogImage);
+    const images = Array.isArray(ogImage) ? ogImage : [ogImage];
+
+    // Remove existing og:image tags
+    document.querySelectorAll('meta[property="og:image"]').forEach(el => el.remove());
+
+    // Add new og:image tags
+    images.forEach(img => {
+      const meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:image');
+      meta.setAttribute('content', img);
+      document.head.appendChild(meta);
+    });
 
     // Update Open Graph type
     let ogTypeMeta = document.querySelector('meta[property="og:type"]');
@@ -122,13 +127,15 @@ export function SEOMetaTags({
     twitterDescription.setAttribute('content', description);
 
     // Update Twitter image
-    let twitterImage = document.querySelector('meta[property="twitter:image"]');
-    if (!twitterImage) {
-      twitterImage = document.createElement('meta');
-      twitterImage.setAttribute('property', 'twitter:image');
-      document.head.appendChild(twitterImage);
-    }
-    twitterImage.setAttribute('content', ogImage);
+    // Remove existing twitter:image tags
+    document.querySelectorAll('meta[property="twitter:image"]').forEach(el => el.remove());
+
+    images.forEach(img => {
+      const meta = document.createElement('meta');
+      meta.setAttribute('property', 'twitter:image');
+      meta.setAttribute('content', img);
+      document.head.appendChild(meta);
+    });
 
     // Update Twitter card type
     let twitterCardMeta = document.querySelector('meta[name="twitter:card"]');

@@ -47,6 +47,7 @@ import MatchFeelingWorksheetPage from './pages/MatchFeelingWorksheetPage';
 import InteractiveReadingWorksheetPage from './pages/InteractiveReadingWorksheetPage';
 import SpellingListGeneratorPage from './pages/SpellingListGeneratorPage';
 import ScissorSkillsGeneratorPage from './pages/ScissorSkillsGeneratorPage';
+import DotMarkerGeneratorPage from './pages/DotMarkerGeneratorPage';
 import CountingWorksheetsPage from './pages/CountingWorksheetsPage';
 
 
@@ -650,6 +651,7 @@ export default function App() {
                     'math-maze-worksheets',
                     'data-analysis-worksheets',
                     'scissor-skills-generator',
+                    'dot-marker-generator',
                     'counting-numbers-generator',
                     'all'
                   ];
@@ -765,6 +767,9 @@ export default function App() {
                   }
                   if (routeSubKey === 'scissor-skills-generator') {
                     return <ScissorSkillsGeneratorPage />;
+                  }
+                  if (routeSubKey === 'dot-marker-generator') {
+                    return <DotMarkerGeneratorPage />;
                   }
                   if (routeSubKey === 'counting-numbers-generator') {
                     return <CountingWorksheetsPage />;
