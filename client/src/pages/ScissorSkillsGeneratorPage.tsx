@@ -235,9 +235,22 @@ export default function ScissorSkillsGeneratorPage() {
                     {Array.from({ length: isVertical ? 4 : stripCount }).map((_, i) => (
                         <div key={i} className={`relative flex ${isVertical ? 'flex-col flex-1 items-center px-4 border-l-2 border-dashed border-slate-100 first:border-l-0' : 'items-center group w-full px-8'}`}>
 
-                            {/* Mission Start - Only in Landscape or Non-Haircut */}
-                            {(!isVertical || !activeMission.isHaircut) && (
-                                <div className={`${isVertical ? 'mb-4' : 'absolute left-0'} text-3xl z-10`}>
+                            {/* Vertical Mode: Mission End (Face) is at the TOP */}
+                            {isVertical && (
+                                <div className="mb-4 text-5xl z-10 flex flex-col items-center">
+                                    {activeMission.end}
+                                    {activeMission.isHaircut && (
+                                        <div className="mt-2 flex flex-col items-center">
+                                            <div className="px-2 py-0.5 bg-red-600 text-[10px] text-white font-black rounded-sm leading-none mb-1">STOP</div>
+                                            <div className="text-[8px] font-black text-slate-400 uppercase tracking-tighter">HERE</div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Landscape Mode: Mission Start (Scissors) is at the LEFT */}
+                            {!isVertical && (
+                                <div className="absolute left-0 text-3xl z-10">
                                     {activeMission.start || <Scissors className="text-slate-300 transform -rotate-45" size={24} />}
                                 </div>
                             )}
@@ -317,9 +330,9 @@ export default function ScissorSkillsGeneratorPage() {
                                     />
                                 )}
 
-                                {/* Stop Sign / Star at the end of the line */}
+                                {/* Stop Sign / Star at the end of the line (TOP in Vertical) */}
                                 {activeMission.isHaircut && (
-                                    <g transform={`translate(${contentWidth / 2 - 15}, ${contentHeight - 20})`}>
+                                    <g transform={`translate(${contentWidth / 2 - 15}, ${isVertical ? 5 : contentHeight - 20})`}>
                                         <path d="M 15 2 L 18 10 L 28 10 L 20 16 L 23 25 L 15 20 L 7 25 L 10 16 L 2 10 L 12 10 Z"
                                             fill={isInkSaving ? "none" : "#F59E0B"}
                                             stroke="#B45309" strokeWidth="2"
@@ -328,19 +341,26 @@ export default function ScissorSkillsGeneratorPage() {
                                 )}
                             </svg>
 
-                            {/* Mission End / Face Icon */}
-                            <div className={`${isVertical ? 'mt-4' : 'absolute right-0'} text-5xl z-10 flex flex-col items-center`}>
-                                {activeMission.end}
-                                {activeMission.isHaircut && (
-                                    <div className="mt-2 flex flex-col items-center">
-                                        <div className="px-2 py-0.5 bg-red-600 text-[10px] text-white font-black rounded-sm leading-none mb-1">STOP</div>
-                                        <div className="text-[8px] font-black text-slate-400 uppercase tracking-tighter">HERE</div>
+                            {/* Vertical Mode: Mission Start (Scissors) is at the BOTTOM */}
+                            {isVertical && (
+                                <div className="mt-4 text-3xl z-10 flex flex-col items-center group">
+                                    <div className="text-[8px] font-black text-slate-400 uppercase tracking-tighter mb-1 opacity-0 group-hover:opacity-100 transition-opacity uppercase">Start Here</div>
+                                    <div className="transform rotate-90">
+                                        {activeMission.start || <Scissors className="text-slate-300" size={24} />}
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            )}
+
+                            {/* Landscape Mode: Mission End (Face) is at the RIGHT */}
+                            {!isVertical && (
+                                <div className="absolute right-0 text-3xl z-10">
+                                    {activeMission.end}
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
+
 
                 {/* Reward Badge */}
                 {showBadge && (
