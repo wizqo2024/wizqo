@@ -1929,7 +1929,7 @@ export default function CertificateMakerPage() {
             </span>
           </a>
           <a
-            href="/printables/handwriting-maker"
+            href="/worksheets/handwriting-worksheet-maker"
             className="group flex flex-col gap-2 rounded-2xl border border-emerald-100/60 bg-emerald-50/60 p-4 text-sm text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-100"
           >
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-sm">HW</span>
@@ -1959,7 +1959,7 @@ export default function CertificateMakerPage() {
             </span>
           </a>
           <a
-            href="/printables/worksheets"
+            href="/worksheets/all"
             className="group flex flex-col gap-2 rounded-2xl border border-amber-100/60 bg-amber-50/60 p-4 text-sm text-amber-700 transition hover:border-amber-300 hover:bg-amber-100"
           >
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-xs font-bold text-white shadow-sm">WS</span>

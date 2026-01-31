@@ -280,31 +280,41 @@ export async function generateWorksheetPDF(
                     clonedDoc.body.appendChild(fontForceLoad);
 
                     // 5. Adjust cloned section styles for better PDF look
-                    const clonedSection = clonedDoc.querySelector('.worksheet-section') || clonedDoc.body.firstChild as HTMLElement
-                    if (clonedSection instanceof HTMLElement) {
-                        // Match Print CSS Padding (0.5in ≈ 48px)
-                        const paddingBottom = packSections ? '20px' : '48px'
-                        const paddingTop = packSections ? '5px' : '48px'
-                        const paddingSide = '48px';
+                    const clonedSections = clonedDoc.querySelectorAll('.worksheet-section');
+                    clonedSections.forEach(clonedSection => {
+                        if (clonedSection instanceof HTMLElement) {
+                            // Match Print CSS Padding (0.5in ≈ 48px)
+                            const paddingBottom = packSections ? '20px' : '48px'
+                            const paddingTop = packSections ? '5px' : '48px'
+                            const paddingSide = '48px';
 
-                        clonedSection.style.setProperty('padding', `${paddingTop} ${paddingSide} ${paddingBottom} ${paddingSide}`, 'important')
-                        clonedSection.style.setProperty('border-radius', '0', 'important') // 0 radius for print
-                        clonedSection.style.setProperty('position', 'relative', 'important')
-                        clonedSection.style.setProperty('background', 'white', 'important')
-                        clonedSection.style.setProperty('image-rendering', 'auto', 'important')
-                        clonedSection.style.setProperty('border', 'none', 'important')
-                        clonedSection.style.setProperty('box-shadow', 'none', 'important')
-                        clonedSection.style.setProperty('width', '8.5in', 'important') // Explicit width
-                        clonedSection.style.setProperty('height', '11in', 'important') // Explicit height
+                            clonedSection.style.setProperty('padding', `${paddingTop} ${paddingSide} ${paddingBottom} ${paddingSide}`, 'important')
+                            clonedSection.style.setProperty('border-radius', '0', 'important') // 0 radius for print
+                            clonedSection.style.setProperty('position', 'relative', 'important')
+                            clonedSection.style.setProperty('background', 'white', 'important')
+                            clonedSection.style.setProperty('image-rendering', 'auto', 'important')
 
-                        // Remove corner accents and other decorative elements
-                        const accents = clonedSection.querySelectorAll('[class*="rounded-bl-full"], [class*="rounded-tr-full"], [class*="animate-gradient-x"]');
-                        accents.forEach(el => {
-                            if (el instanceof HTMLElement) {
-                                el.style.setProperty('display', 'none', 'important');
+                            // Only remove borders if they are 1px or less (to keep design borders on covers)
+                            // or if the keeping class is NOT present
+                            const borderStyle = window.getComputedStyle(clonedSection);
+                            const borderWidth = parseFloat(borderStyle.borderWidth);
+                            if (borderWidth <= 1 && !clonedSection.classList.contains('pdf-keep-border')) {
+                                clonedSection.style.setProperty('border', 'none', 'important')
                             }
-                        });
-                    }
+
+                            clonedSection.style.setProperty('box-shadow', 'none', 'important')
+                            clonedSection.style.setProperty('width', '8.5in', 'important') // Explicit width
+                            clonedSection.style.setProperty('height', '11in', 'important') // Explicit height
+
+                            // Remove corner accents and other decorative elements
+                            const accents = clonedSection.querySelectorAll('[class*="rounded-bl-full"], [class*="rounded-tr-full"], [class*="animate-gradient-x"]');
+                            accents.forEach(el => {
+                                if (el instanceof HTMLElement) {
+                                    el.style.setProperty('display', 'none', 'important');
+                                }
+                            });
+                        }
+                    });
                 }
             })
 

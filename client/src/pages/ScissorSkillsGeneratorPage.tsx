@@ -508,8 +508,11 @@ export default function ScissorSkillsGeneratorPage() {
                                 Related Tools & Worksheets
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <a href="/worksheets/handwriting-maker" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
-                                    <h4 className="font-bold text-slate-800 group-hover:text-indigo-600 mb-2">Handwriting Maker</h4>
+                                <a href="/worksheets/handwriting-worksheet-maker" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">
+                                    <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        <Scissors className="w-6 h-6 rotate-90" />
+                                    </div>
+                                    <h3 className="font-bold text-slate-800 mb-1">Handwriting Maker</h3>
                                     <p className="text-sm text-slate-500">Generate custom tracing sheets for names, words, and sentences.</p>
                                 </a>
                                 <a href="/worksheets/spelling-list-generator" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all">

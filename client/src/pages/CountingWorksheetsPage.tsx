@@ -83,7 +83,7 @@ const ICONS: Record<IconTheme, { name: string; icon: string; label: string; luci
 
 const WorkbookCover = ({ childName, iconTheme }: { childName: string; iconTheme: IconTheme }) => (
     <div
-        className="bg-white p-12 flex flex-col items-center justify-center text-center worksheet-section"
+        className="bg-white p-12 flex flex-col items-center justify-center text-center worksheet-section pdf-keep-border"
         style={{ width: '8.5in', height: '11in', boxSizing: 'border-box', border: '16px solid #f8fafc' }}
     >
         <div className="mb-12">
@@ -538,7 +538,7 @@ export default function CountingWorksheetsPage() {
 
                     {/* Worksheets */}
                     {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                        <div key={num} className="mt-8">
+                        <div key={num}>
                             <CountingWorksheetTemplate
                                 number={num}
                                 iconTheme={iconTheme}
