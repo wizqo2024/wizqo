@@ -262,7 +262,7 @@ export default function ScissorSkillsGeneratorPage() {
                                 className="overflow-visible flex-1"
                             >
                                 <defs>
-                                    <linearGradient id={`grad-${i}`} x1="0" y1="0" x2={isVertical ? 0 : 1} y2={isVertical ? 1 : 0} gradientUnits="userSpaceOnUse">
+                                    <linearGradient id={`grad-${i}`} x1="0" y1="0" x2={isVertical ? 0 : contentWidth} y2={isVertical ? contentHeight : 0} gradientUnits="userSpaceOnUse">
                                         <stop offset="0%" stopColor="#EF4444" />
                                         <stop offset="25%" stopColor="#F59E0B" />
                                         <stop offset="50%" stopColor="#10B981" />
