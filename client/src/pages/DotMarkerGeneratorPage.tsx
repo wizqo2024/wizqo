@@ -44,6 +44,36 @@ const THEMES: Record<ColorTheme, string[]> = {
     bw: ['#000000'],
 };
 
+// --- THE COORDINATE MAP: Defines the shape of every letter (5x7 grid) ---
+const DOT_FONT: Record<string, number[][]> = {
+    'A': [[0, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1]],
+    'B': [[1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 0]],
+    'C': [[0, 1, 1, 1, 1], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [0, 1, 1, 1, 1]],
+    'D': [[1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 0]],
+    'E': [[1, 1, 1, 1, 1], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 1]],
+    'F': [[1, 1, 1, 1, 1], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0]],
+    'G': [[0, 1, 1, 1, 1], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 1, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]],
+    'H': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1]],
+    'I': [[0, 1, 1, 1, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 1, 1, 1, 0]],
+    'J': [[0, 0, 1, 1, 1], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [1, 0, 0, 1, 0], [0, 1, 1, 0, 0]],
+    'K': [[1, 0, 0, 0, 1], [1, 0, 1, 0, 0], [1, 0, 1, 0, 0], [1, 1, 0, 0, 0], [1, 0, 1, 0, 0], [1, 0, 0, 1, 0], [1, 0, 0, 0, 1]],
+    'L': [[1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 1]],
+    'M': [[1, 0, 0, 0, 1], [1, 1, 0, 1, 1], [1, 0, 1, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1]],
+    'N': [[1, 0, 0, 0, 1], [1, 1, 0, 0, 1], [1, 0, 1, 0, 1], [1, 0, 0, 1, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1]],
+    'O': [[0, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]],
+    'P': [[1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0]],
+    'Q': [[0, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 0, 0, 1, 0], [0, 1, 1, 0, 1]],
+    'R': [[1, 1, 1, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 1, 1, 1, 0], [1, 0, 1, 0, 0], [1, 0, 0, 1, 0], [1, 0, 0, 0, 1]],
+    'S': [[0, 1, 1, 1, 1], [1, 0, 0, 0, 0], [1, 0, 0, 0, 0], [0, 1, 1, 1, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 1], [1, 1, 1, 1, 0]],
+    'T': [[1, 1, 1, 1, 1], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]],
+    'U': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 1, 1, 0]],
+    'V': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 0, 1, 0], [0, 0, 1, 0, 0]],
+    'W': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [1, 0, 1, 0, 1], [1, 1, 0, 1, 1], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1]],
+    'X': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 1, 0], [1, 0, 0, 0, 1], [1, 0, 0, 0, 1]],
+    'Y': [[1, 0, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 0, 1, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0], [0, 0, 1, 0, 0]],
+    'Z': [[1, 1, 1, 1, 1], [0, 0, 0, 0, 1], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0], [1, 0, 0, 0, 0], [1, 1, 1, 1, 1]]
+};
+
 // --- Component ---
 export default function DotMarkerGeneratorPage() {
     const { toast } = useToast();
@@ -62,53 +92,44 @@ export default function DotMarkerGeneratorPage() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const svgRef = useRef<SVGSVGElement | null>(null);
 
-    // --- Logic: Point Sampling ---
-    const dots = useMemo(() => {
-        if (typeof document === 'undefined') return []; // SSR safety
+    // --- Logic: Point Generation (Using Coordinate Map) ---
+    const { dots, totalWidth } = useMemo(() => {
+        const safeText = childName.toUpperCase().replace(/[^A-Z ]/g, '') || 'NAME';
+        const result: DotPoint[] = [];
 
-        const nameToRender = childName.trim().toUpperCase() || 'NAME';
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-        if (!ctx) return [];
+        // Gap constants
+        const dotSpacing = spacing;
+        const letterSpacing = spacing * 1.5;
 
-        // Scale canvas to fit text
-        const fontSize = 180; // Reduced slightly for better fit
-        ctx.font = `bold ${fontSize}px "Inter", "Arial Black", sans-serif`;
-        const textMetrics = ctx.measureText(nameToRender);
-
-        canvas.width = textMetrics.width + 100;
-        canvas.height = fontSize + 100;
-
-        // Draw text
-        ctx.fillStyle = 'black';
-        ctx.font = `bold ${fontSize}px "Inter", "Arial Black", sans-serif`;
-        ctx.textBaseline = 'middle';
-        ctx.fillText(nameToRender, 50, canvas.height / 2);
-
-        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const sampledPoints: DotPoint[] = [];
-
-        // Sampling loop
-        const step = spacing;
+        let cursorX = 0;
         const colors = THEMES[colorTheme];
 
-        for (let y = step / 2; y < canvas.height; y += step) {
-            for (let x = step / 2; x < canvas.width; x += step) {
-                const index = (Math.floor(y) * canvas.width + Math.floor(x)) * 4;
-                if (index < 0 || index >= imgData.data.length) continue;
-                const alpha = imgData.data[index + 3];
-
-                if (alpha > 128) {
-                    sampledPoints.push({
-                        x,
-                        y,
-                        color: colors[sampledPoints.length % colors.length]
-                    });
-                }
+        safeText.split('').forEach((char) => {
+            if (char === ' ') {
+                cursorX += letterSpacing;
+                return;
             }
-        }
 
-        return sampledPoints;
+            const matrix = DOT_FONT[char] || DOT_FONT['A'];
+
+            // Loop through 5x7 grid
+            matrix.forEach((row, rowIndex) => {
+                row.forEach((isDot, colIndex) => {
+                    if (isDot === 1) {
+                        result.push({
+                            x: cursorX + (colIndex * dotSpacing),
+                            y: rowIndex * dotSpacing,
+                            color: colors[result.length % colors.length]
+                        });
+                    }
+                });
+            });
+
+            // Move cursor for next letter (5 columns + spacing)
+            cursorX += (5 * dotSpacing) + letterSpacing;
+        });
+
+        return { dots: result, totalWidth: cursorX };
     }, [childName, spacing, colorTheme]);
 
     // Center horizontally
@@ -449,27 +470,35 @@ export default function DotMarkerGeneratorPage() {
 
                             <svg
                                 ref={svgRef}
-                                viewBox="0 0 1200 800"
+                                viewBox={`0 0 ${Math.max(1200, totalWidth + 100)} 800`}
+                                preserveAspectRatio="xMidYMid meet"
                                 className="relative w-full h-full p-12 drop-shadow-sm transition-all duration-300 pointer-events-none"
                             >
-                                {/* Branding footer in preview */}
-                                <text x="1150" y="780" textAnchor="end" className="fill-slate-300 text-[12px] font-bold uppercase tracking-widest print:hidden">
-                                    Made with Wizqo.com
-                                </text>
+                                {/* Center the name */}
+                                <g transform={`translate(${totalWidth < 1100 ? (1100 - totalWidth) / 2 : 0}, 150)`}>
+                                    {/* Branding footer in preview */}
+                                    <text x={totalWidth} y="630" textAnchor="end" className="fill-slate-300 text-[12px] font-bold uppercase tracking-widest print:hidden">
+                                        Made with Wizqo.com
+                                    </text>
 
-                                {/* The Dots */}
-                                <g className="dots-container">
-                                    {dots.map(point => renderShape(point, dotSize))}
-                                </g>
-
-                                {/* Dedicated Icon Stamper at the bottom */}
-                                {stamperIcon !== 'none' && (
-                                    <g transform="translate(600, 650) scale(4)" className="opacity-10 print:opacity-100">
-                                        <g transform="translate(-10, -10)">
-                                            {renderShape({ x: 0, y: 0 }, 15, stamperIcon, '#e2e8f0')}
-                                        </g>
+                                    {/* The Dots */}
+                                    <g className="dots-container">
+                                        {dots.map((point, i) => (
+                                            <React.Fragment key={i}>
+                                                {renderShape(point, dotSize / 4, selectedShape)}
+                                            </React.Fragment>
+                                        ))}
                                     </g>
-                                )}
+
+                                    {/* Dedicated Icon Stamper at the bottom */}
+                                    {stamperIcon !== 'none' && (
+                                        <g transform={`translate(${totalWidth / 2}, 500) scale(4)`} className="opacity-10 print:opacity-100">
+                                            <g transform="translate(-10, -10)">
+                                                {renderShape({ x: 0, y: 0 }, 15, stamperIcon, '#e2e8f0')}
+                                            </g>
+                                        </g>
+                                    )}
+                                </g>
                             </svg>
 
                             {/* Grid Lines Overlay for Realism */}
