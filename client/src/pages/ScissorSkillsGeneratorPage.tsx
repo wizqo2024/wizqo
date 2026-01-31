@@ -233,7 +233,7 @@ export default function ScissorSkillsGeneratorPage() {
                 {/* Main Content Area */}
                 <div className={`flex-1 w-full ${isVertical ? 'grid grid-cols-4 gap-8 h-full print-vertical-grid' : 'space-y-12'}`}>
                     {Array.from({ length: isVertical ? 4 : stripCount }).map((_, i) => (
-                        <div key={i} className={`relative flex ${isVertical ? 'flex-col h-full items-center px-2 border-l-2 border-dashed border-slate-100 first:border-l-0' : 'items-center group w-full px-8'}`}>
+                        <div key={i} className={`relative flex ${isVertical ? 'flex-col h-full items-center px-2 border-l-2 border-dashed border-slate-100 first:border-l-0 print-strip-center' : 'items-center group w-full px-8'}`}>
 
                             {/* Vertical Mode: Mission End (Face) is at the TOP */}
                             {isVertical && (
@@ -398,6 +398,7 @@ export default function ScissorSkillsGeneratorPage() {
                     }
                     .print_scissor_icon { display: block !important; color: #cbd5e1 !important; }
                     .print-vertical-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; height: 100% !important; }
+                    .print-strip-center { display: flex !important; flex-direction: column !important; align-items: center !important; height: 100% !important; }
                 }
             ` }} />
             <SEOMetaTags
