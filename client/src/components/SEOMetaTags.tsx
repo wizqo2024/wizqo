@@ -7,6 +7,9 @@ interface SEOMetaTagsProps {
   description?: string;
   keywords?: string;
   ogImage?: string | string[];
+  ogImageWidth?: string;
+  ogImageHeight?: string;
+  ogImageAlt?: string;
   canonicalUrl?: string;
   noIndex?: boolean;
   ogType?: 'website' | 'article';
@@ -18,6 +21,9 @@ export function SEOMetaTags({
   description = "Download free printable worksheets for math, reading, writing, and more. Generate unlimited worksheets with answer keys for grades K-5. No sign-up required!",
   keywords = "free printable worksheets, printable worksheets for teachers, free math worksheets, reading comprehension worksheets, handwriting worksheets, printable worksheets PDF, worksheets for kids, educational worksheets, free worksheets first grade, printable worksheets with answer keys, multiplication worksheets, 1st grade math worksheets, 2nd grade math worksheets, kindergarten math worksheets",
   ogImage = "https://wizqo.com/logo-720x720.png",
+  ogImageWidth,
+  ogImageHeight,
+  ogImageAlt,
   canonicalUrl,
   noIndex = false,
   ogType,
@@ -39,6 +45,8 @@ export function SEOMetaTags({
 
     // Update document title
     document.title = title;
+
+    // ... (rest of standard meta tags) ...
 
     // Update meta description
     let metaDescription = document.querySelector('meta[name="description"]');
@@ -88,8 +96,11 @@ export function SEOMetaTags({
     // Update Open Graph image
     const images = Array.isArray(ogImage) ? ogImage : [ogImage];
 
-    // Remove existing og:image tags
+    // Remove existing og:image tags and dimensions
     document.querySelectorAll('meta[property="og:image"]').forEach(el => el.remove());
+    document.querySelectorAll('meta[property="og:image:width"]').forEach(el => el.remove());
+    document.querySelectorAll('meta[property="og:image:height"]').forEach(el => el.remove());
+    document.querySelectorAll('meta[property="og:image:alt"]').forEach(el => el.remove());
 
     // Add new og:image tags
     images.forEach(img => {
@@ -98,6 +109,26 @@ export function SEOMetaTags({
       meta.setAttribute('content', img);
       document.head.appendChild(meta);
     });
+
+    // Add image dimensions if provided (Single set for primary image)
+    if (ogImageWidth) {
+      const meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:image:width');
+      meta.setAttribute('content', ogImageWidth);
+      document.head.appendChild(meta);
+    }
+    if (ogImageHeight) {
+      const meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:image:height');
+      meta.setAttribute('content', ogImageHeight);
+      document.head.appendChild(meta);
+    }
+    if (ogImageAlt) {
+      const meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:image:alt');
+      meta.setAttribute('content', ogImageAlt);
+      document.head.appendChild(meta);
+    }
 
     // Update Open Graph type
     let ogTypeMeta = document.querySelector('meta[property="og:type"]');

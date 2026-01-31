@@ -404,6 +404,9 @@ export default function DotMarkerGeneratorPage() {
                         description={seo.metaDescription || "Create personalized dot marker name tracing worksheets for toddlers and preschoolers. Fun, hands-on fine motor practice. 100% Free PDF."}
                         keywords="dot marker printables, do a dot worksheets, bingo dauber activity, custom name tracing, dot art generator, free preschool worksheets, fine motor skills activities"
                         ogImage="https://wizqo.com/images/seo/dot-marker-olivia.png"
+                        ogImageWidth="1200"
+                        ogImageHeight="630"
+                        ogImageAlt="Free Custom Dot Marker Name Generator Preview"
                         canonicalUrl="https://wizqo.com/worksheets/dot-marker-generator"
                     />
                 );
@@ -452,6 +455,7 @@ export default function DotMarkerGeneratorPage() {
 
                 return (
                     <>
+                        {/* Schema Priority: LearningResource LAST to be most prominent for Google Tool indexing */}
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }} />
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
                         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(learningResourceLd) }} />
