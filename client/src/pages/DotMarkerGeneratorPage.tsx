@@ -368,7 +368,7 @@ export default function DotMarkerGeneratorPage() {
                             <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
                                 Personalization <Sparkles size={18} className="text-purple-400" />
                             </h2>
-                            <p className="text-sm text-slate-400 font-medium">Configure your viral worksheet.</p>
+                            <p className="text-sm text-slate-400 font-medium">Configure your custom worksheet.</p>
                         </div>
 
                         <div className="space-y-6 pt-4">
@@ -508,14 +508,11 @@ export default function DotMarkerGeneratorPage() {
                     {/* Right: Preview Area */}
                     <div className="space-y-8 lg:order-2">
                         <div className="text-center lg:text-left space-y-4">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-600 text-sm font-bold animate-pulse">
-                                <Sparkles size={16} /> 2026 Viral Tool Logic
-                            </div>
                             <h1 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-none">
                                 {HUB_SEO_DATA['dot-marker-generator']?.h1 || "Do-A-Dot Name Generator"}
                             </h1>
                             <p className="text-lg text-slate-500 font-medium max-w-2xl">
-                                The internet's only dynamic dot sampler. Professional layout for Bingo Markers, Q-Tips, and Stickers.
+                                Professional layout for Bingo Markers, Q-Tips, and Stickers.
                             </p>
                         </div>
 
@@ -600,9 +597,6 @@ export default function DotMarkerGeneratorPage() {
                                 Use this dot marker generator to make a class set of name mats for the first week of school.
                                 Great for <strong>name recognition centers</strong>! Our tools are designed to save you hours of prep time.
                             </p>
-                            <p className="mt-4 text-sm italic">
-                                <strong>SEO Strategy Tip:</strong> By mentioning "Bingo Dauber," "Dot Marker," "Do-A-Dot," and "Dot Art," we cover all major synonyms that parents and teachers search for.
-                            </p>
                         </section>
                     </div>
                 </div>
@@ -659,7 +653,7 @@ export default function DotMarkerGeneratorPage() {
                                     <h2 className="text-3xl font-black text-slate-900">Why Use This Dot Marker Generator?</h2>
                                     <p className="text-slate-600 leading-relaxed text-lg">
                                         Traditional PDFs are static and rarely match your child's name perfectly. Our
-                                        <strong> 2026 AI-Powered Sampling Logic</strong> ensures that every letter is
+                                        <strong> Optimized Dot Grid Layout</strong> ensures that every letter is
                                         mapped with mathematical precision.
                                     </p>
                                 </div>
