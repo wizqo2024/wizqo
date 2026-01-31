@@ -209,7 +209,7 @@ export default function ScissorSkillsGeneratorPage() {
         return (
             <div
                 id="scissor-sheet-preview"
-                className={`w-full aspect-[8.5/11] rounded-sm p-12 flex flex-col items-center relative overflow-hidden transition-all duration-500 ${isInkSaving
+                className={`w-full aspect-[8.5/11] rounded-sm p-[0.75in] flex flex-col items-center relative overflow-hidden transition-all duration-500 ${isInkSaving
                     ? 'bg-white border-none'
                     : 'bg-[#FFFDF5] border-[12px] border-purple-200'
                     }`}
@@ -231,9 +231,9 @@ export default function ScissorSkillsGeneratorPage() {
                 </div>
 
                 {/* Main Content Area */}
-                <div className={`flex-1 w-full ${isVertical ? 'flex justify-between items-stretch gap-2' : 'space-y-12'}`}>
+                <div className={`flex-1 w-full ${isVertical ? 'grid grid-cols-4 gap-8 h-full print-vertical-grid' : 'space-y-12'}`}>
                     {Array.from({ length: isVertical ? 4 : stripCount }).map((_, i) => (
-                        <div key={i} className={`relative flex ${isVertical ? 'flex-col flex-1 items-center px-4 border-l-2 border-dashed border-slate-100 first:border-l-0' : 'items-center group w-full px-8'}`}>
+                        <div key={i} className={`relative flex ${isVertical ? 'flex-col h-full items-center px-2 border-l-2 border-dashed border-slate-100 first:border-l-0' : 'items-center group w-full px-8'}`}>
 
                             {/* Vertical Mode: Mission End (Face) is at the TOP */}
                             {isVertical && (
