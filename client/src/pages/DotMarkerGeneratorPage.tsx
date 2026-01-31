@@ -507,13 +507,26 @@ export default function DotMarkerGeneratorPage() {
 
                     {/* Right: Preview Area */}
                     <div className="space-y-4 lg:order-2">
-                        <div className="text-center lg:text-left space-y-2">
-                            <h1 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-none">
-                                {HUB_SEO_DATA['dot-marker-generator']?.h1 || "Do-A-Dot Name Generator"}
-                            </h1>
-                            <p className="text-base text-slate-500 font-medium max-w-2xl">
-                                Professional layout for Bingo Markers, Q-Tips, and Stickers.
-                            </p>
+                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                            <div className="text-center lg:text-left space-y-2">
+                                <h1 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-none">
+                                    {HUB_SEO_DATA['dot-marker-generator']?.h1 || "Do-A-Dot Name Generator"}
+                                </h1>
+                                <p className="text-base text-slate-500 font-medium max-w-2xl">
+                                    Professional layout for Bingo Markers, Q-Tips, and Stickers.
+                                </p>
+                            </div>
+
+                            <div className="flex justify-center md:justify-end print:hidden">
+                                <Button
+                                    onClick={handleDownloadPDF}
+                                    disabled={isGenerating}
+                                    className="h-11 px-6 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-black shadow-lg shadow-purple-200 text-sm group transition-all"
+                                >
+                                    <Download className={`mr-2 h-4 w-4 ${isGenerating ? 'animate-bounce' : 'group-hover:translate-y-0.5'} transition-transform`} />
+                                    {isGenerating ? 'BUILDING...' : 'SAVE PDF'}
+                                </Button>
+                            </div>
                         </div>
 
                         {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) with Height Constraint */}
