@@ -464,11 +464,11 @@ export default function DotMarkerGeneratorPage() {
             })()}
             <UnifiedNavigation />
 
-            <main className="max-w-7xl mx-auto px-4 py-6 lg:py-10">
-                <div className="grid lg:grid-cols-[300px_1fr] gap-12 items-start">
+            <main className="max-w-7xl mx-auto px-4 py-6 lg:py-4">
+                <div className="grid lg:grid-cols-[300px_1fr] gap-6 items-start">
 
                     {/* Left: Sidebar Controls */}
-                    <aside className="sticky top-24 space-y-4 bg-white p-6 rounded-[32px] border-2 border-slate-50 shadow-xl shadow-slate-200/50 print:hidden lg:order-1">
+                    <aside className="sticky top-4 space-y-4 bg-white p-6 rounded-[32px] border-2 border-slate-50 shadow-xl shadow-slate-200/50 print:hidden lg:order-1">
                         <div className="space-y-1">
                             <h2 className="text-xl font-black text-slate-800 flex items-center gap-2">
                                 Personalization <Sparkles size={18} className="text-purple-400" />
@@ -596,13 +596,14 @@ export default function DotMarkerGeneratorPage() {
                     </aside>
 
                     {/* Right: Preview Area */}
-                    <div className="space-y-4 lg:order-2">
+                    {/* Right: Preview Area */}
+                    <div className="space-y-2 lg:order-2">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                            <div className="text-center lg:text-left space-y-2">
-                                <h1 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-none">
+                            <div className="text-center lg:text-left space-y-1">
+                                <h1 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight leading-none mb-1">
                                     {HUB_SEO_DATA['dot-marker-generator']?.h1 || "Do-A-Dot Name Generator"}
                                 </h1>
-                                <p className="text-base text-slate-500 font-medium max-w-2xl">
+                                <p className="text-sm text-slate-500 font-medium max-w-2xl">
                                     Professional layout for Bingo Markers, Q-Tips, and Stickers.
                                 </p>
                             </div>
