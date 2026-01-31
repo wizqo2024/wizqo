@@ -177,6 +177,11 @@ export default function App() {
     // Track page view and user flow on route change
     const currentRoute = window.location.pathname + window.location.search;
     if (currentRoute !== prevRouteRef.current) {
+      // Scroll to top on navigation (except for same-page hash links)
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      }
+
       trackPageView(currentRoute);
       if (prevRouteRef.current) {
         trackUserFlow(prevRouteRef.current, currentRoute, 'navigation');
