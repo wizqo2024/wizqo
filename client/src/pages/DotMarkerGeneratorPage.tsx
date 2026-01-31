@@ -542,48 +542,59 @@ export default function DotMarkerGeneratorPage() {
                         </div>
 
                         {/* SVG Preview Container: Adjusted to Portrait Paper Aspect Ratio (A4) with Height Constraint */}
-                        <div className="w-full aspect-[1/1.41] max-h-[600px] bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none">
-                            <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:bg-white" />
 
-                            <svg
-                                ref={svgRef}
-                                viewBox={`0 0 ${Math.max(800, totalWidth + 100)} 1000`}
-                                className="max-w-full max-h-full drop-shadow-2xl"
-                                preserveAspectRatio="xMidYMid meet"
-                            >
-                                {/* Center the name group */}
-                                <g transform={`translate(${totalWidth < 700 ? (700 - totalWidth) / 2 : 0}, 150)`}>
-                                    <g className="dots-container">
-                                        {dots.map((point, i) => (
-                                            <React.Fragment key={i}>
-                                                {renderShape(point, dotSize / 4, selectedShape)}
-                                            </React.Fragment>
-                                        ))}
-                                    </g>
-                                </g>
+                        <div className="w-full aspect-[1/1.41] max-h-[600px] bg-white relative p-8 flex items-center justify-center overflow-auto rounded-3xl border-2 border-slate-100 shadow-2xl shadow-purple-500/5 print:shadow-none print:border-0 print:rounded-none print:max-h-none print:overflow-visible print:aspect-auto print:p-0">
+                            <div className="absolute inset-0 bg-[#FAFAFA] opacity-50 print:hidden" />
 
-                                {/* Branding Footer - Independently Centered */}
-                                <g transform={`translate(${Math.max(800, totalWidth + 100) / 2}, 900)`}>
-                                    {logoBase64 && (
-                                        <image
-                                            href={logoBase64}
-                                            x="-40"
-                                            y="-40"
-                                            height="80"
-                                            width="80"
-                                            preserveAspectRatio="xMidYMid meet"
-                                        />
-                                    )}
-                                    <text
-                                        y="55"
-                                        textAnchor="middle"
-                                        className="fill-slate-400 text-[14px] font-bold uppercase tracking-widest"
-                                        style={{ fontFamily: 'sans-serif' }}
+                            {(() => {
+                                const minWidth = 800;
+                                const contentWidth = Math.max(minWidth, totalWidth + 100);
+                                // Enforce A4 Portrait Aspect Ratio (1 : 1.4142)
+                                const ratio = 1.4142;
+                                const contentHeight = contentWidth * ratio;
+
+                                return (
+                                    <svg
+                                        ref={svgRef}
+                                        viewBox={`0 0 ${contentWidth} ${contentHeight}`}
+                                        className="max-w-full max-h-full drop-shadow-2xl"
+                                        preserveAspectRatio="xMidYMid meet"
                                     >
-                                        wizqo.com
-                                    </text>
-                                </g>
-                            </svg>
+                                        {/* Center the name group horizontally based on actual contentWidth */}
+                                        <g transform={`translate(${(contentWidth - totalWidth) / 2}, 150)`}>
+                                            <g className="dots-container">
+                                                {dots.map((point, i) => (
+                                                    <React.Fragment key={i}>
+                                                        {renderShape(point, dotSize / 4, selectedShape)}
+                                                    </React.Fragment>
+                                                ))}
+                                            </g>
+                                        </g>
+
+                                        {/* Branding Footer - Positioned relative to bottom */}
+                                        <g transform={`translate(${contentWidth / 2}, ${contentHeight - 100})`}>
+                                            {logoBase64 && (
+                                                <image
+                                                    href={logoBase64}
+                                                    x="-40"
+                                                    y="-40"
+                                                    height="80"
+                                                    width="80"
+                                                    preserveAspectRatio="xMidYMid meet"
+                                                />
+                                            )}
+                                            <text
+                                                y="55"
+                                                textAnchor="middle"
+                                                className="fill-slate-400 text-[14px] font-bold uppercase tracking-widest"
+                                                style={{ fontFamily: 'sans-serif' }}
+                                            >
+                                                wizqo.com
+                                            </text>
+                                        </g>
+                                    </svg>
+                                );
+                            })()}
 
                             {/* Grid Lines Overlay for Realism */}
                             <div className="absolute inset-0 pointer-events-none opacity-5 print:hidden bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]" />
