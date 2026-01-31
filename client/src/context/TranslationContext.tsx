@@ -221,10 +221,10 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     if (Object.keys(params).length > 0) {
       Object.keys(params).forEach(paramKey => {
         const val = String(params[paramKey]);
-        // Replace {{key}}
-        result = result.replace(new RegExp(`{{${paramKey}}}`, 'g'), val);
-        // Replace {key} (standard logical format)
-        result = result.replace(new RegExp(`{${paramKey}}`, 'g'), val);
+        // Use split/join instead of RegExp to avoid syntax errors with numeric keys like {0}
+        // which RegExp interprets as an invalid quantifier
+        result = result.split(`{{${paramKey}}}`).join(val);
+        result = result.split(`{${paramKey}}`).join(val);
       });
     }
 

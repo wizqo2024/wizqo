@@ -4541,17 +4541,17 @@ export function LatticeMultiplication({ seed, variant, showAnswers, showAnswersF
             title={getTrans("title", "Lattice Multiplication Master")}
             emoji={String.fromCodePoint(0x1F9E9)}
             description={getTrans("description", "Master the multi-digit multiplication using the lattice method! Solve these problems using the grids provided.")}
-            learningObjectives={t("learningObjectives", [
+            learningObjectives={[
                 "Understand the place value structure of multiplication",
                 "Master the lattice multiplication method",
                 "Improve accuracy with multi-digit products"
-            ])}
-            parentTeacherTips={t("parentTeacherTips", [
+            ]}
+            parentTeacherTips={[
                 "Each cell is for one single multiplication (e.g., 2 x 4)",
                 "Write tens in the top triangle and ones in the bottom",
                 "Sum along the diagonals, starting from the bottom right",
                 "Remember to carry over if a diagonal sum is 10 or more!"
-            ])}
+            ]}
         >
             <PremiumWorksheetBanner
                 title={getTrans("banner.title", "Golden Grid Challenge")}
