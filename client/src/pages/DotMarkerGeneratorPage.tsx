@@ -97,11 +97,11 @@ export default function DotMarkerGeneratorPage() {
 
     // State
     const [childName, setChildName] = useState<string>('AVA');
-    const [dotSize, setDotSize] = useState<number>(30); // Radius in pixels for preview
+    const [dotSize, setDotSize] = useState<number>(35); // Radius in pixels for preview
     const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
     const [repeatCount, setRepeatCount] = useState<number>(1);
-    const [rowSpacing, setRowSpacing] = useState<number>(300); // Vertical gap between repeated names
-    const [spacing, setSpacing] = useState<number>(65); // Spacing between dots
+    const [rowSpacing, setRowSpacing] = useState<number>(60); // Vertical gap between repeated names
+    const [spacing, setSpacing] = useState<number>(45); // Spacing between dots
     const [isStickerMode, setIsStickerMode] = useState<boolean>(false);
     const [colorTheme, setColorTheme] = useState<ColorTheme>('bw');
     const [selectedShape, setSelectedShape] = useState<ShapeType>('circle');
@@ -533,7 +533,7 @@ export default function DotMarkerGeneratorPage() {
                                         className="accent-purple-600"
                                     />
                                     <p className="text-[10px] text-slate-400 italic flex items-center gap-1 leading-tight">
-                                        <Info size={10} /> 18-20px is perfect for standard Bingo Markers.
+                                        <Info size={10} /> 30-35px is perfect for screen preview.
                                     </p>
                                 </div>
 
@@ -639,10 +639,10 @@ export default function DotMarkerGeneratorPage() {
                             <button
                                 onClick={() => {
                                     setChildName('NAME');
-                                    setDotSize(30);
-                                    setSpacing(65);
+                                    setDotSize(35);
+                                    setSpacing(45);
                                     setRepeatCount(1);
-                                    setRowSpacing(300);
+                                    setRowSpacing(60);
                                     setColorTheme('bw');
                                     setIsStickerMode(false);
                                 }}
