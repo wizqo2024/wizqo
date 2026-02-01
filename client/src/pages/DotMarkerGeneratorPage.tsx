@@ -781,12 +781,12 @@ export default function DotMarkerGeneratorPage() {
                                             <g className="dots-container">
                                                 {dots.map((point, i) => (
                                                     <React.Fragment key={i}>
-                                                        {/* FIX: Removed / 4 from dotSize. size arg expects radius? 
-                                                            Actually dotSize in state is for radius. 
-                                                            Previous bug was dotSize / 4 = ~7.5px radius = 15px diameter.
-                                                            18mm is ~70px diameter. 35px radius. 
+                                                        {/* FIX: Divided dotSize by 2. 
+                                                            In SVG, 'r' expects radius. 
+                                                            By dividing set value (Diameter) by 2, we get correct radius.
+                                                            Example: 35px Diameter / 2 = 17.5px Radius.
                                                         */}
-                                                        {renderShape(point, dotSize, selectedShape)}
+                                                        {renderShape(point, dotSize / 2, selectedShape)}
                                                     </React.Fragment>
                                                 ))}
                                             </g>
