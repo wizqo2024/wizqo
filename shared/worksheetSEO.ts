@@ -2893,106 +2893,109 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     h1: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)',
     image: '/images/counting-generator-seo.png',
     metaDescription: 'Stop searching for expensive workbooks. Create unlimited, fun, and colorful math worksheets for your child in seconds! 100% Free PDF • No Sign Up Required.',
-    keywords: 'counting numbers worksheets, free numbers tracing generator, kindergarten math worksheets, preschool counting games, one-to-one correspondence, free math printables, no sign up required, wizqo',
+    keywords: 'counting numbers worksheets, number tracing 1-10, kindergarten math worksheets, free tracing generator, preschool number practice, learn to count printables, fine motor math activities',
     learningObjectives: [
       'Identify and count objects from 1 to 10',
       'Understand one-to-one correspondence',
       'Develop fine motor skills through number tracing',
       'Build numerical confidence with customizable themes'
     ],
-    richContent: `<article style="max-width: 1000px; margin: 0 auto; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #334155; line-height: 1.6;">
-      <!-- Magic Wavy Hero Section -->
-      <div style="text-align: center; padding: 4rem 2rem 6rem 2rem; background: linear-gradient(180deg, #f3e8ff 0%, #e0c3fc 100%); border-radius: 0 0 50% 50% / 5%; margin-bottom: 4rem;">
-        <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #4c1d95; margin-bottom: 1rem; line-height: 1.1; letter-spacing: -0.03em;">
-          Free Counting Numbers <br/><span style="color: #7c3aed;">Worksheets Generator</span>
-        </h1>
-        <p style="font-size: 1.25rem; color: #6b21a8; max-width: 600px; margin: 0 auto 2.5rem; font-weight: 500;">
-          Create unlimited, ink-saving worksheets in seconds. No sign up required.
-        </p>
-        
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
-          <span style="background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); padding: 0.6rem 1.2rem; border-radius: 99px; font-weight: 700; color: #5b21b6; font-size: 0.9rem; box-shadow: 0 2px 10px rgba(124, 58, 237, 0.1); display: flex; align-items: center; gap: 0.5rem;">
-            <span style="color: #7c3aed;">✨</span> 100% Free PDF
-          </span>
-          <span style="background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); padding: 0.6rem 1.2rem; border-radius: 99px; font-weight: 700; color: #5b21b6; font-size: 0.9rem; box-shadow: 0 2px 10px rgba(124, 58, 237, 0.1); display: flex; align-items: center; gap: 0.5rem;">
-            <span style="color: #7c3aed;">🚀</span> No Sign Up
-          </span>
-          <span style="background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); padding: 0.6rem 1.2rem; border-radius: 99px; font-weight: 700; color: #5b21b6; font-size: 0.9rem; box-shadow: 0 2px 10px rgba(124, 58, 237, 0.1); display: flex; align-items: center; gap: 0.5rem;">
-            <span style="color: #7c3aed;">🖨️</span> Ink-Saving Mode
-          </span>
-        </div>
+    richContent: `<main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+  <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Counting Numbers Worksheets & Tracing Generator</h1>
+  <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
+    Create unlimited, customized <strong>number tracing worksheets</strong> for your preschooler or kindergartener. 
+    This tool combines <strong>counting practice</strong> with <strong>handwriting development</strong>, allowing children to visualize quantity while mastering number formation.
+  </p>
+
+  <div style="margin-bottom: 3rem;">
+    <h2 style="font-size: 1.875rem; font-weight: 800; color: #5b21b6; margin-bottom: 1.5rem;">How to Use This Generator</h2>
+    <ol style="color: #4c1d95; line-height: 1.8; padding-left: 1.5rem;">
+      <li><strong>Select Your Number Range:</strong> Choose 1-5 for beginners or 1-10 for advanced counting.</li>
+      <li><strong>Choose Visuals:</strong> Add "Ten Frames" or "Object Groups" (like stars or apples) to help with visualization.</li>
+      <li><strong>Customize Tracing:</strong> Select "Dotted Lines" or "Hollow Outlines" depending on your child's skill level.</li>
+      <li><strong>Print Instantly:</strong> Generate a high-quality PDF specifically designed for standard A4 or Letter paper.</li>
+    </ol>
+  </div>
+
+  <section style="margin-bottom: 3rem; background: #f5f3ff; padding: 2rem; border-radius: 12px; border: 1px solid #ddd6fe;">
+    <h2 style="font-size: 1.875rem; font-weight: 800; color: #5b21b6; margin-bottom: 1.5rem;">Why Counting & Tracing Matters</h2>
+    <p style="color: #475569; line-height: 1.6; margin-bottom: 1rem;">
+      <strong>1. One-to-One Correspondence:</strong> 
+      By connecting a written number (like "5") with a visual group of 5 items, children learn that numbers represent actual quantities, not just words.
+    </p>
+    <p style="color: #475569; line-height: 1.6;">
+      <strong>2. Fine Motor Control:</strong> 
+      Tracing curves and straight lines requires finger isolation and wrist control—the exact muscles needed for tying shoes and buttoning shirts later in life.
+    </p>
+  </section>
+
+  <section style="margin-bottom: 3rem;">
+    <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
+    <div style="margin-bottom: 1.5rem;">
+      <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.25rem;">What age is this for?</h3>
+      <p style="color: #475569;">These worksheets are ideal for <strong>Preschool (Ages 3-4)</strong> for basic counting and <strong>Kindergarten (Ages 5-6)</strong> for writing practice.</p>
+    </div>
+    <div style="margin-bottom: 1.5rem;">
+      <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.25rem;">Why use "Ten Frames"?</h3>
+      <p style="color: #475569;">Ten frames help children "subitize" (instantly see) values without counting one by one. It is a critical skill for future addition and subtraction.</p>
+    </div>
+  </section>
+</main>
+  <section style="margin-bottom: 4rem; background: #0f172a; padding: 3rem; border-radius: 2rem; color: #ffffff;">
+    <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; text-align: center; color: #ffffff;">How to Create Your Worksheet</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem;">
+      <div style="text-align: center;">
+        <div style="width: 2.5rem; height: 2.5rem; background: #4f46e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">1</div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Select Number</h3>
+        <p style="color: #ffffff; font-size: 0.875rem;">Choose any number from 1 to 10 using the quick buttons above.</p>
       </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
-
-        <div style="padding: 2rem; background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);">
-          <div style="width: 3rem; height: 3rem; background: #e0e7ff; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem;">🎮</div>
-          <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1rem;">Turn Math into a Game</h2>
-          <p style="color: #64748b; margin-bottom: 0;">Stop buying expensive workbooks. Wizqo makes learning math magical with customizable themes. Whether your child loves bunnies, dinosaurs, or space, we make counting feel like play.</p>
-        </div>
-        <div style="padding: 2rem; background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);">
-          <div style="width: 3rem; height: 3rem; background: #dcfce7; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem;">🧠</div>
-          <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1rem;">Foundation First</h2>
-          <p style="color: #64748b; margin-bottom: 0;">By connecting "visual counting" with "number tracing," your child builds a strong foundation. They aren't just memorizing; they are understanding relationships.</p>
-        </div>
+      <div style="text-align: center;">
+        <div style="width: 2.5rem; height: 2.5rem; background: #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">2</div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Choose Theme</h3>
+        <p style="color: #ffffff; font-size: 0.875rem;">Bunnies, Dinosaurs, or Space? Let your child pick their favorite!</p>
       </div>
-
-      <!-- How it works -->
-      <section style="margin-bottom: 4rem; background: #0f172a; padding: 3rem; border-radius: 2rem; color: #ffffff;">
-        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; text-align: center; color: #ffffff;">How to Create Your Worksheet</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem;">
-          <div style="text-align: center;">
-            <div style="width: 2.5rem; height: 2.5rem; background: #4f46e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">1</div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Select Number</h3>
-            <p style="color: #ffffff; font-size: 0.875rem;">Choose any number from 1 to 10 using the quick buttons above.</p>
-          </div>
-          <div style="text-align: center;">
-            <div style="width: 2.5rem; height: 2.5rem; background: #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">2</div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Choose Theme</h3>
-            <p style="color: #ffffff; font-size: 0.875rem;">Bunnies, Dinosaurs, or Space? Let your child pick their favorite!</p>
-          </div>
-          <div style="text-align: center;">
-            <div style="width: 2.5rem; height: 2.5rem; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">3</div>
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Print & Learn</h3>
-            <p style="color: #ffffff; font-size: 0.875rem;">Click 'Download PDF' and get your free high-quality worksheet instantly.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Teacher Tip -->
-      <div style="margin-bottom: 4rem; padding: 2rem; background: #fffbeb; border-radius: 1.5rem; border: 2px dashed #f59e0b; display: flex; gap: 1.5rem; align-items: flex-start;">
-        <div style="font-size: 2rem;">💡</div>
-        <div>
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: #92400e; margin-bottom: 0.5rem;">Teacher Tip for Mastery</h3>
-          <p style="color: #b45309; margin: 0; font-weight: 500;">Once your child masters single digits, help them count between numbers by printing a sequence (e.g., 4, 5, 6) and stapling them into a "My First Math Book"!</p>
-        </div>
+      <div style="text-align: center;">
+        <div style="width: 2.5rem; height: 2.5rem; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-weight: 900; color: #ffffff;">3</div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; color: #ffffff;">Print & Learn</h3>
+        <p style="color: #ffffff; font-size: 0.875rem;">Click 'Download PDF' and get your free high-quality worksheet instantly.</p>
       </div>
+    </div>
+  </section>
 
-      <!-- FAQ -->
-      <section style="margin-bottom: 4rem;">
-        <h2 style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 2rem; text-align: center;">Frequently Asked Questions</h2>
-        <div style="display: grid; gap: 1.5rem;">
-          <div style="padding: 1.5rem; background: white; border-radius: 1rem; border: 1px solid #e2e8f0;">
-            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Are these worksheets really free?</h3>
-            <p style="color: #64748b; margin: 0; line-height: 1.6;">Yes! Every counting worksheet on Wizqo is 100% free. No subscriptions, no hidden fees, and no account required.</p>
-          </div>
-          <div style="padding: 1.5rem; background: white; border-radius: 1rem; border: 1px solid #e2e8f0;">
-            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Can I use these for my classroom?</h3>
-            <p style="color: #64748b; margin: 0; line-height: 1.6;">Absolutely. Our tools are designed specifically for teachers and parents. You are welcome to print and distribute them for any educational purpose.</p>
-          </div>
-        </div>
-      </section>
+  <!-- Teacher Tip -->
+  <div style="margin-bottom: 4rem; padding: 2rem; background: #fffbeb; border-radius: 1.5rem; border: 2px dashed #f59e0b; display: flex; gap: 1.5rem; align-items: flex-start;">
+    <div style="font-size: 2rem;">💡</div>
+    <div>
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: #92400e; margin-bottom: 0.5rem;">Teacher Tip for Mastery</h3>
+      <p style="color: #b45309; margin: 0; font-weight: 500;">Once your child masters single digits, help them count between numbers by printing a sequence (e.g., 4, 5, 6) and stapling them into a "My First Math Book"!</p>
+    </div>
+  </div>
 
-      <!-- CTA -->
-      <section style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); padding: 3rem; border-radius: 2rem; text-align: center; color: white;">
-        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Ready for More?</h2>
-        <p style="font-size: 1.125rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Explore our other zero-setup worksheet generators and keep the learning going!</p>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
-          <a href="/worksheets/addition-subtraction-within-10" style="background: white; color: #4f46e5; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; transition: transform 0.2s;">Addition Practice</a>
-          <a href="/worksheets/scissor-skills-generator" style="background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; border: 1px solid white; transition: background 0.2s;">Scissor Skills</a>
-        </div>
-      </section>
-    </article>`,
+  <!-- FAQ -->
+  <section style="margin-bottom: 4rem;">
+    <h2 style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-bottom: 2rem; text-align: center;">Frequently Asked Questions</h2>
+    <div style="display: grid; gap: 1.5rem;">
+      <div style="padding: 1.5rem; background: white; border-radius: 1rem; border: 1px solid #e2e8f0;">
+        <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Are these worksheets really free?</h3>
+        <p style="color: #64748b; margin: 0; line-height: 1.6;">Yes! Every counting worksheet on Wizqo is 100% free. No subscriptions, no hidden fees, and no account required.</p>
+      </div>
+      <div style="padding: 1.5rem; background: white; border-radius: 1rem; border: 1px solid #e2e8f0;">
+        <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Can I use these for my classroom?</h3>
+        <p style="color: #64748b; margin: 0; line-height: 1.6;">Absolutely. Our tools are designed specifically for teachers and parents. You are welcome to print and distribute them for any educational purpose.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); padding: 3rem; border-radius: 2rem; text-align: center; color: white;">
+    <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Ready for More?</h2>
+    <p style="font-size: 1.125rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Explore our other zero-setup worksheet generators and keep the learning going!</p>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+      <a href="/worksheets/addition-subtraction-within-10" style="background: white; color: #4f46e5; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; transition: transform 0.2s;">Addition Practice</a>
+      <a href="/worksheets/scissor-skills-generator" style="background: rgba(255,255,255,0.2); color: white; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; text-decoration: none; border: 1px solid white; transition: background 0.2s;">Scissor Skills</a>
+    </div>
+  </section>
+</article>`,
   }
 };
 

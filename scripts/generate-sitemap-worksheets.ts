@@ -11,7 +11,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { fileURLToPath } from 'url'
-import { getAllWorksheetSEO } from '../shared/worksheetSEO'
+import { getAllWorksheetSEO } from '../shared/worksheetSEO.ts'
 
 function escapeXml(unsafe: string | undefined | null): string {
   if (!unsafe) return '';
