@@ -183,7 +183,8 @@ function getThumbnailForRoute(routePath, title = '') {
   if (slug) {
     const seoMap = getWorksheetSEODataMap();
     if (seoMap[slug] && seoMap[slug].image) {
-      return `${SITE}${seoMap[slug].image}`;
+      const img = seoMap[slug].image;
+      return img.startsWith('http') ? img : `${SITE}${img}`;
     }
   }
 
@@ -211,7 +212,8 @@ function getThumbnailForRoute(routePath, title = '') {
   if (path === '/' || path === '') {
     const seoMap = getWorksheetSEODataMap();
     if (seoMap['home'] && seoMap['home'].image) {
-      return `${SITE}${seoMap['home'].image}`;
+      const img = seoMap['home'].image;
+      return img.startsWith('http') ? img : `${SITE}${img}`;
     }
   }
 

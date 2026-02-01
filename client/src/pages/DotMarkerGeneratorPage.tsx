@@ -356,7 +356,27 @@ export default function DotMarkerGeneratorPage() {
                 canvas.width = isPortrait ? 1190 : 1684;
                 canvas.height = isPortrait ? 1684 : 1190;
 
-                ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+                const viewBox = svg.viewBox.baseVal;
+                const svgWidth = viewBox.width || 800;
+                const svgHeight = viewBox.height || 1131;
+                const svgRatio = svgWidth / svgHeight;
+                const canvasRatio = canvas.width / canvas.height;
+
+                let drawWidth = canvas.width;
+                let drawHeight = canvas.height;
+                let offsetX = 0;
+                let offsetY = 0;
+
+                if (svgRatio > canvasRatio) {
+                    drawHeight = canvas.width / svgRatio;
+                    offsetY = (canvas.height - drawHeight) / 2;
+                } else {
+                    drawWidth = canvas.height * svgRatio;
+                    offsetX = (canvas.width - drawWidth) / 2;
+                }
+
+                ctx?.clearRect(0, 0, canvas.width, canvas.height);
+                ctx?.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
                 const imgData = canvas.toDataURL('image/png');
 
                 // Add to PDF
@@ -374,6 +394,11 @@ export default function DotMarkerGeneratorPage() {
     };
 
     if (isPrinting) {
+        const minWidth = 800;
+        const contentWidth = Math.max(minWidth, totalWidth + 100);
+        const totalRowsHeight = (repeatCount * singleRowHeight) + ((repeatCount - 1) * rowSpacing);
+        const contentHeight = totalRowsHeight + 400;
+
         return (
             <div className={`flex items-center justify-center overflow-hidden bg-white m-0 p-0 ${orientation === 'portrait' ? 'w-[210mm] h-[297mm]' : 'w-[297mm] h-[210mm]'}`}>
                 <style>{`
@@ -381,20 +406,20 @@ export default function DotMarkerGeneratorPage() {
                     body { margin: 0; box-shadow: none; }
                 `}</style>
                 <svg
-                    viewBox={`0 0 ${Math.max(800, totalWidth + 100)} ${Math.max(800, totalWidth + 100) * 1.4142}`}
+                    viewBox={`0 0 ${contentWidth} ${contentHeight}`}
                     className="w-full h-full"
                     preserveAspectRatio="xMidYMid meet"
                 >
-                    <g transform={`translate(${totalWidth < 700 ? (700 - totalWidth) / 2 : 0}, 150)`}>
+                    <g transform={`translate(${(contentWidth - totalWidth) / 2}, ${spacing})`}>
                         <g className="dots-container">
                             {dots.map((point, i) => (
                                 <React.Fragment key={i}>
-                                    {renderShape(point, dotSize / 4, selectedShape)}
+                                    {renderShape(point, dotSize / 2, selectedShape)}
                                 </React.Fragment>
                             ))}
                         </g>
                     </g>
-                    <g transform={`translate(${Math.max(800, totalWidth + 100) / 2}, ${Math.max(800, totalWidth + 100) * 1.4142 - 100})`}>
+                    <g transform={`translate(${contentWidth / 2}, ${contentHeight - 100})`}>
                         {logoBase64 && (
                             <image
                                 href={logoBase64}
@@ -707,7 +732,7 @@ export default function DotMarkerGeneratorPage() {
                             {`
                                 @media print {
                                     @page {
-                                        size: A4 portrait;
+                                        size: A4 ${orientation};
                                         margin: 0;
                                     }
                                     html, body {
@@ -732,8 +757,8 @@ export default function DotMarkerGeneratorPage() {
                                         position: absolute;
                                         left: 0;
                                         top: 0;
-                                        width: 210mm;
-                                        height: 297mm;
+                                        width: ${orientation === 'portrait' ? '210mm' : '297mm'};
+                                        height: ${orientation === 'portrait' ? '297mm' : '210mm'};
                                         margin: 0;
                                         padding: 0;
                                         overflow: hidden;
