@@ -423,13 +423,14 @@ export default function DotMarkerGeneratorPage() {
         <div className="min-h-screen flex flex-col bg-slate-50 font-sans">
             {(() => {
                 const seo = HUB_SEO_DATA['dot-marker-generator'] || {};
-                const imageArray = Array.isArray(seo.image) ? seo.image : [seo.image || "/images/dot-marker-16x9.png"];
+                const ogImageUrl = typeof seo.image === 'string' ? seo.image : (Array.isArray(seo.image) ? seo.image[0] : "/images/dot-marker-16x9.png");
+
                 return (
                     <SEOMetaTags
                         title={seo.title || "Free Dot Marker Generator | Custom Name Worksheets | Wizqo"}
                         description={seo.metaDescription || "Create personalized dot marker name tracing worksheets for toddlers and preschoolers. Fun, hands-on fine motor practice. 100% Free PDF."}
-                        keywords="dot marker printables, do a dot worksheets, bingo dauber activity, custom name tracing, dot art generator, free preschool worksheets, fine motor skills activities"
-                        ogImage="https://wizqo.com/images/seo/dot-marker-olivia.png"
+                        keywords={seo.keywords || "dot marker printables, do a dot worksheets, bingo dauber activity, custom name tracing, dot art generator, free preschool worksheets, fine motor skills activities"}
+                        ogImage={ogImageUrl.startsWith('http') ? ogImageUrl : `https://wizqo.com${ogImageUrl}`}
                         ogImageWidth="1200"
                         ogImageHeight="630"
                         ogImageAlt="Free Custom Dot Marker Name Generator Preview"
