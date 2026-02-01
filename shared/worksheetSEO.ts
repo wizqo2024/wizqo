@@ -3754,6 +3754,7 @@ export function initializeWorksheetSEO() {
     'reading-comprehension', 'multiplication-worksheets', '5th-grade-math-worksheets', '4th-grade-math-worksheets',
     '3rd-grade-math-worksheets', '2nd-grade-math-worksheets', '1st-grade-math-worksheets', 'kindergarten-math-worksheets',
     'interactive-worksheets-generator',
+    'dot-marker-generator',
     'counting-numbers-generator'
   ]
 
@@ -4110,7 +4111,7 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     metaDescription: 'Make personalized Do-A-Dot name tracing worksheets in seconds. Perfect for Bingo Daubers, sticker activities, and fine motor skills. 100% Free & Instant PDF.',
     keywords: 'Free Dot Marker Generator, Do a Dot Name Tracing, Bingo Dauber Printables, Custom name dot marker sheets free, Alphabet do a dot printables for toddlers, Fine motor skills dot art generator, Free printable dot marker worksheets pdf, Sticker name activity for preschool, Q-Tip painting name template, Stamping worksheets, Dot art maker',
     h1: 'Free Custom Dot Marker Name Generator',
-    image: 'https://wizqo.com/images/dot-marker-16x9.png',
+    image: '/images/dot-marker-16x9.png',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Custom Dot Marker Name Generator</h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to the internet's most advanced <strong>Free Dot Marker Generator</strong>. Whether you call them Bingo Daubers, Dot Art, or Do-A-Dot markers, our tool creates the perfect personalized name worksheets for your child. Designed for preschoolers and kindergarteners, this tool builds <strong>fine motor skills</strong> through engaging, hands-on play.</p>

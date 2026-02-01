@@ -157,6 +157,10 @@ function generate() {
     loc: `${site}/images/counting-generator-seo.png`,
     caption: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)'
   });
+  push(`${site}/worksheets/dot-marker-generator`, today, 'daily', '0.9', {
+    loc: `${site}/images/dot-marker-16x9.png`,
+    caption: 'Free Dot Marker Generator - Create custom name tracing worksheets'
+  });
 
   // Intentionally exclude /print?doc=..., /plan, /dashboard, /reset-password, /privacy, /terms, /cookies from sitemap (non-indexed)
 
