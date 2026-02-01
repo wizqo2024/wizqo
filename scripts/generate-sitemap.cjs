@@ -14,6 +14,20 @@ function readFileSafe(p) {
   try { return fs.readFileSync(p, 'utf8'); } catch { return null; }
 }
 
+function escapeXml(unsafe) {
+  if (!unsafe) return '';
+  return unsafe.replace(/[<>&'"]/g, function (c) {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case '\'': return '&apos;';
+      case '"': return '&quot;';
+    }
+    return c;
+  });
+}
+
 function parseFrontmatter(md) {
   const m = md.match(/^---\n([\s\S]*?)\n---/);
   if (!m) return {};
@@ -177,15 +191,15 @@ function generate() {
     ...urls.map(u => {
       const parts = [
         '  <url>',
-        `    <loc>${u.loc}</loc>`,
-        u.lastmod ? `    <lastmod>${u.lastmod}</lastmod>` : null,
-        `    <changefreq>${u.changefreq}</changefreq>`,
-        `    <priority>${u.priority}</priority>`
+        `    <loc>${escapeXml(u.loc)}</loc>`,
+        u.lastmod ? `    <lastmod>${escapeXml(u.lastmod)}</lastmod>` : null,
+        `    <changefreq>${escapeXml(u.changefreq)}</changefreq>`,
+        `    <priority>${escapeXml(u.priority)}</priority>`
       ];
       if (u.image) {
         parts.push('    <image:image>');
-        parts.push(`      <image:loc>${u.image.loc}</image:loc>`);
-        if (u.image.caption) parts.push(`      <image:caption>${u.image.caption}</image:caption>`);
+        parts.push(`      <image:loc>${escapeXml(u.image.loc)}</image:loc>`);
+        if (u.image.caption) parts.push(`      <image:caption>${escapeXml(u.image.caption)}</image:caption>`);
         parts.push('    </image:image>');
       }
       parts.push('  </url>');

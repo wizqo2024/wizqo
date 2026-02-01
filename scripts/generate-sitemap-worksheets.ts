@@ -13,6 +13,20 @@ import * as path from 'path'
 import { fileURLToPath } from 'url'
 import { getAllWorksheetSEO } from '../shared/worksheetSEO'
 
+function escapeXml(unsafe: string | undefined | null): string {
+  if (!unsafe) return '';
+  return unsafe.replace(/[<>&'"]/g, (c) => {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case '\'': return '&apos;';
+      case '"': return '&quot;';
+    }
+    return c;
+  });
+}
+
 function generateSitemap() {
   const allWorksheets = getAllWorksheetSEO()
   const worksheets = allWorksheets.filter(w => w.slug !== 'why-custom-name-tracing-works')
@@ -43,10 +57,10 @@ function generateSitemap() {
     const priority = '0.6'
 
     xml += `  <url>
-    <loc>${url}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
+    <loc>${escapeXml(url)}</loc>
+    <lastmod>${escapeXml(lastmod)}</lastmod>
+    <changefreq>${escapeXml(changefreq)}</changefreq>
+    <priority>${escapeXml(priority)}</priority>
   </url>
 `
   }
