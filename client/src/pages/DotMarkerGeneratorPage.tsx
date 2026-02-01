@@ -722,11 +722,10 @@ export default function DotMarkerGeneratorPage() {
                                 const contentWidth = Math.max(minWidth, totalWidth + 100);
 
                                 // Dynamic Height Calculation: 
-                                // Text = 7 rows. Icon starts at 8. Icon ~7 rows. Total ~16 rows generously.
-                                // If no icon, we only need ~8 rows.
-                                const contentHeight = stamperIcon !== 'none'
-                                    ? 16 * spacing // Text (7) + Gap (1) + Icon (7) + Buffer
-                                    : 8 * spacing; // Text (7) + Buffer
+                                // Text = 7 rows. Icon starts at 8. Icon ~7 rows. Total ~15 rows used.
+                                // We add extra row buffer + 300px for Branding Footer
+                                const rowsNeeded = stamperIcon !== 'none' ? 16 : 8;
+                                const contentHeight = (rowsNeeded * spacing) + 300;
 
                                 return (
                                     <svg
@@ -736,7 +735,6 @@ export default function DotMarkerGeneratorPage() {
                                         preserveAspectRatio="xMidYMid meet"
                                     >
                                         {/* Center the name group horizontally based on actual contentWidth */}
-                                        {/* Vertical center is simpler now: just push down a bit (dotSpacing) */}
                                         <g transform={`translate(${(contentWidth - totalWidth) / 2}, ${spacing})`}>
                                             <g className="dots-container">
                                                 {dots.map((point, i) => (
