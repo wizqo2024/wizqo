@@ -99,6 +99,8 @@ export default function DotMarkerGeneratorPage() {
     const [childName, setChildName] = useState<string>('AVA');
     const [dotSize, setDotSize] = useState<number>(30); // Radius in pixels for preview
     const [orientation, setOrientation] = useState<'portrait' | 'landscape'>('portrait');
+    const [repeatCount, setRepeatCount] = useState<number>(1);
+    const [rowSpacing, setRowSpacing] = useState<number>(300); // Vertical gap between repeated names
     const [spacing, setSpacing] = useState<number>(65); // Spacing between dots
     const [isStickerMode, setIsStickerMode] = useState<boolean>(false);
     const [colorTheme, setColorTheme] = useState<ColorTheme>('bw');
@@ -110,9 +112,9 @@ export default function DotMarkerGeneratorPage() {
     const svgRef = useRef<SVGSVGElement | null>(null);
 
     // --- Logic: Point Generation (Using Coordinate Map) ---
-    const { dots, totalWidth } = useMemo(() => {
+    const { dots, totalWidth, singleRowHeight } = useMemo(() => {
         const safeText = childName.toUpperCase().replace(/[^A-Z0-9 ]/g, '') || 'NAME';
-        const result: DotPoint[] = [];
+        const singleRowDots: DotPoint[] = [];
 
         // Gap constants
         const dotSpacing = spacing;
@@ -133,11 +135,11 @@ export default function DotMarkerGeneratorPage() {
             matrix.forEach((row, rowIndex) => {
                 row.forEach((isDot, colIndex) => {
                     if (isDot === 1) {
-                        result.push({
-                            id: `dot-${char}-${result.length}`,
+                        singleRowDots.push({
+                            id: `dot-${char}-${singleRowDots.length}`,
                             x: cursorX + (colIndex * dotSpacing),
                             y: rowIndex * dotSpacing,
-                            color: colors[result.length % colors.length]
+                            color: colors[singleRowDots.length % colors.length]
                         });
                     }
                 });
@@ -165,12 +167,12 @@ export default function DotMarkerGeneratorPage() {
                 iconMatrix.forEach((row, rIndex) => {
                     row.forEach((isDot, cIndex) => {
                         if (isDot) {
-                            result.push({
+                            singleRowDots.push({
                                 id: `icon-${rIndex}-${cIndex}`,
                                 x: iconXStart + (cIndex * dotSpacing),
                                 y: iconYStart + (rIndex * dotSpacing),
                                 isIcon: true,
-                                color: colors[result.length % colors.length]
+                                color: colors[singleRowDots.length % colors.length]
                             });
                         }
                     });
@@ -178,8 +180,23 @@ export default function DotMarkerGeneratorPage() {
             }
         }
 
-        return { dots: result, totalWidth: cursorX };
-    }, [childName, spacing, stamperIcon, colorTheme]);
+        // --- Repeat Logic ---
+        const result: DotPoint[] = [];
+        const sRowHeight = stamperIcon !== 'none' ? 15 * dotSpacing : 7 * dotSpacing;
+
+        for (let i = 0; i < repeatCount; i++) {
+            const verticalOffset = i * (sRowHeight + rowSpacing);
+            singleRowDots.forEach(d => {
+                result.push({
+                    ...d,
+                    id: `${d.id}-repeat-${i}`,
+                    y: d.y + verticalOffset
+                });
+            });
+        }
+
+        return { dots: result, totalWidth: cursorX, singleRowHeight: sRowHeight };
+    }, [childName, spacing, stamperIcon, colorTheme, repeatCount, rowSpacing]);
 
     // Center horizontally
     const dotsBounds = useMemo(() => {
@@ -531,6 +548,30 @@ export default function DotMarkerGeneratorPage() {
                                         min={40} max={120} step={5}
                                     />
                                 </div>
+
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center">
+                                        <Label className="text-xs font-black uppercase tracking-widest text-slate-400">Number of Repeats</Label>
+                                        <span className="text-xs font-bold bg-purple-100 text-purple-700 px-2 py-1 rounded-md">{repeatCount}x</span>
+                                    </div>
+                                    <Slider
+                                        value={[repeatCount]}
+                                        onValueChange={(v) => setRepeatCount(v[0])}
+                                        min={1} max={4} step={1}
+                                    />
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center">
+                                        <Label className="text-xs font-black uppercase tracking-widest text-slate-400">Row Gap</Label>
+                                        <span className="text-xs font-bold bg-purple-100 text-purple-700 px-2 py-1 rounded-md">{rowSpacing}px</span>
+                                    </div>
+                                    <Slider
+                                        value={[rowSpacing]}
+                                        onValueChange={(v) => setRowSpacing(v[0])}
+                                        min={50} max={600} step={10}
+                                    />
+                                </div>
                             </div>
 
                             <div className="space-y-4 pt-2">
@@ -600,6 +641,8 @@ export default function DotMarkerGeneratorPage() {
                                     setChildName('NAME');
                                     setDotSize(30);
                                     setSpacing(65);
+                                    setRepeatCount(1);
+                                    setRowSpacing(300);
                                     setColorTheme('bw');
                                     setIsStickerMode(false);
                                 }}
@@ -722,10 +765,9 @@ export default function DotMarkerGeneratorPage() {
                                 const contentWidth = Math.max(minWidth, totalWidth + 100);
 
                                 // Dynamic Height Calculation: 
-                                // Text = 7 rows. Icon starts at 8. Icon ~7 rows. Total ~15 rows used.
-                                // We add extra row buffer + 300px for Branding Footer
-                                const rowsNeeded = stamperIcon !== 'none' ? 16 : 8;
-                                const contentHeight = (rowsNeeded * spacing) + 300;
+                                // (Single Row Height + gap) * repeats + Branding Space
+                                const totalRowsHeight = (repeatCount * singleRowHeight) + ((repeatCount - 1) * rowSpacing);
+                                const contentHeight = totalRowsHeight + 400; // Extra buffer for branding
 
                                 return (
                                     <svg
@@ -739,7 +781,12 @@ export default function DotMarkerGeneratorPage() {
                                             <g className="dots-container">
                                                 {dots.map((point, i) => (
                                                     <React.Fragment key={i}>
-                                                        {renderShape(point, dotSize / 4, selectedShape)}
+                                                        {/* FIX: Removed / 4 from dotSize. size arg expects radius? 
+                                                            Actually dotSize in state is for radius. 
+                                                            Previous bug was dotSize / 4 = ~7.5px radius = 15px diameter.
+                                                            18mm is ~70px diameter. 35px radius. 
+                                                        */}
+                                                        {renderShape(point, dotSize, selectedShape)}
                                                     </React.Fragment>
                                                 ))}
                                             </g>
