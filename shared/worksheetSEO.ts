@@ -2893,55 +2893,62 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     h1: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)',
     image: '/images/counting-generator-seo.png',
     metaDescription: 'Stop searching for expensive workbooks. Create unlimited, fun, and colorful math worksheets for your child in seconds! 100% Free PDF • No Sign Up Required.',
-    keywords: '<meta name="keywords" content="counting numbers worksheets, number tracing 1-10, kindergarten math worksheets, free tracing generator, preschool number practice, learn to count printables, fine motor math activities, free number worksheets" />',
+    keywords: 'counting worksheets for kids, free number tracing generator, preschool math printables, kindergarten counting practice 1-10, printable number worksheets, learn to count activities, printable count and trace, early numeracy tools, number formation worksheets, custom math activities for kids, wizqo custom worksheets, math foundation for toddlers, fine motor tracing skills, personalized math worksheets',
     learningObjectives: [
       'Identify and count objects from 1 to 10',
       'Understand one-to-one correspondence',
       'Develop fine motor skills through number tracing',
       'Build numerical confidence with customizable themes'
     ],
-    richContent: `<main id="seo-fallback" style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif; padding: 0 1rem;">
-  <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Counting Numbers Worksheets & Tracing Generator</h1>
-  <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">
-    Create unlimited, customized <strong>number tracing worksheets</strong> for your preschooler or kindergartener. 
-    This tool combines <strong>counting practice</strong> with <strong>handwriting development</strong>, allowing children to visualize quantity while mastering number formation.
-  </p>
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+  <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Premium Counting & Tracing: The Foundation of Early Math</h1>
+  
+  <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Discover the logic of 'Numerical Fluency' with our custom counting generator. Designed for the youngest mathematicians, this tool helps you build <strong>unlimited, high-quality math practice sheets</strong> in seconds. By combining visual counting with tactile number formation, we help students transition from concrete objects to abstract symbols with ease. Free printable PDF access for future pioneers.</p>
 
-  <div style="margin-bottom: 3rem;">
-    <h2 style="font-size: 1.875rem; font-weight: 800; color: #5b21b6; margin-bottom: 1.5rem;">How to Use This Generator</h2>
-    <ol style="color: #4c1d95; line-height: 1.8; padding-left: 1.5rem;">
-      <li><strong>Select Your Number Range:</strong> Choose 1-5 for beginners or 1-10 for advanced counting.</li>
-      <li><strong>Choose Visuals:</strong> Add "Ten Frames" or "Object Groups" (like stars or apples) to help with visualization.</li>
-      <li><strong>Customize Tracing:</strong> Select "Dotted Lines" or "Hollow Outlines" depending on your child's skill level.</li>
-      <li><strong>Print Instantly:</strong> Generate a high-quality PDF specifically designed for standard A4 or Letter paper.</li>
-    </ol>
-  </div>
+  <section style="margin-bottom: 2rem;">
+    <h2 style="font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Mastering the Core Pillars of Numeracy</h2>
+    <p style="color: #475569; line-height: 1.6; margin-bottom: 1rem;">Counting is more than just reciting names! Our curriculum helps students move from rote memorization to <strong>procedural numerical logic</strong>. By practicing with personalized themes - like dinosaurs, rockets, or unicorns - children build <strong>foundational mathematical awareness</strong> and the mental habit of 'logical sequence.' This practice is the essential precursor to primary addition, understanding complex quantitative patterns, and professional STEM roles. It turns a standard tracing sheet into a clear, manageable map of numerical success. This is the <strong>symbolic foundation</strong> of logical literacy and academic pride. Start your journey today.</p>
+  </section>
 
-  <section style="margin-bottom: 3rem; background: #f5f3ff; padding: 2rem; border-radius: 12px; border: 1px solid #ddd6fe;">
-    <h2 style="font-size: 1.875rem; font-weight: 800; color: #5b21b6; margin-bottom: 1.5rem;">Why Counting & Tracing Matters</h2>
-    <p style="color: #475569; line-height: 1.6; margin-bottom: 1rem;">
-      <strong>1. One-to-One Correspondence:</strong> 
-      By connecting a written number (like "5") with a visual group of 5 items, children learn that numbers represent actual quantities, not just words.
-    </p>
-    <p style="color: #475569; line-height: 1.6;">
-      <strong>2. Fine Motor Control:</strong> 
-      Tracing curves and straight lines requires finger isolation and wrist control—the exact muscles needed for handwriting.
-    </p>
+  <section style="margin-bottom: 2rem;">
+    <h2 style="font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Early Math Mastery Goals</h2>
+    <ul style="color: #475569; line-height: 1.6; padding-left: 1.5rem;">
+      <li style="margin-bottom: 0.5rem;"><strong>One-to-One Correspondence:</strong> correctly identifying that each object represents exactly one unit in a sequence.</li>
+      <li style="margin-bottom: 0.5rem;"><strong>Precision Tracing:</strong> practicing stable wrist control to form numbers 0-10 with clear, legible strokes.</li>
+      <li style="margin-bottom: 0.5rem;"><strong>Visual Subitizing:</strong> understanding how to "see" small groups of numbers without counting every single icon.</li>
+    </ul>
   </section>
 
   <section style="margin-bottom: 3rem;">
-    <h2 style="font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem;">Frequently Asked Questions</h2>
-    <div style="margin-bottom: 1.5rem;">
-      <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.25rem;">What age is this for?</h3>
-      <p style="color: #475569;">These worksheets are ideal for <strong>Preschool (Ages 3-4)</strong> for basic counting and <strong>Kindergarten (Ages 5-6)</strong> for writing practice.</p>
-    </div>
-    <div style="margin-bottom: 1.5rem;">
-      <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.25rem;">Why use "Ten Frames"?</h3>
-      <p style="color: #475569;">Ten frames help children "subitize" (instantly see) values without counting one by one. It is a critical skill for future addition and subtraction.</p>
+    <h2 style="font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">How to Use the Custom Creator</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+      <div style="background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 1px solid #e2e8f0;">
+        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">1. Select Number</h3>
+        <p style="color: #64748b; font-size: 0.95rem;">Choose any number from 0 to 10 to focus on specific learning milestones.</p>
+      </div>
+      <div style="background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 1px solid #e2e8f0;">
+        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">2. Pick a Theme</h3>
+        <p style="color: #64748b; font-size: 0.95rem;">Select from dozens of fun themes to keep your child engaged and excited.</p>
+      </div>
+      <div style="background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 1px solid #e2e8f0;">
+        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">3. Print & Go</h3>
+        <p style="color: #64748b; font-size: 0.95rem;">Generate a high-resolution PDF designed for standard paper instantly.</p>
+      </div>
     </div>
   </section>
-</main>`,
-  }
+
+  <footer style="border-top: 1px solid #e2e8f0; padding-top: 2rem; margin-top: 4rem;">
+    <p style="font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem;">Explore More Premium Generators:</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+      <a href="/worksheets/handwriting-worksheet-maker" style="background: #3b82f6; color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Handwriting Maker →</a>
+      <a href="/worksheets/dot-marker-generator" style="background: #f59e0b; color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Dot Marker Art →</a>
+      <a href="/worksheets/scissor-skills-generator" style="background: #8b5cf6; color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Scissor Skills →</a>
+      <a href="/worksheets/spelling-list-generator" style="background: #10b981; color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Spelling List →</a>
+    </div>
+  </footer>
+</article>`
+  },
+
 };
 
 /**
@@ -4154,15 +4161,69 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     keywords: 'name tracing generator, custom name worksheets, preschool handwriting practice, tracing names for kindergarten, free printable name tracing, name tracing maker',
     image: '/images/name-tracing-seo.png',
   },
-  'counting-numbers-generator': {
-    title: 'Free Counting Numbers Worksheets & Tracing Generator (1-10) | Wizqo',
-    metaDescription: 'Create unlimited, fun, and colorful math worksheets for your child in seconds! Personalized counting and number tracing practice for preschool and kindergarten.',
-    keywords: 'counting worksheets, number tracing generator, preschool math worksheets, kindergarten counting practice, free math printables, learn to count 1-10',
-    image: '/assets/previews/counting-generator-seo.png',
-  },
   'reading-discovery-interactive': {
     title: 'Reading Discovery: Interactive Comprehension Worksheet | Wizqo',
     metaDescription: 'Free interactive reading comprehension worksheet for Grade 1 and 2. Features original stories, illustrations, and a "Show Answer" toggle. Print as PDF instantly.',
     image: '/images/reading-interactive-seo.jpg'
+  },
+  'counting-numbers-generator': {
+    title: 'Free Counting Numbers Worksheets & Tracing Generator (0-10) | Wizqo',
+    metaDescription: 'Create personalized counting and number tracing worksheets for free. Custom themes including dinosaurs, rockets, and bunnies. Download high-quality PDF workbooks instantly.',
+    keywords: 'counting numbers generator, free counting worksheets, number tracing 1-10, preschool math worksheets, kindergarten counting practice, personalized math worksheets, wizqo counting generator',
+    image: '/images/counting-generator-seo.png',
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Counting & Number Tracing Generator</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's interactive <strong>Counting Numbers Generator</strong>. Our tool allows parents and educators to create beautiful, personalized math worksheets that make learning to count fun and engaging. Perfect for toddlers, preschoolers, and kindergarteners, our generator combines <strong>number tracing</strong> with <strong>visual counting</strong> using high-interest themes.</p>
+      
+      <div style="margin-bottom: 3rem; text-align: center;">
+        <img 
+          src="/images/counting-generator-seo.png" 
+          alt="Personalized counting and number tracing worksheet preview" 
+          style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;"
+        />
+        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.75rem; font-style: italic;">Customizable counting worksheets with fun icons and tracing paths.</p>
+      </div>
+
+      <section style="margin-bottom: 3rem; background: #f5f3ff; padding: 2rem; border-radius: 12px; border: 1px solid #ddd6fe;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #5b21b6; margin-bottom: 1.5rem;">Why Choose Wizqo's Counting Generator?</h2>
+        <p style="color: #4c1d95; margin-bottom: 1.5rem;">Our generator is built on pedagogical principles that help children transition from rote counting to true numerical understanding. Here are the key features:</p>
+        <ul style="color: #4c1d95; line-height: 1.8;">
+          <li><strong>Personalized Experience:</strong> Add your child's name to the worksheet to increase ownership and motivation.</li>
+          <li><strong>Viral Themes:</strong> Choose from Dinosaurs, Rockets, Bunnies, Cars, Stars, and Hearts to match your child's interests.</li>
+          <li><strong>High-Quality Tracing:</strong> Uses specialized "KG Primary Dots" font to provide clear, easy-to-follow tracing paths.</li>
+          <li><strong>Ink Saving Mode:</strong> Toggle to "Outline Mode" for coloring-friendly, printer-efficient worksheets.</li>
+          <li><strong>Full Workbook Export:</strong> Download a complete 11-page workbook (0-10) with a single click.</li>
+        </ul>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Counting Mastery FAQ</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">At what age should children start learning to count?</h3>
+          <p style="color: #475569;">Most children begin rote counting around age 2, but the concept of "one-to-one correspondence" (understanding that one object equals one number) typically develops between ages 3 and 4. Our generator supports this by showing the exact number of icons to be counted.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">How does tracing help with math?</h3>
+          <p style="color: #475569;">Tracing numbers helps children build the <strong>muscle memory</strong> needed to write digits correctly while reinforcing the visual shape of the number. This dual reinforcement accelerates recognition and recall.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">Is there a cost to use the generator?</h3>
+          <p style="color: #475569;">No! All Wizqo generators are <strong>100% free</strong>. You can create as many custom worksheets as you need without any sign-up or credit card required.</p>
+        </div>
+      </section>
+
+      <section style="border-top: 1px solid #e2e8f0; padding-top: 2rem; text-align: center;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Start Creating Your Magic Workbook Today</h2>
+        <p style="color: #475569; line-height: 1.6; margin-bottom: 2rem;">Don't settle for generic, black-and-white printables. Give your child a vibrant, personalized learning experience that they will love. Generate your first worksheet in seconds and watch their confidence grow!</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+          <a href="/worksheets/dot-marker-generator" style="display: inline-block; background: white; color: #7c3aed; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #ddd6fe; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            🎯 Try Dot Marker Generator
+          </a>
+          <a href="/worksheets/handwriting-worksheet-maker" style="display: inline-block; background: white; color: #7c3aed; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #ddd6fe; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            📝 Handwriting Practice
+          </a>
+        </div>
+      </section>
+    </article>`
   },
 };
