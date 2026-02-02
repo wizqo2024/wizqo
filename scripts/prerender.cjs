@@ -29,6 +29,7 @@ function getAllWorksheetURLs() {
       url: seo.canonicalUrl || `${SITE}/worksheets/${slug}`,
       title: seo.title || slug,
       description: seo.description,
+      keywords: seo.keywords, // Added keywords extraction
       richContent: seo.richContent, // Capture rich content for bake-in
       image: seo.image
     })).filter(w => w.url && w.url.includes('/worksheets/'));
@@ -474,24 +475,24 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
     out = out.replace(/<\/head>/i, `  <meta name="twitter:card" content="${twitterCard}">\n</head>`);
   }
 
-  out = out.replace(/<meta\s+property=["']twitter:title["'][^>]*>/i, `<meta property="twitter:title" content="${escapeHtml(title)}">`);
-  if (!/<meta\s+property=["']twitter:title["'][^>]*>/i.test(out)) {
-    out = out.replace(/<\/head>/i, `  <meta property="twitter:title" content="${escapeHtml(title)}">\n</head>`);
+  out = out.replace(/<meta\s+(?:name|property)=["']twitter:title["'][^>]*>/i, `<meta name="twitter:title" content="${escapeHtml(title)}">`);
+  if (!/<meta\s+(?:name|property)=["']twitter:title["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta name="twitter:title" content="${escapeHtml(title)}">\n</head>`);
   }
 
-  out = out.replace(/<meta\s+property=["']twitter:description["'][^>]*>/i, `<meta property="twitter:description" content="${escapeHtml(description)}">`);
-  if (!/<meta\s+property=["']twitter:description["'][^>]*>/i.test(out)) {
-    out = out.replace(/<\/head>/i, `  <meta property="twitter:description" content="${escapeHtml(description)}">\n</head>`);
+  out = out.replace(/<meta\s+(?:name|property)=["']twitter:description["'][^>]*>/i, `<meta name="twitter:description" content="${escapeHtml(description)}">`);
+  if (!/<meta\s+(?:name|property)=["']twitter:description["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta name="twitter:description" content="${escapeHtml(description)}">\n</head>`);
   }
 
-  out = out.replace(/<meta\s+property=["']twitter:image["'][^>]*>/i, `<meta property="twitter:image" content="${ogImage}">`);
-  if (!/<meta\s+property=["']twitter:image["'][^>]*>/i.test(out)) {
-    out = out.replace(/<\/head>/i, `  <meta property="twitter:image" content="${ogImage}">\n</head>`);
+  out = out.replace(/<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${ogImage}">`);
+  if (!/<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta name="twitter:image" content="${ogImage}">\n</head>`);
   }
 
-  out = out.replace(/<meta\s+property=["']twitter:url["'][^>]*>/i, `<meta property="twitter:url" content="${canonical}">`);
-  if (!/<meta\s+property=["']twitter:url["'][^>]*>/i.test(out)) {
-    out = out.replace(/<\/head>/i, `  <meta property="twitter:url" content="${canonical}">\n</head>`);
+  out = out.replace(/<meta\s+(?:name|property)=["']twitter:url["'][^>]*>/i, `<meta name="twitter:url" content="${canonical}">`);
+  if (!/<meta\s+(?:name|property)=["']twitter:url["'][^>]*>/i.test(out)) {
+    out = out.replace(/<\/head>/i, `  <meta name="twitter:url" content="${canonical}">\n</head>`);
   }
 
   return out;

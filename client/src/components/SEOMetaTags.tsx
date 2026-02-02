@@ -46,63 +46,40 @@ export function SEOMetaTags({
     // Update document title
     document.title = title;
 
-    // ... (rest of standard meta tags) ...
+    // Helper to update or create meta tags with deduplication and attribute support
+    const updateMeta = (selector: string, attr: 'name' | 'property', attrValue: string, content: string) => {
+      // Find all potential duplicates
+      const existingTags = document.querySelectorAll(selector);
 
-    // Update meta description
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement('meta');
-      metaDescription.setAttribute('name', 'description');
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.setAttribute('content', description);
+      if (existingTags.length > 0) {
+        // Update the first one and remove the rest
+        existingTags[0].setAttribute('content', content);
+        for (let i = 1; i < existingTags.length; i++) {
+          existingTags[i].remove();
+        }
+      } else {
+        // Create new
+        const meta = document.createElement('meta');
+        meta.setAttribute(attr, attrValue);
+        meta.setAttribute('content', content);
+        document.head.appendChild(meta);
+      }
+    };
 
-    // Update meta keywords
-    let metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (!metaKeywords) {
-      metaKeywords = document.createElement('meta');
-      metaKeywords.setAttribute('name', 'keywords');
-      document.head.appendChild(metaKeywords);
-    }
-    metaKeywords.setAttribute('content', keywords);
+    // Update Meta Tags
+    updateMeta('meta[name="description"]', 'name', 'description', description);
+    updateMeta('meta[name="keywords"]', 'name', 'keywords', keywords);
+    updateMeta('meta[name="robots"]', 'name', 'robots', noIndex ? 'noindex, nofollow' : 'index, follow');
 
-    // Update robots meta tag
-    let metaRobots = document.querySelector('meta[name="robots"]');
-    if (!metaRobots) {
-      metaRobots = document.createElement('meta');
-      metaRobots.setAttribute('name', 'robots');
-      document.head.appendChild(metaRobots);
-    }
-    metaRobots.setAttribute('content', noIndex ? 'noindex, nofollow' : 'index, follow');
+    // Open Graph
+    updateMeta('meta[property="og:title"]', 'property', 'og:title', title);
+    updateMeta('meta[property="og:description"]', 'property', 'og:description', description);
+    updateMeta('meta[property="og:type"]', 'property', 'og:type', computedOgType);
+    updateMeta('meta[property="og:url"]', 'property', 'og:url', finalCanonicalUrl);
 
-    // Update Open Graph title
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (!ogTitle) {
-      ogTitle = document.createElement('meta');
-      ogTitle.setAttribute('property', 'og:title');
-      document.head.appendChild(ogTitle);
-    }
-    ogTitle.setAttribute('content', title);
-
-    // Update Open Graph description
-    let ogDescription = document.querySelector('meta[property="og:description"]');
-    if (!ogDescription) {
-      ogDescription = document.createElement('meta');
-      ogDescription.setAttribute('property', 'og:description');
-      document.head.appendChild(ogDescription);
-    }
-    ogDescription.setAttribute('content', description);
-
-    // Update Open Graph image
-    const images = Array.isArray(ogImage) ? ogImage : [ogImage];
-
-    // Remove existing og:image tags and dimensions
+    // og:image handling (can be multiple)
     document.querySelectorAll('meta[property="og:image"]').forEach(el => el.remove());
-    document.querySelectorAll('meta[property="og:image:width"]').forEach(el => el.remove());
-    document.querySelectorAll('meta[property="og:image:height"]').forEach(el => el.remove());
-    document.querySelectorAll('meta[property="og:image:alt"]').forEach(el => el.remove());
-
-    // Add new og:image tags
+    const images = Array.isArray(ogImage) ? ogImage : [ogImage];
     images.forEach(img => {
       const meta = document.createElement('meta');
       meta.setAttribute('property', 'og:image');
@@ -110,74 +87,22 @@ export function SEOMetaTags({
       document.head.appendChild(meta);
     });
 
-    // Add image dimensions if provided (Single set for primary image)
-    if (ogImageWidth) {
-      const meta = document.createElement('meta');
-      meta.setAttribute('property', 'og:image:width');
-      meta.setAttribute('content', ogImageWidth);
-      document.head.appendChild(meta);
-    }
-    if (ogImageHeight) {
-      const meta = document.createElement('meta');
-      meta.setAttribute('property', 'og:image:height');
-      meta.setAttribute('content', ogImageHeight);
-      document.head.appendChild(meta);
-    }
-    if (ogImageAlt) {
-      const meta = document.createElement('meta');
-      meta.setAttribute('property', 'og:image:alt');
-      meta.setAttribute('content', ogImageAlt);
-      document.head.appendChild(meta);
-    }
+    // Twitter - handle both name and property to avoid duplicates
+    updateMeta('meta[name="twitter:card"], meta[property="twitter:card"]', 'name', 'twitter:card', computedTwitterCard);
+    updateMeta('meta[name="twitter:title"], meta[property="twitter:title"]', 'name', 'twitter:title', title);
+    updateMeta('meta[name="twitter:description"], meta[property="twitter:description"]', 'name', 'twitter:description', description);
+    updateMeta('meta[name="twitter:url"], meta[property="twitter:url"]', 'name', 'twitter:url', finalCanonicalUrl);
 
-    // Update Open Graph type
-    let ogTypeMeta = document.querySelector('meta[property="og:type"]');
-    if (!ogTypeMeta) {
-      ogTypeMeta = document.createElement('meta');
-      ogTypeMeta.setAttribute('property', 'og:type');
-      document.head.appendChild(ogTypeMeta);
-    }
-    ogTypeMeta.setAttribute('content', computedOgType);
-
-    // Update Twitter title
-    let twitterTitle = document.querySelector('meta[property="twitter:title"]');
-    if (!twitterTitle) {
-      twitterTitle = document.createElement('meta');
-      twitterTitle.setAttribute('property', 'twitter:title');
-      document.head.appendChild(twitterTitle);
-    }
-    twitterTitle.setAttribute('content', title);
-
-    // Update Twitter description
-    let twitterDescription = document.querySelector('meta[property="twitter:description"]');
-    if (!twitterDescription) {
-      twitterDescription = document.createElement('meta');
-      twitterDescription.setAttribute('property', 'twitter:description');
-      document.head.appendChild(twitterDescription);
-    }
-    twitterDescription.setAttribute('content', description);
-
-    // Update Twitter image
-    // Remove existing twitter:image tags
-    document.querySelectorAll('meta[property="twitter:image"]').forEach(el => el.remove());
-
+    // Twitter Image (can be multiple)
+    document.querySelectorAll('meta[name="twitter:image"], meta[property="twitter:image"]').forEach(el => el.remove());
     images.forEach(img => {
       const meta = document.createElement('meta');
-      meta.setAttribute('property', 'twitter:image');
+      meta.setAttribute('name', 'twitter:image');
       meta.setAttribute('content', img);
       document.head.appendChild(meta);
     });
 
-    // Update Twitter card type
-    let twitterCardMeta = document.querySelector('meta[name="twitter:card"]');
-    if (!twitterCardMeta) {
-      twitterCardMeta = document.createElement('meta');
-      twitterCardMeta.setAttribute('name', 'twitter:card');
-      document.head.appendChild(twitterCardMeta);
-    }
-    twitterCardMeta.setAttribute('content', computedTwitterCard);
-
-    // Update canonical URL (always set, with locale)
+    // Canonical link
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -186,25 +111,8 @@ export function SEOMetaTags({
     }
     canonical.setAttribute('href', finalCanonicalUrl);
 
-    // Update Open Graph URL
-    let ogUrl = document.querySelector('meta[property="og:url"]');
-    if (!ogUrl) {
-      ogUrl = document.createElement('meta');
-      ogUrl.setAttribute('property', 'og:url');
-      document.head.appendChild(ogUrl);
-    }
-    ogUrl.setAttribute('content', finalCanonicalUrl);
-
-    // Update Twitter URL
-    let twitterUrl = document.querySelector('meta[property="twitter:url"]');
-    if (!twitterUrl) {
-      twitterUrl = document.createElement('meta');
-      twitterUrl.setAttribute('property', 'twitter:url');
-      document.head.appendChild(twitterUrl);
-    }
-    twitterUrl.setAttribute('content', finalCanonicalUrl);
-
   }, [title, description, keywords, ogImage, finalCanonicalUrl, noIndex, ogType, twitterCard]);
+
 
   return (
     <>
