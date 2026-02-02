@@ -2888,66 +2888,6 @@ export const WORKSHEET_MANUAL_CONTENT: Record<string, Partial<WorksheetSEO>> = {
     grade: ['4th Grade', '5th Grade', '6th Grade'],
     category: ['Math', 'Logic']
   },
-  'counting-numbers-generator': {
-    title: 'Free Counting Numbers Worksheets & Tracing Generator (1-10) - Custom Creator | Wizqo',
-    h1: 'Free Counting Numbers Worksheets & Tracing Generator (1-10)',
-    image: '/images/counting-generator-seo.png',
-    metaDescription: 'Stop searching for expensive workbooks. Create unlimited, fun, and colorful math worksheets for your child in seconds! 100% Free PDF • No Sign Up Required.',
-    keywords: 'counting worksheets for kids, free number tracing generator, preschool math printables, kindergarten counting practice 1-10, printable number worksheets, learn to count activities, printable count and trace, early numeracy tools, number formation worksheets, custom math activities for kids, wizqo custom worksheets, math foundation for toddlers, fine motor tracing skills, personalized math worksheets',
-    learningObjectives: [
-      'Identify and count objects from 1 to 10',
-      'Understand one-to-one correspondence',
-      'Develop fine motor skills through number tracing',
-      'Build numerical confidence with customizable themes'
-    ],
-    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
-  <h1 style="font-size: 2.5rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem; line-height: 1.2;">Premium Counting & Tracing: The Foundation of Early Math</h1>
-  
-  <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Discover the logic of 'Numerical Fluency' with our custom counting generator. Designed for the youngest mathematicians, this tool helps you build <strong>unlimited, high-quality math practice sheets</strong> in seconds. By combining visual counting with tactile number formation, we help students transition from concrete objects to abstract symbols with ease. Free printable PDF access for future pioneers.</p>
-
-  <section style="margin-bottom: 2rem;">
-    <h2 style="font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Mastering the Core Pillars of Numeracy</h2>
-    <p style="color: #475569; line-height: 1.6; margin-bottom: 1rem;">Counting is more than just reciting names! Our curriculum helps students move from rote memorization to <strong>procedural numerical logic</strong>. By practicing with personalized themes - like dinosaurs, rockets, or unicorns - children build <strong>foundational mathematical awareness</strong> and the mental habit of 'logical sequence.' This practice is the essential precursor to primary addition, understanding complex quantitative patterns, and professional STEM roles. It turns a standard tracing sheet into a clear, manageable map of numerical success. This is the <strong>symbolic foundation</strong> of logical literacy and academic pride. Start your journey today.</p>
-  </section>
-
-  <section style="margin-bottom: 2rem;">
-    <h2 style="font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Early Math Mastery Goals</h2>
-    <ul style="color: #475569; line-height: 1.6; padding-left: 1.5rem;">
-      <li style="margin-bottom: 0.5rem;"><strong>One-to-One Correspondence:</strong> correctly identifying that each object represents exactly one unit in a sequence.</li>
-      <li style="margin-bottom: 0.5rem;"><strong>Precision Tracing:</strong> practicing stable wrist control to form numbers 0-10 with clear, legible strokes.</li>
-      <li style="margin-bottom: 0.5rem;"><strong>Visual Subitizing:</strong> understanding how to "see" small groups of numbers without counting every single icon.</li>
-    </ul>
-  </section>
-
-  <section style="margin-bottom: 3rem;">
-    <h2 style="font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">How to Use the Custom Creator</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-      <div style="background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 1px solid #e2e8f0;">
-        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">1. Select Number</h3>
-        <p style="color: #64748b; font-size: 0.95rem;">Choose any number from 0 to 10 to focus on specific learning milestones.</p>
-      </div>
-      <div style="background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 1px solid #e2e8f0;">
-        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">2. Pick a Theme</h3>
-        <p style="color: #64748b; font-size: 0.95rem;">Select from dozens of fun themes to keep your child engaged and excited.</p>
-      </div>
-      <div style="background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 1px solid #e2e8f0;">
-        <h3 style="font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">3. Print & Go</h3>
-        <p style="color: #64748b; font-size: 0.95rem;">Generate a high-resolution PDF designed for standard paper instantly.</p>
-      </div>
-    </div>
-  </section>
-
-  <footer style="border-top: 1px solid #e2e8f0; padding-top: 2rem; margin-top: 4rem;">
-    <p style="font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem;">Explore More Premium Generators:</p>
-    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-      <a href="/worksheets/handwriting-worksheet-maker" style="background: #3b82f6; color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Handwriting Maker →</a>
-      <a href="/worksheets/dot-marker-generator" style="background: #f59e0b; color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Dot Marker Art →</a>
-      <a href="/worksheets/scissor-skills-generator" style="background: #8b5cf6; color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Scissor Skills →</a>
-      <a href="/worksheets/spelling-list-generator" style="background: #10b981; color: white; padding: 0.75rem 1.25rem; border-radius: 9999px; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Spelling List →</a>
-    </div>
-  </footer>
-</article>`
-  },
 
 };
 
@@ -4064,9 +4004,9 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
   'dot-marker-generator': {
     title: 'Free Dot Marker Generator: Create Custom Name Worksheets (PDF)',
     metaDescription: 'Make personalized Do-A-Dot name tracing worksheets in seconds. Perfect for Bingo Daubers, sticker activities, and fine motor skills. 100% Free & Instant PDF.',
-    keywords: 'Free Dot Marker Generator, Do a Dot Name Tracing, Bingo Dauber Printables, Custom name dot marker sheets free, Alphabet do a dot printables for toddlers, Fine motor skills dot art generator, Free printable dot marker worksheets pdf, Sticker name activity for preschool, Q-Tip painting name template, Stamping worksheets, Dot art maker',
+    keywords: 'Free Dot Marker Generator, Do a Dot Name Tracing, Bingo Dauber Printables, Custom name dot marker sheets, Preschool fine motor activities, do a dot Art, wizqo dot marker maker, Free printable dot marker worksheets pdf, Sticker name activity for preschool, Q-Tip painting name template, Stamping worksheets, Dot art maker',
     h1: 'Free Custom Dot Marker Name Generator',
-    image: '/images/dot-marker-16x9.png',
+    image: 'https://wizqo.com/images/dot-marker-seo.png',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Custom Dot Marker Name Generator</h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to the internet's most advanced <strong>Free Dot Marker Generator</strong>. Whether you call them Bingo Daubers, Dot Art, or Do-A-Dot markers, our tool creates the perfect personalized name worksheets for your child. Designed for preschoolers and kindergarteners, this tool builds <strong>fine motor skills</strong> through engaging, hands-on play.</p>
@@ -4168,9 +4108,10 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
   },
   'counting-numbers-generator': {
     title: 'Free Counting Numbers Worksheets & Tracing Generator (0-10) | Wizqo',
+    h1: 'Free Counting & Number Tracing Generator',
     metaDescription: 'Create personalized counting and number tracing worksheets for free. Custom themes including dinosaurs, rockets, and bunnies. Download high-quality PDF workbooks instantly.',
     keywords: 'counting numbers generator, free counting worksheets, number tracing 1-10, preschool math worksheets, kindergarten counting practice, personalized math worksheets, wizqo counting generator',
-    image: '/images/counting-generator-seo.png',
+    image: 'https://wizqo.com/images/counting-generator-seo.png',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Counting & Number Tracing Generator</h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's interactive <strong>Counting Numbers Generator</strong>. Our tool allows parents and educators to create beautiful, personalized math worksheets that make learning to count fun and engaging. Perfect for toddlers, preschoolers, and kindergarteners, our generator combines <strong>number tracing</strong> with <strong>visual counting</strong> using high-interest themes.</p>

@@ -449,14 +449,17 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
     out = out.replace(/<\/head>/i, `  <meta property="og:title" content="${escapeHtml(title)}">\n</head>`);
   }
 
+  // Ensure absolute image URL for meta tags
+  const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${SITE}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+
   out = out.replace(/<meta\s+property=["']og:description["'][^>]*>/i, `<meta property="og:description" content="${escapeHtml(description)}">`);
   if (!/<meta\s+property=["']og:description["'][^>]*>/i.test(out)) {
     out = out.replace(/<\/head>/i, `  <meta property="og:description" content="${escapeHtml(description)}">\n</head>`);
   }
 
-  out = out.replace(/<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${ogImage}">`);
+  out = out.replace(/<meta\s+property=["']og:image["'][^>]*>/i, `<meta property="og:image" content="${absoluteOgImage}">`);
   if (!/<meta\s+property=["']og:image["'][^>]*>/i.test(out)) {
-    out = out.replace(/<\/head>/i, `  <meta property="og:image" content="${ogImage}">\n</head>`);
+    out = out.replace(/<\/head>/i, `  <meta property="og:image" content="${absoluteOgImage}">\n</head>`);
   }
 
   out = out.replace(/<meta\s+property=["']og:type["'][^>]*>/i, `<meta property="og:type" content="${ogType}">`);
@@ -485,9 +488,9 @@ function setMeta(html, { title, description, canonical, ogImage, ogType = 'websi
     out = out.replace(/<\/head>/i, `  <meta name="twitter:description" content="${escapeHtml(description)}">\n</head>`);
   }
 
-  out = out.replace(/<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${ogImage}">`);
+  out = out.replace(/<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i, `<meta name="twitter:image" content="${absoluteOgImage}">`);
   if (!/<meta\s+(?:name|property)=["']twitter:image["'][^>]*>/i.test(out)) {
-    out = out.replace(/<\/head>/i, `  <meta name="twitter:image" content="${ogImage}">\n</head>`);
+    out = out.replace(/<\/head>/i, `  <meta name="twitter:image" content="${absoluteOgImage}">\n</head>`);
   }
 
   out = out.replace(/<meta\s+(?:name|property)=["']twitter:url["'][^>]*>/i, `<meta name="twitter:url" content="${canonical}">`);
