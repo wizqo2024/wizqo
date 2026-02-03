@@ -5,7 +5,7 @@ import { SEOMetaTags } from '@/components/SEOMetaTags';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket, BookOpen, Loader2 } from 'lucide-react';
+import { Download, Printer, Star, Heart, Scissors, Car, Bike, Rocket, BookOpen, Loader2, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
@@ -609,6 +609,43 @@ export default function CountingWorksheetsPage() {
                                 url="https://wizqo.com/worksheets/counting-numbers-generator"
                                 title={t('pages.counting.shareText', { number: selectedNumber })}
                             />
+                        </div>
+
+                        {/* Related Tools Box */}
+                        <div className="bg-white rounded-3xl p-6 shadow-xl border border-slate-100">
+                            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Related Educational Tools</h3>
+                            <div className="flex flex-col gap-3">
+                                <a href="/worksheets/dot-marker-generator" className="flex items-center gap-3 p-3 rounded-2xl bg-orange-50 hover:bg-orange-100 transition-colors group">
+                                    <span className="text-xl">🎯</span>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-bold text-slate-700">Dot Marker Maker</p>
+                                        <p className="text-[10px] text-slate-500">Personalized name dot art</p>
+                                    </div>
+                                    <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <ArrowRight className="w-3 h-3 text-orange-500" />
+                                    </div>
+                                </a>
+                                <a href="/worksheets/handwriting-worksheet-maker" className="flex items-center gap-3 p-3 rounded-2xl bg-blue-50 hover:bg-blue-100 transition-colors group">
+                                    <span className="text-xl">📝</span>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-bold text-slate-700">Handwriting Maker</p>
+                                        <p className="text-[10px] text-slate-500">Custom name tracing sheets</p>
+                                    </div>
+                                    <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <ArrowRight className="w-3 h-3 text-blue-500" />
+                                    </div>
+                                </a>
+                                <a href="/worksheets/scissor-skills-generator" className="flex items-center gap-3 p-3 rounded-2xl bg-purple-50 hover:bg-purple-100 transition-colors group">
+                                    <span className="text-xl">✂️</span>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-bold text-slate-700">Scissor Skills</p>
+                                        <p className="text-[10px] text-slate-500">Preschool cutting practice</p>
+                                    </div>
+                                    <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <ArrowRight className="w-3 h-3 text-purple-500" />
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 

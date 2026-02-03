@@ -4157,11 +4157,17 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
         <h2 style="font-size: 1.5rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Start Creating Your Magic Workbook Today</h2>
         <p style="color: #475569; line-height: 1.6; margin-bottom: 2rem;">Don't settle for generic, black-and-white printables. Give your child a vibrant, personalized learning experience that they will love. Generate your first worksheet in seconds and watch their confidence grow!</p>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
-          <a href="/worksheets/dot-marker-generator" style="display: inline-block; background: white; color: #7c3aed; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #ddd6fe; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            🎯 Try Dot Marker Generator
-          </a>
           <a href="/worksheets/handwriting-worksheet-maker" style="display: inline-block; background: white; color: #7c3aed; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #ddd6fe; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            📝 Handwriting Practice
+            📝 Handwriting Maker
+          </a>
+          <a href="/worksheets/dot-marker-generator" style="display: inline-block; background: white; color: #7c3aed; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #ddd6fe; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            🎯 Dot Marker Art
+          </a>
+          <a href="/worksheets/scissor-skills-generator" style="display: inline-block; background: white; color: #7c3aed; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #ddd6fe; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            ✂️ Scissor Skills
+          </a>
+          <a href="/worksheets/spelling-list-generator" style="display: inline-block; background: white; color: #7c3aed; padding: 0.75rem 1.5rem; border-radius: 99px; font-weight: 700; text-decoration: none; border: 1px solid #ddd6fe; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            📖 Spelling List
           </a>
         </div>
       </section>
