@@ -1,4 +1,4 @@
-# Landing Page Rating: https://www.wizqo.com/
+# Landing Page Rating: https://wizqo.com/
 
 **Date:** January 2025  
 **Overall Rating: 9.2/10** ⭐⭐⭐⭐⭐

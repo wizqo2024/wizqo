@@ -21,7 +21,7 @@ git push origin main
 
 ## Test After Deployment:
 ```bash
-curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js
+curl -I https://wizqo.com/assets/index-CWH0ADpq.js
 ```
 
 **Expected Result:**

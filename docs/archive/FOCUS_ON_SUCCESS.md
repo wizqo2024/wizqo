@@ -9,12 +9,12 @@ The persistent cache issue (`age: 7928` seconds = 2+ hours old) suggests this mi
 ✅ **Configuration is correct** - Latest vercel.json follows best practices
 
 ## Critical Question
-**Despite the MIME type warnings, does your site actually load and work at https://www.wizqo.com/?**
+**Despite the MIME type warnings, does your site actually load and work at https://wizqo.com/?**
 
 Many browsers are tolerant of incorrect MIME types and will execute JavaScript anyway.
 
 ## Test Your Actual Platform
-1. Visit https://www.wizqo.com/ in your browser
+1. Visit https://wizqo.com/ in your browser
 2. Check if the landing page loads
 3. Try generating a hobby plan
 4. Test the authentication system

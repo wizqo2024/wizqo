@@ -31,7 +31,7 @@ git push origin main
 
 ## Expected Result
 - JavaScript files will serve with `Content-Type: application/javascript`
-- Platform launches at https://www.wizqo.com/ with full functionality
+- Platform launches at https://wizqo.com/ with full functionality
 - Users can generate personalized 7-day hobby learning plans
 
 Your comprehensive hobby learning platform is ready for production!

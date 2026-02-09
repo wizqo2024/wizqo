@@ -36,7 +36,7 @@ vercel --prod
 
 ## What This Fixes
 - Changes `content-type: text/html` → `content-type: application/javascript`
-- Enables proper React app loading at https://www.wizqo.com/
+- Enables proper React app loading at https://wizqo.com/
 - Activates all platform features: AI plans, authentication, dashboard
 
 Your 395KB platform is ready - just needs the Shell deployment to go live.

@@ -31,6 +31,6 @@ vercel --prod
 - Enables Vercel framework detection via vercel-build script
 - Serves 395KB JavaScript with proper `Content-Type: application/javascript`
 - Resolves all MIME type issues causing white screen
-- Deploys your complete platform at https://www.wizqo.com/
+- Deploys your complete platform at https://wizqo.com/
 
 Your platform includes AI generation, Supabase authentication, dashboard, and YouTube integration - all ready for production.

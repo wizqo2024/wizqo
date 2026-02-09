@@ -25,7 +25,7 @@ git push origin main
 
 ## Expected Outcome
 - JavaScript Content-Type changes from `text/html` to `application/javascript`
-- Platform loads properly at https://www.wizqo.com/
+- Platform loads properly at https://wizqo.com/
 - Full functionality: AI plans, Supabase auth, dashboard, YouTube integration
 
 Your comprehensive hobby learning platform is ready for production deployment.

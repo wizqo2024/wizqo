@@ -42,6 +42,6 @@ gh auth login
 - Filesystem routing prioritizing static assets
 - API routed properly to server
 - React app loads with no white screen
-- Full platform functionality at https://www.wizqo.com/
+- Full platform functionality at https://wizqo.com/
 
 Your 395KB platform with AI generation, authentication, and dashboard is ready for production deployment.

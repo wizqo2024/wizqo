@@ -6,7 +6,7 @@
 ✅ **Assets Deployed**: `index-CWH0ADpq.js` and `index-CtSdy7v_.css` now exist on production
 
 ## Platform Status
-- **Live URL**: https://www.wizqo.com/
+- **Live URL**: https://wizqo.com/
 - **Build Size**: 395KB React app with 107KB CSS
 - **Assets**: Correct JavaScript and CSS files deployed
 - **Testing**: Verifying site functionality after asset deployment

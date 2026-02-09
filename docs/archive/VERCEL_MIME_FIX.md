@@ -14,6 +14,6 @@ Updated vercel.json headers with:
 ## Next Steps
 1. Commit and push this fix
 2. Vercel will redeploy automatically
-3. Test https://www.wizqo.com/ for white screen resolution
+3. Test https://wizqo.com/ for white screen resolution
 
 Your platform is production-ready - this is just a deployment configuration issue.

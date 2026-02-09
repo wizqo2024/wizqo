@@ -73,4 +73,4 @@ Your Wizqo platform includes:
 - ✅ YouTube video integration
 - ✅ Responsive design with dark/light mode
 
-The configuration follows the minimal example exactly and addresses the MIME type issue. Once the `vercel-build` script is added manually and deployed, https://www.wizqo.com/ will serve JavaScript files with proper `Content-Type: application/javascript` headers.
+The configuration follows the minimal example exactly and addresses the MIME type issue. Once the `vercel-build` script is added manually and deployed, https://wizqo.com/ will serve JavaScript files with proper `Content-Type: application/javascript` headers.

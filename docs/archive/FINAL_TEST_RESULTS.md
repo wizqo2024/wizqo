@@ -6,10 +6,10 @@
 ✅ Testing both JavaScript and CSS MIME types
 
 ## Expected Results After Cache Clear:
-**JavaScript Test**: `curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js`
+**JavaScript Test**: `curl -I https://wizqo.com/assets/index-CWH0ADpq.js`
 - Should return: `Content-Type: application/javascript`
 
-**CSS Test**: `curl -I https://www.wizqo.com/assets/index-CtSdy7v_.css`  
+**CSS Test**: `curl -I https://wizqo.com/assets/index-CtSdy7v_.css`  
 - Should return: `Content-Type: text/css`
 
 ## Platform Ready When MIME Types Are Correct:

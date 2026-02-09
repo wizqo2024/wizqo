@@ -14,6 +14,6 @@ Clean vercel.json with:
 ## Next Steps
 1. Commit the fixed vercel.json
 2. Push to trigger Vercel redeploy
-3. Test https://www.wizqo.com/ - should resolve MIME type issue
+3. Test https://wizqo.com/ - should resolve MIME type issue
 
 The configuration now uses Vercel's recommended modern syntax which should properly serve JavaScript assets with correct MIME types.

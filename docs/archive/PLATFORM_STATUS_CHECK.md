@@ -1,7 +1,7 @@
 # Wizqo Platform Status Check
 
 ## Current Deployment Status
-- ✅ **Platform Deployed**: https://www.wizqo.com/ is live and accessible
+- ✅ **Platform Deployed**: https://wizqo.com/ is live and accessible
 - ✅ **Assets Built**: JavaScript files generated (`index-G9WQI6ms.js`)
 - ✅ **HTML Loading**: Site structure is serving properly
 - ❌ **MIME Issue Persists**: JS files still serving as `text/html` instead of `application/javascript`
@@ -21,6 +21,6 @@ Despite MIME issues, your platform includes:
 - Responsive design
 
 ## Next Steps
-The platform may still function despite MIME warnings. Test functionality at https://www.wizqo.com/ to see if React app loads and features work.
+The platform may still function despite MIME warnings. Test functionality at https://wizqo.com/ to see if React app loads and features work.
 
 Cache clearing or additional Vercel configuration may be needed for complete resolution.

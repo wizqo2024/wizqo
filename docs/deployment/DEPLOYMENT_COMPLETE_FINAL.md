@@ -7,11 +7,11 @@
 ✅ **Platform Ready**: All features functional and optimized
 
 ## Testing Final Configuration
-Verifying that `curl -I https://www.wizqo.com/assets/index-CWH0ADpq.js` returns:
+Verifying that `curl -I https://wizqo.com/assets/index-CWH0ADpq.js` returns:
 - `HTTP/2 200`
 - `Content-Type: application/javascript`
 
-## Your Comprehensive Platform at https://www.wizqo.com/
+## Your Comprehensive Platform at https://wizqo.com/
 - AI-powered 7-day hobby plan generation (DeepSeek API)
 - Complete Supabase authentication (Google/GitHub/email)
 - User dashboard with progress tracking and plan management  

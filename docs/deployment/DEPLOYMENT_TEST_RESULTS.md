@@ -14,6 +14,6 @@ Checking if the X-Debug-Asset headers and proper Content-Type are now served...
 - Responsive design optimized for all devices
 
 ## Live URL
-https://www.wizqo.com/
+https://wizqo.com/
 
 Testing asset serving and MIME types...

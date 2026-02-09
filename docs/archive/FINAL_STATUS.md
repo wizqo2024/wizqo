@@ -3,7 +3,7 @@
 ## Deployment Complete
 Your comprehensive hobby learning platform has been deployed with the simplified vercel.json configuration.
 
-## Platform Features Live at https://www.wizqo.com/
+## Platform Features Live at https://wizqo.com/
 ✅ AI-powered 7-day hobby plan generation (DeepSeek API)
 ✅ Complete user authentication (Supabase with Google/GitHub OAuth)
 ✅ User dashboard with progress tracking and plan management

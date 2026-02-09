@@ -161,7 +161,7 @@ Add to `WorksheetSectionWrapper` component (but this affects ALL worksheets):
 ## 📝 Footer Details
 
 The footer shows:
-- **URL:** `www.wizqo.com` (links to `https://www.wizqo.com`)
+- **URL:** `www.wizqo.com` (links to `https://wizqo.com`)
 - **Copyright:** `Copyright © 2025 Wizqo. All rights reserved.`
 - **Page Numbers:** `Page 1 of 2` (only if `totalPages > 1`)
 
