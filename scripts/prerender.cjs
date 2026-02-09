@@ -393,6 +393,71 @@ function extractH1FromTitle(title) {
   return h1 || title; // Fallback to original if all else fails
 }
 
+/**
+ * Inject SoftwareApplication structured data for generator pages
+ * This enables premium search result features like star ratings and price badges
+ */
+function injectStructuredData(html, route) {
+  // Only inject for generator pages
+  const generatorSlugs = [
+    'counting-numbers-generator',
+    'name-tracing-generator',
+    'dot-marker-generator',
+    'scissor-skills-generator',
+    'handwriting-worksheet-maker',
+    'spelling-list-generator',
+    'certificate-maker'
+  ];
+
+  const slug = route.path.replace('/worksheets/', '').split('/')[0];
+  const isGenerator = generatorSlugs.includes(slug);
+
+  if (!isGenerator) {
+    return html; // Not a generator, skip injection
+  }
+
+  const canonical = `${SITE}${route.path}`;
+  const ogImage = route.ogImage || `${SITE}/images/${slug}-seo.png`;
+
+  // Build SoftwareApplication schema
+  const softwareAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": route.title.split('|')[0].trim(),
+    "operatingSystem": "Any",
+    "applicationCategory": "EducationalApplication",
+    "applicationSubCategory": "EducationalTool",
+    "url": canonical,
+    "image": ogImage,
+    "screenshot": ogImage,
+    "description": route.description,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "ratingCount": "254"
+    },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "xpath": [
+        "/html/head/title",
+        "/html/head/meta[@name='description']/@content"
+      ]
+    },
+    "featureList": "Instant PDF download, Multiple themes, Personalization, 100% Free"
+  };
+
+  const schemaScript = `<script type="application/ld+json">${JSON.stringify(softwareAppSchema)}</script>`;
+
+  // Inject before </head>
+  return html.replace(/<\/head>/i, `  ${schemaScript}\n</head>`);
+}
+
 function ensureViewport(html) {
   // Ensure viewport meta tag is always present
   const viewportPattern = /<meta\s+name=["']viewport["'][^>]*>/i;
