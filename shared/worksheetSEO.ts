@@ -4096,10 +4096,52 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     </article>`
   },
   'name-tracing-generator': {
-    title: 'Free Name Tracing Generator | Custom Practice Sheets | Wizqo',
+    title: 'Free Name Tracing Generator | Personalized Tracing Worksheets | Wizqo',
+    h1: 'Free Name Tracing Generator',
     metaDescription: 'Create personalized name tracing worksheets for kids. Choose from dotted, bubble, or script fonts. 100% free to customize and print as PDF.',
     keywords: 'name tracing generator, custom name worksheets, preschool handwriting practice, tracing names for kindergarten, free printable name tracing, name tracing maker',
-    image: '/images/name-tracing-seo.png',
+    image: 'https://wizqo.com/images/name-tracing-seo.png',
+    richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Name Tracing Generator</h1>
+      <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's <strong>Name Tracing Generator</strong>, the ultimate tool for helping your child master the Art of Writing. Whether you're a parent, teacher, or homeschooler, our generator allows you to create high-quality, personalized tracing sheets in seconds. We believe that learning should be fun and stress-free, which is why we've built a tool that is both powerful and <strong>completely free</strong>.</p>
+      
+      <div style="margin-bottom: 3rem; text-align: center;">
+        <img 
+          src="/images/name-tracing-seo.png" 
+          alt="Personalized name tracing worksheet example" 
+          style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;"
+        />
+        <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.75rem; font-style: italic;">Custom name tracing worksheets with dotted, bubble, and script options.</p>
+      </div>
+
+      <section style="margin-bottom: 3rem; background: #fdf2f8; padding: 2rem; border-radius: 12px; border: 1px solid #fbcfe8;">
+        <h2 style="font-size: 1.875rem; font-weight: 800; color: #be185d; margin-bottom: 1.5rem;">Why Choose Wizqo's Name Tracing Generator?</h2>
+        <p style="color: #9d174d; margin-bottom: 1.5rem;">Our name tracing tool is designed with focus and simplicity in mind, providing the perfect foundation for early handwriting success:</p>
+        <ul style="color: #9d174d; line-height: 1.8;">
+          <li><strong>Diverse Typography:</strong> Choose from 4 distinct styles: Dotted (traditional), Bubble (fun for coloring), Classic (clean strokes), and Script (modern).</li>
+          <li><strong>Batch Mode:</strong> Save time by generating worksheets for an entire classroom or multiple siblings at once.</li>
+          <li><strong>Adjustable Focus:</strong> Toggle between "Trace Only" for beginners or "Trace & Write" to encourage independent practice.</li>
+          <li><strong>Personalized Designs:</strong> Add decorative hearts or stars to make the worksheet feel like a special gift for your child.</li>
+          <li><strong>Instant PDF Export:</strong> No waiting, no accounts. Generate, preview, and print instantly.</li>
+        </ul>
+      </section>
+
+      <section style="margin-bottom: 3rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800; color: #1e293b; margin-bottom: 1.25rem;">Name Tracing FAQ</h2>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">When should I start name tracing with my toddler?</h3>
+          <p style="color: #475569;">Most children are ready to start exploring name recognition and basic tracing around age 3 or 4. The key is to keep it playful! Start with the "Bubble" font to make it feel like coloring time.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">How many names can I add in Batch Mode?</h3>
+          <p style="color: #475569;">Our Batch Mode supports up to 50 names per session. This makes it a favorite tool for preschool teachers who need to prepare morning work for their entire class quickly.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">Is my data private?</h3>
+          <p style="color: #475569;">Yes! Your child's name is never stored on our servers. The generator runs entirely in your browser to produce the PDF, ensuring your family's privacy is 100% protected.</p>
+        </div>
+      </section>
+    </article>`
   },
   'reading-discovery-interactive': {
     title: 'Reading Discovery: Interactive Comprehension Worksheet | Wizqo',
@@ -4107,10 +4149,10 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     image: '/images/reading-interactive-seo.jpg'
   },
   'counting-numbers-generator': {
-    title: 'Free Counting Numbers Worksheets & Tracing Generator (0-10) | Wizqo',
+    title: 'Free Number Tracing & Counting Generator | Custom PDF Worksheets',
     h1: 'Free Counting & Number Tracing Generator',
-    metaDescription: 'Create personalized counting and number tracing worksheets for free. Custom themes including dinosaurs, rockets, and bunnies. Download high-quality PDF workbooks instantly.',
-    keywords: 'counting numbers generator, free counting worksheets, number tracing 1-10, preschool math worksheets, kindergarten counting practice, personalized math worksheets, wizqo counting generator',
+    metaDescription: 'Generate custom counting & number tracing worksheets in seconds. Choose from Dinosaurs, Rockets, and more. 100% Free, instant PDF download. Perfect for Pre-K and Kindergarten.',
+    keywords: 'number tracing generator, counting numbers generator, free counting worksheets, number tracing 1-10, preschool math worksheets, kindergarten counting practice, personalized math worksheets',
     image: 'https://wizqo.com/images/counting-generator-seo.png',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Counting & Number Tracing Generator</h1>

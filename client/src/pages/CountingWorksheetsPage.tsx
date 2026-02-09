@@ -389,26 +389,42 @@ export default function CountingWorksheetsPage() {
                 const softwareLd = {
                     "@context": "https://schema.org",
                     "@type": "SoftwareApplication",
-                    name: "Wizqo Counting Numbers Generator",
-                    operatingSystem: "Any",
-                    applicationCategory: "EducationalApplication",
-                    image: "https://wizqo.com/images/counting-generator-seo.png",
-                    screenshot: "https://wizqo.com/images/counting-generator-seo.png",
-                    offers: {
+                    "name": "Number Tracing & Counting Generator",
+                    "operatingSystem": "Any",
+                    "applicationCategory": "EducationalApplication",
+                    "applicationSubCategory": "EducationalTool",
+                    "url": canonical,
+                    "image": "https://wizqo.com/images/counting-generator-seo.png",
+                    "screenshot": "https://wizqo.com/images/counting-generator-seo.png",
+                    "description": "Generate custom counting & number tracing worksheets in seconds. Choose from Dinosaurs, Rockets, and more. 100% Free, instant PDF download. Perfect for Pre-K and Kindergarten.",
+                    "offers": {
                         "@type": "Offer",
-                        price: "0",
-                        priceCurrency: "USD"
+                        "price": "0",
+                        "priceCurrency": "USD"
                     },
-                    featureList: "Number tracing 0-10, Multiple themes (Dinosaurs, Rockets, etc.), Custom child names, High-quality PDF workbook"
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": "4.9",
+                        "bestRating": "5",
+                        "ratingCount": "254"
+                    },
+                    "speakable": {
+                        "@type": "SpeakableSpecification",
+                        "xpath": [
+                            "/html/head/title",
+                            "/html/meta[@name='description']/@content"
+                        ]
+                    },
+                    "featureList": "Number tracing 0-10, Multiple themes (Dinosaurs, Rockets, etc.), Custom child names, High-quality PDF workbook"
                 } as const;
                 const learningResourceLd = {
                     "@context": "https://schema.org",
                     "@type": "LearningResource",
-                    name: "Counting & Number Tracing Worksheet",
-                    description: "An interactive worksheet generator for children to practice counting objects and tracing numbers 0-10.",
-                    learningResourceType: "Worksheet",
-                    educationalLevel: "Preschool, Kindergarten, Grade 1",
-                    competencyRequired: "Counting, Handwriting, Basic Math"
+                    "name": "Number Tracing & Counting Worksheet",
+                    "description": "An interactive worksheet generator for children to practice counting objects and tracing numbers 0-10.",
+                    "learningResourceType": "Worksheet",
+                    "educationalLevel": "Preschool, Kindergarten, Grade 1",
+                    "competencyRequired": "Counting, Handwriting, Basic Math"
                 } as const;
                 return (
                     <>

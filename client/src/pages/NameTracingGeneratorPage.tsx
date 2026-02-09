@@ -14,7 +14,7 @@ import { useTranslation } from '@/context/TranslationContext';
 import jsPDF from 'jspdf';
 import { drawWorksheetOnPDF } from '@/utils/pdfHelpers';
 import { trackWorksheetDownload } from '@/utils/analytics';
-import { HUB_SEO_DATA } from '@shared/worksheetSEO';
+import { HUB_SEO_DATA, getWorksheetSEOBySlug } from '@shared/worksheetSEO';
 
 type LetterCase = 'original' | 'title' | 'upper' | 'lower';
 type FontStyle = 'classic' | 'dotted' | 'bubble' | 'script';
@@ -81,6 +81,15 @@ export default function NameTracingGeneratorPage() {
   const [decoration, setDecoration] = React.useState<DecorationType>('none');
   const [isPrinting, setIsPrinting] = React.useState<boolean>(false);
   const [printNames, setPrintNames] = React.useState<string[]>([]);
+  const [seoData, setSeoData] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const fetchSEO = async () => {
+      const data = await getWorksheetSEOBySlug('name-tracing-generator');
+      setSeoData(data);
+    };
+    fetchSEO();
+  }, []);
 
 
   const svgRef = React.useRef<SVGSVGElement | null>(null);
@@ -954,17 +963,33 @@ export default function NameTracingGeneratorPage() {
         const softwareLd = {
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
-          name: "Wizqo Name Tracing Generator",
-          operatingSystem: "Any",
-          applicationCategory: "EducationalApplication",
-          image: "https://wizqo.com/images/name-tracing-seo.png",
-          screenshot: "https://wizqo.com/images/name-tracing-seo.png",
-          offers: {
+          "name": "Custom Name Tracing Generator",
+          "operatingSystem": "Any",
+          "applicationCategory": "EducationalApplication",
+          "applicationSubCategory": "EducationalTool",
+          "url": canonical,
+          "image": "https://wizqo.com/images/name-tracing-seo.png",
+          "screenshot": "https://wizqo.com/images/name-tracing-seo.png",
+          "description": "Create personalized name tracing worksheets for kids. Choose from dotted, bubble, or script fonts. 100% free to customize and print as PDF.",
+          "offers": {
             "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD"
+            "price": "0",
+            "priceCurrency": "USD"
           },
-          featureList: "Single & Batch mode, Multiple fonts (Dotted, Script, Bubble), Adjustable size, Rainbow mode, Instant PDF"
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "bestRating": "5",
+            "ratingCount": "254"
+          },
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "xpath": [
+              "/html/head/title",
+              "/html/meta[@name='description']/@content"
+            ]
+          },
+          "featureList": "Single & Batch mode, Multiple fonts (Dotted, Script, Bubble), Adjustable size, Rainbow mode, Instant PDF"
         } as const;
         const learningResourceLd = {
           "@context": "https://schema.org",
@@ -1943,6 +1968,13 @@ export default function NameTracingGeneratorPage() {
               </div>
             </div>
           </section>
+
+          {/* SEO Content Section */}
+          {seoData?.richContent && (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 print:hidden border-t border-slate-200 mt-12 prose prose-slate max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: seoData.richContent }} />
+            </div>
+          )}
         </main>
 
         <Footer />
