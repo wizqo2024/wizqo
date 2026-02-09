@@ -46,7 +46,7 @@ export function WorksheetFooter({
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <WizqoLogo className="w-8 h-auto opacity-70" />
           <a
-            href="https://www.wizqo.com"
+            href="https://wizqo.com"
             style={{
               color: '#4845D2',
               textDecoration: 'none',
@@ -54,7 +54,7 @@ export function WorksheetFooter({
               fontSize: '11pt'
             }}
           >
-            www.wizqo.com
+            wizqo.com
           </a>
         </div>
         {showCopyright && (
