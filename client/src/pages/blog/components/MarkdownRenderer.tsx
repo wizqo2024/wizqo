@@ -10,6 +10,7 @@ import NameTracingInfographic from '@/components/blog/NameTracingInfographic';
 import HandwritingPracticeBlog from '@/components/blog/HandwritingPracticeBlog';
 import HandwritingGeneratorComparisonBlog from '@/components/blog/HandwritingGeneratorComparisonBlog';
 import NameTracingWorksheetsBlog from '@/components/blog/NameTracingWorksheetsBlog';
+import CursiveWritingPracticeBlog from '@/components/blog/CursiveWritingPracticeBlog';
 import { BlogPost } from '../types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 
@@ -167,6 +168,14 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
       elements.push(
         <ErrorBoundary key={`name-tracing-worksheets-blog-${i}`}>
           <NameTracingWorksheetsBlog />
+        </ErrorBoundary>
+      );
+      continue;
+    }
+    if (post.id === 'cursive-writing-practice-for-kids' && trimmed === '<CursiveWritingPracticeBlog />') {
+      elements.push(
+        <ErrorBoundary key={`cursive-writing-blog-${i}`}>
+          <CursiveWritingPracticeBlog />
         </ErrorBoundary>
       );
       continue;

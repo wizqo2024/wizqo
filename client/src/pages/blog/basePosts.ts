@@ -119,5 +119,18 @@ export const basePosts: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Preschool child tracing their name on a worksheet with colorful crayons",
     keywords: "name tracing worksheets preschool free printable, free name tracing generator, printable name tracing worksheets for kindergarten, name writing practice sheets free, custom name tracing worksheets, preschool name writing worksheets pdf, free name tracing worksheets for preschoolers, personalized name tracing sheets free, name tracing practice for kids, toddler name writing worksheets free"
+  },
+  {
+    id: "cursive-writing-practice-for-kids",
+    title: "Cursive Writing Practice for Kids: A Parent's Complete Guide (2026)",
+    excerpt: "Cursive isn't dead — research shows it's good for your child's brain. Here's when to start, how to teach it, and free worksheets to make practice easy.",
+    content: "<CursiveWritingPracticeBlog />",
+    author: "Wizqo Team",
+    date: "2026-02-12T16:00:00Z",
+    readTime: "9-10 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Child practicing cursive writing with a pencil on lined paper",
+    keywords: "cursive writing practice for kids, free cursive worksheets printable, how to teach cursive writing, when do kids learn cursive, cursive handwriting worksheets free pdf, cursive practice sheets for beginners, cursive letter tracing worksheets, teach cursive at home, free cursive writing generator, cursive writing for 2nd grade 3rd grade"
   }
 ];
