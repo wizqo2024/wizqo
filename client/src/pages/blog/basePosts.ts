@@ -132,5 +132,31 @@ export const basePosts: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Child practicing cursive writing with a pencil on lined paper",
     keywords: "cursive writing practice for kids, free cursive worksheets printable, how to teach cursive writing, when do kids learn cursive, cursive handwriting worksheets free pdf, cursive practice sheets for beginners, cursive letter tracing worksheets, teach cursive at home, free cursive writing generator, cursive writing for 2nd grade 3rd grade"
+  },
+  {
+    id: "kindergarten-handwriting-worksheets-free",
+    title: "Free Kindergarten Handwriting Worksheets (PDF): The Complete Collection",
+    excerpt: "Everything your kindergartner needs to master handwriting — from letter formation to full words. All worksheets are free to download as PDF.",
+    content: "<KindergartenHandwritingBlog />",
+    author: "Wizqo Team",
+    date: "2026-02-12T18:00:00Z",
+    readTime: "8-9 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Kindergarten student practicing handwriting on a worksheet",
+    keywords: "kindergarten handwriting worksheets, kindergarten handwriting practice worksheets, free printable handwriting worksheets, handwriting worksheets kindergarten, kindergarten writing practice, free kindergarten worksheets pdf, handwriting practice kindergarten free, letter tracing kindergarten"
+  },
+  {
+    id: "free-number-tracing-worksheets",
+    title: "Free Number Tracing Worksheets 1-20: Printable PDF for Preschool & Kindergarten",
+    excerpt: "Help your child master number writing with fun, themed tracing worksheets. All free to download as PDF — with dinosaurs, rockets, and more.",
+    content: "<NumberTracingWorksheetsBlog />",
+    author: "Wizqo Team",
+    date: "2026-02-12T19:00:00Z",
+    readTime: "7-8 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Child tracing numbers on a worksheet with colorful pencils",
+    keywords: "number handwriting worksheets, number tracing worksheets 1-20, free number tracing printable, number writing practice preschool, number tracing worksheets pdf, free printable number worksheets, number tracing for kindergarten, number writing worksheets free"
   }
 ];

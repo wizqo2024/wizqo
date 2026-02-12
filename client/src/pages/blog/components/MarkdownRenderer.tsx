@@ -11,6 +11,8 @@ import HandwritingPracticeBlog from '@/components/blog/HandwritingPracticeBlog';
 import HandwritingGeneratorComparisonBlog from '@/components/blog/HandwritingGeneratorComparisonBlog';
 import NameTracingWorksheetsBlog from '@/components/blog/NameTracingWorksheetsBlog';
 import CursiveWritingPracticeBlog from '@/components/blog/CursiveWritingPracticeBlog';
+import KindergartenHandwritingBlog from '@/components/blog/KindergartenHandwritingBlog';
+import NumberTracingWorksheetsBlog from '@/components/blog/NumberTracingWorksheetsBlog';
 import { BlogPost } from '../types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 
@@ -176,6 +178,22 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
       elements.push(
         <ErrorBoundary key={`cursive-writing-blog-${i}`}>
           <CursiveWritingPracticeBlog />
+        </ErrorBoundary>
+      );
+      continue;
+    }
+    if (post.id === 'kindergarten-handwriting-worksheets-free' && trimmed === '<KindergartenHandwritingBlog />') {
+      elements.push(
+        <ErrorBoundary key={`kindergarten-handwriting-blog-${i}`}>
+          <KindergartenHandwritingBlog />
+        </ErrorBoundary>
+      );
+      continue;
+    }
+    if (post.id === 'free-number-tracing-worksheets' && trimmed === '<NumberTracingWorksheetsBlog />') {
+      elements.push(
+        <ErrorBoundary key={`number-tracing-blog-${i}`}>
+          <NumberTracingWorksheetsBlog />
         </ErrorBoundary>
       );
       continue;
