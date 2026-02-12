@@ -3766,10 +3766,10 @@ export function getAllWorksheetSEO(): WorksheetSEO[] {
  */
 export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
   'handwriting-worksheet-maker': {
-    title: 'Free Custom Name Tracing Generator | Handwriting Practice Maker | Wizqo',
-    metaDescription: 'Create personalized name tracing and handwriting practice worksheets for free. Custom cursive and print tracing generators for kids, parents, and teachers. No login required.',
+    title: 'Free Printable Handwriting Worksheets | Cursive & Print Generator | Wizqo',
+    metaDescription: 'Create free printable handwriting worksheets in seconds — cursive, print, or D\'Nealian. Custom tracing sheets for kindergarten & preschool. Instant PDF download, no signup.',
     image: 'https://wizqo.com/images/handwriting-maker-seo.png',
-    keywords: 'handwriting worksheet maker, custom name tracing, personalized name tracing, free handwriting generator, cursive handwriting maker, print handwriting practice, kindergarten handwriting, preschool tracing worksheets, wizqo handwriting maker',
+    keywords: 'free printable handwriting worksheets, cursive handwriting worksheet generator, kindergarten handwriting worksheets, handwriting worksheets pdf, handwriting practice worksheets pdf, handwriting worksheet maker, free handwriting generator, kindergarten handwriting practice worksheets, custom handwriting worksheets free',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #011627; margin-bottom: 1rem;">Free Custom Name Tracing Generator</h1>
       <p style="font-size: 1.125rem; color: #475569; margin-bottom: 2.5rem; line-height: 1.6;">Welcome to Wizqo's premier <strong>Handwriting Worksheet Maker</strong>. Our interactive tool allows parents and educators to generate high-fidelity, personalized tracing sheets in seconds. Whether you are using our clean <strong>Monoline font</strong> for early learners, <strong>Kids Cursive</strong> for 3rd-grade handwriting practice, or our fun <strong>Bubble font</strong> for coloring activities, Wizqo provides the precision tools you need for success.</p>
@@ -4096,10 +4096,10 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
     </article>`
   },
   'name-tracing-generator': {
-    title: 'Free Name Tracing Generator | Personalized Tracing Worksheets | Wizqo',
+    title: 'Free Name Tracing Worksheets | Handwriting Name Practice for Kids | Wizqo',
     h1: 'Free Name Tracing Generator',
-    metaDescription: 'Create personalized name tracing worksheets for kids. Choose from dotted, bubble, or script fonts. 100% free to customize and print as PDF.',
-    keywords: 'name tracing generator, custom name worksheets, preschool handwriting practice, tracing names for kindergarten, free printable name tracing, name tracing maker',
+    metaDescription: 'Create personalized handwriting name practice worksheets for preschool & kindergarten. Dotted, bubble, or script fonts. Free printable PDF, no signup required.',
+    keywords: 'handwriting name practice worksheets, free printable name tracing worksheets, name tracing generator, custom name worksheets, preschool name tracing, kindergarten name writing practice, free name tracing maker, personalized name tracing sheets',
     image: 'https://wizqo.com/images/name-tracing-seo.png',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Name Tracing Generator</h1>

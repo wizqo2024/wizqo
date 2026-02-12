@@ -940,9 +940,9 @@ export default function NameTracingGeneratorPage() {
         const seo = HUB_SEO_DATA['name-tracing-generator'] || {};
         return (
           <SEOMetaTags
-            title={seo.title || "Free Name Tracing Generator | Custom Practice Sheets | Wizqo"}
-            description={seo.metaDescription || "Create personalized name tracing worksheets for kids. Choose from dotted, bubble, or script fonts. 100% free to customize and print as PDF."}
-            keywords={seo.keywords || "name tracing generator, custom name worksheets, preschool handwriting practice, tracing names for kindergarten"}
+            title={seo.title || "Free Name Tracing Worksheets | Handwriting Name Practice for Kids | Wizqo"}
+            description={seo.metaDescription || "Create personalized handwriting name practice worksheets for preschool & kindergarten. Dotted, bubble, or script fonts. Free printable PDF, no signup required."}
+            keywords={seo.keywords || "handwriting name practice worksheets, free printable name tracing worksheets, name tracing generator, custom name worksheets, preschool name tracing"}
             ogImage={seo.image || "/images/name-tracing-seo.png"}
             canonicalUrl="https://wizqo.com/worksheets/name-tracing-generator"
           />

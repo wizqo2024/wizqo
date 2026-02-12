@@ -790,9 +790,9 @@ export default function HandwritingMakerPage() {
           const seo = HUB_SEO_DATA['handwriting-worksheet-maker'] || {};
           return (
             <SEOMetaTags
-              title={seo.title || "Free Handwriting Worksheet Maker | Custom Tracing Sheets | Wizqo"}
-              description={seo.metaDescription || "Create custom handwriting practice sheets for kids. Choose from dotted, cursive, or bubble fonts. 100% free to customize and print as PDF."}
-              keywords={seo.keywords || "handwriting maker, tracing worksheets, custom handwriting sheets, cursive practice, dotted font generator"}
+              title={seo.title || "Free Printable Handwriting Worksheets | Cursive & Print Generator | Wizqo"}
+              description={seo.metaDescription || "Create free printable handwriting worksheets in seconds — cursive, print, or D'Nealian. Custom tracing sheets for kindergarten & preschool. Instant PDF download, no signup."}
+              keywords={seo.keywords || "free printable handwriting worksheets, cursive handwriting worksheet generator, kindergarten handwriting worksheets, handwriting worksheets pdf"}
               ogImage={seo.image || "/images/handwriting-maker-seo.png"}
               canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
             />
@@ -944,9 +944,9 @@ export default function HandwritingMakerPage() {
         const seo = HUB_SEO_DATA['handwriting-worksheet-maker'] || {};
         return (
           <SEOMetaTags
-            title={seo.title || "Free Handwriting Worksheet Maker | Custom Tracing Practice | Wizqo"}
-            description={seo.metaDescription || "Create personalized Name Tracing and Cursive Writing worksheets in seconds. Perfect for kids learning handwriting. Download your custom PDF instantly for free."}
-            keywords={seo.keywords || "name tracing generator, cursive handwriting worksheets, cursive writing practice, printable cursive sheets, tracing cursive letters, handwriting worksheet maker, free name tracing worksheets"}
+            title={seo.title || "Free Printable Handwriting Worksheets | Cursive & Print Generator | Wizqo"}
+            description={seo.metaDescription || "Create free printable handwriting worksheets in seconds — cursive, print, or D'Nealian. Custom tracing sheets for kindergarten & preschool. Instant PDF download, no signup."}
+            keywords={seo.keywords || "free printable handwriting worksheets, cursive handwriting worksheet generator, kindergarten handwriting worksheets, handwriting worksheets pdf"}
             ogImage="https://wizqo.com/images/handwriting-og-preview.png"
             canonicalUrl="https://wizqo.com/worksheets/handwriting-worksheet-maker"
           />
