@@ -80,5 +80,31 @@ export const basePosts: BlogPost[] = [
     imageUrl: "/images/blog/name-tracing-hero-image.png",
     imageAlt: "Child writing their name with focus",
     keywords: "custom name tracing, name tracing worksheets, teach child to write name, free name tracing generator, kindergarten writing practice, preschool handwriting, personalized worksheets"
+  },
+  {
+    id: "how-to-improve-handwriting",
+    title: "How to Improve Your Child's Handwriting: A Parent's Complete Guide | Wizqo",
+    excerpt: "Struggling with messy handwriting? Learn expert tips, age-by-age milestones, and get free printable handwriting worksheets to help your child write better — from preschool tracing to full sentences.",
+    content: "<HandwritingPracticeBlog />",
+    author: "Wizqo Team",
+    date: "2026-02-11T12:00:00Z",
+    readTime: "7-8 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Child practicing handwriting on a worksheet with colorful pencils",
+    keywords: "how to improve handwriting, handwriting practice for kids, free handwriting worksheets, preschool handwriting, kindergarten writing practice, letter tracing worksheets, handwriting worksheet generator, handwriting tips for kids, improve handwriting fast, free printable handwriting worksheets, name tracing worksheets, fine motor skills writing, handwriting worksheet maker free"
+  },
+  {
+    id: "best-free-handwriting-worksheet-generators",
+    title: "7 Best Free Handwriting Worksheet Generators (2026 Comparison)",
+    excerpt: "We tested every major free handwriting worksheet generator so you don't have to. Here's our honest comparison — with pros, cons, and our top pick for parents and teachers.",
+    content: "<HandwritingGeneratorComparisonBlog />",
+    author: "Wizqo Team",
+    date: "2026-02-12T12:00:00Z",
+    readTime: "8-9 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Child writing on a worksheet with colorful markers and pencils",
+    keywords: "best free handwriting worksheet generator, handwriting worksheet maker comparison, free handwriting generator 2026, handwriting practice generator free, tracing worksheet generator comparison, best worksheet maker for kids, free printable handwriting worksheets generator, custom handwriting worksheets free, name tracing generator free, handwriting worksheet generator no signup"
   }
 ];

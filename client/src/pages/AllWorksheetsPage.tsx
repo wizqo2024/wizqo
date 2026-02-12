@@ -212,7 +212,7 @@ export default function AllWorksheetsPage() {
             title={seo.title || "All Worksheet Categories - Discover Every Learning Tool | Wizqo"}
             description={seo.metaDescription || "Explore our complete collection of free worksheet categories! From kindergarten math to 5th grade, multiplication to reading. 100% free, ready to print."}
             keywords={seo.keywords || "worksheet categories, browse worksheets, all worksheet types, worksheet directory, worksheets by grade, worksheets by subject, complete worksheet list, free worksheet categories, math worksheets by grade, reading worksheets, handwriting worksheets"}
-            ogImage="/images/all-worksheets-seo.png"
+            ogImage="/images/math-worksheets-seo.png"
             canonicalUrl={`https://wizqo.com${addLocaleToPath('/worksheets/all', getLocaleFromURL())}`}
           />
         )

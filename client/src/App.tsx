@@ -567,6 +567,7 @@ export default function App() {
                         <SEOMetaTags
                           title="How to Make a Certificate Online - Free Certificate Maker"
                           description="Create your own certificate online for free! Make certificates with editable names, cute themes, and instant download. Perfect for achievements!"
+                          ogImage="/images/printables-landing-seo.png"
                           canonicalUrl={`https://wizqo.com${canonical}`}
                         />
                         <CertificateMakerPage />

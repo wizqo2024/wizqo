@@ -175,7 +175,7 @@ export default function InteractiveReadingWorksheetPage() {
                             <SEOMetaTags
                                 title={seo.title || "Reading Discovery: Interactive Comprehension Worksheet | Wizqo"}
                                 description={seo.metaDescription || "Free interactive reading comprehension worksheet for Grade 1 and 2. Features original stories, illustrations, and a 'Show Answer' toggle. Print as PDF instantly."}
-                                ogImage={seo.image || "/images/reading-interactive-seo.jpg"}
+                                ogImage={seo.image || "https://wizqo.com/images/reading-interactive-seo.png"}
                                 canonicalUrl="https://wizqo.com/worksheets/reading-discovery-interactive"
                                 ogType="website"
                             />
@@ -198,8 +198,8 @@ export default function InteractiveReadingWorksheetPage() {
                             name: "Wizqo Interactive Reading Discovery",
                             operatingSystem: "Any",
                             applicationCategory: "EducationalApplication",
-                            image: "https://wizqo.com/images/reading-interactive-seo.jpg",
-                            screenshot: "https://wizqo.com/images/reading-interactive-seo.jpg",
+                            image: "https://wizqo.com/images/reading-interactive-seo.png",
+                            screenshot: "https://wizqo.com/images/reading-interactive-seo.png",
                             offers: {
                                 "@type": "Offer",
                                 price: "0",

@@ -7,6 +7,8 @@ import MultiplicationWorksheetsBlog from '@/components/blog/MultiplicationWorksh
 import CognitiveSkillsBlog from '@/components/blog/CognitiveSkillsBlog';
 import Grade2MathWorksheetsBlog from '@/components/blog/Grade2MathWorksheetsBlog';
 import NameTracingInfographic from '@/components/blog/NameTracingInfographic';
+import HandwritingPracticeBlog from '@/components/blog/HandwritingPracticeBlog';
+import HandwritingGeneratorComparisonBlog from '@/components/blog/HandwritingGeneratorComparisonBlog';
 import { BlogPost } from '../types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 
@@ -140,6 +142,22 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
       elements.push(
         <ErrorBoundary key={`name-tracing-infographic-${i}`}>
           <NameTracingInfographic />
+        </ErrorBoundary>
+      );
+      continue;
+    }
+    if (post.id === 'how-to-improve-handwriting' && trimmed === '<HandwritingPracticeBlog />') {
+      elements.push(
+        <ErrorBoundary key={`handwriting-practice-blog-${i}`}>
+          <HandwritingPracticeBlog />
+        </ErrorBoundary>
+      );
+      continue;
+    }
+    if (post.id === 'best-free-handwriting-worksheet-generators' && trimmed === '<HandwritingGeneratorComparisonBlog />') {
+      elements.push(
+        <ErrorBoundary key={`handwriting-comparison-blog-${i}`}>
+          <HandwritingGeneratorComparisonBlog />
         </ErrorBoundary>
       );
       continue;

@@ -3768,7 +3768,7 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
   'handwriting-worksheet-maker': {
     title: 'Free Custom Name Tracing Generator | Handwriting Practice Maker | Wizqo',
     metaDescription: 'Create personalized name tracing and handwriting practice worksheets for free. Custom cursive and print tracing generators for kids, parents, and teachers. No login required.',
-    image: '/assets/previews/handwriting-hub-preview.png',
+    image: 'https://wizqo.com/images/handwriting-maker-seo.png',
     keywords: 'handwriting worksheet maker, custom name tracing, personalized name tracing, free handwriting generator, cursive handwriting maker, print handwriting practice, kindergarten handwriting, preschool tracing worksheets, wizqo handwriting maker',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #011627; margin-bottom: 1rem;">Free Custom Name Tracing Generator</h1>
@@ -3808,7 +3808,7 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
         <div style="margin-top: 4rem; border-top: 1px solid #f1f5f9; pt-8;">
           <h3 style="font-size: 1.125rem; font-weight: 700; color: #64748b; margin-bottom: 1.5rem; text-align: center;">Worksheet Preview</h3>
           <img 
-            src="/assets/previews/handwriting-hub-preview.png" 
+            src="/images/handwriting-maker-seo.png" 
             alt="Handwriting Worksheet Maker Preview" 
             style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); margin: 0 auto; display: block;"
             loading="lazy"
@@ -3887,7 +3887,7 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
   'scissor-skills-generator': {
     title: 'Free Printable Cutting Practice Worksheets (PDF) - Scissor Skills Generator',
     metaDescription: "Download free printable cutting practice worksheets for preschoolers. Generate custom vertical cutting strips, zigzag lines, and 'haircut' activities for fine motor skills. No sign up.",
-    image: '/images/scissor-skills-seo.png',
+    image: 'https://wizqo.com/images/scissor-skills-seo.png',
     keywords: 'free printable cutting practice worksheets, scissor skills worksheets for kindergarten, cutting strips for preschoolers, fine motor skills activities, haircut worksheets, vertical cutting practice, free homeschooling resources',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #7c3aed; margin-bottom: 1rem;">Free Printable Cutting Practice Worksheets</h1>
@@ -3926,7 +3926,7 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
   'spelling-list-generator': {
     title: 'Free Spelling List Generator | No Sign Up Custom Spelling Sheets | Wizqo',
     metaDescription: 'Create custom spelling practice worksheets for free. No Sign Up required. Generate personalized spelling lists with dotted tracing fonts, cursive, and hard spelling words for grades 3-5.',
-    image: '/images/spelling-generator-seo.png',
+    image: 'https://wizqo.com/images/spelling-generator-seo.png',
     keywords: 'spelling list generator, custom spelling worksheets, spelling practice maker, free spelling generator, spelling tracing sheets, weekly spelling list maker, cursive spelling practice, hard spelling words, 3rd grade spelling words, 4th grade spelling words, 5th grade spelling words, no sign up spelling maker',
     richContent: `<article style="max-width: 1200px; margin: 0 auto; font-family: system-ui, -apple-system, sans-serif;">
       <h1 style="font-size: 2.5rem; font-weight: 900; color: #011627; margin-bottom: 1rem;">Free Spelling List Generator - No Sign Up Required</h1>
@@ -4146,7 +4146,7 @@ export const HUB_SEO_DATA: Record<string, Partial<WorksheetSEO>> = {
   'reading-discovery-interactive': {
     title: 'Reading Discovery: Interactive Comprehension Worksheet | Wizqo',
     metaDescription: 'Free interactive reading comprehension worksheet for Grade 1 and 2. Features original stories, illustrations, and a "Show Answer" toggle. Print as PDF instantly.',
-    image: '/images/reading-interactive-seo.jpg'
+    image: 'https://wizqo.com/images/reading-interactive-seo.png'
   },
   'counting-numbers-generator': {
     title: 'Free Number Tracing & Counting Generator | Custom PDF Worksheets',

@@ -542,7 +542,7 @@ export default function SpellingListGeneratorPage() {
                                     <SocialShare
                                         url="https://wizqo.com/worksheets/spelling-list-generator"
                                         title="I just created a custom spelling worksheet for free at Wizqo! You should check it out."
-                                        media="https://wizqo.com/images/spelling-list-generator-seo.png"
+                                        media="https://wizqo.com/images/spelling-generator-seo.png"
                                     />
                                 </div>
                             </CardContent>
