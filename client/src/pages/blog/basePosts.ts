@@ -106,5 +106,18 @@ export const basePosts: BlogPost[] = [
     imageUrl: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Child writing on a worksheet with colorful markers and pencils",
     keywords: "best free handwriting worksheet generator, handwriting worksheet maker comparison, free handwriting generator 2026, handwriting practice generator free, tracing worksheet generator comparison, best worksheet maker for kids, free printable handwriting worksheets generator, custom handwriting worksheets free, name tracing generator free, handwriting worksheet generator no signup"
+  },
+  {
+    id: "free-printable-name-tracing-worksheets-preschool",
+    title: "10 Free Printable Name Tracing Worksheets for Preschool (PDF)",
+    excerpt: "Teaching your child to write their name is one of the first big milestones. Here are 10 creative name tracing worksheet ideas — plus a free generator to make your own.",
+    content: "<NameTracingWorksheetsBlog />",
+    author: "Wizqo Team",
+    date: "2026-02-12T14:00:00Z",
+    readTime: "7-8 min read",
+    category: "Learning Tips",
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80",
+    imageAlt: "Preschool child tracing their name on a worksheet with colorful crayons",
+    keywords: "name tracing worksheets preschool free printable, free name tracing generator, printable name tracing worksheets for kindergarten, name writing practice sheets free, custom name tracing worksheets, preschool name writing worksheets pdf, free name tracing worksheets for preschoolers, personalized name tracing sheets free, name tracing practice for kids, toddler name writing worksheets free"
   }
 ];

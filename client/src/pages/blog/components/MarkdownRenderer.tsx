@@ -9,6 +9,7 @@ import Grade2MathWorksheetsBlog from '@/components/blog/Grade2MathWorksheetsBlog
 import NameTracingInfographic from '@/components/blog/NameTracingInfographic';
 import HandwritingPracticeBlog from '@/components/blog/HandwritingPracticeBlog';
 import HandwritingGeneratorComparisonBlog from '@/components/blog/HandwritingGeneratorComparisonBlog';
+import NameTracingWorksheetsBlog from '@/components/blog/NameTracingWorksheetsBlog';
 import { BlogPost } from '../types';
 import { CATEGORY_IMAGES, GENERIC_BLOG_IMAGE } from '../constants';
 
@@ -158,6 +159,14 @@ export function MarkdownRenderer({ post, usedImageUrls, pickFallback }: Markdown
       elements.push(
         <ErrorBoundary key={`handwriting-comparison-blog-${i}`}>
           <HandwritingGeneratorComparisonBlog />
+        </ErrorBoundary>
+      );
+      continue;
+    }
+    if (post.id === 'free-printable-name-tracing-worksheets-preschool' && trimmed === '<NameTracingWorksheetsBlog />') {
+      elements.push(
+        <ErrorBoundary key={`name-tracing-worksheets-blog-${i}`}>
+          <NameTracingWorksheetsBlog />
         </ErrorBoundary>
       );
       continue;
