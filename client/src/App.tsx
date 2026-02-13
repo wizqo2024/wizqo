@@ -548,17 +548,8 @@ export default function App() {
                   );
                 case 'printables':
                   if (routeSubKey === 'name-tracing-generator') {
-                    const canonical = addLocaleToPath('/printables/name-tracing-generator', currentLocale);
-                    return (
-                      <>
-                        <SEOMetaTags
-                          title="Free Name Tracing Generator - Personalized Handwriting"
-                          description="Create free personalized name tracing worksheets for kids! Customize fonts, sizes, and patterns. Perfect for teaching handwriting and name recognition skills."
-                          canonicalUrl={`https://wizqo.com${canonical}`}
-                        />
-                        <NameTracingGeneratorPage />
-                      </>
-                    );
+                    window.location.replace('/worksheets/handwriting-worksheet-maker');
+                    return null;
                   }
                   if (routeSubKey === 'certificate-maker') {
                     const canonical = addLocaleToPath('/printables/certificate-maker', currentLocale);
