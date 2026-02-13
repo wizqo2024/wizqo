@@ -56,7 +56,7 @@ export default function HandwritingPracticeBlog() {
                             <div className="flex-1">
                                 <h3 className="font-semibold text-orange-800">Ages 3–4: Name Tracing</h3>
                                 <p className="text-sm text-orange-700">Learning to write their name. Use our{' '}
-                                    <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a> to create personalized dotted-line sheets.
+                                    <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a> to create personalized dotted-line sheets.
                                 </p>
                             </div>
                         </div>
@@ -107,7 +107,7 @@ export default function HandwritingPracticeBlog() {
                             <span className="text-4xl block mb-3">📝</span>
                             <h3 className="font-bold text-yellow-900 mb-2">4. Personalize the Content</h3>
                             <p className="text-yellow-700 text-sm">Kids engage more when tracing their own name, pet's name, or favorite words. Our{' '}
-                                <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a> makes this easy.
+                                <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a> makes this easy.
                             </p>
                         </div>
                         <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl shadow-md">
@@ -195,7 +195,7 @@ export default function HandwritingPracticeBlog() {
                             <h4 className="font-semibold text-purple-800 group-hover:text-purple-600">Handwriting Maker</h4>
                             <p className="text-xs text-gray-600 mt-1">Letters, words, sentences</p>
                         </a>
-                        <a href="/worksheets/name-tracing-generator" className="bg-pink-50 p-4 rounded-lg shadow-inner hover:shadow-md transition-shadow text-center group">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="bg-pink-50 p-4 rounded-lg shadow-inner hover:shadow-md transition-shadow text-center group">
                             <span className="text-4xl block mb-2">📝</span>
                             <h4 className="font-semibold text-pink-800 group-hover:text-pink-600">Name Tracing</h4>
                             <p className="text-xs text-gray-600 mt-1">Personalized name worksheets</p>
@@ -246,7 +246,7 @@ export default function HandwritingPracticeBlog() {
                         </details>
                         <details className="bg-gray-50 rounded-lg p-4 group">
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">My child hates handwriting practice. What should I do?</summary>
-                            <p className="mt-3 text-gray-600">Make it personal! Children are far more motivated to trace their own name or their pet's name than random words. Use our <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a> to create custom content they care about. Also try fun activities like <a href="/worksheets/dot-marker-generator" className="text-blue-600 hover:text-blue-800 underline">Do-A-Dot art</a> and <a href="/worksheets/scissor-skills-generator" className="text-blue-600 hover:text-blue-800 underline">cutting practice</a> that build the same motor skills without feeling like "work."</p>
+                            <p className="mt-3 text-gray-600">Make it personal! Children are far more motivated to trace their own name or their pet's name than random words. Use our <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a> to create custom content they care about. Also try fun activities like <a href="/worksheets/dot-marker-generator" className="text-blue-600 hover:text-blue-800 underline">Do-A-Dot art</a> and <a href="/worksheets/scissor-skills-generator" className="text-blue-600 hover:text-blue-800 underline">cutting practice</a> that build the same motor skills without feeling like "work."</p>
                         </details>
                         <details className="bg-gray-50 rounded-lg p-4 group">
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">Are free handwriting worksheets as good as paid ones?</summary>
@@ -265,7 +265,7 @@ export default function HandwritingPracticeBlog() {
                         <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform">
                             Create Handwriting Worksheets
                         </a>
-                        <a href="/worksheets/name-tracing-generator" className="inline-block bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform border-2 border-white">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform border-2 border-white">
                             Make Name Tracing Sheets
                         </a>
                     </div>
@@ -288,7 +288,7 @@ export default function HandwritingPracticeBlog() {
                     Good handwriting starts with the right practice. Give your child personalized, fun worksheets and watch their confidence grow!
                     Explore more tools:{' '}
                     <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Handwriting Maker</a>,{' '}
-                    <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing</a>,{' '}
+                    <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing</a>,{' '}
                     <a href="/worksheets/spelling-list-generator" className="text-blue-600 hover:text-blue-800 underline">Spelling Generator</a>, or{' '}
                     <a href="/worksheets/scissor-skills-generator" className="text-blue-600 hover:text-blue-800 underline">Scissor Skills</a>.
                 </p>

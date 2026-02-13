@@ -184,7 +184,7 @@ export default function HandwritingGeneratorComparisonBlog() {
                             <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-purple-600 text-white font-bold py-2 px-6 rounded-full text-center hover:bg-purple-700 transition-colors text-sm">
                                 Try Handwriting Maker →
                             </a>
-                            <a href="/worksheets/name-tracing-generator" className="inline-block bg-pink-100 text-pink-800 font-bold py-2 px-6 rounded-full text-center hover:bg-pink-200 transition-colors text-sm">
+                            <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-pink-100 text-pink-800 font-bold py-2 px-6 rounded-full text-center hover:bg-pink-200 transition-colors text-sm">
                                 Or Try Name Tracing →
                             </a>
                         </div>
@@ -393,7 +393,7 @@ export default function HandwritingGeneratorComparisonBlog() {
                             <p className="text-purple-700 text-sm">
                                 Use <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline font-semibold">Wizqo's Handwriting Maker</a>.
                                 Type a word, pick a font, print. Done in under 10 seconds. Also check our{' '}
-                                <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a> for personalized sheets.
+                                <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a> for personalized sheets.
                             </p>
                         </div>
                         <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
@@ -432,7 +432,7 @@ export default function HandwritingGeneratorComparisonBlog() {
                             <h4 className="font-semibold text-purple-800 group-hover:text-purple-600 text-sm">Handwriting Maker</h4>
                             <p className="text-xs text-gray-500 mt-1">Any word, any font</p>
                         </a>
-                        <a href="/worksheets/name-tracing-generator" className="bg-pink-50 p-4 rounded-lg shadow-inner hover:shadow-md transition-shadow text-center group">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="bg-pink-50 p-4 rounded-lg shadow-inner hover:shadow-md transition-shadow text-center group">
                             <span className="text-3xl block mb-2">📝</span>
                             <h4 className="font-semibold text-pink-800 group-hover:text-pink-600 text-sm">Name Tracing</h4>
                             <p className="text-xs text-gray-500 mt-1">Personalized sheets</p>
@@ -484,7 +484,7 @@ export default function HandwritingGeneratorComparisonBlog() {
                         </details>
                         <details className="bg-gray-50 rounded-lg p-4 group">
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">Can I use these generators for an entire classroom?</summary>
-                            <p className="mt-3 text-gray-600">Yes! Generator-based tools like Wizqo let you create unlimited worksheets with different content. You can make a personalized name tracing sheet for every student using our <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a>, or create custom <a href="/worksheets/spelling-list-generator" className="text-blue-600 hover:text-blue-800 underline">spelling practice sheets</a> matched to your weekly word list.</p>
+                            <p className="mt-3 text-gray-600">Yes! Generator-based tools like Wizqo let you create unlimited worksheets with different content. You can make a personalized name tracing sheet for every student using our <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a>, or create custom <a href="/worksheets/spelling-list-generator" className="text-blue-600 hover:text-blue-800 underline">spelling practice sheets</a> matched to your weekly word list.</p>
                         </details>
                         <details className="bg-gray-50 rounded-lg p-4 group">
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">Which generator works best on phones and tablets?</summary>
@@ -507,7 +507,7 @@ export default function HandwritingGeneratorComparisonBlog() {
                         <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform">
                             Create Handwriting Worksheets →
                         </a>
-                        <a href="/worksheets/name-tracing-generator" className="inline-block bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform border-2 border-white">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform border-2 border-white">
                             Make Name Tracing Sheets →
                         </a>
                     </div>
@@ -530,7 +530,7 @@ export default function HandwritingGeneratorComparisonBlog() {
                     Good handwriting starts with the right tools and consistent practice. Whether you're a parent, teacher, or homeschooler — our free generators make it easy.
                     Explore more:{' '}
                     <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Handwriting Maker</a>,{' '}
-                    <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing</a>,{' '}
+                    <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing</a>,{' '}
                     <a href="/worksheets/spelling-list-generator" className="text-blue-600 hover:text-blue-800 underline">Spelling Generator</a>,{' '}
                     <a href="/blog/how-to-improve-handwriting" className="text-blue-600 hover:text-blue-800 underline">Handwriting Guide</a>, or{' '}
                     <a href="/blog/handwriting-without-tears-infographic" className="text-blue-600 hover:text-blue-800 underline">Handwriting Without Tears</a>.

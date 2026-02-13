@@ -56,7 +56,7 @@ export default function CursiveWritingPracticeBlog() {
                             <h3 className="font-semibold text-yellow-800">Ages 3-5: Build the Foundation First</h3>
                             <p className="text-sm text-yellow-700 mt-1">
                                 Don't jump to cursive yet. Focus on print letter tracing, fine motor skills, and pencil grip. Use our{' '}
-                                <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a>{' '}
+                                <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a>{' '}
                                 and{' '}
                                 <a href="/worksheets/scissor-skills-generator" className="text-blue-600 hover:text-blue-800 underline">Scissor Skills Generator</a>{' '}
                                 to build these skills.
@@ -278,7 +278,7 @@ export default function CursiveWritingPracticeBlog() {
                             <h3 className="font-bold text-white mb-1 text-sm">Handwriting Maker</h3>
                             <p className="text-purple-200 text-xs">Cursive, D'Nealian, print — any style, any word</p>
                         </a>
-                        <a href="/worksheets/name-tracing-generator" className="bg-white/10 hover:bg-white/20 transition-colors p-5 rounded-xl text-center">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="bg-white/10 hover:bg-white/20 transition-colors p-5 rounded-xl text-center">
                             <span className="text-3xl block mb-2">📝</span>
                             <h3 className="font-bold text-white mb-1 text-sm">Name Tracing</h3>
                             <p className="text-purple-200 text-xs">Practice their name in cursive</p>
@@ -391,7 +391,7 @@ export default function CursiveWritingPracticeBlog() {
                         <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform">
                             Create Cursive Worksheets →
                         </a>
-                        <a href="/worksheets/name-tracing-generator" className="inline-block bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform border-2 border-white">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform border-2 border-white">
                             Cursive Name Tracing →
                         </a>
                     </div>
@@ -414,7 +414,7 @@ export default function CursiveWritingPracticeBlog() {
                     Cursive is a skill worth learning — for the brain, for the hand, and for the heart.
                     Explore more:{' '}
                     <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Handwriting Maker</a>,{' '}
-                    <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing</a>,{' '}
+                    <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing</a>,{' '}
                     <a href="/blog/how-to-improve-handwriting" className="text-blue-600 hover:text-blue-800 underline">Handwriting Guide</a>,{' '}
                     <a href="/blog/best-free-handwriting-worksheet-generators" className="text-blue-600 hover:text-blue-800 underline">Generator Comparison</a>, or{' '}
                     <a href="/blog/free-printable-name-tracing-worksheets-preschool" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Ideas</a>.

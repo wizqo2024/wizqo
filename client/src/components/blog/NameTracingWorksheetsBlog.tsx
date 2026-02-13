@@ -9,7 +9,7 @@ export default function NameTracingWorksheetsBlog() {
                 </h2>
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                     Teaching your child to write their name is one of the first big milestones. These free printable worksheets make it fun and easy — or{' '}
-                    <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline font-semibold">
+                    <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline font-semibold">
                         make your own custom name tracing sheet
                     </a>{' '}
                     in seconds.
@@ -53,7 +53,7 @@ export default function NameTracingWorksheetsBlog() {
                     <h2 className="text-2xl font-bold text-center text-[#073B4C] mb-2">10 Name Tracing Worksheet Ideas</h2>
                     <p className="text-gray-500 text-center mb-6 max-w-2xl mx-auto">
                         Each of these can be created instantly with our{' '}
-                        <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline font-semibold">free Name Tracing Generator</a>.
+                        <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline font-semibold">free Name Tracing Generator</a>.
                         Just type the name and pick a style!
                     </p>
 
@@ -204,7 +204,7 @@ export default function NameTracingWorksheetsBlog() {
                             </div>
                             <p className="text-red-600 text-xs mt-3">
                                 <strong>Best for:</strong> Making it personal, ages 3-5 |{' '}
-                                <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Create custom names →</a>
+                                <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Create custom names →</a>
                             </p>
                         </div>
 
@@ -254,7 +254,7 @@ export default function NameTracingWorksheetsBlog() {
                             <h3 className="font-bold text-purple-900 mb-2">Type the Name</h3>
                             <p className="text-purple-700 text-sm">
                                 Go to our{' '}
-                                <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline font-semibold">Name Tracing Generator</a>{' '}
+                                <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline font-semibold">Name Tracing Generator</a>{' '}
                                 and type any name — your child's, a sibling's, a pet's, or a spelling word.
                             </p>
                         </div>
@@ -296,7 +296,7 @@ export default function NameTracingWorksheetsBlog() {
                                 <h3 className="font-semibold text-green-800">Ages 3-4: First Letter of Their Name</h3>
                                 <p className="text-sm text-green-700 mt-1">
                                     Start with just their initial — one big letter to trace. Use our{' '}
-                                    <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a>{' '}
+                                    <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Name Tracing Generator</a>{' '}
                                     with the largest font size setting.
                                 </p>
                             </div>
@@ -365,7 +365,7 @@ export default function NameTracingWorksheetsBlog() {
                         Name tracing is just the beginning. Here are more free tools to build your child's writing skills:
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <a href="/worksheets/name-tracing-generator" className="bg-pink-50 p-4 rounded-lg shadow-inner hover:shadow-md transition-shadow text-center group">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="bg-pink-50 p-4 rounded-lg shadow-inner hover:shadow-md transition-shadow text-center group">
                             <span className="text-3xl block mb-2">📝</span>
                             <h4 className="font-semibold text-pink-800 group-hover:text-pink-600 text-sm">Name Tracing</h4>
                             <p className="text-xs text-gray-500 mt-1">Custom name sheets</p>
@@ -396,7 +396,7 @@ export default function NameTracingWorksheetsBlog() {
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">Where can I get free name tracing worksheets?</summary>
                             <p className="mt-3 text-gray-600">
                                 You can create unlimited free name tracing worksheets at{' '}
-                                <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">Wizqo's Name Tracing Generator</a>.
+                                <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">Wizqo's Name Tracing Generator</a>.
                                 Just type any name, pick a font style (dotted, bubble, or cursive), and download a PDF instantly. No signup, no watermarks, completely free.
                             </p>
                         </details>
@@ -410,7 +410,7 @@ export default function NameTracingWorksheetsBlog() {
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">Should I teach uppercase or lowercase first?</summary>
                             <p className="mt-3 text-gray-600">
                                 Start with <strong>uppercase (capital letters)</strong> for their name. Uppercase letters are easier to write because they use mostly straight lines and simple curves. Once they're confident, introduce the lowercase version. Our{' '}
-                                <a href="/worksheets/name-tracing-generator" className="text-blue-600 hover:text-blue-800 underline">generator</a>{' '}
+                                <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 hover:text-blue-800 underline">generator</a>{' '}
                                 lets you create both versions easily.
                             </p>
                         </details>
@@ -440,7 +440,7 @@ export default function NameTracingWorksheetsBlog() {
                         Type their name. Pick a style. Download a beautiful tracing worksheet in seconds. It's that easy.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <a href="/worksheets/name-tracing-generator" className="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-white text-purple-600 font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform">
                             Make Name Tracing Sheets →
                         </a>
                         <a href="/worksheets/handwriting-worksheet-maker" className="inline-block bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg transform hover:scale-105 transition-transform border-2 border-white">

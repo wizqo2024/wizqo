@@ -251,7 +251,7 @@ export default function NumberTracingWorksheetsBlog() {
                         <details className="bg-gray-50 rounded-lg p-4">
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">Should I teach numbers or letters first?</summary>
                             <p className="mt-3 text-gray-600 text-sm">
-                                You can teach <strong>both simultaneously</strong>. Most preschool programs introduce letters and numbers in parallel. Start with their name (letters) and counting 1-5 (numbers) at the same time. Use our <a href="/worksheets/name-tracing-generator" className="text-blue-600 underline">Name Tracing Generator</a> alongside the <a href="/worksheets/counting-numbers-generator" className="text-blue-600 underline">Counting Generator</a>.
+                                You can teach <strong>both simultaneously</strong>. Most preschool programs introduce letters and numbers in parallel. Start with their name (letters) and counting 1-5 (numbers) at the same time. Use our <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 underline">Name Tracing Generator</a> alongside the <a href="/worksheets/counting-numbers-generator" className="text-blue-600 underline">Counting Generator</a>.
                             </p>
                         </details>
                         <details className="bg-gray-50 rounded-lg p-4">

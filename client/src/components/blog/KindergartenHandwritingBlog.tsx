@@ -54,7 +54,7 @@ export default function KindergartenHandwritingBlog() {
                             <span className="bg-yellow-200 text-yellow-800 font-bold rounded-full w-8 h-8 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">Oct</span>
                             <div>
                                 <h3 className="font-semibold text-yellow-800 text-sm">Uppercase Letters (Start with Name)</h3>
-                                <p className="text-yellow-700 text-xs mt-1">Begin with their own name in uppercase. Use our <a href="/worksheets/name-tracing-generator" className="text-blue-600 underline">Name Tracing Generator</a> for personalized sheets.</p>
+                                <p className="text-yellow-700 text-xs mt-1">Begin with their own name in uppercase. Use our <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 underline">Name Tracing Generator</a> for personalized sheets.</p>
                             </div>
                         </div>
                         <div className="flex items-start p-4 bg-green-50 rounded-lg">
@@ -242,7 +242,7 @@ export default function KindergartenHandwritingBlog() {
                             <h3 className="font-bold text-white text-xs">Handwriting Maker</h3>
                             <p className="text-emerald-200 text-xs mt-1">Any word, any font</p>
                         </a>
-                        <a href="/worksheets/name-tracing-generator" className="bg-white/10 hover:bg-white/20 transition-colors p-4 rounded-xl text-center">
+                        <a href="/worksheets/handwriting-worksheet-maker" className="bg-white/10 hover:bg-white/20 transition-colors p-4 rounded-xl text-center">
                             <span className="text-2xl block mb-1">📝</span>
                             <h3 className="font-bold text-white text-xs">Name Tracing</h3>
                             <p className="text-emerald-200 text-xs mt-1">Personalized name sheets</p>
@@ -279,7 +279,7 @@ export default function KindergartenHandwritingBlog() {
                         <details className="bg-gray-50 rounded-lg p-4">
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">What if my kindergartner refuses to practice handwriting?</summary>
                             <p className="mt-3 text-gray-600 text-sm">
-                                Make it fun, not forced. Try <strong>bubble letters</strong> for coloring, writing in sand or shaving cream, or using our <a href="/worksheets/dot-marker-generator" className="text-blue-600 underline">Dot Marker Generator</a> for low-pressure letter practice. Also, let them choose WHAT to write — their pet's name, favorite food, or a friend's name using our <a href="/worksheets/name-tracing-generator" className="text-blue-600 underline">Name Tracing Generator</a>.
+                                Make it fun, not forced. Try <strong>bubble letters</strong> for coloring, writing in sand or shaving cream, or using our <a href="/worksheets/dot-marker-generator" className="text-blue-600 underline">Dot Marker Generator</a> for low-pressure letter practice. Also, let them choose WHAT to write — their pet's name, favorite food, or a friend's name using our <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 underline">Name Tracing Generator</a>.
                             </p>
                         </details>
                         <details className="bg-gray-50 rounded-lg p-4">
@@ -291,7 +291,7 @@ export default function KindergartenHandwritingBlog() {
                         <details className="bg-gray-50 rounded-lg p-4">
                             <summary className="font-semibold text-[#073B4C] cursor-pointer">Where can I get free kindergarten handwriting worksheets as PDF?</summary>
                             <p className="mt-3 text-gray-600 text-sm">
-                                Right here! Wizqo offers multiple free generators that create kindergarten-ready worksheets you can download as PDF instantly. Try our <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 underline">Handwriting Worksheet Maker</a> for letter and word practice, or our <a href="/worksheets/name-tracing-generator" className="text-blue-600 underline">Name Tracing Generator</a> for personalized name sheets. No signup required.
+                                Right here! Wizqo offers multiple free generators that create kindergarten-ready worksheets you can download as PDF instantly. Try our <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 underline">Handwriting Worksheet Maker</a> for letter and word practice, or our <a href="/worksheets/handwriting-worksheet-maker" className="text-blue-600 underline">Name Tracing Generator</a> for personalized name sheets. No signup required.
                             </p>
                         </details>
                     </div>
