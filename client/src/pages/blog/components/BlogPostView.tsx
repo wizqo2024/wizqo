@@ -107,6 +107,20 @@ export function BlogPostView({
     ]
   };
 
+  const noIndexPosts = new Set([
+    'easy-hobbies-that-make-you-smarter',
+    'micro-journaling-habit',
+    'find-hobby-that-sticks',
+    'outdoor-hobbies-for-students',
+    'cheap-hobbies-at-home',
+    'best-teacher',
+    'productive-hobbies-for-students',
+    'how-long-to-build-a-habit',
+    'quiet-time',
+    'easy-watercolor-paintings',
+    'relaxing-hobbies',
+  ]);
+
   return (
     <div className="min-h-screen bg-slate-50">
       <SEOMetaTags
@@ -115,6 +129,7 @@ export function BlogPostView({
         keywords={post.keywords}
         ogImage={image}
         canonicalUrl={canonical}
+        noIndex={noIndexPosts.has(post.id)}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />

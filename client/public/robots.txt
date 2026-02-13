@@ -47,6 +47,8 @@ Disallow: /blog/how-long-to-build-a-habit
 Disallow: /blog/find-hobby-that-sticks
 Disallow: /blog/micro-journaling-habit
 Disallow: /blog/easy-watercolor-paintings
+Disallow: /blog/best-teacher
+Disallow: /blog/quiet-time
 
 # Sitemaps
 Sitemap: https://wizqo.com/sitemap.xml
