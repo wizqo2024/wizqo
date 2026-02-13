@@ -192,8 +192,8 @@ export function LandingPage({ onNavigateToGenerate }: LandingPageProps) {
               <div className="relative z-10 p-4 sm:p-8 bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-white/10 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700 overflow-hidden">
                 <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-white/10 relative">
                   <img
-                    src="/images/hero-real.png"
-                    alt="Free Worksheets for Kids K-5 - Child learning happily with Wizqo printables"
+                    src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&q=80&w=1600"
+                    alt="Free Worksheets for Kids K-5 - Colorful learning workspace with educational supplies"
                     className="w-full h-full object-cover"
                     fetchpriority="high"
                     loading="eager"
